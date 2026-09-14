@@ -17,6 +17,44 @@
 
     <!-- page plugins css -->
     <link href="../../assets/css/card-quiz.css" rel="stylesheet">
+    <style>
+        /* Quiz más amplio y con aire */
+        .game-quiz-container{
+            width: 100% !important;
+            max-width: 950px;
+            height: auto !important;
+            min-height: 620px;
+            padding: 2.5rem 2rem;
+            gap: 1.5rem;
+        }
+        .game-details-container{ width: 90% !important; }
+        .game-question-container{
+            width: 90% !important;
+            height: auto !important;
+            min-height: 7rem;
+            padding: 1.2rem;
+        }
+        .game-question-container h1{ font-size: 1.3rem !important; }
+        .game-options-container{
+            width: 90% !important;
+            height: auto !important;
+            gap: 1.2rem;
+        }
+        .game-options-container span{
+            width: 48% !important;
+            height: auto !important;
+            min-height: 5rem;
+        }
+        .game-options-container span label{ padding: 0.8rem; font-size: 1.05rem; }
+        .next-button-container{ margin-top: 0.5rem; }
+        .next-button-container button{ height: 2.6rem; width: 10rem; font-size: 1rem; }
+        /* selección visible también para checkboxes (pregunta múltiple) */
+        .game-options-container input:checked + label{ background-color: #a4c7ff67; }
+        @media (max-width: 700px){
+            .game-quiz-container{ min-height: 0; padding: 1.5rem 1rem; }
+            .game-options-container span{ width: 100% !important; }
+        }
+    </style>
 
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
