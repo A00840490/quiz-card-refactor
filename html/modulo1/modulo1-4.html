@@ -123,7 +123,78 @@
 
         }
 
+        /* Diseño de tarjeta para cada slide del tutorial */
+        .tutorial-slide-card {
+            background: linear-gradient(135deg, #6B8CFF 0%, #4F6EF7 100%);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
 
+        .tutorial-slide-header {
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 16px 16px 8px 8px;
+            padding: 15px 25px;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .tutorial-slide-header .tutorial-text {
+            color: white;
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .tutorial-slide-body {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .tutorial-slide-body img {
+            max-width: 100%;
+            max-height: 450px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .tutorial-slide-card {
+                padding: 12px;
+                border-radius: 18px;
+            }
+
+            .tutorial-slide-header {
+                padding: 12px 18px;
+            }
+
+            .tutorial-slide-header .tutorial-text {
+                font-size: 16px;
+            }
+
+            .tutorial-slide-body {
+                padding: 12px;
+                min-height: 250px;
+            }
+
+            .tutorial-slide-body img {
+                max-height: 280px;
+            }
+        }
 
     </style>
 
@@ -263,118 +334,137 @@
                             </div>
 
                             <div class="row text-center py-5">
-                                <div class="slider" style="width: 80%; margin:auto">
-                                    <div class="mrg-horizon-50 carouselWrapper">
-                                        <p class="tutorial-text">¡Comencemos! Al abrirlo por primera vez, verás
-                                            algo así:</p>
-                                        <img
-                                            src="../../assets/images/course/modulo1/m1-3/vscode.jpg"
-                                            alt="Slide 1">
-                                            
-                                        
+                                <div class="slider" style="width: 90%; margin:auto">
+                                    <div class="mrg-horizon-50">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">¡Comencemos! Al abrirlo por primera vez, verás algo así:</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode.jpg" alt="Slide 1">
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">En la barra de la izquierda, haz <span style="display: inline-block"> clic <img style="display:  inline;"
-                                            src="../../assets/images/clic.svg" class="mrg-right-5"></span> en el
-                                        último ícono, te llevará al buscador de extensiones.<br>Las
-                                        extensiones son herramientas adicionales que podemos instalar en
-                                        nuestro editor.</p>
-                                        <img
-                                            src="../../assets/images/course/modulo1/m1-3/vscode2.jpg"
-                                            alt="Slide 2">
-                                        
-                                        
-                                    </div>
-                                    <div class="mrg-horizon-50">
-                                        <p class="tutorial-text"> Haz clic <img
-                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> en la
-                                            barra de búsqueda y escribe <b>"live server"</b>.</p>
-                                        <img
-                                            src="../../assets/images/course/modulo1/m1-3/vscode3.jpg"
-                                            alt="First slide">
-                                    </div>
-                                    <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">Hacemos clic <img
-                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> en
-                                        el botón de Install de la primera opción de los resultados.</p>
-                                        <img
-                                            src="../../assets/images/course/modulo1/m1-3/vscode4.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">En la barra de la izquierda, haz clic en el último ícono, te llevará al buscador de extensiones. Las extensiones son herramientas adicionales que podemos instalar en nuestro editor.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode2.jpg" alt="Slide 2">
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">Una vez instalada nuestra extensión, debemos
-                                            crear nuestro espacio de trabajo.<br>En la barra de la izquierda
-                                            hacemos clic <img src="../../assets/images/clic.svg" style="display:  inline;"
-                                                class="mrg-right-5"> en el primer ícono.</p>
-                                        <img
-                                            src="../../assets/images/course/modulo1/m1-3/vscode5.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Haz clic en la barra de búsqueda y escribe <b>"live server"</b>.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode3.jpg" alt="Slide 3">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">Después hacemos clic <img
-                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> en el
-                                            botón de "Add Folder" para agregar una carpeta de trabajo en nuestra
-                                            computadora.<br>Crea un nuevo folder con el nombre
-                                            "PrimerProyectoWeb", selecciónalo, y haz clic <img
-                                                src="../../assets/images/clic.svg" style="display:  inline;" class="mrg-right-5"> en el
-                                            botón de agregar.</p>
-                                        <img 
-                                            src="../../assets/images/course/modulo1/m1-3/vscode6.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Hacemos clic en el botón de Install de la primera opción de los resultados.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode4.jpg" alt="Slide 4">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">Una vez creada la carpeta, hacemos clic <img
-                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> el
-                                            primer ícono del explorador de archivos<br>para agregar un nuevo
-                                            archivo a nuestro espacio de trabajo.</p>
-                                        <img 
-                                            src="../../assets/images/course/modulo1/m1-3/vscode7.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Una vez instalada nuestra extensión, debemos crear nuestro espacio de trabajo. En la barra de la izquierda hacemos clic en el primer ícono.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode5.jpg" alt="Slide 5">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">Nombramos al acrhivo <b>"index.html"</b>.</p>
-                                        <img 
-                                            src="../../assets/images/course/modulo1/m1-3/vscode8.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Después hacemos clic en el botón de "Add Folder" para agregar una carpeta de trabajo en nuestra computadora. Crea un nuevo folder con el nombre "PrimerProyectoWeb", selecciónalo, y haz clic en el botón de agregar.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode6.jpg" alt="Slide 6">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">Escribimos en el archivo un signo de admiración
-                                            <b>!</b> y presionamos ENTER cuando aparezca un menú desplegable
-                                            debajo del cursor.
-                                        </p>
-                                        <img 
-                                            src="../../assets/images/course/modulo1/m1-3/vscode9.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Una vez creada la carpeta, hacemos clic el primer ícono del explorador de archivos para agregar un nuevo archivo a nuestro espacio de trabajo.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode7.jpg" alt="Slide 7">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">El <b>!</b> es un atajo para agregar todo lo
-                                            necesario de un documento HTML; revisaremos a detalle cada elemento
-                                            del archivo más adelante. <br> En la sección de <b>body</b>
-                                            escribimos algún mensaje como "¡Hola! Esta es mi primer página web".
-                                        </p>
-                                        <img 
-                                            src="../../assets/images/course/modulo1/m1-3/vscode10.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Nombramos al archivo <b>"index.html"</b>.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode8.jpg" alt="Slide 8">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">En la barra inferior derecha de VS Code, haz
-                                            clic <img src="../../assets/images/clic.svg" style="display:  inline;" class="mrg-right-5"> en
-                                            el botón <b>"Go Live"</b>. <br> (Esto iniciará un servidor local en
-                                            tu máquina para mostrar las páginas de tu sitio web en tu
-                                            navegador.)</p>
-                                        <img 
-                                            src="../../assets/images/course/modulo1/m1-3/vscode11.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">Escribimos en el archivo un signo de admiración <b>!</b> y presionamos ENTER cuando aparezca un menú desplegable debajo del cursor.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode9.jpg" alt="Slide 9">
+                                            </div>
+                                        </div>
                                     </div>
+
                                     <div class="mrg-horizon-50">
-                                        <p class="tutorial-text">La extensión de Live Server abrirá
-                                            automáticamente una pestaña en tu navegador predeterminado con tu
-                                            página web. <br> ¡Felicidades! Has creado tu primera página web.</p>
-                                        <img
-                                            src="../../assets/images/course/modulo1/m1-3/vscode12.jpg"
-                                            alt="First slide">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">El <b>!</b> es un atajo para agregar todo lo necesario de un documento HTML; revisaremos a detalle cada elemento del archivo más adelante. En la sección de <b>body</b> escribimos algún mensaje como "¡Hola! Esta es mi primer página web".</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode10.jpg" alt="Slide 10">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mrg-horizon-50">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">En la barra inferior derecha de VS Code, haz clic en el botón <b>"Go Live"</b>. Esto iniciará un servidor local en tu máquina para mostrar las páginas de tu sitio web en tu navegador.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode11.jpg" alt="Slide 11">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mrg-horizon-50">
+                                        <div class="tutorial-slide-card">
+                                            <div class="tutorial-slide-header">
+                                                <p class="tutorial-text">La extensión de Live Server abrirá automáticamente una pestaña en tu navegador predeterminado con tu página web. ¡Felicidades! Has creado tu primera página web.</p>
+                                            </div>
+                                            <div class="tutorial-slide-body">
+                                                <img src="../../assets/images/course/modulo1/m1-3/vscode12.jpg" alt="Slide 12">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
