@@ -1,0 +1,8 @@
+{
+  "name": "curso-web",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "python3 -m http.server 8080 --bind 0.0.0.0"
+  }
+}
