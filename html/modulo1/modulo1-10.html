@@ -443,6 +443,43 @@
                 const options = document.getElementsByName("option"); //gets all elements in dom with name of 'option' (in this the radio inputs)
                 let correctOption = null
 
+                //pregunta de selección múltiple: puntos parciales por cada acierto
+                if (currentQuestion.multiple) {
+                    const correctAnswers = currentQuestion.correctOptions
+                    let anyChecked = false
+                    options.forEach((option) => { if (option.checked) anyChecked = true })
+                    if (!anyChecked) {
+                        document.getElementById('option-modal').style.display = "flex"
+                        return
+                    }
+
+                    let earned = 0
+                    options.forEach((option) => {
+                        const labelId = option.labels[0].id
+                        const isCorrect = correctAnswers.includes(option.value)
+                        if (option.checked && isCorrect) {
+                            earned += 1 / correctAnswers.length
+                            document.getElementById(labelId).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
+                        }
+                        else if (option.checked && !isCorrect) {
+                            earned -= 1 / correctAnswers.length
+                            document.getElementById(labelId).style.backgroundColor = "rgba(250, 160, 160,0.5)"
+                        }
+                        else if (!option.checked && isCorrect) {
+                            //muestra las correctas que faltaron
+                            document.getElementById(labelId).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
+                        }
+                    })
+                    earned = Math.max(0, earned)
+                    playerScore = Math.round((playerScore + earned) * 100) / 100
+                    if (earned < 1) wrongAttempt++
+                    indexNumber++
+                    setTimeout(() => {
+                        questionNumber++
+                    }, 1000)
+                    return
+                }
+
                 options.forEach((option) => {
                     if (option.value === currentQuestionAnswer) {
                         //get's correct's radio input with correct answer
