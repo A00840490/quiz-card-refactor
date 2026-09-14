@@ -424,7 +424,10 @@
                 handleQuestions()
                 const currentQuestion = shuffledQuestions[index]
                 document.getElementById("question-number").innerHTML = questionNumber
-                document.getElementById("player-score").innerHTML = playerScore
+                document.getElementById("player-score").innerHTML = Math.round(playerScore * 100) / 100
+                //pregunta de selección múltiple usa checkboxes, las demás radio
+                const optionInputs = document.querySelectorAll('.game-options-container input.radio')
+                optionInputs.forEach((input) => { input.type = currentQuestion.multiple ? 'checkbox' : 'radio' })
                 document.getElementById("display-question").innerHTML = currentQuestion.question;
                 document.getElementById("option-one-label").innerHTML = currentQuestion.optionA;
                 document.getElementById("option-two-label").innerHTML = currentQuestion.optionB;
