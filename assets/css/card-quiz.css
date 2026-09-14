@@ -81,9 +81,18 @@ main{
   }
   
   
-  input[type=radio]:checked ~ .option {
-    background-color:  #a4c7ff67;
+  .game-options-container span:has(input:checked),
+  input[type=radio]:checked ~ .option,
+  input[type=checkbox]:checked ~ .option {
+    background-color: #a4c7ff67;
+  }
 
+  .game-options-container span > .option {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 17px;
   }
   
   .next-button-container{

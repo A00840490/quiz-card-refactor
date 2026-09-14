@@ -46,11 +46,12 @@
             min-height: 5rem;
             display: flex;
         }
-        .game-options-container span label{ padding: 0.8rem; font-size: 1.05rem; flex: 1; height: auto; }
+        .game-options-container span label{ padding: 0.8rem; font-size: 1.05rem; flex: 1; width: 100%; min-height: 100%; margin: 0; box-sizing: border-box; border-radius: 17px; }
         .next-button-container{ margin-top: 0.5rem; }
         .next-button-container button{ height: 2.6rem; width: 10rem; font-size: 1rem; }
         /* selección visible también para checkboxes (pregunta múltiple) */
         .game-options-container input[type="checkbox"]{ display: none; }
+        .game-options-container span:has(input:checked),
         .game-options-container input:checked + label{ background-color: #a4c7ff67; }
         @media (max-width: 700px){
             .game-quiz-container{ min-height: 0; padding: 1.5rem 1rem; }
