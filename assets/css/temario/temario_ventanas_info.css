@@ -1,0 +1,70 @@
+.zoom {
+  transition: transform 0.2s;
+}
+
+.zoom:hover {
+  transform: scale(1.1);
+}
+
+.mild-zoom {
+  transition: transform 0.2s;
+}
+
+.mild-zoom:hover {
+  transform: scale(1.05);
+}
+
+.content {
+  transform: skewY(5deg);
+}
+
+.content-inverse {
+  transform: skewY(-5deg);
+}
+
+@media screen and (max-width: 765px) {
+  .content-2 {
+    transform: skewY(-5deg);
+  }
+}
+
+/* Temario personalizado */
+
+.tem-description {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0.75;
+}
+
+.tem-text {
+  /* text-align: center; */
+  /* top: 50%; */
+  top: auto;
+  bottom: auto;
+  padding-top: 2em;
+  padding-left: 2em;
+  margin-right: 1em;
+  position: relative;
+  /* -webkit-filter: blur(5px); */
+}
+
+.hide {
+  /* display: none; */
+  opacity: 0;
+}
+
+.blur {
+  filter: blur(8px);
+}
+
+.tem-text li {
+  color: #dddddd;
+  font-size: 90%;
+}
+
+.tem-text p {
+  line-height: 1em;
+  margin-bottom: 0.25em;
+}

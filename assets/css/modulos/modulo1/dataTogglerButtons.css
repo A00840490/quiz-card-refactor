@@ -1,0 +1,57 @@
+
+        .dataToggler {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            transform-style: preserve-3d;
+            transition: 1s;
+          }
+  
+          .face {
+            position: absolute;
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            color: white;
+            font-weight: bold;
+            font-size: 40px;
+            backface-visibility: hidden;
+          }
+  
+          .dataToggler.isFlipped,
+          .dataToggler .face.back {
+            transform: rotateX(180deg);
+          }
+  
+          .store {
+            display: none;
+          }
+  
+          @media only screen and (max-width: 767px) {
+            .dataToggler {
+              min-height: fit-content;
+              height: fit-content;
+            }
+            .dataToggler.isFlipped {
+              min-height: fit-content;
+              height: 100%;
+            }
+            .face > .image-container {
+              max-height: 200px;
+            }
+            .card .card-horizon .face .image-container .background-holder {
+              min-height: 200px;
+            }
+            .dataToggler .face.back,
+            .dataToggler.isFlipped > .face.front {
+              position: absolute;
+              visibility: hidden;
+            }
+            .dataToggler .face.front,
+            .dataToggler.isFlipped > .face.back {
+              position: static;
+              transition-delay: 0.1s;
+              transition-duration: 2s;
+              visibility: visible;
+            }
+          }

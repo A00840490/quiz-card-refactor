@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Accediendo a elementos | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-horizon">
+                                        <div class="image-container col-md-6">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/modulo4/m4-7/elementos.jpg')">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 ml-auto">
+                                                <div class="card-block">
+                                                    <h1 class="mrg-top-20 card-title"><span
+                                                            class="badge badge-light">Tema 11</span>Accediendo a
+                                                        Elementos de HTML</h1>
+                                                    <p>JavaScript nos permite interactuar, crear o eliminar elementos de
+                                                        nuestra página. Existen varias funciones en JavaScript que nos
+                                                        permiten acceder a elementos de HTML, dependiendo de si quieres
+                                                        obtener uno o varios elementos, y a partir de su tipo, sus
+                                                        clases o IDs.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="">
+                                        <h2 class="card-title">El DOM</h2>
+                                        <p>DOM significa <b>Document Object Model</b>, esto es la estructura del
+                                            documento HTML, sus elementos, atributos, etc. Todo navegador crea un DOM al
+                                            acceder a una página web, y JavaScript utiliza este modelo para poder
+                                            acceder, agregar, borrar y modificar elementos del documento. El modelo DOM
+                                            se acomoda como un árbol de la siguiente manera:</p>
+                                        <div class="text-center mrg-btm-20">
+                                            <img src="../../assets/images/course/modulo4/HTMDOMgif.gif" alt="arbolDOM.gif" style="width: 90%; min-width: 300px;">
+                                        </div>
+                                        <p>A continuación te mostramos algunos ejemplos modificando HTML utilizando
+                                            diferentes funciones, copia el código de los ejemplos y juega con él; la
+                                            mejor manera de aprender es experimentando.</p>
+                                        <h3 class="card-title mrg-top-20">Acceder a Elementos por ID</h3>
+                                        <p>Como aprendimos anteriormente, un ID se asigna a un elemento único de la
+                                            página. Para obtener un elemento por ID en JavaScript, se utiliza la función
+                                            <span class="code">document.getElementById()</span>. Se utiliza así:</p>
+                                        <div class="card">
+                                            <div class="container-fluid">
+                                                <p class="codepen" data-height="500" data-theme-id="dark"
+                                                    data-default-tab="js,result" data-user="luis-yerik-arambula"
+                                                    data-slug-hash="mdrjbpB"
+                                                    style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                                    data-pen-title="mdrjbpB">
+                                                    <span>See the Pen <a
+                                                            href="https://codepen.io/luis-yerik-arambula/pen/mdrjbpB"
+                                                            target="_blank">
+                                                            mdrjbpB</a> by Luis Yerik Arambula (<a
+                                                            href="https://codepen.io/luis-yerik-arambula"
+                                                            target="_blank">@luis-yerik-arambula</a>)
+                                                        on <a href="https://codepen.io"
+                                                            target="_blank">CodePen</a>.</span>
+                                                </p>
+                                                <script async
+                                                    src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                            </div>
+                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                                <!-- Fuente  -->
+                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                              </p>
+                                        </div>
+                                        <p>Observa que, para utilizar las propiedades del elemento, tuvimos que asignar
+                                            el resultado de getElementById a la variable <span class="code">elem</span>.
+                                        </p>
+                                        <p>Para hacer las modificaciones, utilizamos la propiedad <span
+                                                class="code">innerHTML</span>, a la cual se le asigna el <b>HTML
+                                                interno</b> del elemento como tipo <b>string</b>. Vinculamos el botón
+                                            de "Cambiar" a la primera función, la cual asigna un mensaje al HTML interno
+                                            del elemento con ID "rect". Nota que en la segunda función (la cual está
+                                            vinculada con el segundo botón) le asignamos un elemento de enlace al HTML
+                                            interno.</p>
+                                        <p>Los botones se pueden implementar con la etiqueta <span
+                                                class="code">&lt;<span class="codetag">button</span>&gt;</span> y con el
+                                            atributo <span class="code">onclick</span> les podemos asignar una función
+                                            de JavaScript. Analiza bien todo el código, experimenta con la función <span
+                                                class="code">innerHTML</span> agregando textos y elementos diferentes.
+                                        </p>
+
+                                        
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 4</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+    <!-- Insert your dependencies here -->
+</body>
+
+</html>

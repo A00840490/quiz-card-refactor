@@ -1,0 +1,31 @@
+
+.img-flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.img-subtitulada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.img-subtitulada img {
+  max-width: 180px;
+}
+
+.img-subtitulada p {
+  background-color:rgba(222, 184, 135, 0.538);
+  padding: 0 10px;
+  text-align: center;
+}
+
+.img-subtitulada .top-title {
+  background-color:rgba(140, 138, 134, 0.538);
+  padding: 0 10px;
+  margin: 0;
+  text-align: center;
+}

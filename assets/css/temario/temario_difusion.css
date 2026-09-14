@@ -1,0 +1,145 @@
+.zoom {
+  transition: transform 0.2s;
+}
+
+.zoom:hover {
+  transform: scale(1.1);
+}
+
+.content {
+  transform: skewY(5deg);
+}
+
+.content-inverse {
+  transform: skewY(-5deg);
+}
+
+:root {
+  --background-dark: #2d3548;
+  --text-light: rgba(255, 255, 255, 0.6);
+  --text-lighter: rgba(255, 255, 255, 0.9);
+  --spacing-s: 8px;
+  --spacing-m: 16px;
+  --spacing-l: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 64px;
+}
+
+.hero-section {
+  align-items: flex-start;
+  display: flex;
+  min-height: 100%;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-l);
+}
+
+@media (max-width: 995px) {
+  .row {
+    display: inline-block;
+  }
+  .col-4 {
+    max-width: none;
+  }
+  .col-6 {
+    max-width: none;
+  }
+  .card__background {
+    width: 100% !important;
+  }
+  .temario-cards:before {
+    content: "";
+    display: block;
+    padding-bottom: inherit !important;
+    width: 100%;
+  }
+  .temario-cards:nth-child(-n + 3) {
+    margin-bottom: 30px;
+  }
+  .card__heading {
+    font-size: 28px !important;
+  }
+  .card__category {
+    font-size: 18px !important;
+  }
+}
+
+@media (min-width: 995px) {
+  .ajuste {
+    background-position-y: 45% !important;
+    transform: translateX(4%) !important;
+  }
+
+  .card__heading {
+    color: white;
+    font-size: 26px !important;
+    text-shadow: 1px 1px 3px rgb(0 0 0 / 20%);
+    line-height: 1.4;
+  }
+  .card__category {
+    font-size: 16px !important;
+  }
+}
+
+.temario-cards {
+  list-style: none;
+  position: relative;
+  cursor: pointer;
+}
+
+/* .cards:before {
+  content: "";
+  display: block;
+  padding-bottom: 150%;
+  width: 100%;
+} */
+
+.card__background {
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--spacing-l);
+  bottom: 0;
+  filter: brightness(0.75) saturate(1.2) contrast(0.85);
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  /* transform-origin: center; */
+  transform: scale(1) translateZ(0);
+  width: 90%;
+  transition: filter 200ms linear, transform 200ms linear;
+}
+
+.temario-cards:hover .card__background {
+  transform: scale(1.05) translateZ(0);
+}
+
+.card-grid:hover > .temario-cards:not(:hover) .card__background {
+  filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+}
+
+.card__content {
+  left: 0;
+  margin-left: 10px;
+  position: sticky;
+  top: 0;
+}
+
+.card__category {
+  color: rgb(253, 253, 253);
+  /* font-size: 22px !important; */
+  margin-bottom: var(--spacing-s);
+  text-transform: uppercase;
+  padding-top: 50px;
+  font-family: "Lato", sans-serif;
+  font-size: 24px !important;
+  font-weight: bold;
+}
+
+.card__heading {
+  color: white;
+  font-size: 24px;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+  line-height: 1.4;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+}

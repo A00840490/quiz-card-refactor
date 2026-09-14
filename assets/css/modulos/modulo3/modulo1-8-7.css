@@ -1,0 +1,83 @@
+/* The Magic */
+.accordion:hover .accordion-item:hover .accordion-item-content,
+.accordion .accordion-item--default .accordion-item-content {
+    height: 13rem;
+}
+
+
+.accordion-item-content,
+.accordion:hover .accordion-item-content {
+    height: 0;
+    overflow: hidden;
+    transition: height .25s;
+}
+
+.accordion .accordion-item:nth-child(1) .accordion-item-content {
+  max-height: 2rem;
+}
+
+.accordion .accordion-item:nth-child(2) .accordion-item-content {
+  max-height: 13rem;
+}
+
+.accordion .accordion-item:nth-child(3) .accordion-item-content {
+  max-height: 13rem;
+}
+
+.accordion .accordion-item:nth-child(4) .accordion-item-content {
+  max-height: 4rem;
+}
+
+.accordion .accordion-item:nth-child(5) .accordion-item-content {
+  max-height: 4rem;
+}
+
+.accordion .accordion-item:nth-child(6) .accordion-item-content {
+  max-height: 4rem;
+}
+
+.accordion h1, .accordion p {
+    color: white;
+}
+
+.accordion {
+    padding: 0;
+    margin: 0 auto;
+    width: 80%;
+    
+}
+
+.accordion .accordion-item {
+  border-bottom: 1px solid rgba(207, 186, 186, 0.308);
+  padding: 1em;
+  color: #eee;
+}
+
+.accordion h1 {
+  margin: 0;
+}
+
+.accordion .accordion-item:nth-child(1) {
+  background-color: #041e45;
+
+}
+
+.accordion .accordion-item:nth-child(2) {
+  background-color: #132772;
+}
+
+.accordion .accordion-item:nth-child(3) {
+  background-color: #0A3D91;
+}
+
+.accordion .accordion-item:nth-child(4) {
+  background-color: #4169E1;
+}
+
+.accordion .accordion-item:nth-child(5) {
+  background-color: #00BFFF;
+}
+
+.accordion .accordion-item:nth-child(6) {
+  background-color: #A0D4EA;
+}

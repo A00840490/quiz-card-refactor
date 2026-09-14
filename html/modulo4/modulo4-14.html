@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Accediendo a elementos | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-block">
+
+                                        <h1 class="card-title mrg-top-20"><span class="badge badge-light">Tema
+                                                13</span>Modificar Atributos</h1>
+                                        <p>Podemos también cambiar los atributos de un elemento seleccionado en
+                                            JavaScript:</p>
+                                        <div class="card">
+                                            <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                <p class="code">
+                                                    elemento.<span class="codetag"><i>atributo</i></span> = "<span
+                                                        class="codetext"><i>valor</i></span>"
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <p>Observa este ejemplo:</p>
+                                        <div class="card">
+                                            <div class="container-fluid">
+                                                <p class="codepen" data-height="500" data-theme-id="dark"
+                                                    data-default-tab="js,result" data-user="luis-yerik-arambula"
+                                                    data-slug-hash="RwGBwZe"
+                                                    style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                                    data-pen-title="ejemplo atributos JS">
+                                                    <span>See the Pen <a
+                                                            href="https://codepen.io/luis-yerik-arambula/pen/RwGBwZe"
+                                                            target="_blank">
+                                                            ejemplo atributos JS</a> by Luis Yerik Arambula (<a
+                                                            href="https://codepen.io/luis-yerik-arambula"
+                                                            target="_blank">@luis-yerik-arambula</a>)
+                                                        on <a href="https://codepen.io"
+                                                            target="_blank">CodePen</a>.</span>
+                                                </p>
+                                                <script async
+                                                    src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                            </div>
+                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                                <!-- Fuente  -->
+                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                              </p>
+                                        </div>
+                                        <p>Lee detenidamente el código JavaScript. Nota que primero utilizamos una
+                                            sentencia <b>if/else</b> para revisar cuál de los 2 URLs está activo. Si el
+                                            primer URL está activo, entonces asignamos a <span
+                                                class="code">imagen.src</span> el valor de link2. De lo contrario,
+                                            asignamos link1 al atributo src de nuestro elemento de imagen.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 4</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+        
+                <!-- Footer START -->
+                <footer class="content-footer">
+        
+                </footer>
+                <!-- Footer END -->
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+    <!-- Insert your dependencies here -->
+</body>
+
+</html>

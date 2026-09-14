@@ -1,0 +1,36 @@
+.modal-alert {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  height: fit-content;
+  min-height: 50px;
+  align-items: center;
+
+  padding: 5px;
+  margin-bottom: 50px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: #70964c;
+
+  border-radius: 20px;
+  opacity: 1;
+
+  flex-wrap: wrap;
+}
+
+.modal-alert img {
+  position: unset;
+  scale: 0.6 !important;
+
+  pointer-events: none;
+}
+
+.modal-alert p {
+  margin: 0;
+  text-align: center;
+
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title> Fuentes y Texto | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <style>
+        ol {list-style: none; counter-reset: li}
+    </style>
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-horizon">
+                                        <div class="image-container col-md-4">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/modulo3/m3-11/texto.jpg'); background-position: top;">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8 ml-auto">
+                                                <div class="card-block">
+                                                <h1 class="mrg-top-20 card-title"><span class="badge badge-light">Tema
+                                                        17</span> Fuentes y Estilos de Texto</h1>
+                                                <p>Una de las mejores estilizaciones que puedes añadirle a una página
+                                                    web es una buena fuente de texto. Es importante que el texto sea
+                                                    legible, tenga un buen tamaño y vaya acorde con la temática de la
+                                                    página; imagina si este texto fuera amarillo y tuviera un tamaño
+                                                    pequeño, ¿crees que sería cómodo tomar el curso de esta forma?</p>
+                                                <p>Como desarrollador, tienes que pensar en cómo tus usuarios verán tu
+                                                    contenido. Existen miles de fuentes disponibles para usar en
+                                                    nuestras páginas web, pero no todas son gratuitas. <a
+                                                        href="https://fonts.google.com/" target="_blank">Google
+                                                        Fonts</a> es una excelente página para obtener fuentes gratuitas
+                                                    y de uso libre. Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en la liga y escoge algunas que te gusten.
+                                                </p>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="container-fluid">
+                                        <div class="">
+                                            <h2 class="card-title mrg-top-20 ">Implementar Fuentes</h2>
+                                            <p>Podemos colocar fuentes en nuestros proyectos web de diferentes maneras.
+                                                En
+                                                la página de Google Fonts podemos seleccionar todos los estilos que
+                                                queramos
+                                                y para utilizarlos tenemos 3 opciones: </p>
+                                            <ol>
+                                                <li>
+                                                    <h3 class="card-title">1. Descargar la fuente </h3> <p>Podemos descargar la fuente que
+                                                        queremos utilizar. Normalmente, se encuentran en formato
+                                                        <b>.ttf</b>.
+                                                        Después, tenemos que vincular el archivo con nuestro CSS,
+                                                        utilizando
+                                                        una instrucción especial llamada <span
+                                                            class="code">@font-face</span>. Este selector se utiliza de
+                                                        la
+                                                        siguiente manera:</p>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="card">
+                                                                <div class="container-fluid"></div>
+                                                                <p class="code" style=" background-color: #1a1a1a"><span
+                                                                        class="codetag">@font-face</span> { <br>
+                                                                    &nbsp;&nbsp;&nbsp;font-family: <span
+                                                                        class="codetext">NombreDeLaFuente</span>;
+                                                                    <br>&nbsp;&nbsp;&nbsp;src: <span
+                                                                        class="codetext">url('NombreDeLaFuente.ttf')</span>;
+                                                                    <br> }
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <p class="mrg-btm-50">Una vez importada, podemos utilizar el nombre que asignemos a
+                                                        la
+                                                        propiedad "font-family" para modificar la fuente de nuestros
+                                                        elementos.</p>
+                                                </li>
+                                                <li>
+                                                    <h3 class="card-title">2. Vincular la Fuente desde HTML </h3><p> También podemos utilizar
+                                                        el
+                                                        elemento <span class="code">&lt;<span
+                                                                class="codetag">link</span>&gt;</span> desde nuestro
+                                                        código
+                                                        HTML. Google Fonts nos brinda el código para copiarlo al
+                                                        seleccionar
+                                                        nuestras fuentes:</p>
+                                                    <div class="text-center mrg-btm-50">
+                                                        <img src="../../assets/images/course/modulo3/m3-11/link_googlefonts.gif"
+                                                            style="width:100%"
+                                                            alt="">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <h3 class="card-title">3. Vincular con <span class="code">@import</span></h3> <p> CSS
+                                                        cuenta
+                                                        con una instrucción <span class="code">@import</span>.
+                                                        Normalmente,
+                                                        se coloca en la etiqueta <span class="code">&lt;<span
+                                                                class="codetag">style</span>&gt;</span> dentro del head.
+                                                        Google Fonts nos brinda el código para copiarlo al seleccionar
+                                                        nuestras fuentes:</p>
+                                                    <div class="text-center mrg-btm-50">
+                                                        <img src="../../assets/images/course/modulo3/m3-11/import_googlefonts.gif"
+                                                            alt="">
+                                                    </div>
+                                                </li>
+                                                </ul>
+                                                <p>Para cualquier opción tenemos que utilizar la propiedad <span
+                                                        class="code">font-family</span> con el nombre de la fuente a
+                                                    utilizar para poder ver nuestra nueva fuente en el contenido que
+                                                    queramos.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 3</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Insert your dependencies here -->
+
+</body>
+
+</html>

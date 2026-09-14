@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Ejercicio 1 | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+    <link href="../../assets/css/card-quiz.css" rel="stylesheet">
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+</head>
+
+<body class="header-info side-nav-dark text-justify" onload="NextQuestion(0)">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+                        <!-- Your content goes here -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-horizon">
+                                        <div class="image-container col-md-5">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/ejercicio.jpg')">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-7 ml-auto">
+                                                <div class="card-block">
+                                                    <h1 class="mrg-btm-20 card-title">Ejercicio 1</h1>
+
+                                                    <p>Lee con atención cada enunciado y selecciona la opción correcta.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <!-- card QUIZ -->
+                            <div class="card">
+                                <div class="card-block">
+
+                                    <!-- card QUIZ -->
+
+                                    <!-- creating a modal for when quiz ends -->
+                                    <div class="modal-container" id="score-modal">
+                                    <div class="modal-content-container">
+                                        <h1>Felicidades, haz terminado el ejercicio.</h1>
+
+                                        <div class="grade-details">
+                                        <p>
+                                            Respuestas Incorrectas :
+                                            <span id="wrong-answers"></span>
+                                        </p>
+                                        <p>
+                                            Respuestas Correctas :
+                                            <span id="right-answers"></span>
+                                        </p>
+                                        <p>
+                                            Calificación : <span id="grade-percentage"></span>%
+                                        </p>
+                                        <p><span id="remarks"></span></p>
+                                        </div>
+
+                                        <div class="modal-button-container">
+                                        <button onclick="closeScoreModal()">Continuar</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <!-- end of modal of quiz details-->
+
+                                    <div class="game-quiz-container">
+                                    <div class="game-details-container">
+                                        <h1>Puntaje : <span id="player-score">0</span> / 6</h1>
+                                        <h1>
+                                        Pregunta : <span id="question-number">1</span> / 6
+                                        </h1>
+                                    </div>
+
+                                    <div class="game-question-container">
+                                        <h1 id="display-question" style="margin:0 !important  ;">La aprobación de la Ley de derechos por concubinato</h1>
+                                    </div>
+
+                                    <div class="game-options-container">
+                                        <div class="modal-container" id="option-modal" style="display: none;">
+                                        <div class="modal-content-container">
+                                            <h1>Selecciona una opción.</h1>
+
+                                            <div class="modal-button-container">
+                                            <button onclick="closeOptionModal()">
+                                                Continuar
+                                            </button>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <span>
+                                        <input type="radio" id="option-one" name="option" class="radio" value="optionA">
+                                        <label for="option-one" class="option" id="option-one-label" style="">Qué</label>
+                                        </span>
+
+                                        <span>
+                                        <input type="radio" id="option-two" name="option" class="radio" value="optionB">
+                                        <label for="option-two" class="option" id="option-two-label">Cómo </label>
+                                        </span>
+
+                                        <span>
+                                        <input type="radio" id="option-three" name="option" class="radio" value="optionC">
+                                        <label for="option-three" class="option" id="option-three-label">Por qué</label>
+                                        </span>
+
+                                        <span>
+                                        <input type="radio" id="option-four" name="option" class="radio" value="optionD">
+                                        <label for="option-four" class="option" id="option-four-label" style="">Quién</label>
+                                        </span>
+                                    </div>
+
+                                    <div class="next-button-container">
+                                        <button onclick="handleNextQuestion()">
+                                        Siguiente
+                                        </button>
+                                    </div>
+                                    </div>
+
+
+                                <div class="row">
+
+                                    <!-- Columna izquierda de preguntas START -->
+                                    <div class="col-md-6 question-container">
+                                        <!-- Pregunta 1 START -->
+                                        <div class="question">
+                                            <p class="question-text">1. Es el lenguaje que le da estructura a las
+                                                páginas web.</p>
+                                            <p class="alertWrong mb-0 font-size-14 font-weight-bold"
+                                                style="display: none; color: red;">
+                                                Respuesta equivocada, vuélvelo a intentar.
+                                            </p>
+                                            <p class='alertCorrect mb-0 font-size-14 font-weight-bold'
+                                                style="display: none; color:green">
+                                                ¡Respuesta correcta!
+                                            </p>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" class="option"
+                                                    name="radiobutton1">
+                                                <label class="custom-control-label" for="U13_Q1_A1">Python.</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input option correct"
+                                                    name="radiobutton1">
+                                                <label class="custom-control-label" for="U13_Q1_A2">HTML.</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" class="option"
+                                                    name="radiobutton1">
+                                                <label class="custom-control-label" for="U13_Q1_A3">Javascript.</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" class="option"
+                                                    name="radiobutton1">
+                                                <label class="custom-control-label" for="U13_Q1_A4">PHP.</label>
+                                            </div>
+                                        </div>
+                                        <!-- Pregunta 1 END -->
+
+                                        <!-- Pregunta 2 START -->
+                                        <div class="question">
+                                            <p class="question-text">2. Selecciona el lenguaje que sea de programación.
+                                            </p>
+
+                                            <p class="alertWrong mb-0 font-size-14 font-weight-bold"
+                                                style="display: none; color: red;">
+                                                Respuesta equivocada, vuélvelo a intentar.
+                                            </p>
+                                            <p class='alertCorrect mb-0 font-size-14 font-weight-bold'
+                                                style="display: none; color:green">
+                                                ¡Respuesta correcta!
+                                            </p>
+
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input option correct"
+                                                    name="radiobutton2">
+                                                <label class="custom-control-label" for="U13_Q2_A1">JavaScript</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" class="option"
+                                                    name="radiobutton2">
+                                                <label class="custom-control-label" for="U13_Q2_A2">CSS</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" class="option"
+                                                    name="radiobutton2">
+                                                <label class="custom-control-label" for="U13_Q2_A3">HTML</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input " name="radiobutton2"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q2_A4">XML</label>
+                                            </div>
+                                        </div>
+                                        <!-- Pregunta 2 END -->
+
+                                        <!-- Pregunta 3 START -->
+                                        <div class="question">
+                                            <p class="question-text">3. ¿Qué es el Frontend?</p>
+
+                                            <p class="alertWrong mb-0 font-size-14 font-weight-bold"
+                                                style="display: none; color: red;">
+                                                Respuesta equivocada, vuélvelo a intentar.
+                                            </p>
+                                            <p class='alertCorrect mb-0 font-size-14 font-weight-bold'
+                                                style="display: none; color:green">
+                                                ¡Respuesta correcta!
+                                            </p>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton3"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q3_A1">El usuario.</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton3"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q3_A2">Los datos que maneja
+                                                    la página web.</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton3"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q3_A3">El servidor donde se
+                                                    encuentra la página y sus bases de datos.</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input option correct"
+                                                    name="radiobutton3">
+                                                <label class="custom-control-label" for="U13_Q3_A4">Todo lo que podemos
+                                                    visualizar o interactuar en una página.</label>
+                                            </div>
+                                        </div>
+                                        <!-- Pregunta 3 END -->
+
+
+
+
+                                    </div>
+                                    <!-- Columna izquierda de preguntas END -->
+
+                                    <!-- Columna derecha de preguntas START -->
+                                    <div class="col-md-6 question-container">
+                                        <!-- Pregunta 4 START -->
+                                        <div class="question">
+                                            <p class="question-text">4. Estos 3 lenguajes son la base del Frontend y la
+                                                programación web en general.</p>
+                                            <p class="alertWrong mb-0 font-size-14 font-weight-bold"
+                                                style="display: none; color: red;">
+                                                Respuesta equivocada, vuélvelo a intentar.
+                                            </p>
+                                            <p class='alertCorrect mb-0 font-size-14 font-weight-bold'
+                                                style="display: none; color:green">
+                                                ¡Respuesta correcta!
+                                            </p>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton4"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A1">HTML, C++ y
+                                                    JavaScript</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton4"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A2">XML, CSS y
+                                                    Java</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input option correct"
+                                                    name="radiobutton4">
+                                                <label class="custom-control-label" for="U13_Q4_A3">HTML, CSS y
+                                                    JavaScript</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton4"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A4">HTML, CSS y
+                                                    Java</label>
+                                            </div>
+                                        </div>
+                                        <!-- Pregunta 4 END -->
+
+                                        <!-- Pregunta 5 START -->
+                                        <div class="question">
+                                            <p class="question-text">5. Para poder tener una página accesible por
+                                                internet es necesario contar con:</p>
+                                            <p class="alertWrong mb-0 font-size-14 font-weight-bold"
+                                                style="display: none; color: red;">
+                                                Respuesta equivocada, vuélvelo a intentar.
+                                            </p>
+                                            <p class='alertCorrect mb-0 font-size-14 font-weight-bold'
+                                                style="display: none; color:green">
+                                                ¡Respuesta correcta!
+                                            </p>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton5"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A1">Una computadora
+                                                    potente</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input correct"
+                                                    name="radiobutton5">
+                                                <label class="custom-control-label" for="U13_Q4_A2">Un servidor
+                                                    web</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton5"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A3">Un buen
+                                                    framework</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" class="custom-control-input" name="radiobutton5"
+                                                    class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A4">Un celular</label>
+                                            </div>
+                                        </div>
+                                        <!-- Pregunta 5 END -->
+
+                                        <!-- Pregunta 6 START -->
+                                        <div class="question">
+                                            <p class="question-text">6. Selecciona 3 ejemplos de navegadores modernos.
+                                            </p>
+
+                                            <p class="alertWrong mb-0 font-size-14 font-weight-bold"
+                                                style="display: none; color: red;">
+                                                Respuesta equivocada, vuélvelo a intentar.
+                                            </p>
+                                            <p class='alertCorrect mb-0 font-size-14 font-weight-bold'
+                                                style="display: none; color:green">
+                                                ¡Respuesta correcta!
+                                            </p>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" class="option">
+                                                <label class="custom-control-label" for="U13_Q4_A1">Internet
+                                                    Explorer</label>
+                                            </div>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input option correct">
+                                                <label class="custom-control-label" for="U13_Q4_A2">Firefox</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input option correct">
+                                                <label class="custom-control-label" for="U13_Q4_A3">Safari</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input option correct">
+                                                <label class="custom-control-label" for="U13_Q4_A4">Chrome</label>
+                                            </div>
+                                        </div>
+                                        <!-- Pregunta 6 END -->
+
+                                    </div>
+                                    <!-- Columna derecha de preguntas END -->
+
+                                    <!-- DIV STICKY SCORECARD -->
+                                    <div class="card d-flex sticky-score p-3 mrg-top-30">
+                                        <div class="submitbutton">
+                                            <button type="button" class="button" data-toggle="modal"
+                                                data-target="#modal-fs" onclick="checkAll()">
+                                                Revisar
+                                            </button>
+                                        </div>
+                                        <div class="score" style="display: none;">
+                                            <span></span>
+                                        </div>
+                                        <div class="msg" style="display: none;">
+                                            <span></span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 1</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 33%">33%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+
+                <div class="modal fade" id="modal-fs">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a class="modal-close" href="" data-dismiss="modal"
+                                    style="display: flex; justify-content: right;">
+                                    <i class="ti-close" style="color: red; font-weight: bolder; font-size: 22px;"></i>
+                                </a>
+                                <div class="vertical-align text-center">
+                                    <div class="table-cell">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-9 col-md-10 col-sm-12 mr-auto ml-auto">
+                                                    <div class="pdd-horizon-30 pdd-btm-50">
+                                                        <h1 class="mrg-btm-15 text-info" id="modal-score">
+                                                            0 / 100
+                                                        </h1>
+                                                        <h3 class="mrg-top-20" id="modal-message">...</h3>
+                                                        <img id="correct-img" class="img-responsive mrg-horizon-auto"
+                                                            src="../../assets/images/course/quiz/party.png"
+                                                            alt="Party img" />
+                                                        <img id="incorrect-img" class="img-responsive mrg-horizon-auto"
+                                                            src="../../assets/images/course/quiz/bored.png"
+                                                            alt="Problem solving img" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+                <!-- Page Container END -->
+            </div>
+        </div>
+
+        <!-- build:js assets/js/vendor.js -->
+        <!-- plugins js -->
+        <script src="../../assets/vendors/jquery/dist/code.jquery.com_jquery-3.7.0.min.js"></script>
+        <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+        <script src="../../assets/js/recycled/navigationbar.js"></script>
+        <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../../assets/vendors/PACE/pace.min.js"></script>
+        <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+        <script src="../../assets/js/progressbar.js"></script>
+        <script src="../../assets/js/progress-circle.js"></script>
+
+        <!-- endbuild -->
+
+        <!-- build:js assets/js/app.min.js -->
+        <!-- core js -->
+        <script src="../../assets/js/app.js"></script>
+        <script src="../../assets/js/progress/url-script.js"></script>
+
+        <script>
+            var questionList = $(".question");
+            function swap(a, b, arr) {
+                var temp = arr[a];
+                arr[a] = arr[b];
+                arr[b] = temp;
+                return arr;
+            }
+            var n = questionList.length;
+            for (var i = 0; i < n; i++) {
+                var randomP = Math.floor(Math.random() * (questionList.length));
+                questionList = swap(i, randomP, questionList);
+                console.log(questionList);
+            }
+            var containers = $(".question-container");
+            var m = containers.length;
+            for (var i = 0; i < n; i++) {
+                console.log(questionList[i]);
+                console.log(Math.floor(i / Math.floor(n / m)))
+                containers[Math.floor(i / Math.floor(n / m))].append(questionList[i]);
+            }
+            $(".question-text").each(function (index) {
+                console.log($(this).text())
+                var cN = $(this).text().split(".", 1);
+                var cT = $(this).text();
+                cT = cT.substring(cN.length);
+                $(this).text((index + 1).toString() + cT);
+            })
+
+        </script>
+
+        <script>
+
+            //this would be the object shape for storing the questions  
+            //you can change the questions to your own taste or even add more questions..
+            const questions = [
+                {
+                    question: "Estos 3 lenguajes son la base del Frontend y la programación web en general.",
+                    optionA: "HTML, C++ y JavaScript",
+                    optionB: "XML, CSS y Java",
+                    optionC: "HTML, CSS y JavaScript",
+                    optionD: "HTML, CSS y Java",
+                    correctOption: "optionB"
+                },
+
+                {
+                    question: "La Liga Pro-defensa de las mujeres",
+                    optionA: "Cómo",
+                    optionB: "Quién",
+                    optionC: "Dónde",
+                    optionD: "Por qué",
+                    correctOption: "optionB"
+                },
+
+                {
+                    question: "Juana María Leal Soto, presidenta de la Liga Pro-defensa de las mujeres expuso ante los diputados",
+                    optionA: "Qué",
+                    optionB: "Quién",
+                    optionC: "Cómo",
+                    optionD: "Cuándo",
+                    correctOption: "optionC"
+                },
+                
+                {
+                    question: "Ante el Congreso Local del Estado de Nuevo León",
+                    optionA: "Qué",
+                    optionB: "Quién",
+                    optionC: "Cómo",
+                    optionD: "Dónde",
+                    correctOption: "optionD"
+                },
+
+                {
+                    question: "Es importante considerar que estas mujeres dedican gran parte de su tiempo y de sus vidas a atender a los hombres mientras éstos salen a trabajar y tienen otras oportunidades de desarrollo.",
+                    optionA: "Qué",
+                    optionB: "Quién",
+                    optionC: "Cómo",
+                    optionD: "Por qué",
+                    correctOption: "optionD"
+                },
+
+                {
+                    question: "Demandó ayer-",
+                    optionA: "Qué",
+                    optionB: "Cómo",
+                    optionC: "Dónde",
+                    optionD: "Cuándo",
+                    correctOption: "optionD"
+                }
+                
+            ]
+
+
+            let shuffledQuestions = [] //empty array to hold shuffled selected questions out of all available questions
+
+            function handleQuestions() { 
+                //function to shuffle and push 10 questions to shuffledQuestions array
+            //app would be dealing with 10questions per session
+                while (shuffledQuestions.length <= 5) {
+                    const random = questions[Math.floor(Math.random() * questions.length)]
+                    if (!shuffledQuestions.includes(random)) {
+                        shuffledQuestions.push(random)
+                    }
+                }
+            }
+
+
+            let questionNumber = 1 //holds the current question number
+            let playerScore = 0  //holds the player score
+            let wrongAttempt = 0 //amount of wrong answers picked by player
+            let indexNumber = 0 //will be used in displaying next question
+
+            // function for displaying next question in the array to dom
+            //also handles displaying players and quiz information to dom
+            function NextQuestion(index) {
+                handleQuestions()
+                const currentQuestion = shuffledQuestions[index]
+                document.getElementById("question-number").innerHTML = questionNumber
+                document.getElementById("player-score").innerHTML = playerScore
+                document.getElementById("display-question").innerHTML = currentQuestion.question;
+                document.getElementById("option-one-label").innerHTML = currentQuestion.optionA;
+                document.getElementById("option-two-label").innerHTML = currentQuestion.optionB;
+                document.getElementById("option-three-label").innerHTML = currentQuestion.optionC;
+                document.getElementById("option-four-label").innerHTML = currentQuestion.optionD;
+
+            }
+
+
+            function checkForAnswer() {
+                const currentQuestion = shuffledQuestions[indexNumber] //gets current Question 
+                const currentQuestionAnswer = currentQuestion.correctOption //gets current Question's answer
+                const options = document.getElementsByName("option"); //gets all elements in dom with name of 'option' (in this the radio inputs)
+                let correctOption = null
+
+                options.forEach((option) => {
+                    if (option.value === currentQuestionAnswer) {
+                        //get's correct's radio input with correct answer
+                        correctOption = option.labels[0].id
+                    }
+                })
+
+                //checking to make sure a radio input has been checked or an option being chosen
+                if (options[0].checked === false && options[1].checked === false && options[2].checked === false && options[3].checked == false) {
+                    document.getElementById('option-modal').style.display = "flex"
+                }
+
+                //checking if checked radio button is same as answer
+                options.forEach((option) => {
+                    if (option.checked === true && option.value === currentQuestionAnswer) {
+                        document.getElementById(correctOption).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
+                        playerScore++ //adding to player's score
+                        indexNumber++ //adding 1 to index so has to display next question..
+                        //set to delay question number till when next question loads
+                        setTimeout(() => {
+                            questionNumber++
+                        }, 1000)
+                    }
+
+                    else if (option.checked && option.value !== currentQuestionAnswer) {
+                        const wrongLabelId = option.labels[0].id
+                        document.getElementById(wrongLabelId).style.backgroundColor = "rgba(250, 160, 160,0.5)"
+                        document.getElementById(correctOption).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
+                        wrongAttempt++ //adds 1 to wrong attempts 
+                        indexNumber++
+                        //set to delay question number till when next question loads
+                        setTimeout(() => {
+                            questionNumber++
+                        }, 1000)
+                    }
+                })
+            }
+
+
+
+            //called when the next button is called
+            function handleNextQuestion() {
+                checkForAnswer() //check if player picked right or wrong option
+                unCheckRadioButtons()
+                //delays next question displaying for a second just for some effects so questions don't rush in on player
+                setTimeout(() => {
+                    if (indexNumber <= 5) {
+            //displays next question as long as index number isn't greater than 9, remember index number starts from 0, so index 9 is question 10
+                        NextQuestion(indexNumber)
+                    }
+                    else {
+                        handleEndGame()//ends game if index number greater than 9 meaning we're already at the 10th question
+                    }
+                    resetOptionBackground()
+                }, 1000);
+            }
+
+            //sets options background back to null after display the right/wrong colors
+            function resetOptionBackground() {
+                const options = document.getElementsByName("option");
+                options.forEach((option) => {
+                    document.getElementById(option.labels[0].id).style.backgroundColor = ""
+                })
+            }
+
+            // unchecking all radio buttons for next question(can be done with map or foreach loop also)
+            function unCheckRadioButtons() {
+                const options = document.getElementsByName("option");
+                for (let i = 0; i < options.length; i++) {
+                    options[i].checked = false;
+                }
+            }
+
+            // function for when all questions being answered
+            function handleEndGame() {
+                let remark = null
+                let remarkColor = null
+
+                // condition check for player remark and remark color
+                if (playerScore <= 3) {
+                    remark = "Sigue practicando el ejercicio!"
+                    remarkColor = "red"
+                }
+                else if (playerScore >= 4 && playerScore < 6) {
+                    remark = "Puedes hacerlo mejor!"
+                    remarkColor = "orangered"
+                }
+                else if (playerScore == 6 ) {
+                    remark = "Excelente se ve el dominio del tema!"
+                    remarkColor = "green"
+                }
+                const playerGrade = Math.round((playerScore / 6) * 100)
+
+                //data to display to score board
+                document.getElementById('remarks').innerHTML = remark
+                document.getElementById('remarks').style.color = remarkColor
+                document.getElementById('grade-percentage').innerHTML = playerGrade
+                document.getElementById('wrong-answers').innerHTML = wrongAttempt
+                document.getElementById('right-answers').innerHTML = playerScore
+                document.getElementById('score-modal').style.display = "flex"
+
+            }
+
+            //closes score modal, resets game and reshuffles questions
+            function closeScoreModal() {
+                questionNumber = 1
+                playerScore = 0
+                wrongAttempt = 0
+                indexNumber = 0
+                shuffledQuestions = []
+                NextQuestion(indexNumber)
+                document.getElementById('score-modal').style.display = "none"
+            }
+
+            //function to close warning modal
+            function closeOptionModal() {
+                document.getElementById('option-modal').style.display = "none"
+            }
+
+        </script>
+
+
+        <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
+        <script type="text/javascript">
+            show(0.14)
+        </script>
+
+
+        <!-- endbuild -->
+
+        <!-- Insert your dependencies here -->
+        <script>
+            const questionsContainer = document.querySelector('#questions');
+
+            const modal = document.querySelector('#modal-fs');
+            const modalMessage = modal.querySelector('#modal-message');
+            const modalScore = modal.querySelector('#modal-score');
+            const correctImg = modal.querySelector('#correct-img');
+            const incorrectImg = modal.querySelector('#incorrect-img');
+
+            document.addEventListener('DOMContentLoaded', function (_) {
+                const qs = generateQuestions();
+                questionsContainer.insertAdjacentHTML('afterbegin', qs);
+
+                $(".custom-control-label").on("click", function () {
+                    console.log('clicked')
+                    if ($(this).siblings().is(":checked")) {
+                        $(this).siblings().removeAttr("checked");
+                    } else {
+                        $(this).siblings().prop("checked", true);
+                    }
+                });
+
+                incorrectImg.style.display = "none";
+                correctImg.style.display = "none";
+            });
+
+
+            $(".custom-control-label").on("click", function () {
+                if ($(this).siblings().is(":checked")) {
+                    $(this).siblings().prop("checked", false);
+
+                } else {
+                    $(this).siblings().prop("checked", true);
+
+                }
+            });
+            //radio input "Correct" Class
+            function checkAll() {
+                var correct = 0;
+                var count = 0;
+                var passingGrade = 90;
+                $("div.question").each(function () {
+                    count++;
+                    var elem = $(this);
+                    $(this).find(".alertCorrect").css("display", "none");
+                    $(this).find(".alertWrong").css("display", "none");
+                    $(this).removeClass("correct");
+                    $(this).removeClass("incorrect");
+                    var isCorrect = true;
+                    $(this).find("input.custom-control-input").each(function () {
+                        if ($(this).hasClass("correct")) {
+                            if (!$(this).is(":checked")) {
+                                isCorrect = false;
+                            }
+                        } else {
+                            if ($(this).is(":checked")) {
+                                isCorrect = false;
+                            }
+                        }
+                    });
+                    if (isCorrect == true) {
+                        correct++;
+                        $(this).find(".alertCorrect").css("display", "block");
+                        $(this).addClass("correct");
+                    } else {
+                        $(this).find(".alertWrong").css("display", "block");
+                        $(this).addClass("incorrect");
+                    }
+                });
+
+                $(".score > span").html("Resultado: " + parseInt(correct * 100 / count) + "/100");
+                if (parseInt(correct * 100 / count) >= passingGrade) {
+                    $(".msg > span").html("¡Excelente!");
+                    $(".msg > span").css("color", "green")
+                } else if (parseInt(correct * 100 / count) <= 30) {
+                    $(".msg > span").html('Te invitamos a regresar al contenido para tu aprendizaje.');
+                }
+                let score = parseInt((correct * 100) / count);
+                modalScore.textContent = `${score} / 100`;
+
+                if (score >= 80) {
+                    modalMessage.textContent = "¡Excelente!"
+                    incorrectImg.style.display = "none";
+                    correctImg.style.display = "block";
+
+                } else {
+                    modalMessage.textContent = "Vuelve a intentarlo..."
+                    incorrectImg.style.display = "block";
+                    correctImg.style.display = "none";
+
+                    if (score < 25) {
+                        // alert("Le recomendamos volver a leer esta sección para tener mayor puntuaje que 25.");
+                    }
+                }
+            }
+
+        </script>
+
+</body>
+
+</html>

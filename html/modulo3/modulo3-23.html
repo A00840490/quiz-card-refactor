@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title> Flexbox y Grid | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+                        
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="container-fluid">
+                                        <div class="">
+                                        <h1 class="card-title mrg-top-20"><span class="badge badge-light">Tema
+                                            22</span>Grid</h1>
+                                        <p>La propiedad <b>flex</b> tiene algunas limitantes, la más relevante siendo
+                                            que solo trabaja en una dirección, de acuerdo con la propiedad <span
+                                                class="code">flex-direction</span>. <b>Grid</b> es una propiedad más
+                                            avanzada, pues permite estilizar nuestro espacio como una <b>cuadrícula</b>,
+                                            la cual tiene dos dimensiones, usando filas y columnas. Para implementarlo,
+                                            utilizamos <span class="code">display: grid;</span> y después tenemos que
+                                            especificar los tamaños de nuestras filas y columnas con las propiedades:
+                                            <span class="code">grid-template-rows</span> y <span
+                                                class="code">grid-template-columns</span>; puedes especificar uno o
+                                            ambos. Esto se puede hacer de diferentes maneras; observa los siguientes
+                                            ejemplos:</p>
+                                        <ul>
+                                            <li>
+                                                <p><span class="code">grid-template-rows: 100px 1fr;</span> <br> Dos
+                                                    renglones, uno de 100px y otro de 1fr. <i>(fr es una unidad
+                                                        exclusiva de grid)</i>.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-template-rows: minmax(100px, 1fr);</span>
+                                                    <br> La función <b>minmax</b> nos da un rango mínimo y máximo de
+                                                    valores que puede tener el renglón o columna.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-template-rows: repeat(3, 200px);</span> <br>
+                                                    La función <b>repeat</b> repite los valores. El primer número indica
+                                                    la cantidad de veces a repetir y el segundo el tamaño, por lo que en
+                                                    este caso tendremos tres renglones de 200px.</p>
+                                            </li>
+                                        </ul>
+                                        <p>Además de estas, se pueden aplicar las propiedades <span
+                                                class="code">align-content</span> y <span
+                                                class="code">justify-content</span> como en flexbox. Otras propiedades
+                                            que se pueden aplicar a un contenedor <b>grid</b> son: </p>
+                                        <ul>
+                                            <li>
+                                                <p><span class="code">grid-row-gap</span> Especifica el espacio entre
+                                                    cada renglón.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-column-gap</span> Especifica el espacio entre
+                                                    cada columna.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-gap</span> Especifica el espacio entre cada
+                                                    renglón y columna.</p>
+                                            </li>
+                                            <p>Estas propiedades se utilizan en los elementos del contenedor para
+                                                especificar el espacio del <b>grid</b> que tomarán:</p>
+                                            <li>
+                                                <p><span class="code">grid-column-start</span> Indica la columna en la
+                                                    que comenzará el elemento.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-column-end</span> Indica la columna en la que
+                                                    terminará el elemento.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-row-start</span> Indica el renglón en el que
+                                                    comenzará el elemento.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-row-end</span> Indica el renglón en el que
+                                                    terminará el elemento.</p>
+                                            </li>
+                                            <li>
+                                                <p><span class="code">grid-area</span> Se utiliza para los 4 anteriores.
+                                                    También puede utilizarse con <span
+                                                        class="code">grid-template-areas</span> para especificar áreas
+                                                    del <b>grid</b> a utilizar. El ejemplo de abajo utiliza esto.</p>
+                                            </li>
+                                        </ul>
+                                        <br>
+                                        <p>Puedes ver más información de grid y ejemplos <img src="../../assets/images/clic.svg" class="mrg-right-5"><a
+                                                href="https://lenguajecss.com/css/maquetacion-y-colocacion/grid-css/"
+                                                target="_blank">aquí</a>. El siguiente ejemplo te ayudará a comprender
+                                            cómo funciona grid y en qué casos puedes utilizarlo.</p>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="container-fluid">
+                                                        <p class="codepen" data-height="500" data-theme-id="dark"
+                                                            data-default-tab="css,result"
+                                                            data-user="luis-yerik-arambula" data-slug-hash="abmEVZM"
+                                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                                            data-pen-title="CSS Grid Layout">
+                                                            <span>See the Pen <a
+                                                                    href="https://codepen.io/luis-yerik-arambula/pen/abmEVZM"
+                                                                    target="_blank">
+                                                                    CSS Grid Layout</a> by Luis Yerik Arambula (<a
+                                                                    href="https://codepen.io/luis-yerik-arambula"
+                                                                    target="_blank">@luis-yerik-arambula</a>)
+                                                                on <a href="https://codepen.io"
+                                                                    target="_blank">CodePen</a>.</span>
+                                                        </p>
+                                                        <script async
+                                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                                    </div>
+                                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                                        <!-- Fuente  -->
+                                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                                      </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h3 class="card-title mrg-top-20">Juego</h3>
+                                        <p>Practica tus nuevos conocimientos de <b>grid</b> con este juego llamado <a
+                                                href="https://cssgridgarden.com/#es" target="_blank">Grid Garden</a>, en
+                                            donde posicionarás zanahorias utilizando propiedades de <b>grid</b>.</p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 3</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Insert your dependencies here -->
+
+</body>
+
+</html>

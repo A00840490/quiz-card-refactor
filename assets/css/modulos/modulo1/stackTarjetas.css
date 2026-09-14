@@ -1,0 +1,115 @@
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    width: 8px;
+    background-color: #636363;
+    border-radius: 10px;
+}
+
+.container{
+    width: 800px;
+    min-height: 520px;
+}
+
+.container .card{
+    top: calc(10% + 50px);
+    left: 50%;
+    transform: translate(-50%,calc(50px*var(--i))) rotate(40deg) skew(-20deg,-10deg);
+    width: 260px;
+    height: 380px;
+    border: none;
+    box-shadow: 0 5px 12px #1111112d;
+    z-index: calc(-1 * var(--i));
+    transition: all 0.5s;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.container .card:nth-child(1){
+    opacity: 0.9;
+}
+.container .card:nth-child(2){
+    opacity: 0.8;
+}
+.container .card:nth-child(3){
+    opacity: 0.5;
+}
+
+.container:hover .card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(calc(-50% + calc(300px * var(--i))),-50%) rotate(0deg) skew(0deg,0deg);
+    opacity: 1;
+    z-index: 1;
+}
+
+.container .card .cardbody{
+    color: #444;
+    opacity: 0;
+    transition:all 0.5s;
+    transform: translateY(50px);
+    padding: 25px;
+    pointer-events: none;
+}
+
+.container:hover .card .cardbody{
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+@media(max-width: 991.5px){
+    .container:hover .card{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,calc(-50% + calc(400px * var(--j)))) rotate(0deg) skew(0deg,0deg);
+        opacity: 1;
+        z-index: 1;
+    }
+
+    .card-fixed:hover{
+        height: 1400px;
+    }
+    
+
+    
+}
+
+@media (max-width:576px) {
+    .container{
+        width: 300px;
+    }
+    .container .card{
+        height: 280px;
+    }
+    .card-fixed:hover{
+        height: 1320px;
+    }
+    
+}
+
+@media (max-width: 400px) {
+    .container{
+        width: 100px;
+        min-height: 300px;
+    }
+
+    .container .card{
+        width: 150px;
+        height: 180px;
+    }
+
+    .container:hover .card{
+        width: 260px;
+        height: 280px;
+        transform: translate(-50%,calc(-50% + calc(320px * var(--j)))) rotate(0deg) skew(0deg,0deg);
+    }
+    .card-fixed:hover{
+        height: 1100px;
+    }
+    
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title> Tamaños y Responsividad | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-horizon">
+                                        <div class="image-container col-md-6" style="left: 50%;">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/modulo3/m3-12/responsivee.jpg')">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="container-fluid">
+                                                    <h1 class="mrg-top-20 card-title"><span
+                                                            class="badge badge-light">Tema 19</span> Tamaños y
+                                                        Responsividad</h1>
+                                                    <p>En la actualidad existen muchos dispositivos con acceso a
+                                                        Internet. Estos vienen en una gran variedad de tamaños: desde
+                                                        celulares y tabletas hasta computadoras de escritorio. Como
+                                                        desarrollador, debes procurar que tu contenido sea accesible
+                                                        para todos estos dispositivos, y así permitir que un mayor
+                                                        número de personas puedan verlo y apreciarlo de la mejor forma
+                                                        posible.</p>
+                                                    <p>Esto puede resultar problemático, pues algunos elementos se
+                                                        pueden visualizar bien en una computadora, pero tal vez no en
+                                                        una pantalla pequeña de un celular.</p>
+                                                    <p>Es por esto que necesitamos que las páginas web modernas sean
+                                                        <b>responsivas</b>, es decir, que se adapten a los diferentes
+                                                        cambios de tamaño de pantalla en los distintos dispositivos.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="">
+                                    <div class="container-fluid">
+                                        <h2 class="card-title mrg-top-20">Ajustando tamaños</h2>
+                                        <p>A lo largo de este módulo hemos utilizado las dos propiedades básicas de
+                                            tamaño: estas son <span class="code">height</span> (altura) y <span
+                                                class="code">width</span> (anchura). Estas se pueden aplicar a cualquier
+                                            elemento para cambiar su tamaño y aceptan como valores las unidades que
+                                            vimos anteriormente en la sección de <a
+                                                href="../../html/modulo3/modulo3-6.html">márgenes</a>. El valor
+                                            predeterminado de tamaño para cualquier elemento es <span
+                                                class="code">auto</span>; si queremos que nuestro elemento cambie de
+                                            tamaño en ciertas condiciones, entonces nos conviene utilizar algún valor
+                                            <b>relativo</b> como los <b>porcentajes</b>. Además de esto, también podemos
+                                            modificar los valores máximos y mínimos que puede adquirir un elemento, esto
+                                            con las siguientes propiedades: </p>
+                                        <div class="d-flex w-100 justify-content-center">
+                                        <div class="row">
+                                            <ul class="col-6 px-5">
+                                                <li>
+                                                    <p><span class="code">min-height</span> <br> Altura mínima</p>
+                                                </li>
+                                                <li>
+                                                    <p><span class="code">min-width</span> <br> Anchura mínima</p>
+                                                </li>
+                                            </ul>
+                                            <ul class="col-6 px-5">
+                                                <li>
+                                                    <p><span class="code">max-height</span> <br> Altura máxima</p>
+                                                </li>
+                                                <li>
+                                                    <p><span class="code">max-width</span> <br> Anchura máxima</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        </div>
+                                        
+                                        <p>Todas las propiedades anteriores aceptan los mismos valores. De esta forma,
+                                            si tenemos un elemento con <span class="code">max-width: 500px;</span>,
+                                            significa que el ancho de ese elemento <b>no pasará</b> de 500 píxeles, pero
+                                            sí puede ser menos dependiendo de las demás propiedades que tenga asignado.
+                                            Esta es una forma conveniente de asegurarnos que nuestros elementos sean
+                                            visibles y del tamaño que queramos. Copia algunos de los ejemplos anteriores
+                                            y agrega estas nuevas propiedades, ¿cómo cambian los elementos?</p>
+                                        <br>
+                                        <h3 class="card-title">Ejemplo</h3>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="card">
+                                                    <div class="container-fluid">
+                                                        <p class="codepen" data-height="500" data-theme-id="dark"
+                                                            data-default-tab="css,result"
+                                                            data-user="luis-yerik-arambula" data-slug-hash="RwGLKJQ"
+                                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                                            data-pen-title="RwGLKJQ">
+                                                            <span>See the Pen <a
+                                                                    href="https://codepen.io/luis-yerik-arambula/pen/RwGLKJQ"
+                                                                    target="_blank">
+                                                                    RwGLKJQ</a> by Luis Yerik Arambula (<a
+                                                                    href="https://codepen.io/luis-yerik-arambula"
+                                                                    target="_blank">@luis-yerik-arambula</a>)
+                                                                on <a href="https://codepen.io"
+                                                                    target="_blank">CodePen</a>.</span>
+                                                        </p>
+                                                        <script async
+                                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                                    </div>
+                                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                                        <!-- Fuente  -->
+                                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                                      </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p>Juega con los tamaños de la ventana de tu navegador (también puedes hacer
+                                            clic en los botones de "0.5x" y "0.25x" de la barra inferior del ejemplo
+                                            para reescalar los elementos de la ventana), observa como el ancho del
+                                            elemento se ajusta hasta que se llega hasta cierto punto. La propiedad <span
+                                                class="code">min-width</span> nos asegura que el ancho siempre será
+                                            mayor o igual a <b>200px</b>, incluso si <span class="code">width:
+                                                50%</span> resultara en un tamaño menor. Esto funciona igual para <span
+                                                class="code">max-width</span>, por lo que nuestro elemento siempre
+                                            tendrá entre 200 y 800 píxeles de ancho.
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        
+
+
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 3</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Insert your dependencies here -->
+
+</body>
+
+</html>

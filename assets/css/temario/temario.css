@@ -1,0 +1,15 @@
+.zoom {
+    transition: transform .2s;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}
+
+.content { 		    
+    transform: skewY(5deg);
+}
+
+.content-inverse {
+    transform: skewY(-5deg);
+}

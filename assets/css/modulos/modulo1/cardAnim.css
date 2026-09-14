@@ -1,0 +1,119 @@
+.animation > .card {
+  position: relative;
+  /* width: 600px; */
+  height: 350px;
+  /* background: #ccc; */
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.animation > .card .circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.animation > .card .circle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  clip-path: circle(120px at center);
+  transition: 0.5s;
+}
+
+.animation > .card:hover .circle:before {
+  background: #828181;
+  clip-path: circle(800px at center);
+}
+
+.animation > .card img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 250px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.animation > .card:hover img {
+  left: 72%;
+  height: 200px;
+}
+
+.animation > .card .content {
+  position: relative;
+  width: 50%;
+  left: 20%;
+  padding: 20px 20px 20px 40px;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.animation > .card:hover .content {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+.animation > .card .content h2 {
+  color: white;
+  text-transform: uppercase;
+  /* font-family: sans-serif; */
+  font-size: 2em;
+  line-height: 1em;
+  margin-bottom: 5px;
+}
+
+.animation > .card .content p {
+  color: white;
+}
+
+@media (max-width: 991px) {
+  .animation > .card {
+    width: auto;
+    /* max-width: 350px; */
+    align-items: flex-start;
+    margin: 10px;
+  }
+
+  .animation > .card:hover {
+    height: 550px;
+  }
+
+  .animation > .card .content {
+    width: 100%;
+    left: 0;
+    padding: 30px;
+  }
+
+  .animation > .card:hover img {
+    top: 70%;
+    left: 50%;
+    height: 280px;
+  }
+}
+
+@media (max-width: 659px) {
+  .animation > .card:hover {
+    height: 650px;
+  }
+}
+
+@media (max-width: 420px) {
+  .animation > .card .content {
+    padding: 20px;
+  }
+}

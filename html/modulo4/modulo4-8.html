@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title> Condicionales | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="">
+                                            <h1 class="card-title"><span class="badge badge-light">Tema
+                                                    7</span>Operadores Booleanos</h1>
+                                            <p>Los operadores booleanos son operadores que únicamente se pueden aplicar
+                                                sobre variables y expresiones booleanas. Estos nos permiten combinar
+                                                múltiples condiciones en una sola expresión y con un solo resultado
+                                                booleano (True o False).</p>
+                                            <div class="d-flex justify-content-center">
+                                                <div class="overflow-auto" style="max-width: 900px;">
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead class="table-primary" style="text-align: center;">
+                                                            <tr>
+                                                                <th colspan="5" style="text-align: center;">Operadores
+                                                                    Booleanos
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Operador</th>
+                                                                <th>Función</th>
+                                                                <th>Ejemplo de uso</th>
+                                                                <th>Resultado del ejemplo</th>
+                                                                <th>Explicación</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>&&</td>
+                                                                <td>Se le conoce como operador "and". Su aplicación sobre 2
+                                                                    valores u expresiones booleanas es equivalente a True
+                                                                    únicamente si los 2 valores o expresiones a los lados
+                                                                    equivalen a True; de lo contrario, el resultado será
+                                                                    False.
+                                                                </td>
+                                                                <td class="text-left" style="min-width:150px;"><span
+                                                                        class="code">(2>1) <span style="color:black;"><b>&&</b></span> (3>2)</span></td>
+                                                                <td style="min-width:200px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
+                                                                </td>
+                                                                <td> Debido a que tanto 2 es mayor a 1 como 3 es mayor a 2,
+                                                                    tenemos el equivalente a True && True. Como ambos lados
+                                                                    del
+                                                                    operador tienen True, el resultado es True. (Si alguno
+                                                                    de
+                                                                    los 2 lados fuera False, el resultado sería False.)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>||</td>
+                                                                <td>Se le conoce como operador "or". Su aplicación sobre 2
+                                                                    valores u expresiones booleanas es equivalente a True
+                                                                    únicamente si los 2 valores o expresiones a los lados
+                                                                    equivalen a True; de lo contrario, el resultado será
+                                                                    False.
+                                                                </td>
+                                                                <td class="text-left" style="min-width: 150px"><span
+                                                                        class="code">(2>1) <span style="color:black;"><b>||</b></span> (1>2)</span></td>
+                                                                <td style="min-width:200px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
+                                                                </td>
+                                                                <td> Debido a que 2 es mayor a 1 y 1 no es mayor a 2, tenemos el
+                                                                    equivalente a True || False. El lado izquierdo del
+                                                                    operador
+                                                                    tiene un True, y por eso el resultado es True. (Si ambos lados
+                                                                    fueran
+                                                                    False, el resultado sería False.)</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>!</td>
+                                                                <td>Se le conoce como operador "not" o de negación. Su
+                                                                    aplicación sobre un valor o una expresión booleana es
+                                                                    equivalente al valor contrario del valor u expresión:
+                                                                    True
+                                                                    para False y False para True.</td>
+                                                                <td class="text-left" style="min-width: 150px"><span
+                                                                        class="code"><span style="color:black;"><b>!</b></span>(1>2)</span></td>
+                                                                <td style="min-width:100px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
+                                                                </td>
+                                                                <td>Como 1>2 equivale a False, <span
+                                                                        style="display:inline-block">!(1>2)</span> equivale
+                                                                    a
+                                                                    True.</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                <br>
+                                                Estos operadores nos permiten incluir condiciones más complejas a
+                                                nuestras sentencias if y else if:
+                                            </p>
+
+                                            <div class="card">
+                                                <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                    <p class="code">
+                                                        if <span class="codetext">(x&gt;=1 && x&lt;=50){ <br>
+                                                            &nbsp;&nbsp;&nbsp;<span class="codecom">//código a ejecutar
+                                                                si
+                                                                x tiene asignado un valor entre 1 y 50 inclusivo</span>
+                                                            <br>
+                                                            }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p>
+                                                Uno de los usos más comunes del operador <b>not</b> es invertir el valor
+                                                de una variable booleana:
+                                            </p>
+                                            <div class="card">
+                                                <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                    <p class="code">
+                                                        var <span class="codetext">x = </span>True<span class="codetext">;</span><br>
+                                                        <span class="codetext">x = !x;</span> <span class="codecom">// Después de correr esta línea, x tendrá un valor de False</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 4</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+             <!-- Page Container END -->
+        </div>     
+    </div>
+ 
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+    <!-- Insert your dependencies here -->
+</body>
+
+</html>

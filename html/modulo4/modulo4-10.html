@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Ciclos | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+    <style>
+        @media only screen and (max-width: 767px) {
+            iframe {
+                min-height: 350px !important;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-horizon">
+                                        <div class="image-container col-md-4">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/modulo4/m4-6/ciclos.jpg')">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8 ml-auto">
+                                                <div class="card-block">
+                                                    <h1 class="mrg-top-20 card-title"><span
+                                                            class="badge badge-light">Tema 9</span>Ciclos</h1>
+                                                    <p>Una de las ventajas de las funciones es que nos permiten
+                                                        reutilizar código cuantas veces queramos, pero, ¿qué pasa si
+                                                        queremos ejecutar una serie de líneas de código múltiples veces?
+                                                        Los <b>ciclos</b> son estructuras de control que resuelven esta
+                                                        necesidad. Imagina que tienes un arreglo de 1000 elementos,
+                                                        escribir 1000 líneas de código para acceder a cada elemento del
+                                                        arreglo no sería práctico. Entonces, en lugar de escribir cada
+                                                        línea, creamos un ciclo que se ejecutará 1000 veces para acceder
+                                                        a cada elemento del array. </p>
+                                                    <p>Los ciclos están presentes en todos los lenguajes de
+                                                        programación, y típicamente se implementan de dos maneras: con
+                                                        las <b>palabras reservadas</b> <span class="code">for</span> y
+                                                        <span class="code">while</span>. A continuación veremos algunos
+                                                        ejemplos.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="">
+                                        <h2 class="card-title">El Ciclo For</h2>
+                                        <p>La sintaxis para implementar un ciclo <span class="code">for</span> es la
+                                            siguiente:</p>
+                                        <div class="card">
+                                            <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                <p class="code">
+                                                    for (<span class="codetext"><i>expresión inicial</i>; <i>expresión
+                                                            condicinal</i>; <i>expresión cíclica</i></span>) { <br>
+                                                    &nbsp;&nbsp;&nbsp;<span class="codecom">//código a ejecutar</span>
+                                                    <br>
+                                                    }
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <p>Normalmente, en la <b>expresión inicial</b> colocamos una variable
+                                                    que nos servirá como <b>contador</b> para el número de veces que se
+                                                    ejecutará el ciclo.</p>
+                                            </li>
+                                            <li>
+                                                <p>En la <b>expresión condicional</b> se coloca la condición para que el
+                                                    ciclo continúe ejecutándose. Esta condición también se revisa antes
+                                                    de la primera iteración del for-loop (la primera vez que se corre el
+                                                    código dentro del ciclo).</p>
+                                            </li>
+                                            <li>
+                                                <p>Finalmente, la <b>expresión cíclica</b> es una expresión de código que
+                                                    se ejecutará entre cada iteración. Normalmente, se utiliza para
+                                                    modificar la variable que utilizamos como contador.</p>
+                                            </li>
+                                            <p>Este ejemplo utiliza un ciclo <span class="code">for</span> para mostrar
+                                                todos los elementos en un arreglo.</p>
+                                        </ul>
+                                        <div class="card">
+                                            <div class="container-fluid">
+                                                <p class="codepen" data-height="500" data-theme-id="dark"
+                                                    data-default-tab="js,result" data-user="luis-yerik-arambula"
+                                                    data-slug-hash="vYXQKop"
+                                                    style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                                    data-pen-title="for-loop-js ejemplo">
+                                                    <span>See the Pen <a
+                                                            href="https://codepen.io/luis-yerik-arambula/pen/vYXQKop"
+                                                            target="_blank">
+                                                            for-loop-js ejemplo</a> by Luis Yerik Arambula (<a
+                                                            href="https://codepen.io/luis-yerik-arambula"
+                                                            target="_blank">@luis-yerik-arambula</a>)
+                                                        on <a href="https://codepen.io"
+                                                            target="_blank">CodePen</a>.</span>
+                                                </p>
+                                                <script async
+                                                    src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                            </div>
+                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                                <!-- Fuente  -->
+                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                              </p>
+                                        </div>
+                                        <p>Presiona el botón y observa lo que sucede. Lee detenidamente el código,
+                                            especialmente el ciclo <span class="code">for</span> y sus
+                                            <b>declaraciones</b>. Primero, declaramos la variable <span
+                                                class="code">i</span> con un valor de 0 en la expresión inicial. Después
+                                            revisamos si <span class="code">i</span> en la expresión condicional. Si la
+                                            expresión condicional resulta en True, la línea dentro del ciclo se ejecuta,
+                                            y, al terminar la primera ejecución, se ejecuta la expresión cíclica para
+                                            aumentar el valor de <span class="code">i</span> en uno. Dentro del ciclo,
+                                            modificamos la variable <span class="code">texto</span> que creamos
+                                            anteriormente en la función. Con cada iteración le concatenamos una cadena
+                                            de caracteres que indica el índice del elemento y su valor. Al final de
+                                            la nueva cadena agregamos <span class="code">\n</span> para que se agregue un salto de línea al
+                                            final de cada elemento. </p>
+                                        <p>El ciclo for se ejecuta 5 veces debido a que el arreglo "elementos" contiene
+                                            5 elementos. Después de la última iteración, a la variable <span
+                                                class="code">i</span> se le asigna un valor de 5, y, como este no es
+                                            menor a 5, el ciclo termina de ejecutarse.</p>
+
+
+                                        
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+
+
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 4</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+    <!-- Insert your dependencies here -->
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title> Márgenes y Padding | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- Stack tarjetas CSS -->
+    <link
+      rel="stylesheet"
+      href="../../assets/css/modulos/modulo3/stackTarjetas.css"
+    />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <style>
+        /* Deberías ajustarlo a el tamaño de pantalla (max-width: px) cuando el menú se mueve hacia arriba y se comienza a ver apretado, justo antes para asegurarte */
+        @media only screen and (max-width: 600px) {
+        .nav-vertical .tab-content {
+          /* Aumentar tamaño de contenido */
+          width: 100%;
+        }
+        .nav-vertical .nav-pills {
+          /* Aumentar tamaño de menus si gustas */
+          width: auto;
+          /* width: 80%; */
+          /* Esto es opcional para centrar */
+          display: flex;
+          justify-content: center;
+        }
+        .nav-pills .nav-item {
+          /* Esto es opcional */
+          /* Darle margen a botones de menu */
+          margin: 0.5rem;
+        }
+      }
+    </style>
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+                        
+                        <!-- Your content goes here -->                                                                                                                   
+                        <div class="card">
+                            <div class="card-block">
+                                <h1 class="card-title mrg-top-20"><span class="badge badge-light">Tema 13</span>Diferentes Formas de Usar &nbsp;<span class="code">Margin</span> y <span class="code">Padding</span></h1>
+                                <p>En los ejemplos de arriba utilizamos la propiedad con uno o más valores. Dependiendo del número de valores, las propiedades de margin y padding pueden tener diferentes efectos:</p>
+                                <div class="card-fixed" style="background-color: #ffffff;">
+                                    <!-- Stack tarjtas START -->
+                                    <div class="container position-relative">
+                                        <!-- Tarjeta de 1 valor -->
+                                        <div class="card position-absolute d-flex align-items-center justify-content-center" style="--i:-1;--j:0">
+                                            <div class="cardbody">
+                                            <div class="text-uppercase text-center h4 mb-3"><span class="code">margin: 20px;</span><br> y <br><span class="code">padding: 20px;</span></div>
+                                            <div class="text">
+                                                Utilizar un solo valor modifica uniformemente los márgenes y padding en las 4 direcciones (arriba, abajo, izquierda y derecha).
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <!-- Tarjeta de 2 valores -->
+                                        <div class="card position-absolute d-flex align-items-center justify-content-center" style="--i:0;--j:1">
+                                        <div class="cardbody">
+                                            <div class="text-uppercase text-center h4 mb-3"><span class="code">margin: 80px 40px;</span><br> y<br> <span class="code">padding: 80px 40px;</span></div>
+                                            <div class="text">
+                                                Cuando utilizamos 2 valores, el primer valor corresponde a la distancia vertical y el segundo la horizontal.
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <!-- Tarjeta de 3 valores -->
+                                        <div class="card position-absolute d-flex align-items-center justify-content-center" style="--i:1;--j:2">
+                                        <div class="cardbody">
+                                            <div class="text-uppercase text-center h4 mb-3"><span class="code">margin: 20px 100px 30px;</span><br> y<br> <span class="code">padding: 20px 100px 30px;</span></div>
+                                            <div class="text">
+                                                Para 3 valores, el primer valor corresponde al margen o padding de arriba, el segundo a la distancia horizontal y el tercero al de abajo.
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <!-- Tarjeta de 4 valores -->
+                                        <div class="card position-absolute d-flex align-items-center justify-content-center" style="--i:2;--j:3">
+                                            <div class="cardbody">
+                                                <div class="text-uppercase text-center h4 mb-3"><span class="code">margin: 20px 30px 10px 0px;</span> <br>y<br> <span class="code">padding: 20px 30px 10px 0px;</span></div>
+                                                <div class="text">
+                                                    Si utilizamos 4 valores, el primer valor corresponde al margen o padding de arriba, el segundo al de la derecha, el tercero al de abajo y el cuarto al de la izquierda.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                <!-- Stack Tarjetas END -->
+                                </div>
+                                <p>Si sólo queremos modificar el margen o padding de una dirección específica, entonces utilizamos:</p>
+                                <ul>
+                                    <li><p><span class="code">margin-left</span> o <span class="code">padding-left</span>: izquierda</p></li>
+                                    <li><p><span class="code">margin-right</span> o <span class="code">padding-right</span>: derecha</p></li>
+                                    <li><p><span class="code">margin-top</span> o <span class="code">padding-top</span>: arriba</p></li>
+                                    <li><p><span class="code">margin-bottom</span> o <span class="code">padding-bottom</span>: abajo</p></li>
+                                </ul>
+
+                                <h3 class="card-title mrg-top-20">La Propiedad <span class="code">Box-Sizing</span></h3>
+                                <p>En el ejemplo de padding utilizamos la propiedad <span class="code">box-sizing</span> con un valor de <span class="code">border-box</span>. Esto sirve para que el padding que agreguemos no aumente el tamaño de nuestro contenedor. En el ejemplo tenemos un ancho de 150px, y, si utilizamos padding sin border-box, el ancho podría aumentar. Es común utilizar la propiedad de box-sizing en todos los documentos para que los elementos mantengan un tamaño específico.</p><p>Copia el ejemplo y quita la propiedad de box-sizing. Observa lo que pasa.</p>
+                            </div>
+                        </div>
+
+                        <!--Botones de avance entre páginas-->
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Widgets de avance de módulo y general-->
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 3</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <!-- Progress plugins -->
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Insert your dependencies here -->
+
+</body>
+
+</html>

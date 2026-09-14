@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Preparación del ambiente de trabajo | CVA - Centro Virtual de Aprendizaje</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
+
+    <!-- plugins css -->
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+
+    <!-- page plugins css -->
+
+    <!-- core css -->
+    <link href="../../assets/css/ei-icon.css" rel="stylesheet">
+    <link href="../../assets/css/themify-icons.css" rel="stylesheet">
+    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../assets/css/animate.min.css" rel="stylesheet">
+    <link href="../../assets/css/app.css" rel="stylesheet">
+    <style>
+        @keyframes example {
+            0% {
+                font-size: 90px;
+            }
+
+            50% {
+                font-size: 55px;
+            }
+        }
+
+        @keyframes example2 {
+            0% {
+                font-size: 18px;
+            }
+
+            50% {
+                font-size: 25px;
+            }
+        }
+
+        .carousel-control-prev-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .carousel-control-next-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+
+
+        .carousel-control-next-icon-after {
+            content: '>';
+            font-size: 90px;
+            height: 100%;
+            text-align: start;
+            color: #1A36C2;
+            animation-name: example;
+            animation-duration: 2.3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+
+        }
+
+        .carousel-control-prev-icon-after {
+            content: '<';
+            height: 100%;
+            font-size: 90px;
+            text-align: start;
+            color: #1A36C2;
+            animation-name: example;
+            animation-duration: 2.3s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+        }
+
+        .tutorial-text {
+            font-size: 20px;
+        }
+    </style>
+    <link href="../../assets/css/progress.css" rel="stylesheet">
+    <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+
+    <!-- page plugins css 
+    CSS necesario para el carrusel-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet"
+        type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet"
+        type="text/css" />
+
+    <!-- Puedes editar los componentes del carrusel, para ello puedes checar
+    el siguiente link: https://kenwheeler.github.io/slick/ -->
+    <style>
+        .slick-dots li.slick-active button::before {
+            color: #083B8B !important;
+        }
+
+        .slick-dots li button::before {
+            color: black !important;
+        }
+
+        .slick-prev::before,
+        .slick-next::before {
+            color: #083B8B !important;
+        }
+    </style>
+
+    <style>
+
+        .carouselWrapper {
+
+            width: 100%;
+            height: auto;
+
+            background-color: #00b0bd;
+
+        }
+
+
+
+    </style>
+
+</head>
+
+<body class="header-info side-nav-dark text-justify">
+    <div class="app">
+        <div class="layout">
+            <!-- Side Nav START -->
+            <div class="side-nav" id="sideNav">
+
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+                <!-- Header START -->
+                <div class="header navbar">
+
+                </div>
+                <!-- Header END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <div class="container-fluid px-0 px-sm-3">
+
+
+                        <!-- Your content goes here -->
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-horizon">
+                                        <div class="image-container col-md-4">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/modulo1/m1-3/1.3_intro.jpg')">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8 ml-auto">
+                                                <div class="card-block">
+                                                    <h1 class="mrg-btm-20 card-title"><span
+                                                            class="badge badge-light">Tema 3</span> Preparación del
+                                                        Ambiente de Trabajo</h1>
+
+                                                    <p>El primer paso para comenzar nuestro camino de programación web
+                                                        es preparando nuestro ambiente de trabajo. Para esto
+                                                        necesitaremos sólo dos cosas: un <b>navegador</b> y un <b>editor
+                                                            de texto</b>. El navegador nos servirá para poder visualizar
+                                                        nuestro progreso en tiempo real, y el editor nos servirá para
+                                                        poder editar nuestro código de manera rápida y eficiente.</p>
+                                                    <div id="accordion-1" class="accordion panel-group" role="tablist"
+                                                        aria-multiselectable="true">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="regla-1">
+                                                                <h4 class="panel-title">
+                                                                    <a class="collapsed" onclick="tabSelect1()"
+                                                                        data-toggle="collapse"
+                                                                        data-parent="#accordion-1" href="#collapseOne">
+                                                                        <span>El Navegador</span>
+                                                                        <i class="icon ti-arrow-circle-down"></i>
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseOne" class="collapse panel-collapse"
+                                                                role="tabpanel">
+                                                                <div class="panel-body">
+                                                                    <p>Para el navegador te recomendamos utilizar alguno
+                                                                        moderno como <a
+                                                                            href="https://www.google.com.mx/intl/es/chrome/"
+                                                                            target="_blank">Chrome</a>, <a
+                                                                            href="https://www.mozilla.org/es-MX/firefox/new/"
+                                                                            target="_blank">Firefox</a>, o <a
+                                                                            href="https://www.microsoft.com/es-es/edge/download?form=MA13FJ"
+                                                                            target="_blank">Edge</a>, que                                                                            
+                                                                        viene junto con Windows 10. Si cuentas con
+                                                                        MacOS, puedes utilizar Safari. Internet Explorer
+                                                                        no se considera un navegador moderno, ya que
+                                                                        perdió su soporte y muchas funcionalidades
+                                                                        modernas tienden a fallar. </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" role="tab" id="regla-2">
+                                                                <h4 class="panel-title">
+                                                                    <a class="collapsed" onclick="tabSelect2()"
+                                                                        data-toggle="collapse"
+                                                                        data-parent="#accordion-1" href="#collapseTwo">
+                                                                        <span>Editor de texto</span>
+                                                                        <i class="icon ti-arrow-circle-down"></i>
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseTwo" class="collapse panel-collapse"
+                                                                role="tabpanel">
+                                                                <div class="panel-body">
+                                                                    <p>El editor de texto que utilizaremos es <a
+                                                                            href="https://code.visualstudio.com/download"
+                                                                            target="_blank">Visual Studio Code</a>. Haz
+                                                                        clic <img src="../../assets/images/clic.svg"
+                                                                            class="mrg-right-5"> en la liga para ir a la
+                                                                        página de descarga. Asegúrate de realizar la
+                                                                        instalación correcta de acuerdo a las
+                                                                        especificaciones y sistema operativo de tu
+                                                                        computadora.</p>
+                                                                    <p>VS Code es de los editores de texto más populares
+                                                                        en la industria, y nos permite crear archivos de
+                                                                        todo tipo. En este curso nos enfocaremos en
+                                                                        archivos con extensión .html, .css y .js. Este
+                                                                        editor nos permite modificar fácilmente este
+                                                                        tipo de archivos y nos brinda una gran cantidad
+                                                                        de herramientas y atajos para escribir código
+                                                                        eficientemente.</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="alert alert-secondary py-2 px-5 align-self-center mrg-top-20 mrg-horizon-20"
+                                style="font-size: large">
+                                <p class="text-center" style="margin-bottom: 0px;">A continuación hay un pequeño tutorial para que te
+                                    familiarices con Visual Studio Code.<br> Haz clic <img
+                                        src="../../assets/images/clic.svg" class="mrg-right-5"> en las flechas a los
+                                    lados ( <b>&lt;</b> y <b>&gt;</b> ) para navegar por los diferentes pasos.
+                                    </b></p>
+                            </div>
+
+                            <div class="row text-center py-5">
+                                <div class="slider" style="width: 80%; margin:auto">
+                                    <div class="mrg-horizon-50 carouselWrapper">
+                                        <p class="tutorial-text">¡Comencemos! Al abrirlo por primera vez, verás
+                                            algo así:</p>
+                                        <img
+                                            src="../../assets/images/course/modulo1/m1-3/vscode.jpg"
+                                            alt="Slide 1">
+                                            
+                                        
+                                    </div>
+
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">En la barra de la izquierda, haz <span style="display: inline-block"> clic <img style="display:  inline;"
+                                            src="../../assets/images/clic.svg" class="mrg-right-5"></span> en el
+                                        último ícono, te llevará al buscador de extensiones.<br>Las
+                                        extensiones son herramientas adicionales que podemos instalar en
+                                        nuestro editor.</p>
+                                        <img
+                                            src="../../assets/images/course/modulo1/m1-3/vscode2.jpg"
+                                            alt="Slide 2">
+                                        
+                                        
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text"> Haz clic <img
+                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> en la
+                                            barra de búsqueda y escribe <b>"live server"</b>.</p>
+                                        <img
+                                            src="../../assets/images/course/modulo1/m1-3/vscode3.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">Hacemos clic <img
+                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> en
+                                        el botón de Install de la primera opción de los resultados.</p>
+                                        <img
+                                            src="../../assets/images/course/modulo1/m1-3/vscode4.jpg"
+                                            alt="First slide">
+                                    </div>
+
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">Una vez instalada nuestra extensión, debemos
+                                            crear nuestro espacio de trabajo.<br>En la barra de la izquierda
+                                            hacemos clic <img src="../../assets/images/clic.svg" style="display:  inline;"
+                                                class="mrg-right-5"> en el primer ícono.</p>
+                                        <img
+                                            src="../../assets/images/course/modulo1/m1-3/vscode5.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">Después hacemos clic <img
+                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> en el
+                                            botón de "Add Folder" para agregar una carpeta de trabajo en nuestra
+                                            computadora.<br>Crea un nuevo folder con el nombre
+                                            "PrimerProyectoWeb", selecciónalo, y haz clic <img
+                                                src="../../assets/images/clic.svg" style="display:  inline;" class="mrg-right-5"> en el
+                                            botón de agregar.</p>
+                                        <img 
+                                            src="../../assets/images/course/modulo1/m1-3/vscode6.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">Una vez creada la carpeta, hacemos clic <img
+                                            src="../../assets/images/clic.svg"  style="display:  inline;" class="mrg-right-5"> el
+                                            primer ícono del explorador de archivos<br>para agregar un nuevo
+                                            archivo a nuestro espacio de trabajo.</p>
+                                        <img 
+                                            src="../../assets/images/course/modulo1/m1-3/vscode7.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">Nombramos al acrhivo <b>"index.html"</b>.</p>
+                                        <img 
+                                            src="../../assets/images/course/modulo1/m1-3/vscode8.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">Escribimos en el archivo un signo de admiración
+                                            <b>!</b> y presionamos ENTER cuando aparezca un menú desplegable
+                                            debajo del cursor.
+                                        </p>
+                                        <img 
+                                            src="../../assets/images/course/modulo1/m1-3/vscode9.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">El <b>!</b> es un atajo para agregar todo lo
+                                            necesario de un documento HTML; revisaremos a detalle cada elemento
+                                            del archivo más adelante. <br> En la sección de <b>body</b>
+                                            escribimos algún mensaje como "¡Hola! Esta es mi primer página web".
+                                        </p>
+                                        <img 
+                                            src="../../assets/images/course/modulo1/m1-3/vscode10.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">En la barra inferior derecha de VS Code, haz
+                                            clic <img src="../../assets/images/clic.svg" style="display:  inline;" class="mrg-right-5"> en
+                                            el botón <b>"Go Live"</b>. <br> (Esto iniciará un servidor local en
+                                            tu máquina para mostrar las páginas de tu sitio web en tu
+                                            navegador.)</p>
+                                        <img 
+                                            src="../../assets/images/course/modulo1/m1-3/vscode11.jpg"
+                                            alt="First slide">
+                                    </div>
+                                    <div class="mrg-horizon-50">
+                                        <p class="tutorial-text">La extensión de Live Server abrirá
+                                            automáticamente una pestaña en tu navegador predeterminado con tu
+                                            página web. <br> ¡Felicidades! Has creado tu primera página web.</p>
+                                        <img
+                                            src="../../assets/images/course/modulo1/m1-3/vscode12.jpg"
+                                            alt="First slide">
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                            
+
+                        </div>
+
+                        <div class="row mrg-btm-20">
+                            <div class="col text-center">
+                                <div class="btn-group">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card widget-feed">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h1 class="feed-title tag tag-info">Módulo 1</h1>
+                                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                                    <div class="progress" style="height: 20px;" id="bar">
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 25%">25%</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div id="circlecontainer"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+
+                </footer>
+                <!-- Footer END -->
+
+            </div>
+            <!-- Page Container END -->
+        </div>
+    </div>
+
+    <!-- build:js assets/js/vendor.js -->
+    <!-- plugins js -->
+    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/js/recycled/navigationbar.js"></script>
+    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../assets/vendors/PACE/pace.min.js"></script>
+    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <script src="../../assets/js/progressbar.js"></script>
+    <script src="../../assets/js/progress-circle.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- build:js assets/js/app.min.js -->
+    <!-- core js -->
+    <script src="../../assets/js/app.js"></script>
+    <script src="../../assets/js/progress/url-script.js"></script>
+
+    <!-- Insert your dependencies here 
+    Dependencias de JS necesarias para el carrusel -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
+
+    <!-- Código necesario para el carrusel, checar la documentación en: 
+    https://kenwheeler.github.io/slick/ para más información -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $(".slider").slick({
+                centerMode: true,
+                centerPadding: '80px',
+                infinite: false,
+                dots: true,
+                arrows: true,
+                slidesToShow: 1,
+                adaptiveHeight: false
+             
+            });
+        });
+    </script>
+
+    <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
+    <script type="text/javascript">
+        show(0.11)
+        function tabSelect1() {
+            $("#collapseTwo").collapse("hide");
+        }
+        function tabSelect2() {
+            $("#collapseOne").collapse("hide");
+        }
+        $(".carousel-control-next").mouseover(function () {
+            $(".carousel-control-prev-icon-after").css("animation", "none");
+            $(".carousel-control-next-icon-after").css("animation", "none");
+        });
+        $(".carousel-control-next").on("mouseout", function () {
+            $(".carousel-control-prev-icon-after").css("animation", "example 2.3s infinite ease-in-out");
+            $(".carousel-control-next-icon-after").css("animation", "example 2.3s infinite ease-in-out");
+        });
+        $(".carousel-control-prev").mouseover(function () {
+            $(".carousel-control-prev-icon-after").css("animation", "none");
+            $(".carousel-control-next-icon-after").css("animation", "none");
+        });
+        $(".carousel-control-prev").on("mouseout", function () {
+            $(".carousel-control-prev-icon-after").css("animation", "example 2.3s infinite ease-in-out");
+            $(".carousel-control-next-icon-after").css("animation", "example 2.3s infinite ease-in-out");
+        });
+    </script>
+
+
+
+    <!-- endbuild -->
+
+    <!-- Insert your dependencies here -->
+
+</body>
+
+</html>

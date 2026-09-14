@@ -1,0 +1,58 @@
+#scroll-container {
+  border: 3px solid black;
+  border-radius: 5px;
+  height: 250px;
+  overflow: hidden;
+  background-color: black;
+}
+
+#scroll-text {
+  height: fit-content;
+  transform: translateY(100%);
+  animation: scroll 30s linear infinite;
+  animation-play-state: paused;
+}
+
+#scroll-text p,
+#scroll-text h2,
+#scroll-text li {
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+}
+
+#blue {
+  color: rgb(96, 178, 220);
+}
+
+#orange {
+  color: rgb(220, 131, 35);
+}
+
+#purple {
+  color: rgb(216, 37, 216);
+}
+
+#green {
+  color: rgb(21, 148, 21);
+}
+
+#yellow {
+  color: rgb(233, 183, 21);
+}
+
+#scroll-container:hover #scroll-text {
+  animation-play-state: running;
+}
+
+@keyframes scroll {
+  from {
+    -moz-transform: translateY(20%);
+    -webkit-transform: translateY(20%);
+    transform: translateY(20%);
+  }
+  to {
+    -moz-transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
+  }
+}

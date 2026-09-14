@@ -1,0 +1,125 @@
+.wrapper {
+  max-width: 60em;
+  margin: auto;
+  align-items: center;
+}
+
+.scroll-cards {
+  counter-reset: card;
+  position: relative;
+  display: block ;
+  padding-bottom: 20vh;
+}
+
+.scroll-cards > .scroll-cards__item + .scroll-cards__item {
+  margin-top: 20vh; /* cambiar separacion entre las tarjetas */
+}
+
+.scroll-cards h1 {
+  position: sticky;
+  top: 2rem;
+  font-size: 2em;
+  margin: 0 0 0.5em;
+}
+
+.scroll-cards__item {
+  --offset: 0.5em;
+  color: #000;
+  position: sticky;
+  top: max(16vh, 10em);
+  padding: 2em 1.5em;
+  min-height: 5em;
+  background: #fff;
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 5 * var(--offset));
+}
+
+h2 {
+  font-size: 1.25em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+p {
+  font-size: 1.25em;
+  line-height: 1.5;
+}
+
+/*
+If you use SASS you can shorten this one here like this:
+
+@for $i from 0 through 5 {
+  &:nth-of-type(#{$i}) {
+    transform: translate(calc((#{$i} - 1) * var(--offset)), calc((#{$i} - 1) * var(--offset)));
+  }
+}
+*/
+.scroll-cards__item:nth-of-type(0) {
+  transform: translate(calc((0 - 1) * var(--offset)), calc((0 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(1) {
+  transform: translate(calc((1 - 1) * var(--offset)), calc((1 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(2) {
+  transform: translate(calc((2 - 1) * var(--offset)), calc((2 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(3) {
+  transform: translate(calc((3 - 1) * var(--offset)), calc((3 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(4) {
+  transform: translate(calc((4 - 1) * var(--offset)), calc((4 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(5) {
+  transform: translate(calc((5 - 1) * var(--offset)), calc((5 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(6) {
+  transform: translate(calc((6 - 1) * var(--offset)), calc((6 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(7) {
+  transform: translate(calc((7 - 1) * var(--offset)), calc((7 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(8) {
+  transform: translate(calc((8 - 1) * var(--offset)), calc((8 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(9) {
+  transform: translate(calc((9 - 1) * var(--offset)), calc((9 - 1) * var(--offset)));
+}
+.scroll-cards__item:nth-of-type(10) {
+  transform: translate(calc((10 - 1) * var(--offset)), calc((10 - 1) * var(--offset)));
+}
+@media screen and (min-width: 37em) {
+  h1 {
+    font-size: 3em;
+  }
+  .scroll-cards__item {
+    --offset: 1em;
+    padding-left: 5em;
+  }
+  .scroll-cards__item:before {
+    counter-increment: card;
+    content: "0" counter(card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75em;
+    height: 2.75em;
+    background: #748b75;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    left: 1.25em;
+    top: 1.25em;
+    font-weight: bold;
+  }
+}
+
+@media screen and (min-width: 62em) {
+  .scroll-cards h1 {
+    font-size: 3em;
+  }
+  .scroll-cards__item {
+    --offset: 1.25em;
+    max-width: 42em;
+  }
+}
