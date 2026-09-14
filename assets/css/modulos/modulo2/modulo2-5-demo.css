@@ -212,7 +212,9 @@
 }
 
 .lesson-demo > [class*="col-"]:first-child .code {
-  min-width: 520px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
   margin: 0;
   padding: 24px 22px 28px;
   overflow-x: auto;
@@ -392,7 +394,7 @@
   .format-demo__result { gap: 8px; }
   .lesson-demo { border-radius: 8px; }
   .lesson-demo > [class*="col-"]:first-child::before { padding: 0 14px; }
-  .lesson-demo > [class*="col-"]:first-child .code { min-width: 460px; padding: 18px 12px 22px; font-size: 12px; }
+  .lesson-demo > [class*="col-"]:first-child .code { padding: 18px 12px 22px; font-size: 12px; }
   .lesson-demo > [class*="col-"]:last-child { padding: 0 14px 20px; }
   .lesson-demo > [class*="col-"]:last-child::before { margin: 0 -14px 16px; padding: 0 14px; }
 }
