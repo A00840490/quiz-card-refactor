@@ -17,6 +17,46 @@
 
     <!-- page plugins css -->
     <link href="../../assets/css/card-quiz.css" rel="stylesheet">
+    <style>
+        /* Quiz más amplio y con aire */
+        .game-quiz-container{
+            width: 100% !important;
+            max-width: 950px;
+            height: auto !important;
+            min-height: 620px;
+            padding: 2.5rem 2rem;
+            gap: 1.5rem;
+        }
+        .game-details-container{ width: 90% !important; }
+        .game-question-container{
+            width: 90% !important;
+            height: auto !important;
+            min-height: 7rem;
+            padding: 1.2rem;
+        }
+        .game-question-container h1{ font-size: 1.3rem !important; }
+        .game-options-container{
+            width: 90% !important;
+            height: auto !important;
+            gap: 1.2rem;
+        }
+        .game-options-container span{
+            width: 48% !important;
+            height: auto !important;
+            min-height: 5rem;
+            display: flex;
+        }
+        .game-options-container span label{ padding: 0.8rem; font-size: 1.05rem; flex: 1; height: auto; }
+        .next-button-container{ margin-top: 0.5rem; }
+        .next-button-container button{ height: 2.6rem; width: 10rem; font-size: 1rem; }
+        /* selección visible también para checkboxes (pregunta múltiple) */
+        .game-options-container input[type="checkbox"]{ display: none; }
+        .game-options-container input:checked + label{ background-color: #a4c7ff67; }
+        @media (max-width: 700px){
+            .game-quiz-container{ min-height: 0; padding: 1.5rem 1rem; }
+            .game-options-container span{ width: 100% !important; }
+        }
+    </style>
 
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
@@ -349,11 +389,13 @@
 
                 {
                     question: "Selecciona 3 ejemplos de navegadores modernos.",
-                    optionA: "Internet Explorer, Firefox y Safari",
-                    optionB: "Internet Explorer, Chrome y Safari",
-                    optionC: "Firefox, Safari y Chrome",
-                    optionD: "Internet Explorer, Firefox y Chrome",
-                    correctOption: "optionC"
+                    optionA: "Internet Explorer",
+                    optionB: "Firefox",
+                    optionC: "Safari",
+                    optionD: "Chrome",
+                    correctOption: "optionB",
+                    multiple: true,
+                    correctOptions: ["optionB", "optionC", "optionD"]
                 }
 
             ]
@@ -384,7 +426,10 @@
                 handleQuestions()
                 const currentQuestion = shuffledQuestions[index]
                 document.getElementById("question-number").innerHTML = questionNumber
-                document.getElementById("player-score").innerHTML = playerScore
+                document.getElementById("player-score").innerHTML = Math.round(playerScore * 100) / 100
+                //pregunta de selección múltiple usa checkboxes, las demás radio
+                const optionInputs = document.querySelectorAll('.game-options-container input.radio')
+                optionInputs.forEach((input) => { input.type = currentQuestion.multiple ? 'checkbox' : 'radio' })
                 document.getElementById("display-question").innerHTML = currentQuestion.question;
                 document.getElementById("option-one-label").innerHTML = currentQuestion.optionA;
                 document.getElementById("option-two-label").innerHTML = currentQuestion.optionB;
@@ -399,6 +444,43 @@
                 const currentQuestionAnswer = currentQuestion.correctOption //gets current Question's answer
                 const options = document.getElementsByName("option"); //gets all elements in dom with name of 'option' (in this the radio inputs)
                 let correctOption = null
+
+                //pregunta de selección múltiple: puntos parciales por cada acierto
+                if (currentQuestion.multiple) {
+                    const correctAnswers = currentQuestion.correctOptions
+                    let anyChecked = false
+                    options.forEach((option) => { if (option.checked) anyChecked = true })
+                    if (!anyChecked) {
+                        document.getElementById('option-modal').style.display = "flex"
+                        return
+                    }
+
+                    let earned = 0
+                    options.forEach((option) => {
+                        const labelId = option.labels[0].id
+                        const isCorrect = correctAnswers.includes(option.value)
+                        if (option.checked && isCorrect) {
+                            earned += 1 / correctAnswers.length
+                            document.getElementById(labelId).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
+                        }
+                        else if (option.checked && !isCorrect) {
+                            earned -= 1 / correctAnswers.length
+                            document.getElementById(labelId).style.backgroundColor = "rgba(250, 160, 160,0.5)"
+                        }
+                        else if (!option.checked && isCorrect) {
+                            //muestra las correctas que faltaron
+                            document.getElementById(labelId).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
+                        }
+                    })
+                    earned = Math.max(0, earned)
+                    playerScore = Math.round((playerScore + earned) * 100) / 100
+                    if (earned < 1) wrongAttempt++
+                    indexNumber++
+                    setTimeout(() => {
+                        questionNumber++
+                    }, 1000)
+                    return
+                }
 
                 options.forEach((option) => {
                     if (option.value === currentQuestionAnswer) {
@@ -530,104 +612,6 @@
 
         <!-- endbuild -->
 
-        <!-- Insert your dependencies here -->
-        <script>
-            const questionsContainer = document.querySelector('#questions');
-
-            const modal = document.querySelector('#modal-fs');
-            const modalMessage = modal.querySelector('#modal-message');
-            const modalScore = modal.querySelector('#modal-score');
-            const correctImg = modal.querySelector('#correct-img');
-            const incorrectImg = modal.querySelector('#incorrect-img');
-
-            document.addEventListener('DOMContentLoaded', function (_) {
-                const qs = generateQuestions();
-                questionsContainer.insertAdjacentHTML('afterbegin', qs);
-
-                $(".custom-control-label").on("click", function () {
-                    console.log('clicked')
-                    if ($(this).siblings().is(":checked")) {
-                        $(this).siblings().removeAttr("checked");
-                    } else {
-                        $(this).siblings().prop("checked", true);
-                    }
-                });
-
-                incorrectImg.style.display = "none";
-                correctImg.style.display = "none";
-            });
-
-
-            $(".custom-control-label").on("click", function () {
-                if ($(this).siblings().is(":checked")) {
-                    $(this).siblings().prop("checked", false);
-
-                } else {
-                    $(this).siblings().prop("checked", true);
-
-                }
-            });
-            //radio input "Correct" Class
-            function checkAll() {
-                var correct = 0;
-                var count = 0;
-                var passingGrade = 90;
-                $("div.question").each(function () {
-                    count++;
-                    var elem = $(this);
-                    $(this).find(".alertCorrect").css("display", "none");
-                    $(this).find(".alertWrong").css("display", "none");
-                    $(this).removeClass("correct");
-                    $(this).removeClass("incorrect");
-                    var isCorrect = true;
-                    $(this).find("input.custom-control-input").each(function () {
-                        if ($(this).hasClass("correct")) {
-                            if (!$(this).is(":checked")) {
-                                isCorrect = false;
-                            }
-                        } else {
-                            if ($(this).is(":checked")) {
-                                isCorrect = false;
-                            }
-                        }
-                    });
-                    if (isCorrect == true) {
-                        correct++;
-                        $(this).find(".alertCorrect").css("display", "block");
-                        $(this).addClass("correct");
-                    } else {
-                        $(this).find(".alertWrong").css("display", "block");
-                        $(this).addClass("incorrect");
-                    }
-                });
-
-                $(".score > span").html("Resultado: " + parseInt(correct * 100 / count) + "/100");
-                if (parseInt(correct * 100 / count) >= passingGrade) {
-                    $(".msg > span").html("¡Excelente!");
-                    $(".msg > span").css("color", "green")
-                } else if (parseInt(correct * 100 / count) <= 30) {
-                    $(".msg > span").html('Te invitamos a regresar al contenido para tu aprendizaje.');
-                }
-                let score = parseInt((correct * 100) / count);
-                modalScore.textContent = `${score} / 100`;
-
-                if (score >= 80) {
-                    modalMessage.textContent = "¡Excelente!"
-                    incorrectImg.style.display = "none";
-                    correctImg.style.display = "block";
-
-                } else {
-                    modalMessage.textContent = "Vuelve a intentarlo..."
-                    incorrectImg.style.display = "block";
-                    correctImg.style.display = "none";
-
-                    if (score < 25) {
-                        // alert("Le recomendamos volver a leer esta sección para tener mayor puntuaje que 25.");
-                    }
-                }
-            }
-
-        </script>
 
 </body>
 
