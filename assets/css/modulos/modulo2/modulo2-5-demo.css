@@ -125,14 +125,174 @@
   min-height: 54px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
   margin: 0 -28px 22px;
   padding: 0 28px;
   border-bottom: 1px solid var(--demo-line);
-  color: var(--demo-muted);
+  color: #000000;
   font: 700 11px/1.2 Arial, sans-serif;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+/* Shared presentation for the remaining code examples in Module 2. */
+.lesson-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+  align-items: stretch;
+  max-width: 1080px;
+  margin: 1.75rem auto;
+  overflow: hidden;
+  border: 1px solid var(--demo-line, #dce3ec);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.lesson-demo > [class*="col-"] {
+  flex: none;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+}
+
+.lesson-demo > [class*="col-"]:first-child {
+  background: #171b24;
+  color: #d7deea;
+}
+
+.lesson-demo > [class*="col-"]:first-child::before,
+.lesson-demo-stack::before,
+.lesson-demo-activity--editor::before {
+  content: "●  ●  ●    ejemplo.html";
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #212734;
+  color: #b8c1cf;
+  font: 600 12px/1.2 "Courier New", monospace;
+}
+
+.lesson-demo > [class*="col-"]:last-child {
+  padding: 0 28px 28px;
+  border-left: 1px solid #dce3ec;
+  background: #ffffff;
+  color: #172033;
+}
+
+.lesson-demo > [class*="col-"]:last-child::before,
+.lesson-demo-activity--preview::before {
+  content: "Previsualización";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  margin: 0 -28px 22px;
+  padding: 0 28px;
+  border-bottom: 1px solid #dce3ec;
+  color: #000000;
+  font: 700 11px/1.2 Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.lesson-demo > [class*="col-"]:first-child .card,
+.lesson-demo > [class*="col-"]:first-child .container-fluid,
+.lesson-demo > [class*="col-"]:first-child .card-block {
+  height: auto !important;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.lesson-demo > [class*="col-"]:first-child .code {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 24px 22px 28px;
+  overflow-x: auto;
+  color: #d7deea;
+  font: 14px/1.75 "Courier New", Consolas, monospace;
+  text-align: left;
+}
+
+.lesson-demo > [class*="col-"]:last-child > p:first-of-type { margin-top: 0; }
+
+.lesson-demo > [class*="col-"]:last-child .example > .card {
+  margin-bottom: 16px;
+  border: 1px solid #dce3ec;
+  border-radius: 7px;
+  box-shadow: none;
+}
+
+.lesson-demo > [class*="col-"]:last-child .example img {
+  max-width: 100%;
+  height: auto;
+}
+
+.lesson-demo-stack {
+  overflow: hidden;
+  border: 1px solid #dce3ec;
+  border-radius: 14px;
+  background: #171b24;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.lesson-demo-stack > .card {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.lesson-demo-stack > .w-100 {
+  padding: 0 20px 20px;
+  background: #ffffff;
+}
+
+.lesson-demo-stack > .w-100::before {
+  content: "Previsualización";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  margin: 0 -20px 20px;
+  border-bottom: 1px solid #dce3ec;
+  color: #000000;
+  font: 700 11px/1.2 Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.lesson-demo-activity {
+  overflow: hidden;
+  border: 1px solid #dce3ec;
+  border-radius: 14px;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.lesson-demo-activity--preview,
+.lesson-demo-activity--editor { padding: 0 20px 20px !important; }
+
+.lesson-demo-activity--preview::before,
+.lesson-demo-activity--editor::before { margin: 0 -20px 20px; }
+
+.lesson-demo-activity--editor { background: #171b24; }
+
+.lesson-demo-activity--editor .card-title,
+.lesson-demo-activity--editor .card-info { color: #d7deea; }
+
+.lesson-demo-activity--editor .code {
+  margin: 0;
+  padding: 24px 22px 28px;
+  overflow-x: auto;
 }
 
 .format-demo__output {
@@ -217,8 +377,10 @@
 
 
 @media (max-width: 991px) {
-  .format-demo__panels { grid-template-columns: 1fr; }
+  .format-demo__panels,
+  .lesson-demo { grid-template-columns: 1fr; }
   .format-demo__preview { border-top: 1px solid var(--demo-line); border-left: 0; }
+  .lesson-demo > [class*="col-"]:last-child { border-top: 1px solid #dce3ec; border-left: 0; }
 }
 
 @media (max-width: 575px) {
@@ -230,6 +392,11 @@
   .format-demo__preview { padding: 0 14px 20px; }
   .format-demo__preview-head { margin: 0 -14px 16px; padding: 0 14px; }
   .format-demo__result { gap: 8px; }
+  .lesson-demo { border-radius: 8px; }
+  .lesson-demo > [class*="col-"]:first-child::before { padding: 0 14px; }
+  .lesson-demo > [class*="col-"]:first-child .code { padding: 18px 12px 22px; font-size: 12px; }
+  .lesson-demo > [class*="col-"]:last-child { padding: 0 14px 20px; }
+  .lesson-demo > [class*="col-"]:last-child::before { margin: 0 -14px 16px; padding: 0 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
