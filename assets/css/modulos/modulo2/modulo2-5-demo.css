@@ -1,0 +1,272 @@
+.format-demo {
+  --demo-blue: #0f4c91;
+  --demo-blue-soft: #eaf3ff;
+  --demo-ink: #172033;
+  --demo-muted: #667085;
+  --demo-line: #dce3ec;
+  --demo-editor: #171b24;
+  --demo-editor-top: #212734;
+  --demo-code: #d7deea;
+  --demo-tag: #79c0ff;
+  --demo-symbol: #8b98aa;
+  --demo-accent: #f1b84b;
+  max-width: 1080px;
+  margin: 1.75rem auto 0;
+  border: 1px solid var(--demo-line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.format-demo__panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+  align-items: stretch;
+}
+
+.format-demo__editor,
+.format-demo__preview {
+  min-width: 0;
+}
+
+.format-demo__editor {
+  position: relative;
+  background: var(--demo-editor);
+  color: var(--demo-code);
+}
+
+.format-demo__bar {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  background: var(--demo-editor-top);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.format-demo__dots {
+  display: flex;
+  gap: 7px;
+}
+
+.format-demo__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.format-demo__dot--red { background: #ff6b62; }
+.format-demo__dot--yellow { background: #f6bd4f; }
+.format-demo__dot--green { background: #38c878; }
+
+.format-demo__filename {
+  margin-left: 4px;
+  color: #b8c1cf;
+  font: 600 12px/1.2 "Courier New", monospace;
+}
+
+.format-demo__language {
+  margin-left: auto;
+  color: #8290a4;
+  font: 700 10px/1.2 Arial, sans-serif;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.format-demo__code {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 18px;
+  padding: 24px 22px 28px;
+  overflow-x: auto;
+  font: 14px/1.75 "Courier New", Consolas, monospace;
+  text-align: left;
+}
+
+.format-demo__numbers {
+  color: #586477;
+  text-align: right;
+  user-select: none;
+}
+
+.format-demo__source {
+  min-width: 520px;
+  color: var(--demo-code);
+}
+
+.format-demo__line {
+  display: block;
+  margin: 0 -8px;
+  padding: 0 8px;
+  border-left: 2px solid transparent;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.format-demo__line:hover {
+  background: rgba(121, 192, 255, 0.08);
+  border-left-color: var(--demo-tag);
+}
+
+.format-demo__symbol { color: var(--demo-symbol); }
+.format-demo__tag { color: var(--demo-tag); }
+.format-demo__text { color: var(--demo-code); }
+.format-demo__comment { color: #7fa26d; }
+
+.format-demo__preview {
+  padding: 0 28px 28px;
+  background: #ffffff;
+  border-left: 1px solid var(--demo-line);
+}
+
+.format-demo__preview-head {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 -28px 22px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--demo-line);
+  color: var(--demo-muted);
+  font: 700 11px/1.2 Arial, sans-serif;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.format-demo__live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2ba96b;
+  box-shadow: 0 0 0 4px rgba(43, 169, 107, 0.12);
+}
+
+.format-demo__output {
+  display: grid;
+  gap: 8px;
+}
+
+.format-demo__result {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 48px;
+  margin: 0;
+  padding: 9px 11px 9px 14px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: var(--demo-ink);
+  background: #f8fafc;
+  line-height: 1.4;
+  text-align: left;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.format-demo__result::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--demo-blue);
+  opacity: 0.28;
+  transition: opacity 180ms ease;
+}
+
+.format-demo__result:hover {
+  transform: translateX(3px);
+  border-color: #bfd3eb;
+  background: var(--demo-blue-soft);
+}
+
+.format-demo__result:hover::before { opacity: 1; }
+
+.format-demo__sample {
+  min-width: 0;
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 16px;
+}
+
+.format-demo__sample mark {
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: #ffe28a;
+  color: #503b00;
+}
+
+.format-demo__sample del { color: #8b4b55; }
+
+.format-demo__badge {
+  flex: 0 0 auto;
+  min-width: 58px;
+  padding: 4px 7px;
+  border: 1px solid #c9d9ec;
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--demo-blue);
+  font: 700 10px/1.2 "Courier New", monospace;
+  text-align: center;
+  letter-spacing: 0;
+  opacity: 0.64;
+  transition: opacity 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.format-demo__result:hover .format-demo__badge {
+  opacity: 1;
+  color: #093b8b;
+  border-color: #8eb2dc;
+}
+
+.format-demo__tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--demo-line);
+  color: var(--demo-muted);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.format-demo__tip-icon {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--demo-blue-soft);
+  color: var(--demo-blue);
+  font-weight: 700;
+}
+
+@media (max-width: 991px) {
+  .format-demo__panels { grid-template-columns: 1fr; }
+  .format-demo__preview { border-top: 1px solid var(--demo-line); border-left: 0; }
+}
+
+@media (max-width: 575px) {
+  .format-demo { margin-top: 1.25rem; border-radius: 8px; }
+  .format-demo__bar { padding: 0 14px; }
+  .format-demo__language { display: none; }
+  .format-demo__code { column-gap: 12px; padding: 18px 12px 22px; font-size: 12px; }
+  .format-demo__source { min-width: 460px; }
+  .format-demo__preview { padding: 0 14px 20px; }
+  .format-demo__preview-head { margin: 0 -14px 16px; padding: 0 14px; }
+  .format-demo__result { gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .format-demo__line,
+  .format-demo__result,
+  .format-demo__badge { transition: none; }
+  .format-demo__result:hover { transform: none; }
+}
