@@ -282,67 +282,62 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script>
-        // Simple example, see optional options for more configuration.
-        const pickr = Pickr.create({
-            el: '.color-picker',
-            theme: 'classic', // or 'monolith', or 'nano'
-            default: '#000000',
+        (function () {
+            var inputs = {
+                r: document.getElementById('rgb-r'),
+                g: document.getElementById('rgb-g'),
+                b: document.getElementById('rgb-b')
+            };
+            var outputs = {
+                r: document.getElementById('rgb-r-out'),
+                g: document.getElementById('rgb-g-out'),
+                b: document.getElementById('rgb-b-out')
+            };
+            var swatch = document.getElementById('rgb-swatch');
+            var hexLabel = document.getElementById('rgb-hex');
+            var rgbLabel = document.getElementById('rgb-rgb');
+            var mixer = document.querySelector('.rgb-mixer');
 
-            swatches: [
-                'rgba(244, 67, 54, 1)',
-                'rgba(233, 30, 99, 0.95)',
-                'rgba(156, 39, 176, 0.9)',
-                'rgba(103, 58, 183, 0.85)',
-                'rgba(63, 81, 181, 0.8)',
-                'rgba(33, 150, 243, 0.75)',
-                'rgba(3, 169, 244, 0.7)',
-                'rgba(0, 188, 212, 0.7)',
-                'rgba(0, 150, 136, 0.75)',
-                'rgba(76, 175, 80, 0.8)',
-                'rgba(139, 195, 74, 0.85)',
-                'rgba(205, 220, 57, 0.9)',
-                'rgba(255, 235, 59, 0.95)',
-                'rgba(255, 193, 7, 1)'
-            ],
-
-            components: {
-
-                // Main components
-                preview: true,
-                opacity: true,
-                hue: true,
-
-                // Input / output Options
-                interaction: {
-                    hex: true,
-                    rgba: true,
-                    hsla: true,
-                    input: true,
-                    save: true
-                }
+            function toHex(n) {
+                return ('0' + Number(n).toString(16)).slice(-2);
             }
-        });
 
-        pickr.on('save', (color, instance) => {
-            const hexcolor = color.toHEXA().toString(0);
-            const rgbcolor = color.toRGBA().toString(0);
-            const hslcolor = color.toHSLA().toString(0);
+            function update() {
+                var r = Number(inputs.r.value);
+                var g = Number(inputs.g.value);
+                var b = Number(inputs.b.value);
+                var hex = '#' + toHex(r) + toHex(g) + toHex(b);
+                var rgb = 'rgb(' + r + ', ' + g + ', ' + b + ')';
 
-            document.getElementById('color-code1').innerHTML = hexcolor;
-            document.getElementById('color-code2').innerHTML = rgbcolor;
-            document.getElementById('color-code3').innerHTML = hslcolor;
-            document.getElementById('color-code4').innerHTML = hexcolor;
-            document.getElementById('seccion1').style.color = rgbcolor;
-            document.getElementById('seccion2').style.background = rgbcolor;
-            document.getElementById('seccion3').style.setProperty("border-color", rgbcolor, "important");
+                outputs.r.textContent = r;
+                outputs.g.textContent = g;
+                outputs.b.textContent = b;
+                swatch.style.backgroundColor = rgb;
+                hexLabel.textContent = hex;
+                rgbLabel.textContent = rgb;
+                if (mixer) {
+                    mixer.style.setProperty('--mix-color', rgb);
+                }
 
-            var backcode = "linear-gradient(#ffffff, ";
-            backcode = backcode + hexcolor + ")";
-            console.log(backcode);
-            document.getElementById('seccion4').style.backgroundImage = backcode;
-        })
+                document.getElementById('color-code1').textContent = hex;
+                document.getElementById('color-code2').textContent = rgb;
+                document.getElementById('color-code3').textContent = hex;
+                document.getElementById('color-code4').textContent = hex;
+
+                document.getElementById('seccion1').style.color = rgb;
+                document.getElementById('seccion2').style.background = rgb;
+                document.getElementById('seccion3').style.setProperty('border-color', rgb, 'important');
+                document.getElementById('seccion4').style.backgroundImage =
+                    'linear-gradient(#ffffff, ' + hex + ')';
+            }
+
+            ['r', 'g', 'b'].forEach(function (key) {
+                inputs[key].addEventListener('input', update);
+            });
+
+            update();
+        })();
     </script>
 
 </body>
