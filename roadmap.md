@@ -5,3 +5,4 @@
 - [x] Validar las páginas en escritorio y móvil, sin alterar navegación ni progreso.
 - [x] Convertir los recursos del módulo 2-10 en un catálogo visual adaptable.
 - [x] Reemplazar el acordeón del módulo 3-10 por una rueda verde de seis propiedades.
+- [x] Convertir las unidades absolutas y relativas del módulo 3-15 en tarjetas progresivas al desplazarse.
