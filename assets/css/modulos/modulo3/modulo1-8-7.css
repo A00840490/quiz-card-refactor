@@ -75,8 +75,8 @@
 }
 
 .property-wheel__item:nth-of-type(1) .property-wheel__text {
-  top: 16%;
-  left: 56%;
+  top: 20%;
+  left: 51%;
 }
 
 .property-wheel__item:nth-of-type(2) .property-wheel__text {
@@ -86,22 +86,22 @@
 
 .property-wheel__item:nth-of-type(3) .property-wheel__text {
   top: 66%;
-  left: 56%;
+  left: 51%;
 }
 
 .property-wheel__item:nth-of-type(4) .property-wheel__text {
   top: 66%;
-  left: 10%;
+  left: 16%;
 }
 
 .property-wheel__item:nth-of-type(5) .property-wheel__text {
-  top: 40%;
-  left: 2%;
+  top: 46%;
+  left: 7%;
 }
 
 .property-wheel__item:nth-of-type(6) .property-wheel__text {
-  top: 16%;
-  left: 10%;
+  top: 19%;
+  left: 15%;
 }
 
 .property-wheel__text h2 {
@@ -183,31 +183,34 @@
 }
 
 .property-wheel__item:nth-of-type(2):hover .property-wheel__text,
+.property-wheel__item:nth-of-type(2):focus-within .property-wheel__text {
+
+  left: 55%;
+
+}
+
+.property-wheel__item:nth-of-type(2):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(2):focus-within .property-wheel__text,
 .property-wheel__item:nth-of-type(3):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(3):focus-within .property-wheel__text {
-  left: 52%;
 }
 
 .property-wheel__item:nth-of-type(4):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(4):focus-within .property-wheel__text,
 .property-wheel__item:nth-of-type(5):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(5):focus-within .property-wheel__text {
-  left: 2%;
 }
 
 .property-wheel__item:nth-of-type(1):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(1):focus-within .property-wheel__text,
 .property-wheel__item:nth-of-type(6):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(6):focus-within .property-wheel__text {
-  top: 12%;
 }
 
 .property-wheel__item:nth-of-type(3):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(3):focus-within .property-wheel__text,
 .property-wheel__item:nth-of-type(4):hover .property-wheel__text,
 .property-wheel__item:nth-of-type(4):focus-within .property-wheel__text {
-  top: 58%;
 }
 
 @media (max-width: 575px) {
