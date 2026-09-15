@@ -2,7 +2,7 @@
   --wheel-size: min(100%, 860px);
   position: relative;
   width: var(--wheel-size);
-  height: var(--wheel-size);
+  aspect-ratio: 1;
   margin: 42px auto 30px;
 }
 
