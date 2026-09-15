@@ -39,12 +39,13 @@
   grid-column: 1;
   grid-row: 1 / span 2;
   align-self: stretch;
-  display: inline-flex;
-  width: 100%;
-  height: auto;
+  display: flex;
+  width: calc(100% + 20px);
+  height: calc(100% + 40px);
+  margin: -20px 0 -20px -20px;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 7px 0 0 7px;
   background: var(--catalog-blue);
   color: #ffffff;
   font-size: 32px;
