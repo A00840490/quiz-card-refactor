@@ -404,3 +404,8 @@
   .format-demo__badge { transition: none; }
   .format-demo__result:hover { transform: none; }
 }
+
+/* Filename variant for CSS lessons. */
+.lesson-demo--css > [class*="col-"]:first-child::before {
+  content: "●  ●  ●    colores.css";
+}
