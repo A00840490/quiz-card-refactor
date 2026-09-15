@@ -227,7 +227,6 @@
 
 .lesson-demo > [class*="col-"]:last-child .example > .card {
   margin-bottom: 16px;
-  border: 1px solid #dce3ec;
   border-radius: 7px;
   box-shadow: none;
 }

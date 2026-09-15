@@ -8404,7 +8404,7 @@ label.success {
   position: relative;
   background-color: #ffffff;
   margin-bottom: 30px;
-  border: 1px solid #e6ecf5;
+  border: 0px solid #e6ecf5;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
   -webkit-transition: all 0.3s ease-in-out;
@@ -11533,7 +11533,6 @@ a.modulo-siguiente:visited:hover {
   white-space: normal;
 }
 
-/* samples de codigo */
 .code {
   font-family: "Source Code Pro", monospace;
   color: #2786b2;
@@ -11592,8 +11591,6 @@ a.modulo-siguiente:visited:hover {
 .example {
   font-family: "Times New Roman", Times, serif;
   color: black;
-  outline: rgb(0, 0, 0, 0.3) solid 0.5px;
-  border-radius: 1px;
   border-style: initial;
   margin-bottom: 10px;
 }
