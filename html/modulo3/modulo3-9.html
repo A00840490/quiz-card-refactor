@@ -116,36 +116,65 @@
                                             <h2 class="card-title mrg-top-20">Propiedades que Utilizan Colores</h2>
                                             <p>Podemos utilizar colores en muchas propiedades de elementos HTML como el
                                                 color del texto, fondos, rellenos, bordes, sombras y más. A continuación,
-                                                te mostraremos un selector de colores. El selector contiene todos los
-                                                colores que se pueden utilizar en cualquier página web junto con sus
-                                                códigos hexadecimales y sus equivalencias para el resto de los formatos
-                                                que describimos anteriormente. Observa cómo cambian los colores de los
-                                                ejemplos después de seleccionar un color.</p>
-                                            <div class="text-center -50 mrg-top-30">
-                                                <p class="mrg-top-10">Haz clic <img src="../../assets/images/clic.svg"
-                                                        class="mrg-right-5"> en el cuadro para seleccionar un color para
-                                                    los ejemplos y visualizar sus equivalencias en código hexadecimal,
-                                                    <b>RGBA</b> y <b>HSLA</b>. Utiliza el primer slider para cambiar la
-                                                    matiz del color y el segundo para cambiar la opacidad. Para aplicar
-                                                    el color en los ejemplos de abajo, haz clic <img
-                                                        src="../../assets/images/clic.svg" class="mrg-right-5"> en el
-                                                    botón <b>save</b>.</p>
-                                                <div class="alert alert-secondary">
-                                                    <div class="color-picker"></div>
+                                                te mostraremos un mezclador de color <b>RGB</b>. Mueve los deslizadores
+                                                para crear tu propio color y observa cómo cambian al instante tanto el
+                                                código de la hoja de estilos como la previsualización.</p>
+
+                                            <div class="rgb-mixer mrg-top-20">
+                                                <div class="rgb-mixer__sliders">
+                                                    <label class="rgb-mixer__row" for="rgb-r">
+                                                        <span class="rgb-mixer__label">R</span>
+                                                        <input type="range" min="0" max="255" value="52" id="rgb-r"
+                                                            class="rgb-mixer__slider rgb-mixer__slider--r">
+                                                        <output class="rgb-mixer__value" id="rgb-r-out">52</output>
+                                                    </label>
+                                                    <label class="rgb-mixer__row" for="rgb-g">
+                                                        <span class="rgb-mixer__label">G</span>
+                                                        <input type="range" min="0" max="255" value="120" id="rgb-g"
+                                                            class="rgb-mixer__slider rgb-mixer__slider--g">
+                                                        <output class="rgb-mixer__value" id="rgb-g-out">120</output>
+                                                    </label>
+                                                    <label class="rgb-mixer__row" for="rgb-b">
+                                                        <span class="rgb-mixer__label">B</span>
+                                                        <input type="range" min="0" max="255" value="196" id="rgb-b"
+                                                            class="rgb-mixer__slider rgb-mixer__slider--b">
+                                                        <output class="rgb-mixer__value" id="rgb-b-out">196</output>
+                                                    </label>
+                                                </div>
+                                                <div class="rgb-mixer__chip">
+                                                    <span class="rgb-mixer__swatch" id="rgb-swatch"></span>
+                                                    <span class="rgb-mixer__codes">
+                                                        <b id="rgb-hex">#3478c4</b>
+                                                        <span id="rgb-rgb">rgb(52, 120, 196)</span>
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="row">
+
+                                            <div class="row mrg-top-20 lesson-demo lesson-demo--css">
                                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <h2 class="text-center card-title">CSS</h2>
                                                             <div class="card">
-                                                                <div class="container-fluid"
-                                                                    style=" background-color: #1a1a1a">
+                                                                <div class="container-fluid">
                                                                     <p class="code">
-                                                                        <span class="codetag">.seccion1</span>{ <br>
-                                                                        &nbsp;&nbsp;&nbsp;color: <span class="codetext"
-                                                                            id="color-code1">#000000</span>; <br>
+                                                                        <span class="codetag">.seccion1</span> {<br>
+                                                                        &nbsp;&nbsp;color: <span class="codetext"
+                                                                            id="color-code1">#3478c4</span>;<br>
+                                                                        }<br><br>
+                                                                        <span class="codetag">.seccion2</span> {<br>
+                                                                        &nbsp;&nbsp;background: <span class="codetext"
+                                                                            id="color-code2">rgb(52, 120, 196)</span>;<br>
+                                                                        }<br><br>
+                                                                        <span class="codetag">.seccion3</span> {<br>
+                                                                        &nbsp;&nbsp;border-style: <span
+                                                                            class="codetext">solid</span>;<br>
+                                                                        &nbsp;&nbsp;border-color: <span class="codetext"
+                                                                            id="color-code3">#3478c4</span>;<br>
+                                                                        }<br><br>
+                                                                        <span class="codetag">.seccion4</span> {<br>
+                                                                        &nbsp;&nbsp;background-image: <span
+                                                                            class="codetext">linear-gradient(#ffffff, <span
+                                                                                id="color-code4">#3478c4</span>)</span>;<br>
                                                                         }
                                                                     </p>
                                                                 </div>
@@ -154,131 +183,21 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <h2 class="text-center card-title">HTML</h2>
-                                                            <div class="card">
-                                                                <div class="container-fluid">
-                                                                    <div style="min-height: 120px; padding: 20px;">
-                                                                        <p id="seccion1">El color del texto de esta
-                                                                            sección está siendo modificado.</p>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <p id="seccion1">El color del texto de esta sección está siendo
+                                                        modificado.</p>
+                                                    <div id="seccion2" style="padding: 14px; border-radius: 6px;">
+                                                        <p class="mrg-btm-0">El color del fondo de esta sección está
+                                                            siendo modificado.</p>
                                                     </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid"
-                                                                    style=" background-color: #1a1a1a">
-                                                                    <p class="code">
-                                                                        <span class="codetag">.seccion2</span>{ <br>
-                                                                        &nbsp;&nbsp;&nbsp;background: <span
-                                                                            class="codetext"
-                                                                            id="color-code2">#ffffff</span>; <br>
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div id="seccion3"
+                                                        style="margin-top: 14px; padding: 14px; border-style: solid; border-radius: 6px;">
+                                                        <p class="mrg-btm-0">El color del borde de esta sección está
+                                                            siendo modificado.</p>
                                                     </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid">
-                                                                    <div id="seccion2"
-                                                                        style="min-height: 120px; padding: 20px;">
-                                                                        <p>El color del fondo de está sección está
-                                                                            siendo modificado.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid"
-                                                                    style=" background-color: #1a1a1a">
-                                                                    <p class="code">
-                                                                        <span class="codetag">.seccion3</span>{ <br>
-                                                                        &nbsp;&nbsp;&nbsp;border-style:<span
-                                                                            class="codetext"> solid</span>; <br>
-                                                                        &nbsp;&nbsp;&nbsp;border-color:<span
-                                                                            class="codetext" id="color-code3">
-                                                                            #888da8</span>; <br>
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid">
-                                                                    <div id="seccion3"
-                                                                        style="min-height: 120px; padding: 20px; border-style: solid;">
-                                                                        <p>El color del borde de esta sección está
-                                                                            siendo modificado.</p>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid"
-                                                                    style=" background-color: #1a1a1a">
-                                                                    <p class="code">
-                                                                        <span class="codetag">.seccion4</span>{ <br>
-                                                                        &nbsp;&nbsp;&nbsp;background-image: <span
-                                                                            class="codetext">linear-gradient(#ffffff,
-                                                                            <span
-                                                                                id="color-code4">#ffffff</span>)</span>;<br>
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid">
-                                                                    <div id="seccion4"
-                                                                        style="min-height: 120px; padding: 20px;">
-                                                                        <p>El color del gradiente de esta sección está
-                                                                            siendo modificado.</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div id="seccion4"
+                                                        style="margin-top: 14px; padding: 14px; border-radius: 6px;">
+                                                        <p class="mrg-btm-0">El color del gradiente de esta sección está
+                                                            siendo modificado.</p>
                                                     </div>
                                                 </div>
                                             </div>
