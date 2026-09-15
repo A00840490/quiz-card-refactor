@@ -166,6 +166,7 @@
     flex-direction: column;
     min-height: 0;
     padding-top: calc(var(--wheel-size) + 28px);
+        overflow: hidden;
   }
 
   .property-wheel__item {
