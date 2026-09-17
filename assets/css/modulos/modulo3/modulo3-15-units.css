@@ -42,7 +42,6 @@
   width: min(100%, 650px);
   min-height: 150px;
   overflow: hidden;
-  border: 1px solid rgba(29, 71, 122, 0.13);
   border-radius: 12px;
   background: #ffffff;
   box-shadow: 0 16px 36px rgba(22, 44, 77, 0.18);
