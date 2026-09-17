@@ -16,48 +16,6 @@
     <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
 
     <!-- page plugins css -->
-    <link href="../../assets/css/card-quiz.css" rel="stylesheet">
-    <style>
-        /* Quiz más amplio y con aire */
-        .game-quiz-container{
-            width: 100% !important;
-            max-width: 950px;
-            height: auto !important;
-            min-height: 620px;
-            padding: 2.5rem 2rem;
-            gap: 1.5rem;
-        }
-        .game-details-container{ width: 90% !important; }
-        .game-question-container{
-            width: 90% !important;
-            height: auto !important;
-            min-height: 7rem;
-            padding: 1.2rem;
-        }
-        .game-question-container h1{ font-size: 1.3rem !important; }
-        .game-options-container{
-            width: 90% !important;
-            height: auto !important;
-            gap: 1.2rem;
-        }
-        .game-options-container span{
-            width: 48% !important;
-            min-height: 110px;
-            display: flex;
-        }
-        .game-options-container span label{ padding: 0.8rem; font-size: 1.05rem; flex: 1; width: 100%; min-height: 100%; margin: 0; box-sizing: border-box; border-radius: 17px; }
-        .next-button-container{ margin-top: 0.5rem; }
-        .next-button-container button{ height: 2.6rem; width: 10rem; font-size: 1rem; }
-        /* selección visible también para checkboxes (pregunta múltiple) */
-        .game-options-container input[type="checkbox"]{ display: none; }
-        .game-options-container span:has(input:checked),
-        .game-options-container input:checked + label{ background-color: #a4c7ff67; }
-        @media (max-width: 700px){
-            .game-quiz-container{ min-height: 0; padding: 1.5rem 1rem; }
-            .game-options-container span{ width: 100% !important; }
-        }
-    </style>
-
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -69,7 +27,7 @@
 
 </head>
 
-<body class="header-info side-nav-dark text-justify" onload="NextQuestion(0)">
+<body class="header-info side-nav-dark text-justify">
     <div class="app">
         <div class="layout">
             <!-- Side Nav START -->
@@ -115,92 +73,11 @@
                             </div>
                         </div>
 
-                            <!-- card QUIZ -->
-                            <div class="card">
-                                <div class="card-block">
+                        <div class="card">
+                            <div class="card-block">
 
-                                    <!-- card QUIZ -->
-
-                                    <!-- creating a modal for when quiz ends -->
-                                    <div class="modal-container" id="score-modal">
-                                    <div class="modal-content-container">
-                                        <h1>Felicidades, haz terminado el ejercicio.</h1>
-
-                                        <div class="grade-details">
-                                        <p>
-                                            Respuestas Incorrectas :
-                                            <span id="wrong-answers"></span>
-                                        </p>
-                                        <p>
-                                            Respuestas Correctas :
-                                            <span id="right-answers"></span>
-                                        </p>
-                                        <p>
-                                            Calificación : <span id="grade-percentage"></span>%
-                                        </p>
-                                        <p><span id="remarks"></span></p>
-                                        </div>
-
-                                        <div class="modal-button-container">
-                                        <button onclick="closeScoreModal()">Continuar</button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <!-- end of modal of quiz details-->
-
-                                    <div class="game-quiz-container" style="margin: 0 auto;">
-                                    <div class="game-details-container">
-                                        <h1>Puntaje : <span id="player-score">0</span> / 6</h1>
-                                        <h1>
-                                        Pregunta : <span id="question-number">1</span> / 6
-                                        </h1>
-                                    </div>
-
-                                    <div class="game-question-container">
-                                        <h1 id="display-question" style="margin:0 !important  ;">Es el lenguaje que le da estructura a las páginas web.</h1>
-                                    </div>
-
-                                    <div class="game-options-container">
-                                        <div class="modal-container" id="option-modal" style="display: none;">
-                                        <div class="modal-content-container">
-                                            <h1>Selecciona una opción.</h1>
-
-                                            <div class="modal-button-container">
-                                            <button onclick="closeOptionModal()">
-                                                Continuar
-                                            </button>
-                                            </div>
-                                        </div>
-                                        </div>
-
-                                        <span>
-                                        <input type="radio" id="option-one" name="option" class="radio" value="optionA">
-                                        <label for="option-one" class="option" id="option-one-label" style="">Qué</label>
-                                        </span>
-
-                                        <span>
-                                        <input type="radio" id="option-two" name="option" class="radio" value="optionB">
-                                        <label for="option-two" class="option" id="option-two-label">Cómo </label>
-                                        </span>
-
-                                        <span>
-                                        <input type="radio" id="option-three" name="option" class="radio" value="optionC">
-                                        <label for="option-three" class="option" id="option-three-label">Por qué</label>
-                                        </span>
-
-                                        <span>
-                                        <input type="radio" id="option-four" name="option" class="radio" value="optionD">
-                                        <label for="option-four" class="option" id="option-four-label" style="">Quién</label>
-                                        </span>
-                                    </div>
-
-                                    <div class="next-button-container">
-                                        <button onclick="handleNextQuestion()">
-                                        Siguiente
-                                        </button>
-                                    </div>
-                                    </div>
-
+                                <div id="cardQuiz">
+                                </div>
 
                             </div>
                         </div>
@@ -305,42 +182,10 @@
         <!-- core js -->
         <script src="../../assets/js/app.js"></script>
         <script src="../../assets/js/progress/url-script.js"></script>
-
-        <script>
-            var questionList = $(".question");
-            function swap(a, b, arr) {
-                var temp = arr[a];
-                arr[a] = arr[b];
-                arr[b] = temp;
-                return arr;
-            }
-            var n = questionList.length;
-            for (var i = 0; i < n; i++) {
-                var randomP = Math.floor(Math.random() * (questionList.length));
-                questionList = swap(i, randomP, questionList);
-                console.log(questionList);
-            }
-            var containers = $(".question-container");
-            var m = containers.length;
-            for (var i = 0; i < n; i++) {
-                console.log(questionList[i]);
-                console.log(Math.floor(i / Math.floor(n / m)))
-                containers[Math.floor(i / Math.floor(n / m))].append(questionList[i]);
-            }
-            $(".question-text").each(function (index) {
-                console.log($(this).text())
-                var cN = $(this).text().split(".", 1);
-                var cT = $(this).text();
-                cT = cT.substring(cN.length);
-                $(this).text((index + 1).toString() + cT);
-            })
-
-        </script>
+        <script src="../../assets/js/recycled/card-quiz.js"></script>
 
         <script>
 
-            //this would be the object shape for storing the questions  
-            //you can change the questions to your own taste or even add more questions..
             const questions = [
                 {
                     question: "Es el lenguaje que le da estructura a las páginas web",
@@ -400,218 +245,16 @@
 
             ]
 
-
-            let shuffledQuestions = [] //empty array to hold shuffled selected questions out of all available questions
-
-            function handleQuestions() { 
-                //function to shuffle and push 10 questions to shuffledQuestions array
-            //app would be dealing with 10questions per session
-                while (shuffledQuestions.length <= 5) {
-                    const random = questions[Math.floor(Math.random() * questions.length)]
-                    if (!shuffledQuestions.includes(random)) {
-                        shuffledQuestions.push(random)
-                    }
-                }
-            }
-
-
-            let questionNumber = 1 //holds the current question number
-            let playerScore = 0  //holds the player score
-            let wrongAttempt = 0 //amount of wrong answers picked by player
-            let indexNumber = 0 //will be used in displaying next question
-
-            // function for displaying next question in the array to dom
-            //also handles displaying players and quiz information to dom
-            function NextQuestion(index) {
-                handleQuestions()
-                const currentQuestion = shuffledQuestions[index]
-                document.getElementById("question-number").innerHTML = questionNumber
-                document.getElementById("player-score").innerHTML = Math.round(playerScore * 100) / 100
-                //pregunta de selección múltiple usa checkboxes, las demás radio
-                const optionInputs = document.querySelectorAll('.game-options-container input.radio')
-                optionInputs.forEach((input) => { input.type = currentQuestion.multiple ? 'checkbox' : 'radio' })
-                document.getElementById("display-question").innerHTML = currentQuestion.question;
-                document.getElementById("option-one-label").innerHTML = currentQuestion.optionA;
-                document.getElementById("option-two-label").innerHTML = currentQuestion.optionB;
-                document.getElementById("option-three-label").innerHTML = currentQuestion.optionC;
-                document.getElementById("option-four-label").innerHTML = currentQuestion.optionD;
-
-            }
-
-
-            function checkForAnswer() {
-                const currentQuestion = shuffledQuestions[indexNumber] //gets current Question 
-                const currentQuestionAnswer = currentQuestion.correctOption //gets current Question's answer
-                const options = document.getElementsByName("option"); //gets all elements in dom with name of 'option' (in this the radio inputs)
-                let correctOption = null
-
-                //pregunta de selección múltiple: puntos parciales por cada acierto
-                if (currentQuestion.multiple) {
-                    const correctAnswers = currentQuestion.correctOptions
-                    let anyChecked = false
-                    options.forEach((option) => { if (option.checked) anyChecked = true })
-                    if (!anyChecked) {
-                        document.getElementById('option-modal').style.display = "flex"
-                        return
-                    }
-
-                    let earned = 0
-                    options.forEach((option) => {
-                        const labelId = option.labels[0].id
-                        const isCorrect = correctAnswers.includes(option.value)
-                        if (option.checked && isCorrect) {
-                            earned += 1 / correctAnswers.length
-                            document.getElementById(labelId).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
-                        }
-                        else if (option.checked && !isCorrect) {
-                            earned -= 1 / correctAnswers.length
-                            document.getElementById(labelId).style.backgroundColor = "rgba(250, 160, 160,0.5)"
-                        }
-                        else if (!option.checked && isCorrect) {
-                            //muestra las correctas que faltaron
-                            document.getElementById(labelId).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
-                        }
-                    })
-                    earned = Math.max(0, earned)
-                    playerScore = Math.round((playerScore + earned) * 100) / 100
-                    if (earned < 1) wrongAttempt++
-                    indexNumber++
-                    setTimeout(() => {
-                        questionNumber++
-                    }, 1000)
-                    return
-                }
-
-                options.forEach((option) => {
-                    if (option.value === currentQuestionAnswer) {
-                        //get's correct's radio input with correct answer
-                        correctOption = option.labels[0].id
-                    }
-                })
-
-                //checking to make sure a radio input has been checked or an option being chosen
-                if (options[0].checked === false && options[1].checked === false && options[2].checked === false && options[3].checked == false) {
-                    document.getElementById('option-modal').style.display = "flex"
-                }
-
-                //checking if checked radio button is same as answer
-                options.forEach((option) => {
-                    if (option.checked === true && option.value === currentQuestionAnswer) {
-                        document.getElementById(correctOption).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
-                        playerScore++ //adding to player's score
-                        indexNumber++ //adding 1 to index so has to display next question..
-                        //set to delay question number till when next question loads
-                        setTimeout(() => {
-                            questionNumber++
-                        }, 1000)
-                    }
-
-                    else if (option.checked && option.value !== currentQuestionAnswer) {
-                        const wrongLabelId = option.labels[0].id
-                        document.getElementById(wrongLabelId).style.backgroundColor = "rgba(250, 160, 160,0.5)"
-                        document.getElementById(correctOption).style.backgroundColor = "rgba(195, 250, 196, 0.5)"
-                        wrongAttempt++ //adds 1 to wrong attempts 
-                        indexNumber++
-                        //set to delay question number till when next question loads
-                        setTimeout(() => {
-                            questionNumber++
-                        }, 1000)
-                    }
-                })
-            }
-
-
-
-            //called when the next button is called
-            function handleNextQuestion() {
-                checkForAnswer() //check if player picked right or wrong option
-                unCheckRadioButtons()
-                //delays next question displaying for a second just for some effects so questions don't rush in on player
-                setTimeout(() => {
-                    if (indexNumber <= 5) {
-            //displays next question as long as index number isn't greater than 9, remember index number starts from 0, so index 9 is question 10
-                        NextQuestion(indexNumber)
-                    }
-                    else {
-                        handleEndGame()//ends game if index number greater than 9 meaning we're already at the 10th question
-                    }
-                    resetOptionBackground()
-                }, 1000);
-            }
-
-            //sets options background back to null after display the right/wrong colors
-            function resetOptionBackground() {
-                const options = document.getElementsByName("option");
-                options.forEach((option) => {
-                    document.getElementById(option.labels[0].id).style.backgroundColor = ""
-                })
-            }
-
-            // unchecking all radio buttons for next question(can be done with map or foreach loop also)
-            function unCheckRadioButtons() {
-                const options = document.getElementsByName("option");
-                for (let i = 0; i < options.length; i++) {
-                    options[i].checked = false;
-                }
-            }
-
-            // function for when all questions being answered
-            function handleEndGame() {
-                let remark = null
-                let remarkColor = null
-
-                // condition check for player remark and remark color
-                if (playerScore <= 3) {
-                    remark = "Sigue practicando el ejercicio!"
-                    remarkColor = "red"
-                }
-                else if (playerScore >= 4 && playerScore < 6) {
-                    remark = "Puedes hacerlo mejor!"
-                    remarkColor = "orangered"
-                }
-                else if (playerScore == 6 ) {
-                    remark = "Excelente se ve el dominio del tema!"
-                    remarkColor = "green"
-                }
-                const playerGrade = Math.round((playerScore / 6) * 100)
-
-                //data to display to score board
-                document.getElementById('remarks').innerHTML = remark
-                document.getElementById('remarks').style.color = remarkColor
-                document.getElementById('grade-percentage').innerHTML = playerGrade
-                document.getElementById('wrong-answers').innerHTML = wrongAttempt
-                document.getElementById('right-answers').innerHTML = playerScore
-                document.getElementById('score-modal').style.display = "flex"
-
-            }
-
-            //closes score modal, resets game and reshuffles questions
-            function closeScoreModal() {
-                questionNumber = 1
-                playerScore = 0
-                wrongAttempt = 0
-                indexNumber = 0
-                shuffledQuestions = []
-                NextQuestion(indexNumber)
-                document.getElementById('score-modal').style.display = "none"
-            }
-
-            //function to close warning modal
-            function closeOptionModal() {
-                document.getElementById('option-modal').style.display = "none"
-            }
+            NextQuestion(0)
 
         </script>
-
 
         <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
         <script type="text/javascript">
             show(0.14)
         </script>
 
-
         <!-- endbuild -->
-
 
 </body>
 

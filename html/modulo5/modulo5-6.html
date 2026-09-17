@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>Ejercicio 5 | CVA - Centro Virtual de Aprendizaje</title>
 
     <!-- Favicon -->
@@ -16,55 +17,6 @@
 
     <!-- page plugins css -->
     <link href="../../assets/css/card-quiz.css" rel="stylesheet">
-    <style>
-        .game-quiz-container {
-            width: 100% !important;
-            max-width: 950px;
-            height: auto !important;
-            min-height: 620px;
-            margin: 0 auto;
-            padding: 2.5rem 2rem;
-            gap: 1.5rem;
-        }
-        .game-details-container { width: 90% !important; }
-        .game-question-container {
-            width: 90% !important;
-            height: auto !important;
-            min-height: 7rem;
-            padding: 1.2rem;
-        }
-        .game-question-container h1 { font-size: 1.3rem !important; }
-        .game-options-container {
-            width: 90% !important;
-            height: auto !important;
-            gap: 1.2rem;
-        }
-        .game-options-container span {
-            width: 48% !important;
-            height: auto !important;
-            min-height: 5rem;
-            display: flex;
-        }
-        .game-options-container span label {
-            flex: 1;
-            width: 100%;
-            min-height: 100%;
-            margin: 0;
-            padding: 0.8rem;
-            box-sizing: border-box;
-            border-radius: 17px;
-            font-size: 1.05rem;
-        }
-        .game-options-container input[type="checkbox"] { display: none; }
-        .game-options-container span:has(input:checked),
-        .game-options-container input:checked + label { background-color: #a4c7ff67; }
-        .next-button-container { margin-top: 0.5rem; }
-        .next-button-container button { width: 10rem; height: 2.6rem; font-size: 1rem; }
-        @media (max-width: 700px) {
-            .game-quiz-container { min-height: 0; padding: 1.5rem 1rem; }
-            .game-options-container span { width: 100% !important; }
-        }
-    </style>
 
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
@@ -77,7 +29,7 @@
 
 </head>
 
-<body class="header-info side-nav-dark" onload="NextQuestion(0)">
+<body class="header-info side-nav-dark">
     <div class="app">
         <div class="layout">
             <!-- Side Nav START -->
@@ -98,20 +50,20 @@
                 <div class="main-content">
                     <div class="container-fluid px-0 px-sm-3">
 
-                        <!-- Your content goes here -->
                         <div class="row">
                             <div class="col">
                                 <div class="card">
                                     <div class="card-horizon">
                                         <div class="image-container col-md-5">
-                                            <div class="background-holder has-content" style="background-image: url('../../assets/images/course/ejercicio.jpg')">
+                                            <div class="background-holder has-content"
+                                                style="background-image: url('../../assets/images/course/ejercicio.jpg')">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-7 ml-auto">
                                                 <div class="card-block">
                                                     <h1 class="mrg-btm-20 card-title">Ejercicio 5</h1>
-                                                    
+
                                                     <p>Lee con atención cada enunciado y selecciona la opción correcta.
                                                     </p>
                                                 </div>
@@ -122,69 +74,14 @@
                             </div>
                         </div>
 
-                        <!-- card QUIZ -->
                         <div class="card">
                             <div class="card-block">
-                                <div class="modal-container" id="score-modal">
-                                    <div class="modal-content-container">
-                                        <h1>Felicidades, has terminado el ejercicio.</h1>
-                                        <div class="grade-details">
-                                            <p>Preguntas con respuesta parcial: <span id="partial-answers"></span></p>
-                                            <p>Puntaje obtenido: <span id="right-answers"></span> / 6</p>
-                                            <p>Calificación: <span id="grade-percentage"></span>%</p>
-                                            <p><span id="remarks"></span></p>
-                                        </div>
-                                        <div class="modal-button-container">
-                                            <button onclick="closeScoreModal()">Continuar</button>
-                                        </div>
-                                    </div>
+
+                                <div id="cardQuiz">
                                 </div>
 
-                                <div class="game-quiz-container">
-                                    <div class="game-details-container">
-                                        <h1>Puntaje: <span id="player-score">0</span> / 6</h1>
-                                        <h1>Pregunta: <span id="question-number">1</span> / 6</h1>
-                                    </div>
-
-                                    <div class="game-question-container">
-                                        <h1 id="display-question" style="margin: 0 !important;">Son conceptos y protocolos que permiten el funcionamiento del internet.</h1>
-                                    </div>
-
-                                    <div class="game-options-container">
-                                        <div class="modal-container" id="option-modal" style="display: none;">
-                                            <div class="modal-content-container">
-                                                <h1>Selecciona al menos una opción.</h1>
-                                                <div class="modal-button-container">
-                                                    <button onclick="closeOptionModal()">Continuar</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <span>
-                                            <input type="checkbox" id="option-one" name="option" class="radio" value="optionA">
-                                            <label for="option-one" class="option" id="option-one-label">TCP/IP</label>
-                                        </span>
-                                        <span>
-                                            <input type="checkbox" id="option-two" name="option" class="radio" value="optionB">
-                                            <label for="option-two" class="option" id="option-two-label">CSS</label>
-                                        </span>
-                                        <span>
-                                            <input type="checkbox" id="option-three" name="option" class="radio" value="optionC">
-                                            <label for="option-three" class="option" id="option-three-label">DNS</label>
-                                        </span>
-                                        <span>
-                                            <input type="checkbox" id="option-four" name="option" class="radio" value="optionD">
-                                            <label for="option-four" class="option" id="option-four-label">HTTP</label>
-                                        </span>
-                                    </div>
-
-                                    <div class="next-button-container">
-                                        <button onclick="handleNextQuestion()">Siguiente</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <!-- card QUIZ -->
 
                         <div class="row mrg-btm-20">
                             <div class="col text-center">
@@ -200,7 +97,8 @@
                                     <h1 class="feed-title tag tag-info">Módulo 5</h1>
                                     <h3 class="feed-subtitle">Tu Progreso</h3>
                                     <div class="progress" style="height: 20px;" id="bar">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="max-width: 33%">33%</div>
+                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 33%">33%</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -255,6 +153,8 @@
     <script src="../../assets/js/app.js"></script>
     <script src="../../assets/js/progress/url-script.js"></script>
 
+    <script src="../../assets/js/recycled/card-quiz.js"></script>
+
     <script>
         const questions = [
             {
@@ -263,6 +163,7 @@
                 optionB: "CSS",
                 optionC: "DNS",
                 optionD: "HTTP",
+                    multiple: true,
                 correctOptions: ["optionA", "optionC", "optionD"]
             },
             {
@@ -271,6 +172,7 @@
                 optionB: "Servidor de alojamiento",
                 optionC: "Bases de datos",
                 optionD: "Dominio",
+                    multiple: true,
                 correctOptions: ["optionB", "optionD"]
             },
             {
@@ -279,7 +181,7 @@
                 optionB: "Memoria RAM",
                 optionC: "Espacio de almacenamiento",
                 optionD: "Ancho de banda",
-                correctOptions: ["optionD"]
+                correctOption: "optionD"
             },
             {
                 question: "Es el nombre de un sitio web.",
@@ -287,7 +189,7 @@
                 optionB: "Dominio",
                 optionC: "DNS",
                 optionD: "Servidor",
-                correctOptions: ["optionB"]
+                correctOption: "optionB"
             },
             {
                 question: "Son terminaciones de dominios exclusivas para sitios de instituciones gubernamentales y educativas.",
@@ -295,6 +197,7 @@
                 optionB: ".edu",
                 optionC: ".gob",
                 optionD: ".net",
+                    multiple: true,
                 correctOptions: ["optionB", "optionC"]
             },
             {
@@ -303,144 +206,11 @@
                 optionB: "Sass",
                 optionC: "Bootstrap",
                 optionD: "jQuery",
+                    multiple: true,
                 correctOptions: ["optionA", "optionD"]
             }
         ];
 
-        let shuffledQuestions = [];
-        let questionNumber = 1;
-        let playerScore = 0;
-        let partialAnswers = 0;
-        let indexNumber = 0;
-        let answerLocked = false;
-
-        function handleQuestions() {
-            if (shuffledQuestions.length === 0) {
-                shuffledQuestions = questions.slice().sort(() => Math.random() - 0.5);
-            }
-        }
-
-        function formatScore(score) {
-            return Math.round(score * 100) / 100;
-        }
-
-        function NextQuestion(index) {
-            handleQuestions();
-            const currentQuestion = shuffledQuestions[index];
-            if (!currentQuestion) return;
-
-            answerLocked = false;
-            document.getElementById("question-number").textContent = questionNumber;
-            document.getElementById("player-score").textContent = formatScore(playerScore);
-            document.getElementById("display-question").textContent = currentQuestion.question;
-            document.getElementById("option-one-label").textContent = currentQuestion.optionA;
-            document.getElementById("option-two-label").textContent = currentQuestion.optionB;
-            document.getElementById("option-three-label").textContent = currentQuestion.optionC;
-            document.getElementById("option-four-label").textContent = currentQuestion.optionD;
-        }
-
-        function checkForAnswer() {
-            if (answerLocked) return false;
-
-            const currentQuestion = shuffledQuestions[indexNumber];
-            const options = Array.from(document.getElementsByName("option"));
-            const selectedOptions = options.filter((option) => option.checked);
-            if (selectedOptions.length === 0) {
-                document.getElementById("option-modal").style.display = "flex";
-                return false;
-            }
-
-            answerLocked = true;
-            const correctAnswers = currentQuestion.correctOptions;
-            let earned = 0;
-
-            options.forEach((option) => {
-                const label = option.labels[0];
-                const optionCard = option.closest("span");
-                const isCorrect = correctAnswers.includes(option.value);
-
-                if (option.checked && isCorrect) earned += 1 / correctAnswers.length;
-                if (option.checked && !isCorrect) earned -= 1 / correctAnswers.length;
-
-                if (isCorrect) {
-                    label.style.backgroundColor = "rgba(195, 250, 196, 0.9)";
-                    optionCard.style.backgroundColor = "rgba(195, 250, 196, 0.9)";
-                } else if (option.checked) {
-                    label.style.backgroundColor = "rgba(250, 160, 160, 0.9)";
-                    optionCard.style.backgroundColor = "rgba(250, 160, 160, 0.9)";
-                }
-            });
-
-            earned = Math.max(0, Math.min(1, earned));
-            playerScore = formatScore(playerScore + earned);
-            if (earned < 1) partialAnswers++;
-            indexNumber++;
-            return true;
-        }
-
-        function handleNextQuestion() {
-            if (!checkForAnswer()) return;
-            setTimeout(() => {
-                unCheckOptions();
-                resetOptionBackground();
-                if (indexNumber < questions.length) {
-                    questionNumber++;
-                    NextQuestion(indexNumber);
-                } else {
-                    handleEndGame();
-                }
-            }, 1000);
-        }
-
-        function resetOptionBackground() {
-            document.getElementsByName("option").forEach((option) => {
-                option.labels[0].style.backgroundColor = "";
-                option.closest("span").style.backgroundColor = "";
-            });
-        }
-
-        function unCheckOptions() {
-            document.getElementsByName("option").forEach((option) => {
-                option.checked = false;
-            });
-        }
-
-        function handleEndGame() {
-            const grade = Math.round((playerScore / questions.length) * 100);
-            let remark = "Sigue practicando el ejercicio.";
-            let remarkColor = "red";
-            if (grade >= 80) {
-                remark = "¡Excelente, se ve el dominio del tema!";
-                remarkColor = "green";
-            } else if (grade >= 60) {
-                remark = "¡Puedes hacerlo mejor!";
-                remarkColor = "orangered";
-            }
-
-            document.getElementById("remarks").textContent = remark;
-            document.getElementById("remarks").style.color = remarkColor;
-            document.getElementById("grade-percentage").textContent = grade;
-            document.getElementById("partial-answers").textContent = partialAnswers;
-            document.getElementById("right-answers").textContent = formatScore(playerScore);
-            document.getElementById("player-score").textContent = formatScore(playerScore);
-            document.getElementById("score-modal").style.display = "flex";
-        }
-
-        function closeScoreModal() {
-            questionNumber = 1;
-            playerScore = 0;
-            partialAnswers = 0;
-            indexNumber = 0;
-            shuffledQuestions = [];
-            unCheckOptions();
-            resetOptionBackground();
-            document.getElementById("score-modal").style.display = "none";
-            NextQuestion(0);
-        }
-
-        function closeOptionModal() {
-            document.getElementById("option-modal").style.display = "none";
-        }
     </script>
 
     <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
