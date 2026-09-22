@@ -1,18 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
-        name="viewport" />
-    <title> Formularios | CVA - Centro Virtual de Aprendizaje</title>
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
+      name="viewport"
+    />
+    <title>Formularios | CVA - Centro Virtual de Aprendizaje</title>
     <!-- Favicon -->
     <link href="../../assets/images/logo/favicon.png" rel="shortcut icon" />
     <!-- plugins css -->
-    <link href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" rel="stylesheet" />
-    <link href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet" />
+    <link
+      href="../../assets/vendors/bootstrap/dist/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css"
+      rel="stylesheet"
+    />
     <!-- page plugins css -->
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
@@ -22,348 +32,655 @@
     <link href="../../assets/css/app.css" rel="stylesheet" />
     <link href="../../assets/css/progress.css" rel="stylesheet" />
     <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
-    <link href="../../assets/css/modulos/modulo2/modulo2-5-demo.css" rel="stylesheet" />
-    </link>
-</head>
+    <link
+      href="../../assets/css/modulos/modulo2/modulo2-5-demo.css"
+      rel="stylesheet"
+    />
+    <link
+      href="../../assets/css/modulos/modulo2/modulo2-11-types.css"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="header-info side-nav-dark text-justify">
+  <body class="header-info side-nav-dark text-justify">
     <div class="app">
-        <div class="layout">
-            <!-- Side Nav START -->
-            <div class="side-nav" id="sideNav">
-            </div>
-            <!-- Side Nav END -->
-            <!-- Page Container START -->
-            <div class="page-container">
-                <!-- Header START -->
-                <div class="header navbar">
-                </div>
-                <!-- Header END -->
-                <!-- Content Wrapper START -->
-                <div class="main-content">
-                    <div class="container-fluid px-0 px-sm-3">
-                        <!-- Your content goes here -->
-                        <div class="card">
-                            <div class="card-block">
-                                <div class="">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h1 class="mrg-top-20 card-title"><span class="badge badge-light">Tema
-                                                    10</span>Formularios</h1>
-                                            <p>Los formularios son elementos que nos permiten obtener información de los
-                                                usuarios de nuestra página web. Esta información normalmente se envía al
-                                                servidor del sitio web para ser procesada. Para definir un formulario
-                                                utilizamos la etiqueta <span class="code">&lt;<span
-                                                        class="codetag">form</span>&gt;</span> que contendrá todos los
-                                                diferentes elementos del formulario. Los elementos más utilizados dentro
-                                                de los formularios son <span class="code">&lt;<span
-                                                        class="codetag">input</span>&gt;</span>, <span
-                                                    class="code">&lt;<span class="codetag">label</span>&gt;</span> y
-                                                <span class="code">&lt;<span class="codetag">select</span>&gt;</span>.
-                                            </p>
-                                            <p>Por lo general, se especifica el <span
-                                                    class="code"><mark>action</mark></span> en la etiqueta <span
-                                                    class="code">&lt;<span class="codetag">form</span>&gt;</span>, el
-                                                cual especifica la acción que realiza la página web después de presionar
-                                                el botón de "enviar". Si dejas vacío este atributo, el formulario te
-                                                redirigirá a la misma página. La etiqueta form también puede tener el
-                                                atributo <span class="code"> <mark>method</mark></span>, que especifica
-                                                el método <a href="https://developer.mozilla.org/es/docs/Web/HTTP"
-                                                    target="_blank">HTTP</a> para enviar las entradas del usuario.</p>
-                                            <p>Analiza detenidamente el código. Observa los diferentes atributos
-                                                utilizados en cada elemento. El formulario se ve así en nuestro
-                                                navegador:</p>
-                                        </div>
-                                    </div>
-                                    <div class="row lesson-demo">
-                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code smallcode">
-                                                        &lt;<span class="codetag">!DOCTYPE html</span>&gt; <br />
-                                                        &lt;<span class="codetag">html</span> lang="en"&gt; <br />
-                                                        &lt;<span class="codetag">head</span>&gt; <br />
-                                                        &lt;<span class="codetag">title</span>&gt;<span
-                                                            class="codetext">Formularios</span>&lt;/<span
-                                                            class="codetag">title</span>&gt; <br />
-                                                        &lt;/<span class="codetag">head</span>&gt; <br />
-                                                        &lt;<span class="codetag">body</span>&gt; <br />
-                                                           &lt;<span class="codetag">form</span>
-                                                        action="/manejarFormulario" method="POST"&gt; <br />
-                                                              &lt;<span class="codetag">label</span>
-                                                        for="usuario"&gt;<span
-                                                            class="codetext">Usuario:</span>&lt;/<span
-                                                            class="codetag">label</span>&gt;<br />
-                                                              &lt;<span class="codetag">input</span> type="text"
-                                                        id="usuario" name="usuario" placeholder="Tu
-                                                        usuario"&gt;&lt;<span class="codetag">br</span>&gt;<br />
-                                                              &lt;<span class="codetag">label</span> for="pwd"&gt;<span
-                                                            class="codetext">Contraseña:</span>&lt;/<span
-                                                            class="codetag">label</span>&gt;<br />
-                                                              &lt;<span class="codetag">input</span> type="password"
-                                                        name="pwd" id="pwd"&gt;&lt;<span
-                                                            class="codetag">br</span>&gt;<br />
-                                                              &lt;<span class="codetag">label</span>&gt;<span
-                                                            class="codetext">Sexo:</span>&lt;/<span
-                                                            class="codetag">/label</span>&gt; <br />
-                                                              &lt;<span class="codetag">label</span>
-                                                        for="hombre"&gt;<span class="codetext">Hombre</span>&lt;/<span
-                                                            class="codetag">label</span>&gt;<br />
-                                                              &lt;<span class="codetag">input</span> type="radio"
-                                                        name="sexo" id="hombre" value="hombre"&gt;<br />
-                                                              &lt;<span class="codetag">label</span>
-                                                        for="mujer"&gt;<span class="codetext">Mujer</span>&lt;/<span
-                                                            class="codetag">label</span>&gt;<br />
-                                                              &lt;<span class="codetag">input</span> type="radio"
-                                                        name="sexo" id="mujer" value="mujer"&gt;&lt;<span
-                                                            class="codetag">br</span>&gt;<br />
-                                                              &lt;<span class="codetag">label</span> for="pais"&gt;<span
-                                                            class="codetext">País:</span>&lt;/<span
-                                                            class="codetag">label</span>&gt;<br />
-                                                              &lt;<span class="codetag">select</span> name="pais"
-                                                        id="pais"&gt; <br />
-                                                              &lt;<span class="codetag">option</span>&gt;<span
-                                                            class="codetext">Estados Unidos</span>&lt;/<span
-                                                            class="codetag">option</span>&gt;<br />
-                                                              &lt;<span class="codetag">option</span>&gt;<span
-                                                            class="codetext">Canadá</span>&lt;/<span
-                                                            class="codetag">option</span>&gt;<br />
-                                                              &lt;<span class="codetag">option</span> selected&gt;<span
-                                                            class="codetext">México</span>&lt;/<span
-                                                            class="codetag">option</span>&gt;<br />
-                                                              &lt;<span class="codetag">option</span>&gt;<span
-                                                            class="codetext">Otro</span>&lt;/<span
-                                                            class="codetag">option</span>&gt;<br />
-                                                              &lt;/<span class="codetag">select</span>&gt; &lt;<span
-                                                            class="codetag">br</span>&gt; <br />
-                                                              &lt;<span class="codetag">label</span>
-                                                        for="terminos"&gt;<span class="codetext">Aceptas los
-                                                            términos</span>&lt;/<span
-                                                            class="codetag">label</span>&gt;<br />
-                                                              &lt;<span class="codetag">input</span> type="checkbox"
-                                                        name="terminos" id="terminos" value="aceptar"&gt;&lt;<span
-                                                            class="codetag">br</span>&gt;<br />
-                                                              &lt;<span class="codetag">input</span> type="submit"
-                                                        value="Enviar!"&gt;<br />
-                                                           &lt;/<span class="codetag">form</span>&gt; <br />
-                                                        &lt;/<span class="codetag">body</span>&gt; <br />
-                                                        &lt;/<span class="codetag">html</span>&gt; <br />
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                            
-                                            <div class="example">
-                                                <div class="card">
-                                                    <div class="container-fluid mrg-vertical-20">
-                                                        <form onsubmit="return false;">
-                                                            <label for="usuario">Usuario:</label>
-                                                            <input id="usuario" name="usuario" placeholder="Tu usuario"
-                                                                type="text" /><br />
-                                                            <label for="pwd">Contraseña:</label>
-                                                            <input id="pwd" name="pwd" type="password" /><br />
-                                                            <label>Sexo:</label>
-                                                            <label for="hombre">Hombre</label>
-                                                            <input id="hombre" name="sexo" type="radio"
-                                                                value="hombre" />
-                                                            <label for="mujer">Mujer</label>
-                                                            <input id="mujer" name="sexo" type="radio"
-                                                                value="mujer" /><br />
-                                                            <label for="pais">País:</label>
-                                                            <select id="pais" name="pais">
-                                                                <option>Estados Unidos</option>
-                                                                <option>Canadá</option>
-                                                                <option selected="">México</option>
-                                                                <option>Otro</option>
-                                                            </select> <br />
-                                                            <label for="terminos">Aceptas los términos</label>
-                                                            <input id="terminos" name="terminos" type="checkbox"
-                                                                value="aceptar" /> <br />
-                                                            <input type="submit" value="Enviar!" />
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="row mrg-btm-20">
-                                        <div class="col">
-                                            <p>Vayamos por pasos: primero, observamos que casi todo el formulario
-                                                consiste de etiquetas <span class="code">&lt;<span
-                                                        class="codetag">label</span>&gt;</span> e <span
-                                                    class="code">&lt;<span class="codetag">input</span>&gt;</span>. Las
-                                                etiquetas <span class="code">&lt;<span
-                                                        class="codetag">label</span>&gt;</span> se utilizan para
-                                                describir lo que queremos que el usuario responda para un <span
-                                                    class="code">&lt;<span class="codetag">input</span>&gt;</span>. En
-                                                cambio, las etiquetas input nos ayudan a crear los espacios para las
-                                                entradas del usuario en nuestro formulario.</p>
-                                            <p>En la mayoría de los casos, la mejor práctica es tener un <span
-                                                    class="code">&lt;<span class="codetag">label</span>&gt;</span> por
-                                                cada <span class="code">&lt;<span
-                                                        class="codetag">input</span>&gt;</span>. </p>
-                                            <p>Los labels se asocian con los inputs gracias al atributo <span
-                                                    class="code"><mark>for</mark></span>, el cual debe ser igual al
-                                                atributo <span class="code"><mark>id</mark></span> asignado al <span
-                                                    class="code">&lt;<span class="codetag">input</span>&gt;</span>. En
-                                                el ejemplo tenemos el <span class="code">&lt;<span
-                                                        class="codetag">label</span>&gt;</span> con el contenido
-                                                "Usuario:" con el atributo <span
-                                                    class="code"><mark>for="usuario"</mark></span>, que lo asocia con el
-                                                <span class="code">&lt;<span class="codetag">input</span>&gt;</span>
-                                                posterior que tiene <span class="code"><mark>id="usuario"</mark></span>
-                                                asignado.</p>
-                                            <p>Las asociaciones de label con entrada ocurren para todos los elementos
-                                                del formulario. Los labels también nos ayudan con las entradas con <span
-                                                    class="code"><mark>type="radio"</mark></span>, ya que podemos hacer
-                                                clic junto al texto para hacer las selecciones, pruébalo en el ejemplo
-                                                de arriba.</p>
-                                            <p>Antes de continuar explicando el resto de los atributos, hay que entender
-                                                e identificar los diferentes tipos de <span class="code">&lt;<span
-                                                        class="codetag">input</span>&gt;</span> que podemos utilizar en
-                                                un formulario. El atributo type define el tipo de entrada que se
-                                                recibirá en un elemento input:</p>
-                                            <ul>
-                                                <li>
-                                                    <p><span class="code"><mark>type="text"</mark></span> Muestra una
-                                                        caja de texto.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="password"</mark></span> Permite
-                                                        que el usuario escriba una contraseña (sin mostrar lo que
-                                                        escribió).</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="radio"</mark></span> Se utiliza
-                                                        para preguntas de opción múltiple.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="checkbox"</mark></span> Es un
-                                                        recuadro que el usuario puede o no marcar.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="date"</mark></span> Pide una fecha
-                                                        al usuario.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="email"</mark></span> Le pide al
-                                                        usuario un correo electrónico en el formato adecuado:
-                                                        nombre_de_usuario@dominio.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="file"</mark></span> Permite que el
-                                                        usuario seleccione un archivo de su computadora.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="submit"</mark></span> Se utiliza
-                                                        para el botón que envía la información del formulario al
-                                                        presionarlo.</p>
-                                                </li>
-                                            </ul>
-                                            <p>Existen más tipos de elementos que podemos utilizar. Puedes consultar la
-                                                lista completa haciendo clic <img class="mrg-right-5"
-                                                    src="../../assets/images/clic.svg" /><a
-                                                    href="https://developer.mozilla.org/es/docs/Web/HTML/Elemento/input"
-                                                    target="_blank">aquí</a>.</p>
-                                            <p>Continuemos con el ejemplo: en el primer <span class="code">&lt;<span
-                                                        class="codetag">input</span>&gt;</span> utilizamos el atributo
-                                                <span class="code"><mark>placeholder</mark></span>. Este lo podemos usar
-                                                cuando queramos tener un texto en nuestra área de entrada, usualmente
-                                                con el objetivo de mostrar un ejemplo de lo que el usuario debe ingresar
-                                                en la caja.</p>
-                                            <p>El atributo más importante para los inputs es <span
-                                                    class="code"><mark>name</mark></span>, ya que su función es indicar
-                                                el nombre de la información al servidor. Gracias a que estos nombres se
-                                                emparejan con el valor que ingresa el usuario, podemos manejar la
-                                                información en el <b>back-end</b> o referenciar el elemento con
-                                                <b>JavaScript</b> con facilidad. Cuando tenemos un <span
-                                                    class="code">&lt;<span class="codetag">input</span>&gt;</span> con
-                                                <span class="code"><mark>type="radio"</mark></span>, name nos ayuda a
-                                                separar las opciones para cada pregunta. Como podrás notar, los inputs
-                                                de hombre y mujer tienen el mismo atributo name asignado: <span
-                                                    class="code"><mark>name="sexo"</mark></span>. Es por esto que solo
-                                                podemos seleccionar una de las 2 opciones que le damos al usuario.</p>
-                                            <p>Otro atributo común es <span class="code"><mark>value</mark></span>. Este
-                                                atributo tiene diferentes usos dependiendo del <span
-                                                    class="code"><mark>type</mark></span> que estemos utilizando.
-                                            <ul>
-                                                <li>Para <span class="code"><mark>type="text"</mark></span> y <span
-                                                        class="code"><mark>type="password"</mark></span> define un valor
-                                                    por defecto dentro de la caja. </li>
-                                                <li>Para <span class="code"><mark>type="radio"</mark></span> define el
-                                                    valor que se envía cuando la opción está seleccionada. En los inputs
-                                                    de sexo se envía "hombre" o "mujer" dependiendo de la selección del
-                                                    usuario.</li>
-                                                <li>Para <span class="code"><mark>type="button"</mark></span> y <span
-                                                        class="code"><mark>type="submit"</mark></span> define el texto
-                                                    que se muestra en el botón para enviar el formulario.</li>
-                                            </ul>
-                                            </p>
-                                            <p>Por último, tenemos la etiqueta <span class="code">&lt;<span
-                                                        class="codetag">select</span>&gt;</span>, que se utiliza para
-                                                seleccionar opciones de un menú desplegable. Las opciones se definen
-                                                usando la etiqueta <span class="code">&lt;<span
-                                                        class="codetag">option</span>&gt;</span>. Esta etiqueta también
-                                                utiliza los atributos <span class="code"><mark>id</mark></span> y <span
-                                                    class="code"><mark>name</mark></span> con el mismo propósito que los
-                                                elementos input. También podemos añadir un atributo global <span
-                                                    class="code">selected</span> en alguna de las opciones del menú
-                                                desplegable para seleccionarlo por defecto. Si queremos separar las
-                                                opciones por grupo podemos añadir la etiqueta <span
-                                                    class="code">&lt;<span class="codetag">optgroup</span>&gt;</span>
-                                                que encerrará a las opciones del grupo.</p>
-                                            <p>Ahora que ya sabes cómo hacer formularios, intenta agregar uno a tu
-                                                código anterior. Utiliza todos los elementos y tipos que quieras.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
-                                </div>
-                            </div>
-                        </div>
-                        <!--Widgets de avance de módulo y general-->
-                        <div class="card widget-feed">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <h1 class="feed-title tag tag-info">Módulo 2</h1>
-                                    <h3 class="feed-subtitle">Tu Progreso</h3>
-                                    <div class="progress" id="bar" style="height: 20px;">
-                                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="25"
-                                            class="progress-bar bg-info" role="progressbar" style="max-width: 100%">100%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+      <div class="layout">
+        <!-- Side Nav START -->
+        <div class="side-nav" id="sideNav"></div>
+        <!-- Side Nav END -->
+        <!-- Page Container START -->
+        <div class="page-container">
+          <!-- Header START -->
+          <div class="header navbar"></div>
+          <!-- Header END -->
+          <!-- Content Wrapper START -->
+          <div class="main-content">
+            <div class="container-fluid px-0 px-sm-3">
+              <!-- Your content goes here -->
+              <div class="card">
+                <div class="card-block">
+                  <div class="">
+                    <div class="row">
+                      <div class="col">
+                        <h1 class="mrg-top-20 card-title">
+                          <span class="badge badge-light">Tema 10</span
+                          >Formularios
+                        </h1>
+                        <p>
+                          Los formularios son elementos que nos permiten obtener
+                          información de los usuarios de nuestra página web.
+                          Esta información normalmente se envía al servidor del
+                          sitio web para ser procesada. Para definir un
+                          formulario utilizamos la etiqueta
+                          <span class="code"
+                            >&lt;<span class="codetag">form</span>&gt;</span
+                          >
+                          que contendrá todos los diferentes elementos del
+                          formulario. Los elementos más utilizados dentro de los
+                          formularios son
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >,
+                          <span class="code"
+                            >&lt;<span class="codetag">label</span>&gt;</span
+                          >
+                          y
+                          <span class="code"
+                            >&lt;<span class="codetag">select</span>&gt;</span
+                          >.
+                        </p>
+                        <p>
+                          Por lo general, se especifica el
+                          <span class="code"><mark>action</mark></span> en la
+                          etiqueta
+                          <span class="code"
+                            >&lt;<span class="codetag">form</span>&gt;</span
+                          >, el cual especifica la acción que realiza la página
+                          web después de presionar el botón de "enviar". Si
+                          dejas vacío este atributo, el formulario te redirigirá
+                          a la misma página. La etiqueta form también puede
+                          tener el atributo
+                          <span class="code"> <mark>method</mark></span
+                          >, que especifica el método
+                          <a
+                            href="https://developer.mozilla.org/es/docs/Web/HTTP"
+                            target="_blank"
+                            >HTTP</a
+                          >
+                          para enviar las entradas del usuario.
+                        </p>
+                        <p>
+                          Analiza detenidamente el código. Observa los
+                          diferentes atributos utilizados en cada elemento. El
+                          formulario se ve así en nuestro navegador:
+                        </p>
+                      </div>
                     </div>
+                    <div class="row lesson-demo">
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="card">
+                          <div
+                            class="container-fluid"
+                            style="background-color: #1a1a1a"
+                          >
+                            <p class="code smallcode">
+                              &lt;<span class="codetag">!DOCTYPE html</span>&gt;
+                              <br />
+                              &lt;<span class="codetag">html</span>
+                              lang="en"&gt; <br />
+                              &lt;<span class="codetag">head</span>&gt; <br />
+                              &lt;<span class="codetag">title</span>&gt;<span
+                                class="codetext"
+                                >Formularios</span
+                              >&lt;/<span class="codetag">title</span>&gt;
+                              <br />
+                              &lt;/<span class="codetag">head</span>&gt; <br />
+                              &lt;<span class="codetag">body</span>&gt; <br />
+                                 &lt;<span class="codetag">form</span>
+                              action="/manejarFormulario" method="POST"&gt;
+                              <br />
+                                    &lt;<span class="codetag">label</span>
+                              for="usuario"&gt;<span class="codetext"
+                                >Usuario:</span
+                              >&lt;/<span class="codetag">label</span>&gt;<br />
+                                    &lt;<span class="codetag">input</span>
+                              type="text" id="usuario" name="usuario"
+                              placeholder="Tu usuario"&gt;&lt;<span
+                                class="codetag"
+                                >br</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">label</span>
+                              for="pwd"&gt;<span class="codetext"
+                                >Contraseña:</span
+                              >&lt;/<span class="codetag">label</span>&gt;<br />
+                                    &lt;<span class="codetag">input</span>
+                              type="password" name="pwd" id="pwd"&gt;&lt;<span
+                                class="codetag"
+                                >br</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">label</span
+                              >&gt;<span class="codetext">Sexo:</span>&lt;/<span
+                                class="codetag"
+                                >/label</span
+                              >&gt; <br />
+                                    &lt;<span class="codetag">label</span>
+                              for="hombre"&gt;<span class="codetext"
+                                >Hombre</span
+                              >&lt;/<span class="codetag">label</span>&gt;<br />
+                                    &lt;<span class="codetag">input</span>
+                              type="radio" name="sexo" id="hombre"
+                              value="hombre"&gt;<br />
+                                    &lt;<span class="codetag">label</span>
+                              for="mujer"&gt;<span class="codetext">Mujer</span
+                              >&lt;/<span class="codetag">label</span>&gt;<br />
+                                    &lt;<span class="codetag">input</span>
+                              type="radio" name="sexo" id="mujer"
+                              value="mujer"&gt;&lt;<span class="codetag"
+                                >br</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">label</span>
+                              for="pais"&gt;<span class="codetext">País:</span
+                              >&lt;/<span class="codetag">label</span>&gt;<br />
+                                    &lt;<span class="codetag">select</span>
+                              name="pais" id="pais"&gt; <br />
+                                    &lt;<span class="codetag">option</span
+                              >&gt;<span class="codetext">Estados Unidos</span
+                              >&lt;/<span class="codetag">option</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">option</span
+                              >&gt;<span class="codetext">Canadá</span
+                              >&lt;/<span class="codetag">option</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">option</span>
+                              selected&gt;<span class="codetext">México</span
+                              >&lt;/<span class="codetag">option</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">option</span
+                              >&gt;<span class="codetext">Otro</span>&lt;/<span
+                                class="codetag"
+                                >option</span
+                              >&gt;<br />
+                                    &lt;/<span class="codetag">select</span>&gt;
+                              &lt;<span class="codetag">br</span>&gt; <br />
+                                    &lt;<span class="codetag">label</span>
+                              for="terminos"&gt;<span class="codetext"
+                                >Aceptas los términos</span
+                              >&lt;/<span class="codetag">label</span>&gt;<br />
+                                    &lt;<span class="codetag">input</span>
+                              type="checkbox" name="terminos" id="terminos"
+                              value="aceptar"&gt;&lt;<span class="codetag"
+                                >br</span
+                              >&gt;<br />
+                                    &lt;<span class="codetag">input</span>
+                              type="submit" value="Enviar!"&gt;<br />
+                                 &lt;/<span class="codetag">form</span>&gt;
+                              <br />
+                              &lt;/<span class="codetag">body</span>&gt; <br />
+                              &lt;/<span class="codetag">html</span>&gt; <br />
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="example">
+                          <div class="card">
+                            <div class="container-fluid mrg-vertical-20">
+                              <form onsubmit="return false;">
+                                <label for="usuario">Usuario:</label>
+                                <input
+                                  id="usuario"
+                                  name="usuario"
+                                  placeholder="Tu usuario"
+                                  type="text"
+                                /><br />
+                                <label for="pwd">Contraseña:</label>
+                                <input
+                                  id="pwd"
+                                  name="pwd"
+                                  type="password"
+                                /><br />
+                                <label>Sexo:</label>
+                                <label for="hombre">Hombre</label>
+                                <input
+                                  id="hombre"
+                                  name="sexo"
+                                  type="radio"
+                                  value="hombre"
+                                />
+                                <label for="mujer">Mujer</label>
+                                <input
+                                  id="mujer"
+                                  name="sexo"
+                                  type="radio"
+                                  value="mujer"
+                                /><br />
+                                <label for="pais">País:</label>
+                                <select id="pais" name="pais">
+                                  <option>Estados Unidos</option>
+                                  <option>Canadá</option>
+                                  <option selected="">México</option>
+                                  <option>Otro</option>
+                                </select>
+                                <br />
+                                <label for="terminos"
+                                  >Aceptas los términos</label
+                                >
+                                <input
+                                  id="terminos"
+                                  name="terminos"
+                                  type="checkbox"
+                                  value="aceptar"
+                                />
+                                <br />
+                                <input type="submit" value="Enviar!" />
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mrg-btm-20">
+                      <div class="col">
+                        <p>
+                          Vayamos por pasos: primero, observamos que casi todo
+                          el formulario consiste de etiquetas
+                          <span class="code"
+                            >&lt;<span class="codetag">label</span>&gt;</span
+                          >
+                          e
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >. Las etiquetas
+                          <span class="code"
+                            >&lt;<span class="codetag">label</span>&gt;</span
+                          >
+                          se utilizan para describir lo que queremos que el
+                          usuario responda para un
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >. En cambio, las etiquetas input nos ayudan a crear
+                          los espacios para las entradas del usuario en nuestro
+                          formulario.
+                        </p>
+                        <p>
+                          En la mayoría de los casos, la mejor práctica es tener
+                          un
+                          <span class="code"
+                            >&lt;<span class="codetag">label</span>&gt;</span
+                          >
+                          por cada
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >.
+                        </p>
+                        <p>
+                          Los labels se asocian con los inputs gracias al
+                          atributo <span class="code"><mark>for</mark></span
+                          >, el cual debe ser igual al atributo
+                          <span class="code"><mark>id</mark></span> asignado al
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >. En el ejemplo tenemos el
+                          <span class="code"
+                            >&lt;<span class="codetag">label</span>&gt;</span
+                          >
+                          con el contenido "Usuario:" con el atributo
+                          <span class="code"><mark>for="usuario"</mark></span
+                          >, que lo asocia con el
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >
+                          posterior que tiene
+                          <span class="code"><mark>id="usuario"</mark></span>
+                          asignado.
+                        </p>
+                        <p>
+                          Las asociaciones de label con entrada ocurren para
+                          todos los elementos del formulario. Los labels también
+                          nos ayudan con las entradas con
+                          <span class="code"><mark>type="radio"</mark></span
+                          >, ya que podemos hacer clic junto al texto para hacer
+                          las selecciones, pruébalo en el ejemplo de arriba.
+                        </p>
+                        <p>
+                          Antes de continuar explicando el resto de los
+                          atributos, hay que entender e identificar los
+                          diferentes tipos de
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >
+                          que podemos utilizar en un formulario. El atributo
+                          type define el tipo de entrada que se recibirá en un
+                          elemento input:
+                        </p>
+                        <section class="type-scene">
+                          <input
+                            checked
+                            id="inp-text"
+                            name="input-type"
+                            type="radio"
+                          />
+                          <input
+                            id="inp-password"
+                            name="input-type"
+                            type="radio"
+                          />
+                          <input
+                            id="inp-radio"
+                            name="input-type"
+                            type="radio"
+                          />
+                          <input
+                            id="inp-checkbox"
+                            name="input-type"
+                            type="radio"
+                          />
+                          <input id="inp-date" name="input-type" type="radio" />
+                          <input
+                            id="inp-email"
+                            name="input-type"
+                            type="radio"
+                          />
+                          <input id="inp-file" name="input-type" type="radio" />
+                          <input
+                            id="inp-submit"
+                            name="input-type"
+                            type="radio"
+                          />
+                          <ul class="type-scene__menu">
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--text"
+                                for="inp-text"
+                                >type="text"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--password"
+                                for="inp-password"
+                                >type="password"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--radio"
+                                for="inp-radio"
+                                >type="radio"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--checkbox"
+                                for="inp-checkbox"
+                                >type="checkbox"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--date"
+                                for="inp-date"
+                                >type="date"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--email"
+                                for="inp-email"
+                                >type="email"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--file"
+                                for="inp-file"
+                                >type="file"</label
+                              >
+                            </li>
+                            <li>
+                              <label
+                                class="type-scene__label type-scene__label--submit"
+                                for="inp-submit"
+                                >type="submit"</label
+                              >
+                            </li>
+                          </ul>
+                          <div class="type-scene__stage">
+                            <article
+                              class="type-scene__content type-scene__content--text"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="text"</h3>
+                              <p>Muestra una caja de texto.</p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--password"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="password"</h3>
+                              <p>
+                                Permite que el usuario escriba una contraseña
+                                (sin mostrar lo que escribió).
+                              </p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--radio"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="radio"</h3>
+                              <p>
+                                Se utiliza para preguntas de opción múltiple.
+                              </p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--checkbox"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="checkbox"</h3>
+                              <p>
+                                Es un recuadro que el usuario puede o no marcar.
+                              </p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--date"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="date"</h3>
+                              <p>Pide una fecha al usuario.</p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--email"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="email"</h3>
+                              <p>
+                                Le pide al usuario un correo electrónico en el
+                                formato adecuado: nombre_de_usuario@dominio.
+                              </p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--file"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="file"</h3>
+                              <p>
+                                Permite que el usuario seleccione un archivo de
+                                su computadora.
+                              </p>
+                            </article>
+                            <article
+                              class="type-scene__content type-scene__content--submit"
+                            >
+                              <span class="type-scene__tag">Tipo de input</span>
+                              <h3>type="submit"</h3>
+                              <p>
+                                Se utiliza para el botón que envía la
+                                información del formulario al presionarlo.
+                              </p>
+                            </article>
+                          </div>
+                        </section>
+                        <p>
+                          Existen más tipos de elementos que podemos utilizar.
+                          Puedes consultar la lista completa haciendo clic
+                          <img
+                            class="mrg-right-5"
+                            src="../../assets/images/clic.svg"
+                          /><a
+                            href="https://developer.mozilla.org/es/docs/Web/HTML/Elemento/input"
+                            target="_blank"
+                            >aquí</a
+                          >.
+                        </p>
+                        <p>
+                          Continuemos con el ejemplo: en el primer
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >
+                          utilizamos el atributo
+                          <span class="code"><mark>placeholder</mark></span
+                          >. Este lo podemos usar cuando queramos tener un texto
+                          en nuestra área de entrada, usualmente con el objetivo
+                          de mostrar un ejemplo de lo que el usuario debe
+                          ingresar en la caja.
+                        </p>
+                        <p>
+                          El atributo más importante para los inputs es
+                          <span class="code"><mark>name</mark></span
+                          >, ya que su función es indicar el nombre de la
+                          información al servidor. Gracias a que estos nombres
+                          se emparejan con el valor que ingresa el usuario,
+                          podemos manejar la información en el <b>back-end</b> o
+                          referenciar el elemento con <b>JavaScript</b> con
+                          facilidad. Cuando tenemos un
+                          <span class="code"
+                            >&lt;<span class="codetag">input</span>&gt;</span
+                          >
+                          con <span class="code"><mark>type="radio"</mark></span
+                          >, name nos ayuda a separar las opciones para cada
+                          pregunta. Como podrás notar, los inputs de hombre y
+                          mujer tienen el mismo atributo name asignado:
+                          <span class="code"><mark>name="sexo"</mark></span
+                          >. Es por esto que solo podemos seleccionar una de las
+                          2 opciones que le damos al usuario.
+                        </p>
+                        <p>
+                          Otro atributo común es
+                          <span class="code"><mark>value</mark></span
+                          >. Este atributo tiene diferentes usos dependiendo del
+                          <span class="code"><mark>type</mark></span> que
+                          estemos utilizando.
+                        </p>
+
+                        <ul>
+                          <li>
+                            Para
+                            <span class="code"><mark>type="text"</mark></span> y
+                            <span class="code"
+                              ><mark>type="password"</mark></span
+                            >
+                            define un valor por defecto dentro de la caja.
+                          </li>
+                          <li>
+                            Para
+                            <span class="code"><mark>type="radio"</mark></span>
+                            define el valor que se envía cuando la opción está
+                            seleccionada. En los inputs de sexo se envía
+                            "hombre" o "mujer" dependiendo de la selección del
+                            usuario.
+                          </li>
+                          <li>
+                            Para
+                            <span class="code"><mark>type="button"</mark></span>
+                            y
+                            <span class="code"><mark>type="submit"</mark></span>
+                            define el texto que se muestra en el botón para
+                            enviar el formulario.
+                          </li>
+                        </ul>
+                        <p>
+                          Por último, tenemos la etiqueta
+                          <span class="code"
+                            >&lt;<span class="codetag">select</span>&gt;</span
+                          >, que se utiliza para seleccionar opciones de un menú
+                          desplegable. Las opciones se definen usando la
+                          etiqueta
+                          <span class="code"
+                            >&lt;<span class="codetag">option</span>&gt;</span
+                          >. Esta etiqueta también utiliza los atributos
+                          <span class="code"><mark>id</mark></span> y
+                          <span class="code"><mark>name</mark></span> con el
+                          mismo propósito que los elementos input. También
+                          podemos añadir un atributo global
+                          <span class="code">selected</span> en alguna de las
+                          opciones del menú desplegable para seleccionarlo por
+                          defecto. Si queremos separar las opciones por grupo
+                          podemos añadir la etiqueta
+                          <span class="code"
+                            >&lt;<span class="codetag">optgroup</span>&gt;</span
+                          >
+                          que encerrará a las opciones del grupo.
+                        </p>
+                        <p>
+                          Ahora que ya sabes cómo hacer formularios, intenta
+                          agregar uno a tu código anterior. Utiliza todos los
+                          elementos y tipos que quieras.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <!-- Content Wrapper END -->
-                <!-- Footer START -->
-                <footer class="content-footer">
-                </footer>
-                <!-- Footer END -->
+              </div>
+              <!--Botones de avance entre páginas-->
+              <div class="row mrg-btm-20">
+                <div class="col text-center">
+                  <div class="btn-group"></div>
+                </div>
+              </div>
+              <!--Widgets de avance de módulo y general-->
+              <div class="card widget-feed">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <h1 class="feed-title tag tag-info">Módulo 2</h1>
+                    <h3 class="feed-subtitle">Tu Progreso</h3>
+                    <div class="progress" id="bar" style="height: 20px">
+                      <div
+                        aria-valuemax="100"
+                        aria-valuemin="0"
+                        aria-valuenow="25"
+                        class="progress-bar bg-info"
+                        role="progressbar"
+                        style="max-width: 100%"
+                      >
+                        100%
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="row">
+                      <div class="col">
+                        <div id="circlecontainer"></div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col text-center">
+                        <h3 class="feed-subtitle">
+                          Progreso General del Curso
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- Page Container END -->
+          </div>
+          <!-- Content Wrapper END -->
+          <!-- Footer START -->
+          <footer class="content-footer"></footer>
+          <!-- Footer END -->
         </div>
+        <!-- Page Container END -->
+      </div>
     </div>
     <!-- build:js assets/js/vendor.js -->
     <!-- plugins js -->
@@ -383,6 +700,5 @@
     <script src="../../assets/js/progress/url-script.js"></script>
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
-</body>
-
+  </body>
 </html>
