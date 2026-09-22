@@ -225,43 +225,80 @@
                                                         class="codetag">input</span>&gt;</span> que podemos utilizar en
                                                 un formulario. El atributo type define el tipo de entrada que se
                                                 recibirá en un elemento input:</p>
-                                            <ul>
-                                                <li>
-                                                    <p><span class="code"><mark>type="text"</mark></span> Muestra una
-                                                        caja de texto.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="password"</mark></span> Permite
-                                                        que el usuario escriba una contraseña (sin mostrar lo que
-                                                        escribió).</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="radio"</mark></span> Se utiliza
-                                                        para preguntas de opción múltiple.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="checkbox"</mark></span> Es un
-                                                        recuadro que el usuario puede o no marcar.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="date"</mark></span> Pide una fecha
-                                                        al usuario.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="email"</mark></span> Le pide al
-                                                        usuario un correo electrónico en el formato adecuado:
-                                                        nombre_de_usuario@dominio.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="file"</mark></span> Permite que el
-                                                        usuario seleccione un archivo de su computadora.</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code"><mark>type="submit"</mark></span> Se utiliza
-                                                        para el botón que envía la información del formulario al
-                                                        presionarlo.</p>
-                                                </li>
-                                            </ul>
+                                            <section class="type-scene">
+                                                <input checked id="inp-text" name="input-type" type="radio" />
+                                                <input id="inp-password" name="input-type" type="radio" />
+                                                <input id="inp-radio" name="input-type" type="radio" />
+                                                <input id="inp-checkbox" name="input-type" type="radio" />
+                                                <input id="inp-date" name="input-type" type="radio" />
+                                                <input id="inp-email" name="input-type" type="radio" />
+                                                <input id="inp-file" name="input-type" type="radio" />
+                                                <input id="inp-submit" name="input-type" type="radio" />
+                                                <ul class="type-scene__menu">
+                                                    <li><label class="type-scene__label type-scene__label--text"
+                                                            for="inp-text">type="text"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--password"
+                                                            for="inp-password">type="password"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--radio"
+                                                            for="inp-radio">type="radio"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--checkbox"
+                                                            for="inp-checkbox">type="checkbox"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--date"
+                                                            for="inp-date">type="date"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--email"
+                                                            for="inp-email">type="email"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--file"
+                                                            for="inp-file">type="file"</label></li>
+                                                    <li><label class="type-scene__label type-scene__label--submit"
+                                                            for="inp-submit">type="submit"</label></li>
+                                                </ul>
+                                                <div class="type-scene__stage">
+                                                    <article class="type-scene__content type-scene__content--text">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="text"</h3>
+                                                        <p>Muestra una caja de texto.</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--password">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="password"</h3>
+                                                        <p>Permite que el usuario escriba una contraseña (sin mostrar lo
+                                                            que escribió).</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--radio">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="radio"</h3>
+                                                        <p>Se utiliza para preguntas de opción múltiple.</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--checkbox">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="checkbox"</h3>
+                                                        <p>Es un recuadro que el usuario puede o no marcar.</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--date">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="date"</h3>
+                                                        <p>Pide una fecha al usuario.</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--email">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="email"</h3>
+                                                        <p>Le pide al usuario un correo electrónico en el formato
+                                                            adecuado: nombre_de_usuario@dominio.</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--file">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="file"</h3>
+                                                        <p>Permite que el usuario seleccione un archivo de su
+                                                            computadora.</p>
+                                                    </article>
+                                                    <article class="type-scene__content type-scene__content--submit">
+                                                        <span class="type-scene__tag">Tipo de input</span>
+                                                        <h3>type="submit"</h3>
+                                                        <p>Se utiliza para el botón que envía la información del
+                                                            formulario al presionarlo.</p>
+                                                    </article>
+                                                </div>
+                                            </section>
                                             <p>Existen más tipos de elementos que podemos utilizar. Puedes consultar la
                                                 lista completa haciendo clic <img class="mrg-right-5"
                                                     src="../../assets/images/clic.svg" /><a
