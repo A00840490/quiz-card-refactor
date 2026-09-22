@@ -68,7 +68,9 @@
 .demo-carousel__caption {
   margin: 14px auto 0;
   color: #172033;
-  font: 700 15px/1.4 Arial, sans-serif;
+  font:
+    700 15px/1.4 Arial,
+    sans-serif;
   text-align: center;
 }
 
@@ -90,7 +92,9 @@
   border-radius: 50%;
   background: #ffffff;
   color: #0f4c91;
-  font: 700 18px/1 Arial, sans-serif;
+  font:
+    700 18px/1 Arial,
+    sans-serif;
   cursor: pointer;
   transition:
     background-color 180ms ease,
