@@ -25,6 +25,7 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo3/modulo3-13-boxmodel.css" rel="stylesheet">
     <style>
         /* Deberías ajustarlo a el tamaño de pantalla (max-width: px) cuando el menú se mueve hacia arriba y se comienza a ver apretado, justo antes para asegurarte */
         @media only screen and (max-width: 600px) {
@@ -78,13 +79,7 @@
                                 <div class="card">
                                     <div class="card-horizon">
                                         <div class="image-container col-md-8" style="left: 33%; ">
-                                            <div class="d-flex h-100 justify-content-center align-items-center">
-                                                <img style="display: block;
-                                                width: 100%;
-                                                height: auto;
-                                                margin-top: 20px;"
-                                                    src="../../assets/images/course/modulo3/m3-10/element-view.png">
-                                            </div>
+                                            <div class="d-flex h-100 justify-content-center align-items-center"></div>
                                         </div>
                                         
 
@@ -104,6 +99,64 @@
 
 
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h2 class="card-title mrg-top-20">Explora el modelo de caja</h2>
+                                        <p>Arrastra las manijas de color para cambiar el <span class="code">margin</span> (naranja, distancia externa) y el <span class="code">padding</span> (verde, distancia interna). Observa cómo la imagen del contenido se hace más pequeña conforme crece el padding.</p>
+
+                                        <section class="box-lab" data-box-lab>
+                                            <div class="box-lab__head">
+                                                <span>Modelo de caja interactivo</span>
+                                                <span class="box-lab__hint">Arrastra las manijas hacia arriba o abajo</span>
+                                            </div>
+
+                                            <div class="box-lab__body">
+                                                <div class="box-lab__stage">
+                                                    <div class="box-lab__margin" data-lab-margin style="--margin-size: 24px;">
+                                                        <button type="button" class="box-lab__grip box-lab__grip--margin" data-lab-grip="margin" aria-label="Ajustar margin"></button>
+                                                        <div class="box-lab__element" data-lab-element style="--padding-size: 16px;">
+                                                            <button type="button" class="box-lab__grip box-lab__grip--padding" data-lab-grip="padding" aria-label="Ajustar padding"></button>
+                                                            <div class="box-lab__content">
+                                                                <img src="../../assets/images/course/modulo3/m3-10/calipers.jpg" alt="Imagen de referencia dentro del contenido">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="box-lab__panel">
+                                                    <div class="box-lab__control">
+                                                        <div class="box-lab__label">
+                                                            <span><span class="box-lab__swatch box-lab__swatch--margin"></span>margin</span>
+                                                            <span class="box-lab__value" data-lab-value="margin">24px</span>
+                                                        </div>
+                                                        <input class="box-lab__range" type="range" min="0" max="80" step="1" value="24" data-lab-range="margin" aria-label="Valor de margin en píxeles">
+                                                    </div>
+
+                                                    <div class="box-lab__control">
+                                                        <div class="box-lab__label">
+                                                            <span><span class="box-lab__swatch box-lab__swatch--padding"></span>padding</span>
+                                                            <span class="box-lab__value" data-lab-value="padding">16px</span>
+                                                        </div>
+                                                        <input class="box-lab__range" type="range" min="0" max="70" step="1" value="16" data-lab-range="padding" aria-label="Valor de padding en píxeles">
+                                                    </div>
+
+                                                    <pre class="box-lab__code"><span class="tk-sel">.caja</span> {
+  <span class="tk-prop">margin</span>: <span class="tk-num" data-lab-code="margin">24px</span>;
+  <span class="tk-prop">padding</span>: <span class="tk-num" data-lab-code="padding">16px</span>;
+  <span class="tk-prop">border</span>: <span class="tk-num">4px</span> solid #0f4c91;
+}</pre>
+
+                                                    <p class="box-lab__note">El tamaño total de la caja no cambia: al aumentar el padding, el área de contenido (y la imagen) se reduce.</p>
+                                                </div>
+                                            </div>
+                                        </section>
                                     </div>
                                 </div>
                             </div>
@@ -236,6 +289,84 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
+    <script>
+        (function () {
+            var lab = document.querySelector("[data-box-lab]");
+            if (!lab) return;
+
+            var limits = { margin: { min: 0, max: 80 }, padding: { min: 0, max: 70 } };
+            var state = { margin: 24, padding: 16 };
+
+            var marginBox = lab.querySelector("[data-lab-margin]");
+            var element = lab.querySelector("[data-lab-element]");
+
+            function clamp(name, value) {
+                var l = limits[name];
+                return Math.max(l.min, Math.min(l.max, Math.round(value)));
+            }
+
+            function render() {
+                marginBox.style.setProperty("--margin-size", state.margin + "px");
+                element.style.setProperty("--padding-size", state.padding + "px");
+
+                Object.keys(state).forEach(function (name) {
+                    var text = state[name] + "px";
+                    var out = lab.querySelector('[data-lab-value="' + name + '"]');
+                    var code = lab.querySelector('[data-lab-code="' + name + '"]');
+                    var range = lab.querySelector('[data-lab-range="' + name + '"]');
+                    if (out) out.textContent = text;
+                    if (code) code.textContent = text;
+                    if (range && Number(range.value) !== state[name]) range.value = state[name];
+                });
+            }
+
+            lab.querySelectorAll("[data-lab-range]").forEach(function (range) {
+                range.addEventListener("input", function () {
+                    state[range.getAttribute("data-lab-range")] = clamp(
+                        range.getAttribute("data-lab-range"),
+                        Number(range.value)
+                    );
+                    render();
+                });
+            });
+
+            lab.querySelectorAll("[data-lab-grip]").forEach(function (grip) {
+                var name = grip.getAttribute("data-lab-grip");
+
+                grip.addEventListener("pointerdown", function (event) {
+                    event.preventDefault();
+                    grip.setPointerCapture(event.pointerId);
+                    var startY = event.clientY;
+                    var startValue = state[name];
+
+                    function move(moveEvent) {
+                        state[name] = clamp(name, startValue + (startY - moveEvent.clientY));
+                        render();
+                    }
+
+                    function up() {
+                        grip.removeEventListener("pointermove", move);
+                        grip.removeEventListener("pointerup", up);
+                        grip.removeEventListener("pointercancel", up);
+                    }
+
+                    grip.addEventListener("pointermove", move);
+                    grip.addEventListener("pointerup", up);
+                    grip.addEventListener("pointercancel", up);
+                });
+
+                grip.addEventListener("keydown", function (event) {
+                    var step = event.key === "ArrowUp" ? 2 : event.key === "ArrowDown" ? -2 : 0;
+                    if (!step) return;
+                    event.preventDefault();
+                    state[name] = clamp(name, state[name] + step);
+                    render();
+                });
+            });
+
+            render();
+        })();
+    </script>
 
 </body>
 
