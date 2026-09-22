@@ -186,7 +186,7 @@
 
 .lesson-demo > [class*="col-"]:last-child::before,
 .lesson-demo-activity--preview::before {
-  content: "Previsualización";
+  content: "Navegador";
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,9 +195,8 @@
   padding: 0 28px;
   border-bottom: 1px solid #dce3ec;
   color: #000000;
-  font: 700 11px/1.2 Arial, sans-serif;
+  font: 800 11px/1.2 Arial, sans-serif;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .lesson-demo > [class*="col-"]:first-child .card,
