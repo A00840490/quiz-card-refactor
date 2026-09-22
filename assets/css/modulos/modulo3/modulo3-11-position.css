@@ -209,7 +209,10 @@
   pointer-events: auto;
 }
 
-.pos-scene input[type="radio"]:focus-visible ~ .pos-scene__menu .pos-scene__label {
+.pos-scene
+  input[type="radio"]:focus-visible
+  ~ .pos-scene__menu
+  .pos-scene__label {
   outline: none;
 }
 
