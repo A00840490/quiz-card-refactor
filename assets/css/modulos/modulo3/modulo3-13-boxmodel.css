@@ -6,12 +6,49 @@
   content: "●  ●  ●    caja.css";
 }
 
+/* Colores de cada propiedad */
+.boxlab {
+  --c-margin: #f2994a;
+  --c-padding: #27ae60;
+  --c-border: #2f6fd0;
+}
+
+.boxlab .rgb-mixer__label {
+  width: auto;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.boxlab .rgb-mixer__row {
+  grid-template-columns: 74px minmax(0, 1fr) 46px;
+}
+
+.boxlab .rgb-mixer__label--margin {
+  color: var(--c-margin);
+}
+.boxlab .rgb-mixer__label--padding {
+  color: var(--c-padding);
+}
+.boxlab .rgb-mixer__label--border {
+  color: var(--c-border);
+}
+
+.boxlab .rgb-mixer__slider--margin {
+  background: linear-gradient(90deg, #fdf0e3, var(--c-margin));
+}
+.boxlab .rgb-mixer__slider--padding {
+  background: linear-gradient(90deg, #e6f6ec, var(--c-padding));
+}
+.boxlab .rgb-mixer__slider--border {
+  background: linear-gradient(90deg, #e6eefa, var(--c-border));
+}
+
 .boxlab-preview {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 330px;
+  min-height: 360px;
   border-radius: 8px;
   background-color: #f4f7fb;
   background-image:
@@ -20,16 +57,30 @@
   background-size: 20px 20px;
 }
 
+/* Área de margin: sombreado naranja */
+.boxlab-margin {
+  position: relative;
+  padding: 24px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(242, 153, 74, 0.28),
+    rgba(242, 153, 74, 0.28) 6px,
+    rgba(242, 153, 74, 0.14) 6px,
+    rgba(242, 153, 74, 0.14) 12px
+  );
+  transition: padding 0.15s ease;
+}
+
+/* Área de padding: sombreado verde, borde azul */
 .boxlab-box {
-  max-width: 260px;
-  margin: 24px;
+  max-width: 300px;
   padding: 16px;
-  border: 4px solid #0f4c91;
+  border: 4px solid var(--c-border);
   border-radius: 6px;
-  background: #ffffff;
+  background: rgba(39, 174, 96, 0.22);
   box-shadow: 0 6px 18px rgba(31, 47, 71, 0.12);
   transition:
-    margin 0.15s ease,
     padding 0.15s ease,
     border-width 0.15s ease;
 }
@@ -39,4 +90,37 @@
   width: 100%;
   max-width: 220px;
   border-radius: 4px;
+  background: #ffffff;
+}
+
+.boxlab-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  margin: 14px 0 0;
+  font: 12px/1.2 Arial, sans-serif;
+  color: #667085;
+}
+
+.boxlab-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.boxlab-legend i {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.boxlab-legend i.is-margin {
+  background: rgba(242, 153, 74, 0.55);
+}
+.boxlab-legend i.is-padding {
+  background: rgba(39, 174, 96, 0.45);
+}
+.boxlab-legend i.is-border {
+  background: var(--c-border);
 }
