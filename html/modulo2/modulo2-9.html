@@ -303,39 +303,43 @@
     <script src="../../assets/js/progress/url-script.js"></script>
 
     <script>
-        /*JS del flipcard (segundas tarjetas) */
-        const cards = document.querySelectorAll(".flipCard");
+        /* Carrusel de demostraciones */
+        document.querySelectorAll("[data-demo-carousel]").forEach((carousel) => {
+            const slides = Array.from(carousel.querySelectorAll("[data-demo-slide]"));
+            const dotsBox = carousel.querySelector("[data-demo-dots]");
+            if (!slides.length) return;
+            let index = 0;
 
-        cards.forEach((card) => {
-            card.addEventListener("click", function () {
-                removeActiveClasses();
-                card.classList.toggle("is-flipped");
+            const dots = slides.map((_, i) => {
+                const dot = document.createElement("button");
+                dot.type = "button";
+                dot.className = "demo-carousel__dot";
+                dot.setAttribute("aria-label", "Ejemplo " + (i + 1));
+                dot.addEventListener("click", () => render(i));
+                dotsBox && dotsBox.appendChild(dot);
+                return dot;
             });
+
+            function render(next) {
+                index = (next + slides.length) % slides.length;
+                const prev = (index - 1 + slides.length) % slides.length;
+                const after = (index + 1) % slides.length;
+                slides.forEach((slide, i) => {
+                    slide.classList.remove("is-current", "is-prev", "is-next");
+                    if (i === index) slide.classList.add("is-current");
+                    else if (i === prev) slide.classList.add("is-prev");
+                    else if (i === after) slide.classList.add("is-next");
+                });
+                dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+            }
+
+            const prevBtn = carousel.querySelector("[data-demo-prev]");
+            const nextBtn = carousel.querySelector("[data-demo-next]");
+            prevBtn && prevBtn.addEventListener("click", () => render(index - 1));
+            nextBtn && nextBtn.addEventListener("click", () => render(index + 1));
+
+            render(0);
         });
-        function removeActiveClasses() {
-            cards.forEach((card) => {
-                card.classList.remove("is-flipped");
-            });
-        }
-
-
-        /*JS del panel (cuartas tarjetas) */
-        const panels = document.querySelectorAll(".panel");
-
-        panels.forEach((panel) => {
-            panel.addEventListener("click", () => {
-                removeActiveClasses();
-                panel.classList.add("active");
-            });
-        });
-
-        function removeActiveClasses() {
-            panels.forEach((panel) => {
-                panel.classList.remove("active");
-            });
-        }
-
-
     </script>
 
 
