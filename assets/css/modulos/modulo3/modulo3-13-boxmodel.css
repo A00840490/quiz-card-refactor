@@ -1,0 +1,226 @@
+/* Demostración interactiva del modelo de caja: margin y padding arrastrables. */
+.box-lab {
+  --lab-margin: #f0a93b;
+  --lab-margin-soft: #fdf2df;
+  --lab-padding: #38a169;
+  --lab-padding-soft: #e6f5ec;
+  --lab-border: #0f4c91;
+  --lab-line: #dce3ec;
+  --lab-ink: #172033;
+  --lab-muted: #667085;
+  max-width: 1080px;
+  margin: 1.5rem auto;
+  overflow: hidden;
+  border: 1px solid var(--lab-line);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.box-lab__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 54px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--lab-line);
+  background: #f8fafc;
+  color: #000000;
+  font: 700 11px/1.2 Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.box-lab__hint {
+  color: var(--lab-muted);
+  font: 400 11px/1.3 Arial, sans-serif;
+  text-transform: none;
+}
+
+.box-lab__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  align-items: stretch;
+}
+
+/* ---------- Escenario visual ---------- */
+.box-lab__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 420px;
+  padding: 24px;
+  background:
+    linear-gradient(0deg, rgba(15, 76, 145, 0.03), rgba(15, 76, 145, 0.03)),
+    repeating-linear-gradient(
+      0deg,
+      #ffffff 0 19px,
+      #eef2f7 19px 20px
+    ),
+    repeating-linear-gradient(90deg, #ffffff 0 19px, #eef2f7 19px 20px);
+  touch-action: none;
+}
+
+.box-lab__margin {
+  position: relative;
+  border: 1px dashed rgba(240, 169, 59, 0.85);
+  border-radius: 10px;
+  background: var(--lab-margin-soft);
+  padding: var(--margin-size, 24px);
+  transition: padding 90ms linear;
+}
+
+.box-lab__element {
+  position: relative;
+  width: 260px;
+  height: 230px;
+  box-sizing: border-box;
+  padding: var(--padding-size, 16px);
+  border: 4px solid var(--lab-border);
+  border-radius: 8px;
+  background: var(--lab-padding-soft);
+  transition: padding 90ms linear;
+}
+
+.box-lab__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px #cfd9e6;
+}
+
+.box-lab__content img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.box-lab__grip {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58px;
+  height: 16px;
+  border: 0;
+  border-radius: 8px;
+  cursor: ns-resize;
+  touch-action: none;
+}
+
+.box-lab__grip::after {
+  content: "";
+  position: absolute;
+  inset: 5px 18px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.box-lab__grip:focus-visible {
+  outline: 2px solid #0f4c91;
+  outline-offset: 2px;
+}
+
+.box-lab__grip--margin {
+  top: 2px;
+  background: var(--lab-margin);
+}
+
+.box-lab__grip--padding {
+  top: 6px;
+  background: var(--lab-padding);
+}
+
+/* ---------- Panel de valores ---------- */
+.box-lab__panel {
+  padding: 22px 24px 26px;
+  border-left: 1px solid var(--lab-line);
+  background: #ffffff;
+  color: var(--lab-ink);
+  text-align: left;
+}
+
+.box-lab__control + .box-lab__control {
+  margin-top: 22px;
+}
+
+.box-lab__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font: 700 13px/1.2 Arial, sans-serif;
+}
+
+.box-lab__swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 7px;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.box-lab__swatch--margin { background: var(--lab-margin); }
+.box-lab__swatch--padding { background: var(--lab-padding); }
+
+.box-lab__value {
+  min-width: 62px;
+  padding: 3px 7px;
+  border: 1px solid #c9d9ec;
+  border-radius: 4px;
+  background: #f8fafc;
+  color: var(--lab-border);
+  font: 700 12px/1.2 "Courier New", monospace;
+  text-align: center;
+}
+
+.box-lab__range {
+  width: 100%;
+}
+
+.box-lab__code {
+  margin-top: 24px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: #171b24;
+  color: #d7deea;
+  font: 13px/1.7 "Courier New", Consolas, monospace;
+  text-align: left;
+}
+
+.box-lab__code .tk-sel { color: #79c0ff; }
+.box-lab__code .tk-prop { color: #b8c1cf; }
+.box-lab__code .tk-num { color: #f1b84b; }
+
+.box-lab__note {
+  margin: 16px 0 0;
+  color: var(--lab-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 991px) {
+  .box-lab__body { grid-template-columns: 1fr; }
+  .box-lab__panel { border-left: 0; border-top: 1px solid var(--lab-line); }
+}
+
+@media (max-width: 575px) {
+  .box-lab { border-radius: 8px; }
+  .box-lab__stage { min-height: 340px; padding: 14px; }
+  .box-lab__element { width: 200px; height: 180px; }
+  .box-lab__hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .box-lab__margin,
+  .box-lab__element { transition: none; }
+}
