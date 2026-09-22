@@ -155,11 +155,14 @@
                         como la previsualización.
                       </p>
 
-                      <section data-box-lab>
+                      <section class="boxlab" data-box-lab>
                         <div class="rgb-mixer mrg-top-20">
                           <div class="rgb-mixer__sliders">
                             <label class="rgb-mixer__row" for="box-margin">
-                              <span class="rgb-mixer__label">M</span>
+                              <span
+                                class="rgb-mixer__label rgb-mixer__label--margin"
+                                >Margin</span
+                              >
                               <input
                                 type="range"
                                 min="0"
@@ -167,7 +170,7 @@
                                 step="1"
                                 value="24"
                                 id="box-margin"
-                                class="rgb-mixer__slider"
+                                class="rgb-mixer__slider rgb-mixer__slider--margin"
                                 data-lab-range="margin"
                                 aria-label="Valor de margin en píxeles"
                               />
@@ -178,7 +181,10 @@
                               >
                             </label>
                             <label class="rgb-mixer__row" for="box-padding">
-                              <span class="rgb-mixer__label">P</span>
+                              <span
+                                class="rgb-mixer__label rgb-mixer__label--padding"
+                                >Padding</span
+                              >
                               <input
                                 type="range"
                                 min="0"
@@ -186,7 +192,7 @@
                                 step="1"
                                 value="16"
                                 id="box-padding"
-                                class="rgb-mixer__slider"
+                                class="rgb-mixer__slider rgb-mixer__slider--padding"
                                 data-lab-range="padding"
                                 aria-label="Valor de padding en píxeles"
                               />
@@ -197,7 +203,10 @@
                               >
                             </label>
                             <label class="rgb-mixer__row" for="box-border">
-                              <span class="rgb-mixer__label">B</span>
+                              <span
+                                class="rgb-mixer__label rgb-mixer__label--border"
+                                >Border</span
+                              >
                               <input
                                 type="range"
                                 min="0"
@@ -205,7 +214,7 @@
                                 step="1"
                                 value="4"
                                 id="box-border"
-                                class="rgb-mixer__slider"
+                                class="rgb-mixer__slider rgb-mixer__slider--border"
                                 data-lab-range="border"
                                 aria-label="Valor de border en píxeles"
                               />
@@ -256,13 +265,20 @@
                           </div>
                           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="boxlab-preview">
-                              <div class="boxlab-box" data-lab-box>
-                                <img
-                                  src="../../assets/images/course/modulo3/m3-10/calipers.jpg"
-                                  alt="Imagen de referencia dentro de la caja"
-                                />
+                              <div class="boxlab-margin" data-lab-margin>
+                                <div class="boxlab-box" data-lab-box>
+                                  <img
+                                    src="../../assets/images/course/modulo3/m3-10/calipers.jpg"
+                                    alt="Imagen de referencia dentro de la caja"
+                                  />
+                                </div>
                               </div>
                             </div>
+                            <p class="boxlab-legend">
+                              <span><i class="is-margin"></i>Margin</span>
+                              <span><i class="is-padding"></i>Padding</span>
+                              <span><i class="is-border"></i>Border</span>
+                            </p>
                           </div>
                         </div>
                       </section>
