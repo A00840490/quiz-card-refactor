@@ -1,540 +1,382 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
-    />
-    <title>Márgenes y Padding | CVA - Centro Virtual de Aprendizaje</title>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="../../assets/images/logo/favicon.png" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no" />
+  <title>Márgenes y Padding | CVA - Centro Virtual de Aprendizaje</title>
 
-    <!-- plugins css -->
-    <link
-      rel="stylesheet"
-      href="../../assets/vendors/bootstrap/dist/css/bootstrap.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css"
-    />
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../assets/images/logo/favicon.png" />
 
-    <!-- page plugins css -->
+  <!-- plugins css -->
+  <link rel="stylesheet" href="../../assets/vendors/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+  <link rel="stylesheet" href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
 
-    <!-- core css -->
-    <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
-    <link href="../../assets/css/themify-icons.css" rel="stylesheet" />
-    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../assets/css/animate.min.css" rel="stylesheet" />
-    <link href="../../assets/css/app.css" rel="stylesheet" />
-    <link href="../../assets/css/progress.css" rel="stylesheet" />
-    <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
-    <link
-      href="../../assets/css/modulos/modulo2/modulo2-5-demo.css"
-      rel="stylesheet"
-    />
-    <link
-      href="../../assets/css/modulos/modulo3/modulo3-9-colores.css"
-      rel="stylesheet"
-    />
-    <link
-      href="../../assets/css/modulos/modulo3/modulo3-13-boxmodel.css"
-      rel="stylesheet"
-    />
-    <style>
-      /* Deberías ajustarlo a el tamaño de pantalla (max-width: px) cuando el menú se mueve hacia arriba y se comienza a ver apretado, justo antes para asegurarte */
-      @media only screen and (max-width: 600px) {
-        .nav-vertical .tab-content {
-          /* Aumentar tamaño de contenido */
-          width: 100%;
-        }
-        .nav-vertical .nav-pills {
-          /* Aumentar tamaño de menus si gustas */
-          width: auto;
-          /* width: 80%; */
-          /* Esto es opcional para centrar */
-          display: flex;
-          justify-content: center;
-        }
-        .nav-pills .nav-item {
-          /* Esto es opcional */
-          /* Darle margen a botones de menu */
-          margin: 0.5rem;
-        }
+  <!-- page plugins css -->
+
+  <!-- core css -->
+  <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
+  <link href="../../assets/css/themify-icons.css" rel="stylesheet" />
+  <link href="../../assets/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="../../assets/css/animate.min.css" rel="stylesheet" />
+  <link href="../../assets/css/app.css" rel="stylesheet" />
+  <link href="../../assets/css/progress.css" rel="stylesheet" />
+  <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo2/modulo2-5-demo.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo3/modulo3-9-colores.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo3/modulo3-13-boxmodel.css" rel="stylesheet" />
+  <style>
+    @media only screen and (max-width: 600px) {
+      .nav-vertical .tab-content {
+        width: 100%;
       }
-    </style>
-  </head>
 
-  <body class="header-info side-nav-dark text-justify">
-    <div class="app">
-      <div class="layout">
-        <!-- Side Nav START -->
-        <div class="side-nav" id="sideNav"></div>
-        <!-- Side Nav END -->
+      .nav-vertical .nav-pills {
+        width: auto;
+        /* width: 80%; */
+        /* Esto es opcional para centrar */
+        display: flex;
+        justify-content: center;
+      }
 
-        <!-- Page Container START -->
-        <div class="page-container">
-          <!-- Header START -->
-          <div class="header navbar"></div>
-          <!-- Header END -->
+      .nav-pills .nav-item {
+        margin: 0.5rem;
+      }
+    }
+  </style>
+</head>
 
-          <!-- Content Wrapper START -->
-          <div class="main-content">
-            <div class="container-fluid px-0 px-sm-3">
-              <!-- Your content goes here -->
-              <div class="row">
-                <div class="col">
-                  <div class="card">
-                    <div class="card-horizon">
-                      <div class="image-container col-md-8" style="left: 33%">
-                        <div
-                          class="d-flex h-100 justify-content-center align-items-center"
-                        ></div>
-                      </div>
+<body class="header-info side-nav-dark text-justify">
+  <div class="app">
+    <div class="layout">
+      <!-- Side Nav START -->
+      <div class="side-nav" id="sideNav"></div>
+      <!-- Side Nav END -->
 
-                      <div class="row">
-                        <div class="card-block">
-                          <div class="col-md-4">
-                            <div class="">
-                              <h1 class="mrg-top-20 card-title">
-                                <span class="badge badge-light">Tema 12</span>
-                                Márgenes y Padding
-                              </h1>
-                              <p>
-                                Para posicionar y estructurar nuestra página
-                                como queremos, no es suficiente utilizar solo
-                                posiciones. En muchos casos necesitaremos
-                                distanciar algunos elementos de otros o
-                                agregarles márgenes para que no se vean fuera de
-                                lugar. CSS nos permite hacer esto con dos
-                                propiedades que, aunque son muy similares,
-                                cumplen con funciones diferentes: estas son
-                                <span class="code">margin</span> y
-                                <span class="code">padding</span>.
-                              </p>
-                              <p>
-                                Los <b>márgenes</b> son la distancia que separa
-                                a un elemento de otro, mientras que el
-                                <b>padding</b> es la distancia del contenido de
-                                un elemento a su borde. Podría decirse que un
-                                margen se usa para establecer distancia
-                                <b>externa</b> y padding para distancia
-                                <b>interna</b> para el elemento al que se le
-                                aplican estas propiedades. Los ejemplos más
-                                adelante te ayudarán a visualizar sus
-                                diferencias.
-                              </p>
-                            </div>
+      <!-- Page Container START -->
+      <div class="page-container">
+        <!-- Header START -->
+        <div class="header navbar"></div>
+        <!-- Header END -->
+
+        <!-- Content Wrapper START -->
+        <div class="main-content">
+          <div class="container-fluid px-0 px-sm-3">
+            <!-- Your content goes here -->
+            <div class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-horizon">
+                    <div class="row">
+                      <div class="card-block">
+                        <div class="col">
+                          <div class="">
+                            <h1 class="mrg-top-20 card-title">
+                              <span class="badge badge-light">Tema 12</span>
+                              Márgenes y Padding
+                            </h1>
+                            <p>
+                              Para posicionar y estructurar nuestra página
+                              como queremos, no es suficiente utilizar solo
+                              posiciones. En muchos casos necesitaremos
+                              distanciar algunos elementos de otros o
+                              agregarles márgenes para que no se vean fuera de
+                              lugar. CSS nos permite hacer esto con dos
+                              propiedades que, aunque son muy similares,
+                              cumplen con funciones diferentes: estas son
+                              <span class="code">margin</span> y
+                              <span class="code">padding</span>.
+                            </p>
+                            <p>
+                              Los <b>márgenes</b> son la distancia que separa
+                              a un elemento de otro, mientras que el
+                              <b>padding</b> es la distancia del contenido de
+                              un elemento a su borde. Podría decirse que un
+                              margen se usa para establecer distancia
+                              <b>externa</b> y padding para distancia
+                              <b>interna</b> para el elemento al que se le
+                              aplican estas propiedades. Los ejemplos más
+                              adelante te ayudarán a visualizar sus
+                              diferencias.
+                            </p>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              <div class="row">
-                <div class="col">
-                  <div class="card">
-                    <div class="card-block">
-                      <h2 class="card-title mrg-top-20">
-                        Explora el modelo de caja
-                      </h2>
-                      <p>
-                        Mueve los deslizadores para cambiar el
-                        <span class="code">margin</span>, el
-                        <span class="code">padding</span> y el
-                        <span class="code">border</span> de la caja. Observa
-                        cómo se actualizan al instante tanto la hoja de estilos
-                        como la previsualización.
-                      </p>
+                          <div class="card-block">
+                            <p>
+                              Mueve los deslizadores para cambiar el
+                              <span class="code">margin</span>, el
+                              <span class="code">padding</span> y el
+                              <span class="code">border</span> de la caja. Observa
+                              cómo se actualizan al instante tanto la hoja de estilos
+                              como la previsualización.
+                            </p>
 
-                      <section class="boxlab" data-box-lab>
-                        <div class="rgb-mixer mrg-top-20">
-                          <div class="rgb-mixer__sliders">
-                            <label class="rgb-mixer__row" for="box-margin">
-                              <span
-                                class="rgb-mixer__label rgb-mixer__label--margin"
-                                >Margin</span
-                              >
-                              <input
-                                type="range"
-                                min="0"
-                                max="80"
-                                step="1"
-                                value="24"
-                                id="box-margin"
-                                class="rgb-mixer__slider rgb-mixer__slider--margin"
-                                data-lab-range="margin"
-                                aria-label="Valor de margin en píxeles"
-                              />
-                              <output
-                                class="rgb-mixer__value"
-                                data-lab-value="margin"
-                                >24px</output
-                              >
-                            </label>
-                            <label class="rgb-mixer__row" for="box-padding">
-                              <span
-                                class="rgb-mixer__label rgb-mixer__label--padding"
-                                >Padding</span
-                              >
-                              <input
-                                type="range"
-                                min="0"
-                                max="70"
-                                step="1"
-                                value="16"
-                                id="box-padding"
-                                class="rgb-mixer__slider rgb-mixer__slider--padding"
-                                data-lab-range="padding"
-                                aria-label="Valor de padding en píxeles"
-                              />
-                              <output
-                                class="rgb-mixer__value"
-                                data-lab-value="padding"
-                                >16px</output
-                              >
-                            </label>
-                            <label class="rgb-mixer__row" for="box-border">
-                              <span
-                                class="rgb-mixer__label rgb-mixer__label--border"
-                                >Border</span
-                              >
-                              <input
-                                type="range"
-                                min="0"
-                                max="24"
-                                step="1"
-                                value="4"
-                                id="box-border"
-                                class="rgb-mixer__slider rgb-mixer__slider--border"
-                                data-lab-range="border"
-                                aria-label="Valor de border en píxeles"
-                              />
-                              <output
-                                class="rgb-mixer__value"
-                                data-lab-value="border"
-                                >4px</output
-                              >
-                            </label>
-                          </div>
-                        </div>
+                            <section class="boxlab" data-box-lab>
+                              <div class="rgb-mixer mrg-top-20">
+                                <div class="rgb-mixer__sliders">
+                                  <label class="rgb-mixer__row" for="box-margin">
+                                    <span class="rgb-mixer__label rgb-mixer__label--margin">Margin</span>
+                                    <input type="range" min="0" max="80" step="1" value="24" id="box-margin"
+                                      class="rgb-mixer__slider rgb-mixer__slider--margin" data-lab-range="margin"
+                                      aria-label="Valor de margin en píxeles" />
+                                    <output class="rgb-mixer__value" data-lab-value="margin">24px</output>
+                                  </label>
+                                  <label class="rgb-mixer__row" for="box-padding">
+                                    <span class="rgb-mixer__label rgb-mixer__label--padding">Padding</span>
+                                    <input type="range" min="0" max="70" step="1" value="16" id="box-padding"
+                                      class="rgb-mixer__slider rgb-mixer__slider--padding" data-lab-range="padding"
+                                      aria-label="Valor de padding en píxeles" />
+                                    <output class="rgb-mixer__value" data-lab-value="padding">16px</output>
+                                  </label>
+                                  <label class="rgb-mixer__row" for="box-border">
+                                    <span class="rgb-mixer__label rgb-mixer__label--border">Border</span>
+                                    <input type="range" min="0" max="24" step="1" value="4" id="box-border"
+                                      class="rgb-mixer__slider rgb-mixer__slider--border" data-lab-range="border"
+                                      aria-label="Valor de border en píxeles" />
+                                    <output class="rgb-mixer__value" data-lab-value="border">4px</output>
+                                  </label>
+                                </div>
+                              </div>
 
-                        <div
-                          class="row mrg-top-20 lesson-demo lesson-demo--boxmodel"
-                        >
-                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div class="row">
-                              <div class="col">
-                                <div class="card">
-                                  <div class="container-fluid">
-                                    <p class="code">
-                                      <span class="codetag">.caja</span> {<br />
-                                      &nbsp;&nbsp;margin:
-                                      <span
-                                        class="codetext"
-                                        data-lab-code="margin"
-                                        >24px</span
-                                      >;<br />
-                                      &nbsp;&nbsp;padding:
-                                      <span
-                                        class="codetext"
-                                        data-lab-code="padding"
-                                        >16px</span
-                                      >;<br />
-                                      &nbsp;&nbsp;border:
-                                      <span
-                                        class="codetext"
-                                        data-lab-code="border"
-                                        >4px</span
-                                      >
-                                      solid #0f4c91;<br />
-                                      }
-                                    </p>
+                              <div class="row mrg-top-20 lesson-demo lesson-demo--boxmodel">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                  <div class="row">
+                                    <div class="col">
+                                      <div class="card">
+                                        <div class="container-fluid">
+                                          <p class="code">
+                                            <span class="codetag">.caja</span> {<br />
+                                            &nbsp;&nbsp;margin:
+                                            <span class="codetext" data-lab-code="margin">24px</span>;<br />
+                                            &nbsp;&nbsp;padding:
+                                            <span class="codetext" data-lab-code="padding">16px</span>;<br />
+                                            &nbsp;&nbsp;border:
+                                            <span class="codetext" data-lab-code="border">4px</span>
+                                            solid #0f4c91;<br />
+                                            }
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                  <div class="boxlab-preview">
+                                    <div class="boxlab-margin" data-lab-margin>
+                                      <div class="boxlab-box" data-lab-box>
+                                        <img src="../../assets/images/course/modulo3/m3-10/calipers.jpg"
+                                          alt="Imagen de referencia dentro de la caja" />
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div class="boxlab-preview">
-                              <div class="boxlab-margin" data-lab-margin>
-                                <div class="boxlab-box" data-lab-box>
-                                  <img
-                                    src="../../assets/images/course/modulo3/m3-10/calipers.jpg"
-                                    alt="Imagen de referencia dentro de la caja"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                            <p class="boxlab-legend">
-                              <span><i class="is-margin"></i>Margin</span>
-                              <span><i class="is-padding"></i>Padding</span>
-                              <span><i class="is-border"></i>Border</span>
-                            </p>
+                            </section>
                           </div>
                         </div>
-                      </section>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <div class="card">
-                    <div class="card-block">
-                      <div class="">
-                        <h2 class="card-title mrg-top-20">Ejemplos y Uso</h2>
-                        <p>
-                          La propiedad <span class="code">margin</span> se puede
-                          utilizar de diferentes maneras, modificando los
-                          márgenes de arriba, abajo, izquierda y derecha:
-                        </p>
-                        <div class="row">
-                          <div class="col">
-                            <div class="card">
-                              <div class="container-fluid">
-                                <p
-                                  class="codepen"
-                                  data-height="500"
-                                  data-theme-id="dark"
-                                  data-default-tab="css,result"
-                                  data-user="luis-yerik-arambula"
-                                  data-slug-hash="BaLRXeZ"
-                                  style="
-                                    height: 500px;
-                                    box-sizing: border-box;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    border: 2px solid;
-                                    margin: 1em 0;
-                                    padding: 1em;
-                                  "
-                                  data-pen-title="BaLRXeZ"
-                                >
-                                  <span
-                                    >See the Pen
-                                    <a
-                                      href="https://codepen.io/luis-yerik-arambula/pen/BaLRXeZ"
-                                      target="_blank"
-                                    >
-                                      BaLRXeZ</a
-                                    >
-                                    by Luis Yerik Arambula (<a
-                                      href="https://codepen.io/luis-yerik-arambula"
-                                      target="_blank"
-                                      >@luis-yerik-arambula</a
-                                    >) on
-                                    <a href="https://codepen.io" target="_blank"
-                                      >CodePen</a
-                                    >.</span
-                                  >
-                                </p>
-                                <script
-                                  async
-                                  src="https://cpwebassets.codepen.io/assets/embed/ei.js"
-                                ></script>
-                              </div>
-                              <p
-                                class="col-12 col-lg-8 text-secondary small"
-                                style="text-align: left"
-                              >
-                                <!-- Fuente  -->
-                                CodePen. Software utilizado para el desarrollo
-                                de ejercicio dinámico de programación. In
-                                CodePen. https://codepen.io
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <p>
-                          Como mencionamos al inicio, la propiedad
-                          <span class="code">padding</span> sirve para
-                          distanciar al contenido de los bordes del contenedor.
-                          Observa:
-                        </p>
-                        <div class="row">
-                          <div class="col">
-                            <div class="card">
-                              <div class="container-fluid">
-                                <p
-                                  class="codepen"
-                                  data-height="500"
-                                  data-theme-id="dark"
-                                  data-default-tab="css,result"
-                                  data-user="luis-yerik-arambula"
-                                  data-slug-hash="gOwRYJK"
-                                  style="
-                                    height: 500px;
-                                    box-sizing: border-box;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    border: 2px solid;
-                                    margin: 1em 0;
-                                    padding: 1em;
-                                  "
-                                  data-pen-title="ejemplo-padding"
-                                >
-                                  <span
-                                    >See the Pen
-                                    <a
-                                      href="https://codepen.io/luis-yerik-arambula/pen/gOwRYJK"
-                                      target="_blank"
-                                    >
-                                      ejemplo-padding</a
-                                    >
-                                    by Luis Yerik Arambula (<a
-                                      href="https://codepen.io/luis-yerik-arambula"
-                                      target="_blank"
-                                      >@luis-yerik-arambula</a
-                                    >) on
-                                    <a href="https://codepen.io" target="_blank"
-                                      >CodePen</a
-                                    >.</span
-                                  >
-                                </p>
-                                <script
-                                  async
-                                  src="https://cpwebassets.codepen.io/assets/embed/ei.js"
-                                ></script>
-                              </div>
-                              <p
-                                class="col-12 col-lg-8 text-secondary small"
-                                style="text-align: left"
-                              >
-                                <!-- Fuente  -->
-                                CodePen. Software utilizado para el desarrollo
-                                de ejercicio dinámico de programación. In
-                                CodePen. https://codepen.io
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!--Botones de avance entre páginas-->
-              <div class="row mrg-btm-20">
-                <div class="col text-center">
-                  <div class="btn-group"></div>
-                </div>
-              </div>
-
-              <!--Widgets de avance de módulo y general-->
-              <div class="card widget-feed">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <h1 class="feed-title tag tag-info">Módulo 3</h1>
-                    <h3 class="feed-subtitle">Tu Progreso</h3>
-                    <div class="progress" style="height: 20px" id="bar">
-                      <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="max-width: 63%"
-                      >
-                        63%
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="row">
-                      <div class="col">
-                        <div id="circlecontainer"></div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col text-center">
-                        <h3 class="feed-subtitle">
-                          Progreso General del Curso
-                        </h3>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-block">
+                    <div class="">
+                      <h2 class="card-title mrg-top-20">Ejemplos y Uso</h2>
+                      <p>
+                        La propiedad <span class="code">margin</span> se puede
+                        utilizar de diferentes maneras, modificando los
+                        márgenes de arriba, abajo, izquierda y derecha:
+                      </p>
+                      <div class="row">
+                        <div class="col">
+                          <div class="card">
+                            <div class="container-fluid">
+                              <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="css,result"
+                                data-user="luis-yerik-arambula" data-slug-hash="BaLRXeZ" style="
+                                    height: 500px;
+                                    box-sizing: border-box;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 2px solid;
+                                    margin: 1em 0;
+                                    padding: 1em;
+                                  " data-pen-title="BaLRXeZ">
+                                <span>See the Pen
+                                  <a href="https://codepen.io/luis-yerik-arambula/pen/BaLRXeZ" target="_blank">
+                                    BaLRXeZ</a>
+                                  by Luis Yerik Arambula (<a href="https://codepen.io/luis-yerik-arambula"
+                                    target="_blank">@luis-yerik-arambula</a>) on
+                                  <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+                              </p>
+                              <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                            </div>
+                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left">
+                              <!-- Fuente  -->
+                              CodePen. Software utilizado para el desarrollo
+                              de ejercicio dinámico de programación. In
+                              CodePen. https://codepen.io
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        Como mencionamos al inicio, la propiedad
+                        <span class="code">padding</span> sirve para
+                        distanciar al contenido de los bordes del contenedor.
+                        Observa:
+                      </p>
+                      <div class="row">
+                        <div class="col">
+                          <div class="card">
+                            <div class="container-fluid">
+                              <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="css,result"
+                                data-user="luis-yerik-arambula" data-slug-hash="gOwRYJK" style="
+                                    height: 500px;
+                                    box-sizing: border-box;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 2px solid;
+                                    margin: 1em 0;
+                                    padding: 1em;
+                                  " data-pen-title="ejemplo-padding">
+                                <span>See the Pen
+                                  <a href="https://codepen.io/luis-yerik-arambula/pen/gOwRYJK" target="_blank">
+                                    ejemplo-padding</a>
+                                  by Luis Yerik Arambula (<a href="https://codepen.io/luis-yerik-arambula"
+                                    target="_blank">@luis-yerik-arambula</a>) on
+                                  <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+                              </p>
+                              <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                            </div>
+                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left">
+                              <!-- Fuente  -->
+                              CodePen. Software utilizado para el desarrollo
+                              de ejercicio dinámico de programación. In
+                              CodePen. https://codepen.io
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Botones de avance entre páginas-->
+            <div class="row mrg-btm-20">
+              <div class="col text-center">
+                <div class="btn-group"></div>
+              </div>
+            </div>
+
+            <!--Widgets de avance de módulo y general-->
+            <div class="card widget-feed">
+              <div class="row">
+                <div class="col-lg-8">
+                  <h1 class="feed-title tag tag-info">Módulo 3</h1>
+                  <h3 class="feed-subtitle">Tu Progreso</h3>
+                  <div class="progress" style="height: 20px" id="bar">
+                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                      aria-valuemax="100" style="max-width: 63%">
+                      63%
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="row">
+                    <div class="col">
+                      <div id="circlecontainer"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-center">
+                      <h3 class="feed-subtitle">
+                        Progreso General del Curso
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <!-- Content Wrapper END -->
-
-          <!-- Footer START -->
-          <footer class="content-footer"></footer>
-          <!-- Footer END -->
         </div>
-        <!-- Page Container END -->
+        <!-- Content Wrapper END -->
+
+        <!-- Footer START -->
+        <footer class="content-footer"></footer>
+        <!-- Footer END -->
       </div>
+      <!-- Page Container END -->
     </div>
+  </div>
 
-    <!-- build:js assets/js/vendor.js -->
-    <!-- plugins js -->
-    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="../../assets/vendors/PACE/pace.min.js"></script>
-    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+  <!-- build:js assets/js/vendor.js -->
+  <!-- plugins js -->
+  <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
+  <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+  <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="../../assets/vendors/PACE/pace.min.js"></script>
+  <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
 
-    <!-- Progress plugins -->
-    <script src="../../assets/js/progressbar.js"></script>
-    <script src="../../assets/js/progress-circle.js"></script>
+  <!-- Progress plugins -->
+  <script src="../../assets/js/progressbar.js"></script>
+  <script src="../../assets/js/progress-circle.js"></script>
 
-    <!-- endbuild -->
+  <!-- endbuild -->
 
-    <!-- build:js assets/js/app.min.js -->
-    <!-- core js -->
-    <script src="../../assets/js/app.js"></script>
-    <script src="../../assets/js/recycled/navigationbar.js"></script>
-    <script src="../../assets/js/progress/url-script.js"></script>
+  <!-- build:js assets/js/app.min.js -->
+  <!-- core js -->
+  <script src="../../assets/js/app.js"></script>
+  <script src="../../assets/js/recycled/navigationbar.js"></script>
+  <script src="../../assets/js/progress/url-script.js"></script>
 
-    <!-- endbuild -->
+  <!-- endbuild -->
 
-    <!-- Insert your dependencies here -->
-    <script>
-      (function () {
-        var lab = document.querySelector("[data-box-lab]");
-        if (!lab) return;
+  <!-- Insert your dependencies here -->
+  <script>
+    (function () {
+      var lab = document.querySelector("[data-box-lab]");
+      if (!lab) return;
 
-        var box = lab.querySelector("[data-lab-box]");
-        var marginArea = lab.querySelector("[data-lab-margin]");
-        var state = { margin: 24, padding: 16, border: 4 };
+      var box = lab.querySelector("[data-lab-box]");
+      var marginArea = lab.querySelector("[data-lab-margin]");
+      var state = { margin: 24, padding: 16, border: 4 };
 
-        function render() {
-          marginArea.style.padding = state.margin + "px";
-          box.style.padding = state.padding + "px";
-          box.style.borderWidth = state.border + "px";
+      function render() {
+        marginArea.style.padding = state.margin + "px";
+        box.style.padding = state.padding + "px";
+        box.style.borderWidth = state.border + "px";
 
-          Object.keys(state).forEach(function (name) {
-            var text = state[name] + "px";
-            var out = lab.querySelector('[data-lab-value="' + name + '"]');
-            var code = lab.querySelector('[data-lab-code="' + name + '"]');
-            if (out) out.textContent = text;
-            if (code) code.textContent = text;
-          });
-        }
-
-        lab.querySelectorAll("[data-lab-range]").forEach(function (range) {
-          range.addEventListener("input", function () {
-            state[range.getAttribute("data-lab-range")] = Number(range.value);
-            render();
-          });
+        Object.keys(state).forEach(function (name) {
+          var text = state[name] + "px";
+          var out = lab.querySelector('[data-lab-value="' + name + '"]');
+          var code = lab.querySelector('[data-lab-code="' + name + '"]');
+          if (out) out.textContent = text;
+          if (code) code.textContent = text;
         });
+      }
 
-        render();
-      })();
-    </script>
-  </body>
+      lab.querySelectorAll("[data-lab-range]").forEach(function (range) {
+        range.addEventListener("input", function () {
+          state[range.getAttribute("data-lab-range")] = Number(range.value);
+          render();
+        });
+      });
+
+      render();
+    })();
+  </script>
+</body>
+
 </html>
