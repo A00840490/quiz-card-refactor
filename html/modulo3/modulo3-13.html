@@ -509,10 +509,11 @@
         if (!lab) return;
 
         var box = lab.querySelector("[data-lab-box]");
+        var marginArea = lab.querySelector("[data-lab-margin]");
         var state = { margin: 24, padding: 16, border: 4 };
 
         function render() {
-          box.style.margin = state.margin + "px";
+          marginArea.style.padding = state.margin + "px";
           box.style.padding = state.padding + "px";
           box.style.borderWidth = state.border + "px";
 

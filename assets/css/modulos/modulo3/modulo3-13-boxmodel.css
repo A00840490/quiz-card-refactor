@@ -99,7 +99,9 @@
   justify-content: center;
   gap: 8px 18px;
   margin: 14px 0 0;
-  font: 12px/1.2 Arial, sans-serif;
+  font:
+    12px/1.2 Arial,
+    sans-serif;
   color: #667085;
 }
 
