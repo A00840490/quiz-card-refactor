@@ -96,39 +96,63 @@
                                             <h2 class="card-title mrg-top-20">Tipos de Métodos</h2>
                                             <p>Los métodos que podemos aplicar a la propiedad <span
                                                     class="code">position</span> son los siguientes:</p>
-                                            <ul>
-                                                <li>
-                                                    <p><span class="code">static</span><br> Este es el método de
-                                                        posicionamiento predeterminado (de arriba a abajo).</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code">relative</span><br> El elemento permanece
-                                                        donde está, pero ahora puede ser afectado con las propiedades
-                                                        <span class="code">top</span>, <span class="code">bottom</span>,
-                                                        <span class="code">left</span> y <span
-                                                            class="code">right</span>. </p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code">absolute</span><br> Muestra al elemento en una
-                                                        posición absoluta dentro de su elemento padre/contenedor. A
-                                                        diferencia de relative, los elementos alrededor de un elemento
-                                                        absoluto no se reposicionan alrededor de su posición inicial.
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code">fixed</span><br> Permite que el elemento se
-                                                        mantenga visible en la ventana en todo momento (incluso después
-                                                        desplazar la página).</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code">sticky</span><br> Se comporta como <span
-                                                            class="code">relative</span> hasta que comienza a "salirse"
-                                                        de la ventana. Ahí es cuando se comporta como <span
-                                                            class="code">fixed</span>, manteniendo su posición en la
-                                                        parte superior de la ventana hasta que su elemento padre deje de
-                                                        estar visible.</p>
-                                                </li>
-                                            </ul>
+                                            <section class="pos-scene">
+                                                <input type="radio" name="pos-method" id="pos-static" checked>
+                                                <input type="radio" name="pos-method" id="pos-relative">
+                                                <input type="radio" name="pos-method" id="pos-absolute">
+                                                <input type="radio" name="pos-method" id="pos-fixed">
+                                                <input type="radio" name="pos-method" id="pos-sticky">
+
+                                                <ul class="pos-scene__menu">
+                                                    <li><label class="pos-scene__label pos-scene__label--static"
+                                                            for="pos-static">static</label></li>
+                                                    <li><label class="pos-scene__label pos-scene__label--relative"
+                                                            for="pos-relative">relative</label></li>
+                                                    <li><label class="pos-scene__label pos-scene__label--absolute"
+                                                            for="pos-absolute">absolute</label></li>
+                                                    <li><label class="pos-scene__label pos-scene__label--fixed"
+                                                            for="pos-fixed">fixed</label></li>
+                                                    <li><label class="pos-scene__label pos-scene__label--sticky"
+                                                            for="pos-sticky">sticky</label></li>
+                                                </ul>
+
+                                                <div class="pos-scene__stage">
+                                                    <article class="pos-scene__content pos-scene__content--static">
+                                                        <span class="pos-scene__tag">Predeterminado</span>
+                                                        <h3>static</h3>
+                                                        <p>Este es el método de posicionamiento predeterminado (de
+                                                            arriba a abajo).</p>
+                                                    </article>
+                                                    <article class="pos-scene__content pos-scene__content--relative">
+                                                        <span class="pos-scene__tag">Relativo</span>
+                                                        <h3>relative</h3>
+                                                        <p>El elemento permanece donde está, pero ahora puede ser
+                                                            afectado con las propiedades top, bottom, left y right.</p>
+                                                    </article>
+                                                    <article class="pos-scene__content pos-scene__content--absolute">
+                                                        <span class="pos-scene__tag">Absoluto</span>
+                                                        <h3>absolute</h3>
+                                                        <p>Muestra al elemento en una posición absoluta dentro de su
+                                                            elemento padre/contenedor. A diferencia de relative, los
+                                                            elementos alrededor de un elemento absoluto no se
+                                                            reposicionan alrededor de su posición inicial.</p>
+                                                    </article>
+                                                    <article class="pos-scene__content pos-scene__content--fixed">
+                                                        <span class="pos-scene__tag">Fijo</span>
+                                                        <h3>fixed</h3>
+                                                        <p>Permite que el elemento se mantenga visible en la ventana en
+                                                            todo momento (incluso después de desplazar la página).</p>
+                                                    </article>
+                                                    <article class="pos-scene__content pos-scene__content--sticky">
+                                                        <span class="pos-scene__tag">Adherente</span>
+                                                        <h3>sticky</h3>
+                                                        <p>Se comporta como relative hasta que comienza a "salirse" de
+                                                            la ventana. Ahí es cuando se comporta como fixed,
+                                                            manteniendo su posición en la parte superior de la ventana
+                                                            hasta que su elemento padre deje de estar visible.</p>
+                                                    </article>
+                                                </div>
+                                            </section>
                                             <br>
                                             <h2 class="card-title">Ejemplos</h2>
                                             <div class="row">
