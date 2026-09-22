@@ -58,20 +58,30 @@
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
-.format-demo__dot--red { background: #ff6b62; }
-.format-demo__dot--yellow { background: #f6bd4f; }
-.format-demo__dot--green { background: #38c878; }
+.format-demo__dot--red {
+  background: #ff6b62;
+}
+.format-demo__dot--yellow {
+  background: #f6bd4f;
+}
+.format-demo__dot--green {
+  background: #38c878;
+}
 
 .format-demo__filename {
   margin-left: 4px;
   color: #b8c1cf;
-  font: 600 12px/1.2 "Courier New", monospace;
+  font:
+    600 12px/1.2 "Courier New",
+    monospace;
 }
 
 .format-demo__language {
   margin-left: auto;
   color: #8290a4;
-  font: 700 10px/1.2 Arial, sans-serif;
+  font:
+    700 10px/1.2 Arial,
+    sans-serif;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -82,7 +92,10 @@
   column-gap: 18px;
   padding: 24px 22px 28px;
   overflow-x: auto;
-  font: 14px/1.75 "Courier New", Consolas, monospace;
+  font:
+    14px/1.75 "Courier New",
+    Consolas,
+    monospace;
   text-align: left;
 }
 
@@ -102,7 +115,9 @@
   margin: 0 -8px;
   padding: 0 8px;
   border-left: 2px solid transparent;
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
 }
 
 .format-demo__line:hover {
@@ -110,10 +125,18 @@
   border-left-color: var(--demo-tag);
 }
 
-.format-demo__symbol { color: var(--demo-symbol); }
-.format-demo__tag { color: var(--demo-tag); }
-.format-demo__text { color: var(--demo-code); }
-.format-demo__comment { color: #7fa26d; }
+.format-demo__symbol {
+  color: var(--demo-symbol);
+}
+.format-demo__tag {
+  color: var(--demo-tag);
+}
+.format-demo__text {
+  color: var(--demo-code);
+}
+.format-demo__comment {
+  color: #7fa26d;
+}
 
 .format-demo__preview {
   padding: 0 28px 28px;
@@ -131,7 +154,9 @@
   padding: 0 28px;
   border-bottom: 1px solid var(--demo-line);
   color: #000000;
-  font: 700 11px/1.2 Arial, sans-serif;
+  font:
+    700 11px/1.2 Arial,
+    sans-serif;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -174,7 +199,9 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: #212734;
   color: #b8c1cf;
-  font: 600 12px/1.2 "Courier New", monospace;
+  font:
+    600 12px/1.2 "Courier New",
+    monospace;
 }
 
 .lesson-demo > [class*="col-"]:last-child {
@@ -195,7 +222,9 @@
   padding: 0 28px;
   border-bottom: 1px solid #dce3ec;
   color: #000000;
-  font: 800 11px/1.2 Arial, sans-serif;
+  font:
+    800 11px/1.2 Arial,
+    sans-serif;
   text-align: center;
 }
 
@@ -218,11 +247,16 @@
   padding: 24px 22px 28px;
   overflow-x: auto;
   color: #d7deea;
-  font: 14px/1.75 "Courier New", Consolas, monospace;
+  font:
+    14px/1.75 "Courier New",
+    Consolas,
+    monospace;
   text-align: left;
 }
 
-.lesson-demo > [class*="col-"]:last-child > p:first-of-type { margin-top: 0; }
+.lesson-demo > [class*="col-"]:last-child > p:first-of-type {
+  margin-top: 0;
+}
 
 .lesson-demo > [class*="col-"]:last-child .example > .card {
   margin-bottom: 16px;
@@ -265,7 +299,9 @@
   margin: 0 -20px 20px;
   border-bottom: 1px solid #dce3ec;
   color: #000000;
-  font: 700 11px/1.2 Arial, sans-serif;
+  font:
+    700 11px/1.2 Arial,
+    sans-serif;
   text-transform: uppercase;
 }
 
@@ -277,15 +313,23 @@
 }
 
 .lesson-demo-activity--preview,
-.lesson-demo-activity--editor { padding: 0 20px 20px !important; }
+.lesson-demo-activity--editor {
+  padding: 0 20px 20px !important;
+}
 
 .lesson-demo-activity--preview::before,
-.lesson-demo-activity--editor::before { margin: 0 -20px 20px; }
+.lesson-demo-activity--editor::before {
+  margin: 0 -20px 20px;
+}
 
-.lesson-demo-activity--editor { background: #171b24; }
+.lesson-demo-activity--editor {
+  background: #171b24;
+}
 
 .lesson-demo-activity--editor .card-title,
-.lesson-demo-activity--editor .card-info { color: #d7deea; }
+.lesson-demo-activity--editor .card-info {
+  color: #d7deea;
+}
 
 .lesson-demo-activity--editor .code {
   margin: 0;
@@ -313,7 +357,10 @@
   background: #f8fafc;
   line-height: 1.4;
   text-align: left;
-  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .format-demo__result::before {
@@ -335,7 +382,9 @@
   background: var(--demo-blue-soft);
 }
 
-.format-demo__result:hover::before { opacity: 1; }
+.format-demo__result:hover::before {
+  opacity: 1;
+}
 
 .format-demo__sample {
   min-width: 0;
@@ -350,7 +399,9 @@
   color: #503b00;
 }
 
-.format-demo__sample del { color: #8b4b55; }
+.format-demo__sample del {
+  color: #8b4b55;
+}
 
 .format-demo__badge {
   flex: 0 0 auto;
@@ -360,11 +411,16 @@
   border-radius: 4px;
   background: #ffffff;
   color: var(--demo-blue);
-  font: 700 10px/1.2 "Courier New", monospace;
+  font:
+    700 10px/1.2 "Courier New",
+    monospace;
   text-align: center;
   letter-spacing: 0;
   opacity: 0.64;
-  transition: opacity 180ms ease, color 180ms ease, border-color 180ms ease;
+  transition:
+    opacity 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .format-demo__result:hover .format-demo__badge {
@@ -373,38 +429,86 @@
   border-color: #8eb2dc;
 }
 
-
 @media (max-width: 991px) {
   .format-demo__panels,
-  .lesson-demo { grid-template-columns: 1fr; }
-  .format-demo__preview { border-top: 1px solid var(--demo-line); border-left: 0; }
-  .lesson-demo > [class*="col-"]:last-child { border-top: 1px solid #dce3ec; border-left: 0; }
+  .lesson-demo {
+    grid-template-columns: 1fr;
+  }
+  .format-demo__preview {
+    border-top: 1px solid var(--demo-line);
+    border-left: 0;
+  }
+  .lesson-demo > [class*="col-"]:last-child {
+    border-top: 1px solid #dce3ec;
+    border-left: 0;
+  }
 }
 
 @media (max-width: 575px) {
-  .format-demo { margin-top: 1.25rem; border-radius: 8px; }
-  .format-demo__bar { padding: 0 14px; }
-  .format-demo__language { display: none; }
-  .format-demo__code { column-gap: 12px; padding: 18px 12px 22px; font-size: 12px; }
-  .format-demo__source { min-width: 460px; }
-  .format-demo__preview { padding: 0 14px 20px; }
-  .format-demo__preview-head { margin: 0 -14px 16px; padding: 0 14px; }
-  .format-demo__result { gap: 8px; }
-  .lesson-demo { border-radius: 8px; }
-  .lesson-demo > [class*="col-"]:first-child::before { padding: 0 14px; }
-  .lesson-demo > [class*="col-"]:first-child .code { padding: 18px 12px 22px; font-size: 12px; }
-  .lesson-demo > [class*="col-"]:last-child { padding: 0 14px 20px; }
-  .lesson-demo > [class*="col-"]:last-child::before { margin: 0 -14px 16px; padding: 0 14px; }
+  .format-demo {
+    margin-top: 1.25rem;
+    border-radius: 8px;
+  }
+  .format-demo__bar {
+    padding: 0 14px;
+  }
+  .format-demo__language {
+    display: none;
+  }
+  .format-demo__code {
+    column-gap: 12px;
+    padding: 18px 12px 22px;
+    font-size: 12px;
+  }
+  .format-demo__source {
+    min-width: 460px;
+  }
+  .format-demo__preview {
+    padding: 0 14px 20px;
+  }
+  .format-demo__preview-head {
+    margin: 0 -14px 16px;
+    padding: 0 14px;
+  }
+  .format-demo__result {
+    gap: 8px;
+  }
+  .lesson-demo {
+    border-radius: 8px;
+  }
+  .lesson-demo > [class*="col-"]:first-child::before {
+    padding: 0 14px;
+  }
+  .lesson-demo > [class*="col-"]:first-child .code {
+    padding: 18px 12px 22px;
+    font-size: 12px;
+  }
+  .lesson-demo > [class*="col-"]:last-child {
+    padding: 0 14px 20px;
+  }
+  .lesson-demo > [class*="col-"]:last-child::before {
+    margin: 0 -14px 16px;
+    padding: 0 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .format-demo__line,
   .format-demo__result,
-  .format-demo__badge { transition: none; }
-  .format-demo__result:hover { transform: none; }
+  .format-demo__badge {
+    transition: none;
+  }
+  .format-demo__result:hover {
+    transform: none;
+  }
 }
 
 /* Filename variant for CSS lessons. */
 .lesson-demo--css > [class*="col-"]:first-child::before {
   content: "●  ●  ●    colores.css";
+}
+
+/* Filename variant for lessons that mix HTML and CSS. */
+.lesson-demo--html-css > [class*="col-"]:first-child::before {
+  content: "●  ●  ●    ejemplo.html  +  estilos.css";
 }
