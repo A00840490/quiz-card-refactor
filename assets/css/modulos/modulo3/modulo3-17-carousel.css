@@ -17,7 +17,11 @@
   transform: perspective(1000px) rotateX(68deg);
   transform-style: preserve-3d;
   animation: text-carousel-rotate 24s linear infinite;
-  background-image: radial-gradient(circle at 50% 50%, #222 30%, transparent 40%);
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #222 30%,
+    transparent 40%
+  );
 }
 
 .text-carousel:hover,
