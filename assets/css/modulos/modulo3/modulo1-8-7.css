@@ -8,7 +8,7 @@
 
 .property-wheel__item {
   --segment-angle: 0deg;
-  --segment-color: #075b42;
+  --segment-color: #041e45;
   position: absolute;
   inset: 0;
   z-index: 1;
@@ -19,27 +19,27 @@
 
 .property-wheel__item:nth-of-type(2) {
   --segment-angle: 60deg;
-  --segment-color: #087a4f;
+  --segment-color: #132772;
 }
 
 .property-wheel__item:nth-of-type(3) {
   --segment-angle: 120deg;
-  --segment-color: #0c9760;
+  --segment-color: #0A3D91;
 }
 
 .property-wheel__item:nth-of-type(4) {
   --segment-angle: 180deg;
-  --segment-color: #34ad64;
+  --segment-color: #4169E1;
 }
 
 .property-wheel__item:nth-of-type(5) {
   --segment-angle: 240deg;
-  --segment-color: #68c66a;
+  --segment-color: #00BFFF;
 }
 
 .property-wheel__item:nth-of-type(6) {
   --segment-angle: 300deg;
-  --segment-color: #9bd870;
+  --segment-color: #3ae8ff;
 }
 
 .property-wheel__segment {
@@ -76,7 +76,7 @@
 
 .property-wheel__item:nth-of-type(1) .property-wheel__text {
   top: 20%;
-  left: 51%;
+  left: 49.5%;
 }
 
 .property-wheel__item:nth-of-type(2) .property-wheel__text {
