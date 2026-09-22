@@ -289,6 +289,84 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
+    <script>
+        (function () {
+            var lab = document.querySelector("[data-box-lab]");
+            if (!lab) return;
+
+            var limits = { margin: { min: 0, max: 80 }, padding: { min: 0, max: 70 } };
+            var state = { margin: 24, padding: 16 };
+
+            var marginBox = lab.querySelector("[data-lab-margin]");
+            var element = lab.querySelector("[data-lab-element]");
+
+            function clamp(name, value) {
+                var l = limits[name];
+                return Math.max(l.min, Math.min(l.max, Math.round(value)));
+            }
+
+            function render() {
+                marginBox.style.setProperty("--margin-size", state.margin + "px");
+                element.style.setProperty("--padding-size", state.padding + "px");
+
+                Object.keys(state).forEach(function (name) {
+                    var text = state[name] + "px";
+                    var out = lab.querySelector('[data-lab-value="' + name + '"]');
+                    var code = lab.querySelector('[data-lab-code="' + name + '"]');
+                    var range = lab.querySelector('[data-lab-range="' + name + '"]');
+                    if (out) out.textContent = text;
+                    if (code) code.textContent = text;
+                    if (range && Number(range.value) !== state[name]) range.value = state[name];
+                });
+            }
+
+            lab.querySelectorAll("[data-lab-range]").forEach(function (range) {
+                range.addEventListener("input", function () {
+                    state[range.getAttribute("data-lab-range")] = clamp(
+                        range.getAttribute("data-lab-range"),
+                        Number(range.value)
+                    );
+                    render();
+                });
+            });
+
+            lab.querySelectorAll("[data-lab-grip]").forEach(function (grip) {
+                var name = grip.getAttribute("data-lab-grip");
+
+                grip.addEventListener("pointerdown", function (event) {
+                    event.preventDefault();
+                    grip.setPointerCapture(event.pointerId);
+                    var startY = event.clientY;
+                    var startValue = state[name];
+
+                    function move(moveEvent) {
+                        state[name] = clamp(name, startValue + (startY - moveEvent.clientY));
+                        render();
+                    }
+
+                    function up() {
+                        grip.removeEventListener("pointermove", move);
+                        grip.removeEventListener("pointerup", up);
+                        grip.removeEventListener("pointercancel", up);
+                    }
+
+                    grip.addEventListener("pointermove", move);
+                    grip.addEventListener("pointerup", up);
+                    grip.addEventListener("pointercancel", up);
+                });
+
+                grip.addEventListener("keydown", function (event) {
+                    var step = event.key === "ArrowUp" ? 2 : event.key === "ArrowDown" ? -2 : 0;
+                    if (!step) return;
+                    event.preventDefault();
+                    state[name] = clamp(name, state[name] + step);
+                    render();
+                });
+            });
+
+            render();
+        })();
+    </script>
 
 </body>
 
