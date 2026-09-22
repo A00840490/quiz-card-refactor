@@ -1,0 +1,146 @@
+/* Carrusel 3D de demostraciones (módulo 2-9). */
+.demo-carousel {
+  --demo-line: #dce3ec;
+  position: relative;
+  max-width: 1180px;
+  margin: 1.75rem auto 0;
+  padding: 0 12px 8px;
+}
+
+.demo-carousel__viewport {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 0 10px;
+  perspective: 1600px;
+}
+
+.demo-carousel__track {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 520px;
+  transform-style: preserve-3d;
+}
+
+.demo-carousel__slide {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(100%, 1020px);
+  transform: translateX(-50%);
+  opacity: 0;
+  filter: blur(7px) grayscale(1);
+  pointer-events: none;
+  transition:
+    transform 420ms ease-in-out,
+    opacity 420ms ease-in-out,
+    filter 420ms ease-in-out;
+}
+
+.demo-carousel__slide.is-current {
+  z-index: 3;
+  opacity: 1;
+  filter: none;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+.demo-carousel__slide.is-prev,
+.demo-carousel__slide.is-next {
+  z-index: 2;
+  opacity: 0.45;
+  filter: blur(5px) grayscale(1);
+}
+
+.demo-carousel__slide.is-prev {
+  transform: translateX(-104%) scale(0.82) rotateY(16deg);
+}
+
+.demo-carousel__slide.is-next {
+  transform: translateX(4%) scale(0.82) rotateY(-16deg);
+}
+
+.demo-carousel__slide .lesson-demo {
+  margin: 0;
+}
+
+.demo-carousel__caption {
+  margin: 14px auto 0;
+  color: #172033;
+  font:
+    700 15px/1.4 Arial,
+    sans-serif;
+  text-align: center;
+}
+
+.demo-carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.demo-carousel__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #c9d9ec;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0f4c91;
+  font:
+    700 18px/1 Arial,
+    sans-serif;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.demo-carousel__btn:hover,
+.demo-carousel__btn:focus-visible {
+  background: #0f4c91;
+  color: #ffffff;
+  outline: none;
+}
+
+.demo-carousel__dots {
+  display: flex;
+  gap: 9px;
+}
+
+.demo-carousel__dot {
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border: 1px solid #a9bed8;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.demo-carousel__dot.is-active {
+  background: #0f4c91;
+  border-color: #0f4c91;
+}
+
+@media (max-width: 991px) {
+  .demo-carousel__track {
+    min-height: 760px;
+  }
+  .demo-carousel__slide.is-prev,
+  .demo-carousel__slide.is-next {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-carousel__slide {
+    transition: none;
+  }
+}
