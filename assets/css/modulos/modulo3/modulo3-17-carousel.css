@@ -169,7 +169,7 @@
   line-height: 1.55;
   text-align: left;
   white-space: pre;
-  transform: rotateY(180deg);
+  transform: rotateZ(180deg) rotateY(180deg);
 }
 
 .text-carousel__code span {
