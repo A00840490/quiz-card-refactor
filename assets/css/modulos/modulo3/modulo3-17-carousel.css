@@ -148,3 +148,48 @@
     animation: none;
   }
 }
+
+/* Parte trasera: código que "da vida" a la tarjeta */
+.text-carousel__back {
+  background-color: #171b24;
+  border: 1px solid #2a3140;
+  overflow: hidden;
+  place-items: start;
+}
+
+.text-carousel__code {
+  margin: 0;
+  padding: 16px 14px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  color: #c9d1d9;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  text-align: left;
+  white-space: pre;
+  transform: rotateY(180deg);
+}
+
+.text-carousel__code span {
+  display: inline;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.tc-sel {
+  color: #7fd4ff;
+}
+.tc-prop {
+  color: #ff9e64;
+}
+.tc-tag {
+  color: #f7768e;
+}
+.tc-attr {
+  color: #e0af68;
+}
+.tc-str {
+  color: #9ece6a;
+}
