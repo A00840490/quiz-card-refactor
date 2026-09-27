@@ -169,7 +169,7 @@
   line-height: 1.55;
   text-align: left;
   white-space: pre;
-  transform: scale(-1, -1);
+  transform: scaleY(-1);
 }
 
 .text-carousel__code span {
