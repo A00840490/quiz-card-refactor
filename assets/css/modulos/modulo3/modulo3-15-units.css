@@ -132,16 +132,6 @@
   font-weight: 700;
 }
 
-.unit-deck__note {
-  max-width: 650px;
-  margin: -0.5rem auto 0;
-  padding: 1rem 1.15rem;
-  border-left: 4px solid #33a6d8;
-  background: #eef8fc;
-  color: #34455e;
-  text-align: left;
-}
-
 @media (max-width: 767px) {
   .unit-deck__scroll-area {
     height: calc(var(--card-count) * 48vh + 240px);

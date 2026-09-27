@@ -27,30 +27,23 @@
   <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
   <link href="../../assets/css/modulos/modulo3/modulo3-15-units.css" rel="stylesheet" />
   <style>
-    /* Deberías ajustarlo a el tamaño de pantalla (max-width: px) cuando el menú se mueve hacia arriba y se comienza a ver apretado, justo antes para asegurarte */
     @media only screen and (max-width: 600px) {
       .nav-vertical .tab-content {
-        /* Aumentar tamaño de contenido */
         width: 100%;
       }
 
       .nav-vertical .nav-pills {
-        /* Aumentar tamaño de menus si gustas */
         width: auto;
         /* width: 80%; */
-        /* Esto es opcional para centrar */
         display: flex;
         justify-content: center;
       }
 
       .nav-pills .nav-item {
-        /* Esto es opcional */
-        /* Darle margen a botones de menu */
         margin: 0.5rem;
       }
     }
 
-    /* Evitar que la imagen del banner se estire con todo el contenido */
     @media only screen and (min-width: 768px) {
       .card .card-horizon .background-holder {
         background-attachment: fixed;
@@ -87,162 +80,165 @@
 
             <div class="card">
               <div class="card-horizon">
-                <div class="">
-                  <div class="container-fluid">
-                    <h1 class="card-title mrg-top-20 text-left">
-                      <span class="badge badge-light">Tema 14</span>Unidades
-                      en CSS
-                    </h1>
-                    <p>
-                      Para cambiar las propiedades
-                      <span class="code">margin</span> y
-                      <span class="code">padding</span>, nuestros valores
-                      tienen que utilizar una unidad de medición válida. En
-                      estos ejemplos hemos estado usando <b>píxeles (px)</b>,
-                      pero existen otras, estas se dividen en dos tipos:
-                    </p>
+                <div class="container-fluid">
+                  <h1 class="card-title mrg-top-20 text-left">
+                    <span class="badge badge-light">Tema 14</span>Unidades
+                    en CSS
+                  </h1>
+                  <p>
+                    Para cambiar las propiedades
+                    <span class="code">margin</span> y
+                    <span class="code">padding</span>, nuestros valores
+                    tienen que utilizar una unidad de medición válida. En
+                    estos ejemplos hemos estado usando <b>píxeles (px)</b>,
+                    pero existen otras, estas se dividen en dos tipos:
+                  </p>
 
-                    <div class="unit-groups">
-                      <section class="unit-deck unit-deck--absolute" data-unit-deck>
-                        <p>
-                          <b>Unidades Absolutas</b><br>
-                          Desplázate para descubrir cada unidad.
-                        </p>
-                        <div class="unit-deck__scroll-area" style="--card-count: 4">
-                          <div class="unit-deck__stage">
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">px</div>
-                              <div class="unit-card__content">
-                                <h3>Píxeles</h3>
-                                <p>
-                                  Se define con <b>px</b>. Un píxel es la
-                                  unidad más pequeña de medición de una
-                                  pantalla o imagen digital.
-                                </p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">cm</div>
-                              <div class="unit-card__content">
-                                <h3>
-                                  Centímetros
-                                  <span class="unit-card__warning">(no recomendado)</span>
-                                </h3>
-                                <p>Se define con <b>cm</b>.</p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">mm</div>
-                              <div class="unit-card__content">
-                                <h3>
-                                  Milímetros
-                                  <span class="unit-card__warning">(no recomendado)</span>
-                                </h3>
-                                <p>Se define con <b>mm</b>.</p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">in</div>
-                              <div class="unit-card__content">
-                                <h3>
-                                  Pulgadas
-                                  <span class="unit-card__warning">(no recomendado)</span>
-                                </h3>
-                                <p>Se define con <b>in</b>.</p>
-                              </div>
-                            </article>
-                          </div>
+                  <div class="unit-groups">
+                    <section class="unit-deck unit-deck--absolute" data-unit-deck>
+                      <p>
+                        <b>Unidades Absolutas</b><br>
+                        Desplázate para descubrir cada unidad.
+                      </p>
+                      <div class="unit-deck__scroll-area" style="--card-count: 4">
+                        <div class="unit-deck__stage">
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">px</div>
+                            <div class="unit-card__content">
+                              <h3>Píxeles</h3>
+                              <p>
+                                Se define con <b>px</b>. Un píxel es la
+                                unidad más pequeña de medición de una
+                                pantalla o imagen digital.
+                              </p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">cm</div>
+                            <div class="unit-card__content">
+                              <h3>
+                                Centímetros
+                                <span class="unit-card__warning">(no recomendado)</span>
+                              </h3>
+                              <p>Se define con <b>cm</b>.</p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">mm</div>
+                            <div class="unit-card__content">
+                              <h3>
+                                Milímetros
+                                <span class="unit-card__warning">(no recomendado)</span>
+                              </h3>
+                              <p>Se define con <b>mm</b>.</p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">in</div>
+                            <div class="unit-card__content">
+                              <h3>
+                                Pulgadas
+                                <span class="unit-card__warning">(no recomendado)</span>
+                              </h3>
+                              <p>Se define con <b>in</b>.</p>
+                            </div>
+                          </article>
                         </div>
-                        <p class="unit-deck__note">
-                          Para este tipo de unidades, sólo se recomienda
-                          utilizar <b>px</b>, ya que dependiendo del
-                          dispositivo, pueden variar los tamaños especificados
-                          con las otras unidades.
-                        </p>
-                      </section>
+                      </div>
+                    </section>
 
-                      <section class="unit-deck unit-deck--relative" data-unit-deck>
-                        <p>
-                          <b>Unidades Relativas</b><br>
-                          Desplázate para descubrir cada unidad.
-                        </p>
-                        <div class="unit-deck__scroll-area" style="--card-count: 5">
-                          <div class="unit-deck__stage">
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">em</div>
-                              <div class="unit-card__content">
-                                <h3>em</h3>
-                                <p>
-                                  Esta unidad es relativa al tamaño de fuente
-                                  del elemento. Es decir, si tenemos un tamaño
-                                  de fuente de <span class="code">14px</span>,
-                                  entonces <span class="code">2em</span> =
-                                  <span class="code">28px</span>.
-                                </p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">rem</div>
-                              <div class="unit-card__content">
-                                <h3>rem</h3>
-                                <p>
-                                  Similar a <b>em</b>, <b>rem</b> es relativa
-                                  al tamaño de fuente del elemento raíz, o sea
-                                  el elemento
-                                  <span class="code">&lt;<span class="codetag">html</span>&gt;</span>.
-                                </p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">%</div>
-                              <div class="unit-card__content">
-                                <h3>Porcentajes</h3>
-                                <p>
-                                  Definidos con el símbolo <b>%</b>, hacen
-                                  referencia al elemento padre, es decir, al
-                                  contenedor del elemento. Si usamos un margen
-                                  de <span class="code">50%</span>, entonces
-                                  será de la mitad del tamaño del contenedor.
-                                </p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">vh</div>
-                              <div class="unit-card__content">
-                                <h3>vh</h3>
-                                <p>
-                                  Es una unidad relativa a la altura del
-                                  <b>viewport</b> (el espacio en donde está el
-                                  contenido), donde una unidad
-                                  <span class="code">1vh</span> equivale a 1%
-                                  de la altura de nuestra ventana.
-                                </p>
-                              </div>
-                            </article>
-                            <article class="unit-card" data-unit-card>
-                              <div class="unit-card__symbol">vw</div>
-                              <div class="unit-card__content">
-                                <h3>vw</h3>
-                                <p>
-                                  Es una unidad relativa al ancho del
-                                  <b>viewport</b>, donde una unidad
-                                  <span class="code">1vw</span> equivale a 1%
-                                  del ancho de nuestra ventana.
-                                </p>
-                              </div>
-                            </article>
-                          </div>
-                        </div>
-                      </section>
+                    <div class="alert alert-info">
+                      <i class="fa fa-info-circle" style="font-size: 32px;"></i>
+                      <b class="pt-1 px-2">Ten en cuenta que:</b>
+                      <p>
+                        Para este tipo de unidades, sólo se recomienda
+                        utilizar <b>px</b>, ya que dependiendo del
+                        dispositivo, pueden variar los tamaños especificados
+                        con las otras unidades.
+                      </p>
                     </div>
-                    <p>
-                      Copia los ejemplos de arriba y cambia sus unidades,
-                      observa cómo varían los tamaños de los elementos. Cuando
-                      utilices <span class="code">vh</span> o
-                      <span class="code">vw</span>, observa cómo cambian los
-                      tamaños si agrandas o achicas la ventana del navegador.
-                    </p>
+
+                    <section class="unit-deck unit-deck--relative" data-unit-deck>
+                      <p class=" mrg-top-30 ">
+                        <b>Unidades Relativas</b><br>
+                        Desplázate para descubrir cada unidad.
+                      </p>
+                      <div class="unit-deck__scroll-area" style="--card-count: 5">
+                        <div class="unit-deck__stage">
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">em</div>
+                            <div class="unit-card__content">
+                              <h3>em</h3>
+                              <p>
+                                Esta unidad es relativa al tamaño de fuente
+                                del elemento. Es decir, si tenemos un tamaño
+                                de fuente de <span class="code">14px</span>,
+                                entonces <span class="code">2em</span> =
+                                <span class="code">28px</span>.
+                              </p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">rem</div>
+                            <div class="unit-card__content">
+                              <h3>rem</h3>
+                              <p>
+                                Similar a <b>em</b>, <b>rem</b> es relativa
+                                al tamaño de fuente del elemento raíz, o sea
+                                el elemento
+                                <span class="code">&lt;<span class="codetag">html</span>&gt;</span>.
+                              </p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">%</div>
+                            <div class="unit-card__content">
+                              <h3>Porcentajes</h3>
+                              <p>
+                                Definidos con el símbolo <b>%</b>, hacen
+                                referencia al elemento padre, es decir, al
+                                contenedor del elemento. Si usamos un margen
+                                de <span class="code">50%</span>, entonces
+                                será de la mitad del tamaño del contenedor.
+                              </p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">vh</div>
+                            <div class="unit-card__content">
+                              <h3>vh</h3>
+                              <p>
+                                Es una unidad relativa a la altura del
+                                <b>viewport</b> (el espacio en donde está el
+                                contenido), donde una unidad
+                                <span class="code">1vh</span> equivale a 1%
+                                de la altura de nuestra ventana.
+                              </p>
+                            </div>
+                          </article>
+                          <article class="unit-card" data-unit-card>
+                            <div class="unit-card__symbol">vw</div>
+                            <div class="unit-card__content">
+                              <h3>vw</h3>
+                              <p>
+                                Es una unidad relativa al ancho del
+                                <b>viewport</b>, donde una unidad
+                                <span class="code">1vw</span> equivale a 1%
+                                del ancho de nuestra ventana.
+                              </p>
+                            </div>
+                          </article>
+                        </div>
+                      </div>
+                    </section>
                   </div>
+                  <p>
+                    Copia los ejemplos de arriba y cambia sus unidades,
+                    observa cómo varían los tamaños de los elementos. Cuando
+                    utilices <span class="code">vh</span> o
+                    <span class="code">vw</span>, observa cómo cambian los
+                    tamaños si agrandas o achicas la ventana del navegador.
+                  </p>
                 </div>
               </div>
             </div>
