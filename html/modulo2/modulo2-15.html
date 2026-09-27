@@ -36,6 +36,10 @@
       href="../../assets/css/modulos/modulo2/modulo2-5-demo.css"
       rel="stylesheet"
     />
+    <link
+      href="../../assets/css/modulos/modulo2/modulo2-15-table.css"
+      rel="stylesheet"
+    />
   </head>
   <body class="header-info side-nav-dark text-justify">
     <div class="app" id="inicio">
@@ -144,7 +148,7 @@
                       </p>
                       <div class="d-flex justify-content-center">
                         <table
-                          class="table table-hover table-bordered"
+                          class="table table-hover table-bordered table-slide"
                           style="max-width: 800px; text-align: center"
                         >
                           <thead class="table-primary">
@@ -316,6 +320,22 @@
       function tabSelect2() {
         $("#collapseOne").collapse("hide");
       }
+    </script>
+    <script>
+      // Animación de la tabla: entra deslizándose al verse, reversa al salir
+      (function () {
+        var tabla = document.querySelector(".table-slide");
+        if (!tabla || typeof IntersectionObserver === "undefined") return;
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              tabla.classList.toggle("is-visible", entry.isIntersecting);
+            });
+          },
+          { threshold: 0.15 }
+        );
+        observer.observe(tabla);
+      })();
     </script>
     <!-- endbuild -->
     <!-- Insert your dependencies here -->

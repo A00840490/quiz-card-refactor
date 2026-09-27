@@ -1,0 +1,66 @@
+/* Módulo 2-15: animación de la tabla de entidades.
+   Las filas se deslizan de izquierda a derecha con desvanecido,
+   escalonadas una tras otra, cuando la tabla entra en pantalla.
+   Al salir de la vista, la animación se reproduce en reversa. */
+
+.table-slide thead tr,
+.table-slide tbody tr {
+  opacity: 0;
+  transform: translateX(-70px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  transition-delay: calc(var(--row, 0) * 80ms);
+  will-change: opacity, transform;
+}
+
+.table-slide.is-visible thead tr,
+.table-slide.is-visible tbody tr {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Retardo escalonado: encabezado primero, luego cada fila */
+.table-slide thead tr {
+  --row: 0;
+}
+.table-slide tbody tr:nth-child(1) {
+  --row: 1;
+}
+.table-slide tbody tr:nth-child(2) {
+  --row: 2;
+}
+.table-slide tbody tr:nth-child(3) {
+  --row: 3;
+}
+.table-slide tbody tr:nth-child(4) {
+  --row: 4;
+}
+.table-slide tbody tr:nth-child(5) {
+  --row: 5;
+}
+.table-slide tbody tr:nth-child(6) {
+  --row: 6;
+}
+.table-slide tbody tr:nth-child(7) {
+  --row: 7;
+}
+.table-slide tbody tr:nth-child(8) {
+  --row: 8;
+}
+
+/* Al salir de la vista, la reversa es más rápida y sin escalones */
+.table-slide:not(.is-visible) thead tr,
+.table-slide:not(.is-visible) tbody tr {
+  transition-duration: 0.4s;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .table-slide thead tr,
+  .table-slide tbody tr {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
