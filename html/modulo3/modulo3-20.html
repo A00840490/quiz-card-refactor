@@ -25,6 +25,7 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo3/modulo3-20-sizecards.css" rel="stylesheet">
 
 </head>
 
@@ -107,25 +108,52 @@
                                             <b>relativo</b> como los <b>porcentajes</b>. Además de esto, también podemos
                                             modificar los valores máximos y mínimos que puede adquirir un elemento, esto
                                             con las siguientes propiedades: </p>
-                                        <div class="d-flex w-100 justify-content-center">
-                                        <div class="row">
-                                            <ul class="col-6 px-5">
-                                                <li>
-                                                    <p><span class="code">min-height</span> <br> Altura mínima</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code">min-width</span> <br> Anchura mínima</p>
-                                                </li>
-                                            </ul>
-                                            <ul class="col-6 px-5">
-                                                <li>
-                                                    <p><span class="code">max-height</span> <br> Altura máxima</p>
-                                                </li>
-                                                <li>
-                                                    <p><span class="code">max-width</span> <br> Anchura máxima</p>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <div class="size-stack"
+                                            aria-label="Propiedades de tamaño mínimo y máximo">
+                                            <article class="size-stack__card" tabindex="0"
+                                                style="--i: 0; --c: #56b8e6;">
+                                                <h3 class="size-stack__name">min-height</h3>
+                                                <p class="size-stack__desc">Altura mínima</p>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--side"
+                                                    aria-hidden="true"></span>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--bottom"
+                                                    aria-hidden="true"></span>
+                                            </article>
+                                            <article class="size-stack__card" tabindex="0"
+                                                style="--i: 1; --c: #ef8a3c;">
+                                                <h3 class="size-stack__name">min-width</h3>
+                                                <p class="size-stack__desc">Anchura mínima</p>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--side"
+                                                    aria-hidden="true"></span>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--bottom"
+                                                    aria-hidden="true"></span>
+                                            </article>
+                                            <article class="size-stack__card" tabindex="0"
+                                                style="--i: 2; --c: #f0d43f; --ink: #4a4a2e;">
+                                                <h3 class="size-stack__name">max-height</h3>
+                                                <p class="size-stack__desc">Altura máxima</p>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--side"
+                                                    aria-hidden="true"></span>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--bottom"
+                                                    aria-hidden="true"></span>
+                                            </article>
+                                            <article class="size-stack__card" tabindex="0"
+                                                style="--i: 3; --c: #4a90d9;">
+                                                <h3 class="size-stack__name">max-width</h3>
+                                                <p class="size-stack__desc">Anchura máxima</p>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--side"
+                                                    aria-hidden="true"></span>
+                                                <span
+                                                    class="size-stack__pages size-stack__pages--bottom"
+                                                    aria-hidden="true"></span>
+                                            </article>
                                         </div>
                                         
                                         <p>Todas las propiedades anteriores aceptan los mismos valores. De esta forma,
