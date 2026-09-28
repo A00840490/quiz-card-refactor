@@ -191,13 +191,21 @@
 .lesson-demo > [class*="col-"]:first-child::before,
 .lesson-demo-stack::before,
 .lesson-demo-activity--editor::before {
-  content: "●  ●  ●    ejemplo.html";
+  content: "ejemplo.html";
   display: flex;
   align-items: center;
   min-height: 54px;
-  padding: 0 20px;
+  padding: 0 20px 0 76px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: #212734;
+  background-color: #212734;
+  background-image: radial-gradient(circle at center, #ff6b62 0 4px, transparent 5px),
+    radial-gradient(circle at center, #f6bd4f 0 4px, transparent 5px),
+    radial-gradient(circle at center, #38c878 0 4px, transparent 5px);
+  background-repeat: no-repeat;
+  background-position:
+    20px 50%,
+    40px 50%,
+    60px 50%;
   color: #b8c1cf;
   font:
     600 12px/1.2 "Courier New",
@@ -477,7 +485,11 @@
     border-radius: 8px;
   }
   .lesson-demo > [class*="col-"]:first-child::before {
-    padding: 0 14px;
+    padding: 0 14px 0 70px;
+    background-position:
+      14px 50%,
+      34px 50%,
+      54px 50%;
   }
   .lesson-demo > [class*="col-"]:first-child .code {
     padding: 18px 12px 22px;
@@ -505,10 +517,10 @@
 
 /* Filename variant for CSS lessons. */
 .lesson-demo--css > [class*="col-"]:first-child::before {
-  content: "●  ●  ●    colores.css";
+  content: "colores.css";
 }
 
 /* Filename variant for lessons that mix HTML and CSS. */
 .lesson-demo--html-css > [class*="col-"]:first-child::before {
-  content: "●  ●  ●    ejemplo.html  +  estilos.css";
+  content: "ejemplo.html  +  estilos.css";
 }

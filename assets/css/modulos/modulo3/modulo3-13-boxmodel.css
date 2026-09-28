@@ -3,7 +3,7 @@
    aquí sólo se define la etiqueta del editor y la caja de previsualización. */
 
 .lesson-demo--boxmodel > [class*="col-"]:first-child::before {
-  content: "●  ●  ●    caja.css";
+  content: "caja.css";
 }
 
 /* Colores de cada propiedad */
