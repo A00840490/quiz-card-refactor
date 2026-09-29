@@ -88,29 +88,8 @@
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
-    <!-- page plugins css 
-    CSS necesario para el carrusel-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet"
-        type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet"
-        type="text/css" />
+    <link href="../../assets/css/modulos/modulo2/modulo2-9-carousel.css" rel="stylesheet">
 
-    <!-- Puedes editar los componentes del carrusel, para ello puedes checar
-    el siguiente link: https://kenwheeler.github.io/slick/ -->
-    <style>
-        .slick-dots li.slick-active button::before {
-            color: #083B8B !important;
-        }
-
-        .slick-dots li button::before {
-            color: black !important;
-        }
-
-        .slick-prev::before,
-        .slick-next::before {
-            color: #083B8B !important;
-        }
-    </style>
 
     <style>
 
@@ -334,8 +313,10 @@
                             </div>
 
                             <div class="row text-center py-5">
-                                <div class="slider" style="width: 90%; margin:auto">
-                                    <div class="mrg-horizon-50">
+                                <div class="demo-carousel" data-demo-carousel data-demo-autoheight data-demo-label="Paso">
+                                    <div class="demo-carousel__viewport">
+                                        <div class="demo-carousel__track">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">¡Comencemos! Al abrirlo por primera vez, verás algo así:</p>
@@ -346,7 +327,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">En la barra de la izquierda, haz clic en el último ícono, te llevará al buscador de extensiones. Las extensiones son herramientas adicionales que podemos instalar en nuestro editor.</p>
@@ -357,7 +338,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Haz clic en la barra de búsqueda y escribe <b>"live server"</b>.</p>
@@ -368,7 +349,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Hacemos clic en el botón de Install de la primera opción de los resultados.</p>
@@ -379,7 +360,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Una vez instalada nuestra extensión, debemos crear nuestro espacio de trabajo. En la barra de la izquierda hacemos clic en el primer ícono.</p>
@@ -390,7 +371,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Después hacemos clic en el botón de "Add Folder" para agregar una carpeta de trabajo en nuestra computadora. Crea un nuevo folder con el nombre "PrimerProyectoWeb", selecciónalo, y haz clic en el botón de agregar.</p>
@@ -401,7 +382,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Una vez creada la carpeta, hacemos clic el primer ícono del explorador de archivos para agregar un nuevo archivo a nuestro espacio de trabajo.</p>
@@ -412,7 +393,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Nombramos al archivo <b>"index.html"</b>.</p>
@@ -423,7 +404,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">Escribimos en el archivo un signo de admiración <b>!</b> y presionamos ENTER cuando aparezca un menú desplegable debajo del cursor.</p>
@@ -434,7 +415,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">El <b>!</b> es un atajo para agregar todo lo necesario de un documento HTML; revisaremos a detalle cada elemento del archivo más adelante. En la sección de <b>body</b> escribimos algún mensaje como "¡Hola! Esta es mi primer página web".</p>
@@ -445,7 +426,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">En la barra inferior derecha de VS Code, haz clic en el botón <b>"Go Live"</b>. Esto iniciará un servidor local en tu máquina para mostrar las páginas de tu sitio web en tu navegador.</p>
@@ -456,7 +437,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="mrg-horizon-50">
+                                    <div class="demo-carousel__slide" data-demo-slide>
                                         <div class="tutorial-slide-card">
                                             <div class="tutorial-slide-header">
                                                 <p class="tutorial-text">La extensión de Live Server abrirá automáticamente una pestaña en tu navegador predeterminado con tu página web. ¡Felicidades! Has creado tu primera página web.</p>
@@ -465,6 +446,13 @@
                                                 <img src="../../assets/images/course/modulo1/m1-3/vscode12.jpg" alt="Slide 12">
                                             </div>
                                         </div>
+                                    </div>
+                                        </div>
+                                    </div>
+                                    <div class="demo-carousel__controls">
+                                        <button class="demo-carousel__btn" type="button" data-demo-prev aria-label="Paso anterior">&#8249;</button>
+                                        <div class="demo-carousel__dots" data-demo-dots></div>
+                                        <button class="demo-carousel__btn" type="button" data-demo-next aria-label="Paso siguiente">&#8250;</button>
                                     </div>
                                 </div>
                             </div>
@@ -543,26 +531,7 @@
 
     <!-- Insert your dependencies here 
     Dependencias de JS necesarias para el carrusel -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
-
-    <!-- Código necesario para el carrusel, checar la documentación en: 
-    https://kenwheeler.github.io/slick/ para más información -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $(".slider").slick({
-                centerMode: true,
-                centerPadding: '80px',
-                infinite: false,
-                dots: true,
-                arrows: true,
-                slidesToShow: 1,
-                adaptiveHeight: false
-             
-            });
-        });
-    </script>
+    <script src="../../assets/js/scripts/demo-carousel.js"></script>
 
     <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
     <script type="text/javascript">

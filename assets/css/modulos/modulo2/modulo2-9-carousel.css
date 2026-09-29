@@ -1,7 +1,8 @@
-/* Carrusel 3D de demostraciones (módulo 2-9). */
+/* Carrusel 3D de demostraciones (módulo 2-9 y módulo 1-4). */
 .demo-carousel {
   --demo-line: #dce3ec;
   position: relative;
+  width: 100%;
   max-width: 1180px;
   margin: 1.75rem auto 0;
   padding: 0 12px 8px;
