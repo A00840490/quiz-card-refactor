@@ -34,7 +34,7 @@
       dot.className = "demo-carousel__dot";
       dot.setAttribute("aria-label", label + " " + (i + 1));
       dot.addEventListener("click", function () {
-        render(i);
+        if (i !== index) render(i, i > index ? 1 : -1);
       });
       if (dotsBox) dotsBox.appendChild(dot);
       return dot;
@@ -45,17 +45,48 @@
       track.style.minHeight = slides[index].offsetHeight + "px";
     }
 
-    function render(next) {
-      index = (next + slides.length) % slides.length;
-      var prev = (index - 1 + slides.length) % slides.length;
-      var after = (index + 1) % slides.length;
+    var behind = -1;
+
+    // Coloca una diapositiva en su punto de partida sin animación.
+    function placeInstantly(slide, cls) {
+      slide.classList.add("no-anim");
+      slide.classList.remove("is-current", "is-behind", "is-gone");
+      if (cls) slide.classList.add(cls);
+      void slide.offsetWidth; // aplica la posición antes de animar
+      slide.classList.remove("no-anim");
+    }
+
+    // Avanza (dir = 1) o retrocede (dir = -1): la nueva se sobrepone,
+    // la actual pasa a segundo plano y la que estaba atrás sale por su lado.
+    function render(next, dir) {
+      next = (next + slides.length) % slides.length;
+      if (next === index && behind !== -1) return;
+      dir = dir || (next > index ? 1 : -1);
+      carousel.setAttribute("data-dir", dir > 0 ? "fwd" : "back");
+
+      var first = behind === -1 && slides[index].classList.contains("is-current") === false;
+      var oldCurrent = index;
+      var oldBehind = behind;
+      index = next;
+
       slides.forEach(function (slide, i) {
-        slide.classList.remove("is-current", "is-prev", "is-next");
-        if (i === index) slide.classList.add("is-current");
-        else if (i === prev) slide.classList.add("is-prev");
-        else if (i === after) slide.classList.add("is-next");
+        if (i === index) {
+          if (!first) placeInstantly(slide, null); // entra desde su lado
+          slide.classList.remove("is-behind", "is-gone");
+          slide.classList.add("is-current");
+        } else if (!first && i === oldCurrent) {
+          slide.classList.remove("is-current", "is-gone");
+          slide.classList.add("is-behind");
+        } else if (i === oldBehind) {
+          slide.classList.remove("is-current", "is-behind");
+          slide.classList.add("is-gone");
+        } else if (!slide.classList.contains("is-gone")) {
+          slide.classList.remove("is-current", "is-behind");
+        }
         slide.setAttribute("aria-hidden", i === index ? "false" : "true");
       });
+      behind = first ? -1 : oldCurrent;
+
       dots.forEach(function (dot, i) {
         dot.classList.toggle("is-active", i === index);
       });
@@ -64,12 +95,12 @@
 
     var prevBtn = carousel.querySelector("[data-demo-prev]");
     var nextBtn = carousel.querySelector("[data-demo-next]");
-    if (prevBtn) prevBtn.addEventListener("click", function () { render(index - 1); });
-    if (nextBtn) nextBtn.addEventListener("click", function () { render(index + 1); });
+    if (prevBtn) prevBtn.addEventListener("click", function () { render(index - 1, -1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { render(index + 1, 1); });
 
     carousel.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") render(index - 1);
-      if (e.key === "ArrowRight") render(index + 1);
+      if (e.key === "ArrowLeft") render(index - 1, -1);
+      if (e.key === "ArrowRight") render(index + 1, 1);
     });
 
     if (autoHeight) {
