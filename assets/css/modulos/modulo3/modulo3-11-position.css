@@ -303,6 +303,11 @@
     height: 270px;
   }
 
+  .pos-scene__menu li,
+  .pos-scene__menu::before {
+    top: 62%;
+  }
+
   .pos-scene__menu::before {
     width: 230px;
     height: 230px;
