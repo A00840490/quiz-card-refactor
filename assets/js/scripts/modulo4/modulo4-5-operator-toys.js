@@ -14,9 +14,8 @@
   var slot = root.querySelector("[data-slot]");
   var lhs = root.querySelector("[data-lhs]");
   var rhs = root.querySelector("[data-rhs]");
-  var fnEl = root.querySelector("[data-fn]");
+  var preEl = root.querySelector("[data-pre]");
   var resEl = root.querySelector("[data-res]");
-  var resetBtn = root.querySelector("[data-reset]");
   var modeBtns = root.querySelectorAll("[data-mode]");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -46,6 +45,7 @@
       ],
     },
     assign: {
+      x: 10,
       b: 3,
       ops: [
         ["+=", "suma el valor dado al valor de la variable", function (a, b) { return a + b; }],
@@ -61,7 +61,6 @@
   };
 
   var mode = "arith";
-  var x = 10;
   var cubes = [];
   var inSlot = null;
   var raf = 0;
@@ -70,10 +69,9 @@
     return stage.clientWidth < 520 ? 46 : 56;
   }
 
+  // El número tal como lo imprimiría console.log.
   function fmt(n) {
-    if (!isFinite(n)) return String(n);
-    var v = Number.isInteger(n) ? n : +n.toFixed(3);
-    return v.toLocaleString("es-MX");
+    return String(n);
   }
 
   function isUnary(op) {
@@ -85,7 +83,9 @@
       lhs.textContent = "var x = " + MODES.arith.a;
       rhs.textContent = MODES.arith.b + ";";
       rhs.classList.remove("is-unused");
+      preEl.hidden = true;
     } else {
+      preEl.hidden = false;
       lhs.textContent = "x";
       rhs.textContent = MODES.assign.b + ";";
       rhs.classList.toggle("is-unused", !!unary);
@@ -94,10 +94,6 @@
 
   function clearResult() {
     resEl.textContent = "";
-    fnEl.textContent =
-      mode === "arith"
-        ? "Arrastra un cubo al hueco, o tócalo, para ver qué hace."
-        : "x vale " + fmt(x) + ". Cada operador de asignación cambia su valor.";
     setLabels(false);
   }
 
@@ -211,7 +207,7 @@
         var b = cubes[j];
         if (a.snap || b.snap || a.drag || b.drag) continue;
         if (Math.abs(a.y - b.y) > 4 || a.vy || b.vy) continue;
-        var o = S + 6 - Math.abs(a.x - b.x);
+        var o = S * 1.38 + 4 - Math.abs(a.x - b.x); // ancho visible del cubo girado
         if (o <= 0.5) continue;
         var left = a.x <= b.x ? a : b;
         var right = left === a ? b : a;
@@ -260,17 +256,15 @@
     run();
   }
 
+  // Muestra solo lo que imprimiría console.log(x).
   function compute(c) {
     var op = c.op;
-    fnEl.textContent = op[1];
+    var m = MODES[mode];
     if (mode === "arith") {
-      var m = MODES.arith;
-      resEl.textContent = "x → " + fmt(op[2](m.a, m.b));
+      resEl.textContent = fmt(op[2](m.a, m.b));
     } else {
-      var before = x;
-      x = op[2](x, MODES.assign.b);
       setLabels(isUnary(op[0]));
-      resEl.textContent = "x: " + fmt(before) + " → " + fmt(x);
+      resEl.textContent = fmt(op[2](m.x, m.b));
     }
   }
 
@@ -336,7 +330,6 @@
     cubes = [];
     inSlot = null;
     clearResult();
-    resetBtn.hidden = mode === "arith";
 
     var ops = MODES[mode].ops;
     var S = size();
@@ -392,16 +385,6 @@
       });
       build();
     });
-  });
-
-  resetBtn.addEventListener("click", function () {
-    x = 10;
-    if (inSlot) {
-      eject(inSlot);
-      inSlot = null;
-    }
-    clearResult();
-    run();
   });
 
   // Solo se reacomoda si cambia el ancho (en celular, la barra del

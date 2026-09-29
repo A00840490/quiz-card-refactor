@@ -77,14 +77,16 @@
                                                   <div class="op-toys__modes">
                                                     <button class="op-toys__btn is-active" type="button" data-mode="arith" aria-pressed="true">Aritméticos</button>
                                                     <button class="op-toys__btn" type="button" data-mode="assign" aria-pressed="false">Asignación</button>
-                                                    <button class="op-toys__btn op-toys__btn--reset" type="button" data-reset hidden>Reiniciar x</button>
                                                   </div>
-                                                  <div class="op-toys__expr">
-                                                    <span data-lhs></span>
-                                                    <div class="op-toys__slot" data-slot>suelta aquí</div>
-                                                    <span data-rhs></span>
+                                                  <div class="op-toys__code">
+                                                    <div class="op-toys__line" data-pre hidden>var x = 10;</div>
+                                                    <div class="op-toys__line op-toys__expr">
+                                                      <span data-lhs></span>
+                                                      <div class="op-toys__slot" data-slot>suelta aquí</div>
+                                                      <span data-rhs></span>
+                                                    </div>
+                                                    <div class="op-toys__line">console.log(x);</div>
                                                   </div>
-                                                  <p class="op-toys__fn" data-fn aria-live="polite"></p>
                                                   <p class="op-toys__res" data-res aria-live="polite"></p>
                                                 </div>
                                                 <div class="op-toys__tray">
