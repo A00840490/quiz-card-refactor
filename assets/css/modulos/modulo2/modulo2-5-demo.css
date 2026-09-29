@@ -169,7 +169,7 @@
   max-width: 1080px;
   margin: 1.75rem auto;
   overflow: hidden;
-  border: 1px solid var(--demo-line, #dce3ec);
+  /* border: 1px solid var(--demo-line, #dce3ec); */
   border-radius: 14px;
   background: #ffffff;
   box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
