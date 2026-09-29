@@ -1,8 +1,3 @@
-/* Tipos de position: escena isométrica 3D.
-   Cada valor es una placa de un edificio en escalera. Al elegir una (radio +
-   label, sin JavaScript), la placa se eleva y brilla, y el panel de la derecha
-   muestra su explicación. */
-
 .pos-scene {
   --pos-static: #d64541;
   --pos-relative: #e0a021;
@@ -29,10 +24,7 @@
   pointer-events: none;
 }
 
-/* ---------- Escenario 3D ---------- */
 
-/* --spread va de 0 (placas apiladas) a 1 (escalera). Se anima una sola vez
-   al cargar la página; después la placa elegida solo se eleva con --lift. */
 @property --spread {
   syntax: "<number>";
   inherits: false;
@@ -272,13 +264,11 @@
 
 .pos-scene__content p {
   margin: 0;
-  color: #47526a;
+  color: #000000;
   font-size: 15px;
   line-height: 1.6;
   text-align: left;
 }
-
-/* ---------- Responsivo ---------- */
 
 @media (max-width: 767px) {
   .pos-scene {

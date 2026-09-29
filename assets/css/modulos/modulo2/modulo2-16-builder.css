@@ -28,9 +28,9 @@
   transition: width 0.4s ease;
 }
 
-/* Pregunta: texto normal en negritas, sin recuadro */
 .builder__question {
   margin-bottom: 18px;
+  text-align: center;
 }
 
 .builder__ask {
