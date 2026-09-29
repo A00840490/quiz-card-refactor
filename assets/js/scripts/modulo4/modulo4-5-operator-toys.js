@@ -16,6 +16,7 @@
   var rhs = root.querySelector("[data-rhs]");
   var preEl = root.querySelector("[data-pre]");
   var resEl = root.querySelector("[data-res]");
+  var infoEl = root.querySelector("[data-info]");
   var modeBtns = root.querySelectorAll("[data-mode]");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -94,6 +95,8 @@
 
   function clearResult() {
     resEl.textContent = "";
+    infoEl.hidden = true;
+    infoEl.innerHTML = "";
     setLabels(false);
   }
 
@@ -256,7 +259,29 @@
     run();
   }
 
-  // Muestra solo lo que imprimiría console.log(x).
+  function esc(t) {
+    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // Cuadro con la información del operador que está en el hueco.
+  function showInfo(op) {
+    var sym = op[0];
+    var html = '<code class="op-toys__info-op">' + esc(sym) + "</code>" +
+      '<span class="op-toys__info-text">' + esc(op[1].charAt(0).toUpperCase() + op[1].slice(1)) + ".";
+    if (mode === "assign") {
+      var b = MODES.assign.b;
+      var same = isUnary(sym)
+        ? "x = x " + sym.charAt(0) + " 1"
+        : "x = x " + sym.slice(0, -1) + " " + b;
+      var written = isUnary(sym) ? "x" + sym : "x " + sym + " " + b;
+      html += " <code>" + esc(written) + "</code> es lo mismo que <code>" + esc(same) + "</code>.";
+    }
+    html += "</span>";
+    infoEl.innerHTML = html;
+    infoEl.hidden = false;
+  }
+
+  // La consola muestra solo lo que imprimiría console.log(x).
   function compute(c) {
     var op = c.op;
     var m = MODES[mode];
@@ -266,6 +291,7 @@
       setLabels(isUnary(op[0]));
       resEl.textContent = fmt(op[2](m.x, m.b));
     }
+    showInfo(op);
   }
 
   function bind(c) {
