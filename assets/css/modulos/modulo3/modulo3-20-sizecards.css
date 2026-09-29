@@ -7,7 +7,7 @@
   --card-w: 230px;
   --card-h: 330px;
   --step: 96px;
-  --depth: 46px;
+  --depth: 10px;
   --lift: 170px;
   --edge: 150px;
   --name-size: 22px;
@@ -24,7 +24,7 @@
   --card-w: 200px;
   --card-h: 290px;
   --step: 78px;
-  --depth: 38px;
+  --depth: 9px;
   --edge: 130px;
   --name-size: 20px;
   --desc-size: 14px;
@@ -86,6 +86,12 @@
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.size-stack__name,
+.size-stack__desc {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
 .size-stack__desc {
   margin: 0;
   font-size: var(--desc-size);
@@ -124,7 +130,7 @@
     --card-w: 180px;
     --card-h: 260px;
     --step: 66px;
-    --depth: 34px;
+    --depth: 8px;
     --lift: 130px;
     --edge: 100px;
     --name-size: 18px;
@@ -136,7 +142,7 @@
     --card-w: 150px;
     --card-h: 230px;
     --step: 44px;
-    --depth: 26px;
+    --depth: 7px;
     --lift: 110px;
     --edge: 84px;
     --name-size: 16px;
@@ -154,7 +160,7 @@
     --card-w: 150px;
     --card-h: 230px;
     --step: 50px;
-    --depth: 26px;
+    --depth: 7px;
     --lift: 110px;
     --edge: 76px;
     height: 310px;
@@ -164,7 +170,7 @@
     --card-w: 136px;
     --card-h: 210px;
     --step: 26px;
-    --depth: 18px;
+    --depth: 6px;
     --lift: 100px;
     --edge: 70px;
     --name-size: 15px;
