@@ -79,42 +79,48 @@
     rotateZ(180deg);
 }
 .text-carousel__cb1 {
-  transform: rotateZ(60deg) rotateX(90deg) translateY(120px) translateZ(279px);
+  transform: rotateZ(60deg) rotateX(90deg) translateY(120px) translateZ(279px)
+    rotateX(180deg);
 }
 .text-carousel__c2 {
   transform: rotateZ(120deg) rotateX(90deg) translateY(120px) translateZ(280px)
     rotateZ(180deg);
 }
 .text-carousel__cb2 {
-  transform: rotateZ(120deg) rotateX(90deg) translateY(120px) translateZ(279px);
+  transform: rotateZ(120deg) rotateX(90deg) translateY(120px) translateZ(279px)
+    rotateX(180deg);
 }
 .text-carousel__c3 {
   transform: rotateZ(180deg) rotateX(90deg) translateY(120px) translateZ(280px)
     rotateZ(180deg);
 }
 .text-carousel__cb3 {
-  transform: rotateZ(180deg) rotateX(90deg) translateY(120px) translateZ(279px);
+  transform: rotateZ(180deg) rotateX(90deg) translateY(120px) translateZ(279px)
+    rotateX(180deg);
 }
 .text-carousel__c4 {
   transform: rotateZ(240deg) rotateX(90deg) translateY(120px) translateZ(280px)
     rotateZ(180deg);
 }
 .text-carousel__cb4 {
-  transform: rotateZ(240deg) rotateX(90deg) translateY(120px) translateZ(279px);
+  transform: rotateZ(240deg) rotateX(90deg) translateY(120px) translateZ(279px)
+    rotateX(180deg);
 }
 .text-carousel__c5 {
   transform: rotateZ(300deg) rotateX(90deg) translateY(120px) translateZ(280px)
     rotateZ(180deg);
 }
 .text-carousel__cb5 {
-  transform: rotateZ(300deg) rotateX(90deg) translateY(120px) translateZ(279px);
+  transform: rotateZ(300deg) rotateX(90deg) translateY(120px) translateZ(279px)
+    rotateX(180deg);
 }
 .text-carousel__c6 {
   transform: rotateZ(360deg) rotateX(90deg) translateY(120px) translateZ(280px)
     rotateZ(180deg);
 }
 .text-carousel__cb6 {
-  transform: rotateZ(360deg) rotateX(90deg) translateY(120px) translateZ(279px);
+  transform: rotateZ(360deg) rotateX(90deg) translateY(120px) translateZ(279px)
+    rotateX(180deg);
 }
 
 @keyframes text-carousel-rotate {
@@ -158,17 +164,16 @@
 
 .text-carousel__code {
   margin: 0;
-  padding: 16px 14px;
+  padding: 14px 12px;
   width: 100%;
   background: transparent;
   border: 0;
   color: #c9d1d9;
   font-family: "Courier New", Courier, monospace;
-  font-size: 11px;
-  line-height: 1.55;
+  font-size: 9.5px;
+  line-height: 1.4;
   text-align: left;
   white-space: pre;
-  transform: scaleY(-1);
 }
 
 .text-carousel__code span {
@@ -191,4 +196,18 @@
 }
 .tc-str {
   color: #9ece6a;
+}
+
+/* Línea de la propiedad que enseña cada carta */
+.tc-hl {
+  display: inline-block !important;
+  width: calc(100% + 24px);
+  margin: 0 -12px;
+  padding: 0 12px;
+  background: rgba(127, 212, 255, 0.14);
+  box-shadow: inset 2px 0 0 #7fd4ff;
+}
+
+.text-carousel__card--underline p {
+  text-decoration: underline;
 }
