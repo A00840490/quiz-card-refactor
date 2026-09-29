@@ -37,7 +37,7 @@
       rel="stylesheet"
     />
     <link
-      href="../../assets/css/modulos/modulo2/modulo2-11-types.css"
+      href="../../assets/css/modulos/modulo3/modulo3-20-sizecards.css"
       rel="stylesheet"
     />
   </head>
@@ -289,173 +289,139 @@
                           type define el tipo de entrada que se recibirá en un
                           elemento input:
                         </p>
-                        <section class="type-scene">
-                          <input
-                            checked
-                            id="inp-text"
-                            name="input-type"
-                            type="radio"
-                          />
-                          <input
-                            id="inp-password"
-                            name="input-type"
-                            type="radio"
-                          />
-                          <input
-                            id="inp-radio"
-                            name="input-type"
-                            type="radio"
-                          />
-                          <input
-                            id="inp-checkbox"
-                            name="input-type"
-                            type="radio"
-                          />
-                          <input id="inp-date" name="input-type" type="radio" />
-                          <input
-                            id="inp-email"
-                            name="input-type"
-                            type="radio"
-                          />
-                          <input id="inp-file" name="input-type" type="radio" />
-                          <input
-                            id="inp-submit"
-                            name="input-type"
-                            type="radio"
-                          />
-                          <ul class="type-scene__menu">
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--text"
-                                for="inp-text"
-                                >type="text"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--password"
-                                for="inp-password"
-                                >type="password"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--radio"
-                                for="inp-radio"
-                                >type="radio"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--checkbox"
-                                for="inp-checkbox"
-                                >type="checkbox"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--date"
-                                for="inp-date"
-                                >type="date"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--email"
-                                for="inp-email"
-                                >type="email"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--file"
-                                for="inp-file"
-                                >type="file"</label
-                              >
-                            </li>
-                            <li>
-                              <label
-                                class="type-scene__label type-scene__label--submit"
-                                for="inp-submit"
-                                >type="submit"</label
-                              >
-                            </li>
-                          </ul>
-                          <div class="type-scene__stage">
-                            <article
-                              class="type-scene__content type-scene__content--text"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="text"</h3>
-                              <p>Muestra una caja de texto.</p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--password"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="password"</h3>
-                              <p>
-                                Permite que el usuario escriba una contraseña
-                                (sin mostrar lo que escribió).
-                              </p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--radio"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="radio"</h3>
-                              <p>
-                                Se utiliza para preguntas de opción múltiple.
-                              </p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--checkbox"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="checkbox"</h3>
-                              <p>
-                                Es un recuadro que el usuario puede o no marcar.
-                              </p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--date"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="date"</h3>
-                              <p>Pide una fecha al usuario.</p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--email"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="email"</h3>
-                              <p>
-                                Le pide al usuario un correo electrónico en el
-                                formato adecuado: nombre_de_usuario@dominio.
-                              </p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--file"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="file"</h3>
-                              <p>
-                                Permite que el usuario seleccione un archivo de
-                                su computadora.
-                              </p>
-                            </article>
-                            <article
-                              class="type-scene__content type-scene__content--submit"
-                            >
-                              <span class="type-scene__tag">Tipo de input</span>
-                              <h3>type="submit"</h3>
-                              <p>
-                                Se utiliza para el botón que envía la
-                                información del formulario al presionarlo.
-                              </p>
-                            </article>
-                          </div>
-                        </section>
+                        <div
+                          class="size-stack size-stack--wide"
+                          aria-label="Tipos de input"
+                        >
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 0; --c: #56b8e6"
+                          >
+                            <h3 class="size-stack__name">text</h3>
+                            <p class="size-stack__desc">Muestra una caja de texto.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 1; --c: #ef8a3c"
+                          >
+                            <h3 class="size-stack__name">password</h3>
+                            <p class="size-stack__desc">Permite escribir una contraseña sin mostrar lo que se escribe.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 2; --c: #f0d43f; --ink: #4a4a2e"
+                          >
+                            <h3 class="size-stack__name">radio</h3>
+                            <p class="size-stack__desc">Se utiliza para preguntas de opción múltiple.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 3; --c: #4a90d9"
+                          >
+                            <h3 class="size-stack__name">checkbox</h3>
+                            <p class="size-stack__desc">Es un recuadro que el usuario puede o no marcar.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 4; --c: #3fb58f"
+                          >
+                            <h3 class="size-stack__name">date</h3>
+                            <p class="size-stack__desc">Pide una fecha al usuario.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 5; --c: #8b5fc7"
+                          >
+                            <h3 class="size-stack__name">email</h3>
+                            <p class="size-stack__desc">Pide un correo electrónico con el formato nombre_de_usuario@dominio.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 6; --c: #e05a6a"
+                          >
+                            <h3 class="size-stack__name">file</h3>
+                            <p class="size-stack__desc">Permite seleccionar un archivo de la computadora.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 7; --c: #34495e"
+                          >
+                            <h3 class="size-stack__name">submit</h3>
+                            <p class="size-stack__desc">Es el botón que envía la información del formulario.</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                        </div>
                         <p>
                           Existen más tipos de elementos que podemos utilizar.
                           Puedes consultar la lista completa haciendo clic
