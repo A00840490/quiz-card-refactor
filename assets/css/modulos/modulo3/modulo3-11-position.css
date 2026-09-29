@@ -20,12 +20,6 @@
   max-width: 1000px;
   margin: 1.75rem auto;
   overflow: hidden;
-  border: 1px solid #dce3ec;
-  border-radius: 14px;
-  background:
-    radial-gradient(circle at 30% 45%, #eef3fb 0, #ffffff 62%) no-repeat,
-    #ffffff;
-  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
   user-select: none;
 }
 
@@ -36,6 +30,23 @@
 }
 
 /* ---------- Escenario 3D ---------- */
+
+/* --spread va de 0 (placas apiladas) a 1 (escalera). Se anima una sola vez
+   al cargar la página; después la placa elegida solo se eleva con --lift. */
+@property --spread {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@keyframes pos-spread {
+  from {
+    --spread: 0;
+  }
+  to {
+    --spread: 1;
+  }
+}
 
 .pos-scene__menu {
   position: relative;
@@ -78,10 +89,16 @@
   transform: rotateX(58deg) rotateZ(-42deg)
     translate3d(
       0,
-      calc((var(--i) - 2) * var(--shift) * -1),
-      calc(var(--i) * var(--gap) + var(--lift))
+      calc((var(--i) - 2) * var(--shift) * var(--spread) * -1),
+      calc(
+        var(--i) *
+          (var(--slab-t) + (var(--gap) - var(--slab-t)) * var(--spread)) +
+          var(--lift)
+      )
     );
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
+  animation: pos-spread 0.9s cubic-bezier(0.25, 0.8, 0.3, 1) both;
+  animation-delay: calc(0.35s + (4 - var(--i)) * 0.09s);
   z-index: var(--i);
 }
 
@@ -245,21 +262,8 @@
 .pos-scene__content--fixed { --c: var(--pos-fixed); }
 .pos-scene__content--sticky { --c: var(--pos-sticky); }
 
-.pos-scene__tag {
-  display: inline-block;
-  padding: 3px 12px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--c) 14%, #ffffff);
-  color: var(--c);
-  font:
-    700 11px/1.6 Arial,
-    sans-serif;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
 .pos-scene__content h3 {
-  margin: 12px 0 10px;
+  margin: 0 0 10px;
   color: var(--c);
   font:
     700 34px/1.1 "Courier New",
@@ -272,19 +276,6 @@
   font-size: 15px;
   line-height: 1.6;
   text-align: left;
-}
-
-.pos-scene__stage::before {
-  content: "Elige una placa";
-  position: absolute;
-  top: 18px;
-  right: 24px;
-  color: #8a98aa;
-  font:
-    600 11px/1 Arial,
-    sans-serif;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 /* ---------- Responsivo ---------- */
@@ -323,18 +314,13 @@
     padding: 8px 20px 28px;
   }
 
-  .pos-scene__stage::before {
-    display: none;
-  }
-
-  .pos-scene__content h3 {
-    font-size: 26px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
+  @media (prefers-reduced-motion: reduce) {
   .pos-scene__menu li,
   .pos-scene__content {
     transition: none;
+  }
+
+  .pos-scene__menu li {
+    animation: none;
   }
 }
