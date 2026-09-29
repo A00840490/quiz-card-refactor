@@ -51,24 +51,35 @@
   font-size: 32px;
 }
 
-.resource-card--icons .resource-card__icon {
-  background: #087c76;
+/* Fondo de cada viñeta con el color de marca de su sitio. */
+.resource-card--unsplash .resource-card__icon {
+  background: #111111;
 }
 
-.resource-card--layout .resource-card__icon {
-  background: #c76b19;
+.resource-card--iconmonstr .resource-card__icon {
+  background: #000000;
 }
 
-.resource-card--video .resource-card__icon {
-  background: #8b4d9e;
+.resource-card--pexels .resource-card__icon {
+  background: #05a081;
 }
 
-.resource-card--illustration .resource-card__icon {
-  background: #c33f63;
+.resource-card--undraw .resource-card__icon {
+  background: #6c63ff;
 }
 
-.resource-card--ai .resource-card__icon {
-  background: #334a69;
+.resource-card--stable-diffusion .resource-card__icon {
+  background: linear-gradient(180deg, #9d39ff 0%, #a380ff 100%);
+}
+
+.resource-card--dall-e .resource-card__icon {
+  background: #202123;
+}
+
+.resource-card__icon img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
 }
 
 .resource-card__arrow {
@@ -114,4 +125,9 @@
   .resource-card {
     min-height: 0;
   }
+}
+
+.resource-card--dall-e .resource-card__icon img {
+  width: 64px;
+  height: 64px;
 }
