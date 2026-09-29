@@ -18,7 +18,7 @@
   user-select: none;
 }
 
-.pos-scene > input {
+.pos-scene>input {
   position: absolute;
   opacity: 0;
   pointer-events: none;
@@ -35,6 +35,7 @@
   from {
     --spread: 0;
   }
+
   to {
     --spread: 1;
   }
@@ -61,10 +62,8 @@
   margin: -150px 0 0 -150px;
   border-radius: 18px;
   background:
-    linear-gradient(rgba(63, 111, 216, 0.1) 1px, transparent 1px) 0 0 / 25px
-      25px,
-    linear-gradient(90deg, rgba(63, 111, 216, 0.1) 1px, transparent 1px) 0 0 /
-      25px 25px;
+    linear-gradient(rgba(63, 111, 216, 0.1) 1px, transparent 1px) 0 0 / 25px 25px,
+    linear-gradient(90deg, rgba(63, 111, 216, 0.1) 1px, transparent 1px) 0 0 / 25px 25px;
   transform: rotateX(58deg) rotateZ(-42deg);
   mask-image: radial-gradient(circle, #000 45%, transparent 72%);
 }
@@ -78,27 +77,39 @@
   height: var(--slab-h);
   margin: calc(var(--slab-h) / -2) 0 0 calc(var(--slab-w) / -2);
   transform-style: preserve-3d;
-  transform: rotateX(58deg) rotateZ(-42deg)
-    translate3d(
-      0,
+  transform: rotateX(58deg) rotateZ(-42deg) translate3d(0,
       calc((var(--i) - 2) * var(--shift) * var(--spread) * -1),
-      calc(
-        var(--i) *
-          (var(--slab-t) + (var(--gap) - var(--slab-t)) * var(--spread)) +
-          var(--lift)
-      )
-    );
+      calc(var(--i) * (var(--slab-t) + (var(--gap) - var(--slab-t)) * var(--spread)) + var(--lift)));
   transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1);
   animation: pos-spread 0.9s cubic-bezier(0.25, 0.8, 0.3, 1) both;
   animation-delay: calc(0.35s + (4 - var(--i)) * 0.09s);
   z-index: var(--i);
 }
 
-.pos-scene__menu li:nth-child(1) { --i: 0; --c: var(--pos-static); }
-.pos-scene__menu li:nth-child(2) { --i: 1; --c: var(--pos-relative); }
-.pos-scene__menu li:nth-child(3) { --i: 2; --c: var(--pos-absolute); }
-.pos-scene__menu li:nth-child(4) { --i: 3; --c: var(--pos-fixed); }
-.pos-scene__menu li:nth-child(5) { --i: 4; --c: var(--pos-sticky); }
+.pos-scene__menu li:nth-child(1) {
+  --i: 0;
+  --c: var(--pos-static);
+}
+
+.pos-scene__menu li:nth-child(2) {
+  --i: 1;
+  --c: var(--pos-relative);
+}
+
+.pos-scene__menu li:nth-child(3) {
+  --i: 2;
+  --c: var(--pos-absolute);
+}
+
+.pos-scene__menu li:nth-child(4) {
+  --i: 3;
+  --c: var(--pos-fixed);
+}
+
+.pos-scene__menu li:nth-child(5) {
+  --i: 4;
+  --c: var(--pos-sticky);
+}
 
 /* Cara superior de la placa */
 .pos-scene__label {
@@ -111,11 +122,9 @@
   padding: 0 18px 16px;
   border-radius: 10px;
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       rgba(255, 255, 255, 0.55),
-      rgba(255, 255, 255, 0) 60%
-    ),
+      rgba(255, 255, 255, 0) 60%),
     color-mix(in srgb, var(--c) 32%, #ffffff);
   box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--c) 55%, #ffffff);
   color: color-mix(in srgb, var(--c) 70%, #1b2230);
@@ -171,25 +180,23 @@
 }
 
 /* Placa seleccionada: se eleva, toma su color completo y brilla */
-#pos-static:checked ~ .pos-scene__menu li:nth-child(1),
-#pos-relative:checked ~ .pos-scene__menu li:nth-child(2),
-#pos-absolute:checked ~ .pos-scene__menu li:nth-child(3),
-#pos-fixed:checked ~ .pos-scene__menu li:nth-child(4),
-#pos-sticky:checked ~ .pos-scene__menu li:nth-child(5) {
+#pos-static:checked~.pos-scene__menu li:nth-child(1),
+#pos-relative:checked~.pos-scene__menu li:nth-child(2),
+#pos-absolute:checked~.pos-scene__menu li:nth-child(3),
+#pos-fixed:checked~.pos-scene__menu li:nth-child(4),
+#pos-sticky:checked~.pos-scene__menu li:nth-child(5) {
   --lift: 26px;
 }
 
-#pos-static:checked ~ .pos-scene__menu li:nth-child(1) .pos-scene__label,
-#pos-relative:checked ~ .pos-scene__menu li:nth-child(2) .pos-scene__label,
-#pos-absolute:checked ~ .pos-scene__menu li:nth-child(3) .pos-scene__label,
-#pos-fixed:checked ~ .pos-scene__menu li:nth-child(4) .pos-scene__label,
-#pos-sticky:checked ~ .pos-scene__menu li:nth-child(5) .pos-scene__label {
+#pos-static:checked~.pos-scene__menu li:nth-child(1) .pos-scene__label,
+#pos-relative:checked~.pos-scene__menu li:nth-child(2) .pos-scene__label,
+#pos-absolute:checked~.pos-scene__menu li:nth-child(3) .pos-scene__label,
+#pos-fixed:checked~.pos-scene__menu li:nth-child(4) .pos-scene__label,
+#pos-sticky:checked~.pos-scene__menu li:nth-child(5) .pos-scene__label {
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       rgba(255, 255, 255, 0.35),
-      rgba(255, 255, 255, 0) 60%
-    ),
+      rgba(255, 255, 255, 0) 60%),
     var(--c);
   box-shadow:
     inset 0 0 0 2px rgba(255, 255, 255, 0.35),
@@ -197,19 +204,19 @@
   color: #ffffff;
 }
 
-#pos-static:checked ~ .pos-scene__menu li:nth-child(1) .pos-scene__label::before,
-#pos-relative:checked ~ .pos-scene__menu li:nth-child(2) .pos-scene__label::before,
-#pos-absolute:checked ~ .pos-scene__menu li:nth-child(3) .pos-scene__label::before,
-#pos-fixed:checked ~ .pos-scene__menu li:nth-child(4) .pos-scene__label::before,
-#pos-sticky:checked ~ .pos-scene__menu li:nth-child(5) .pos-scene__label::before {
+#pos-static:checked~.pos-scene__menu li:nth-child(1) .pos-scene__label::before,
+#pos-relative:checked~.pos-scene__menu li:nth-child(2) .pos-scene__label::before,
+#pos-absolute:checked~.pos-scene__menu li:nth-child(3) .pos-scene__label::before,
+#pos-fixed:checked~.pos-scene__menu li:nth-child(4) .pos-scene__label::before,
+#pos-sticky:checked~.pos-scene__menu li:nth-child(5) .pos-scene__label::before {
   background: color-mix(in srgb, var(--c) 78%, #000000);
 }
 
-#pos-static:checked ~ .pos-scene__menu li:nth-child(1) .pos-scene__label::after,
-#pos-relative:checked ~ .pos-scene__menu li:nth-child(2) .pos-scene__label::after,
-#pos-absolute:checked ~ .pos-scene__menu li:nth-child(3) .pos-scene__label::after,
-#pos-fixed:checked ~ .pos-scene__menu li:nth-child(4) .pos-scene__label::after,
-#pos-sticky:checked ~ .pos-scene__menu li:nth-child(5) .pos-scene__label::after {
+#pos-static:checked~.pos-scene__menu li:nth-child(1) .pos-scene__label::after,
+#pos-relative:checked~.pos-scene__menu li:nth-child(2) .pos-scene__label::after,
+#pos-absolute:checked~.pos-scene__menu li:nth-child(3) .pos-scene__label::after,
+#pos-fixed:checked~.pos-scene__menu li:nth-child(4) .pos-scene__label::after,
+#pos-sticky:checked~.pos-scene__menu li:nth-child(5) .pos-scene__label::after {
   background: color-mix(in srgb, var(--c) 62%, #000000);
 }
 
@@ -234,11 +241,11 @@
     visibility 0s 0.35s;
 }
 
-#pos-static:checked ~ .pos-scene__stage .pos-scene__content--static,
-#pos-relative:checked ~ .pos-scene__stage .pos-scene__content--relative,
-#pos-absolute:checked ~ .pos-scene__stage .pos-scene__content--absolute,
-#pos-fixed:checked ~ .pos-scene__stage .pos-scene__content--fixed,
-#pos-sticky:checked ~ .pos-scene__stage .pos-scene__content--sticky {
+#pos-static:checked~.pos-scene__stage .pos-scene__content--static,
+#pos-relative:checked~.pos-scene__stage .pos-scene__content--relative,
+#pos-absolute:checked~.pos-scene__stage .pos-scene__content--absolute,
+#pos-fixed:checked~.pos-scene__stage .pos-scene__content--fixed,
+#pos-sticky:checked~.pos-scene__stage .pos-scene__content--sticky {
   opacity: 1;
   visibility: visible;
   transform: none;
@@ -248,11 +255,25 @@
     visibility 0s;
 }
 
-.pos-scene__content--static { --c: var(--pos-static); }
-.pos-scene__content--relative { --c: var(--pos-relative); }
-.pos-scene__content--absolute { --c: var(--pos-absolute); }
-.pos-scene__content--fixed { --c: var(--pos-fixed); }
-.pos-scene__content--sticky { --c: var(--pos-sticky); }
+.pos-scene__content--static {
+  --c: var(--pos-static);
+}
+
+.pos-scene__content--relative {
+  --c: var(--pos-relative);
+}
+
+.pos-scene__content--absolute {
+  --c: var(--pos-absolute);
+}
+
+.pos-scene__content--fixed {
+  --c: var(--pos-fixed);
+}
+
+.pos-scene__content--sticky {
+  --c: var(--pos-sticky);
+}
 
 .pos-scene__content h3 {
   margin: 0 0 10px;
@@ -305,12 +326,14 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-  .pos-scene__menu li,
-  .pos-scene__content {
-    transition: none;
-  }
 
-  .pos-scene__menu li {
-    animation: none;
+    .pos-scene__menu li,
+    .pos-scene__content {
+      transition: none;
+    }
+
+    .pos-scene__menu li {
+      animation: none;
+    }
   }
 }
