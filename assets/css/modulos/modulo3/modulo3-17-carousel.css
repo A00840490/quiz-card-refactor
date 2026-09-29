@@ -197,8 +197,3 @@
 .tc-str {
   color: #9ece6a;
 }
-
-
-.text-carousel__card--underline p {
-  text-decoration: underline;
-}
