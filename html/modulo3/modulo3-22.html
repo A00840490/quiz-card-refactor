@@ -26,7 +26,11 @@
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
-</head>
+    <link
+      href="../../assets/css/modulos/modulo3/modulo3-22-flex-table.css"
+      rel="stylesheet"
+    />
+  </head>
 
 <body class="header-info side-nav-dark text-justify">
     <div class="app">
@@ -104,60 +108,77 @@
                                             con esto, <b>todos</b> los elementos dentro del elemento se convertirán en
                                             cajas flexibles, y se les podrá aplicar una serie de propiedades. Existen
                                             propiedades flex para el contenedor y para los hijos; las propiedades del
-                                            contenedor afectan todos los hijos. Las propiedades del contenedor flex son:
+                                            contenedor afectan todos los hijos. Estas son las principales:
                                         </p>
-                                        <ul>
-                                            <li>
-                                                <p><span class="code">flex-direction</span> <br> Cambia la dirección en
-                                                    la que se acomodan los elementos. La predeterminada es <span
-                                                        class="code">row</span>, la cual acomoda a los elementos de
-                                                    manera horizontal de izquierda a derecha.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">flex-wrap</span> <br> Si el contenido no cabe en
-                                                    la dirección que se tiene, entonces se "rodea" con el valor <span
-                                                        class="code">wrap</span>.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">align-items</span> <br> Modifica cómo se alinean
-                                                    los elementos respecto a los demás.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">justify-content</span> <br> Modifica cómo se
-                                                    justifica el contenido.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">align-content</span> <br> Modifica cómo se alinean
-                                                    los elementos respecto al contenedor.</p>
-                                            </li>
-                                        </ul>
-                                        <p>Propiedades de los elementos flex: </p>
-                                        <ul>
-                                            <li>
-                                                <p><span class="code">align-self</span> <br> Alinea sólo al elemento
-                                                    dentro del contenedor. Esta propiedad anulará la propiedad <span
-                                                        class="code">align-items</span> sólo en el elemento.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">flex-grow</span> <br> Especifica el tamaño con el
-                                                    que crecerá un elemento con respecto a los demás. Su valor
-                                                    predeterminado es 0.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">flex-shrink</span> <br> Especifica el tamaño con
-                                                    el que decrecerá un elemento con respecto a los demás. Su valor
-                                                    predeterminado es 1.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">flex</span> <br> Combina las tres propiedades
-                                                    anteriores.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">order</span> <br> Cambia el orden de los
-                                                    elementos; el valor debe de ser un número, el más bajo va primero.
-                                                </p>
-                                            </li>
-                                        </ul>
+                                        <div class="flex-props">
+                                          <table class="flex-props__table">
+                                            <caption class="sr-only">Propiedades flex del contenedor y de los elementos</caption>
+                                            <thead>
+                                              <tr>
+                                                <th scope="col" class="flex-props__head flex-props__head--container">
+                                                  <span class="flex-props__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="5.5" y="8" width="3.5" height="8" rx="1" fill="currentColor"/><rect x="10.25" y="8" width="3.5" height="8" rx="1" fill="currentColor"/><rect x="15" y="8" width="3.5" height="8" rx="1" fill="currentColor"/></svg></span>
+                                                  <span>Propiedades del contenedor flex</span>
+                                                </th>
+                                                <th scope="col" class="flex-props__head flex-props__head--item">
+                                                  <span class="flex-props__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="5" height="10" rx="1.5" fill="currentColor" opacity=".45"/><rect x="9.5" y="4" width="5" height="16" rx="1.5" fill="currentColor"/><rect x="16" y="7" width="5" height="10" rx="1.5" fill="currentColor" opacity=".45"/></svg></span>
+                                                  <span>Propiedades de los elementos flex</span>
+                                                </th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                              <td data-col="Contenedor">
+                                                <span class="flex-props__name">flex-direction</span>
+                                                <span class="flex-props__desc">Cambia la dirección en la que se acomodan los elementos. La predeterminada es <span class="code">row</span>, que los acomoda de manera horizontal de izquierda a derecha.</span>
+                                              </td>
+                                              <td data-col="Elemento">
+                                                <span class="flex-props__name">align-self</span>
+                                                <span class="flex-props__desc">Alinea sólo a ese elemento dentro del contenedor. Anula la propiedad <span class="code">align-items</span> sólo en el elemento.</span>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td data-col="Contenedor">
+                                                <span class="flex-props__name">flex-wrap</span>
+                                                <span class="flex-props__desc">Si el contenido no cabe en la dirección que se tiene, con el valor <span class="code">wrap</span> los elementos pasan a la siguiente línea.</span>
+                                              </td>
+                                              <td data-col="Elemento">
+                                                <span class="flex-props__name">flex-grow</span>
+                                                <span class="flex-props__desc">Especifica cuánto crecerá un elemento con respecto a los demás. Su valor predeterminado es 0.</span>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td data-col="Contenedor">
+                                                <span class="flex-props__name">align-items</span>
+                                                <span class="flex-props__desc">Modifica cómo se alinean los elementos respecto a los demás.</span>
+                                              </td>
+                                              <td data-col="Elemento">
+                                                <span class="flex-props__name">flex-shrink</span>
+                                                <span class="flex-props__desc">Especifica cuánto decrecerá un elemento con respecto a los demás. Su valor predeterminado es 1.</span>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td data-col="Contenedor">
+                                                <span class="flex-props__name">justify-content</span>
+                                                <span class="flex-props__desc">Modifica cómo se justifica el contenido.</span>
+                                              </td>
+                                              <td data-col="Elemento">
+                                                <span class="flex-props__name">flex</span>
+                                                <span class="flex-props__desc">Combina las tres propiedades anteriores.</span>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td data-col="Contenedor">
+                                                <span class="flex-props__name">align-content</span>
+                                                <span class="flex-props__desc">Modifica cómo se alinean los elementos respecto al contenedor.</span>
+                                              </td>
+                                              <td data-col="Elemento">
+                                                <span class="flex-props__name">order</span>
+                                                <span class="flex-props__desc">Cambia el orden de los elementos; el valor debe ser un número y el más bajo va primero.</span>
+                                              </td>
+                                            </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
                                         <h2 class="card-title mrg-top-20">Ejemplo</h2>
                                         <p>Este ejemplo muestra todos los posibles valores para las diferentes
                                             propiedades <b>flex</b>, haz clic <img src="../../assets/images/clic.svg"
