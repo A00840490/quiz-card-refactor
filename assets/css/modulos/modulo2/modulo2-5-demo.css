@@ -226,7 +226,7 @@
 
 .lesson-demo > [class*="col-"]:last-child::before,
 .lesson-demo-activity--preview::before {
-  content: "Navegador";
+  content: "Previsualización del Navegador";
   display: flex;
   align-items: center;
   justify-content: center;
