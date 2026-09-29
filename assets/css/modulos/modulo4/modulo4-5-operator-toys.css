@@ -54,6 +54,14 @@
 }
 
 
+/* Código a la izquierda, información del bloque a la derecha */
+.op-toys__main {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px 28px;
+}
+
 .op-toys__code {
   color: var(--ot-ink);
   font: 700 24px/1.2 "Courier New", Courier, monospace;
@@ -140,10 +148,10 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  flex: 1 1 300px;
-  padding: 10px 14px;
-  border: 1px solid rgba(15, 76, 145, 0.25);
+  padding: 12px 14px;
+  border: 0;
   border-radius: 12px;
+  text-align: left;
   background: rgba(15, 76, 145, 0.1);
   color: #0c447c;
   font-size: 14px;
@@ -287,6 +295,12 @@
 
 .op-toys:not(.op-toys--ready) .op-toys__stage {
   display: none;
+}
+
+@media (max-width: 767px) {
+  .op-toys__main {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 575px) {
