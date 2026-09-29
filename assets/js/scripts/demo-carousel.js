@@ -40,15 +40,25 @@
       return dot;
     });
 
+    // Altura fija: la de la diapositiva más alta, para que los controles
+    // no se muevan al cambiar de diapositiva.
     function fitHeight() {
       if (!autoHeight || !track) return;
-      track.style.minHeight = slides[index].offsetHeight + "px";
+      var tallest = 0;
+      slides.forEach(function (slide) {
+        tallest = Math.max(tallest, slide.offsetHeight);
+      });
+      track.style.minHeight = tallest + "px";
     }
 
+    var n = slides.length;
     var behind = -1;
+    function wrap(i) {
+      return (i + n) % n;
+    }
 
-    // Coloca una diapositiva en su punto de partida sin animación.
-    function placeInstantly(slide, cls) {
+    // Pone una diapositiva en un estado sin animar el cambio.
+    function place(slide, cls) {
       slide.classList.add("no-anim");
       slide.classList.remove("is-current", "is-behind", "is-gone");
       if (cls) slide.classList.add(cls);
@@ -56,41 +66,57 @@
       slide.classList.remove("no-anim");
     }
 
-    // Avanza (dir = 1) o retrocede (dir = -1): la nueva se sobrepone,
-    // la actual pasa a segundo plano y la que estaba atrás sale por su lado.
-    function render(next, dir) {
-      next = (next + slides.length) % slides.length;
-      if (next === index && behind !== -1) return;
-      dir = dir || (next > index ? 1 : -1);
-      carousel.setAttribute("data-dir", dir > 0 ? "fwd" : "back");
+    function setState(slide, cls) {
+      slide.classList.remove("is-current", "is-behind", "is-gone");
+      if (cls) slide.classList.add(cls);
+    }
 
-      var first = behind === -1 && slides[index].classList.contains("is-current") === false;
-      var oldCurrent = index;
-      var oldBehind = behind;
-      index = next;
+    /* Avanzar: la nueva entra por la derecha y se sobrepone; la actual pasa
+       atrás (difuminada, a la izquierda) y la que estaba atrás sale por la
+       izquierda.
+       Retroceder es la misma animación al revés: la actual sale por la
+       derecha, la de atrás vuelve al frente y la anterior a ella aparece
+       atrás desde la izquierda. */
+    function render(next, dir) {
+      next = wrap(next);
+      var started = slides[index].classList.contains("is-current");
+      if (started && next === index) return;
+
+      if (!started) {
+        setState(slides[next], "is-current");
+        index = next;
+      } else if (dir > 0) {
+        if (behind !== -1 && behind !== next) setState(slides[behind], "is-gone");
+        setState(slides[index], "is-behind");
+        place(slides[next], null); // espera a la derecha
+        setState(slides[next], "is-current");
+        behind = index;
+        index = next;
+      } else {
+        var old = index;
+        setState(slides[old], null); // sale por la derecha
+        if (next !== behind) {
+          if (behind !== -1) setState(slides[behind], "is-gone");
+          place(slides[next], "is-gone"); // llega desde la izquierda
+        }
+        setState(slides[next], "is-current");
+        index = next;
+        var newBehind = wrap(next - 1);
+        if (n > 2 && newBehind !== old) {
+          if (!slides[newBehind].classList.contains("is-gone")) place(slides[newBehind], "is-gone");
+          setState(slides[newBehind], "is-behind");
+          behind = newBehind;
+        } else {
+          behind = -1;
+        }
+      }
 
       slides.forEach(function (slide, i) {
-        if (i === index) {
-          if (!first) placeInstantly(slide, null); // entra desde su lado
-          slide.classList.remove("is-behind", "is-gone");
-          slide.classList.add("is-current");
-        } else if (!first && i === oldCurrent) {
-          slide.classList.remove("is-current", "is-gone");
-          slide.classList.add("is-behind");
-        } else if (i === oldBehind) {
-          slide.classList.remove("is-current", "is-behind");
-          slide.classList.add("is-gone");
-        } else if (!slide.classList.contains("is-gone")) {
-          slide.classList.remove("is-current", "is-behind");
-        }
         slide.setAttribute("aria-hidden", i === index ? "false" : "true");
       });
-      behind = first ? -1 : oldCurrent;
-
       dots.forEach(function (dot, i) {
         dot.classList.toggle("is-active", i === index);
       });
-      fitHeight();
     }
 
     var prevBtn = carousel.querySelector("[data-demo-prev]");
@@ -113,5 +139,6 @@
     }
 
     render(0);
+    fitHeight();
   });
 })();
