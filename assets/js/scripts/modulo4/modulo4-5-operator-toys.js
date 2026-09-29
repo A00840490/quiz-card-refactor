@@ -95,7 +95,7 @@
 
   function clearResult() {
     resEl.textContent = "";
-    infoEl.hidden = true;
+    infoEl.classList.remove("is-visible");
     infoEl.innerHTML = "";
     setLabels(false);
   }
@@ -134,7 +134,7 @@
     var S = size();
     var f = base;
     cubes.forEach(function (b) {
-      if (b === c || b.drag || b.snap || !b.rest) return;
+      if (b === c || b.drag || b.snap || b.vy !== 0) return; // sostiene si ya no cae
       if (Math.abs(b.x - c.x) < S - 6 && b.y > c.y + S * 0.4) f = Math.min(f, b.y - S);
     });
     return f;
@@ -218,8 +218,10 @@
         right.x += o / 2;
         if (left.x < 12) { right.x += 12 - left.x; left.x = 12; }
         if (right.x > W - S - 12) {
-          right.x = W - S - 12;
-          right.y -= S; // no cabe: se sube encima
+          // No cabe: se sube encima de su vecino.
+          right.x = Math.min(W - S - 12, left.x + 4);
+          right.y = left.y - S;
+          right.vy = 0;
         }
         left.rest = right.rest = false;
         active = true;
@@ -228,13 +230,19 @@
     return active;
   }
 
+  // Tope de seguridad: si algo no se asienta en ~8 s sin que nadie toque
+  // los cubos, la animación se detiene.
+  var idleFrames = 0;
   function tick() {
     var active = step();
     cubes.forEach(apply);
-    raf = active ? requestAnimationFrame(tick) : 0;
+    var touching = cubes.some(function (c) { return c.drag; });
+    idleFrames = touching ? 0 : idleFrames + 1;
+    raf = active && idleFrames < 480 ? requestAnimationFrame(tick) : 0;
   }
 
   function run() {
+    idleFrames = 0;
     if (reduce) {
       for (var k = 0; k < 900 && step(); k++);
       cubes.forEach(apply);
@@ -277,7 +285,7 @@
     }
     html += "</span>";
     infoEl.innerHTML = html;
-    infoEl.hidden = false;
+    infoEl.classList.add("is-visible");
   }
 
   // La consola muestra solo lo que imprimiría console.log(x).
@@ -411,6 +419,25 @@
       build();
     });
   });
+
+  // Si la pantalla cambia de alto, la charola se mueve: los cubos se
+  // recorren con ella para no quedar desfasados.
+  var screenEl = root.querySelector(".op-toys__screen");
+  if (window.ResizeObserver && screenEl) {
+    var lastH = screenEl.offsetHeight;
+    new ResizeObserver(function () {
+      var h = screenEl.offsetHeight;
+      var d = h - lastH;
+      lastH = h;
+      if (!d) return;
+      cubes.forEach(function (c) {
+        if (c.snap) c.snap = slotPos();
+        else if (!c.drag) c.y += d;
+        apply(c);
+      });
+      run();
+    }).observe(screenEl);
+  }
 
   // Solo se reacomoda si cambia el ancho (en celular, la barra del
   // navegador cambia el alto al desplazarse y no debe reiniciar el juego).
