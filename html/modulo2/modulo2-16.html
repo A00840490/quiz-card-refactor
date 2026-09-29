@@ -72,10 +72,7 @@
 <div class="container-fluid p-0">
 <h2 class="card-title mrg-top-20">Arma la página</h2>
 <section class="builder" id="builder" aria-live="polite">
-<div class="builder__head">
-<span class="builder__step" data-step>Pregunta 1</span>
 <div class="builder__progress" aria-hidden="true"><span data-bar></span></div>
-</div>
 <div class="builder__result" data-result hidden>
 <h3>¡Completaste la página!</h3>
 <p class="builder__score">Aciertos: <span data-result-score></span></p>
@@ -85,12 +82,7 @@
 </div>
 <div class="builder__question" data-question>
 <p class="builder__ask" data-ask></p>
-<div class="builder__actions">
-<button class="builder__btn" data-check type="button">Revisar</button>
-<button class="builder__btn" data-next type="button" hidden>Continuar</button>
-<span class="builder__hint">Escribe en el recuadro resaltado del código y presiona Enter.</span>
-</div>
-<div class="builder__feedback" data-feedback></div>
+<p class="builder__feedback" data-feedback></p>
 </div>
 <div class="builder__panels">
 <div class="builder__editor">
@@ -102,6 +94,11 @@
 <div class="builder__empty" data-empty>Tu página aparecerá aquí en cuanto tenga contenido visible.</div>
 <iframe class="builder__frame" data-frame hidden title="Vista previa de tu página"></iframe>
 </div>
+</div>
+<div class="builder__actions" data-actions>
+<span class="builder__hint">Escribe en el recuadro resaltado del código y presiona Enter.</span>
+<button class="builder__btn" data-check type="button">Revisar</button>
+<button class="builder__btn" data-next type="button" hidden>Continuar</button>
 </div>
 </section>
 </div>

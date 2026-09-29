@@ -258,7 +258,7 @@
   var root = document.getElementById("builder");
   if (!root) return;
   var els = {
-    step: root.querySelector("[data-step]"),
+    actions: root.querySelector("[data-actions]"),
     bar: root.querySelector("[data-bar]"),
     ask: root.querySelector("[data-ask]"),
     feedback: root.querySelector("[data-feedback]"),
@@ -286,6 +286,7 @@
     };
     els.result.hidden = true;
     els.question.hidden = false;
+    els.actions.hidden = false;
     render();
   }
 
@@ -438,8 +439,6 @@
 
   function renderHeader() {
     var total = QUESTIONS.length;
-    var n = Math.min(state.current + 1, total);
-    els.step.textContent = "Pregunta " + n + " de " + total;
     els.bar.style.width = (state.current / total) * 100 + "%";
     var q = QUESTIONS[state.current];
     els.ask.textContent = q ? q.data.ask : "";
@@ -506,9 +505,9 @@
   function finish() {
     var total = QUESTIONS.length;
     var hits = state.correct.filter(Boolean).length;
-    els.step.textContent = "Página completa";
     els.bar.style.width = "100%";
     els.question.hidden = true;
+    els.actions.hidden = true;
     renderCode();
     renderPreview();
 
