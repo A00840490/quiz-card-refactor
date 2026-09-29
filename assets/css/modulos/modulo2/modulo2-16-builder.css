@@ -13,7 +13,7 @@
 
 .builder__progress {
   height: 6px;
-  margin-bottom: 18px;
+  margin-top: 20px;
   border-radius: 999px;
   background: #e8edf4;
   overflow: hidden;
