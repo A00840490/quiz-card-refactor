@@ -163,16 +163,8 @@
   display: none;
 }
 
-.op-toys__info-op {
-  flex: none;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: rgba(15, 76, 145, 0.16);
-  color: #0c447c;
-  font: 700 16px/1.4 "Courier New", Courier, monospace;
-}
 
-.op-toys__info code:not(.op-toys__info-op) {
+.op-toys__info code {
   padding: 0 4px;
   border-radius: 4px;
   background: rgba(15, 76, 145, 0.12);

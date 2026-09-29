@@ -266,8 +266,7 @@
   // Cuadro con la información del operador que está en el hueco.
   function showInfo(op) {
     var sym = op[0];
-    var html = '<code class="op-toys__info-op">' + esc(sym) + "</code>" +
-      '<span class="op-toys__info-text">' + esc(op[1].charAt(0).toUpperCase() + op[1].slice(1)) + ".";
+    var html = '<span class="op-toys__info-text">' + esc(op[1].charAt(0).toUpperCase() + op[1].slice(1)) + ".";
     if (mode === "assign") {
       var b = MODES.assign.b;
       var same = isUnary(sym)
