@@ -6,7 +6,7 @@
   --ot-line: #dce3ec;
   --ot-blue: #0f4c91;
   max-width: 820px;
-  margin: 1.5rem auto 2rem;
+  margin: 1.5rem auto 2.3rem;
 }
 
 .op-toys__stage {
@@ -14,7 +14,6 @@
   user-select: none;
 }
 
-/* Pantalla (plana) */
 .op-toys__screen {
   position: relative;
   z-index: 1;
@@ -107,7 +106,6 @@
 }
 
 
-/* Consola: fondo sombreado y línea continua */
 .op-toys__console {
   margin: 12px -18px -16px;
   padding: 10px 18px 14px;
@@ -192,11 +190,9 @@
   }
 }
 
-/* Charola */
 .op-toys__tray {
   position: relative;
   height: 210px;
-  margin-top: 14px;
   border: 1px solid #efc98c;
   background: #faeeda;
 }
