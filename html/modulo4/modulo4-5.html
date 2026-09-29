@@ -25,6 +25,7 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-5-operator-toys.css" rel="stylesheet">
 
     <style>
         .table .code .codetext{
@@ -70,8 +71,27 @@
                                                 asignaciones y
                                                 cambiar nuestras variables. Aquí te listamos todos los operadores en
                                                 JavaScript:</p>
-                                            <div class="d-flex justify-content-center">
-                                            <table class="table table-bordered table-hover" style="max-width: 800px; text-align: center;">
+                                            <div class="op-toys" data-op-toys>
+                                              <div class="op-toys__stage">
+                                                <div class="op-toys__screen">
+                                                  <div class="op-toys__modes">
+                                                    <button class="op-toys__btn is-active" type="button" data-mode="arith" aria-pressed="true">Aritméticos</button>
+                                                    <button class="op-toys__btn" type="button" data-mode="assign" aria-pressed="false">Asignación</button>
+                                                    <button class="op-toys__btn op-toys__btn--reset" type="button" data-reset hidden>Reiniciar x</button>
+                                                  </div>
+                                                  <div class="op-toys__expr">
+                                                    <span data-lhs></span>
+                                                    <div class="op-toys__slot" data-slot>suelta aquí</div>
+                                                    <span data-rhs></span>
+                                                  </div>
+                                                  <p class="op-toys__fn" data-fn aria-live="polite"></p>
+                                                  <p class="op-toys__res" data-res aria-live="polite"></p>
+                                                </div>
+                                                <div class="op-toys__tray">
+                                                  <span class="op-toys__tray-label">Arrastra un cubo al hueco, o tócalo</span>
+                                                </div>
+                                              </div>
+                                              <table class="table table-bordered table-hover op-toys__table" style="max-width: 800px; text-align: center;">
                                                 <thead>
                                                     <tr class="table-primary">
                                                         <th colspan="3" style="text-align: center;">Operadores
@@ -156,14 +176,12 @@
                                                     <tr>
                                                         <td>-=</td>
                                                         <td>resta el valor dado al valor de la variable</td>
-                                                        <td><span class="code"><span class="codetext">x = -2 -
-                                                                    3;</span></span></td>
+                                                        <td><span class="code"><span class="codetext">x -= 3;</span></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td>*=</td>
                                                         <td>multiplica el valor dado por el valor de la variable</td>
-                                                        <td><span class="code"><span class="codetext">x *=
-                                                                    y</span></span>
+                                                        <td><span class="code"><span class="codetext">x *= 2;</span></span>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -183,8 +201,7 @@
                                                     <tr>
                                                         <td>**=</td>
                                                         <td>potencia el valor dado a la variable</td>
-                                                        <td><span class="code"><span class="codetext">x **=
-                                                                    -2;</span></span></td>
+                                                        <td><span class="code"><span class="codetext">x **= 2;</span></span></td>
                                                     </tr>
                                                     <tr>
                                                         <td>++</td>
@@ -341,6 +358,7 @@
     <script src="../../assets/js/app.js"></script>
     <script src="../../assets/js/recycled/navigationbar.js"></script>
     <script src="../../assets/js/progress/url-script.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-5-operator-toys.js"></script>
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
