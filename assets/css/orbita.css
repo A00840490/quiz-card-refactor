@@ -136,7 +136,7 @@
   top: calc(100% + var(--d) * 0.07);
   left: 50%;
   transform: translateX(-50%);
-  color: rgb(9, 59, 139);
+  color: #000;
   font-weight: 700;
   font-size: max(15px, calc(var(--d) * 0.11));
   line-height: 1.2;
