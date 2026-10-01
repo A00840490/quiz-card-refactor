@@ -36,7 +36,7 @@
   border-radius: 8px;
   background: #ffffff;
   color: var(--ot-blue);
-  font: 600 14px/1.3 Arial, sans-serif;
+  font: 600 1.2rem Arial, sans-serif;
   cursor: pointer;
 }
 
@@ -145,7 +145,6 @@
   color: #b4bfcd;
 }
 
-/* Cuadro de información del bloque */
 .op-toys__info {
   display: flex;
   align-items: flex-start; /* el texto empieza arriba del cuadro */
@@ -160,14 +159,12 @@
   border-radius: 12px;
   background: rgba(15, 76, 145, 0.1);
   color: #0c447c;
-  font-size: 14px;
+  font-size: 1.25rem;
   line-height: 1.5;
-  text-align: left;
   visibility: hidden;
   opacity: 0;
 }
 
-/* Oculto sigue ocupando su espacio, así la pantalla no cambia de alto */
 .op-toys__info.is-visible {
   visibility: visible;
   opacity: 1;
@@ -210,7 +207,7 @@
   top: 10px;
   left: 14px;
   color: #633806;
-  font-size: 12px;
+  font-size: 1.2rem;
 }
 
 /* Cubos */
