@@ -8563,14 +8563,14 @@ label.success {
 }
 
 .card-block {
-  padding: 15px;
+  padding: 17.3px 30px;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .card-block {
     padding: 30px;
   }
-}
+} */
 
 .portlet {
   position: absolute;
@@ -11537,6 +11537,7 @@ a.modulo-siguiente:visited:hover {
 
 .badge {
   white-space: normal;
+  margin-right: 9px;
 }
 
 .code {
