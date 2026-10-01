@@ -148,7 +148,8 @@
 /* Cuadro de información del bloque */
 .op-toys__info {
   display: flex;
-  align-items: flex-start; /* el texto empieza arriba del cuadro */
+  align-items: center;      /* texto centrado vertical */
+  justify-content: center;  /* y horizontalmente */
   gap: 10px;
   justify-self: end;
   align-self: stretch;
@@ -162,7 +163,7 @@
   color: #0c447c;
   font-size: 14px;
   line-height: 1.5;
-  text-align: left;
+  text-align: center;
   visibility: hidden;
   opacity: 0;
 }
