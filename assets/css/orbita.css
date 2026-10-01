@@ -1,10 +1,16 @@
 /* =========================================================================
-   Módulo 1-2 · Carrusel en órbita (HTML, CSS y JavaScript)
+   Carrusel en órbita (componente compartido)
+   Lo usan: html/modulo1/modulo1-2.html y html/modulo5/modulo5-5.html
+   Comportamiento en assets/js/scripts/orbita.js
+
    El elemento activo queda grande al frente; los demás giran por una
-   elipse, más pequeños y desenfocados. Comportamiento en
-   assets/js/scripts/modulo1/modulo1-2-orbita.js
-   Usa clases propias (.orbita-*) para no afectar .gifs-container /
-   .modal-wrapper de modulo1-16.css, que también usa el módulo 5-5.
+   elipse, más pequeños y desenfocados. Usa clases propias (.orbita-*)
+   para no chocar con .gifs-container / .modal-wrapper de modulo1-16.css.
+
+   Variantes:
+   - .orbita-etiqueta     franja con el nombre (opcional).
+   - .orbita-disco--logo  para logos con fondo transparente: los
+                          muestra completos sobre un disco blanco.
    ========================================================================= */
 .orbita {
   container-type: inline-size;      /* para medir el ancho disponible con cqi */
@@ -110,6 +116,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.orbita-disco--logo {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.orbita-disco--logo img {
+  object-fit: contain;
+  padding: 14%;
 }
 
 .orbita-etiqueta {

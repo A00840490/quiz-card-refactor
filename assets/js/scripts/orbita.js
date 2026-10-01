@@ -1,4 +1,5 @@
-/* Módulo 1-2 · Carrusel en órbita
+/* Carrusel en órbita (componente compartido: módulos 1-2 y 5-5)
+   Estilos en assets/css/orbita.css. Funciona con cualquier número de .orbita-item.
    - Clic en un elemento lateral: la órbita gira por el camino corto hasta centrarlo.
    - Clic en el elemento central: abre su modal de Bootstrap (data-target).
    - Flechas ← → del teclado: giran la órbita. */
