@@ -8,7 +8,8 @@
    para no chocar con .gifs-container / .modal-wrapper de modulo1-16.css.
 
    Variantes:
-   - .orbita-etiqueta     franja con el nombre (opcional).
+   - .orbita-etiqueta     nombre debajo del círculo, en cápsula con sombra (opcional).
+                          Va dentro de .orbita-item, después de .orbita-disco.
    - .orbita-disco--logo  para logos con fondo transparente: los
                           muestra completos sobre un disco blanco.
    ========================================================================= */
@@ -26,7 +27,7 @@
   --cy: calc(var(--r) * var(--e) + var(--d) * var(--k-lado) / 2 + 10px);              /* centro vertical  */
 
   position: relative;
-  height: calc(var(--cy) + var(--r) * var(--e) + var(--d) / 2 + 10px);
+  height: calc(var(--cy) + var(--r) * var(--e) + var(--d) / 2 + var(--d) * 0.07 + max(13px, calc(var(--d) * 0.09)) * 1.9 + 16px); /* incluye la etiqueta */
 }
 
 /* La pista se aplasta en vertical: el recorrido es una elipse */
@@ -129,20 +130,22 @@
 }
 
 .orbita-etiqueta {
+  /* Nombre debajo del círculo, en una cápsula con sombra.
+     Vive fuera de .orbita-disco (que recorta con overflow: hidden). */
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 4%;
-  background: rgba(0, 0, 0, 0.45);
-  color: #fff;
+  top: calc(100% + var(--d) * 0.07);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.35em 1.1em;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: rgb(9, 59, 139);
   font-weight: 700;
-  font-size: calc(var(--d) * 0.13);
-  line-height: 1;
+  font-size: max(13px, calc(var(--d) * 0.09));
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
