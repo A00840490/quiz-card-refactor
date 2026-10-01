@@ -19,8 +19,8 @@
 
   <!-- page plugins css -->
 
-  <!-- tabla 1 css -->
-  <link rel="stylesheet" href="../../assets/css/modulos/modulo1/modulo4-3.scss" />
+  <!-- carrusel en órbita -->
+  <link href="../../assets/css/modulos/modulo1/modulo1-2-orbita.css" rel="stylesheet">
 
   <!-- core css -->
   <link href="../../assets/css/ei-icon.css" rel="stylesheet">
@@ -130,157 +130,138 @@
                             datos sobre tu persona que son:
                           </p>
                           <p class="card-info mb-4" style="width: fit-content;">
-                            <img src="../../assets/images/clic.svg" class="mrg-right-5"> Haz clic sobre cada imagen para
-                            ver más detalles.
+                            <img src="../../assets/images/clic.svg" class="mrg-right-5"> Haz clic en un círculo lateral para
+                            traerlo al frente y en el del centro para ver más detalles.
                           </p>
-                          <div class="gifs-container">
-                            <!-- MODAL 1 -->
-                            <div class="grid-section">
-
-                              <div class="modal-wrapper" data-toggle="modal" data-target="#info1">
-
-                                <img src="../../assets/images/course/modulo1/m1-2/html.png" title="¿Qué es HTML?">
-
-                                <div class="circular-nametag">
-                                  HTML
-                                </div>
-
+                          <!-- Carrusel en órbita: clic en un lateral para centrarlo, clic en el central para abrir su modal -->
+                          <div class="orbita" role="group" aria-label="Lenguajes del frontend">
+                            <div class="orbita-escena">
+                              <div class="orbita-pista">
+                                <button type="button" class="orbita-item" data-target="#info1" aria-label="HTML">
+                                  <span class="orbita-disco">
+                                    <img src="../../assets/images/course/modulo1/m1-2/html.png" alt="">
+                                    <span class="orbita-etiqueta">HTML</span>
+                                  </span>
+                                </button>
+                                <button type="button" class="orbita-item" data-target="#info2" aria-label="CSS">
+                                  <span class="orbita-disco">
+                                    <img src="../../assets/images/course/modulo1/m1-2/css.png" alt="">
+                                    <span class="orbita-etiqueta">CSS</span>
+                                  </span>
+                                </button>
+                                <button type="button" class="orbita-item" data-target="#info3" aria-label="JavaScript">
+                                  <span class="orbita-disco">
+                                    <img src="../../assets/images/course/modulo1/m1-2/js.png" alt="">
+                                    <span class="orbita-etiqueta">JavaScript</span>
+                                  </span>
+                                </button>
                               </div>
+                            </div>
+                          </div>
 
-                              <div class="modal fade" id="info1" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle"
-                                        style="font-weight: bold;color:var(--theme-color);font-size: 24px;">
-                                        <b>¿Qué es HTML?</b>
-                                      </h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        style="color: red;">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <div class="row">
-                                        <div class="col-12 ">
-                                          <p>HTML es el lenguaje estándar para la creación de páginas web. Sus siglas
-                                            significan <b>Hyper Text Markup Language</b> o Lenguaje de Marcas de
-                                            Hipertexto en español. Un lenguaje de marcas incorpora etiquetas o marcas
-                                            que permiten la estructuración de un documento, donde cada etiqueta describe
-                                            un <b>elemento</b> de la página web. Este lenguaje técnicamente <b>no es un
-                                              lenguaje de programación</b>, ya que sólo sirve para dar estructura y no
-                                            contiene funciones ni variables.</p>
-                                          <p>Las etiquetas se acomodan jerárquicamente para describir la manera en que
-                                            se despliegan los elementos para el usuario. Algunos ejemplos de los tipos
-                                            de elementos HTML son los títulos (headings), párrafos, divisiones, imágenes
-                                            y los enlaces. La versión actual de este lenguaje es la 5 (HTML5).</p>
-                                        </div>
-                                      </div>
+                          <!-- Modales del carrusel -->
+                          <!-- MODAL 1: HTML -->
+                          <div class="modal fade" id="info1" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle"
+                                    style="font-weight: bold;color:var(--theme-color);font-size: 24px;">
+                                    <b>¿Qué es HTML?</b>
+                                  </h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="color: red;">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="row">
+                                    <div class="col-12 ">
+                                      <p>HTML es el lenguaje estándar para la creación de páginas web. Sus siglas
+                                        significan <b>Hyper Text Markup Language</b> o Lenguaje de Marcas de
+                                        Hipertexto en español. Un lenguaje de marcas incorpora etiquetas o marcas
+                                        que permiten la estructuración de un documento, donde cada etiqueta describe
+                                        un <b>elemento</b> de la página web. Este lenguaje técnicamente <b>no es un
+                                          lenguaje de programación</b>, ya que sólo sirve para dar estructura y no
+                                        contiene funciones ni variables.</p>
+                                      <p>Las etiquetas se acomodan jerárquicamente para describir la manera en que
+                                        se despliegan los elementos para el usuario. Algunos ejemplos de los tipos
+                                        de elementos HTML son los títulos (headings), párrafos, divisiones, imágenes
+                                        y los enlaces. La versión actual de este lenguaje es la 5 (HTML5).</p>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-
-                            <!-- MODAL 2 -->
-                            <div class="grid-section">
-
-                              <div class="modal-wrapper" data-toggle="modal" data-target="#info2">
-
-                                <img src="../../assets/images/course/modulo1/m1-2/css.png" title="¿Qué es CSS?">
-
-                                <div class="circular-nametag">
-                                  CSS
+                          </div>
+                          <!-- MODAL 2: CSS -->
+                          <div class="modal fade" id="info2" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle"
+                                    style="font-weight: bold;color:var(--theme-color);font-size: 24px;">
+                                    <b>¿Qué es CSS?</b>
+                                  </h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="color: red;">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
                                 </div>
-
-                              </div>
-
-                              <div class="modal fade" id="info2" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle"
-                                        style="font-weight: bold;color:var(--theme-color);font-size: 24px;">
-                                        <b>¿Qué es CSS?</b>
-                                      </h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        style="color: red;">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <div class="row">
-                                        <div class="col-12 ">
-                                          <p>
-                                            CSS quiere decir Cascading Style Sheets, u "Hojas de Estilo en Cascada" en
-                                            español. CSS es un lenguaje que se usa principalmente para el diseño, ya que
-                                            permite describir y agregar diferentes características a los elementos HTML.
-                                            Puede ser utilizado para añadir diferentes estilos de fuentes al texto de
-                                            una página web, cambiar el color de los elementos, e incluso se puede usar
-                                            para animar los elementos. También puede modificar otros atributos de los
-                                            elementos como espaciados, tamaños, márgenes y transparencia, entre muchos
-                                            otros.
-                                          </p>
-                                        </div>
-                                      </div>
+                                <div class="modal-body">
+                                  <div class="row">
+                                    <div class="col-12 ">
+                                      <p>
+                                        CSS quiere decir Cascading Style Sheets, u "Hojas de Estilo en Cascada" en
+                                        español. CSS es un lenguaje que se usa principalmente para el diseño, ya que
+                                        permite describir y agregar diferentes características a los elementos HTML.
+                                        Puede ser utilizado para añadir diferentes estilos de fuentes al texto de
+                                        una página web, cambiar el color de los elementos, e incluso se puede usar
+                                        para animar los elementos. También puede modificar otros atributos de los
+                                        elementos como espaciados, tamaños, márgenes y transparencia, entre muchos
+                                        otros.
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-
-                            <!-- MODAL 3 -->
-                            <div class="grid-section">
-
-
-                              <div class="modal-wrapper" data-toggle="modal" data-target="#info3">
-
-                                <img src="../../assets/images/course/modulo1/m1-2/js.png" title="¿Qué es JavaScript?">
-
-                                <div class="circular-nametag"
-                                  style="font-size: clamp(3px, 3vw, 35px); padding-bottom: 9.9%; padding-top: 1%;">
-                                  JavaScript
+                          </div>
+                          <!-- MODAL 3: JavaScript -->
+                          <div class="modal fade" id="info3" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle"
+                                    style="font-weight: bold;color:var(--theme-color);font-size: 24px;">
+                                    <b>¿Qué hay de JavaScript?</b>
+                                  </h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                    style="color: red;">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
                                 </div>
-
-                              </div>
-
-                              <div class="modal fade" id="info3" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="exampleModalLongTitle"
-                                        style="font-weight: bold;color:var(--theme-color);font-size: 24px;">
-                                        <b>¿Qué hay de JavaScript?</b>
-                                      </h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                        style="color: red;">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <div class="row">
-                                        <div class="col-12 ">
-                                          <p>
-                                            Este sí es un lenguaje de programación. JavaScript se utiliza principalmente
-                                            para la Web. Cuenta con muchas funcionalidades que nos permiten crear
-                                            páginas web dinámicas y complejas en su comportamiento. También es el único
-                                            lenguaje que se puede utilizar nativamente en los navegadores. Sin embargo,
-                                            no solo nos sirve para agregar funcionalidades a una página web, ya que
-                                            existen entornos como <a href="https://nodejs.org/es/" target="_blank">Node
-                                              JS</a> que nos permiten utilizar JavaScript fuera del navegador para
-                                            prácticamente cualquier aplicación.
-                                          </p>
-                                        </div>
-                                      </div>
+                                <div class="modal-body">
+                                  <div class="row">
+                                    <div class="col-12 ">
+                                      <p>
+                                        Este sí es un lenguaje de programación. JavaScript se utiliza principalmente
+                                        para la Web. Cuenta con muchas funcionalidades que nos permiten crear
+                                        páginas web dinámicas y complejas en su comportamiento. También es el único
+                                        lenguaje que se puede utilizar nativamente en los navegadores. Sin embargo,
+                                        no solo nos sirve para agregar funcionalidades a una página web, ya que
+                                        existen entornos como <a href="https://nodejs.org/es/" target="_blank">Node
+                                          JS</a> que nos permiten utilizar JavaScript fuera del navegador para
+                                        prácticamente cualquier aplicación.
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-
                           </div>
 
                         </div>
@@ -381,17 +362,8 @@
       $label.setAttribute('for', `accordion_${dropdownID}`);
     };
 
-    // function for first time clicked
-
-    const modalList = document.querySelectorAll(".modal-wrapper");
-
-    modalList.forEach(modal => {
-      modal.addEventListener("click", () => {
-        modal.classList.add("clicked");
-      });
-    });
-
   </script>
+  <script src="../../assets/js/scripts/modulo1/modulo1-2-orbita.js"></script>
   <!-- endbuild -->
 
   <!-- Insert your dependencies here -->

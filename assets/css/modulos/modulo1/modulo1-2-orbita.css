@@ -1,0 +1,134 @@
+/* =========================================================================
+   Módulo 1-2 · Carrusel en órbita (HTML, CSS y JavaScript)
+   El elemento activo queda grande al frente; los demás giran por una
+   elipse, más pequeños y desenfocados. Comportamiento en
+   assets/js/scripts/modulo1/modulo1-2-orbita.js
+   Usa clases propias (.orbita-*) para no afectar .gifs-container /
+   .modal-wrapper de modulo1-16.css, que también usa el módulo 5-5.
+   ========================================================================= */
+.orbita {
+  container-type: inline-size;      /* para medir el ancho disponible con cqi */
+  margin: 1rem auto 1.5rem;
+}
+
+.orbita-escena {
+  --d: clamp(90px, 33cqi, 220px);   /* diámetro del elemento central (crece con el ancho) */
+  --k-lado: 0.55;                   /* escala de los elementos laterales        */
+  --e: 0.55;                        /* achatamiento vertical de la órbita (1 = círculo) */
+  --rr: 1.1;                        /* radio de la órbita en "diámetros"         */
+  --r: calc(var(--d) * var(--rr));
+  --cy: calc(var(--r) * var(--e) + var(--d) * var(--k-lado) / 2 + 10px);              /* centro vertical  */
+
+  position: relative;
+  height: calc(var(--cy) + var(--r) * var(--e) + var(--d) / 2 + 10px);
+}
+
+/* La pista se aplasta en vertical: el recorrido es una elipse */
+.orbita-pista {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% var(--cy);
+  transform: scaleY(var(--e));
+}
+
+/* Aro punteado que marca el recorrido */
+.orbita-pista::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: var(--cy);
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  transform: translate(-50%, -50%);
+  border: 2px dashed rgba(9, 59, 139, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbita-item {
+  --ang: 0deg;
+  --k: var(--k-lado);
+
+  position: absolute;
+  left: 50%;
+  top: var(--cy);
+  width: var(--d);
+  height: var(--d);
+  margin: calc(var(--d) / -2) 0 0 calc(var(--d) / -2);
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  /* Gira alrededor del centro, se "endereza" y deshace el aplastado de la pista.
+     Como la lista de funciones no cambia, el navegador anima siguiendo el arco. */
+  transform:
+    rotate(var(--ang))
+    translateY(calc(var(--rr) * 100%))   /* % del propio círculo: se recalcula al cambiar el ancho */
+    rotate(calc(-1 * var(--ang)))
+    scaleY(calc(1 / var(--e)))
+    scale(var(--k));
+
+  filter: blur(3px) grayscale(0.35);
+  opacity: 0.6;
+  z-index: 1;
+}
+
+/* La animación se activa después de la primera colocación (evita el giro al cargar) */
+.orbita.lista .orbita-item {
+  transition:
+    transform 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+    filter 0.5s ease,
+    opacity 0.5s ease;
+}
+
+.orbita-item:hover { filter: blur(1.5px) grayscale(0.15); opacity: 0.85; }
+
+.orbita-item.es-activo {
+  --k: 1;
+  filter: none;
+  opacity: 1;
+  z-index: 2;
+}
+
+.orbita-item:focus { outline: none; }
+.orbita-item:focus-visible .orbita-disco { box-shadow: 0 0 0 4px #fff, 0 0 0 7px rgb(9, 59, 139); }
+
+.orbita-disco {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.orbita-disco img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.orbita-etiqueta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-weight: 700;
+  font-size: calc(var(--d) * 0.13);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbita.lista .orbita-item { transition: none; }
+}
