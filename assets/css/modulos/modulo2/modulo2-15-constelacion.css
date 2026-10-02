@@ -10,8 +10,10 @@
   --star: 64px; /* tamaño de cada punto */
   --lens: 96px; /* tamaño de la burbuja de vidrio */
   position: relative;
-  height: 460px;
-  margin: 10px 0 24px;
+  height: 280px; /* solo el espacio de los puntos: la burbuja de datos
+                    puede salir por arriba y quedar sobre el texto */
+  z-index: 5; /* por encima del texto, para que la burbuja quede encima */
+  margin: 30px 0 24px;
 }
 
 @supports not (color: color-mix(in srgb, red, white)) {
@@ -274,7 +276,7 @@
   .const {
     --star: 46px;
     --lens: 70px;
-    height: 400px;
+    height: 260px;
   }
 
   .const__sky {
