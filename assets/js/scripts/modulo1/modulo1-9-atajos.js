@@ -1,5 +1,5 @@
 /* Módulo 1-9: atajos de teclado.
-   - Las pestañas cambian la categoría que se muestra (también con ← →).
+   - Los botones de categoría cambian la tabla que se muestra (también con ← →).
    - Las teclas se dibujan a partir de data-win y data-mac de cada atajo:
      "+" une teclas que se presionan juntas y un espacio separa pasos
      ("Ctrl+K Ctrl+S" = Ctrl+K y después Ctrl+S).
@@ -65,7 +65,7 @@
     });
   });
 
-  // Pestañas de categoría
+  // Botones de categoría
   var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
 
   function select(tab) {
@@ -75,7 +75,6 @@
       t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
     });
-    root.setAttribute("data-active", tab.getAttribute("data-cat"));
   }
 
   tabs.forEach(function (tab, i) {

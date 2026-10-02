@@ -1,326 +1,120 @@
 /* Módulo 1-9: atajos de teclado.
-   Una tarjeta (card-block) con pestañas de color por categoría; cada
-   pestaña muestra sus atajos como mosaicos con teclas que se "presionan"
-   al pasar el mouse. El selector Windows / Mac cambia Ctrl por Cmd,
-   Alt por Option, etc. */
+   Usa los estilos que ya tiene el curso (.button de app.css y tablas de
+   Bootstrap); aquí solo va lo propio: el estado activo de los botones,
+   el selector Windows / Mac y el dibujo de las teclas. */
 
-.sc {
-  --sc-ink: #172033;
-  --sc-muted: #65748b;
-  --sc-line: #e3e8ef;
-  --accent: #0f6fd1;
-  --accent-soft: rgba(15, 111, 209, 0.1);
-}
-
-/* Colores por categoría (se aplican a la pestaña y al panel activo) */
-.sc [data-cat="files"],
-.sc[data-active="files"] { --accent: #0f6fd1; --accent-soft: rgba(15, 111, 209, 0.1); }
-.sc [data-cat="edit"],
-.sc[data-active="edit"] { --accent: #7c4ddb; --accent-soft: rgba(124, 77, 219, 0.1); }
-.sc [data-cat="select"],
-.sc[data-active="select"] { --accent: #15936a; --accent-soft: rgba(21, 147, 106, 0.1); }
-.sc [data-cat="editor"],
-.sc[data-active="editor"] { --accent: #e07a12; --accent-soft: rgba(224, 122, 18, 0.11); }
-
-/* Encabezado: título y selector Windows / Mac */
 .sc__top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .sc__top .card-title {
   margin: 0;
 }
 
-.sc__switch {
+/* Selector Windows / Mac: dos botones unidos */
+.sc__os {
   display: inline-flex;
-  padding: 4px;
-  border-radius: 999px;
-  background: #e9eef5;
+  border: 2px solid var(--theme-color);
+  border-radius: 0.6em;
+  overflow: hidden;
 }
 
-.sc__switch button {
-  padding: 6px 18px;
+.sc__os button {
+  padding: 6px 16px;
   border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--sc-muted);
+  background: #ffffff;
+  color: var(--theme-color);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.sc__switch button[aria-pressed="true"] {
-  background: #ffffff;
-  color: var(--sc-ink);
-  box-shadow: 0 2px 8px rgba(23, 32, 51, 0.12);
+.sc__os button + button {
+  border-left: 2px solid var(--theme-color);
 }
 
-.sc__switch button:focus-visible,
-.sc__tab:focus-visible {
-  outline: 3px solid rgba(15, 76, 145, 0.35);
-  outline-offset: 2px;
+.sc__os button[aria-pressed="true"] {
+  background: var(--theme-color);
+  color: #ffffff;
 }
 
-/* Pestañas de categoría */
-.sc__tabs {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.sc__tab {
-  position: relative;
+/* Botones de categoría: el elegido queda relleno */
+.sc__cats {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 2px solid var(--sc-line);
-  border-radius: 14px;
-  background: #ffffff;
-  color: var(--sc-ink);
-  text-align: left;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -0.5em 10px;
 }
 
-.sc__tab:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent);
-  box-shadow: 0 8px 18px rgba(23, 32, 51, 0.08);
-}
-
-.sc__tab:focus {
-  outline: none;
-}
-
-.sc__tab[aria-selected="true"] {
-  border-color: var(--accent);
-  background: var(--accent);
+.sc__cats .button[aria-selected="true"] {
+  box-shadow: inset 0 -3.25em 0 0 var(--theme-color);
   color: #ffffff;
-  box-shadow: 0 10px 22px var(--accent-soft);
-}
-
-/* Flechita que apunta al panel desde la pestaña activa */
-.sc__tab[aria-selected="true"]::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -9px;
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
-  transform: translateX(-50%) rotate(45deg);
-  border-radius: 2px;
-}
-
-.sc__tab-icon {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.sc__tab-icon svg {
-  width: 22px;
-  height: 22px;
-}
-
-.sc__tab[aria-selected="true"] .sc__tab-icon {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-}
-
-.sc__tab-name {
-  display: block;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.sc__tab-count {
-  display: block;
-  margin-top: 2px;
-  font-size: 12px;
-  opacity: 0.75;
-}
-
-/* Panel con los atajos de la categoría elegida */
-.sc__panel {
-  padding: 20px;
-  border-radius: 16px;
-  background: var(--accent-soft);
-  transition: background 0.3s ease;
 }
 
 .sc__panel[hidden] {
   display: none;
 }
 
-.sc__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.sc__table {
+  margin-bottom: 0;
 }
 
-.sc__tile {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px 18px;
-  border: 1px solid rgba(23, 32, 51, 0.06);
-  border-top: 4px solid var(--accent);
-  border-radius: 12px;
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(23, 32, 51, 0.05);
-  animation: sc-tile-in 0.35s ease both;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.sc__table th {
+  color: var(--theme-color);
 }
 
-.sc__tile:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(23, 32, 51, 0.1);
+.sc__table td {
+  vertical-align: middle;
 }
 
-/* Los mosaicos aparecen uno tras otro al cambiar de pestaña */
-.sc__tile:nth-child(2) { animation-delay: 0.05s; }
-.sc__tile:nth-child(3) { animation-delay: 0.1s; }
-.sc__tile:nth-child(4) { animation-delay: 0.15s; }
-.sc__tile:nth-child(5) { animation-delay: 0.2s; }
-.sc__tile:nth-child(6) { animation-delay: 0.25s; }
-
-@keyframes sc-tile-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.98);
-  }
-}
-
-.sc__desc {
-  margin: 0;
-  color: #34405a;
-  font-size: 15px;
-  line-height: 1.5;
+.sc__table td:first-child {
+  width: 40%;
+  white-space: nowrap;
 }
 
 /* Teclas */
-.sc__keys {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
+.sc__key {
+  display: inline-block;
+  min-width: 28px;
+  padding: 3px 8px;
+  border: 1px solid #b9c2cf;
+  border-bottom-width: 3px;
+  border-radius: 5px;
+  background: #f7f8fa;
+  color: #263040;
+  font: 700 13px/1.4 Consolas, "Courier New", monospace;
+  text-align: center;
+}
+
+.sc__key svg {
+  width: 12px;
+  height: 12px;
+  margin-right: 3px;
+  vertical-align: -1px;
 }
 
 .sc__plus,
 .sc__then {
-  color: var(--sc-muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.sc__then {
   margin: 0 4px;
-  font-weight: 400;
+  color: #6b7686;
+  font-size: 13px;
 }
 
-.sc__key {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  min-width: 36px;
-  height: 36px;
-  padding: 0 11px;
-  border: 1px solid #cfd7e3;
-  border-radius: 8px;
-  background: linear-gradient(#ffffff, #f3f6fa);
-  box-shadow: 0 3px 0 #c3ccd9, 0 4px 8px rgba(23, 32, 51, 0.08);
-  color: var(--sc-ink);
-  font: 700 14px/1 "Source Code Pro", Consolas, monospace;
-  white-space: nowrap;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-}
-
-.sc__key svg {
-  width: 14px;
-  height: 14px;
-}
-
-/* Al pasar el mouse por un atajo, sus teclas se presionan en orden */
-.sc__tile:hover .sc__key {
-  transform: translateY(3px);
-  border-color: var(--accent);
-  background: linear-gradient(#ffffff, var(--accent-soft));
-  box-shadow: 0 0 0 #c3ccd9, 0 1px 3px rgba(23, 32, 51, 0.1);
-}
-
-.sc__tile:hover .sc__key:nth-of-type(2) { transition-delay: 0.06s; }
-.sc__tile:hover .sc__key:nth-of-type(3) { transition-delay: 0.12s; }
-.sc__tile:hover .sc__key:nth-of-type(4) { transition-delay: 0.18s; }
-
-@media (max-width: 991px) {
-  .sc__tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 767px) {
+  .sc__table td:first-child {
+    width: auto;
+    white-space: normal;
   }
 
-  .sc__tab[aria-selected="true"]::after {
-    display: none;
-  }
-}
-
-@media (max-width: 575px) {
-  .sc__tabs {
-    gap: 8px;
-  }
-
-  .sc__tab {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 12px;
-  }
-
-  .sc__tab-icon {
-    width: 34px;
-    height: 34px;
-  }
-
-  .sc__panel {
-    padding: 12px;
-  }
-
-  .sc__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sc__tab,
-  .sc__tile,
-  .sc__key {
-    transition: none;
-  }
-
-  .sc__tile {
-    animation: none;
-  }
-
-  .sc__tab:hover,
-  .sc__tile:hover {
-    transform: none;
+  .sc__table .sc__keys {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 6px;
   }
 }
