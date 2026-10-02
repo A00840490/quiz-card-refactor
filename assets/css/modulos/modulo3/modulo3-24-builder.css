@@ -11,7 +11,7 @@
 
 .css-builder__seg {
   flex: 1;
-  height: 6px;
+  height: 8px;
   border-radius: 999px;
   background: #e8edf4;
   overflow: hidden;
@@ -22,7 +22,7 @@
   height: 100%;
   border-radius: inherit;
   background: var(--b-blue);
-  transition: width 0.4s ease;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease 0.3s;
 }
 
 .css-builder__seg.is-done > span {
@@ -74,5 +74,11 @@
 
   .css-builder .builder__frame {
     min-height: 300px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .css-builder__seg > span {
+    transition: none;
   }
 }

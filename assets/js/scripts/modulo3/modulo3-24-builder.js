@@ -288,10 +288,22 @@
   }
 
   // Barra de progreso con un segmento por ejercicio; cada uno se llena
-  // según las preguntas respondidas de ese ejercicio.
+  // según las preguntas respondidas de ese ejercicio. Los segmentos se crean
+  // una sola vez y después solo cambia su ancho, así la transición del CSS
+  // anima el avance (si se recrearan, aparecerían ya llenos, sin animación).
+  var segments = EXERCISES.map(function () {
+    var seg = document.createElement("span");
+    seg.className = "css-builder__seg";
+    var fill = document.createElement("span");
+    fill.style.width = "0%";
+    seg.appendChild(fill);
+    els.progress.appendChild(seg);
+    return { seg: seg, fill: fill };
+  });
+
   function renderProgress() {
     var answered = state.done ? QUESTIONS.length : state.current + (state.waiting ? 1 : 0);
-    els.progress.innerHTML = EXERCISES.map(function (_, ei) {
+    segments.forEach(function (s, ei) {
       var total = 0;
       var done = 0;
       QUESTIONS.forEach(function (q, i) {
@@ -299,13 +311,10 @@
         total++;
         if (i < answered) done++;
       });
-      var cls = "css-builder__seg";
-      if (done === total) cls += " is-done";
-      else if (ei === state.ex) cls += " is-current";
-      return (
-        '<span class="' + cls + '"><span style="width:' + (done / total) * 100 + '%"></span></span>'
-      );
-    }).join("");
+      s.fill.style.width = (done / total) * 100 + "%";
+      s.seg.classList.toggle("is-done", done === total);
+      s.seg.classList.toggle("is-current", done !== total && ei === state.ex);
+    });
   }
 
   function blankHtml(qi) {
