@@ -10,3 +10,4 @@
 - [x] Convertir el Ejercicio 3 (módulo 3-24) en ejercicios de CSS paso a paso, con el mismo estilo que el Ejercicio 2 (módulo 2-16).
 - [x] Convertir los botones de la barra lateral del módulo 1-5 en una barra de actividad con el estilo de VS Code.
 - [x] Rediseñar los atajos del módulo 1-9 con un teclado que se ilumina, lista por categoría y selector Windows / Mac, dentro de un card-block y solo con --theme-color.
+- [x] Ensanchar la tabla de propiedades flex del módulo 3-22 y mostrar solo el encabezado y dos filas, con scroll y encabezado fijo.

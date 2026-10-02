@@ -115,194 +115,197 @@
                           <b class="pt-1 px-2">Pasa el cursor o toca cada tarjeta para voltearla y leer qué hace
                           la propiedad</b>
                         </div>
-                        <table class="flex-props__table">
-                          <caption class="sr-only">Propiedades flex del contenedor y de los elementos</caption>
-                          <thead>
-                            <tr>
-                              <th scope="col" class="flex-props__head flex-props__head--container">
-                                Contenedor flex
-                              </th>
-                              <th scope="col" class="flex-props__head flex-props__head--item">
-                                Elementos flex
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <div class="fp-card fp-card--container" tabindex="0" style="--d: 0">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">flex-direction</span>
-                                      <div class="fp-demo fp-demo--direction" aria-hidden="true">
-                                        <i>1</i><i>2</i><i>3</i>
+                        <!-- La tabla se desplaza dentro de este contenedor; el encabezado queda fijo -->
+                        <div class="flex-props__scroll" tabindex="0" aria-label="Propiedades flex, desplázate para ver más">
+                          <table class="flex-props__table">
+                            <caption class="sr-only">Propiedades flex del contenedor y de los elementos</caption>
+                            <thead>
+                              <tr>
+                                <th scope="col" class="flex-props__head flex-props__head--container">
+                                  Contenedor flex
+                                </th>
+                                <th scope="col" class="flex-props__head flex-props__head--item">
+                                  Elementos flex
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <div class="fp-card fp-card--container" tabindex="0" style="--d: 0">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">flex-direction</span>
+                                        <div class="fp-demo fp-demo--direction" aria-hidden="true">
+                                          <i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">flex-direction</span>
+                                        <p>Cambia la dirección en la que se acomodan los elementos. La predeterminada es
+                                          <span class="code">row</span>, que los acomoda de manera horizontal de izquierda
+                                          a derecha.
+                                        </p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">flex-direction</span>
-                                      <p>Cambia la dirección en la que se acomodan los elementos. La predeterminada es
-                                        <span class="code">row</span>, que los acomoda de manera horizontal de izquierda
-                                        a derecha.
-                                      </p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="fp-card fp-card--item" tabindex="0" style="--d: 1">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">align-self</span>
-                                      <div class="fp-demo fp-demo--align-self" aria-hidden="true">
-                                        <i>1</i><i>2</i><i>3</i>
+                                </td>
+                                <td>
+                                  <div class="fp-card fp-card--item" tabindex="0" style="--d: 1">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">align-self</span>
+                                        <div class="fp-demo fp-demo--align-self" aria-hidden="true">
+                                          <i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">align-self</span>
+                                        <p>Alinea sólo a ese elemento dentro del contenedor. Anula la propiedad <span
+                                            class="code">align-items</span> sólo en el elemento.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">align-self</span>
-                                      <p>Alinea sólo a ese elemento dentro del contenedor. Anula la propiedad <span
-                                          class="code">align-items</span> sólo en el elemento.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="fp-card fp-card--container" tabindex="0" style="--d: 2">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">flex-wrap</span>
-                                      <div class="fp-demo fp-demo--wrap" aria-hidden="true">
-                                        <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="fp-card fp-card--container" tabindex="0" style="--d: 2">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">flex-wrap</span>
+                                        <div class="fp-demo fp-demo--wrap" aria-hidden="true">
+                                          <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">flex-wrap</span>
+                                        <p>Si el contenido no cabe en la dirección que se tiene, con el valor <span
+                                            class="code">wrap</span> los elementos pasan a la siguiente línea.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">flex-wrap</span>
-                                      <p>Si el contenido no cabe en la dirección que se tiene, con el valor <span
-                                          class="code">wrap</span> los elementos pasan a la siguiente línea.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="fp-card fp-card--item" tabindex="0" style="--d: 3">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">flex-grow</span>
-                                      <div class="fp-demo fp-demo--grow" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                </td>
+                                <td>
+                                  <div class="fp-card fp-card--item" tabindex="0" style="--d: 3">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">flex-grow</span>
+                                        <div class="fp-demo fp-demo--grow" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">flex-grow</span>
+                                        <p>Especifica cuánto crecerá un elemento con respecto a los demás. Su valor
+                                          predeterminado es 0.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">flex-grow</span>
-                                      <p>Especifica cuánto crecerá un elemento con respecto a los demás. Su valor
-                                        predeterminado es 0.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="fp-card fp-card--container" tabindex="0" style="--d: 4">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">align-items</span>
-                                      <div class="fp-demo fp-demo--align-items" aria-hidden="true">
-                                        <i>1</i><i>2</i><i>3</i>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="fp-card fp-card--container" tabindex="0" style="--d: 4">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">align-items</span>
+                                        <div class="fp-demo fp-demo--align-items" aria-hidden="true">
+                                          <i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">align-items</span>
+                                        <p>Modifica cómo se alinean los elementos respecto a los demás.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">align-items</span>
-                                      <p>Modifica cómo se alinean los elementos respecto a los demás.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="fp-card fp-card--item" tabindex="0" style="--d: 5">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">flex-shrink</span>
-                                      <div class="fp-demo fp-demo--shrink" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                </td>
+                                <td>
+                                  <div class="fp-card fp-card--item" tabindex="0" style="--d: 5">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">flex-shrink</span>
+                                        <div class="fp-demo fp-demo--shrink" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">flex-shrink</span>
+                                        <p>Especifica cuánto decrecerá un elemento con respecto a los demás. Su valor
+                                          predeterminado es 1.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">flex-shrink</span>
-                                      <p>Especifica cuánto decrecerá un elemento con respecto a los demás. Su valor
-                                        predeterminado es 1.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="fp-card fp-card--container" tabindex="0" style="--d: 6">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">justify-content</span>
-                                      <div class="fp-demo fp-demo--justify" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="fp-card fp-card--container" tabindex="0" style="--d: 6">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">justify-content</span>
+                                        <div class="fp-demo fp-demo--justify" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">justify-content</span>
+                                        <p>Modifica cómo se justifica el contenido.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">justify-content</span>
-                                      <p>Modifica cómo se justifica el contenido.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="fp-card fp-card--item" tabindex="0" style="--d: 7">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">flex</span>
-                                      <div class="fp-demo fp-demo--flex" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                </td>
+                                <td>
+                                  <div class="fp-card fp-card--item" tabindex="0" style="--d: 7">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">flex</span>
+                                        <div class="fp-demo fp-demo--flex" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">flex</span>
+                                        <p>Combina las tres propiedades anteriores.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">flex</span>
-                                      <p>Combina las tres propiedades anteriores.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <div class="fp-card fp-card--container" tabindex="0" style="--d: 8">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">align-content</span>
-                                      <div class="fp-demo fp-demo--align-content" aria-hidden="true">
-                                        <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <div class="fp-card fp-card--container" tabindex="0" style="--d: 8">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">align-content</span>
+                                        <div class="fp-demo fp-demo--align-content" aria-hidden="true">
+                                          <i>1</i><i>2</i><i>3</i><i>4</i><i>5</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">align-content</span>
+                                        <p>Modifica cómo se alinean los elementos respecto al contenedor.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">align-content</span>
-                                      <p>Modifica cómo se alinean los elementos respecto al contenedor.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td>
-                                <div class="fp-card fp-card--item" tabindex="0" style="--d: 9">
-                                  <div class="fp-card__inner">
-                                    <div class="fp-card__face fp-card__front">
-                                      <span class="fp-card__name">order</span>
-                                      <div class="fp-demo fp-demo--order" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                </td>
+                                <td>
+                                  <div class="fp-card fp-card--item" tabindex="0" style="--d: 9">
+                                    <div class="fp-card__inner">
+                                      <div class="fp-card__face fp-card__front">
+                                        <span class="fp-card__name">order</span>
+                                        <div class="fp-demo fp-demo--order" aria-hidden="true"><i>1</i><i>2</i><i>3</i>
+                                        </div>
+                                      </div>
+                                      <div class="fp-card__face fp-card__back">
+                                        <span class="fp-card__name">order</span>
+                                        <p>Cambia el orden de los elementos; el valor debe ser un número y el más bajo va
+                                          primero.</p>
                                       </div>
                                     </div>
-                                    <div class="fp-card__face fp-card__back">
-                                      <span class="fp-card__name">order</span>
-                                      <p>Cambia el orden de los elementos; el valor debe ser un número y el más bajo va
-                                        primero.</p>
-                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                       <h2 class="card-title mrg-top-20">Ejemplo</h2>
                       <p>Este ejemplo muestra todos los posibles valores para las diferentes
