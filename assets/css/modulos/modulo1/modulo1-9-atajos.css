@@ -258,26 +258,36 @@
   border-bottom-width: 1px;
 }
 
-/* Explicación del atajo elegido */
+/* Explicación del atajo elegido: etiqueta con el color del curso */
 .kb__out {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   min-height: 56px;
   margin-top: 14px;
-  padding: 12px 16px;
-  border-left: 4px solid var(--theme-color);
-  border-radius: 0 8px 8px 0;
-  background: #ffffff;
+  padding: 0 4px;
 }
 
 .kb__out p {
-  flex: 1;
   margin: 0;
+  padding: 6px 12px;
+  background: var(--theme-color);
+  color: #ffffff;
   line-height: 1.5;
+  animation: kb-label-in 0.2s ease;
 }
 
+.kb__out p b {
+  color: #ffffff;
+}
 
+@keyframes kb-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}
 
 .kb__mouse {
   flex: none;
@@ -338,6 +348,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .kb__out p {
+    animation: none;
+  }
+
   .kb__k,
   .kb__mouse,
   .kb__item,

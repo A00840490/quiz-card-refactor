@@ -115,10 +115,12 @@
       keyEls[id].classList.toggle("is-on", !!on[id]);
     });
 
-    var desc = state.item.querySelector(".kb__desc").innerHTML;
-    out.innerHTML =
-      "<p>" + desc + "</p>" +
+    // Solo se redibuja si cambió el atajo, para que la etiqueta no se
+    // vuelva a animar cada vez que alternan los pasos.
+    var html =
+      "<p>" + state.item.querySelector(".kb__desc").innerHTML + "</p>" +
       '<span class="kb__mouse' + (on.Click ? " is-on" : "") + '" aria-hidden="true">Clic</span>';
+    if (out.innerHTML !== html) out.innerHTML = html;
   }
 
   // Atajos de dos pasos: alterna entre el primero y el segundo.
