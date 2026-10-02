@@ -1,0 +1,122 @@
+/* Ejercicio 3 (modulo3-24): varios ejercicios de CSS uno tras otro.
+   Se apoya en los estilos del Ejercicio 2 (modulo2/modulo2-16-builder.css)
+   y solo agrega lo propio: pasos, enunciado y colores de CSS. */
+
+/* Pasos: Ejercicio 1 · 2 · 3 · 4 */
+.css-builder__steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.css-builder__step {
+  padding: 5px 14px;
+  border: 1px solid var(--b-line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--b-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.css-builder__step.is-current {
+  border-color: var(--b-blue);
+  background: var(--b-blue);
+  color: #ffffff;
+}
+
+.css-builder__step.is-done {
+  border-color: rgba(31, 157, 99, 0.35);
+  background: rgba(31, 157, 99, 0.1);
+  color: var(--b-right);
+}
+
+.css-builder__step.is-done::before {
+  content: "✓ ";
+}
+
+/* Enunciado del ejercicio */
+.css-builder__task {
+  margin: 0 0 4px;
+  color: var(--b-ink);
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.css-builder__num {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 9px;
+  border-radius: 6px;
+  background: rgba(15, 76, 145, 0.1);
+  color: var(--b-blue);
+  font-size: 13px;
+  vertical-align: 2px;
+}
+
+.css-builder__target {
+  margin: 0 0 14px;
+  color: var(--b-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.css-builder__target code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--b-ink);
+}
+
+.css-builder .builder__ask {
+  color: var(--b-ink);
+}
+
+.css-builder__summary {
+  display: block;
+  margin-top: 4px;
+  color: var(--b-ink);
+  font-weight: 700;
+}
+
+/* Colores del código CSS */
+.css-builder__sel {
+  color: #f1ac29;
+}
+
+.css-builder__prop {
+  color: #79c0ff;
+}
+
+.css-builder__val {
+  color: #ffffff;
+}
+
+/* El código es corto: el editor no necesita tanta altura */
+.css-builder .builder__code {
+  height: 320px;
+  font-size: 15px;
+}
+
+.css-builder .builder__frame {
+  min-height: 320px;
+}
+
+.css-builder .builder__actions .builder__btn[data-next-ex] {
+  background: var(--b-right);
+}
+
+@media (max-width: 991px) {
+  .css-builder .builder__code {
+    height: 240px;
+  }
+
+  .css-builder .builder__frame {
+    min-height: 300px;
+  }
+}

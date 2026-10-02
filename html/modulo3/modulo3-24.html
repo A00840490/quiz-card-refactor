@@ -25,6 +25,8 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo2/modulo2-16-builder.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo3/modulo3-24-builder.css" rel="stylesheet">
 
 </head>
 
@@ -69,7 +71,9 @@
                                                     <p>Este ejercicio está diseñado para probar tus conocimientos
                                                         teóricos y prácticos de CSS. Te presentaremos varios casos con
                                                         código CSS incompleto, de acuerdo a lo que se pida, tendrás que
-                                                        completarlo para cumplir con la modificación requerida. </p>
+                                                        completarlo para cumplir con la modificación requerida. Responderás una
+                                                        pregunta a la vez y verás cómo cada respuesta cambia la vista
+                                                        previa. Al terminar verás cuántos aciertos tuviste.</p>
                                                     <p>Recuerda que puedes regresar al módulo para revisar cualquier
                                                         duda que tengas; esto no será evaluado por ningún agente
                                                         externo, pero te servirá como retroalimentación de lo que has
@@ -87,176 +91,43 @@
                                 <div class="card">
                                     <div class="container-fluid">
                                         <div class="mrg-horizon-20">
-                                                <p class="card-info mb-4" style="width: fit-content;">
-                                                    <img src="../../assets/images/clic.svg" class="mrg-right-5"> Completa el código de acuerdo con lo que
-                                                    se
-                                                    pide (en orden):
-                                                  </p>
-
-
-                                            <h3 class="card-title mrg-top-20">1. Párrafo con letra roja, subrayada y
-                                                fuente
-                                                Arial.</h3>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="card">
-                                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                            <p class="code">
-                                                                <span class="codetag">p </span>{ <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">red</span>; <br>
-                                                                &nbsp;&nbsp;&nbsp;text-decoration: <span
-                                                                    class="fillIn"><input type="text"><b
-                                                                        class='alertWrong'
-                                                                        style="display:none; color:red"> Incorrecto
-                                                                    </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>;
-                                                                <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">Arial</span>; <br>
-                                                                }
-                                                            </p>
-                                                        </div>
+                                            <h2 class="card-title mrg-top-20">Completa los estilos</h2>
+                                            <p>Escribe en el recuadro resaltado del código y presiona Revisar. Cada respuesta se aplica
+                                                en la vista previa; al terminar un ejercicio pasas al siguiente.</p>
+                                            <section class="builder css-builder" id="builder" aria-live="polite">
+                                                <div class="builder__result" data-result hidden>
+                                                    <h3>¡Completaste los ejercicios!</h3>
+                                                    <p class="builder__score">Aciertos: <span data-result-score></span></p>
+                                                    <p class="builder__result-msg" data-result-msg></p>
+                                                    <div class="builder__result-list" data-result-list></div>
+                                                    <button class="builder__btn" data-restart type="button">Intentar de nuevo</button>
+                                                </div>
+                                                <div data-question>
+                                                    <ol class="css-builder__steps" data-steps aria-label="Ejercicios"></ol>
+                                                    <p class="css-builder__task" data-task></p>
+                                                    <p class="css-builder__target" data-target></p>
+                                                    <div class="builder__question">
+                                                        <p class="builder__ask" data-ask></p>
+                                                        <p class="builder__feedback" data-feedback></p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <h3 class="card-title mrg-top-20">2. Contenedor con color de fondo amarillo,
-                                                tamaño de fuente de 18px y texto centrado.</h3>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="card">
-                                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                            <p class="code">
-                                                                <span class="codetag">.contenedor </span>{ <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">yellow</span>; <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">18px</span>; <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="fillIn"><input type="text"><b
-                                                                        class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>;
-                                                                <br>
-                                                                }
-                                                            </p>
-                                                        </div>
+                                                <div class="builder__panels">
+                                                    <div class="builder__editor">
+                                                        <div class="builder__bar">estilos.css</div>
+                                                        <div class="builder__code" data-code></div>
+                                                    </div>
+                                                    <div class="builder__preview">
+                                                        <div class="builder__bar">Previsualización del Navegador</div>
+                                                        <iframe class="builder__frame" data-frame title="Vista previa del ejercicio"></iframe>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <h3 class="card-title mrg-top-20">3. Una barra de navegación fijada en la
-                                                esquina superior izquierda de la ventana, con padding hacia todos los
-                                                lados
-                                                de 20px. </h3>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="card">
-                                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                            <p class="code">
-                                                                <span class="codetag">nav </span>{ <br>
-                                                                &nbsp;&nbsp;&nbsp;position: <span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red"> Incorrecto
-                                                                    </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>;
-                                                                <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">0</span>; <br>
-                                                                &nbsp;&nbsp;&nbsp;left: <span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red"> Incorrecto
-                                                                    </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>;
-                                                                <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">20px</span>; <br>
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                    </div>
+                                                <div class="builder__progress" aria-hidden="true"><span data-bar></span></div>
+                                                <div class="builder__actions" data-actions>
+                                                    <button class="builder__btn" data-check type="button">Revisar</button>
+                                                    <button class="builder__btn" data-next type="button" hidden>Continuar</button>
+                                                    <button class="builder__btn" data-next-ex type="button" hidden>Siguiente ejercicio</button>
                                                 </div>
-                                            </div>
-                                            <h3 class="card-title mrg-top-20">4. Una división con un ancho de la mitad
-                                                de su
-                                                elemento padre, pero que no pueda ser menos de 400px, centrada
-                                                utilizando
-                                                márgenes. </h3>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="card">
-                                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                            <p class="code">
-                                                                <span class="codetag">#division1 </span>{ <br>
-                                                                &nbsp;&nbsp;&nbsp;width: <span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red"> Incorrecto
-                                                                    </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>;
-                                                                <br>
-                                                                &nbsp;&nbsp;&nbsp;<span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red">
-                                                                        Incorrecto </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>:
-                                                                <span class="codetext">400px</span>; <br>
-                                                                &nbsp;&nbsp;&nbsp;margin: <span class="fillIn"><input
-                                                                        type="text"><b class='alertWrong'
-                                                                        style="display:none; color:red"> Incorrecto
-                                                                    </b><b class='alertCorrect'
-                                                                        style="display: none; color:green">¡Correcto!</b></span>;
-                                                                <br>
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex w-100 sticky-score p-3 mrg-top-15 justify-content-end">
-                                                <div class="card d-flex sticky-score p-3 mrg-vertical-15" style="background-color: white;">
-                                                    <button type="button" class="button" data-toggle="modal"
-                                                        data-target="#modal-fs" onclick="checkAll()">
-                                                        Revisar
-                                                    </button>
-                                                    <div class="score" style="display: none;">
-                                                        <span></span>
-                                                    </div>
-                                                    <div class="msg" style="display: none;">
-                                                        <span></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            
+                                            </section>
                                         </div>
                                     </div>
                                 </div>
@@ -374,84 +245,7 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
-    <script>
-        var answers = ["color", "underline", "font-family", "background-color", "font-size", "text-align", "center", "fixed", "top", "0", "padding", "50%", "min-width", "auto"]
-
-        const questionsContainer = document.querySelector('#questions');
-
-        const modal = document.querySelector('#modal-fs');
-        const modalMessage = modal.querySelector('#modal-message');
-        const modalScore = modal.querySelector('#modal-score');
-        const correctImg = modal.querySelector('#correct-img');
-        const incorrectImg = modal.querySelector('#incorrect-img');
-
-        document.addEventListener('DOMContentLoaded', function (_) {
-            $(".custom-control-label").on("click", function () {
-                console.log('clicked')
-                if ($(this).siblings().is(":checked")) {
-                    $(this).siblings().removeAttr("checked");
-                } else {
-                    $(this).siblings().prop("checked", true);
-                }
-            });
-
-            incorrectImg.style.display = "none";
-            correctImg.style.display = "none";
-        });
-
-        $(".custom-control-label").on("click", function () {
-            if ($(this).siblings().is(":checked")) {
-                $(this).siblings().removeAttr("checked");
-
-            } else {
-                $(this).siblings().prop("checked", true);
-
-            }
-        });
-
-        function checkAll() {
-            var correct = 0;
-            var count = 0;
-            $("span.fillIn").each(function () {
-                var ans = $(this).find("input").val();
-                $(this).find(".alertCorrect").css("display", "none");
-                $(this).find(".alertWrong").css("display", "none");
-                if (ans == answers[count]) {
-                    correct++;
-                    $(this).find(".alertCorrect").css("display", "inline");
-                } else {
-                    $(this).find(".alertWrong").css("display", "inline");
-                }
-                count++;
-            });
-            $(".score > span").html(parseInt(correct * 100 / count) + "/100");
-            if (parseInt(correct * 100 / count) > 70) {
-                $(".msg > span").html("¡Excelente!");
-                $(".msg > span").css("color", "green");
-            } else {
-                $(".msg > span").html('Te invitamos a regresar al contenido para tu aprendizaje.');
-            }
-
-
-            let score = parseInt((correct * 100) / count);
-            modalScore.textContent = `${score} / 100`;
-
-            if (score >= 80) {
-                modalMessage.textContent = "¡Excelente!"
-                incorrectImg.style.display = "none";
-                correctImg.style.display = "block";
-
-            } else {
-                modalMessage.textContent = "Vuelve a intentarlo..."
-                incorrectImg.style.display = "block";
-                correctImg.style.display = "none";
-
-                if (score < 25) {
-                    // alert("Le recomendamos volver a leer esta sección para tener mayor puntuaje que 25.");
-                }
-            }
-        }
-    </script>
+    <script src="../../assets/js/scripts/modulo3/modulo3-24-builder.js"></script>
 
 </body>
 
