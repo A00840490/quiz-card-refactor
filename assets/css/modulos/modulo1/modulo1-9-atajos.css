@@ -1,0 +1,326 @@
+/* Módulo 1-9: atajos de teclado.
+   Tarjetas por categoría que se despliegan al hacer clic; cada atajo se
+   dibuja con teclas que se "presionan" al pasar el mouse. Selector
+   Windows / Mac para cambiar Ctrl por Cmd, Alt por Option, etc. */
+
+.sc {
+  --sc-ink: #172033;
+  --sc-muted: #65748b;
+  --sc-line: #e3e8ef;
+  margin: 4px 0 28px;
+}
+
+/* Selector Windows / Mac */
+.sc__os {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.sc__os-label {
+  color: var(--sc-muted);
+  font-size: 14px;
+}
+
+.sc__switch {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  background: #e9eef5;
+}
+
+.sc__switch button {
+  padding: 6px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sc-muted);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sc__switch button[aria-pressed="true"] {
+  background: #ffffff;
+  color: var(--sc-ink);
+  box-shadow: 0 2px 8px rgba(23, 32, 51, 0.12);
+}
+
+.sc__switch button:focus-visible {
+  outline: 3px solid rgba(15, 76, 145, 0.35);
+  outline-offset: 2px;
+}
+
+/* Rejilla de tarjetas */
+.sc__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px;
+}
+
+.sc__card {
+  --accent: #0f4c91;
+  --accent-soft: rgba(15, 76, 145, 0.1);
+  overflow: hidden;
+  border: 1px solid var(--sc-line);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(23, 32, 51, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.sc__card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 30px rgba(23, 32, 51, 0.12);
+}
+
+.sc__card.is-open {
+  border-color: var(--accent);
+  box-shadow: 0 14px 30px rgba(23, 32, 51, 0.12);
+}
+
+.sc__card--files { --accent: #0f6fd1; --accent-soft: rgba(15, 111, 209, 0.12); }
+.sc__card--edit { --accent: #7c4ddb; --accent-soft: rgba(124, 77, 219, 0.12); }
+.sc__card--select { --accent: #15936a; --accent-soft: rgba(21, 147, 106, 0.12); }
+.sc__card--editor { --accent: #e07a12; --accent-soft: rgba(224, 122, 18, 0.13); }
+
+.sc__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 20px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sc__head:focus {
+  outline: none;
+}
+
+.sc__head:focus-visible {
+  box-shadow: inset 0 0 0 3px var(--accent-soft), inset 0 0 0 1px var(--accent);
+}
+
+.sc__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.sc__icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.sc__card:hover .sc__icon {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.sc__titles {
+  flex: 1;
+  min-width: 0;
+}
+
+.sc__title {
+  display: block;
+  margin: 0;
+  color: var(--sc-ink);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.sc__count {
+  display: block;
+  margin-top: 2px;
+  color: var(--sc-muted);
+  font-size: 13px;
+}
+
+/* Botón + que gira a × al abrir */
+.sc__toggle {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 4px 12px var(--accent-soft);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.sc__toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sc__card.is-open .sc__toggle {
+  transform: rotate(135deg);
+}
+
+/* Contenido desplegable */
+.sc__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.sc__card.is-open .sc__body {
+  grid-template-rows: 1fr;
+}
+
+.sc__body > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sc__list {
+  margin: 0;
+  padding: 0 20px 14px;
+  border-top: 1px solid var(--sc-line);
+  list-style: none;
+}
+
+.sc__row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--sc-line);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.sc__row:last-child {
+  border-bottom: 0;
+}
+
+.sc__card.is-open .sc__row {
+  opacity: 1;
+  transform: none;
+}
+
+/* Las filas aparecen una tras otra */
+.sc__card.is-open .sc__row:nth-child(1) { transition-delay: 0.05s; }
+.sc__card.is-open .sc__row:nth-child(2) { transition-delay: 0.1s; }
+.sc__card.is-open .sc__row:nth-child(3) { transition-delay: 0.15s; }
+.sc__card.is-open .sc__row:nth-child(4) { transition-delay: 0.2s; }
+.sc__card.is-open .sc__row:nth-child(5) { transition-delay: 0.25s; }
+.sc__card.is-open .sc__row:nth-child(6) { transition-delay: 0.3s; }
+
+.sc__desc {
+  margin: 0;
+  color: #34405a;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Teclas */
+.sc__keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.sc__plus,
+.sc__then {
+  color: var(--sc-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sc__then {
+  margin: 0 4px;
+  font-weight: 400;
+}
+
+.sc__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 34px;
+  height: 34px;
+  justify-content: center;
+  padding: 0 10px;
+  border: 1px solid #cfd7e3;
+  border-radius: 8px;
+  background: linear-gradient(#ffffff, #f3f6fa);
+  box-shadow: 0 3px 0 #c3ccd9, 0 4px 8px rgba(23, 32, 51, 0.08);
+  color: var(--sc-ink);
+  font: 700 14px/1 "Source Code Pro", Consolas, monospace;
+  white-space: nowrap;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.sc__key svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Al pasar el mouse por un atajo, sus teclas se presionan en orden */
+.sc__row:hover .sc__key {
+  transform: translateY(3px);
+  border-color: var(--accent);
+  background: linear-gradient(#ffffff, var(--accent-soft));
+  box-shadow: 0 0 0 #c3ccd9, 0 1px 3px rgba(23, 32, 51, 0.1);
+}
+
+.sc__row:hover .sc__key:nth-of-type(2) { transition-delay: 0.06s; }
+.sc__row:hover .sc__key:nth-of-type(3) { transition-delay: 0.12s; }
+.sc__row:hover .sc__key:nth-of-type(4) { transition-delay: 0.18s; }
+
+@media (max-width: 991px) {
+  .sc__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  .sc__head {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .sc__icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .sc__list {
+    padding: 0 16px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sc__card,
+  .sc__icon,
+  .sc__toggle,
+  .sc__body,
+  .sc__row,
+  .sc__key {
+    transition: none;
+  }
+
+  .sc__card:hover {
+    transform: none;
+  }
+}

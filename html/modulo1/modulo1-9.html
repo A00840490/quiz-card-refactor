@@ -17,6 +17,7 @@
 
     <!-- page plugins css -->
     <link href="../../assets/css/modulos/modulo1/modulo1-6-2.css" rel="stylesheet" />
+    <link href="../../assets/css/modulos/modulo1/modulo1-9-atajos.css" rel="stylesheet" />
 
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
@@ -77,93 +78,160 @@
                         
                         <p class="card-info mb-3 mrg-top-0 mrg-horizon-auto" style="align-items: center; width: fit-content; background-color: white; margin-left: 20px;">
                             <img src="../../assets/images/clic.svg" class="mrg-right-5">
-                            Haz clic en los recuadros para conocer más.
+                            Haz clic en cada categoría para ver sus atajos.
                           </p>
 
-                        <div class="row mb-3">
-                            <div class="col-lg-6 my-3">
-                                <div class="card card-block mb-0 d-block h-100">
-                                    <div class="row">
-                                        <div class="col">                                            
-                                            <h2 class="card-title">Atajos de Archivos</h2>                                                        
-                                              <div class="d-flex flex-row">
-                                                  <div class="p-2">
-                                                      <button onclick="myFunction()" style="border: none; background:none; width: 50px;">
-                                                          <img src="../../assets/images/course/modulo1/m1-9/add.png">
-                                                      </button>
-                                                  </div>
-                                                  <div class="p-2" id="myDIV" style="display: none;">                                                
-                                                    <ul>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + S: Guarda el archivo en el que se está trabajando.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + Shift + S: Guardar con nombre y cambiar ubicación (Guardar cómo).</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + N: Crea un nuevo archivo.</p></li>                                            
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + O: Abre un archivo.</p></li>          
-                                                    </ul>
-                                                  </div>
-                                              </div>
-                                              <h2 class="card-title">Atajos de Edición</h2>
-                                              <div class="d-flex flex-row">
-                                                  <div class="p-2" id="button1">
-                                                      <button onclick="myFunction2()" style="border: none; background:none; width: 50px;">
-                                                          <img src="../../assets/images/course/modulo1/m1-9/add.png">
-                                                      </button>
-                                                  </div>
-                                                  <div class="p-2" id="myDIV2" style="display: none;">                                                    
-                                                    <ul>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + Z: Deshacer la última edición.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + Y: Rehacer.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + F: Buscar texto en el archivo actual.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + H: Buscar y reemplazar texto en el archivo.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + /: Convertir la selección actual o línea actual en un comentario.</p></li>
-                                                    </ul>
-                                                  </div>
-                                              </div>      
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Atajos de teclado: tarjetas por categoría (ver modulo1-9-atajos.css / .js) -->
+                        <div class="sc" data-sc>
+                          <div class="sc__os">
+                            <span class="sc__os-label">Muestra los atajos para:</span>
+                            <div class="sc__switch" role="group" aria-label="Sistema operativo">
+                              <button type="button" data-os="win" aria-pressed="true">Windows</button>
+                              <button type="button" data-os="mac" aria-pressed="false">Mac</button>
                             </div>
-                            <div class="col-lg-6 my-3">
-                                <div class="card card-block mb-0 d-block h-100">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h2 class="card-title">Atajos de Selección</h2>
-                                            <div class="d-flex flex-row">
-                                                <div class="p-2" id="button2">
-                                                    <button onclick="myFunction3()" style="border: none; background:none; width: 50px;">
-                                                        <img src="../../assets/images/course/modulo1/m1-9/add.png">
-                                                    </button>
-                                                </div>
-                                                <div class="p-2" id="myDIV3" style="display: none;">                                                    
-                                                    <ul>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + A: Seleccionar todo.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/alt.png" alt="alt"> + <img src="../../assets/images/clic.svg" class="mrg-right-5"> Clic: Crea otro cursor de línea en la posición del mouse, lo cual te permite editar múltiples líneas o secciones del código al mismo tiempo. <b>Haz clic en cualquier parte del archivo para quitar los cursores adicionales.</b></p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/alt.png" alt="alt"> + <img src="../../assets/images/course/modulo1/m1-7/pageup.png" class="mrg-right-5">: Mover la línea actual o líneas seleccionadas hacia arriba.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/alt.png" alt="alt"> + <img src="../../assets/images/course/modulo1/m1-7/pagedown.png" class="mrg-right-5">: Mover la línea actual o líneas seleccionadas hacia arriba.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/alt.png" alt="alt"> + <img src="../../assets/images/course/modulo1/m1-7/pageup.png" class="mrg-right-5"> + Shift: Duplica la línea actual o seleccionadas hacia arriba.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/alt.png" alt="alt"> + <img src="../../assets/images/course/modulo1/m1-7/pagedown.png" class="mrg-right-5"> + Shift: Duplica la línea actual o seleccionadas hacia abajo.</p></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <h2 class="card-title">Atajos del Editor</h2>
-                                            <div class="d-flex flex-row">
-                                                <div class="p-2" id="button3">
-                                                    <button onclick="myFunction4()" style="border: none; background:none; width: 50px;">
-                                                        <img src="../../assets/images/course/modulo1/m1-9/add.png">
-                                                    </button>
-                                                </div>
-                                                <div class="p-2" id="myDIV4" style="display: none;">                                                
-                                                    <ul>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + W: Cerrar ventana o archivo.</p></li>  
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + ,: Abrir configuración.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + \: Agregar otro editor a la derecha.</p></li>
-                                                        <li><p><img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + K y después <img src="../../assets/images/course/modulo1/m1-7/ctrl.png" alt="ctrl"> + S: Abre todos los atajos de VS Code.</p></li>
-                                                    </ul>
-                                                </div>
-                                            </div>     
-                                        </div>
-                                    </div>
-                                </div>
+                          </div>
+                          <div class="sc__grid">
+                          <section class="sc__card sc__card--files">
+                            <button type="button" class="sc__head" aria-expanded="false" aria-controls="sc-files">
+                              <span class="sc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg></span>
+                              <span class="sc__titles">
+                                <span class="sc__title">Atajos de Archivos</span>
+                                <span class="sc__count">4 atajos</span>
+                              </span>
+                              <span class="sc__toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></span>
+                            </button>
+                            <div class="sc__body" id="sc-files" aria-hidden="true">
+                              <div>
+                                <ul class="sc__list">
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+S" data-mac="Cmd+S"></span>
+                                    <p class="sc__desc">Guarda el archivo en el que se está trabajando.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+Shift+S" data-mac="Cmd+Shift+S"></span>
+                                    <p class="sc__desc">Guardar con otro nombre o en otra ubicación (Guardar como).</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+N" data-mac="Cmd+N"></span>
+                                    <p class="sc__desc">Crea un nuevo archivo.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+O" data-mac="Cmd+O"></span>
+                                    <p class="sc__desc">Abre un archivo.</p>
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
+                          </section>
+                          <section class="sc__card sc__card--edit">
+                            <button type="button" class="sc__head" aria-expanded="false" aria-controls="sc-edit">
+                              <span class="sc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></span>
+                              <span class="sc__titles">
+                                <span class="sc__title">Atajos de Edición</span>
+                                <span class="sc__count">5 atajos</span>
+                              </span>
+                              <span class="sc__toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></span>
+                            </button>
+                            <div class="sc__body" id="sc-edit" aria-hidden="true">
+                              <div>
+                                <ul class="sc__list">
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+Z" data-mac="Cmd+Z"></span>
+                                    <p class="sc__desc">Deshacer la última edición.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+Y" data-mac="Cmd+Shift+Z"></span>
+                                    <p class="sc__desc">Rehacer.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+F" data-mac="Cmd+F"></span>
+                                    <p class="sc__desc">Buscar texto en el archivo actual.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+H" data-mac="Cmd+Option+F"></span>
+                                    <p class="sc__desc">Buscar y reemplazar texto en el archivo.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+/" data-mac="Cmd+/"></span>
+                                    <p class="sc__desc">Convertir la selección o la línea actual en un comentario.</p>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </section>
+                          <section class="sc__card sc__card--select">
+                            <button type="button" class="sc__head" aria-expanded="false" aria-controls="sc-select">
+                              <span class="sc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l6.5 16 2.3-6.7L19.5 11z"/><path d="M13 13l6 6"/></svg></span>
+                              <span class="sc__titles">
+                                <span class="sc__title">Atajos de Selección</span>
+                                <span class="sc__count">6 atajos</span>
+                              </span>
+                              <span class="sc__toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></span>
+                            </button>
+                            <div class="sc__body" id="sc-select" aria-hidden="true">
+                              <div>
+                                <ul class="sc__list">
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+A" data-mac="Cmd+A"></span>
+                                    <p class="sc__desc">Seleccionar todo.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Alt+Click" data-mac="Option+Click"></span>
+                                    <p class="sc__desc">Crea otro cursor en la posición del mouse, lo cual te permite editar múltiples líneas o secciones del código al mismo tiempo. <b>Haz clic en cualquier parte del archivo para quitar los cursores adicionales.</b></p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Alt+Up" data-mac="Option+Up"></span>
+                                    <p class="sc__desc">Mover la línea actual o las líneas seleccionadas hacia arriba.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Alt+Down" data-mac="Option+Down"></span>
+                                    <p class="sc__desc">Mover la línea actual o las líneas seleccionadas hacia abajo.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Shift+Alt+Up" data-mac="Shift+Option+Up"></span>
+                                    <p class="sc__desc">Duplica la línea actual o las seleccionadas hacia arriba.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Shift+Alt+Down" data-mac="Shift+Option+Down"></span>
+                                    <p class="sc__desc">Duplica la línea actual o las seleccionadas hacia abajo.</p>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </section>
+                          <section class="sc__card sc__card--editor">
+                            <button type="button" class="sc__head" aria-expanded="false" aria-controls="sc-editor">
+                              <span class="sc__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/><path d="M6 9h3M6 13h3M15 9h3M15 13h3"/></svg></span>
+                              <span class="sc__titles">
+                                <span class="sc__title">Atajos del Editor</span>
+                                <span class="sc__count">4 atajos</span>
+                              </span>
+                              <span class="sc__toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M8 2v12M2 8h12"/></svg></span>
+                            </button>
+                            <div class="sc__body" id="sc-editor" aria-hidden="true">
+                              <div>
+                                <ul class="sc__list">
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+W" data-mac="Cmd+W"></span>
+                                    <p class="sc__desc">Cerrar la ventana o el archivo.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+," data-mac="Cmd+,"></span>
+                                    <p class="sc__desc">Abrir la configuración.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+\" data-mac="Cmd+\"></span>
+                                    <p class="sc__desc">Agregar otro editor a la derecha.</p>
+                                  </li>
+                                  <li class="sc__row">
+                                    <span class="sc__keys" data-win="Ctrl+K Ctrl+S" data-mac="Cmd+K Cmd+S"></span>
+                                    <p class="sc__desc">Abre la lista de todos los atajos de VS Code.</p>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </section>
+                          </div>
                         </div>                        
 
                         <div class="row mrg-btm-20">
@@ -245,40 +313,7 @@
         });
     </script>
   
-      <script>
-        function myFunction() {
-          var x = document.getElementById("myDIV");
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        function myFunction2() {
-          var x = document.getElementById("myDIV2");
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        function myFunction3() {
-          var x = document.getElementById("myDIV3");
-          if (x.style.display === "none") {
-            x.style.display = "block";
-          } else {
-            x.style.display = "none";
-          }
-        }
-        function myFunction4() {
-            var x = document.getElementById("myDIV4");
-            if (x.style.display === "none") {
-              x.style.display = "block";
-            } else {
-              x.style.display = "none";
-            }
-          }
-      </script>
+      <script src="../../assets/js/scripts/modulo1/modulo1-9-atajos.js"></script>
 </body>
 
 </html>
