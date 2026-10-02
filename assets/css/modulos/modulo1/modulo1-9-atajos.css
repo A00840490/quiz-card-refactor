@@ -9,11 +9,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 10px;
-}
-
-.sc__top .card-title {
-  margin: 0;
+  margin-bottom: 14px;
 }
 
 /* Selector Windows / Mac: dos botones unidos */
