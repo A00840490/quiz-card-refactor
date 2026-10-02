@@ -1,14 +1,16 @@
 /* Módulo 2-15: entidades como una constelación.
    Cada entidad es un punto con su símbolo; los puntos se unen con una línea.
-   Al elegir uno, el punto se vuelve una lupa y arriba aparece una burbuja
-   con sus datos. Solo usa --theme-color (definido en :root de app.css). */
+   Al elegir uno, una burbuja de vidrio líquido se desliza sobre él y arriba
+   aparece un globo con sus datos. Solo usa --theme-color (de app.css). */
 
 .const {
   --c-10: color-mix(in srgb, var(--theme-color) 10%, white);
   --c-25: color-mix(in srgb, var(--theme-color) 25%, white);
   --c-45: color-mix(in srgb, var(--theme-color) 45%, white);
+  --star: 64px; /* tamaño de cada punto */
+  --lens: 96px; /* tamaño de la burbuja de vidrio */
   position: relative;
-  height: 420px;
+  height: 460px;
   margin: 10px 0 24px;
 }
 
@@ -59,20 +61,20 @@
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  margin: -23px 0 0 -23px;
+  width: var(--star);
+  height: var(--star);
+  margin: calc(var(--star) / -2) 0 0 calc(var(--star) / -2);
   padding: 0;
   border: 2px solid var(--theme-color);
   border-radius: 50%;
   background: #ffffff;
-  box-shadow: 0 0 0 6px var(--c-10);
+  box-shadow: 0 0 0 8px var(--c-10);
   color: var(--theme-color);
-  font: 700 20px/1 Georgia, "Times New Roman", serif;
+  font: 700 26px/1 Georgia, "Times New Roman", serif;
   cursor: pointer;
   opacity: 0;
   transform: scale(0.4);
-  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.4s ease;
+  transition: transform 0.3s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, opacity 0.4s ease;
 }
 
 .const.is-visible .const__star {
@@ -94,39 +96,72 @@
   box-shadow: 0 0 0 6px var(--c-25);
 }
 
-/* Punto elegido: se vuelve una lupa */
+/* Punto elegido: se rellena; la burbuja de vidrio queda encima */
 .const.is-visible .const__star[aria-pressed="true"] {
   z-index: 2;
   background: var(--theme-color);
   color: #ffffff;
-  box-shadow: 0 0 0 6px #ffffff, 0 0 0 9px var(--theme-color);
-  transform: scale(1.35);
+  box-shadow: 0 0 0 8px transparent;
+  transform: scale(1.08);
   transition-delay: 0s;
 }
 
-/* Mango de la lupa */
-.const__star::after {
-  content: "";
+/* Burbuja de vidrio líquido: un lente translúcido con borde brillante,
+   reflejos y sombra que se desliza de un punto a otro estirándose. */
+.const__lens {
+  --a: 0deg; /* dirección del movimiento, para estirarse hacia allá */
   position: absolute;
-  right: -15px;
-  bottom: -15px;
-  width: 4px;
-  height: 16px;
-  border-radius: 2px;
-  background: var(--theme-color);
-  transform: rotate(-45deg) scaleY(0);
-  transform-origin: top center;
-  transition: transform 0.25s ease;
+  left: var(--lx, 0);
+  top: var(--ly, 0);
+  z-index: 3;
+  width: var(--lens);
+  height: var(--lens);
+  margin: calc(var(--lens) / -2) 0 0 calc(var(--lens) / -2);
+  border-radius: 50%;
+  background:
+    radial-gradient(110% 80% at 30% 18%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.16) 34%, rgba(255, 255, 255, 0) 58%),
+    radial-gradient(70% 45% at 68% 92%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 70%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0) 58%, rgba(255, 255, 255, 0.35) 72%, rgba(255, 255, 255, 0) 80%);
+  -webkit-backdrop-filter: saturate(140%) brightness(1.05);
+  backdrop-filter: saturate(140%) brightness(1.05);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.95),
+    inset 0 3px 6px rgba(255, 255, 255, 0.9),
+    inset 0 -8px 14px var(--c-25),
+    inset 8px 0 12px rgba(255, 255, 255, 0.35),
+    inset -6px 0 10px var(--c-10),
+    0 0 0 1px rgba(23, 32, 51, 0.08),
+    0 12px 26px rgba(23, 32, 51, 0.18),
+    0 3px 6px rgba(23, 32, 51, 0.12);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    left 0.55s cubic-bezier(0.45, 1.45, 0.4, 1),
+    top 0.55s cubic-bezier(0.45, 1.45, 0.4, 1),
+    opacity 0.3s ease;
 }
 
-.const__star[aria-pressed="true"]::after {
-  transform: rotate(-45deg) scaleY(1);
+.const.is-visible .const__lens.is-ready {
+  opacity: 1;
+}
+
+/* Al moverse se estira en la dirección del viaje y rebota como líquido */
+.const__lens.is-moving {
+  animation: const-liquid 0.6s ease;
+}
+
+@keyframes const-liquid {
+  0% { transform: rotate(var(--a)) scale(1, 1) rotate(calc(-1 * var(--a))); }
+  30% { transform: rotate(var(--a)) scale(1.32, 0.8) rotate(calc(-1 * var(--a))); }
+  60% { transform: rotate(var(--a)) scale(0.9, 1.1) rotate(calc(-1 * var(--a))); }
+  80% { transform: rotate(var(--a)) scale(1.04, 0.97) rotate(calc(-1 * var(--a))); }
+  100% { transform: rotate(var(--a)) scale(1, 1) rotate(calc(-1 * var(--a))); }
 }
 
 /* Burbuja de diálogo con los datos */
 .const__bubble {
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   width: 250px;
   padding: 14px 16px;
   border: 2px solid var(--theme-color);
@@ -224,25 +259,18 @@
 
 @media (max-width: 767px) {
   .const {
-    height: 380px;
+    --star: 46px;
+    --lens: 70px;
+    height: 400px;
   }
 
   .const__sky {
-    inset: 0 30px;
+    inset: 0 34px;
   }
 
   .const__star {
-    width: 36px;
-    height: 36px;
-    margin: -18px 0 0 -18px;
-    box-shadow: 0 0 0 4px var(--c-10);
-    font-size: 16px;
-  }
-
-  .const__star::after {
-    right: -12px;
-    bottom: -12px;
-    height: 12px;
+    box-shadow: 0 0 0 5px var(--c-10);
+    font-size: 20px;
   }
 
   .const__bubble {
@@ -254,11 +282,12 @@
 @media (prefers-reduced-motion: reduce) {
   .const__lines polyline,
   .const__star,
-  .const__star::after {
+  .const__lens {
     transition: none;
   }
 
-  .const__bubble {
+  .const__bubble,
+  .const__lens.is-moving {
     animation: none;
   }
 }

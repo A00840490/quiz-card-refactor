@@ -1,6 +1,7 @@
 /* Módulo 2-15: entidades como una constelación.
    - Une los puntos con una línea (SVG) en el orden en que están en el HTML.
-   - Al elegir un punto aparece arriba una burbuja con sus datos.
+   - Al elegir un punto, una burbuja de vidrio líquido se desliza sobre él y
+     arriba aparece un globo con sus datos.
    - La línea se dibuja y los puntos aparecen cuando la constelación entra
      en pantalla. Con ← → se pasa al punto anterior o siguiente. */
 (function () {
@@ -14,6 +15,7 @@
   var svg = root.querySelector(".const__lines");
   var line = svg.querySelector("polyline");
   var bubble = root.querySelector(".const__bubble");
+  var lens = root.querySelector(".const__lens");
 
   // Posición de cada punto en % (de --x / --y del HTML).
   function pos(star) {
@@ -61,8 +63,31 @@
     var bh = bubble.offsetHeight;
     var left = Math.max(0, Math.min(w - bw, cx - bw / 2));
     bubble.style.left = left + "px";
-    bubble.style.top = cy - bh - 44 + "px";
+    bubble.style.top = cy - bh - lens.offsetHeight / 2 - 14 + "px";
     bubble.style.setProperty("--tail", Math.max(18, Math.min(bw - 18, cx - left)) + "px");
+  }
+
+  // Desliza la burbuja de vidrio sobre el punto; se estira hacia donde va.
+  var lensAt = null;
+  function moveLens(star) {
+    var p = pos(star);
+    var x = (p.x * sky.clientWidth) / 100;
+    var y = (p.y * sky.clientHeight) / 100;
+    if (lensAt) {
+      var dx = x - lensAt.x;
+      var dy = y - lensAt.y;
+      if (dx || dy) {
+        lens.style.setProperty("--a", Math.atan2(dy, dx) + "rad");
+        lens.classList.remove("is-moving");
+        void lens.offsetWidth;
+        lens.classList.add("is-moving");
+      }
+    }
+    // En % (como los puntos) para que siga centrada aunque cambie el ancho.
+    lens.style.setProperty("--lx", p.x + "%");
+    lens.style.setProperty("--ly", p.y + "%");
+    lens.classList.add("is-ready");
+    lensAt = { x: x, y: y };
   }
 
   function select(star) {
@@ -81,6 +106,7 @@
     bubble.style.animation = "none";
     void bubble.offsetWidth;
     bubble.style.animation = "";
+    moveLens(star);
     placeBubble(star);
   }
 
@@ -102,7 +128,11 @@
   window.addEventListener("resize", function () {
     drawLine();
     var cur = root.querySelector('.const__star[aria-pressed="true"]');
-    if (cur) placeBubble(cur);
+    if (cur) {
+      lensAt = null; // al cambiar el tamaño se recoloca sin animación
+      moveLens(cur);
+      placeBubble(cur);
+    }
   });
 
   drawLine();
