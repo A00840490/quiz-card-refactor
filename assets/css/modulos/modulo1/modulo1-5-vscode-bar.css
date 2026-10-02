@@ -1,0 +1,153 @@
+/* Módulo 1-5: barra de actividad de VS Code (Explorer, Search, Source Control,
+   Run and Debug, Extensions). Al hacer clic en un ícono se marca con la línea
+   azul y su explicación se despliega debajo, dentro de la misma barra. */
+
+.vsc-bar {
+  --vsc-bg: #181818;
+  --vsc-icon: #858585;
+  --vsc-icon-hover: #c5c5c5;
+  --vsc-icon-active: #ffffff;
+  --vsc-accent: #0078d4;
+  --vsc-title: #3794ff;
+
+  width: 100%;
+  max-width: 440px;
+  margin: 8px auto 4px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--vsc-bg);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+  text-align: left;
+}
+
+.vsc-bar__tabs {
+  display: flex;
+}
+
+.vsc-bar__tab {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--vsc-icon);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vsc-bar__tab svg {
+  width: 34px;
+  height: 34px;
+}
+
+.vsc-bar__tab:hover {
+  color: var(--vsc-icon-hover);
+}
+
+/* Línea azul de la pestaña activa */
+.vsc-bar__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--vsc-accent);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.vsc-bar__tab[aria-selected="true"] {
+  color: var(--vsc-icon-active);
+}
+
+.vsc-bar__tab[aria-selected="true"]::after {
+  transform: scaleX(1);
+}
+
+.vsc-bar__tab:focus {
+  outline: none;
+}
+
+.vsc-bar__tab:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--vsc-accent);
+}
+
+/* Explicación: se despliega al elegir un ícono */
+.vsc-bar__panels {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.vsc-bar.is-open .vsc-bar__panels {
+  grid-template-rows: 1fr;
+}
+
+.vsc-bar__panels > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.vsc-bar__panel {
+  padding: 12px 18px 18px;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.45;
+  animation: vsc-panel-in 0.25s ease;
+}
+
+.vsc-bar__panel[hidden] {
+  display: none;
+}
+
+.vsc-bar__title {
+  margin: 0 0 4px;
+  color: var(--vsc-title);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.vsc-bar__panel p {
+  margin: 0;
+  color: #ffffff;
+  line-height: 1.45;
+}
+
+.vsc-bar__panel a {
+  color: var(--vsc-title);
+  text-decoration: underline;
+}
+
+@keyframes vsc-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 400px) {
+  .vsc-bar__tab {
+    height: 58px;
+  }
+
+  .vsc-bar__tab svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vsc-bar__panels,
+  .vsc-bar__tab::after {
+    transition: none;
+  }
+
+  .vsc-bar__panel {
+    animation: none;
+  }
+}

@@ -8,3 +8,4 @@
 - [x] Convertir las unidades absolutas y relativas del módulo 3-15 en tarjetas progresivas al desplazarse.
 - [x] Reemplazar las tarjetas circulares de los módulos 1-2 (HTML, CSS y JavaScript) y 5-5 (Bootstrap, jQuery y React) por un carrusel en órbita compartido.
 - [x] Convertir el Ejercicio 3 (módulo 3-24) en ejercicios de CSS paso a paso, con el mismo estilo que el Ejercicio 2 (módulo 2-16).
+- [x] Convertir los botones de la barra lateral del módulo 1-5 en una barra de actividad con el estilo de VS Code.
