@@ -1,23 +1,16 @@
-/* modulo3-22: propiedades flex como tarjetas 3D que se voltean.
-   Frente: nombre + mini demostración animada de la propiedad.
-   Reverso: explicación. Se voltean con hover o al enfocarlas (tocar). */
-
 .flex-props {
   --fp-container: #3f6fd8;
   --fp-container-2: #6a8ff0;
   --fp-item: #f27935;
   --fp-item-2: #f7a35c;
   --fp-ink: #172033;
-  --fp-muted: #56627a;
+  --fp-muted: #000000;
   --fp-head: 54px; /* alto del encabezado */
   --fp-row: 200px; /* alto de cada fila de tarjetas */
   margin: 1rem 0 2.5rem;
 }
 
-/* Contenedor con scroll: deja ver el encabezado y dos filas; el resto se
-   recorre con el scroll mientras el encabezado se queda fijo arriba. */
 .flex-props__scroll {
-  /* encabezado + 2 filas (cada celda suma 2px de borde) */
   max-height: calc(var(--fp-head) + 2 * (var(--fp-row) + 2px));
   overflow-x: hidden;
   overflow-y: auto;
@@ -75,7 +68,6 @@
   vertical-align: top;
 }
 
-/* ---------- Encabezados: bloques extruidos ---------- */
 .flex-props__head {
   --c: var(--fp-container);
   position: sticky;
@@ -96,7 +88,6 @@
 }
 
 
-/* ---------- Tarjeta que se voltea ---------- */
 .fp-card {
   --c1: var(--fp-container);
   --c2: var(--fp-container-2);
@@ -175,7 +166,6 @@
   line-height: 1.5;
 }
 
-/* ---------- Mini demostraciones ---------- */
 .fp-demo {
   --t: 6s;
   display: flex;

@@ -131,9 +131,13 @@ li {
 
 .card-info {
   border: 2px solid lightgray;
+
   margin-top: 10px;
   margin-bottom: 5px;
-  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 10px;
+
   border-radius: 10px;
   background-color: #f6f7fb;
   font-size: medium;
