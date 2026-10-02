@@ -457,15 +457,33 @@
     renderPreview();
   }
 
+  // Recuadro vacío: sacudida de lado a lado (como al fallar una contraseña en macOS).
+  function shake(input) {
+    if (!input) return;
+    input.classList.remove("is-shaking");
+    void input.offsetWidth; // reinicia la animación si se presiona varias veces
+    input.classList.add("is-shaking");
+    // Se quita al terminar la animación o al escribir (sin animación, por
+    // "reducir movimiento", animationend no llega).
+    ["animationend", "input"].forEach(function (type) {
+      input.addEventListener(
+        type,
+        function () {
+          input.classList.remove("is-shaking");
+        },
+        { once: true }
+      );
+    });
+    input.focus();
+  }
+
   function check() {
     if (state.waiting) return;
     var input = els.code.querySelector("[data-input]");
     var q = QUESTIONS[state.current];
     var given = input ? input.value : "";
     if (!norm(given)) {
-      els.feedback.className = "builder__feedback is-hint";
-      els.feedback.textContent = "Escribe tu respuesta en el recuadro del código.";
-      if (input) input.focus();
+      shake(input);
       return;
     }
     var ok = norm(given, q.data.exact) === norm(q.data.a, q.data.exact);
