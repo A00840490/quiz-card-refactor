@@ -2,7 +2,7 @@
    - Las categorías cambian la lista de atajos (también con ← →).
    - Al elegir un atajo, sus teclas se presionan en el teclado dibujado y
      abajo aparece qué hace. Si tiene dos pasos ("Ctrl+K Ctrl+S"), el
-     teclado los muestra uno tras otro.
+     teclado alterna entre uno y otro.
    - Cada atajo guarda sus teclas en data-win y data-mac: "+" une teclas que
      se presionan juntas y un espacio separa pasos.
    - El selector Windows / Mac cambia qué combinación se muestra. */
@@ -115,13 +115,9 @@
       keyEls[id].classList.toggle("is-on", !!on[id]);
     });
 
-    var name = state.item.querySelector(".kb__name").textContent;
     var desc = state.item.querySelector(".kb__desc").innerHTML;
     out.innerHTML =
-      (steps.length > 1
-        ? '<span class="kb__step">Paso ' + ((state.step % steps.length) + 1) + " de " + steps.length + "</span>"
-        : "") +
-      '<p><b class="kb__out-name">' + esc(name) + ":</b> " + desc + "</p>" +
+      "<p>" + desc + "</p>" +
       '<span class="kb__mouse' + (on.Click ? " is-on" : "") + '" aria-hidden="true">Clic</span>';
   }
 
@@ -168,8 +164,10 @@
       t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
     });
-    // Al cambiar de categoría se elige su primer atajo.
-    selectItem(document.getElementById(tab.getAttribute("aria-controls")).querySelector("[data-kb-item]"));
+    // Al cambiar de categoría la lista vuelve arriba y se elige su primer atajo.
+    var list = document.getElementById(tab.getAttribute("aria-controls"));
+    list.scrollTop = 0;
+    selectItem(list.querySelector("[data-kb-item]"));
   }
 
   root.querySelectorAll("[data-os]").forEach(function (b) {

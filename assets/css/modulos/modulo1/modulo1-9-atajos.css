@@ -64,41 +64,67 @@
   gap: 26px;
 }
 
-/* Categorías */
+/* Categorías: una sola barra unida, la elegida queda rellena */
 .kb__cats {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border: 2px solid var(--theme-color);
+  border-radius: 999px;
 }
 
 .kb__cat {
-  padding: 6px 14px;
-  border: 2px solid var(--kb-20);
-  border-radius: 999px;
+  flex: 1 1 auto;
+  padding: 8px 10px;
+  border: 0;
   background: #ffffff;
   color: var(--theme-color);
   font-size: 13px;
   font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
   cursor: pointer;
-  transition: border-color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.kb__cat + .kb__cat {
+  border-left: 2px solid var(--theme-color);
 }
 
 .kb__cat:hover {
-  border-color: var(--theme-color);
+  background: var(--kb-10);
 }
 
 .kb__cat[aria-selected="true"] {
-  border-color: var(--theme-color);
   background: var(--theme-color);
   color: #ffffff;
 }
 
-/* Lista de atajos */
+/* Lista de atajos: altura fija con su propio scrollbar */
 .kb__list {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  height: 232px;
+  padding-right: 6px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-color) var(--kb-10);
+}
+
+.kb__list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.kb__list::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: var(--kb-10);
+}
+
+.kb__list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--theme-color);
 }
 
 .kb__list[hidden] {
@@ -106,6 +132,7 @@
 }
 
 .kb__item {
+  flex: none;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -137,11 +164,15 @@
   display: none;
 }
 
-.kb__cat:focus-visible,
 .kb__item:focus-visible,
 .kb__os button:focus-visible {
   outline: 3px solid var(--kb-20);
   outline-offset: 2px;
+}
+
+.kb__cat:focus-visible {
+  outline: 0;
+  box-shadow: inset 0 0 0 3px var(--kb-20);
 }
 
 /* Teclas pequeñas de la lista */
@@ -246,17 +277,7 @@
   line-height: 1.5;
 }
 
-.kb__out-name {
-  color: var(--theme-color);
-}
 
-.kb__step {
-  flex: none;
-  color: var(--theme-color);
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
 
 .kb__mouse {
   flex: none;
@@ -291,6 +312,15 @@
 }
 
 @media (max-width: 575px) {
+  .kb__cat {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+
+  .kb__list {
+    height: 210px;
+  }
+
   .kb__board {
     gap: 4px;
     padding: 10px;
