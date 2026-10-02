@@ -3,8 +3,8 @@
    pregunta y, al responder, la regla se aplica en la vista previa.
 
    Cada ejercicio tiene:
-   - title:    lo que se pide.
-   - target:   el elemento HTML al que se aplica (se muestra como pista).
+   - title:    lo que se pide (referencia; no se muestra).
+   - target:   el elemento HTML al que se aplica (referencia; no se muestra).
    - selector: selector de la regla.
    - decls:    declaraciones; {0}, {1}... son los recuadros (preguntas).
    - html:     contenido de la vista previa.
@@ -220,10 +220,7 @@
   if (!root) return;
   var els = {
     actions: root.querySelector("[data-actions]"),
-    bar: root.querySelector("[data-bar]"),
-    steps: root.querySelector("[data-steps]"),
-    task: root.querySelector("[data-task]"),
-    target: root.querySelector("[data-target]"),
+    progress: root.querySelector("[data-progress]"),
     ask: root.querySelector("[data-ask]"),
     feedback: root.querySelector("[data-feedback]"),
     check: root.querySelector("[data-check]"),
@@ -290,24 +287,25 @@
     return QUESTIONS[state.current].line;
   }
 
-  function renderSteps() {
-    els.steps.innerHTML = EXERCISES.map(function (_, ei) {
-      var cls = "css-builder__step";
-      if (ei < state.ex || (ei === state.ex && exerciseComplete())) cls += " is-done";
+  // Barra de progreso con un segmento por ejercicio; cada uno se llena
+  // según las preguntas respondidas de ese ejercicio.
+  function renderProgress() {
+    var answered = state.done ? QUESTIONS.length : state.current + (state.waiting ? 1 : 0);
+    els.progress.innerHTML = EXERCISES.map(function (_, ei) {
+      var total = 0;
+      var done = 0;
+      QUESTIONS.forEach(function (q, i) {
+        if (q.ex !== ei) return;
+        total++;
+        if (i < answered) done++;
+      });
+      var cls = "css-builder__seg";
+      if (done === total) cls += " is-done";
       else if (ei === state.ex) cls += " is-current";
       return (
-        '<li class="' + cls + '"' + (ei === state.ex ? ' aria-current="step"' : "") +
-        ">Ejercicio " + (ei + 1) + "</li>"
+        '<span class="' + cls + '"><span style="width:' + (done / total) * 100 + '%"></span></span>'
       );
     }).join("");
-  }
-
-  function renderTask() {
-    var ex = EXERCISES[state.ex];
-    els.task.innerHTML =
-      '<span class="css-builder__num">' + (state.ex + 1) + " de " + EXERCISES.length + "</span> " +
-      esc(ex.title);
-    els.target.innerHTML = "Se aplica a: <code>" + esc(ex.target) + "</code>";
   }
 
   function blankHtml(qi) {
@@ -404,9 +402,7 @@
   }
 
   function renderHeader() {
-    var total = QUESTIONS.length;
-    var answered = state.current + (state.waiting ? 1 : 0);
-    els.bar.style.width = (answered / total) * 100 + "%";
+    renderProgress();
 
     var q = QUESTIONS[state.current];
     if (exerciseComplete()) {
@@ -428,8 +424,6 @@
   }
 
   function render() {
-    renderSteps();
-    renderTask();
     renderHeader();
     renderCode();
     renderPreview();
@@ -519,7 +513,7 @@
   function finish() {
     var total = QUESTIONS.length;
     var hits = state.correct.filter(Boolean).length;
-    els.bar.style.width = "100%";
+    renderProgress();
     els.question.hidden = true;
     els.actions.hidden = true;
 

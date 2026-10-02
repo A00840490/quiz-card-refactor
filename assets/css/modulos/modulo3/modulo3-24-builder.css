@@ -1,76 +1,32 @@
 /* Ejercicio 3 (modulo3-24): varios ejercicios de CSS uno tras otro.
    Se apoya en los estilos del Ejercicio 2 (modulo2/modulo2-16-builder.css)
-   y solo agrega lo propio: pasos, enunciado y colores de CSS. */
+   y solo agrega lo propio: barra segmentada y colores de CSS. */
 
-/* Pasos: Ejercicio 1 · 2 · 3 · 4 */
-.css-builder__steps {
+/* Barra de progreso segmentada: un tramo por ejercicio */
+.css-builder__progress {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin: 0 0 18px;
-  padding: 0;
-  list-style: none;
+  gap: 6px;
+  margin-top: 20px;
 }
 
-.css-builder__step {
-  padding: 5px 14px;
-  border: 1px solid var(--b-line);
+.css-builder__seg {
+  flex: 1;
+  height: 6px;
   border-radius: 999px;
-  background: #ffffff;
-  color: var(--b-muted);
-  font-size: 13px;
-  font-weight: 700;
+  background: #e8edf4;
+  overflow: hidden;
 }
 
-.css-builder__step.is-current {
-  border-color: var(--b-blue);
+.css-builder__seg > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
   background: var(--b-blue);
-  color: #ffffff;
+  transition: width 0.4s ease;
 }
 
-.css-builder__step.is-done {
-  border-color: rgba(31, 157, 99, 0.35);
-  background: rgba(31, 157, 99, 0.1);
-  color: var(--b-right);
-}
-
-.css-builder__step.is-done::before {
-  content: "✓ ";
-}
-
-/* Enunciado del ejercicio */
-.css-builder__task {
-  margin: 0 0 4px;
-  color: var(--b-ink);
-  font-size: 17px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.css-builder__num {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 1px 9px;
-  border-radius: 6px;
-  background: rgba(15, 76, 145, 0.1);
-  color: var(--b-blue);
-  font-size: 13px;
-  vertical-align: 2px;
-}
-
-.css-builder__target {
-  margin: 0 0 14px;
-  color: var(--b-muted);
-  font-size: 13px;
-  text-align: center;
-}
-
-.css-builder__target code {
-  padding: 1px 6px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.06);
-  color: var(--b-ink);
+.css-builder__seg.is-done > span {
+  background: var(--b-right);
 }
 
 .css-builder .builder__ask {
