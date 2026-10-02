@@ -1,26 +1,44 @@
-/* Módulo 1-9: atajos de teclado.
-   Usa los estilos que ya tiene el curso (.button de app.css y tablas de
-   Bootstrap); aquí solo va lo propio: el estado activo de los botones,
-   el selector Windows / Mac y el dibujo de las teclas. */
+/* Módulo 1-9: atajos de teclado con un teclado que se ilumina.
+   A la izquierda, las categorías y la lista de atajos; a la derecha, un
+   teclado dibujado donde se presionan las teclas del atajo elegido.
+   Solo usa --theme-color (definido en :root de app.css); los tonos claros
+   salen de mezclarlo con blanco. */
 
-.sc__top {
+.kb {
+  --kb-5: color-mix(in srgb, var(--theme-color) 5%, white);
+  --kb-10: color-mix(in srgb, var(--theme-color) 10%, white);
+  --kb-20: color-mix(in srgb, var(--theme-color) 20%, white);
+  --kb-ink: #1f2633;
+  --kb-muted: #6b7686;
+}
+
+/* Navegadores sin color-mix: tonos equivalentes del azul del curso */
+@supports not (color: color-mix(in srgb, red, white)) {
+  .kb {
+    --kb-5: rgba(9, 59, 139, 0.05);
+    --kb-10: rgba(9, 59, 139, 0.1);
+    --kb-20: rgba(9, 59, 139, 0.2);
+  }
+}
+
+/* Aviso y selector Windows / Mac */
+.kb__top {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
-/* Selector Windows / Mac: dos botones unidos */
-.sc__os {
+.kb__os {
   display: inline-flex;
   border: 2px solid var(--theme-color);
   border-radius: 0.6em;
   overflow: hidden;
 }
 
-.sc__os button {
+.kb__os button {
   padding: 6px 16px;
   border: 0;
   background: #ffffff;
@@ -30,87 +48,270 @@
   cursor: pointer;
 }
 
-.sc__os button + button {
+.kb__os button + button {
   border-left: 2px solid var(--theme-color);
 }
 
-.sc__os button[aria-pressed="true"] {
+.kb__os button[aria-pressed="true"] {
   background: var(--theme-color);
   color: #ffffff;
 }
 
-/* Botones de categoría: el elegido queda relleno */
-.sc__cats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 -0.5em 10px;
+.kb__layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  align-items: start;
+  gap: 26px;
 }
 
-.sc__cats .button[aria-selected="true"] {
-  box-shadow: inset 0 -3.25em 0 0 var(--theme-color);
+/* Categorías */
+.kb__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.kb__cat {
+  padding: 6px 14px;
+  border: 2px solid var(--kb-20);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--theme-color);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.kb__cat:hover {
+  border-color: var(--theme-color);
+}
+
+.kb__cat[aria-selected="true"] {
+  border-color: var(--theme-color);
+  background: var(--theme-color);
   color: #ffffff;
 }
 
-.sc__panel[hidden] {
+/* Lista de atajos */
+.kb__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kb__list[hidden] {
   display: none;
 }
 
-.sc__table {
-  margin-bottom: 0;
+.kb__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--kb-ink);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
 
-.sc__table th {
+.kb__item:hover {
+  background: var(--kb-5);
+}
+
+.kb__item[aria-pressed="true"] {
+  background: var(--kb-10);
   color: var(--theme-color);
+  font-weight: 700;
 }
 
-.sc__table td {
-  vertical-align: middle;
+.kb__item .kb__desc {
+  display: none;
 }
 
-.sc__table td:first-child {
-  width: 40%;
-  white-space: nowrap;
+.kb__cat:focus-visible,
+.kb__item:focus-visible,
+.kb__os button:focus-visible {
+  outline: 3px solid var(--kb-20);
+  outline-offset: 2px;
 }
 
-/* Teclas */
-.sc__key {
+/* Teclas pequeñas de la lista */
+.kb__keys {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 4px;
+}
+
+.kb__key {
   display: inline-block;
-  min-width: 28px;
-  padding: 3px 8px;
+  min-width: 26px;
+  padding: 2px 7px;
   border: 1px solid #b9c2cf;
   border-bottom-width: 3px;
   border-radius: 5px;
   background: #f7f8fa;
   color: #263040;
-  font: 700 13px/1.4 Consolas, "Courier New", monospace;
+  font: 700 12px/1.4 Consolas, "Courier New", monospace;
   text-align: center;
 }
 
-.sc__key svg {
-  width: 12px;
-  height: 12px;
-  margin-right: 3px;
+.kb__key svg {
   vertical-align: -1px;
 }
 
-.sc__plus,
-.sc__then {
-  margin: 0 4px;
-  color: #6b7686;
-  font-size: 13px;
+.kb__plus,
+.kb__then {
+  margin: 0 3px;
+  color: var(--kb-muted);
+  font-size: 12px;
+  font-weight: 400;
 }
 
-@media (max-width: 767px) {
-  .sc__table td:first-child {
-    width: auto;
-    white-space: normal;
+/* Teclado dibujado */
+.kb__board {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid var(--kb-10);
+  border-radius: 14px;
+  background: var(--kb-5);
+}
+
+.kb__row {
+  display: flex;
+  gap: 6px;
+}
+
+.kb__k {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid #c9d1dd;
+  border-bottom-width: 4px;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #3a4456;
+  font: 700 12px Consolas, "Courier New", monospace;
+  white-space: nowrap;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kb__k--w15 { flex-grow: 1.5; }
+.kb__k--w2 { flex-grow: 2.2; }
+.kb__k--w6 { flex-grow: 6; }
+
+.kb__k.is-on,
+.kb__mouse.is-on {
+  border-color: var(--theme-color);
+  background: var(--theme-color);
+  color: #ffffff;
+  box-shadow: 0 0 0 4px var(--kb-20);
+}
+
+.kb__k.is-on {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+}
+
+/* Explicación del atajo elegido */
+.kb__out {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-left: 4px solid var(--theme-color);
+  border-radius: 0 8px 8px 0;
+  background: #ffffff;
+}
+
+.kb__out p {
+  flex: 1;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.kb__out-name {
+  color: var(--theme-color);
+}
+
+.kb__step {
+  flex: none;
+  color: var(--theme-color);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.kb__mouse {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 48px;
+  border: 2px solid #c9d1dd;
+  border-radius: 17px;
+  background: #ffffff;
+  color: #9aa4b2;
+  font-size: 10px;
+  font-weight: 700;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+@media (max-width: 991px) {
+  .kb__layout {
+    grid-template-columns: 1fr;
   }
 
-  .sc__table .sc__keys {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    row-gap: 6px;
+  /* El teclado va primero y se queda fijo bajo el encabezado mientras
+     se recorre la lista, para ver qué teclas se presionan */
+  .kb__main {
+    position: sticky;
+    top: 70px;
+    z-index: 2;
+    order: -1;
+    padding-bottom: 8px;
+    background: #ffffff;
+  }
+}
+
+@media (max-width: 575px) {
+  .kb__board {
+    gap: 4px;
+    padding: 10px;
+  }
+
+  .kb__row {
+    gap: 4px;
+  }
+
+  .kb__k {
+    height: 32px;
+    border-radius: 5px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kb__k,
+  .kb__mouse,
+  .kb__item,
+  .kb__cat {
+    transition: none;
   }
 }

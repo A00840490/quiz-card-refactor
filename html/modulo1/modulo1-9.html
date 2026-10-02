@@ -77,150 +77,137 @@
                         </div>
 
 
-                        <!-- Atajos de teclado: botones por categoría y tabla (ver modulo1-9-atajos.css / .js) -->
+                        <!-- Atajos de teclado: lista por categoría y teclado que se ilumina (ver modulo1-9-atajos.css / .js) -->
                         <div class="row mb-3">
                           <div class="col">
                             <div class="card">
-                              <div class="card-block sc" data-sc>
-                                <div class="sc__top">
+                              <div class="card-block kb" data-kb>
+                                <div class="kb__top">
                                   <p class="card-info mb-0 mrg-top-0" style="width: fit-content;">
                                     <img src="../../assets/images/clic.svg" class="mrg-right-5">
-                                    Haz clic en cada categoría para ver sus atajos.
+                                    Elige un atajo y mira qué teclas se presionan.
                                   </p>
-                                  <div class="sc__os" role="group" aria-label="Sistema operativo">
+                                  <div class="kb__os" role="group" aria-label="Sistema operativo">
                                     <button type="button" data-os="win" aria-pressed="true">Windows</button>
                                     <button type="button" data-os="mac" aria-pressed="false">Mac</button>
                                   </div>
                                 </div>
-                                <div class="sc__cats" role="tablist" aria-label="Categorías de atajos">
-                                  <button type="button" class="button" role="tab" id="sc-tab-files" data-cat="files" aria-controls="sc-panel-files" aria-selected="false">Archivos</button>
-                                  <button type="button" class="button" role="tab" id="sc-tab-edit" data-cat="edit" aria-controls="sc-panel-edit" aria-selected="false">Edición</button>
-                                  <button type="button" class="button" role="tab" id="sc-tab-select" data-cat="select" aria-controls="sc-panel-select" aria-selected="false">Selección</button>
-                                  <button type="button" class="button" role="tab" id="sc-tab-editor" data-cat="editor" aria-controls="sc-panel-editor" aria-selected="false">Editor</button>
-                                </div>
-                                <div class="sc__panel table-responsive" role="tabpanel" id="sc-panel-files" aria-labelledby="sc-tab-files" hidden>
-                                  <table class="table table-bordered table-hover sc__table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Atajo</th>
-                                        <th scope="col">¿Qué hace?</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+S" data-mac="Cmd+S"></span></td>
-                                        <td>Guarda el archivo en el que se está trabajando.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+Shift+S" data-mac="Cmd+Shift+S"></span></td>
-                                        <td>Guardar con otro nombre o en otra ubicación (Guardar como).</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+N" data-mac="Cmd+N"></span></td>
-                                        <td>Crea un nuevo archivo.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+O" data-mac="Cmd+O"></span></td>
-                                        <td>Abre un archivo.</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <div class="sc__panel table-responsive" role="tabpanel" id="sc-panel-edit" aria-labelledby="sc-tab-edit" hidden>
-                                  <table class="table table-bordered table-hover sc__table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Atajo</th>
-                                        <th scope="col">¿Qué hace?</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+Z" data-mac="Cmd+Z"></span></td>
-                                        <td>Deshacer la última edición.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+Y" data-mac="Cmd+Shift+Z"></span></td>
-                                        <td>Rehacer.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+F" data-mac="Cmd+F"></span></td>
-                                        <td>Buscar texto en el archivo actual.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+H" data-mac="Cmd+Option+F"></span></td>
-                                        <td>Buscar y reemplazar texto en el archivo.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+/" data-mac="Cmd+/"></span></td>
-                                        <td>Convertir la selección o la línea actual en un comentario.</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <div class="sc__panel table-responsive" role="tabpanel" id="sc-panel-select" aria-labelledby="sc-tab-select" hidden>
-                                  <table class="table table-bordered table-hover sc__table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Atajo</th>
-                                        <th scope="col">¿Qué hace?</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+A" data-mac="Cmd+A"></span></td>
-                                        <td>Seleccionar todo.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Alt+Click" data-mac="Option+Click"></span></td>
-                                        <td>Crea otro cursor en la posición del mouse, lo cual te permite editar múltiples líneas o secciones del código al mismo tiempo. <b>Haz clic en cualquier parte del archivo para quitar los cursores adicionales.</b></td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Alt+Up" data-mac="Option+Up"></span></td>
-                                        <td>Mover la línea actual o las líneas seleccionadas hacia arriba.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Alt+Down" data-mac="Option+Down"></span></td>
-                                        <td>Mover la línea actual o las líneas seleccionadas hacia abajo.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Shift+Alt+Up" data-mac="Shift+Option+Up"></span></td>
-                                        <td>Duplica la línea actual o las seleccionadas hacia arriba.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Shift+Alt+Down" data-mac="Shift+Option+Down"></span></td>
-                                        <td>Duplica la línea actual o las seleccionadas hacia abajo.</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <div class="sc__panel table-responsive" role="tabpanel" id="sc-panel-editor" aria-labelledby="sc-tab-editor" hidden>
-                                  <table class="table table-bordered table-hover sc__table">
-                                    <thead>
-                                      <tr>
-                                        <th scope="col">Atajo</th>
-                                        <th scope="col">¿Qué hace?</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+W" data-mac="Cmd+W"></span></td>
-                                        <td>Cerrar la ventana o el archivo.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+," data-mac="Cmd+,"></span></td>
-                                        <td>Abrir la configuración.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+\" data-mac="Cmd+\"></span></td>
-                                        <td>Agregar otro editor a la derecha.</td>
-                                      </tr>
-                                      <tr>
-                                        <td><span class="sc__keys" data-win="Ctrl+K Ctrl+S" data-mac="Cmd+K Cmd+S"></span></td>
-                                        <td>Abre la lista de todos los atajos de VS Code.</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
+                                <div class="kb__layout">
+                                  <div class="kb__side">
+                                    <div class="kb__cats" role="tablist" aria-label="Categorías de atajos">
+                                      <button type="button" class="kb__cat" role="tab" id="kb-tab-files" aria-controls="kb-list-files" aria-selected="false">Archivos</button>
+                                      <button type="button" class="kb__cat" role="tab" id="kb-tab-edit" aria-controls="kb-list-edit" aria-selected="false">Edición</button>
+                                      <button type="button" class="kb__cat" role="tab" id="kb-tab-select" aria-controls="kb-list-select" aria-selected="false">Selección</button>
+                                      <button type="button" class="kb__cat" role="tab" id="kb-tab-editor" aria-controls="kb-list-editor" aria-selected="false">Editor</button>
+                                    </div>
+                                    <div class="kb__list" role="tabpanel" id="kb-list-files" aria-labelledby="kb-tab-files" hidden>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+S" data-mac="Cmd+S" aria-pressed="false">
+                                        <span class="kb__name">Guardar</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Guarda el archivo en el que se está trabajando.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+Shift+S" data-mac="Cmd+Shift+S" aria-pressed="false">
+                                        <span class="kb__name">Guardar como</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Guardar con otro nombre o en otra ubicación (Guardar como).</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+N" data-mac="Cmd+N" aria-pressed="false">
+                                        <span class="kb__name">Nuevo archivo</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Crea un nuevo archivo.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+O" data-mac="Cmd+O" aria-pressed="false">
+                                        <span class="kb__name">Abrir archivo</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Abre un archivo.</span>
+                                      </button>
+                                    </div>
+                                    <div class="kb__list" role="tabpanel" id="kb-list-edit" aria-labelledby="kb-tab-edit" hidden>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+Z" data-mac="Cmd+Z" aria-pressed="false">
+                                        <span class="kb__name">Deshacer</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Deshacer la última edición.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+Y" data-mac="Cmd+Shift+Z" aria-pressed="false">
+                                        <span class="kb__name">Rehacer</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Rehacer.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+F" data-mac="Cmd+F" aria-pressed="false">
+                                        <span class="kb__name">Buscar</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Buscar texto en el archivo actual.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+H" data-mac="Cmd+Option+F" aria-pressed="false">
+                                        <span class="kb__name">Reemplazar</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Buscar y reemplazar texto en el archivo.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+/" data-mac="Cmd+/" aria-pressed="false">
+                                        <span class="kb__name">Comentar línea</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Convertir la selección o la línea actual en un comentario.</span>
+                                      </button>
+                                    </div>
+                                    <div class="kb__list" role="tabpanel" id="kb-list-select" aria-labelledby="kb-tab-select" hidden>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+A" data-mac="Cmd+A" aria-pressed="false">
+                                        <span class="kb__name">Seleccionar todo</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Seleccionar todo.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Alt+Click" data-mac="Option+Click" aria-pressed="false">
+                                        <span class="kb__name">Agregar cursor</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Crea otro cursor en la posición del mouse, lo cual te permite editar múltiples líneas o secciones del código al mismo tiempo. <b>Haz clic en cualquier parte del archivo para quitar los cursores adicionales.</b></span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Alt+Up" data-mac="Option+Up" aria-pressed="false">
+                                        <span class="kb__name">Mover línea arriba</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Mover la línea actual o las líneas seleccionadas hacia arriba.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Alt+Down" data-mac="Option+Down" aria-pressed="false">
+                                        <span class="kb__name">Mover línea abajo</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Mover la línea actual o las líneas seleccionadas hacia abajo.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Shift+Alt+Up" data-mac="Shift+Option+Up" aria-pressed="false">
+                                        <span class="kb__name">Duplicar línea arriba</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Duplica la línea actual o las seleccionadas hacia arriba.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Shift+Alt+Down" data-mac="Shift+Option+Down" aria-pressed="false">
+                                        <span class="kb__name">Duplicar línea abajo</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Duplica la línea actual o las seleccionadas hacia abajo.</span>
+                                      </button>
+                                    </div>
+                                    <div class="kb__list" role="tabpanel" id="kb-list-editor" aria-labelledby="kb-tab-editor" hidden>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+W" data-mac="Cmd+W" aria-pressed="false">
+                                        <span class="kb__name">Cerrar</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Cerrar la ventana o el archivo.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+," data-mac="Cmd+," aria-pressed="false">
+                                        <span class="kb__name">Configuración</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Abrir la configuración.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+\" data-mac="Cmd+\" aria-pressed="false">
+                                        <span class="kb__name">Dividir editor</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Agregar otro editor a la derecha.</span>
+                                      </button>
+                                      <button type="button" class="kb__item" data-kb-item data-win="Ctrl+K Ctrl+S" data-mac="Cmd+K Cmd+S" aria-pressed="false">
+                                        <span class="kb__name">Atajos de teclado</span>
+                                        <span class="kb__keys"></span>
+                                        <span class="kb__desc">Abre la lista de todos los atajos de VS Code.</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                  <div class="kb__main">
+                                    <div class="kb__board" data-kb-board aria-hidden="true"></div>
+                                    <div class="kb__out" data-kb-out aria-live="polite"></div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
