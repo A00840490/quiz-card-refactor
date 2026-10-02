@@ -40,16 +40,28 @@
 
 .const__lines polyline {
   fill: none;
-  stroke: var(--c-45);
-  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* Línea punteada que se ve */
+.const__path {
+  stroke: var(--c-45);
+  stroke-width: 3;
+  stroke-dasharray: 0.1 9;
+}
+
+/* Línea sólida invisible que funciona como máscara: al animarla, la
+   línea punteada aparece de un punto al otro como si se dibujara. */
+.const__reveal {
+  stroke: #ffffff;
+  stroke-width: 12;
   stroke-dasharray: var(--len, 3000);
   stroke-dashoffset: var(--len, 3000);
   transition: stroke-dashoffset 1.6s ease;
 }
 
-.const.is-visible .const__lines polyline {
+.const.is-visible .const__reveal {
   stroke-dashoffset: 0;
 }
 
@@ -58,6 +70,7 @@
   position: absolute;
   left: var(--x);
   top: var(--y);
+  translate: var(--fx, 0px) var(--fy, 0px); /* flotación, la pone el JS */
   z-index: 1;
   display: grid;
   place-items: center;
@@ -280,7 +293,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .const__lines polyline,
+  .const__reveal,
   .const__star,
   .const__lens {
     transition: none;
