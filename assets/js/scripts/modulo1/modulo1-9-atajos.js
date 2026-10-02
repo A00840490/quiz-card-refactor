@@ -1,5 +1,5 @@
 /* Módulo 1-9: atajos de teclado.
-   - Cada tarjeta se abre o cierra al hacer clic en su encabezado.
+   - Las pestañas cambian la categoría que se muestra (también con ← →).
    - Las teclas se dibujan a partir de data-win y data-mac de cada atajo:
      "+" une teclas que se presionan juntas y un espacio separa pasos
      ("Ctrl+K Ctrl+S" = Ctrl+K y después Ctrl+S).
@@ -32,14 +32,14 @@
         return step
           .split("+")
           .map(function (k) {
-            var label = LABELS[os][k] || esc(k);
-            return '<kbd class="sc__key">' + label + "</kbd>";
+            return '<kbd class="sc__key">' + (LABELS[os][k] || esc(k)) + "</kbd>";
           })
           .join('<span class="sc__plus">+</span>');
       })
       .join('<span class="sc__then">y después</span>');
   }
 
+  // Selector Windows / Mac
   function setOs(os) {
     root.querySelectorAll("[data-win]").forEach(function (el) {
       var combo = el.getAttribute("data-" + os) || el.getAttribute("data-win");
@@ -65,17 +65,37 @@
     });
   });
 
-  root.querySelectorAll(".sc__card").forEach(function (card) {
-    var head = card.querySelector(".sc__head");
-    var body = card.querySelector(".sc__body");
-    head.addEventListener("click", function () {
-      var open = !card.classList.contains("is-open");
-      card.classList.toggle("is-open", open);
-      head.setAttribute("aria-expanded", open ? "true" : "false");
-      body.setAttribute("aria-hidden", open ? "false" : "true");
+  // Pestañas de categoría
+  var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    root.setAttribute("data-active", tab.getAttribute("data-cat"));
+  }
+
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener("click", function () {
+      select(tab);
+    });
+    tab.addEventListener("keydown", function (e) {
+      var to = null;
+      if (e.key === "ArrowRight") to = tabs[(i + 1) % tabs.length];
+      else if (e.key === "ArrowLeft") to = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === "Home") to = tabs[0];
+      else if (e.key === "End") to = tabs[tabs.length - 1];
+      if (!to) return;
+      e.preventDefault();
+      to.focus();
+      select(to);
     });
   });
 
   var isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
   setOs(isMac ? "mac" : "win");
+  select(tabs[0]);
 })();
