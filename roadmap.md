@@ -11,3 +11,4 @@
 - [x] Convertir los botones de la barra lateral del módulo 1-5 en una barra de actividad con el estilo de VS Code.
 - [x] Rediseñar los atajos del módulo 1-9 con un teclado que se ilumina, lista por categoría y selector Windows / Mac, dentro de un card-block y solo con --theme-color.
 - [x] Ensanchar la tabla de propiedades flex del módulo 3-22 y mostrar solo el encabezado y dos filas, con scroll y encabezado fijo.
+- [x] Convertir la tabla de entidades del módulo 2-15 en una constelación de puntos con burbuja de datos.

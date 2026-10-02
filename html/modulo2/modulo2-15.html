@@ -37,7 +37,7 @@
       rel="stylesheet"
     />
     <link
-      href="../../assets/css/modulos/modulo2/modulo2-15-table.css"
+      href="../../assets/css/modulos/modulo2/modulo2-15-constelacion.css"
       rel="stylesheet"
     />
   </head>
@@ -141,70 +141,24 @@
                         listamos algunos caracteres especiales para que puedas
                         utilizarlos en tu contenido:
                       </p>
-                      <div class="d-flex justify-content-center">
-                        <table
-                          class="table table-hover table-bordered table-slide"
-                          style="max-width: 800px; text-align: center"
-                        >
-                          <thead class="table-primary">
-                            <tr>
-                              <th>Cáracter</th>
-                              <th>Descripción</th>
-                              <th>Nombre de la Entidad</th>
-                              <th>Número de la Entidad</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td style="height: 29px"></td>
-                              <td style="height: 29px">Espacio sin ruptura</td>
-                              <td style="height: 29px">&amp;nbsp;</td>
-                              <td style="height: 29px">&amp;#160;</td>
-                            </tr>
-                            <tr>
-                              <td>&lt;</td>
-                              <td>menor que</td>
-                              <td>&amp;lt;</td>
-                              <td>&amp;#60;</td>
-                            </tr>
-                            <tr>
-                              <td>&gt;</td>
-                              <td>mayor que</td>
-                              <td>&amp;gt;</td>
-                              <td>&amp;#62;</td>
-                            </tr>
-                            <tr>
-                              <td>&amp;</td>
-                              <td>ampersand</td>
-                              <td>&amp;amp;</td>
-                              <td>&amp;#38;</td>
-                            </tr>
-                            <tr>
-                              <td>"</td>
-                              <td>comillas dobles</td>
-                              <td>&amp;quot;</td>
-                              <td>&amp;#34;</td>
-                            </tr>
-                            <tr>
-                              <td>'</td>
-                              <td>comilla</td>
-                              <td>&amp;apos;</td>
-                              <td>&amp;#39;</td>
-                            </tr>
-                            <tr>
-                              <td>©</td>
-                              <td>copyright</td>
-                              <td>&amp;copy;</td>
-                              <td>&amp;#169;</td>
-                            </tr>
-                            <tr>
-                              <td>®</td>
-                              <td>marca registrada</td>
-                              <td>&amp;reg;</td>
-                              <td>&amp;#174;</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <p class="card-info mb-2 mrg-top-0" style="width: fit-content;">
+                        <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                        Haz clic en cada punto para ver su entidad.
+                      </p>
+                      <!-- Entidades como constelación (ver modulo2-15-constelacion.css / .js) -->
+                      <div class="const" data-const>
+                        <div class="const__sky">
+                        <svg class="const__lines" aria-hidden="true"><polyline points="" /></svg>
+                        <button type="button" class="const__star" style="--x: 6%; --y: 70%" data-show="␣" data-desc="Espacio sin ruptura" data-name="&amp;nbsp;" data-num="&amp;#160;" aria-pressed="false" aria-label="Espacio sin ruptura: &amp;nbsp; o &amp;#160;">␣</button>
+                        <button type="button" class="const__star" style="--x: 19%; --y: 52%" data-show="&lt;" data-desc="Menor que" data-name="&amp;lt;" data-num="&amp;#60;" aria-pressed="false" aria-label="Menor que: &amp;lt; o &amp;#60;">&lt;</button>
+                        <button type="button" class="const__star" style="--x: 32%; --y: 80%" data-show="&gt;" data-desc="Mayor que" data-name="&amp;gt;" data-num="&amp;#62;" aria-pressed="false" aria-label="Mayor que: &amp;gt; o &amp;#62;">&gt;</button>
+                        <button type="button" class="const__star" style="--x: 45%; --y: 58%" data-show="&amp;" data-desc="Ampersand" data-name="&amp;amp;" data-num="&amp;#38;" aria-pressed="false" aria-label="Ampersand: &amp;amp; o &amp;#38;">&amp;</button>
+                        <button type="button" class="const__star" style="--x: 58%; --y: 86%" data-show="&quot;" data-desc="Comillas dobles" data-name="&amp;quot;" data-num="&amp;#34;" aria-pressed="false" aria-label="Comillas dobles: &amp;quot; o &amp;#34;">&quot;</button>
+                        <button type="button" class="const__star" style="--x: 71%; --y: 54%" data-show="'" data-desc="Comilla" data-name="&amp;apos;" data-num="&amp;#39;" aria-pressed="false" aria-label="Comilla: &amp;apos; o &amp;#39;">'</button>
+                        <button type="button" class="const__star" style="--x: 84%; --y: 76%" data-show="©" data-desc="Copyright" data-name="&amp;copy;" data-num="&amp;#169;" aria-pressed="false" aria-label="Copyright: &amp;copy; o &amp;#169;">©</button>
+                        <button type="button" class="const__star" style="--x: 95%; --y: 60%" data-show="®" data-desc="Marca registrada" data-name="&amp;reg;" data-num="&amp;#174;" aria-pressed="false" aria-label="Marca registrada: &amp;reg; o &amp;#174;">®</button>
+                        </div>
+                        <div class="const__bubble" aria-live="polite" hidden></div>
                       </div>
                       <p>Observa este ejemplo:</p>
                       <div class="row lesson-demo">
@@ -313,22 +267,7 @@
         $("#collapseOne").collapse("hide");
       }
     </script>
-    <script>
-      // Animación de la tabla: entra deslizándose al verse, reversa al salir
-      (function () {
-        var tabla = document.querySelector(".table-slide");
-        if (!tabla || typeof IntersectionObserver === "undefined") return;
-        var observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              tabla.classList.toggle("is-visible", entry.isIntersecting);
-            });
-          },
-          { threshold: 0.15 },
-        );
-        observer.observe(tabla);
-      })();
-    </script>
+    <script src="../../assets/js/scripts/modulo2/modulo2-15-constelacion.js"></script>
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
   </body>
