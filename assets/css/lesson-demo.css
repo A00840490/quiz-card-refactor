@@ -1,3 +1,14 @@
+/* =========================================================================
+   Demo de lección: código a la izquierda y vista previa a la derecha.
+   Compartido por varios módulos (2-3 a 2-15, 3-4, 3-9, 3-13, 3-19, 4-2...).
+   Antes se llamaba modulos/modulo2/modulo2-5-demo.css.
+
+   Uso básico (dos columnas de Bootstrap):
+     <div class="row lesson-demo">
+       <div class="col-lg-6 ...">  bloque .code con el código  </div>
+       <div class="col-lg-6 ...">  resultado en el navegador  </div>
+     </div>
+   ========================================================================= */
 .format-demo {
   --demo-blue: #0f4c91;
   --demo-blue-soft: #eaf3ff;

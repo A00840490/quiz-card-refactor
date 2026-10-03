@@ -1,5 +1,5 @@
 /* Laboratorio del modelo de caja (modulo3-13).
-   Reutiliza los estilos de modulo2-5-demo.css y modulo3-9-colores.css;
+   Reutiliza los estilos de lesson-demo.css y modulo3-9-colores.css;
    aquí sólo se define la etiqueta del editor y la caja de previsualización. */
 
 .lesson-demo--boxmodel > [class*="col-"]:first-child::before {

@@ -1,0 +1,132 @@
+/* Módulo 4-2: lo propio de las vistas previas de scripts.
+   El formato código / vista previa viene de assets/css/lesson-demo.css. */
+
+/* Carpeta del proyecto (script externo) */
+.js-files {
+  margin: 0 0 14px;
+  padding: 14px 16px;
+  border: 1px solid #dce3ec;
+  border-radius: 10px;
+  background: #f8fafc;
+  font: 14px/1.4 "Courier New", Consolas, monospace;
+}
+
+.js-files__folder {
+  margin-bottom: 8px;
+  color: #172033;
+  font-weight: 700;
+}
+
+.js-files ul {
+  margin: 0;
+  padding: 0 0 0 18px;
+  list-style: none;
+}
+
+.js-files li {
+  position: relative;
+  padding: 3px 0 3px 22px;
+  color: #3a4456;
+}
+
+.js-files li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 12px;
+  height: 15px;
+  margin-top: -8px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+
+.js-files li.is-linked {
+  color: var(--theme-color, #093b8b);
+  font-weight: 700;
+}
+
+.js-files li.is-linked::after {
+  content: "← enlazado con src";
+  margin-left: 8px;
+  color: #6b7686;
+  font: 12px/1 Arial, sans-serif;
+  font-weight: 400;
+}
+
+.js-note {
+  margin: 0;
+  color: #56627a;
+  font-size: 14px;
+}
+
+/* Aviso simulado de alert() dentro de la vista previa */
+.js-run {
+  position: relative;
+  min-height: 150px;
+}
+
+.js-run .button {
+  margin: 0;
+}
+
+.js-alert {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 6px;
+  background: rgba(23, 32, 51, 0.18);
+  border-radius: 8px;
+}
+
+.js-alert[hidden] {
+  display: none;
+}
+
+.js-alert__box {
+  width: min(100%, 300px);
+  padding: 16px 18px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(23, 32, 51, 0.25);
+  animation: js-alert-in 0.2s ease;
+}
+
+.js-alert__site {
+  margin: 0 0 6px;
+  color: #6b7686;
+  font-size: 12px;
+}
+
+.js-alert__msg {
+  margin: 0 0 14px;
+  color: #172033;
+  font-size: 15px;
+}
+
+.js-alert__ok {
+  display: block;
+  margin-left: auto;
+  padding: 6px 18px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--theme-color, #093b8b);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@keyframes js-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-alert__box {
+    animation: none;
+  }
+}

@@ -25,6 +25,8 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-2-scripts.css" rel="stylesheet">
 
 </head>
 
@@ -110,35 +112,53 @@
                                         <h3 class="card-title mrg-top-20">Vinculando un Script Externo</h3>
                                         <p>Crea un archivo <b>.js</b> en tu espacio de trabajo y enlázalo a tu documento
                                             así:</p>
-                                        <div class="row">
-                                            <div class="col">
+                                        <div class="row lesson-demo">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div class="card">
-                                                    <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                    <div class="card-block" style="background-color: #1a1a1a">
                                                         <p class="code">
-                                                            &lt;<span class="codetag">script</span>
-                                                            src="nombreDeTuArchivo.js"&gt;&lt;/<span
-                                                                class="codetag">script</span>&gt;
+                                                            &lt;<span class="codetag">script</span> src="<span class="codetext">nombreDeTuArchivo.js</span>"&gt;&lt;/<span class="codetag">script</span>&gt;
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="js-files" aria-label="Archivos del proyecto">
+                                                    <div class="js-files__folder">Mi proyecto</div>
+                                                    <ul>
+                                                        <li>ejemplo.html</li>
+                                                        <li class="is-linked">nombreDeTuArchivo.js</li>
+                                                    </ul>
+                                                </div>
+                                                <p class="js-note">El script no se ve en la página: el navegador descarga el archivo
+                                                    <b>.js</b> y ejecuta su código.</p>
+                                            </div>
                                         </div>
                                         <h3 class="card-title mrg-top-20">Creando un Nuevo Script</h3>
                                         <p>Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en el
-                                            botón EJECUTAR para ver lo que realiza el código:</p>
-                                        <button class="button"
-                                            onclick="alert('¡Bienvenido a JavaScript!')">Ejecutar</button>
-                                            <div class="row">
-                                            <div class="col">
+                                            botón EJECUTAR de la vista previa para ver lo que realiza el código:</p>
+                                            <div class="row lesson-demo">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div class="card">
-                                                    <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                    <div class="card-block" style="background-color: #1a1a1a">
                                                         <p class="code">
-                                                            &lt;<span class="codetag">script</span>&gt; <br>
-                                                            &nbsp;&nbsp;&nbsp;<span class="codecom">//Aquí va tu código
-                                                                JavaScript</span> <br>
-                                                            &nbsp;&nbsp;&nbsp;alert("¡Bienvenido a JavaScript!"); <br>
+                                                            &lt;<span class="codetag">script</span>&gt;<br>
+                                                            &nbsp;&nbsp;&nbsp;<span class="codecom">//Aquí va tu código JavaScript</span><br>
+                                                            &nbsp;&nbsp;&nbsp;alert(<span class="codetext">"¡Bienvenido a JavaScript!"</span>);<br>
                                                             &lt;/<span class="codetag">script</span>&gt;
                                                         </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="js-run" data-js-run>
+                                                    <button type="button" class="button" data-js-exec>Ejecutar</button>
+                                                    <div class="js-alert" data-js-alert role="alertdialog" aria-label="Mensaje de la página" hidden>
+                                                        <div class="js-alert__box">
+                                                            <p class="js-alert__site">Esta página dice</p>
+                                                            <p class="js-alert__msg">¡Bienvenido a JavaScript!</p>
+                                                            <button type="button" class="js-alert__ok" data-js-ok>Aceptar</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,7 +166,7 @@
                                         
                                         
                                         <p>
-                                            La segunda línea del código muestra un comentario de JavaScript. Los comentarios de una sola línea inician con "//"</span>.
+                                            La segunda línea del código muestra un comentario de JavaScript. Los comentarios de una sola línea inician con "//".
                                         </p>
                                     </div>
                                     </div>
@@ -224,6 +244,7 @@
     <script src="../../assets/js/app.js"></script>
     <script src="../../assets/js/recycled/navigationbar.js"></script>
     <script src="../../assets/js/progress/url-script.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-2-scripts.js"></script>
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
