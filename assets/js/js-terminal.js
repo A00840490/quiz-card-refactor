@@ -1,6 +1,7 @@
 /* Terminal de JavaScript (estilos en assets/css/js-terminal.css).
    - Escribe el código letra por letra la primera vez que aparece en pantalla.
-   - Al terminar muestra el botón ▶ Correr (si hay data-result); al
+   - Al terminar muestra el botón ▶ Correr solo si el bloque tiene
+     data-result (sin él, el código no muestra nada y no hay botón); al
      presionarlo se quita, gira una rueda de carga y luego aparece en blanco
      "Resultado: ..." con el cursor parpadeando al final.
    - Con "reducir movimiento" el código aparece completo de inmediato. */

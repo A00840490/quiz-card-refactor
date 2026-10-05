@@ -9,7 +9,10 @@
    console.log(respuesta);</pre>
    </div>
 
-   - data-result: lo que se muestra al correr. Sin él no hay botón Correr.
+   - data-result: lo que se muestra al correr.
+     Si el código no muestra nada (por ejemplo, solo define una función y
+     no tiene console.log), no se pone data-result: así no aparece el
+     botón Correr y la terminal solo escribe el código.
    - data-file: nombre en la barra (por defecto script.js).
    - Los comentarios (// ...) se pintan en un verde más tenue.
    ========================================================================= */
