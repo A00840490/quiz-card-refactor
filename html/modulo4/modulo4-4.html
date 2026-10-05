@@ -25,6 +25,7 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
 
 </head>
 
@@ -67,26 +68,14 @@
                                                 función. Después se abren llaves { }, las cuales contienen las líneas de
                                                 código que se ejecutarán cuando se manda a llamar la función. Observa el
                                                 siguiente ejemplo:</p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        function <span class="codetag">miFuncion</span>(a, b){ <br>
-                                                        &nbsp;&nbsp;&nbsp;<span class="codecom">//Aquí va el código de
-                                                            la
-                                                            función</span> <br>
-                                                        &nbsp;&nbsp;&nbsp;var <span class="codetext">resultado = a * b +
-                                                            a;</span><span class="codecom">// Esta línea aplica
-                                                            operaciones
-                                                            sobre los parámetros recibidos y los guarda en una variable
-                                                            llamada "resultado"</span><br>
-                                                        &nbsp;&nbsp;&nbsp;return <span
-                                                            class="codetext">resultado;</span>
-                                                        <span class="codecom">// Esta línea termina la ejecución de la
-                                                            función y regresa el valor de la variable resultado</span>
-                                                        <br>
-                                                        }
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="script.js" data-result="miFuncion(2, 3) regresa 8">
+<pre class="js-term__src">function miFuncion(a, b) {
+  // Aquí va el código de la función
+  // Aplica operaciones sobre los parámetros y guarda el valor en "resultado"
+  var resultado = a * b + a;
+  // Termina la función y regresa el valor de resultado
+  return resultado;
+}</pre>
                                             </div>
                                             <p>Analiza el código, ¿qué crees que realiza la función? Si llamamos a la
                                                 función con los valores 2 y 3, ¿qué valor se asignará a la variable
@@ -114,14 +103,9 @@
                                                 Esto
                                                 quiere decir que en el ejemplo anterior, no podemos usar la variable
                                                 <span class="code">resultado</span> fuera de la función.</p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">respuesta = miFuncion(2, 3);</span>
-                                                        <br>
-                                                        console.log(<span class="codetext">respuesta</span>);
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="script.js" data-result="8">
+<pre class="js-term__src">var respuesta = miFuncion(2, 3);
+console.log(respuesta);</pre>
                                             </div>
                                             <p>De esta manera, estamos llamando a la función con los valores 2 y 3 y nos
                                                 regresará un valor de 8.</p>
@@ -227,6 +211,7 @@
     <script src="../../assets/js/app.js"></script>
     <script src="../../assets/js/recycled/navigationbar.js"></script>
     <script src="../../assets/js/progress/url-script.js"></script>
+    <script src="../../assets/js/js-terminal.js"></script>
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->

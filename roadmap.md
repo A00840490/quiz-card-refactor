@@ -13,3 +13,4 @@
 - [x] Ensanchar la tabla de propiedades flex del módulo 3-22 y mostrar solo el encabezado y dos filas, con scroll y encabezado fijo.
 - [x] Convertir la tabla de entidades del módulo 2-15 en una constelación de puntos con burbuja de datos.
 - [x] Aplicar el formato código / vista previa al módulo 4-2 y mover el estilo compartido a assets/css/lesson-demo.css.
+- [x] Mostrar el código JavaScript de los módulos 4-3 y 4-4 en una terminal verde que se escribe sola y se ejecuta con ▶ Correr (assets/css/js-terminal.css y assets/js/js-terminal.js).
