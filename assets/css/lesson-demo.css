@@ -8,6 +8,9 @@
        <div class="col-lg-6 ...">  bloque .code con el código  </div>
        <div class="col-lg-6 ...">  resultado en el navegador  </div>
      </div>
+
+   Números de línea: carga también assets/js/lesson-demo.js; separa las
+   líneas del código (cortadas con <br>) y aquí se numeran.
    ========================================================================= */
 .format-demo {
   --demo-blue: #0f4c91;
@@ -539,4 +542,30 @@
 /* Filename variant for lessons that mix HTML and CSS. */
 .lesson-demo--html-css > [class*="col-"]:first-child::before {
   content: "ejemplo.html  +  estilos.css";
+}
+
+/* ---------- Números de línea (los agrega assets/js/lesson-demo.js) ---------- */
+.code.code--numbered {
+  counter-reset: ld-line;
+  padding-left: 12px !important;
+}
+
+.code--numbered .ld-line {
+  display: block;
+  position: relative;
+  padding-left: 46px;
+  counter-increment: ld-line;
+}
+
+.code--numbered .ld-line::before {
+  content: counter(ld-line);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  color: #4b5566;
+  text-align: right;
+  font-weight: 400;
+  -webkit-user-select: none;
+  user-select: none;
 }
