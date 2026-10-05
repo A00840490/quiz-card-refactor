@@ -8570,6 +8570,11 @@ label.success {
   padding: 17.3px 30px;
 }
 
+/* El espacio superior lo define el padding de card-block, no el primer elemento */
+.card-block > :first-child {
+  margin-top: 0;
+}
+
 /* @media (min-width: 576px) {
   .card-block {
     padding: 30px;
