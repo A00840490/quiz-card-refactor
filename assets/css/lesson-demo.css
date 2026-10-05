@@ -271,7 +271,7 @@
   min-width: 0;
   max-width: 100%;
   margin: 0;
-  padding: 24px 22px 28px;
+  padding: 24px 22px 28px 0px;
   overflow-x: auto;
   color: #d7deea;
   font:
@@ -547,7 +547,6 @@
 /* ---------- Números de línea (los agrega assets/js/lesson-demo.js) ---------- */
 .code.code--numbered {
   counter-reset: ld-line;
-  padding-left: 12px !important;
 }
 
 .code--numbered .ld-line {
