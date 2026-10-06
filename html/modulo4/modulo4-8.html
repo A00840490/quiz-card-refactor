@@ -53,122 +53,116 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                            <h1 class="card-title"><span class="badge badge-light">Tema
-                                                    7</span>Operadores Booleanos</h1>
-                                            <p>Los operadores booleanos son operadores que únicamente se pueden aplicar
-                                                sobre variables y expresiones booleanas. Estos nos permiten combinar
-                                                múltiples condiciones en una sola expresión y con un solo resultado
-                                                booleano (True o False).</p>
-                                            <div class="d-flex justify-content-center">
-                                                <div class="overflow-auto" style="max-width: 900px;">
-                                                    <table class="table table-bordered table-hover">
-                                                        <thead class="table-primary" style="text-align: center;">
-                                                            <tr>
-                                                                <th colspan="5" style="text-align: center;">Operadores
-                                                                    Booleanos
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Operador</th>
-                                                                <th>Función</th>
-                                                                <th>Ejemplo de uso</th>
-                                                                <th>Resultado del ejemplo</th>
-                                                                <th>Explicación</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>&&</td>
-                                                                <td>Se le conoce como operador "and". Su aplicación sobre 2
-                                                                    valores u expresiones booleanas es equivalente a True
-                                                                    únicamente si los 2 valores o expresiones a los lados
-                                                                    equivalen a True; de lo contrario, el resultado será
-                                                                    False.
-                                                                </td>
-                                                                <td class="text-left" style="min-width:150px;"><span
-                                                                        class="code">(2>1) <span style="color:black;"><b>&&</b></span> (3>2)</span></td>
-                                                                <td style="min-width:200px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
-                                                                </td>
-                                                                <td> Debido a que tanto 2 es mayor a 1 como 3 es mayor a 2,
-                                                                    tenemos el equivalente a True && True. Como ambos lados
-                                                                    del
-                                                                    operador tienen True, el resultado es True. (Si alguno
-                                                                    de
-                                                                    los 2 lados fuera False, el resultado sería False.)</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>||</td>
-                                                                <td>Se le conoce como operador "or". Su aplicación sobre 2
-                                                                    valores u expresiones booleanas es equivalente a True
-                                                                    únicamente si los 2 valores o expresiones a los lados
-                                                                    equivalen a True; de lo contrario, el resultado será
-                                                                    False.
-                                                                </td>
-                                                                <td class="text-left" style="min-width: 150px"><span
-                                                                        class="code">(2>1) <span style="color:black;"><b>||</b></span> (1>2)</span></td>
-                                                                <td style="min-width:200px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
-                                                                </td>
-                                                                <td> Debido a que 2 es mayor a 1 y 1 no es mayor a 2, tenemos el
-                                                                    equivalente a True || False. El lado izquierdo del
-                                                                    operador
-                                                                    tiene un True, y por eso el resultado es True. (Si ambos lados
-                                                                    fueran
-                                                                    False, el resultado sería False.)</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>!</td>
-                                                                <td>Se le conoce como operador "not" o de negación. Su
-                                                                    aplicación sobre un valor o una expresión booleana es
-                                                                    equivalente al valor contrario del valor u expresión:
-                                                                    True
-                                                                    para False y False para True.</td>
-                                                                <td class="text-left" style="min-width: 150px"><span
-                                                                        class="code"><span style="color:black;"><b>!</b></span>(1>2)</span></td>
-                                                                <td style="min-width:100px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
-                                                                </td>
-                                                                <td>Como 1>2 equivale a False, <span
-                                                                        style="display:inline-block">!(1>2)</span> equivale
-                                                                    a
-                                                                    True.</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <p>
-                                                Estos operadores nos permiten incluir condiciones más complejas a
-                                                nuestras sentencias if y else if:
-                                            </p>
+                        <div class="card">
+                            <div class="card-block">
+                                    <h1 class="card-title"><span class="badge badge-light">Tema
+                                            7</span>Operadores Booleanos</h1>
+                                    <p>Los operadores booleanos son operadores que únicamente se pueden aplicar
+                                        sobre variables y expresiones booleanas. Estos nos permiten combinar
+                                        múltiples condiciones en una sola expresión y con un solo resultado
+                                        booleano (True o False).</p>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="overflow-auto" style="max-width: 900px;">
+                                            <table class="table table-bordered table-hover">
+                                                <thead class="table-primary" style="text-align: center;">
+                                                    <tr>
+                                                        <th colspan="5" style="text-align: center;">Operadores
+                                                            Booleanos
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Operador</th>
+                                                        <th>Función</th>
+                                                        <th>Ejemplo de uso</th>
+                                                        <th>Resultado del ejemplo</th>
+                                                        <th>Explicación</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>&&</td>
+                                                        <td>Se le conoce como operador "and". Su aplicación sobre 2
+                                                            valores u expresiones booleanas es equivalente a True
+                                                            únicamente si los 2 valores o expresiones a los lados
+                                                            equivalen a True; de lo contrario, el resultado será
+                                                            False.
+                                                        </td>
+                                                        <td class="text-left" style="min-width:150px;"><span
+                                                                class="code">(2>1) <span style="color:black;"><b>&&</b></span> (3>2)</span></td>
+                                                        <td style="min-width:200px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
+                                                        </td>
+                                                        <td> Debido a que tanto 2 es mayor a 1 como 3 es mayor a 2,
+                                                            tenemos el equivalente a True && True. Como ambos lados
+                                                            del
+                                                            operador tienen True, el resultado es True. (Si alguno
+                                                            de
+                                                            los 2 lados fuera False, el resultado sería False.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>||</td>
+                                                        <td>Se le conoce como operador "or". Su aplicación sobre 2
+                                                            valores u expresiones booleanas es equivalente a True
+                                                            únicamente si los 2 valores o expresiones a los lados
+                                                            equivalen a True; de lo contrario, el resultado será
+                                                            False.
+                                                        </td>
+                                                        <td class="text-left" style="min-width: 150px"><span
+                                                                class="code">(2>1) <span style="color:black;"><b>||</b></span> (1>2)</span></td>
+                                                        <td style="min-width:200px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
+                                                        </td>
+                                                        <td> Debido a que 2 es mayor a 1 y 1 no es mayor a 2, tenemos el
+                                                            equivalente a True || False. El lado izquierdo del
+                                                            operador
+                                                            tiene un True, y por eso el resultado es True. (Si ambos lados
+                                                            fueran
+                                                            False, el resultado sería False.)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>!</td>
+                                                        <td>Se le conoce como operador "not" o de negación. Su
+                                                            aplicación sobre un valor o una expresión booleana es
+                                                            equivalente al valor contrario del valor u expresión:
+                                                            True
+                                                            para False y False para True.</td>
+                                                        <td class="text-left" style="min-width: 150px"><span
+                                                                class="code"><span style="color:black;"><b>!</b></span>(1>2)</span></td>
+                                                        <td style="min-width:100px; text-align: center;"><span class="code" style="color: lightsalmon;"><b>True</b></span>
+                                                        </td>
+                                                        <td>Como 1>2 equivale a False, <span
+                                                                style="display:inline-block">!(1>2)</span> equivale
+                                                            a
+                                                            True.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Estos operadores nos permiten incluir condiciones más complejas a
+                                        nuestras sentencias if y else if:
+                                    </p>
 
-                                            <div class="js-term" data-file="and.js">
+                                    <div class="js-term" data-file="and.js">
 <pre class="js-term__src">if (x &gt;= 1 &amp;&amp; x &lt;= 50) {
-  // código a ejecutar si x vale entre 1 y 50 (inclusivo)
+// código a ejecutar si x vale entre 1 y 50 (inclusivo)
 }</pre>
-                                            </div>
-                                            <p>
-                                                Uno de los usos más comunes del operador <b>not</b> es invertir el valor
-                                                de una variable booleana:
-                                            </p>
-                                            <div class="js-term" data-file="not.js">
+                                    </div>
+                                    <p>
+                                        Uno de los usos más comunes del operador <b>not</b> es invertir el valor
+                                        de una variable booleana:
+                                    </p>
+                                    <div class="js-term" data-file="not.js">
 <pre class="js-term__src">var x = true;
 // Después de correr esta línea, x vale false
 x = !x;</pre>
-                                            </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -184,15 +178,9 @@ x = !x;</pre>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

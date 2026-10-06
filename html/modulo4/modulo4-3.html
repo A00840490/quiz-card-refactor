@@ -53,166 +53,150 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-horizon">
-                                        <div class="image-container col-md-6" style="right: 0;">
-                                            <div class="background-holder has-content"
-                                                style="background-image: url('../../assets/images/course/modulo4/m4-3/funciones.jpg')">
-                                            </div>
-                                        </div>
+                        <div class="card">
+                            <div class="card-horizon">
+                                <div class="image-container col-md-6" style="right: 0;">
+                                    <div class="background-holder has-content"
+                                        style="background-image: url('../../assets/images/course/modulo4/m4-3/funciones.jpg')">
+                                    </div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="card-block">
-                                                        <h1 class="card-title"><span
-                                                                class="badge badge-light">Tema 2</span>Variables y
-                                                            Funciones</h1>
-                                                        <p>En todos los lenguajes de programación existen dos elementos
-                                                            muy importantes: las <b>variables</b> y las
-                                                            <b>funciones</b>. Las <b>variables</b> se utilizan para
-                                                            almacenar datos. Se conocen como variables porque su valor
-                                                            puede variar a lo largo de la ejecución del código. En
-                                                            JavaScript, los dos tipos de datos que utilizaremos son
-                                                            números y <i>strings</i> (cadenas de caracteres). Por otra
-                                                            parte, las <b>funciones</b> son segmentos de código que
-                                                            realizan una función específica. Las funciones pueden tener
-                                                            variables de entrada para cambiar su comportamiento, y
-                                                            normalmente nos regresan un resultado al finalizar. Veremos
-                                                            algunos ejemplos más adelante, pero primero tenemos que
-                                                            analizar la sintaxis de JavaScript para utilizar estos
-                                                            elementos.</p>
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card-block">
+                                                <h1 class="card-title"><span
+                                                        class="badge badge-light">Tema 2</span>Variables y
+                                                    Funciones</h1>
+                                                <p>En todos los lenguajes de programación existen dos elementos
+                                                    muy importantes: las <b>variables</b> y las
+                                                    <b>funciones</b>. Las <b>variables</b> se utilizan para
+                                                    almacenar datos. Se conocen como variables porque su valor
+                                                    puede variar a lo largo de la ejecución del código. En
+                                                    JavaScript, los dos tipos de datos que utilizaremos son
+                                                    números y <i>strings</i> (cadenas de caracteres). Por otra
+                                                    parte, las <b>funciones</b> son segmentos de código que
+                                                    realizan una función específica. Las funciones pueden tener
+                                                    variables de entrada para cambiar su comportamiento, y
+                                                    normalmente nos regresan un resultado al finalizar. Veremos
+                                                    algunos ejemplos más adelante, pero primero tenemos que
+                                                    analizar la sintaxis de JavaScript para utilizar estos
+                                                    elementos.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h2 class="card-title">Sintaxis</h2>
-                                        <p>Cualquier programa de computadora está compuesto por instrucciones en código.
-                                            A estas instrucciones las denominamos <b>sentencias</b>. Las sentencias
-                                            pueden incluir <b>valores</b>, <b>operadores</b>, <b>expresiones</b> y
-                                            <b>comentarios</b>.</p>
+                        <div class="card">
+                            <div class="card-block">
+                                <h2 class="card-title">Sintaxis</h2>
+                                <p>Cualquier programa de computadora está compuesto por instrucciones en código.
+                                    A estas instrucciones las denominamos <b>sentencias</b>. Las sentencias
+                                    pueden incluir <b>valores</b>, <b>operadores</b>, <b>expresiones</b> y
+                                    <b>comentarios</b>.</p>
 
-                                        <p>Existen dos tipos de valores: <b>literales</b> y <b>variables</b>; las
-                                            literales son valores fijos, mientras que las variables pueden cambiar de
-                                            valor. Los valores se manejan de la siguiente manera:</p>
-                                        <div class="content-split content-split--stretch">
-                                            <div>
-                                                <h4 class="card-title">Literales</h4>
-                                                <div class="js-term" data-file="literales.js">
+                                <p>Existen dos tipos de valores: <b>literales</b> y <b>variables</b>; las
+                                    literales son valores fijos, mientras que las variables pueden cambiar de
+                                    valor. Los valores se manejan de la siguiente manera:</p>
+                                <div class="content-split content-split--stretch">
+                                    <div>
+                                        <h4 class="card-title">Literales</h4>
+                                        <div class="js-term" data-file="literales.js">
 <pre class="js-term__src">12.57          // número decimal
 12             // número entero
 -12            // número negativo
 "¡Hola mundo!" // cadena de caracteres con comillas dobles
 '¡Hola mundo!' // cadena de caracteres con comillas simples</pre>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <h4 class="card-title">Variables</h4>
-                                                <div class="js-term" data-file="variables.js" data-result="x vale &quot;¡Hola!&quot;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="card-title">Variables</h4>
+                                        <div class="js-term" data-file="variables.js" data-result="x vale &quot;¡Hola!&quot;">
 <pre class="js-term__src">// declarar una variable sin valor inicial
 var x;
 // declarar una variable con valor inicial
 var x = 5;
 // declarar una variable con un string asignado
 var x = "¡Hola!";</pre>
-                                                </div>
-                                            </div>
                                         </div>
-                                        <p>Como podrás observar en el código, para crear una variable tenemos que
-                                            utilizar la <b>palabra reservada</b> <span class="code">var</span>. Las
-                                            palabras reservadas <b>no pueden</b> ser utilizadas fuera de su propósito en
-                                            el lenguaje. En el ejemplo creamos 3 variables: la primera sin asignarle un
-                                            valor, y después utilizamos el <b>operador =</b> para <b>asignar</b> valores
-                                            iniciales a variables. Asignamos un valor de tipo string a la tercer
-                                            variable.</p>
-                                        <div class="content-split content-split--center">
-                                            <div>
-                                                <p>Así como <span class="code">var</span>, existen otras <b>palabras clave</b>
-                                                    que tienen funciones distintas y veremos más adelante. </p>
-                                                <p>Cada línea de código en la sección de "Variables" es una <b>declaración</b>.
-                                                    Para legibilidad y orden, las líneas de código en JavaScript que no sean
-                                                    estructuras de control o funciones deben terminar con un <b>punto y coma
-                                                        (";").</b></p>
-                                                <p>La idea de crear variables es tener almacenados datos que podremos utilizar y
-                                                    modificar más adelante. Podemos nombrar variables con cualquier nombre que
-                                                    queramos, con la excepción de <b>palabras clave</b> y a nombres que
-                                                    contengan caracteres especiales a excepción de "_" y "-".</p>
-                                            </div>
-                                            <div>
-                                                <div class="js-term" data-file="nombres.js" data-result="SyntaxError: Unexpected token &#x27;var&#x27;">
+                                    </div>
+                                </div>
+                                <p>Como podrás observar en el código, para crear una variable tenemos que
+                                    utilizar la <b>palabra reservada</b> <span class="code">var</span>. Las
+                                    palabras reservadas <b>no pueden</b> ser utilizadas fuera de su propósito en
+                                    el lenguaje. En el ejemplo creamos 3 variables: la primera sin asignarle un
+                                    valor, y después utilizamos el <b>operador =</b> para <b>asignar</b> valores
+                                    iniciales a variables. Asignamos un valor de tipo string a la tercer
+                                    variable.</p>
+                                <div class="content-split content-split--center">
+                                    <div>
+                                        <p>Así como <span class="code">var</span>, existen otras <b>palabras clave</b>
+                                            que tienen funciones distintas y veremos más adelante. </p>
+                                        <p>Cada línea de código en la sección de "Variables" es una <b>declaración</b>.
+                                            Para legibilidad y orden, las líneas de código en JavaScript que no sean
+                                            estructuras de control o funciones deben terminar con un <b>punto y coma
+                                                (";").</b></p>
+                                        <p>La idea de crear variables es tener almacenados datos que podremos utilizar y
+                                            modificar más adelante. Podemos nombrar variables con cualquier nombre que
+                                            queramos, con la excepción de <b>palabras clave</b> y a nombres que
+                                            contengan caracteres especiales a excepción de "_" y "-".</p>
+                                    </div>
+                                    <div>
+                                        <div class="js-term" data-file="nombres.js" data-result="SyntaxError: Unexpected token &#x27;var&#x27;">
 <pre class="js-term__src">// incorrecta: usa var, que es una palabra reservada, como nombre
 var var = 5;
 // incorrecta: usa un carácter especial en el nombre
 var vari*able = 5;
 // correcta: los "_" y "-" son símbolos válidos
 var mi_variable = 5;</pre>
-                                                </div>
-                                            </div>
                                         </div>
-                                        <p>También podemos hacer que diferentes variables interactúen entre sí. Para
-                                            utilizar el valor actual de una variable, basta con utilizar el nombre que
-                                            le asignamos. Solo se necesita utilizar <span class="code">var</span>
-                                            después de declarar la variable.</p>
-                                        <div class="js-term" data-file="script.js" data-result="a = 5, b = 5">
+                                    </div>
+                                </div>
+                                <p>También podemos hacer que diferentes variables interactúen entre sí. Para
+                                    utilizar el valor actual de una variable, basta con utilizar el nombre que
+                                    le asignamos. Solo se necesita utilizar <span class="code">var</span>
+                                    después de declarar la variable.</p>
+                                <div class="js-term" data-file="script.js" data-result="a = 5, b = 5">
 <pre class="js-term__src">// Copiamos el valor de la primera variable a la segunda
 var a = 5;
 var b = a;
 // Ahora JavaScript tiene las variables a y b con el valor numérico 5</pre>
-                                        </div>
-                            </div>
-                        </div>
-
-                        
-
-
-
-                        <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
-
                                 </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
 
-                        <!--Widgets de avance de módulo y general-->
-                        <div class="card widget-feed">
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <h1 class="feed-title tag tag-info">Módulo 4</h1>
-                                    <h3 class="feed-subtitle">Tu Progreso</h3>
-                                    <div class="progress" style="height: 20px;" id="bar">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                
 
+
+
+                <!--Botones de avance entre páginas-->
+                <div class="mrg-btm-20 text-center">
+                    <div class="btn-group">
 
                     </div>
                 </div>
+
+                <!--Widgets de avance de módulo y general-->
+                <div class="card widget-feed">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h1 class="feed-title tag tag-info">Módulo 4</h1>
+                            <h3 class="feed-subtitle">Tu Progreso</h3>
+                            <div class="progress" style="height: 20px;" id="bar">
+                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="25"
+                                    aria-valuemin="0" aria-valuemax="100" style="max-width: 63%">63%</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div id="circlecontainer"></div>
+                            <div class="text-center">
+                                <h3 class="feed-subtitle">Progreso General del Curso</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <!-- Content Wrapper END -->
 
                 <!-- Footer START -->

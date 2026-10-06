@@ -51,101 +51,95 @@
 
                         <!-- Your content goes here -->
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h1 class="card-title"><span class="badge badge-light">Tema 2</span>Agregar CSS
-                                            a Nuestro HTML</h1>
-                                        <p>Ahora que conocemos el formato de CSS, ¿cómo podemos añadirlos a un documento
-                                            HTML? Existen varias maneras de hacerlo, pero la más conveniente es creando
-                                            un archivo <b>.css</b> y ligarlo a nuestro documento HTML. Esto se realiza
-                                            de la siguiente manera:</p>
-                                        <ol>
-                                            <li>
-                                                <p>Crea un documento <b>.css</b>: en VS Code crea un nuevo archivo
-                                                    desde el explorador de archivos (presionando este botón <img
-                                                        src="../../assets/images/course/modulo3/newfile.JPG" alt="">), y
-                                                    dale un nombre con la extensión css.</p>
-                                            </li>
-                                            <li>
-                                                <p>En tu documento HTML, dentro del elemento <span
-                                                        class="code">&lt;<span class="codetag">head</span>&gt;</span>
-                                                    agrega una etiqueta <span class="code">&lt;<span
-                                                            class="codetag">link</span> rel="stylesheet"
-                                                        href="nombre-de-tu-archivo.css"&gt;</span></p>
-                                            </li>
-                                        </ol>
-                                        <p>En el atributo <span class="code"><mark>href</mark></span> deberá contener la
-                                            ruta a tu archivo <b>.css</b>. ¡Listo! Ahora tu documento CSS se aplicará a
-                                            tu documento HTML.</p>
-                                        <h3 class="card-title">Otras Formas de Usar CSS</h3>
-                                        <p>Otra manera de agregar CSS a nuestro documento HTML es utilizando la etiqueta
-                                            <span class="code">&lt;<span class="codetag">style</span>&gt;</span>. Esta
-                                            etiqueta se coloca dentro de nuestra sección <span class="code">&lt;<span
-                                                    class="codetag">head</span>&gt;</span>, y dentro de ella se coloca
-                                            nuestro código CSS. Si tienes múltiples documentos HTML, tendrás que copiar
-                                            y pegar este elemento en cada una.</p>
+                        <div class="card">
+                            <div class="card-block">
+                                <h1 class="card-title"><span class="badge badge-light">Tema 2</span>Agregar CSS
+                                    a Nuestro HTML</h1>
+                                <p>Ahora que conocemos el formato de CSS, ¿cómo podemos añadirlos a un documento
+                                    HTML? Existen varias maneras de hacerlo, pero la más conveniente es creando
+                                    un archivo <b>.css</b> y ligarlo a nuestro documento HTML. Esto se realiza
+                                    de la siguiente manera:</p>
+                                <ol>
+                                    <li>
+                                        <p>Crea un documento <b>.css</b>: en VS Code crea un nuevo archivo
+                                            desde el explorador de archivos (presionando este botón <img
+                                                src="../../assets/images/course/modulo3/newfile.JPG" alt="">), y
+                                            dale un nombre con la extensión css.</p>
+                                    </li>
+                                    <li>
+                                        <p>En tu documento HTML, dentro del elemento <span
+                                                class="code">&lt;<span class="codetag">head</span>&gt;</span>
+                                            agrega una etiqueta <span class="code">&lt;<span
+                                                    class="codetag">link</span> rel="stylesheet"
+                                                href="nombre-de-tu-archivo.css"&gt;</span></p>
+                                    </li>
+                                </ol>
+                                <p>En el atributo <span class="code"><mark>href</mark></span> deberá contener la
+                                    ruta a tu archivo <b>.css</b>. ¡Listo! Ahora tu documento CSS se aplicará a
+                                    tu documento HTML.</p>
+                                <h3 class="card-title">Otras Formas de Usar CSS</h3>
+                                <p>Otra manera de agregar CSS a nuestro documento HTML es utilizando la etiqueta
+                                    <span class="code">&lt;<span class="codetag">style</span>&gt;</span>. Esta
+                                    etiqueta se coloca dentro de nuestra sección <span class="code">&lt;<span
+                                            class="codetag">head</span>&gt;</span>, y dentro de ella se coloca
+                                    nuestro código CSS. Si tienes múltiples documentos HTML, tendrás que copiar
+                                    y pegar este elemento en cada una.</p>
 
 
-                                                <div class="card">
-                                                    <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                        <p class="code mrg-top-10">
-                                                            &lt;<span class="codetag">head</span>&gt; <br>
-                                                            &lt;<span class="codetag">style</span>&gt; <br>
-                                                            <span class="codetag">body</span>{ <br>
-                                                            &nbsp;&nbsp;&nbsp; background-color: <span
-                                                                class="codetext">blue</span>; <br>
-                                                            &nbsp;&nbsp;&nbsp; font-size: <span
-                                                                class="codetext">18px</span>; <br>
-                                                            &nbsp;&nbsp;&nbsp; font-family: <span
-                                                                class="codetext">Arial, Helvetica, sans-serif</span>;
-                                                            <br>
-                                                            &nbsp;&nbsp;&nbsp; color: <span
-                                                                class="codetext">white</span>; <br>
-                                                            &nbsp;&nbsp;&nbsp; margin-left: <span
-                                                                class="codetext">100px</span>; <br>
-                                                            } <br>
-                                                            &lt;/<span class="codetag">style</span>&gt; <br>
-                                                            &lt;/<span class="codetag">head</span>&gt; <br>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                        <p>La última forma es utilizando el atributo <span
-                                                class="code"><mark>style</mark></span> dentro del elemento al que
-                                            quieres modificarle su estilo.</p>
+                                        <div class="card">
+                                            <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                <p class="code mrg-top-10">
+                                                    &lt;<span class="codetag">head</span>&gt; <br>
+                                                    &lt;<span class="codetag">style</span>&gt; <br>
+                                                    <span class="codetag">body</span>{ <br>
+                                                    &nbsp;&nbsp;&nbsp; background-color: <span
+                                                        class="codetext">blue</span>; <br>
+                                                    &nbsp;&nbsp;&nbsp; font-size: <span
+                                                        class="codetext">18px</span>; <br>
+                                                    &nbsp;&nbsp;&nbsp; font-family: <span
+                                                        class="codetext">Arial, Helvetica, sans-serif</span>;
+                                                    <br>
+                                                    &nbsp;&nbsp;&nbsp; color: <span
+                                                        class="codetext">white</span>; <br>
+                                                    &nbsp;&nbsp;&nbsp; margin-left: <span
+                                                        class="codetext">100px</span>; <br>
+                                                    } <br>
+                                                    &lt;/<span class="codetag">style</span>&gt; <br>
+                                                    &lt;/<span class="codetag">head</span>&gt; <br>
+                                                </p>
+                                            </div>
+                                        </div>
+                                <p>La última forma es utilizando el atributo <span
+                                        class="code"><mark>style</mark></span> dentro del elemento al que
+                                    quieres modificarle su estilo.</p>
 
-                                                <div class="card">
-                                                    <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                        <p class="code mrg-top-10">
-                                                            &lt;<span class="codetag">body</span>
-                                                            style="background-color: blue; font-size: 18px; font-family:
-                                                            Arial, Helvetica, sans-serif; color: white; margin-left:
-                                                            100px;&gt; <br>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                        <p>La manera más conveniente es la primera, ya que podemos utilizar un mismo
-                                            archivo para estilizar múltiples documentos HTML, y nuestro código se
-                                            encuentra ordenado y separado. En el ejemplo anterior resulta un poco
-                                            difícil de leer nuestro CSS en medio de nuestro código HTML. Para el segundo
-                                            método, habría que copiar y pegar el contenido de la etiqueta <span
-                                                class="code">&lt;<span class="codetag">style</span>&gt;</span> en cada
-                                            documento nuevo, lo cual agrega líneas innecesarias a los documentos cuando
-                                            queremos aplicar un estilo uniforme a múltiples páginas del sitio.</p>
-                                    </div>
-                                </div>
+                                        <div class="card">
+                                            <div class="container-fluid" style=" background-color: #1a1a1a">
+                                                <p class="code mrg-top-10">
+                                                    &lt;<span class="codetag">body</span>
+                                                    style="background-color: blue; font-size: 18px; font-family:
+                                                    Arial, Helvetica, sans-serif; color: white; margin-left:
+                                                    100px;&gt; <br>
+                                                </p>
+                                            </div>
+                                        </div>
+                                <p>La manera más conveniente es la primera, ya que podemos utilizar un mismo
+                                    archivo para estilizar múltiples documentos HTML, y nuestro código se
+                                    encuentra ordenado y separado. En el ejemplo anterior resulta un poco
+                                    difícil de leer nuestro CSS en medio de nuestro código HTML. Para el segundo
+                                    método, habría que copiar y pegar el contenido de la etiqueta <span
+                                        class="code">&lt;<span class="codetag">style</span>&gt;</span> en cada
+                                    documento nuevo, lo cual agrega líneas innecesarias a los documentos cuando
+                                    queremos aplicar un estilo uniforme a múltiples páginas del sitio.</p>
                             </div>
                         </div>
 
 
 
 
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -160,15 +154,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

@@ -61,248 +61,238 @@
                         <!-- Your content goes here -->
 
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                            <h1 class="card-title"><span class="badge badge-light">Tema
-                                                    4</span>Operadores</h1>
-                                            <p>En los ejemplos anteriores utilizamos operadores para realizar
-                                                asignaciones y
-                                                cambiar nuestras variables. Aquí te listamos todos los operadores en
-                                                JavaScript:</p>
-                                            <div class="op-toys" data-op-toys>
-                                                <div class="op-toys__stage">
-                                                    <div class="op-toys__screen">
-                                                        <div class="op-toys__modes">
-                                                            <button class="op-toys__btn is-active" type="button"
-                                                                data-mode="arith"
-                                                                aria-pressed="true">Aritméticos</button>
-                                                            <button class="op-toys__btn" type="button"
-                                                                data-mode="assign"
-                                                                aria-pressed="false">Asignación</button>
+                        <div class="card">
+                            <div class="card-block">
+                                    <h1 class="card-title"><span class="badge badge-light">Tema
+                                            4</span>Operadores</h1>
+                                    <p>En los ejemplos anteriores utilizamos operadores para realizar
+                                        asignaciones y
+                                        cambiar nuestras variables. Aquí te listamos todos los operadores en
+                                        JavaScript:</p>
+                                    <div class="op-toys" data-op-toys>
+                                        <div class="op-toys__stage">
+                                            <div class="op-toys__screen">
+                                                <div class="op-toys__modes">
+                                                    <button class="op-toys__btn is-active" type="button"
+                                                        data-mode="arith"
+                                                        aria-pressed="true">Aritméticos</button>
+                                                    <button class="op-toys__btn" type="button"
+                                                        data-mode="assign"
+                                                        aria-pressed="false">Asignación</button>
+                                                </div>
+                                                <div class="op-toys__main">
+                                                    <div class="op-toys__code">
+                                                        <div class="op-toys__line" data-pre hidden>var x = 10;
                                                         </div>
-                                                        <div class="op-toys__main">
-                                                            <div class="op-toys__code">
-                                                                <div class="op-toys__line" data-pre hidden>var x = 10;
-                                                                </div>
-                                                                <div class="op-toys__line op-toys__expr">
-                                                                    <span data-lhs></span>
-                                                                    <div class="op-toys__slot" data-slot></div>
-                                                                    <span data-rhs></span>
-                                                                </div>
-                                                                <div class="op-toys__line">console.log(x);</div>
-                                                            </div>
-                                                            <div class="op-toys__info" data-info aria-live="polite">
-                                                            </div>
+                                                        <div class="op-toys__line op-toys__expr">
+                                                            <span data-lhs></span>
+                                                            <div class="op-toys__slot" data-slot></div>
+                                                            <span data-rhs></span>
                                                         </div>
-                                                        <div class="op-toys__console">
-                                                            <div class="op-toys__console-row">
-                                                                <p class="op-toys__res" data-res aria-live="polite"></p>
-                                                            </div>
-                                                        </div>
+                                                        <div class="op-toys__line">console.log(x);</div>
                                                     </div>
-                                                    <div class="op-toys__tray">
+                                                    <div class="op-toys__info" data-info aria-live="polite">
                                                     </div>
                                                 </div>
-                                                <table class="table table-bordered table-hover op-toys__table"
-                                                    style="max-width: 800px; text-align: center;">
-                                                    <thead>
-                                                        <tr class="table-primary">
-                                                            <th colspan="3" style="text-align: center;">Operadores
-                                                                aritméticos
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <thead class="table-primary">
-                                                        <tr>
-                                                            <th style="width: 20%;">Operador</th>
-                                                            <th style="width: 40%;">Función</th>
-                                                            <th style="width: 30%;">Ejemplo de uso</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="height: 29px">+</td>
-                                                            <td style="height: 29px">suma</td>
-                                                            <td style="height: 29px"><span class="code">var <span
-                                                                        class="codetext">x = 2 + 5;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>-</td>
-                                                            <td>resta</td>
-                                                            <td><span class="code">var <span class="codetext">x = -2 -
-                                                                        3;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>*</td>
-                                                            <td>multiplicación</td>
-                                                            <td><span class="code">var <span class="codetext">x = 12 *
-                                                                        .5;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>/</td>
-                                                            <td>división</td>
-                                                            <td><span class="code">var <span class="codetext">x = 6 /
-                                                                        3;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>%</td>
-                                                            <td>módulo (residuo de una división)</td>
-                                                            <td><span class="code">var <span class="codetext">x = 8 %
-                                                                        5;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>**</td>
-                                                            <td>potencia</td>
-                                                            <td><span class="code">var <span class="codetext">x = 2 **
-                                                                        8;</span></span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <thead>
-                                                        <tr class="table-primary">
-                                                            <th colspan="3" style="text-align: center;">Operadores de
-                                                                asignación
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <thead class="table-primary">
-                                                        <tr>
-                                                            <th>Operador</th>
-                                                            <th>Función</th>
-                                                            <th>Ejemplo de uso</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="height: 29px">+=</td>
-                                                            <td style="height: 29px">suma el valor dado al valor de la
-                                                                variable
-                                                            </td>
-                                                            <td style="height: 29px"><span class="code"><span
-                                                                        class="codetext">x
-                                                                        += 7;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>-=</td>
-                                                            <td>resta el valor dado al valor de la variable</td>
-                                                            <td><span class="code"><span class="codetext">x -=
-                                                                        3;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>*=</td>
-                                                            <td>multiplica el valor dado por el valor de la variable
-                                                            </td>
-                                                            <td><span class="code"><span class="codetext">x *=
-                                                                        2;</span></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>/=</td>
-                                                            <td>divide el valor dado por el valor de la variable</td>
-                                                            <td><span class="code"><span class="codetext">x /=
-                                                                        2;</span></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>%=</td>
-                                                            <td>módulo del valor dado al valor de la variable</td>
-                                                            <td><span class="code"><span class="codetext">x %=
-                                                                        3;</span></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>**=</td>
-                                                            <td>potencia el valor dado a la variable</td>
-                                                            <td><span class="code"><span class="codetext">x **=
-                                                                        2;</span></span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>++</td>
-                                                            <td>incrementa en 1</td>
-                                                            <td><span class="code"><span
-                                                                        class="codetext">x++;</span></span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>--</td>
-                                                            <td>decrementa en 1</td>
-                                                            <td><span class="code"><span
-                                                                        class="codetext">x--;</span></span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                    </tbody>
-
-                                                </table>
+                                                <div class="op-toys__console">
+                                                    <div class="op-toys__console-row">
+                                                        <p class="op-toys__res" data-res aria-live="polite"></p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <p>Los <b>operadores de asignación</b> nos facilitan actualizar variables ya
-                                                hechas y asignarles nuevos valores utilizando su valor anterior. Por
-                                                ejemplo: </p>
-                                            <div class="js-term" data-file="asignacion.js">
+                                            <div class="op-toys__tray">
+                                            </div>
+                                        </div>
+                                        <table class="table table-bordered table-hover op-toys__table"
+                                            style="max-width: 800px; text-align: center;">
+                                            <thead>
+                                                <tr class="table-primary">
+                                                    <th colspan="3" style="text-align: center;">Operadores
+                                                        aritméticos
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th style="width: 20%;">Operador</th>
+                                                    <th style="width: 40%;">Función</th>
+                                                    <th style="width: 30%;">Ejemplo de uso</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+
+                                                </tr>
+                                                <tr>
+                                                    <td style="height: 29px">+</td>
+                                                    <td style="height: 29px">suma</td>
+                                                    <td style="height: 29px"><span class="code">var <span
+                                                                class="codetext">x = 2 + 5;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>-</td>
+                                                    <td>resta</td>
+                                                    <td><span class="code">var <span class="codetext">x = -2 -
+                                                                3;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>*</td>
+                                                    <td>multiplicación</td>
+                                                    <td><span class="code">var <span class="codetext">x = 12 *
+                                                                .5;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>/</td>
+                                                    <td>división</td>
+                                                    <td><span class="code">var <span class="codetext">x = 6 /
+                                                                3;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>%</td>
+                                                    <td>módulo (residuo de una división)</td>
+                                                    <td><span class="code">var <span class="codetext">x = 8 %
+                                                                5;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>**</td>
+                                                    <td>potencia</td>
+                                                    <td><span class="code">var <span class="codetext">x = 2 **
+                                                                8;</span></span></td>
+                                                </tr>
+                                            </tbody>
+                                            <thead>
+                                                <tr class="table-primary">
+                                                    <th colspan="3" style="text-align: center;">Operadores de
+                                                        asignación
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th>Operador</th>
+                                                    <th>Función</th>
+                                                    <th>Ejemplo de uso</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 29px">+=</td>
+                                                    <td style="height: 29px">suma el valor dado al valor de la
+                                                        variable
+                                                    </td>
+                                                    <td style="height: 29px"><span class="code"><span
+                                                                class="codetext">x
+                                                                += 7;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>-=</td>
+                                                    <td>resta el valor dado al valor de la variable</td>
+                                                    <td><span class="code"><span class="codetext">x -=
+                                                                3;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>*=</td>
+                                                    <td>multiplica el valor dado por el valor de la variable
+                                                    </td>
+                                                    <td><span class="code"><span class="codetext">x *=
+                                                                2;</span></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>/=</td>
+                                                    <td>divide el valor dado por el valor de la variable</td>
+                                                    <td><span class="code"><span class="codetext">x /=
+                                                                2;</span></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>%=</td>
+                                                    <td>módulo del valor dado al valor de la variable</td>
+                                                    <td><span class="code"><span class="codetext">x %=
+                                                                3;</span></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>**=</td>
+                                                    <td>potencia el valor dado a la variable</td>
+                                                    <td><span class="code"><span class="codetext">x **=
+                                                                2;</span></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>++</td>
+                                                    <td>incrementa en 1</td>
+                                                    <td><span class="code"><span
+                                                                class="codetext">x++;</span></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>--</td>
+                                                    <td>decrementa en 1</td>
+                                                    <td><span class="code"><span
+                                                                class="codetext">x--;</span></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <p>Los <b>operadores de asignación</b> nos facilitan actualizar variables ya
+                                        hechas y asignarles nuevos valores utilizando su valor anterior. Por
+                                        ejemplo: </p>
+                                    <div class="js-term" data-file="asignacion.js">
 <pre class="js-term__src">var x = 2;
 x *= 8;</pre>
-                                            </div>
-                                            <p>Modifica el valor de <span class="code">x</span> multiplicándolo por 8.
-                                                De
-                                                esta forma el ejemplo de arriba es equivalente a: </p>
-                                            <div class="js-term" data-file="equivalente.js">
+                                    </div>
+                                    <p>Modifica el valor de <span class="code">x</span> multiplicándolo por 8.
+                                        De
+                                        esta forma el ejemplo de arriba es equivalente a: </p>
+                                    <div class="js-term" data-file="equivalente.js">
 <pre class="js-term__src">var x = 2;
 x = x * 8;</pre>
-                                            </div>
-                                            <p>Simplemente es una forma más sencilla y elegante de escribir esta
-                                                operación.
-                                                Como te pudiste dar cuenta en la tabla, podemos realizar este tipo de
-                                                operaciones tan sólo agregando un <span class="code">=</span> a nuestro
-                                                operador aritmético.</p>
                                     </div>
-                                </div>
+                                    <p>Simplemente es una forma más sencilla y elegante de escribir esta
+                                        operación.
+                                        Como te pudiste dar cuenta en la tabla, podemos realizar este tipo de
+                                        operaciones tan sólo agregando un <span class="code">=</span> a nuestro
+                                        operador aritmético.</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                            <h2 class="card-title">Concatenación</h2>
-                                            <p>
-                                                Los strings tienen un solo operador definido, y este es el operador
-                                                <span class="code">+</span> (suma).
-                                                Este operador puede utilizarse para combinar strings secuencialmente;
-                                                esto se conoce como concatenación.
-                                            </p>
-                                            <div class="js-term" data-file="concatenar.js">
+                        <div class="card">
+                            <div class="card-block">
+                                    <h2 class="card-title">Concatenación</h2>
+                                    <p>
+                                        Los strings tienen un solo operador definido, y este es el operador
+                                        <span class="code">+</span> (suma).
+                                        Este operador puede utilizarse para combinar strings secuencialmente;
+                                        esto se conoce como concatenación.
+                                    </p>
+                                    <div class="js-term" data-file="concatenar.js">
 <pre class="js-term__src">// x guarda el string "Hola, Mundo!"
 var x = "Hola, " + "Mundo!";
 // x guarda el string "123"
 var x = "1" + "2" + "3";</pre>
-                                            </div>
-                                            <p>
-                                                También podemos utilizar el operador += para agregar cadenas de
-                                                caracteres al final de una variable que guarda un string.
-                                            </p>
-                                            <div class="js-term" data-file="concatenar.js">
+                                    </div>
+                                    <p>
+                                        También podemos utilizar el operador += para agregar cadenas de
+                                        caracteres al final de una variable que guarda un string.
+                                    </p>
+                                    <div class="js-term" data-file="concatenar.js">
 <pre class="js-term__src">var x = "Hola, ";
 x += "Mundo!";
 // Ahora x tiene asignado el valor "Hola, Mundo!"</pre>
-                                            </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
 
 
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -318,15 +308,9 @@ x += "Mundo!";
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

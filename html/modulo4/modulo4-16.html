@@ -53,117 +53,107 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-horizon">
-                                        <div class="image-container col-md-4" style="right: 0;">
-                                            <div class="background-holder has-content"
-                                                style="background-image: url('../../assets/images/course/modulo4/m4-9/eventos.jpg')">
-                                            </div>
-                                        </div>
+                        <div class="card">
+                            <div class="card-horizon">
+                                <div class="image-container col-md-4" style="right: 0;">
+                                    <div class="background-holder has-content"
+                                        style="background-image: url('../../assets/images/course/modulo4/m4-9/eventos.jpg')">
+                                    </div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="card-block">
-                                                    <h1 class="card-title"><span
-                                                            class="badge badge-light">Tema 15</span>Eventos</h1>
-                                                    <p>Los <b>eventos</b> se utilizan para ejecutar código bajo
-                                                        condiciones específicas para la página y sus elementos.</p>
-                                                    <p>Existen muchos eventos en JavaScript para ejecutar código en
-                                                        situaciones como clics o cuando el usuario ingresa texto en un
-                                                        <span class="code">&lt;<span
-                                                                class="codetag">input</span>&gt;</span>.</p>
-                                            </div>
-                                            </div>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="card-block">
+                                            <h1 class="card-title"><span
+                                                    class="badge badge-light">Tema 15</span>Eventos</h1>
+                                            <p>Los <b>eventos</b> se utilizan para ejecutar código bajo
+                                                condiciones específicas para la página y sus elementos.</p>
+                                            <p>Existen muchos eventos en JavaScript para ejecutar código en
+                                                situaciones como clics o cuando el usuario ingresa texto en un
+                                                <span class="code">&lt;<span
+                                                        class="codetag">input</span>&gt;</span>.</p>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
+                        <div class="card">
+                            <div class="card-block">
 
-                                        <h2 class="card-title">Ejemplos</h2>
-                                        <p>El evento que hemos utilizado a lo largo de este módulo es <span
-                                                class="code">onclick()</span>. En nuestros ejemplos anteriores, este
-                                            evento nos sirvió para identificar cuando el usuario hace clic sobre el
-                                            botón. Vinculamos nuestras funciones de JavaScript con el evento desde
-                                            nuestro código <B>HTML</B> con el atributo <span
-                                                class="codetext">"onclick"</span>. También podemos asignar funciones a
-                                            estos eventos desde JavaScript. Observa los siguientes ejemplos:</p>
-                                        <h3 class="card-title mrg-top-20">Eventos en HTML</h3>
-                                        <div class="card">
-                                            <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                <p class="code">
-                                                    &lt;<span class="codetag">button</span>
-                                                    onclick="miFuncion()"&gt;<span
-                                                        class="codetext">Clic</span>&lt;/<span
-                                                        class="codetag">button</span>&gt;
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <h3 class="card-title mrg-top-20">Eventos en JavaScript</h3>
-                                        <p>Para usar eventos en JS tenemos que seleccionar al elemento:</p>
-                                        <div class="js-term" data-file="eventos.js">
+                                <h2 class="card-title">Ejemplos</h2>
+                                <p>El evento que hemos utilizado a lo largo de este módulo es <span
+                                        class="code">onclick()</span>. En nuestros ejemplos anteriores, este
+                                    evento nos sirvió para identificar cuando el usuario hace clic sobre el
+                                    botón. Vinculamos nuestras funciones de JavaScript con el evento desde
+                                    nuestro código <B>HTML</B> con el atributo <span
+                                        class="codetext">"onclick"</span>. También podemos asignar funciones a
+                                    estos eventos desde JavaScript. Observa los siguientes ejemplos:</p>
+                                <h3 class="card-title mrg-top-20">Eventos en HTML</h3>
+                                <div class="card">
+                                    <div class="container-fluid" style=" background-color: #1a1a1a">
+                                        <p class="code">
+                                            &lt;<span class="codetag">button</span>
+                                            onclick="miFuncion()"&gt;<span
+                                                class="codetext">Clic</span>&lt;/<span
+                                                class="codetag">button</span>&gt;
+                                        </p>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mrg-top-20">Eventos en JavaScript</h3>
+                                <p>Para usar eventos en JS tenemos que seleccionar al elemento:</p>
+                                <div class="js-term" data-file="eventos.js">
 <pre class="js-term__src">// Opción 1: asignar una función que ya declaramos
 document.getElementById("elemento1").onclick = miFuncion;
 // Opción 2: asignar una nueva función al evento
 document.getElementById("elemento1").onclick = function () {
-  // tu código aquí
+// tu código aquí
 };</pre>
-                                        </div>
-                                        <h3 class="card-title mrg-top-20">Otros Eventos</h3>
-                                        <p>A continuación te enlistamos algunos de los eventos más utilizados. Puedes
-                                            ver la lista completa de eventos haciendo clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> <a
-                                                href="https://developer.mozilla.org/es/docs/Web/Events"
-                                                target="_blank">aquí</a>.</p>
-                                        <ul>
-                                            <li>
-                                                <p><span class="code">onmouseover</span>: Ocurre cuando el puntero está
-                                                    sobre el elemento.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">onmouseout</span>: Ocurre cuando el puntero está
-                                                    sale del elemento.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">onkeydown</span>: Ocurre cuando se presiona una
-                                                    tecla.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">onload</span>: Cuando carga la página.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">submit</span>: Se sube un formulario.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">resize</span>: Cambia el tamaño de la ventana.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">scroll</span>: La ventana se desplaza.</p>
-                                            </li>
-                                            <li>
-                                                <p><span class="code">dblclick</span>: Se hace un clic doble</p>
-                                            </li>
-                                        </ul>
                                 </div>
-                                        
-                                </div>
-                            </div>
+                                <h3 class="card-title mrg-top-20">Otros Eventos</h3>
+                                <p>A continuación te enlistamos algunos de los eventos más utilizados. Puedes
+                                    ver la lista completa de eventos haciendo clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> <a
+                                        href="https://developer.mozilla.org/es/docs/Web/Events"
+                                        target="_blank">aquí</a>.</p>
+                                <ul>
+                                    <li>
+                                        <p><span class="code">onmouseover</span>: Ocurre cuando el puntero está
+                                            sobre el elemento.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">onmouseout</span>: Ocurre cuando el puntero está
+                                            sale del elemento.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">onkeydown</span>: Ocurre cuando se presiona una
+                                            tecla.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">onload</span>: Cuando carga la página.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">submit</span>: Se sube un formulario.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">resize</span>: Cambia el tamaño de la ventana.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">scroll</span>: La ventana se desplaza.</p>
+                                    </li>
+                                    <li>
+                                        <p><span class="code">dblclick</span>: Se hace un clic doble</p>
+                                    </li>
+                                </ul>
+                        </div>
+                                
                         </div>
 
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -179,15 +169,9 @@ document.getElementById("elemento1").onclick = function () {
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

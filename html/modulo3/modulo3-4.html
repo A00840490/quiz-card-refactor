@@ -46,132 +46,126 @@
           <div class="container-fluid px-0 px-sm-3">
             <!-- Your content goes here -->
 
-            <div class="row">
-              <div class="col">
-                <div class="card">
-                  <div class="card-block">
-                    <h1 class="mrg-btm-20 card-title">
-                      <span class="badge badge-light">Tema 3</span> IDs y
-                      Clases
-                    </h1>
-                    <p>
-                      Imagina el siguiente caso: quieres modificar un párrafo
-                      con CSS pero no puedes utilizar la etiqueta
-                      <span class="code">&lt;<span class="codetag">p</span>&gt;</span>
-                      como <b>selector</b> porque eso cambiaría
-                      <b>todos</b> los párrafos de tu documento HTML. ¿Cómo
-                      puedes modificar un párrafo en específico?
-                    </p>
-                    <p>
-                      En el módulo anterior vimos brevemente en algunos
-                      ejemplos el uso del atributo
-                      <span class="code"><mark>id</mark></span>: lo utilizamos con enlaces para referenciar elementos
-                      inputs desde labels. Los
-                      <span class="code"><mark>id</mark></span> también pueden
-                      cumplir una función diferente para CSS: nos sirven para
-                      seleccionar al <b>único</b> elemento en el documento con
-                      este atributo (es por esto que no podemos asignar el
-                      mismo id a múltiples elementos).
-                    </p>
-                    <p>
-                      Si queremos modificar múltiples elementos específicos,
-                      podemos utilizar el atributo
-                      <span class="code"><mark>class</mark></span>.
-                    </p>
-                    <p>
-                      Los atributos class y id son <b>globales</b>, es decir,
-                      se pueden utilizar en cualquier <b>elemento HTML</b>.
-                    </p>
-                    <p>
-                      En CSS, para acceder a elementos por su <b>id</b> o
-                      <b>class</b>, se utilizan los caracteres
-                      <span class="code"><mark>#</mark></span> y
-                      <span class="code"><mark>.</mark></span>, respectivamente. Observa el siguiente ejemplo:
-                    </p>
-                    <div class="row lesson-demo lesson-demo--html-css">
-                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="card">
-                          <div class="container-fluid" style="background-color: #1a1a1a">
-                            <p class="code">
-                              &lt;<span class="codetag">p</span>
-                              id="rojo"&gt;<span class="codetext">Este texto se modificó usando un ID.</span>&lt;/<span
-                                class="codetag">p</span>&gt; <br />
-                              &lt;<span class="codetag">p</span>
-                              class="azul"&gt;<span class="codetext">Este texto se modificó usando una
-                                clase.</span>&lt;/<span class="codetag">p</span>&gt;
-                              <br />
-                              &lt;<span class="codetag">p</span> class="azul
-                              pequeño"&gt;<span class="codetext">Este texto también se modificó usando
-                                clases.</span>&lt;/<span class="codetag">p</span>&gt;
-                              <br /><br />
-                              <span class="codetext">/* estilos.css */</span>
-                              <br />
-                              <span class="codetag">p</span> { <br />
-                              &nbsp;&nbsp;&nbsp; font-family:
-                              <span class="codetext">Arial, Helvetica, sans-serif</span>;
-                              <br />
-                              &nbsp;&nbsp;&nbsp; font-size:
-                              <span class="codetext">32px</span>; <br />
-                              } <br />
-                              <span class="codetag">#rojo</span> { <br />
-                              &nbsp;&nbsp;&nbsp; color:
-                              <span class="codetext">red</span>; <br />
-                              } <br />
-                              <span class="codetag">.azul</span> { <br />
-                              &nbsp;&nbsp;&nbsp; color:
-                              <span class="codetext">blue</span>; <br />
-                              } <br />
-                              <span class="codetag">.pequeño</span> { <br />
-                              &nbsp;&nbsp;&nbsp; font-size:
-                              <span class="codetext">18px</span>; <br />
-                              }
-                            </p>
-                          </div>
-                        </div>
+            <div class="card">
+              <div class="card-block">
+                <h1 class="mrg-btm-20 card-title">
+                  <span class="badge badge-light">Tema 3</span> IDs y
+                  Clases
+                </h1>
+                <p>
+                  Imagina el siguiente caso: quieres modificar un párrafo
+                  con CSS pero no puedes utilizar la etiqueta
+                  <span class="code">&lt;<span class="codetag">p</span>&gt;</span>
+                  como <b>selector</b> porque eso cambiaría
+                  <b>todos</b> los párrafos de tu documento HTML. ¿Cómo
+                  puedes modificar un párrafo en específico?
+                </p>
+                <p>
+                  En el módulo anterior vimos brevemente en algunos
+                  ejemplos el uso del atributo
+                  <span class="code"><mark>id</mark></span>: lo utilizamos con enlaces para referenciar elementos
+                  inputs desde labels. Los
+                  <span class="code"><mark>id</mark></span> también pueden
+                  cumplir una función diferente para CSS: nos sirven para
+                  seleccionar al <b>único</b> elemento en el documento con
+                  este atributo (es por esto que no podemos asignar el
+                  mismo id a múltiples elementos).
+                </p>
+                <p>
+                  Si queremos modificar múltiples elementos específicos,
+                  podemos utilizar el atributo
+                  <span class="code"><mark>class</mark></span>.
+                </p>
+                <p>
+                  Los atributos class y id son <b>globales</b>, es decir,
+                  se pueden utilizar en cualquier <b>elemento HTML</b>.
+                </p>
+                <p>
+                  En CSS, para acceder a elementos por su <b>id</b> o
+                  <b>class</b>, se utilizan los caracteres
+                  <span class="code"><mark>#</mark></span> y
+                  <span class="code"><mark>.</mark></span>, respectivamente. Observa el siguiente ejemplo:
+                </p>
+                <div class="row lesson-demo lesson-demo--html-css">
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                      <div class="container-fluid" style="background-color: #1a1a1a">
+                        <p class="code">
+                          &lt;<span class="codetag">p</span>
+                          id="rojo"&gt;<span class="codetext">Este texto se modificó usando un ID.</span>&lt;/<span
+                            class="codetag">p</span>&gt; <br />
+                          &lt;<span class="codetag">p</span>
+                          class="azul"&gt;<span class="codetext">Este texto se modificó usando una
+                            clase.</span>&lt;/<span class="codetag">p</span>&gt;
+                          <br />
+                          &lt;<span class="codetag">p</span> class="azul
+                          pequeño"&gt;<span class="codetext">Este texto también se modificó usando
+                            clases.</span>&lt;/<span class="codetag">p</span>&gt;
+                          <br /><br />
+                          <span class="codetext">/* estilos.css */</span>
+                          <br />
+                          <span class="codetag">p</span> { <br />
+                          &nbsp;&nbsp;&nbsp; font-family:
+                          <span class="codetext">Arial, Helvetica, sans-serif</span>;
+                          <br />
+                          &nbsp;&nbsp;&nbsp; font-size:
+                          <span class="codetext">32px</span>; <br />
+                          } <br />
+                          <span class="codetag">#rojo</span> { <br />
+                          &nbsp;&nbsp;&nbsp; color:
+                          <span class="codetext">red</span>; <br />
+                          } <br />
+                          <span class="codetag">.azul</span> { <br />
+                          &nbsp;&nbsp;&nbsp; color:
+                          <span class="codetext">blue</span>; <br />
+                          } <br />
+                          <span class="codetag">.pequeño</span> { <br />
+                          &nbsp;&nbsp;&nbsp; font-size:
+                          <span class="codetext">18px</span>; <br />
+                          }
+                        </p>
                       </div>
-                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <div class="example">
-                          <div class="card">
-                            <div class="container-fluid">
-                              <iframe src="ejemplo2.html" frameborder="0" style="width: 100%; height: 320px"></iframe>
-                            </div>
-                          </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="example">
+                      <div class="card">
+                        <div class="container-fluid">
+                          <iframe src="ejemplo2.html" frameborder="0" style="width: 100%; height: 320px"></iframe>
                         </div>
                       </div>
                     </div>
-                    <p>
-                      Utilizamos un
-                      <span class="code"><mark>id</mark></span> para modificar
-                      el primer párrafo con el color rojo. Nota que no podemos
-                      utilizar el id "rojo" para otros elementos una vez
-                      asignado.
-                    </p>
-                    <p>
-                      Por otra parte, utilizamos el atributo
-                      <span class="code"><mark>class</mark></span> para
-                      asignar el color azul del resto de los párrafos.
-                    </p>
-                    <p>
-                      También hicimos una tercera clase llamada
-                      <span class="code"><mark>pequeño</mark></span>, que utilizamos para disminuir el tamaño del texto
-                      que
-                      estaba especificado en
-                      <span class="code"><span class="codetag">p</span></span>.
-                    </p>
-                    <p>
-                      También, como puedes observar, se pueden asignar
-                      múltiples clases a un solo elemento. Solo se necesitan
-                      separar los nombres de las clases por espacios.
-                    </p>
                   </div>
                 </div>
+                <p>
+                  Utilizamos un
+                  <span class="code"><mark>id</mark></span> para modificar
+                  el primer párrafo con el color rojo. Nota que no podemos
+                  utilizar el id "rojo" para otros elementos una vez
+                  asignado.
+                </p>
+                <p>
+                  Por otra parte, utilizamos el atributo
+                  <span class="code"><mark>class</mark></span> para
+                  asignar el color azul del resto de los párrafos.
+                </p>
+                <p>
+                  También hicimos una tercera clase llamada
+                  <span class="code"><mark>pequeño</mark></span>, que utilizamos para disminuir el tamaño del texto
+                  que
+                  estaba especificado en
+                  <span class="code"><span class="codetag">p</span></span>.
+                </p>
+                <p>
+                  También, como puedes observar, se pueden asignar
+                  múltiples clases a un solo elemento. Solo se necesitan
+                  separar los nombres de las clases por espacios.
+                </p>
               </div>
             </div>
 
-            <div class="row mrg-btm-20">
-              <div class="col text-center">
-                <div class="btn-group"></div>
-              </div>
+            <div class="mrg-btm-20 text-center">
+              <div class="btn-group"></div>
             </div>
 
             <div class="card widget-feed">
@@ -187,17 +181,11 @@
                   </div>
                 </div>
                 <div class="col-lg-4">
-                  <div class="row">
-                    <div class="col">
-                      <div id="circlecontainer"></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col text-center">
-                      <h3 class="feed-subtitle">
-                        Progreso General del Curso
-                      </h3>
-                    </div>
+                  <div id="circlecontainer"></div>
+                  <div class="text-center">
+                    <h3 class="feed-subtitle">
+                      Progreso General del Curso
+                    </h3>
                   </div>
                 </div>
               </div>

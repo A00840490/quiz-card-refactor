@@ -45,223 +45,213 @@
         <div class="main-content">
           <div class="container-fluid px-0 px-sm-3">
             <!-- Your content goes here -->
-            <div class="row">
-              <div class="col">
-                <div class="card">
-                  <div class="card-horizon">
-                    <div class="image-container col-md-4">
-                      <div class="background-holder has-content" style="
-                            background-image: url(&quot;../../assets/images/course/modulo3/m3-9/posicionamiento.jpg&quot;);
-                          "></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-8 ml-auto">
-                        <div class="card-block">
-                          <h1 class="card-title">
-                            <span class="badge badge-light">Tema 10</span>
-                            Métodos de Posicionamiento
-                          </h1>
-                          <p>
-                            Para tener una buena página web, hay que saber
-                            cómo posicionar nuestro contenido. Utilizando HTML
-                            puro, no podemos posicionar elementos de la
-                            página, ya que todo el contenido se acomoda de
-                            arriba a abajo. En cambio, si integramos CSS, se
-                            nos abren muchas posibilidades. Sin embargo, con
-                            diseños más elaborados se puede complicar el
-                            posicionamiento y el manejo de escalas de nuestros
-                            elementos. Para cualquier elemento podemos
-                            modificar su propiedad
-                            <span class="code">position</span>, la cual
-                            permite seleccionar un método de posicionamiento
-                            para el elemento. También podemos utilizar otras
-                            propiedades como <span class="code">top</span>,
-                            <span class="code">bottom</span>,
-                            <span class="code">left</span> y
-                            <span class="code">right</span>, que cambian la
-                            distancia en las diferentes direcciones a otros
-                            elementos del mismo nivel jerárquico.
-                          </p>
-                        </div>
-                      </div>
+            <div class="card">
+              <div class="card-horizon">
+                <div class="image-container col-md-4">
+                  <div class="background-holder has-content" style="
+                        background-image: url(&quot;../../assets/images/course/modulo3/m3-9/posicionamiento.jpg&quot;);
+                      "></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8 ml-auto">
+                    <div class="card-block">
+                      <h1 class="card-title">
+                        <span class="badge badge-light">Tema 10</span>
+                        Métodos de Posicionamiento
+                      </h1>
+                      <p>
+                        Para tener una buena página web, hay que saber
+                        cómo posicionar nuestro contenido. Utilizando HTML
+                        puro, no podemos posicionar elementos de la
+                        página, ya que todo el contenido se acomoda de
+                        arriba a abajo. En cambio, si integramos CSS, se
+                        nos abren muchas posibilidades. Sin embargo, con
+                        diseños más elaborados se puede complicar el
+                        posicionamiento y el manejo de escalas de nuestros
+                        elementos. Para cualquier elemento podemos
+                        modificar su propiedad
+                        <span class="code">position</span>, la cual
+                        permite seleccionar un método de posicionamiento
+                        para el elemento. También podemos utilizar otras
+                        propiedades como <span class="code">top</span>,
+                        <span class="code">bottom</span>,
+                        <span class="code">left</span> y
+                        <span class="code">right</span>, que cambian la
+                        distancia en las diferentes direcciones a otros
+                        elementos del mismo nivel jerárquico.
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="row">
-              <div class="col">
-                <div class="card">
-                  <div class="card-block">
-                      <h2 class="card-title">Tipos de Métodos</h2>
-                      <p>
-                        Los métodos que podemos aplicar a la propiedad
-                        <span class="code">position</span> son los siguientes:
-                      </p>
-                      <section class="pos-scene">
-                        <input type="radio" name="pos-method" id="pos-static" checked />
-                        <input type="radio" name="pos-method" id="pos-relative" />
-                        <input type="radio" name="pos-method" id="pos-absolute" />
-                        <input type="radio" name="pos-method" id="pos-fixed" />
-                        <input type="radio" name="pos-method" id="pos-sticky" />
+            <div class="card">
+              <div class="card-block">
+                  <h2 class="card-title">Tipos de Métodos</h2>
+                  <p>
+                    Los métodos que podemos aplicar a la propiedad
+                    <span class="code">position</span> son los siguientes:
+                  </p>
+                  <section class="pos-scene">
+                    <input type="radio" name="pos-method" id="pos-static" checked />
+                    <input type="radio" name="pos-method" id="pos-relative" />
+                    <input type="radio" name="pos-method" id="pos-absolute" />
+                    <input type="radio" name="pos-method" id="pos-fixed" />
+                    <input type="radio" name="pos-method" id="pos-sticky" />
 
-                        <ul class="pos-scene__menu">
-                          <li>
-                            <label class="pos-scene__label pos-scene__label--static" for="pos-static">static</label>
-                          </li>
-                          <li>
-                            <label class="pos-scene__label pos-scene__label--relative"
-                              for="pos-relative">relative</label>
-                          </li>
-                          <li>
-                            <label class="pos-scene__label pos-scene__label--absolute"
-                              for="pos-absolute">absolute</label>
-                          </li>
-                          <li>
-                            <label class="pos-scene__label pos-scene__label--fixed" for="pos-fixed">fixed</label>
-                          </li>
-                          <li>
-                            <label class="pos-scene__label pos-scene__label--sticky" for="pos-sticky">sticky</label>
-                          </li>
-                        </ul>
+                    <ul class="pos-scene__menu">
+                      <li>
+                        <label class="pos-scene__label pos-scene__label--static" for="pos-static">static</label>
+                      </li>
+                      <li>
+                        <label class="pos-scene__label pos-scene__label--relative"
+                          for="pos-relative">relative</label>
+                      </li>
+                      <li>
+                        <label class="pos-scene__label pos-scene__label--absolute"
+                          for="pos-absolute">absolute</label>
+                      </li>
+                      <li>
+                        <label class="pos-scene__label pos-scene__label--fixed" for="pos-fixed">fixed</label>
+                      </li>
+                      <li>
+                        <label class="pos-scene__label pos-scene__label--sticky" for="pos-sticky">sticky</label>
+                      </li>
+                    </ul>
 
-                        <div class="pos-scene__stage">
-                          <article class="pos-scene__content pos-scene__content--static">
-                            <h3>static</h3>
-                            <p>
-                              Este es el método de posicionamiento
-                              predeterminado (de arriba a abajo).
-                            </p>
-                          </article>
-                          <article class="pos-scene__content pos-scene__content--relative">
-                            <h3>relative</h3>
-                            <p>
-                              El elemento permanece donde está, pero ahora
-                              puede ser afectado con las propiedades top,
-                              bottom, left y right.
-                            </p>
-                          </article>
-                          <article class="pos-scene__content pos-scene__content--absolute">
-                            <h3>absolute</h3>
-                            <p>
-                              Muestra al elemento en una posición absoluta
-                              dentro de su elemento padre/contenedor. A
-                              diferencia de relative, los elementos alrededor
-                              de un elemento absoluto no se reposicionan
-                              alrededor de su posición inicial.
-                            </p>
-                          </article>
-                          <article class="pos-scene__content pos-scene__content--fixed">
-                            <h3>fixed</h3>
-                            <p>
-                              Permite que el elemento se mantenga visible en
-                              la ventana en todo momento (incluso después de
-                              desplazar la página).
-                            </p>
-                          </article>
-                          <article class="pos-scene__content pos-scene__content--sticky">
-                            <h3>sticky</h3>
-                            <p>
-                              Se comporta como relative hasta que comienza a
-                              "salirse" de la ventana. Ahí es cuando se
-                              comporta como fixed, manteniendo su posición en
-                              la parte superior de la ventana hasta que su
-                              elemento padre deje de estar visible.
-                            </p>
-                          </article>
+                    <div class="pos-scene__stage">
+                      <article class="pos-scene__content pos-scene__content--static">
+                        <h3>static</h3>
+                        <p>
+                          Este es el método de posicionamiento
+                          predeterminado (de arriba a abajo).
+                        </p>
+                      </article>
+                      <article class="pos-scene__content pos-scene__content--relative">
+                        <h3>relative</h3>
+                        <p>
+                          El elemento permanece donde está, pero ahora
+                          puede ser afectado con las propiedades top,
+                          bottom, left y right.
+                        </p>
+                      </article>
+                      <article class="pos-scene__content pos-scene__content--absolute">
+                        <h3>absolute</h3>
+                        <p>
+                          Muestra al elemento en una posición absoluta
+                          dentro de su elemento padre/contenedor. A
+                          diferencia de relative, los elementos alrededor
+                          de un elemento absoluto no se reposicionan
+                          alrededor de su posición inicial.
+                        </p>
+                      </article>
+                      <article class="pos-scene__content pos-scene__content--fixed">
+                        <h3>fixed</h3>
+                        <p>
+                          Permite que el elemento se mantenga visible en
+                          la ventana en todo momento (incluso después de
+                          desplazar la página).
+                        </p>
+                      </article>
+                      <article class="pos-scene__content pos-scene__content--sticky">
+                        <h3>sticky</h3>
+                        <p>
+                          Se comporta como relative hasta que comienza a
+                          "salirse" de la ventana. Ahí es cuando se
+                          comporta como fixed, manteniendo su posición en
+                          la parte superior de la ventana hasta que su
+                          elemento padre deje de estar visible.
+                        </p>
+                      </article>
+                    </div>
+                  </section>
+                  <h2 class="card-title">Ejemplos</h2>
+                      <div class="card">
+                        <div class="container-fluid p0">
+                          <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="css,result"
+                            data-user="luis-yerik-arambula" data-slug-hash="PoGmOvw" style="
+                                height: 500px;
+                                box-sizing: border-box;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                border: 2px solid;
+                                margin: 1em 0;
+                                padding: 1em;
+                              " data-pen-title="PoGmOvw">
+                            <span>See the Pen
+                              <a href="https://codepen.io/luis-yerik-arambula/pen/PoGmOvw" target="_blank">
+                                PoGmOvw</a>
+                              by Luis Yerik Arambula (<a href="https://codepen.io/luis-yerik-arambula"
+                                target="_blank">@luis-yerik-arambula</a>) on
+                              <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
+                          </p>
+                          <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
                         </div>
-                      </section>
-                      <h2 class="card-title">Ejemplos</h2>
-                          <div class="card">
-                            <div class="container-fluid p0">
-                              <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="css,result"
-                                data-user="luis-yerik-arambula" data-slug-hash="PoGmOvw" style="
-                                    height: 500px;
-                                    box-sizing: border-box;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    border: 2px solid;
-                                    margin: 1em 0;
-                                    padding: 1em;
-                                  " data-pen-title="PoGmOvw">
-                                <span>See the Pen
-                                  <a href="https://codepen.io/luis-yerik-arambula/pen/PoGmOvw" target="_blank">
-                                    PoGmOvw</a>
-                                  by Luis Yerik Arambula (<a href="https://codepen.io/luis-yerik-arambula"
-                                    target="_blank">@luis-yerik-arambula</a>) on
-                                  <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
-                              </p>
-                              <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                            </div>
-                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left">
-                              <!-- Fuente  -->
-                              CodePen. Software utilizado para el desarrollo
-                              de ejercicio dinámico de programación. In
-                              CodePen. https://codepen.io
-                            </p>
-                          </div>
+                        <p class="col-12 col-lg-8 text-secondary small" style="text-align: left">
+                          <!-- Fuente  -->
+                          CodePen. Software utilizado para el desarrollo
+                          de ejercicio dinámico de programación. In
+                          CodePen. https://codepen.io
+                        </p>
+                      </div>
+                  <p>
+                    Observa y analiza el ejemplo de arriba. ¿Cómo se
+                    comportan los elementos con diferentes
+                    posicionamientos?
+                  </p>
+                  <p>
+                    El primer cuadro azul "encierra" por debajo al
+                    segundo, que es su elemento hijo. ¿Por qué no pasa
+                    esto con los cuadros verdes que están abajo?
+                  </p>
+                  <p>
+                    Con este ejemplo podemos observar muchas cosas
+                    interesantes:
+                  </p>
+                  <ul>
+                    <li>
                       <p>
-                        Observa y analiza el ejemplo de arriba. ¿Cómo se
-                        comportan los elementos con diferentes
-                        posicionamientos?
+                        Si queremos que un elemento se mantenga visible en
+                        todo momento, podemos usar
+                        <span class="code">fixed</span> o
+                        <span class="code">sticky</span> (cuadros rojo y
+                        naranja).
                       </p>
+                    </li>
+                    <li>
                       <p>
-                        El primer cuadro azul "encierra" por debajo al
-                        segundo, que es su elemento hijo. ¿Por qué no pasa
-                        esto con los cuadros verdes que están abajo?
+                        Si queremos modificar el posicionamiento original
+                        de un elemento, utilizamos
+                        <span class="code">relative</span> (cuadros
+                        azules).
                       </p>
+                    </li>
+                    <li>
                       <p>
-                        Con este ejemplo podemos observar muchas cosas
-                        interesantes:
+                        Si queremos que un elemento se pueda posicionar
+                        libremente y sin afectar a los elementos
+                        alrededor, utilizamos
+                        <span class="code">absolute</span> (cuadros
+                        verdes).
                       </p>
-                      <ul>
-                        <li>
-                          <p>
-                            Si queremos que un elemento se mantenga visible en
-                            todo momento, podemos usar
-                            <span class="code">fixed</span> o
-                            <span class="code">sticky</span> (cuadros rojo y
-                            naranja).
-                          </p>
-                        </li>
-                        <li>
-                          <p>
-                            Si queremos modificar el posicionamiento original
-                            de un elemento, utilizamos
-                            <span class="code">relative</span> (cuadros
-                            azules).
-                          </p>
-                        </li>
-                        <li>
-                          <p>
-                            Si queremos que un elemento se pueda posicionar
-                            libremente y sin afectar a los elementos
-                            alrededor, utilizamos
-                            <span class="code">absolute</span> (cuadros
-                            verdes).
-                          </p>
-                        </li>
-                      </ul>
-                      <p>
-                        Copia el código y juega con los métodos de
-                        posicionamiento. Es muy importante que entiendas cómo
-                        funcionan estas propiedades para que puedas acomodar
-                        elementos de manera creativa. Puedes ver más ejemplos
-                        <img src="../../assets/images/clic.svg" class="mrg-right-5" /><a
-                          href="https://developer.mozilla.org/es/docs/Web/CSS/position" target="_blank">aquí</a>.
-                      </p>
-                  </div>
-                </div>
+                    </li>
+                  </ul>
+                  <p>
+                    Copia el código y juega con los métodos de
+                    posicionamiento. Es muy importante que entiendas cómo
+                    funcionan estas propiedades para que puedas acomodar
+                    elementos de manera creativa. Puedes ver más ejemplos
+                    <img src="../../assets/images/clic.svg" class="mrg-right-5" /><a
+                      href="https://developer.mozilla.org/es/docs/Web/CSS/position" target="_blank">aquí</a>.
+                  </p>
               </div>
             </div>
 
             <!--Botones de avance entre páginas-->
-            <div class="row mrg-btm-20">
-              <div class="col text-center">
-                <div class="btn-group"></div>
-              </div>
+            <div class="mrg-btm-20 text-center">
+              <div class="btn-group"></div>
             </div>
 
             <!--Widgets de avance de módulo y general-->
@@ -278,17 +268,11 @@
                   </div>
                 </div>
                 <div class="col-lg-4">
-                  <div class="row">
-                    <div class="col">
-                      <div id="circlecontainer"></div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col text-center">
-                      <h3 class="feed-subtitle">
-                        Progreso General del Curso
-                      </h3>
-                    </div>
+                  <div id="circlecontainer"></div>
+                  <div class="text-center">
+                    <h3 class="feed-subtitle">
+                      Progreso General del Curso
+                    </h3>
                   </div>
                 </div>
               </div>

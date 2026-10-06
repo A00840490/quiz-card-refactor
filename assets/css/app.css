@@ -8500,19 +8500,6 @@ label.success {
   position: relative;
 }
 
-/* La columna de texto junto a la imagen solo reparte el ancho: sin el
-   margen de .row ni el padding de .col, el texto queda a la distancia del
-   card-block tanto del borde de la tarjeta como de la imagen. */
-.card .card-horizon > .row {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.card .card-horizon > .row > [class*="col-"] {
-  padding-right: 0;
-  padding-left: 0;
-}
-
 .card .card-horizon .image-container {
   overflow: hidden;
   position: absolute;

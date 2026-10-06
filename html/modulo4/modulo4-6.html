@@ -54,133 +54,129 @@
 
                         <!-- Your content goes here -->
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-horizon">
-                                        <div class="image-container col-md-4">
-                                            <div class="background-holder has-content"
-                                                style="background-image: url('../../assets/images/course/modulo1/m1-3/1.3_intro.jpg')">
+                        <div class="card">
+                            <div class="card-horizon">
+                                <div class="image-container col-md-4">
+                                    <div class="background-holder has-content"
+                                        style="background-image: url('../../assets/images/course/modulo1/m1-3/1.3_intro.jpg')">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8 ml-auto">
+                                        <div class="card-block">
+                                            <div class="hides-accordion">
+                                            <h1 class="mrg-btm-20 card-title hides-accordion"><span
+                                                    class="badge badge-light">Tema 5</span>Arreglos</h1>
+                                            <p class="hides-accordion">Hemos aprendido cómo utilizar variables para almacenar diferentes
+                                                tipos de datos. Puede haber casos en los que necesitamos
+                                                utilizar múltiples variables, lo cual implicaría tener que
+                                                asignar un nombre a cada una. Esto claramente no es muy
+                                                conveniente cuando necesitamos 100 o 200 variables, por lo que
+                                                existe una forma de guardar muchos datos con un mismo nombre. A
+                                                este tipo de variables se denomina <b>arreglo</b> ("array" en
+                                                inglés), los cuales son muy útiles y están presentes en todos
+                                                los lenguajes de programación. En otros lenguajes, los arreglos
+                                                como listas de un tipo de dato en específico, pero en JavaScript
+                                                podemos asignar cualquier tipo de dato a un elemento de un
+                                                arreglo.</p>
+                                            <p class="hides-accordion">Los arreglos cuentan con varias funciones que nos ayudan a
+                                                modificarlos u obtener información sobre ellos y sus elementos,
+                                                como saber su longitud, agregar o borrar elementos, y ordenar
+                                                los elementos, entre muchas otras.</p>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8 ml-auto">
-                                                <div class="card-block">
-                                                    <div class="hides-accordion">
-                                                    <h1 class="mrg-btm-20 card-title hides-accordion"><span
-                                                            class="badge badge-light">Tema 5</span>Arreglos</h1>
-                                                    <p class="hides-accordion">Hemos aprendido cómo utilizar variables para almacenar diferentes
-                                                        tipos de datos. Puede haber casos en los que necesitamos
-                                                        utilizar múltiples variables, lo cual implicaría tener que
-                                                        asignar un nombre a cada una. Esto claramente no es muy
-                                                        conveniente cuando necesitamos 100 o 200 variables, por lo que
-                                                        existe una forma de guardar muchos datos con un mismo nombre. A
-                                                        este tipo de variables se denomina <b>arreglo</b> ("array" en
-                                                        inglés), los cuales son muy útiles y están presentes en todos
-                                                        los lenguajes de programación. En otros lenguajes, los arreglos
-                                                        como listas de un tipo de dato en específico, pero en JavaScript
-                                                        podemos asignar cualquier tipo de dato a un elemento de un
-                                                        arreglo.</p>
-                                                    <p class="hides-accordion">Los arreglos cuentan con varias funciones que nos ayudan a
-                                                        modificarlos u obtener información sobre ellos y sus elementos,
-                                                        como saber su longitud, agregar o borrar elementos, y ordenar
-                                                        los elementos, entre muchas otras.</p>
-                                                    </div>
 
-                                                    <div id="accordion-1" class="accordion panel-group" role="tablist"
-                                                        aria-multiselectable="true">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading" role="tab" id="regla-1">
-                                                                <h4 class="panel-title">
-                                                                    <a class="collapsed" onclick="tabSelect1()"
-                                                                        data-toggle="collapse"
-                                                                        data-parent="#accordion-1" href="#collapseOne">
-                                                                        <span>Crear un Arreglo</span>
-                                                                        <i class="icon ti-arrow-circle-down"></i>
-                                                                    </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div id="collapseOne" class="collapse panel-collapse"
-                                                                role="tabpanel">
-                                                                <div class="panel-body">
-                                                                    <p>Para declarar un arreglo también utilizamos la
-                                                                        palabra reservada <span class="code">var</span>
-                                                                        con una pequeña variación: para el valor inicial
-                                                                        encerramos entre corchetes <b>[ ]</b> una lista
-                                                                        separada por comas con todos los valores
-                                                                        iniciales que queramos en nuestro arreglo.</p>
-                                                                    <div class="js-term" data-file="arreglos.js">
+                                            <div id="accordion-1" class="accordion panel-group" role="tablist"
+                                                aria-multiselectable="true">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="regla-1">
+                                                        <h4 class="panel-title">
+                                                            <a class="collapsed" onclick="tabSelect1()"
+                                                                data-toggle="collapse"
+                                                                data-parent="#accordion-1" href="#collapseOne">
+                                                                <span>Crear un Arreglo</span>
+                                                                <i class="icon ti-arrow-circle-down"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseOne" class="collapse panel-collapse"
+                                                        role="tabpanel">
+                                                        <div class="panel-body">
+                                                            <p>Para declarar un arreglo también utilizamos la
+                                                                palabra reservada <span class="code">var</span>
+                                                                con una pequeña variación: para el valor inicial
+                                                                encerramos entre corchetes <b>[ ]</b> una lista
+                                                                separada por comas con todos los valores
+                                                                iniciales que queramos en nuestro arreglo.</p>
+                                                            <div class="js-term" data-file="arreglos.js">
 <pre class="js-term__src">// Arreglo con 3 valores
 var miArreglo = ["Hola", "Mundo", 7];</pre>
-                                                                    </div>
-                                                                    <p>También podemos declarar arreglos vacíos:</p>
-                                                                    <div class="js-term" data-file="arreglos.js">
+                                                            </div>
+                                                            <p>También podemos declarar arreglos vacíos:</p>
+                                                            <div class="js-term" data-file="arreglos.js">
 <pre class="js-term__src">// Arreglo vacío: podemos insertar valores después
 var miArreglo = [];</pre>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                </div>
 
 
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading" role="tab" id="regla-2">
-                                                                <h4 class="panel-title">
-                                                                    <a class="collapsed" onclick="tabSelect2()"
-                                                                        data-toggle="collapse"
-                                                                        data-parent="#accordion-1" href="#collapseTwo">
-                                                                        <span>Acceder a los elementos y modificar un
-                                                                            arreglo</span>
-                                                                        <i class="icon ti-arrow-circle-down"></i>
-                                                                    </a>
-                                                                </h4>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading" role="tab" id="regla-2">
+                                                        <h4 class="panel-title">
+                                                            <a class="collapsed" onclick="tabSelect2()"
+                                                                data-toggle="collapse"
+                                                                data-parent="#accordion-1" href="#collapseTwo">
+                                                                <span>Acceder a los elementos y modificar un
+                                                                    arreglo</span>
+                                                                <i class="icon ti-arrow-circle-down"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div id="collapseTwo" class="collapse panel-collapse"
+                                                        role="tabpanel">
+                                                        <div class="panel-body">
+                                                            <p>Perfecto, hemos creado nuestro arreglo. Ahora,
+                                                                ¿cómo podemos acceder a los elementos dentro de
+                                                                él? Como un arreglo almacena varios valores,
+                                                                tenemos que ser un poco más específicos en la
+                                                                forma en la que accedemos a los valores. Esto se
+                                                                logra a través de algo llamado <b>índices</b>.
+                                                                La estructura de un arreglo se puede visualizar
+                                                                de la siguiente manera:</p>
+                                                            <div class="text-center">
+                                                                <img src="../../assets/images/course/modulo4/m4-4/arraydiag.png"
+                                                                    alt="" style="max-width: 300px;">
                                                             </div>
-                                                            <div id="collapseTwo" class="collapse panel-collapse"
-                                                                role="tabpanel">
-                                                                <div class="panel-body">
-                                                                    <p>Perfecto, hemos creado nuestro arreglo. Ahora,
-                                                                        ¿cómo podemos acceder a los elementos dentro de
-                                                                        él? Como un arreglo almacena varios valores,
-                                                                        tenemos que ser un poco más específicos en la
-                                                                        forma en la que accedemos a los valores. Esto se
-                                                                        logra a través de algo llamado <b>índices</b>.
-                                                                        La estructura de un arreglo se puede visualizar
-                                                                        de la siguiente manera:</p>
-                                                                    <div class="text-center">
-                                                                        <img src="../../assets/images/course/modulo4/m4-4/arraydiag.png"
-                                                                            alt="" style="max-width: 300px;">
-                                                                    </div>
-                                                                    <p>El índice es un valor entero que representa la
-                                                                        <b>posición</b> de un valor en el arreglo. Algo
-                                                                        muy importante que debes tener en cuenta, es que
-                                                                        las posiciones dentro de un arreglo inician
-                                                                        desde <b>cero</b>, es decir, al primer elemento
-                                                                        se le asigna un 0 como posición, al segundo un 1
-                                                                        y así sucesivamente. Para acceder un elemento,
-                                                                        escribimos el nombre del arreglo junto con el
-                                                                        índice del valor que queremos encerrado entre
-                                                                        corchetes. Observa este ejemplo para acceder y
-                                                                        modificar a los 3 elementos del primer ejemplo
-                                                                        anterior: </p>
-                                                                    <div class="js-term" data-file="arreglos.js">
+                                                            <p>El índice es un valor entero que representa la
+                                                                <b>posición</b> de un valor en el arreglo. Algo
+                                                                muy importante que debes tener en cuenta, es que
+                                                                las posiciones dentro de un arreglo inician
+                                                                desde <b>cero</b>, es decir, al primer elemento
+                                                                se le asigna un 0 como posición, al segundo un 1
+                                                                y así sucesivamente. Para acceder un elemento,
+                                                                escribimos el nombre del arreglo junto con el
+                                                                índice del valor que queremos encerrado entre
+                                                                corchetes. Observa este ejemplo para acceder y
+                                                                modificar a los 3 elementos del primer ejemplo
+                                                                anterior: </p>
+                                                            <div class="js-term" data-file="arreglos.js">
 <pre class="js-term__src">// Cambiamos el string del primer valor
 miArreglo[0] = "Hello";
 // Agregamos un ! al valor original
 miArreglo[1] = miArreglo[1] + "!";
 // Cambiamos al resultado de una operación
 miArreglo[2] = 24 / 4;</pre>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </div>
-
-
-
-
                                                     </div>
-
                                                 </div>
+
+
+
+
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -330,11 +326,9 @@ var miArreglo4 = miArreglo.slice(1);    // ["Mundo", 7]</pre>
                         </div>
                         </div>
 
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -349,15 +343,9 @@ var miArreglo4 = miArreglo.slice(1);    // ["Mundo", 7]</pre>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

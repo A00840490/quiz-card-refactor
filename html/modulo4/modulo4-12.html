@@ -52,109 +52,99 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-horizon">
-                                        <div class="image-container col-md-6">
-                                            <div class="background-holder has-content"
-                                                style="background-image: url('../../assets/images/course/modulo4/m4-7/elementos.jpg')">
-                                            </div>
-                                        </div>
+                        <div class="card">
+                            <div class="card-horizon">
+                                <div class="image-container col-md-6">
+                                    <div class="background-holder has-content"
+                                        style="background-image: url('../../assets/images/course/modulo4/m4-7/elementos.jpg')">
+                                    </div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6 ml-auto">
-                                                <div class="card-block">
-                                                    <h1 class="card-title"><span
-                                                            class="badge badge-light">Tema 11</span>Accediendo a
-                                                        Elementos de HTML</h1>
-                                                    <p>JavaScript nos permite interactuar, crear o eliminar elementos de
-                                                        nuestra página. Existen varias funciones en JavaScript que nos
-                                                        permiten acceder a elementos de HTML, dependiendo de si quieres
-                                                        obtener uno o varios elementos, y a partir de su tipo, sus
-                                                        clases o IDs.</p>
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-md-6 ml-auto">
+                                        <div class="card-block">
+                                            <h1 class="card-title"><span
+                                                    class="badge badge-light">Tema 11</span>Accediendo a
+                                                Elementos de HTML</h1>
+                                            <p>JavaScript nos permite interactuar, crear o eliminar elementos de
+                                                nuestra página. Existen varias funciones en JavaScript que nos
+                                                permiten acceder a elementos de HTML, dependiendo de si quieres
+                                                obtener uno o varios elementos, y a partir de su tipo, sus
+                                                clases o IDs.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
+                        <div class="card">
+                            <div class="card-block">
+                                <h2 class="card-title">El DOM</h2>
+                                <p>DOM significa <b>Document Object Model</b>, esto es la estructura del
+                                    documento HTML, sus elementos, atributos, etc. Todo navegador crea un DOM al
+                                    acceder a una página web, y JavaScript utiliza este modelo para poder
+                                    acceder, agregar, borrar y modificar elementos del documento. El modelo DOM
+                                    se acomoda como un árbol de la siguiente manera:</p>
+                                <div class="text-center mrg-btm-20">
+                                    <img src="../../assets/images/course/modulo4/HTMDOMgif.gif" alt="arbolDOM.gif" style="width: 90%; min-width: 300px;">
+                                </div>
+                                <p>A continuación te mostramos algunos ejemplos modificando HTML utilizando
+                                    diferentes funciones, copia el código de los ejemplos y juega con él; la
+                                    mejor manera de aprender es experimentando.</p>
+                                <h3 class="card-title mrg-top-20">Acceder a Elementos por ID</h3>
+                                <p>Como aprendimos anteriormente, un ID se asigna a un elemento único de la
+                                    página. Para obtener un elemento por ID en JavaScript, se utiliza la función
+                                    <span class="code">document.getElementById()</span>. Se utiliza así:</p>
                                 <div class="card">
-                                    <div class="card-block">
-                                        <h2 class="card-title">El DOM</h2>
-                                        <p>DOM significa <b>Document Object Model</b>, esto es la estructura del
-                                            documento HTML, sus elementos, atributos, etc. Todo navegador crea un DOM al
-                                            acceder a una página web, y JavaScript utiliza este modelo para poder
-                                            acceder, agregar, borrar y modificar elementos del documento. El modelo DOM
-                                            se acomoda como un árbol de la siguiente manera:</p>
-                                        <div class="text-center mrg-btm-20">
-                                            <img src="../../assets/images/course/modulo4/HTMDOMgif.gif" alt="arbolDOM.gif" style="width: 90%; min-width: 300px;">
-                                        </div>
-                                        <p>A continuación te mostramos algunos ejemplos modificando HTML utilizando
-                                            diferentes funciones, copia el código de los ejemplos y juega con él; la
-                                            mejor manera de aprender es experimentando.</p>
-                                        <h3 class="card-title mrg-top-20">Acceder a Elementos por ID</h3>
-                                        <p>Como aprendimos anteriormente, un ID se asigna a un elemento único de la
-                                            página. Para obtener un elemento por ID en JavaScript, se utiliza la función
-                                            <span class="code">document.getElementById()</span>. Se utiliza así:</p>
-                                        <div class="card">
-                                            <div class="container-fluid">
-                                                <p class="codepen" data-height="500" data-theme-id="dark"
-                                                    data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                                    data-slug-hash="mdrjbpB"
-                                                    style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                                    data-pen-title="mdrjbpB">
-                                                    <span>See the Pen <a
-                                                            href="https://codepen.io/luis-yerik-arambula/pen/mdrjbpB"
-                                                            target="_blank">
-                                                            mdrjbpB</a> by Luis Yerik Arambula (<a
-                                                            href="https://codepen.io/luis-yerik-arambula"
-                                                            target="_blank">@luis-yerik-arambula</a>)
-                                                        on <a href="https://codepen.io"
-                                                            target="_blank">CodePen</a>.</span>
-                                                </p>
-                                                <script async
-                                                    src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                                            </div>
-                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                                <!-- Fuente  -->
-                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                              </p>
-                                        </div>
-                                        <p>Observa que, para utilizar las propiedades del elemento, tuvimos que asignar
-                                            el resultado de getElementById a la variable <span class="code">elem</span>.
+                                    <div class="container-fluid">
+                                        <p class="codepen" data-height="500" data-theme-id="dark"
+                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
+                                            data-slug-hash="mdrjbpB"
+                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                            data-pen-title="mdrjbpB">
+                                            <span>See the Pen <a
+                                                    href="https://codepen.io/luis-yerik-arambula/pen/mdrjbpB"
+                                                    target="_blank">
+                                                    mdrjbpB</a> by Luis Yerik Arambula (<a
+                                                    href="https://codepen.io/luis-yerik-arambula"
+                                                    target="_blank">@luis-yerik-arambula</a>)
+                                                on <a href="https://codepen.io"
+                                                    target="_blank">CodePen</a>.</span>
                                         </p>
-                                        <p>Para hacer las modificaciones, utilizamos la propiedad <span
-                                                class="code">innerHTML</span>, a la cual se le asigna el <b>HTML
-                                                interno</b> del elemento como tipo <b>string</b>. Vinculamos el botón
-                                            de "Cambiar" a la primera función, la cual asigna un mensaje al HTML interno
-                                            del elemento con ID "rect". Nota que en la segunda función (la cual está
-                                            vinculada con el segundo botón) le asignamos un elemento de enlace al HTML
-                                            interno.</p>
-                                        <p>Los botones se pueden implementar con la etiqueta <span
-                                                class="code">&lt;<span class="codetag">button</span>&gt;</span> y con el
-                                            atributo <span class="code">onclick</span> les podemos asignar una función
-                                            de JavaScript. Analiza bien todo el código, experimenta con la función <span
-                                                class="code">innerHTML</span> agregando textos y elementos diferentes.
-                                        </p>
+                                        <script async
+                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                    </div>
+                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                        <!-- Fuente  -->
+                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                      </p>
+                                </div>
+                                <p>Observa que, para utilizar las propiedades del elemento, tuvimos que asignar
+                                    el resultado de getElementById a la variable <span class="code">elem</span>.
+                                </p>
+                                <p>Para hacer las modificaciones, utilizamos la propiedad <span
+                                        class="code">innerHTML</span>, a la cual se le asigna el <b>HTML
+                                        interno</b> del elemento como tipo <b>string</b>. Vinculamos el botón
+                                    de "Cambiar" a la primera función, la cual asigna un mensaje al HTML interno
+                                    del elemento con ID "rect". Nota que en la segunda función (la cual está
+                                    vinculada con el segundo botón) le asignamos un elemento de enlace al HTML
+                                    interno.</p>
+                                <p>Los botones se pueden implementar con la etiqueta <span
+                                        class="code">&lt;<span class="codetag">button</span>&gt;</span> y con el
+                                    atributo <span class="code">onclick</span> les podemos asignar una función
+                                    de JavaScript. Analiza bien todo el código, experimenta con la función <span
+                                        class="code">innerHTML</span> agregando textos y elementos diferentes.
+                                </p>
 
-                                        
-                                        
-                                </div>
-                                </div>
-                            </div>
+                                
+                                
+                        </div>
                         </div>
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -170,15 +160,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

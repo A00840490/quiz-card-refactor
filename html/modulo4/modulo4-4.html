@@ -53,93 +53,89 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                            
-                                            <h1 class="card-title"> <span
-                                                class="badge badge-light">Tema 3</span>Funciones</h1>
-                                            <p>Para implementar funciones, utilizamos la palabra reservada <span
-                                                    class="code">function</span> seguida de paréntesis en donde podemos
-                                                tener <b>variables de entrada</b> (a estas variables se les conoce como
-                                                parámetros o argumentos) para que modifiquen el comportamiento de la
-                                                función. Después se abren llaves { }, las cuales contienen las líneas de
-                                                código que se ejecutarán cuando se manda a llamar la función. Observa el
-                                                siguiente ejemplo:</p>
-                                            <div class="js-term" data-file="script.js">
+                        <div class="card">
+                            <div class="card-block">
+                                    
+                                    <h1 class="card-title"> <span
+                                        class="badge badge-light">Tema 3</span>Funciones</h1>
+                                    <p>Para implementar funciones, utilizamos la palabra reservada <span
+                                            class="code">function</span> seguida de paréntesis en donde podemos
+                                        tener <b>variables de entrada</b> (a estas variables se les conoce como
+                                        parámetros o argumentos) para que modifiquen el comportamiento de la
+                                        función. Después se abren llaves { }, las cuales contienen las líneas de
+                                        código que se ejecutarán cuando se manda a llamar la función. Observa el
+                                        siguiente ejemplo:</p>
+                                    <div class="js-term" data-file="script.js">
 <pre class="js-term__src">function miFuncion(a, b) {
-  // Aquí va el código de la función
-  // Aplica operaciones sobre los parámetros y guarda el valor en "resultado"
-  var resultado = a * b + a;
-  // Termina la función y regresa el valor de resultado
-  return resultado;
+// Aquí va el código de la función
+// Aplica operaciones sobre los parámetros y guarda el valor en "resultado"
+var resultado = a * b + a;
+// Termina la función y regresa el valor de resultado
+return resultado;
 }</pre>
-                                            </div>
-                                            <p>Analiza el código, ¿qué crees que realiza la función? Si llamamos a la
-                                                función con los valores 2 y 3, ¿qué valor se asignará a la variable
-                                                resultado?</p>
-                                            <p>Seguramente ya sabes la respuesta, pero solo para asegurar deberíamos
-                                                mandar
-                                                a llamar la función. "Mandar a llamar" una función es sinónimo de
-                                                ejecutarla, y podemos hacer esto cuantas veces queramos. Es por esto que
-                                                son
-                                                muy útiles para reutilizar código. Esto se hace muy fácilmente,
-                                                escribimos
-                                                el nombre de la función junto con sus <b>parámetros</b> que, en el caso
-                                                anterior, serían a y b. Si solo escribiéramos un parámetro en la
-                                                llamada,
-                                                JavaScript nos arrojaría un error de ejecución debido a que la función
-                                                requiere 2.</p>
-                                            <div class="content-split content-split--center">
-                                                <div>
-                                                    <p>Podemos tener funciones que no regresen ningún valor, así como funciones
-                                                        que
-                                                        no reciben parámetros. La función de ejemplo sí regresa un valor, por lo
-                                                        que
-                                                        es importante que lo guardemos para manipularlo. ¿Cómo? ¡Pues claro!, con
-                                                        una
-                                                        variable. Algo importante que debes tomar en cuenta es que las variables
-                                                        creadas dentro de una función <b>sólo existen dentro de la función</b>.
-                                                        Esto
-                                                        quiere decir que en el ejemplo anterior, no podemos usar la variable
-                                                        <span class="code">resultado</span> fuera de la función.</p>
-                                                </div>
-                                                <div>
-                                                    <div class="js-term" data-file="script.js" data-result="8">
+                                    </div>
+                                    <p>Analiza el código, ¿qué crees que realiza la función? Si llamamos a la
+                                        función con los valores 2 y 3, ¿qué valor se asignará a la variable
+                                        resultado?</p>
+                                    <p>Seguramente ya sabes la respuesta, pero solo para asegurar deberíamos
+                                        mandar
+                                        a llamar la función. "Mandar a llamar" una función es sinónimo de
+                                        ejecutarla, y podemos hacer esto cuantas veces queramos. Es por esto que
+                                        son
+                                        muy útiles para reutilizar código. Esto se hace muy fácilmente,
+                                        escribimos
+                                        el nombre de la función junto con sus <b>parámetros</b> que, en el caso
+                                        anterior, serían a y b. Si solo escribiéramos un parámetro en la
+                                        llamada,
+                                        JavaScript nos arrojaría un error de ejecución debido a que la función
+                                        requiere 2.</p>
+                                    <div class="content-split content-split--center">
+                                        <div>
+                                            <p>Podemos tener funciones que no regresen ningún valor, así como funciones
+                                                que
+                                                no reciben parámetros. La función de ejemplo sí regresa un valor, por lo
+                                                que
+                                                es importante que lo guardemos para manipularlo. ¿Cómo? ¡Pues claro!, con
+                                                una
+                                                variable. Algo importante que debes tomar en cuenta es que las variables
+                                                creadas dentro de una función <b>sólo existen dentro de la función</b>.
+                                                Esto
+                                                quiere decir que en el ejemplo anterior, no podemos usar la variable
+                                                <span class="code">resultado</span> fuera de la función.</p>
+                                        </div>
+                                        <div>
+                                            <div class="js-term" data-file="script.js" data-result="8">
 <pre class="js-term__src">var respuesta = miFuncion(2, 3);
 console.log(respuesta);</pre>
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <p>De esta manera, estamos llamando a la función con los valores 2 y 3 y nos
-                                                regresará un valor de 8.</p>
-                                            <p><span class="code">console.log</span> es una de las muchas funciones que
-                                                ya
-                                                vienen por defecto en JavaScript. Esta función no regresa ningún valor
-                                                (y,
-                                                por lo tanto, no asignamos su resultado a alguna variable), lo que hace
-                                                es
-                                                desplegar el parámetro en la <b>consola</b>. La consola es una interfaz
-                                                con
-                                                la que cuentan casi todos los navegadores, y nos permite depurar código.
-                                            </p>
-                                            <p>Copia ambos ejemplos dentro de un <span class="code">&lt;<span
-                                                        class="codetag">script</span>&gt;</span> en algún archivo HTML y
-                                                accede a tu consola. En <b>Chrome</b>, haz clic derecho y selecciona
-                                                <b>inspeccionar</b>. Después accede a la consola, así:
-                                            </p>
-                                            <div class="d-flex justify-content-center">
-                                                <div class="text-center mrg-btm-80 mrg-top-40" style="max-width: 1200px;">
-                                                    <img src="../../assets/images/course/modulo4/consolelog.gif" alt="">
-                                                </div>
-                                            </div>
-                                            
-                                            <p class="mrg-btm-30">Como puedes ver, podemos escribir JavaScript directamente en la consola, y
-                                                también nos
-                                                desplegará errores de ejecución.</p>
+                                        </div>
                                     </div>
-                                </div>
+                                    <p>De esta manera, estamos llamando a la función con los valores 2 y 3 y nos
+                                        regresará un valor de 8.</p>
+                                    <p><span class="code">console.log</span> es una de las muchas funciones que
+                                        ya
+                                        vienen por defecto en JavaScript. Esta función no regresa ningún valor
+                                        (y,
+                                        por lo tanto, no asignamos su resultado a alguna variable), lo que hace
+                                        es
+                                        desplegar el parámetro en la <b>consola</b>. La consola es una interfaz
+                                        con
+                                        la que cuentan casi todos los navegadores, y nos permite depurar código.
+                                    </p>
+                                    <p>Copia ambos ejemplos dentro de un <span class="code">&lt;<span
+                                                class="codetag">script</span>&gt;</span> en algún archivo HTML y
+                                        accede a tu consola. En <b>Chrome</b>, haz clic derecho y selecciona
+                                        <b>inspeccionar</b>. Después accede a la consola, así:
+                                    </p>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="text-center mrg-btm-80 mrg-top-40" style="max-width: 1200px;">
+                                            <img src="../../assets/images/course/modulo4/consolelog.gif" alt="">
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="mrg-btm-30">Como puedes ver, podemos escribir JavaScript directamente en la consola, y
+                                        también nos
+                                        desplegará errores de ejecución.</p>
                             </div>
                         </div>
 
@@ -148,11 +144,9 @@ console.log(respuesta);</pre>
 
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -168,15 +162,9 @@ console.log(respuesta);</pre>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

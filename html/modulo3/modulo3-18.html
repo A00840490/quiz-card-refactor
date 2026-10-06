@@ -54,128 +54,113 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-horizon">
-                                        <div class="image-container col-md-4">
-                                            <div class="background-holder has-content"
-                                                style="background-image: url('../../assets/images/course/modulo3/m3-11/texto.jpg'); background-position: top;">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8 ml-auto">
-                                                <div class="card-block">
-                                                <h1 class="card-title"><span class="badge badge-light">Tema
-                                                        17</span> Fuentes y Estilos de Texto</h1>
-                                                <p>Una de las mejores estilizaciones que puedes añadirle a una página
-                                                    web es una buena fuente de texto. Es importante que el texto sea
-                                                    legible, tenga un buen tamaño y vaya acorde con la temática de la
-                                                    página; imagina si este texto fuera amarillo y tuviera un tamaño
-                                                    pequeño, ¿crees que sería cómodo tomar el curso de esta forma?</p>
-                                                <p>Como desarrollador, tienes que pensar en cómo tus usuarios verán tu
-                                                    contenido. Existen miles de fuentes disponibles para usar en
-                                                    nuestras páginas web, pero no todas son gratuitas. <a
-                                                        href="https://fonts.google.com/" target="_blank">Google
-                                                        Fonts</a> es una excelente página para obtener fuentes gratuitas
-                                                    y de uso libre. Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en la liga y escoge algunas que te gusten.
-                                                </p>
-                                            </div>
-                                            </div>
-                                        </div>
+                        <div class="card">
+                            <div class="card-horizon">
+                                <div class="image-container col-md-4">
+                                    <div class="background-holder has-content"
+                                        style="background-image: url('../../assets/images/course/modulo3/m3-11/texto.jpg'); background-position: top;">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8 ml-auto">
+                                        <div class="card-block">
+                                        <h1 class="card-title"><span class="badge badge-light">Tema
+                                                17</span> Fuentes y Estilos de Texto</h1>
+                                        <p>Una de las mejores estilizaciones que puedes añadirle a una página
+                                            web es una buena fuente de texto. Es importante que el texto sea
+                                            legible, tenga un buen tamaño y vaya acorde con la temática de la
+                                            página; imagina si este texto fuera amarillo y tuviera un tamaño
+                                            pequeño, ¿crees que sería cómodo tomar el curso de esta forma?</p>
+                                        <p>Como desarrollador, tienes que pensar en cómo tus usuarios verán tu
+                                            contenido. Existen miles de fuentes disponibles para usar en
+                                            nuestras páginas web, pero no todas son gratuitas. <a
+                                                href="https://fonts.google.com/" target="_blank">Google
+                                                Fonts</a> es una excelente página para obtener fuentes gratuitas
+                                            y de uso libre. Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en la liga y escoge algunas que te gusten.
+                                        </p>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                            <h2 class="card-title">Implementar Fuentes</h2>
-                                            <p>Podemos colocar fuentes en nuestros proyectos web de diferentes maneras.
-                                                En
-                                                la página de Google Fonts podemos seleccionar todos los estilos que
-                                                queramos
-                                                y para utilizarlos tenemos 3 opciones: </p>
-                                            <ol>
-                                                <li>
-                                                    <h3 class="card-title">1. Descargar la fuente </h3> <p>Podemos descargar la fuente que
-                                                        queremos utilizar. Normalmente, se encuentran en formato
-                                                        <b>.ttf</b>.
-                                                        Después, tenemos que vincular el archivo con nuestro CSS,
-                                                        utilizando
-                                                        una instrucción especial llamada <span
-                                                            class="code">@font-face</span>. Este selector se utiliza de
-                                                        la
-                                                        siguiente manera:</p>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="card">
-                                                                <div class="container-fluid"></div>
-                                                                <p class="code" style=" background-color: #1a1a1a"><span
-                                                                        class="codetag">@font-face</span> { <br>
-                                                                    &nbsp;&nbsp;&nbsp;font-family: <span
-                                                                        class="codetext">NombreDeLaFuente</span>;
-                                                                    <br>&nbsp;&nbsp;&nbsp;src: <span
-                                                                        class="codetext">url('NombreDeLaFuente.ttf')</span>;
-                                                                    <br> }
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <p class="mrg-btm-50">Una vez importada, podemos utilizar el nombre que asignemos a
-                                                        la
-                                                        propiedad "font-family" para modificar la fuente de nuestros
-                                                        elementos.</p>
-                                                </li>
-                                                <li>
-                                                    <h3 class="card-title">2. Vincular la Fuente desde HTML </h3><p> También podemos utilizar
-                                                        el
-                                                        elemento <span class="code">&lt;<span
-                                                                class="codetag">link</span>&gt;</span> desde nuestro
-                                                        código
-                                                        HTML. Google Fonts nos brinda el código para copiarlo al
-                                                        seleccionar
-                                                        nuestras fuentes:</p>
-                                                    <div class="text-center mrg-btm-50">
-                                                        <img src="../../assets/images/course/modulo3/m3-11/link_googlefonts.gif"
-                                                            style="width:100%"
-                                                            alt="">
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <h3 class="card-title">3. Vincular con <span class="code">@import</span></h3> <p> CSS
-                                                        cuenta
-                                                        con una instrucción <span class="code">@import</span>.
-                                                        Normalmente,
-                                                        se coloca en la etiqueta <span class="code">&lt;<span
-                                                                class="codetag">style</span>&gt;</span> dentro del head.
-                                                        Google Fonts nos brinda el código para copiarlo al seleccionar
-                                                        nuestras fuentes:</p>
-                                                    <div class="text-center mrg-btm-50">
-                                                        <img src="../../assets/images/course/modulo3/m3-11/import_googlefonts.gif"
-                                                            alt="">
-                                                    </div>
-                                                </li>
-                                                </ol>
-                                                <p>Para cualquier opción tenemos que utilizar la propiedad <span
-                                                        class="code">font-family</span> con el nombre de la fuente a
-                                                    utilizar para poder ver nuestra nueva fuente en el contenido que
-                                                    queramos.</p>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <div class="card-block">
+                                    <h2 class="card-title">Implementar Fuentes</h2>
+                                    <p>Podemos colocar fuentes en nuestros proyectos web de diferentes maneras.
+                                        En
+                                        la página de Google Fonts podemos seleccionar todos los estilos que
+                                        queramos
+                                        y para utilizarlos tenemos 3 opciones: </p>
+                                    <ol>
+                                        <li>
+                                            <h3 class="card-title">1. Descargar la fuente </h3> <p>Podemos descargar la fuente que
+                                                queremos utilizar. Normalmente, se encuentran en formato
+                                                <b>.ttf</b>.
+                                                Después, tenemos que vincular el archivo con nuestro CSS,
+                                                utilizando
+                                                una instrucción especial llamada <span
+                                                    class="code">@font-face</span>. Este selector se utiliza de
+                                                la
+                                                siguiente manera:</p>
+                                            <div class="card">
+                                                <div class="container-fluid"></div>
+                                                <p class="code" style=" background-color: #1a1a1a"><span
+                                                        class="codetag">@font-face</span> { <br>
+                                                    &nbsp;&nbsp;&nbsp;font-family: <span
+                                                        class="codetext">NombreDeLaFuente</span>;
+                                                    <br>&nbsp;&nbsp;&nbsp;src: <span
+                                                        class="codetext">url('NombreDeLaFuente.ttf')</span>;
+                                                    <br> }
+                                                </p>
+                                            </div>
+                                            <p class="mrg-btm-50">Una vez importada, podemos utilizar el nombre que asignemos a
+                                                la
+                                                propiedad "font-family" para modificar la fuente de nuestros
+                                                elementos.</p>
+                                        </li>
+                                        <li>
+                                            <h3 class="card-title">2. Vincular la Fuente desde HTML </h3><p> También podemos utilizar
+                                                el
+                                                elemento <span class="code">&lt;<span
+                                                        class="codetag">link</span>&gt;</span> desde nuestro
+                                                código
+                                                HTML. Google Fonts nos brinda el código para copiarlo al
+                                                seleccionar
+                                                nuestras fuentes:</p>
+                                            <div class="text-center mrg-btm-50">
+                                                <img src="../../assets/images/course/modulo3/m3-11/link_googlefonts.gif"
+                                                    style="width:100%"
+                                                    alt="">
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3 class="card-title">3. Vincular con <span class="code">@import</span></h3> <p> CSS
+                                                cuenta
+                                                con una instrucción <span class="code">@import</span>.
+                                                Normalmente,
+                                                se coloca en la etiqueta <span class="code">&lt;<span
+                                                        class="codetag">style</span>&gt;</span> dentro del head.
+                                                Google Fonts nos brinda el código para copiarlo al seleccionar
+                                                nuestras fuentes:</p>
+                                            <div class="text-center mrg-btm-50">
+                                                <img src="../../assets/images/course/modulo3/m3-11/import_googlefonts.gif"
+                                                    alt="">
+                                            </div>
+                                        </li>
+                                        </ol>
+                                        <p>Para cualquier opción tenemos que utilizar la propiedad <span
+                                                class="code">font-family</span> con el nombre de la fuente a
+                                            utilizar para poder ver nuestra nueva fuente en el contenido que
+                                            queramos.</p>
                             </div>
                         </div>
 
                         
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -191,15 +176,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

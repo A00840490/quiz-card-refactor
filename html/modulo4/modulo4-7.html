@@ -53,200 +53,188 @@
 
 
                         <!-- Your content goes here -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-horizon">
-                                        <div class="image-container col-md-6" style="right: 0;">
-                                            <div class="background-holder has-content"
-                                                style="background-image: url('../../assets/images/course/modulo4/m4-5/condicionales.png')">
-                                            </div>
+                        <div class="card">
+                            <div class="card-horizon">
+                                <div class="image-container col-md-6" style="right: 0;">
+                                    <div class="background-holder has-content"
+                                        style="background-image: url('../../assets/images/course/modulo4/m4-5/condicionales.png')">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="card-block">
+
+                                            <h1 class="card-title"><span class="badge badge-light">Tema
+                                                    6</span>Condicionales</h1>
+                                            <p>Existen algunos casos en los que no queremos que ciertas
+                                                secciones del código se ejecuten. Por ejemplo: imagina que
+                                                tienes algún formulario en una página. Si el usuario ingresa
+                                                algún valor que no es adecuado, no queremos que el formulario
+                                                sea aceptado. Podemos utilizar <b>condiciones</b> para verificar
+                                                que los valores de entrada sean correctos. </p>
+                                            <p>Una condición es una declaración que da como resultado un valor
+                                                booleano: <span class="code">True</span> o <span
+                                                    class="code">False</span>, que quieren decir <b>cierto</b> o
+                                                <b>falso</b> respectivamente. </p>
+                                            <p>Las condiciones se pueden aplicar sobre el valor de una variable,
+                                                el resultado de una función o la existencia de cierto elemento,
+                                                entre otros. Gracias a las condiciones, podemos tomar decisiones
+                                                en nuestro código y evitar errores. Estas "decisiones" las
+                                                implementamos con sentencias <span class="code">if</span> y
+                                                sentencias <span class="code">else</span>; las sentencias if y
+                                                else son parte de un grupo de instrucciones de programación
+                                                llamadas estructuras de control.</p>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-6">
-
-                                                <div class="card-block">
-
-                                                    <h1 class="card-title"><span class="badge badge-light">Tema
-                                                            6</span>Condicionales</h1>
-                                                    <p>Existen algunos casos en los que no queremos que ciertas
-                                                        secciones del código se ejecuten. Por ejemplo: imagina que
-                                                        tienes algún formulario en una página. Si el usuario ingresa
-                                                        algún valor que no es adecuado, no queremos que el formulario
-                                                        sea aceptado. Podemos utilizar <b>condiciones</b> para verificar
-                                                        que los valores de entrada sean correctos. </p>
-                                                    <p>Una condición es una declaración que da como resultado un valor
-                                                        booleano: <span class="code">True</span> o <span
-                                                            class="code">False</span>, que quieren decir <b>cierto</b> o
-                                                        <b>falso</b> respectivamente. </p>
-                                                    <p>Las condiciones se pueden aplicar sobre el valor de una variable,
-                                                        el resultado de una función o la existencia de cierto elemento,
-                                                        entre otros. Gracias a las condiciones, podemos tomar decisiones
-                                                        en nuestro código y evitar errores. Estas "decisiones" las
-                                                        implementamos con sentencias <span class="code">if</span> y
-                                                        sentencias <span class="code">else</span>; las sentencias if y
-                                                        else son parte de un grupo de instrucciones de programación
-                                                        llamadas estructuras de control.</p>
-                                                </div>
-
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h2 class="card-title">Operadores de Comparación</h2>
-                                        <p>Además de operadores aritméticos y de asignación, también existen operadores
-                                            para comparar valores y variables que nos sirven para crear diversas
-                                            <b>condiciones</b>. Antes de aprender sobre <span class="code">if</span> y
-                                            <span class="code">else</span>, es importante que conozcas estos operadores
-                                            y sepas implementarlos dependiendo del caso que se te presente. Estos se
-                                            utilizan principalmente dentro de los <span class="code">if</span> y siempre
-                                            regresan un <b>valor booleano</b>. Si se cumple la condición, entonces
-                                            regresan <span class="code">True</span>, sino <span
-                                                class="code">False</span>.</p>
-                                        <p style="font-weight: bold;">Lee la siguiente tabla y analiza los ejemplos.
-                                            Para todos ellos asume que la variable <span class="code">x</span> tiene un
-                                            valor de 10.</p>
-                                        <div class="d-flex justify-content-center">
-                                        <table class="table table-bordered table-hover" style="max-width: 800px; text-align: center;">
-                                            <thead class="table-primary">
-                                                <tr>
-                                                    <th colspan="4" style="text-align: center;">Operadores de
-                                                        Comparación</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Operador</th>
-                                                    <th>Función</th>
-                                                    <th>Ejemplo de uso</th>
-                                                    <th>Resultado del ejemplo</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td style="height: 29px">==</td>
-                                                    <td style="height: 29px">verifica si es igual al valor dado</td>
-                                                    <td style="height: 29px"><span class="code">x == 2</span></td>
-                                                    <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 29px">!=</td>
-                                                    <td style="height: 29px">verifica si no es igual al valor dado</td>
-                                                    <td style="height: 29px"><span class="code">x != 2</span></td>
-                                                    <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 29px">&lt;</td>
-                                                    <td style="height: 29px">verifica si es menor al valor dado</td>
-                                                    <td style="height: 29px"><span class="code">x &lt; 2</span></td>
-                                                    <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 29px">&gt;</td>
-                                                    <td style="height: 29px">verifica si es mayor al valor dado</td>
-                                                    <td style="height: 29px"><span class="code">x > 2</span></td>
-                                                    <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 29px">&lt;=</td>
-                                                    <td style="height: 29px">verifica si es menor o igual al valor dado
-                                                    </td>
-                                                    <td style="height: 29px"><span class="code">x &lt;= 2</span></td>
-                                                    <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 29px">&gt;=</td>
-                                                    <td style="height: 29px">verifica si es mayor o igual al valor dado
-                                                    </td>
-                                                    <td style="height: 29px"><span class="code">x &gt;= 2</span></td>
-                                                    <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>                                        
-                                        </div>
-                                        <p>Podemos comparar cualquier valor o variable entre sí, sin importar su tipo.
-                                            Verifica en la consola de tu navegador los ejemplos de arriba, la consola
-                                            deberá decirte si la declaración ingresada es <span class="code">True</span>
-                                            o <span class="code">False</span>. Recuerda declarar la variable <span
-                                                class="code">x</span> con valor numérico. Después cambia el valor de
-                                            <span class="code">x</span> y haz las mismas operaciones. ¿Cómo han cambiado
-                                            los resultados?</p>
-                                        <p>También puedes asignar los valores de "True" y "False" a una variable. Esto
-                                            convierte a la variable a tipo booleano:</p>
-                                            <div class="js-term" data-file="booleanos.js">
+                        <div class="card">
+                            <div class="card-block">
+                                <h2 class="card-title">Operadores de Comparación</h2>
+                                <p>Además de operadores aritméticos y de asignación, también existen operadores
+                                    para comparar valores y variables que nos sirven para crear diversas
+                                    <b>condiciones</b>. Antes de aprender sobre <span class="code">if</span> y
+                                    <span class="code">else</span>, es importante que conozcas estos operadores
+                                    y sepas implementarlos dependiendo del caso que se te presente. Estos se
+                                    utilizan principalmente dentro de los <span class="code">if</span> y siempre
+                                    regresan un <b>valor booleano</b>. Si se cumple la condición, entonces
+                                    regresan <span class="code">True</span>, sino <span
+                                        class="code">False</span>.</p>
+                                <p style="font-weight: bold;">Lee la siguiente tabla y analiza los ejemplos.
+                                    Para todos ellos asume que la variable <span class="code">x</span> tiene un
+                                    valor de 10.</p>
+                                <div class="d-flex justify-content-center">
+                                <table class="table table-bordered table-hover" style="max-width: 800px; text-align: center;">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th colspan="4" style="text-align: center;">Operadores de
+                                                Comparación</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Operador</th>
+                                            <th>Función</th>
+                                            <th>Ejemplo de uso</th>
+                                            <th>Resultado del ejemplo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="height: 29px">==</td>
+                                            <td style="height: 29px">verifica si es igual al valor dado</td>
+                                            <td style="height: 29px"><span class="code">x == 2</span></td>
+                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 29px">!=</td>
+                                            <td style="height: 29px">verifica si no es igual al valor dado</td>
+                                            <td style="height: 29px"><span class="code">x != 2</span></td>
+                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 29px">&lt;</td>
+                                            <td style="height: 29px">verifica si es menor al valor dado</td>
+                                            <td style="height: 29px"><span class="code">x &lt; 2</span></td>
+                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 29px">&gt;</td>
+                                            <td style="height: 29px">verifica si es mayor al valor dado</td>
+                                            <td style="height: 29px"><span class="code">x > 2</span></td>
+                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 29px">&lt;=</td>
+                                            <td style="height: 29px">verifica si es menor o igual al valor dado
+                                            </td>
+                                            <td style="height: 29px"><span class="code">x &lt;= 2</span></td>
+                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height: 29px">&gt;=</td>
+                                            <td style="height: 29px">verifica si es mayor o igual al valor dado
+                                            </td>
+                                            <td style="height: 29px"><span class="code">x &gt;= 2</span></td>
+                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>                                        
+                                </div>
+                                <p>Podemos comparar cualquier valor o variable entre sí, sin importar su tipo.
+                                    Verifica en la consola de tu navegador los ejemplos de arriba, la consola
+                                    deberá decirte si la declaración ingresada es <span class="code">True</span>
+                                    o <span class="code">False</span>. Recuerda declarar la variable <span
+                                        class="code">x</span> con valor numérico. Después cambia el valor de
+                                    <span class="code">x</span> y haz las mismas operaciones. ¿Cómo han cambiado
+                                    los resultados?</p>
+                                <p>También puedes asignar los valores de "True" y "False" a una variable. Esto
+                                    convierte a la variable a tipo booleano:</p>
+                                    <div class="js-term" data-file="booleanos.js">
 <pre class="js-term__src">// Declaramos x como una variable booleana con valor true
 var x = true;</pre>
-                                            </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
 
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <h2 class="card-title">Sentencias If y Else</h2>
-                                        <p>Para poder tomar diferentes caminos de ejecución en nuestro código se
-                                            utilizan estas palabras reservadas. Un <span class="code">if</span> nos
-                                            permite establecer una condición inicial: si esta se cumple (se evalúa como
-                                            <span class="code">True</span>), entonces se ejecuta el código dentro de
-                                            ella. </p>
-                                        <div class="js-term" data-file="if.js">
+                        <div class="card">
+                            <div class="card-block">
+                                <h2 class="card-title">Sentencias If y Else</h2>
+                                <p>Para poder tomar diferentes caminos de ejecución en nuestro código se
+                                    utilizan estas palabras reservadas. Un <span class="code">if</span> nos
+                                    permite establecer una condición inicial: si esta se cumple (se evalúa como
+                                    <span class="code">True</span>), entonces se ejecuta el código dentro de
+                                    ella. </p>
+                                <div class="js-term" data-file="if.js">
 <pre class="js-term__src">if (condición) {
-  // código a ejecutar si se cumple la condición
+// código a ejecutar si se cumple la condición
 }</pre>
-                                        </div>
-                                        <p>Una sentencia <span class="code">else</span> nos permite tomar acción cuando
-                                            la condición inicial <b>no se cumple</b> (que es cuando la condición
-                                            equivale a False), pero no es obligatorio utilizarla para cada sentencia
-                                            <span class="code">if</span> que implementemos. Tal vez solo queremos
-                                            revisar si se cumple alguna condición sin correr código cuando no se cumpla.
-                                            Para agregar una sentencia <span class="code">else</span>, necesitamos
-                                            escribir una sentencia <span class="code">if</span> antes. El siguiente
-                                            ejemplo siempre ejecuta el código dentro del <span class="code">else</span>;
-                                            compruébalo en tu consola:</p>
-                                        <div class="js-term" data-file="if-else.js" data-result="2 no es mayor a 3">
+                                </div>
+                                <p>Una sentencia <span class="code">else</span> nos permite tomar acción cuando
+                                    la condición inicial <b>no se cumple</b> (que es cuando la condición
+                                    equivale a False), pero no es obligatorio utilizarla para cada sentencia
+                                    <span class="code">if</span> que implementemos. Tal vez solo queremos
+                                    revisar si se cumple alguna condición sin correr código cuando no se cumpla.
+                                    Para agregar una sentencia <span class="code">else</span>, necesitamos
+                                    escribir una sentencia <span class="code">if</span> antes. El siguiente
+                                    ejemplo siempre ejecuta el código dentro del <span class="code">else</span>;
+                                    compruébalo en tu consola:</p>
+                                <div class="js-term" data-file="if-else.js" data-result="2 no es mayor a 3">
 <pre class="js-term__src">// Checamos si 2 es mayor a 3
 if (2 &gt; 3) {
-  console.log("2 es mayor a 3");
+console.log("2 es mayor a 3");
 } else {
-  console.log("2 no es mayor a 3");
+console.log("2 no es mayor a 3");
 }</pre>
-                                        </div>
-                                        <p>Como puedes ver, para implementar un <span class="code">else</span> sólo hay
-                                            que colocarlo después del cierre del <span class="code">if</span>. Un <span
-                                                class="code">else </span> nunca tendrá su propia condición, pues
-                                            únicamente se ejecutan cuando ninguna condición. Si queremos agregar
-                                            múltiples condiciones para diferentes rangos de valores de una variable,
-                                            podemos combinar utilizar unas sentencia <span class="code">else if</span>.
-                                        </p>
-                                        <h3 class="card-title mrg-top-20"> Else If</h3>
-                                        <p>Los <span class="code">else if</span> son utilizados cuando la primera
-                                            condición (la del <span class="code">if</span>) no se cumple y aún
-                                            necesitamos verificar otras condiciones. Estas condiciones se revisan
-                                            consecutivamente, y solo si <b>las condiciones anteriores a la actual no se
-                                                han cumplido</b>. Observa el ejemplo:</p>
-                                        <div class="js-term" data-file="else-if.js" data-result="2 es menor a 3">
+                                </div>
+                                <p>Como puedes ver, para implementar un <span class="code">else</span> sólo hay
+                                    que colocarlo después del cierre del <span class="code">if</span>. Un <span
+                                        class="code">else </span> nunca tendrá su propia condición, pues
+                                    únicamente se ejecutan cuando ninguna condición. Si queremos agregar
+                                    múltiples condiciones para diferentes rangos de valores de una variable,
+                                    podemos combinar utilizar unas sentencia <span class="code">else if</span>.
+                                </p>
+                                <h3 class="card-title mrg-top-20"> Else If</h3>
+                                <p>Los <span class="code">else if</span> son utilizados cuando la primera
+                                    condición (la del <span class="code">if</span>) no se cumple y aún
+                                    necesitamos verificar otras condiciones. Estas condiciones se revisan
+                                    consecutivamente, y solo si <b>las condiciones anteriores a la actual no se
+                                        han cumplido</b>. Observa el ejemplo:</p>
+                                <div class="js-term" data-file="else-if.js" data-result="2 es menor a 3">
 <pre class="js-term__src">// Checamos si 2 es mayor a 3
 if (2 &gt; 3) {
-  console.log("2 es mayor a 3");
+console.log("2 es mayor a 3");
 } else if (2 &lt; 3) {
-  // Si la primera condición no se cumple, se revisa esta
-  console.log("2 es menor a 3");
+// Si la primera condición no se cumple, se revisa esta
+console.log("2 es menor a 3");
 } else {
-  // Si no se cumple ninguna de las condiciones anteriores
-  console.log("2 es igual a 3");
+// Si no se cumple ninguna de las condiciones anteriores
+console.log("2 es igual a 3");
 }</pre>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -255,11 +243,9 @@ if (2 &gt; 3) {
 
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -275,15 +261,9 @@ if (2 &gt; 3) {
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>

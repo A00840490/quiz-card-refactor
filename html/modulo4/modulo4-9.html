@@ -54,72 +54,66 @@
                         <!-- Your content goes here -->
                         
 
-                        <div class="row">
-                            <div class="col">
+                        <div class="card">
+                            <div class="card-block">
+                                <h1 class="card-title"><span class="badge badge-light">Tema
+                                    8</span>Switch</h1>
+                                <p>Otra estructura de control de flujo es el <span class="code">switch</span>.
+                                    La diferencia entre las sentencias if y else y los <span
+                                        class="code">switch</span> es que los switch se utilizan para comparar
+                                    <b>múltiples valores específicos</b>.</p>
+                                <p>Un <span class="code">switch</span> cuenta con varios <span
+                                        class="code">case</span> que contienen el código que se ejecuta cuando
+                                    el valor que le damos a comparar al switch es igual al que especificamos en
+                                    cada case. Observa este ejemplo: </p>
                                 <div class="card">
-                                    <div class="card-block">
-                                        <h1 class="card-title"><span class="badge badge-light">Tema
-                                            8</span>Switch</h1>
-                                        <p>Otra estructura de control de flujo es el <span class="code">switch</span>.
-                                            La diferencia entre las sentencias if y else y los <span
-                                                class="code">switch</span> es que los switch se utilizan para comparar
-                                            <b>múltiples valores específicos</b>.</p>
-                                        <p>Un <span class="code">switch</span> cuenta con varios <span
-                                                class="code">case</span> que contienen el código que se ejecuta cuando
-                                            el valor que le damos a comparar al switch es igual al que especificamos en
-                                            cada case. Observa este ejemplo: </p>
-                                        <div class="card">
-                                            <div class="container-fluid">
-                                                <p class="codepen" data-height="500" data-theme-id="dark"
-                                                    data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                                    data-slug-hash="vYXvgzg"
-                                                    style="height: 500; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                                    data-pen-title="switch js ejemplo">
-                                                    <span>See the Pen <a
-                                                            href="https://codepen.io/luis-yerik-arambula/pen/vYXvgzg"
-                                                            target="_blank">
-                                                            switch js ejemplo</a> by Luis Yerik Arambula (<a
-                                                            href="https://codepen.io/luis-yerik-arambula"
-                                                            target="_blank">@luis-yerik-arambula</a>)
-                                                        on <a href="https://codepen.io"
-                                                            target="_blank">CodePen</a>.</span>
-                                                </p>
-                                                <script async
-                                                    src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                                            </div>
-                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                                <!-- Fuente  -->
-                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                              </p>
-                                        </div>
-                                        <p>Analiza el código. Al inicio de la función obtenemos el elemento input que
-                                            recibe la entrada del usuario (la caja de texto) y pasamos su valor actual
-                                            switch utilizando la propiedad value. Después se ejecutará el código en el
-                                            <span class="code">case</span> que coincida con el valor de entrada.
-                                            Por ejemplo, si el valor que ingresamos es 1 entonces se asigna "El valor es
-                                            1" a la variable <span class="code">text</span>. Nota que tenemos un <span
-                                                class="code">break</span> al final de cada caso: esto le indica a
-                                            JavaScript que en ese punto terminan las líneas de código que se correrán
-                                            cuando se cumple el caso.</p>
-                                        <p>También tenemos un caso <span class="code">default</span>, y contiene el
-                                            código que se ejecuta <b>por defecto</b> en el switch. Este debe colocarse
-                                            al final, y sólo se ejecuta cuando ningún <span class="code">case</span> es
-                                            aceptado. Es el equivalente a utilizar una sentencia <span
-                                                class="code">else</span>, y es por eso por lo que si ingresamos un valor
-                                            diferente a 1, 2 o 3, la página de ejemplo nos muestra que no ingresamos una
-                                            entrada válida.</p>
+                                    <div class="container-fluid">
+                                        <p class="codepen" data-height="500" data-theme-id="dark"
+                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
+                                            data-slug-hash="vYXvgzg"
+                                            style="height: 500; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+                                            data-pen-title="switch js ejemplo">
+                                            <span>See the Pen <a
+                                                    href="https://codepen.io/luis-yerik-arambula/pen/vYXvgzg"
+                                                    target="_blank">
+                                                    switch js ejemplo</a> by Luis Yerik Arambula (<a
+                                                    href="https://codepen.io/luis-yerik-arambula"
+                                                    target="_blank">@luis-yerik-arambula</a>)
+                                                on <a href="https://codepen.io"
+                                                    target="_blank">CodePen</a>.</span>
+                                        </p>
+                                        <script async
+                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
                                     </div>
+                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                        <!-- Fuente  -->
+                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
+                                      </p>
                                 </div>
+                                <p>Analiza el código. Al inicio de la función obtenemos el elemento input que
+                                    recibe la entrada del usuario (la caja de texto) y pasamos su valor actual
+                                    switch utilizando la propiedad value. Después se ejecutará el código en el
+                                    <span class="code">case</span> que coincida con el valor de entrada.
+                                    Por ejemplo, si el valor que ingresamos es 1 entonces se asigna "El valor es
+                                    1" a la variable <span class="code">text</span>. Nota que tenemos un <span
+                                        class="code">break</span> al final de cada caso: esto le indica a
+                                    JavaScript que en ese punto terminan las líneas de código que se correrán
+                                    cuando se cumple el caso.</p>
+                                <p>También tenemos un caso <span class="code">default</span>, y contiene el
+                                    código que se ejecuta <b>por defecto</b> en el switch. Este debe colocarse
+                                    al final, y sólo se ejecuta cuando ningún <span class="code">case</span> es
+                                    aceptado. Es el equivalente a utilizar una sentencia <span
+                                        class="code">else</span>, y es por eso por lo que si ingresamos un valor
+                                    diferente a 1, 2 o 3, la página de ejemplo nos muestra que no ingresamos una
+                                    entrada válida.</p>
                             </div>
                         </div>
 
 
                         <!--Botones de avance entre páginas-->
-                        <div class="row mrg-btm-20">
-                            <div class="col text-center">
-                                <div class="btn-group">
+                        <div class="mrg-btm-20 text-center">
+                            <div class="btn-group">
 
-                                </div>
                             </div>
                         </div>
 
@@ -135,15 +129,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div id="circlecontainer"></div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col text-center">
-                                            <h3 class="feed-subtitle">Progreso General del Curso</h3>
-                                        </div>
+                                    <div id="circlecontainer"></div>
+                                    <div class="text-center">
+                                        <h3 class="feed-subtitle">Progreso General del Curso</h3>
                                     </div>
                                 </div>
                             </div>
