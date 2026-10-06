@@ -160,15 +160,22 @@
 .arr-wagon__idx span {
   padding: 2px 10px;
   border-radius: 999px;
-  background: #fff;
+  background: transparent;
   color: var(--muted);
   font: 700 13px Consolas, monospace;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
-  transition: background-color .25s, color .25s, transform .25s;
+  transition: background-color .25s, color .25s, transform .25s, box-shadow .25s;
 }
 
-.arr-wagon__idx span.is-changed { background: #fac775; color: #412402; transform: scale(1.12); }
-.arr-wagon__idx span.is-count { background: var(--theme-color); color: #fff; transform: scale(1.12); }
+/* Al cambiar de índice el número se resalta un momento (sin etiqueta) */
+.arr-wagon__idx span.is-changed { color: #b06a00; transform: scale(1.15); }
+
+/* .length: cada índice se enciende como etiqueta azul mientras se cuenta */
+.arr-wagon__idx span.is-count {
+  background: var(--theme-color);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+  transform: scale(1.12);
+}
 
 /* Ruedas: giran mientras el vagón se mueve */
 .arr-wheel { transform-box: fill-box; transform-origin: center; }
