@@ -228,12 +228,6 @@
     nextEx: root.querySelector("[data-next-ex]"),
     code: root.querySelector("[data-code]"),
     frame: root.querySelector("[data-frame]"),
-    question: root.querySelector("[data-question]"),
-    result: root.querySelector("[data-result]"),
-    resultScore: root.querySelector("[data-result-score]"),
-    resultMsg: root.querySelector("[data-result-msg]"),
-    resultList: root.querySelector("[data-result-list]"),
-    restart: root.querySelector("[data-restart]"),
   };
 
   var state;
@@ -248,9 +242,6 @@
       between: false, // ejercicio terminado, esperando "Siguiente ejercicio"
       done: false, // todos los ejercicios terminados
     };
-    els.result.hidden = true;
-    els.question.hidden = false;
-    els.actions.hidden = false;
     render();
   }
 
@@ -414,17 +405,19 @@
     renderProgress();
 
     var q = QUESTIONS[state.current];
-    if (exerciseComplete()) {
+    if (state.done) {
+      els.ask.textContent = "¡Completaste los ejercicios!";
+    } else if (exerciseComplete()) {
       els.ask.textContent = "¡Terminaste el ejercicio " + (state.ex + 1) + "!";
     } else {
       els.ask.textContent = q ? q.data.ask : "";
     }
 
-    var isLast = state.ex === EXERCISES.length - 1;
-    els.check.hidden = state.waiting || exerciseComplete();
+    // Al terminar todo, el botón de Revisar se vuelve "Intentar de nuevo".
+    els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
+    els.check.hidden = state.waiting || state.between;
     els.next.hidden = !state.waiting;
-    els.nextEx.hidden = !exerciseComplete();
-    els.nextEx.textContent = isLast ? "Ver resultados" : "Siguiente ejercicio";
+    els.nextEx.hidden = !state.between;
 
     if (!state.waiting && !exerciseComplete()) {
       els.feedback.className = "builder__feedback";
@@ -502,20 +495,30 @@
     state.correct[state.current] = ok;
     state.answers[state.current] = q.data.a;
 
+    var wrongFb =
+      "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
+      "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
+
     if (ok) {
       var fb = "<strong>¡Correcto!</strong> " + esc(q.data.why);
       advance();
       render();
       els.feedback.className = "builder__feedback is-right";
       els.feedback.innerHTML = fb + (exerciseComplete() ? summaryHtml() : "");
-      if (exerciseComplete()) els.nextEx.focus();
+      if (state.done) finish();
+      else if (exerciseComplete()) els.nextEx.focus();
+    } else if (state.current === QUESTIONS.length - 1) {
+      // Última pregunta: no hace falta "Continuar", se va directo al resultado.
+      advance();
+      render();
+      els.feedback.className = "builder__feedback is-wrong";
+      els.feedback.innerHTML = wrongFb + summaryHtml();
+      finish();
     } else {
       state.waiting = true;
       render();
       els.feedback.className = "builder__feedback is-wrong";
-      els.feedback.innerHTML =
-        "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
+      els.feedback.innerHTML = wrongFb;
       els.next.focus();
     }
   }
@@ -531,68 +534,38 @@
   }
 
   function nextExercise() {
-    if (state.done) return finish();
     state.between = false;
     state.ex++;
     render();
   }
 
+  // Al terminar: ventana con los aciertos y si conviene volver a intentarlo.
   function finish() {
     var total = QUESTIONS.length;
     var hits = state.correct.filter(Boolean).length;
-    renderProgress();
-    els.question.hidden = true;
-    els.actions.hidden = true;
+    var passed = hits * 100 >= total * 80;
+    els.check.focus({ preventScroll: true });
 
-    els.resultScore.textContent = hits + " de " + total;
-    var score = Math.round((hits * 100) / total);
-    els.resultMsg.textContent =
-      score >= 80
-        ? "¡Excelente! Completaste los ejercicios casi sin errores."
-        : "Repasa los temas de las respuestas que fallaste y vuelve a intentarlo.";
-
-    var perExercise = EXERCISES.map(function (_, ei) {
-      var s = exerciseScore(ei);
-      return "<li>Ejercicio " + (ei + 1) + ": " + s.hits + " de " + s.total + "</li>";
-    }).join("");
-    var missed = QUESTIONS.filter(function (_, i) {
-      return !state.correct[i];
-    });
-    els.resultList.innerHTML =
-      "<p>Aciertos por ejercicio:</p><ul>" + perExercise + "</ul>" +
-      (missed.length
-        ? '<p class="mrg-top-15">Respuestas que fallaste:</p><ul>' +
-          missed
-            .map(function (q) {
-              return (
-                "<li>Ejercicio " + (q.ex + 1) + ": <code>" + esc(q.data.a) + "</code> — " +
-                esc(q.data.why) + "</li>"
-              );
-            })
-            .join("") +
-          "</ul>"
-        : "");
-    els.result.hidden = false;
-    root.scrollIntoView({ behavior: "smooth", block: "start" });
-
-    // Ventana de resultado que ya tenía la página.
     var modal = document.getElementById("modal-fs");
-    if (modal && window.jQuery) {
-      modal.querySelector("#modal-score").textContent = hits + " / " + total + " aciertos";
-      modal.querySelector("#modal-message").textContent =
-        score >= 80 ? "¡Excelente!" : "Vuelve a intentarlo...";
-      modal.querySelector("#correct-img").style.display = score >= 80 ? "block" : "none";
-      modal.querySelector("#incorrect-img").style.display = score >= 80 ? "none" : "block";
-      window.jQuery(modal).modal("show");
-    }
+    if (!modal || !window.jQuery) return;
+    modal.querySelector("#modal-score").textContent = hits + " / " + total + " aciertos";
+    modal.querySelector("#modal-message").textContent = passed
+      ? "¡Excelente! Completaste los ejercicios casi sin errores."
+      : "Te recomendamos repasar los temas que fallaste y volver a intentarlo.";
+    modal.querySelector("#correct-img").style.display = passed ? "block" : "none";
+    modal.querySelector("#incorrect-img").style.display = passed ? "none" : "block";
+    window.jQuery(modal).modal("show");
   }
 
-  els.check.addEventListener("click", check);
+  els.check.addEventListener("click", function () {
+    if (state.done) {
+      reset();
+      root.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      check();
+    }
+  });
   els.next.addEventListener("click", next);
   els.nextEx.addEventListener("click", nextExercise);
-  els.restart.addEventListener("click", function () {
-    reset();
-    root.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
   reset();
 })();
