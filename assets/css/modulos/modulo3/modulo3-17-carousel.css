@@ -23,9 +23,24 @@
   );
 }
 
-.text-carousel:hover,
-.text-carousel:focus-within {
+/* Se detiene con el cursor encima (solo en dispositivos con cursor: en
+   pantallas táctiles el :hover se queda "pegado" tras tocar), al navegar con
+   el teclado, o al tocar/hacer clic en el carrusel (clase que pone el JS;
+   otro toque lo reanuda). */
+@media (hover: hover) {
+  .text-carousel:hover {
+    animation-play-state: paused;
+  }
+}
+
+.text-carousel:has(:focus-visible),
+.text-carousel-stage.is-paused .text-carousel {
   animation-play-state: paused;
+}
+
+.text-carousel-stage {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .text-carousel__back,
