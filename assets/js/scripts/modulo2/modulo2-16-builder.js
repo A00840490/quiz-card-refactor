@@ -490,9 +490,10 @@
       : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
         "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
 
-    if (ok || isLast) {
-      // Correcta: avanza y deja leer el mensaje. Última pregunta (bien o mal):
-      // no hace falta "Continuar", se va directo al resultado.
+    if (isLast) {
+      // Última pregunta (bien o mal): no hace falta "Continuar", se va
+      // directo al resultado. En las demás, bien o mal, la siguiente pregunta
+      // sale hasta presionar "Continuar".
       state.current++;
       state.done = state.current >= QUESTIONS.length;
       render();

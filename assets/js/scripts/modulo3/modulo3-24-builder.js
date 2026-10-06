@@ -495,30 +495,25 @@
     state.correct[state.current] = ok;
     state.answers[state.current] = q.data.a;
 
-    var wrongFb =
-      "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-      "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
+    var fb = ok
+      ? "<strong>¡Correcto!</strong> " + esc(q.data.why)
+      : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
+        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
+    var fbClass = "builder__feedback " + (ok ? "is-right" : "is-wrong");
 
-    if (ok) {
-      var fb = "<strong>¡Correcto!</strong> " + esc(q.data.why);
-      advance();
-      render();
-      els.feedback.className = "builder__feedback is-right";
-      els.feedback.innerHTML = fb + (exerciseComplete() ? summaryHtml() : "");
-      if (state.done) finish();
-      else if (exerciseComplete()) els.nextEx.focus();
-    } else if (state.current === QUESTIONS.length - 1) {
+    if (state.current === QUESTIONS.length - 1) {
       // Última pregunta: no hace falta "Continuar", se va directo al resultado.
       advance();
       render();
-      els.feedback.className = "builder__feedback is-wrong";
-      els.feedback.innerHTML = wrongFb + summaryHtml();
+      els.feedback.className = fbClass;
+      els.feedback.innerHTML = fb + summaryHtml();
       finish();
     } else {
+      // Bien o mal, la siguiente pregunta sale hasta presionar "Continuar".
       state.waiting = true;
       render();
-      els.feedback.className = "builder__feedback is-wrong";
-      els.feedback.innerHTML = wrongFb;
+      els.feedback.className = fbClass;
+      els.feedback.innerHTML = fb;
       els.next.focus();
     }
   }
