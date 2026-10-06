@@ -8602,7 +8602,6 @@ label.success {
    --wide-start   la primera columna ocupa más (3/5)
    --wide-end     la segunda columna ocupa más (3/5)
    --center       centra verticalmente las columnas (texto junto a una consola)
-   --end          alinea las columnas abajo (consola | texto + consola)
    --stretch      ambas columnas con la misma altura; el último elemento de
                   cada columna (p. ej. la consola) crece para llenarla
    ===================================================================== */
@@ -8624,10 +8623,6 @@ label.success {
 
 .content-split--center {
   align-items: center;
-}
-
-.content-split--end {
-  align-items: end;
 }
 
 .content-split--stretch {
