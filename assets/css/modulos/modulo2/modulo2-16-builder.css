@@ -272,54 +272,6 @@
   text-align: center;
 }
 
-/* Resultado final */
-.builder__result {
-  margin-bottom: 18px;
-  padding: 22px 24px;
-  border: 1px solid var(--b-line);
-  border-radius: 12px;
-  background: #ffffff;
-  text-align: center;
-}
-
-.builder__result h3 {
-  margin: 0 0 4px;
-  color: var(--b-ink);
-}
-
-.builder__score {
-  margin: 4px 0 6px;
-  color: var(--b-blue);
-  font: 800 40px/1.1 Arial, sans-serif;
-}
-
-.builder__result-msg {
-  margin: 0 0 14px;
-  color: var(--b-muted);
-}
-
-.builder__result-list {
-  max-width: 640px;
-  margin: 0 auto 16px;
-  text-align: left;
-}
-
-.builder__result-list p {
-  margin: 0 0 6px;
-  font-weight: 700;
-}
-
-.builder__result-list ul {
-  margin: 0;
-  padding-left: 20px;
-  color: var(--b-muted);
-}
-
-.builder__result-list code {
-  color: var(--b-wrong);
-  font-weight: 700;
-}
-
 @media (max-width: 991px) {
   .builder__panels {
     grid-template-columns: 1fr;
