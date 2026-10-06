@@ -8637,11 +8637,18 @@ label.success {
   }
 }
 
-/* @media (min-width: 576px) {
+/* card-block se compacta en pantallas pequeñas (mismos cortes que Bootstrap) */
+@media (max-width: 767px) {
   .card-block {
-    padding: 30px;
+    padding: 16px 22px;
   }
-} */
+}
+
+@media (max-width: 575px) {
+  .card-block {
+    padding: 14px 16px;
+  }
+}
 
 .portlet {
   position: absolute;
