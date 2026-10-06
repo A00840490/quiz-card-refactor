@@ -12,6 +12,8 @@
 
   document.querySelectorAll(".js-term").forEach(function (term) {
     var src = term.querySelector(".js-term__src");
+    // Las terminales que arma otro script (sin .js-term__src) se dejan igual.
+    if (!src) return;
     var text = src.textContent.replace(/^\n+|\s+$/g, "");
 
     var bar = document.createElement("div");
