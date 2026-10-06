@@ -1,0 +1,402 @@
+/* modulo4-6: métodos de arreglos como cubos de juguete. Se suelta un método
+   en el hueco y el arreglo de la repisa cambia en vivo.
+   Comparte el estilo de modulo4-5-operator-toys.css (pantalla + charola). */
+
+.arr-toys {
+  --at-ink: #172033;
+  --at-muted: #56627a;
+  --at-line: #dce3ec;
+  --at-blue: #0f4c91;
+  max-width: 820px;
+  margin: 1.5rem auto 2.3rem;
+}
+
+.arr-toys__stage {
+  position: relative;
+  user-select: none;
+}
+
+.arr-toys__screen {
+  position: relative;
+  z-index: 1;
+  padding: 16px 18px 16px;
+  border: 1px solid var(--at-line);
+  background: #ffffff;
+}
+
+/* Código a la izquierda, explicación del método a la derecha */
+.arr-toys__main {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.arr-toys__code {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 150px;
+  color: var(--at-ink);
+  font: 700 18px/1.2 "Courier New", Courier, monospace;
+}
+
+.arr-toys__line {
+  padding: 3px 0;
+  white-space: nowrap;
+}
+
+.arr-toys__expr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 78px;
+}
+
+.arr-toys__slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border: 2px dashed #a9bed8;
+  border-radius: 12px;
+  background: #f4f7fb;
+  color: #8a98aa;
+  font: 11px/1.2 Arial, sans-serif;
+  text-align: center;
+  white-space: normal;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.arr-toys__slot.is-hot {
+  border-color: var(--at-blue);
+  background: #e6f1fb;
+}
+
+.arr-toys__args {
+  color: var(--at-blue);
+}
+
+.arr-toys__info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: end;
+  align-self: stretch;
+  width: 100%;
+  max-width: 330px;
+  min-height: 140px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: rgba(15, 76, 145, 0.1);
+  color: #0c447c;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.arr-toys__info.is-visible {
+  visibility: visible;
+  opacity: 1;
+  animation: arr-info-in 0.35s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+}
+
+.arr-toys__info code {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: rgba(15, 76, 145, 0.12);
+  color: #0c447c;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@keyframes arr-info-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+  }
+}
+
+/* ---------- Repisa: el arreglo como cajas con su índice ---------- */
+.arr-toys__shelves {
+  margin-top: 14px;
+}
+
+.arr-toys__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 92px;
+}
+
+.arr-toys__row + .arr-toys__row {
+  margin-top: 6px;
+}
+
+.arr-toys__row[hidden] {
+  display: none;
+}
+
+.arr-toys__name {
+  flex: none;
+  width: 92px;
+  padding-top: 22px;
+  color: var(--at-muted);
+  font: 700 14px/1 "Courier New", Courier, monospace;
+  text-align: right;
+}
+
+.arr-toys__boxes {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 86px;
+  padding: 6px 10px 0;
+  border-bottom: 3px solid #d7c3a1; /* la repisa */
+}
+
+.arr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition:
+    transform 0.45s cubic-bezier(0.3, 0.9, 0.3, 1.15),
+    opacity 0.35s ease;
+}
+
+.arr-box__val {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 52px;
+  padding: 0 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  background: var(--c1, #e6f1fb);
+  color: var(--tx, #042c53);
+  font: 700 16px/1 "Courier New", Courier, monospace;
+}
+
+.arr-box__idx {
+  color: #8a98aa;
+  font: 700 12px/1 "Courier New", Courier, monospace;
+}
+
+.arr-box.is-entering {
+  opacity: 0;
+  transform: translateY(-28px) scale(0.85);
+}
+
+.arr-box.is-leaving {
+  opacity: 0;
+  transform: translateY(26px) scale(0.85);
+}
+
+.arr-box.is-picked .arr-box__val {
+  outline: 3px solid var(--at-blue);
+  outline-offset: 2px;
+}
+
+.arr-box.is-counted .arr-box__idx {
+  color: var(--at-blue);
+}
+
+.arr-toys__count {
+  align-self: center;
+  margin-left: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--at-blue);
+  color: #ffffff;
+  font: 700 13px/1.2 Arial, sans-serif;
+  animation: arr-info-in 0.35s ease;
+}
+
+/* Consola: lo que imprime console.log(r) */
+.arr-toys__console {
+  margin: 12px -18px -16px;
+  padding: 10px 18px 14px;
+  border-top: 1px solid var(--at-line);
+  background: #f1f4f9;
+}
+
+.arr-toys__res {
+  min-height: 30px;
+  margin: 0;
+  color: #1f9d63;
+  font: 700 20px/1.4 "Courier New", Courier, monospace;
+}
+
+.arr-toys__res:empty::before {
+  content: "—";
+  color: #b4bfcd;
+}
+
+/* ---------- Charola y cubos ---------- */
+.arr-toys__tray {
+  position: relative;
+  height: 210px;
+  border: 1px solid #efc98c;
+  background: #faeeda;
+}
+
+.arr-cube {
+  --s: 56px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: var(--s);
+  height: var(--s);
+  perspective: 500px;
+  cursor: grab;
+  touch-action: none;
+  outline: none;
+}
+
+.arr-cube.is-dragging {
+  z-index: 6;
+  cursor: grabbing;
+}
+
+.arr-cube:focus-visible .arr-cube__face--front {
+  outline: 3px solid var(--at-blue, #0f4c91);
+  outline-offset: 2px;
+}
+
+.arr-cube__body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.arr-cube__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 7px;
+  color: var(--tx);
+  font: 700 var(--fs) / 1 "Courier New", Courier, monospace;
+  font-style: normal;
+}
+
+.arr-cube__face--front {
+  background: var(--c1);
+  transform: translateZ(calc(var(--s) / 2));
+}
+.arr-cube__face--back {
+  background: var(--c1);
+  transform: rotateY(180deg) translateZ(calc(var(--s) / 2));
+}
+.arr-cube__face--right {
+  background: var(--c3);
+  transform: rotateY(90deg) translateZ(calc(var(--s) / 2));
+}
+.arr-cube__face--left {
+  background: var(--c3);
+  transform: rotateY(-90deg) translateZ(calc(var(--s) / 2));
+}
+.arr-cube__face--top {
+  background: var(--c2);
+  transform: rotateX(90deg) translateZ(calc(var(--s) / 2));
+}
+.arr-cube__face--bottom {
+  background: var(--c3);
+  transform: rotateX(-90deg) translateZ(calc(var(--s) / 2));
+}
+
+/* La lista original queda para lectores de pantalla cuando el juego está
+   activo, y visible si JavaScript no carga. */
+.arr-toys--ready .arr-toys__list {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.arr-toys:not(.arr-toys--ready) .arr-toys__stage {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .arr-toys__main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .arr-toys__info {
+    justify-self: stretch;
+    max-width: none;
+    min-height: 0;
+    height: 120px;
+    padding: 14px 16px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 575px) {
+  .arr-toys__code {
+    min-height: 130px;
+    font-size: 14px;
+  }
+
+  .arr-toys__slot {
+    width: 58px;
+    height: 58px;
+  }
+
+  .arr-toys__row {
+    flex-direction: column;
+    gap: 4px;
+    min-height: 0;
+  }
+
+  .arr-toys__name {
+    width: auto;
+    padding-top: 0;
+    text-align: left;
+  }
+
+  .arr-toys__boxes {
+    align-self: stretch;
+    gap: 6px;
+    min-height: 76px;
+    padding: 4px 4px 0;
+  }
+
+  .arr-box__val {
+    min-width: 46px;
+    height: 44px;
+    padding: 0 7px;
+    font-size: 14px;
+  }
+
+  .arr-toys__tray {
+    height: 190px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arr-toys__info,
+  .arr-toys__count {
+    animation: none;
+  }
+
+  .arr-box {
+    transition: none;
+  }
+}
