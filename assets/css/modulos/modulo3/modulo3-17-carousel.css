@@ -1,7 +1,7 @@
 .text-carousel-stage {
   display: grid;
   place-items: center;
-  height: 620px;
+  height: 470px;
   margin: 1.5rem 0 1rem;
   overflow: hidden;
   border-radius: 10px;
@@ -16,6 +16,9 @@
   transform: perspective(1000px) rotateX(72deg);
   transform-style: preserve-3d;
   animation: text-carousel-rotate 24s linear infinite;
+  /* Con la inclinación, las tarjetas quedan arriba del centro del giro;
+     se baja el carrusel para que el espacio arriba y abajo sea parejo. */
+  translate: 0 67px;
   background-image: radial-gradient(
     circle at 50% 50%,
     #222 30%,
@@ -146,21 +149,23 @@
 
 @media screen and (max-width: 992px) {
   .text-carousel-stage {
-    height: 460px;
+    height: 345px;
   }
 
   .text-carousel {
     scale: 0.7;
+    translate: 0 47px;
   }
 }
 
 @media screen and (max-width: 576px) {
   .text-carousel-stage {
-    height: 400px;
+    height: 285px;
   }
 
   .text-carousel {
     scale: 0.55;
+    translate: 0 37px;
   }
 }
 
