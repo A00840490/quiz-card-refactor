@@ -191,3 +191,21 @@
   .js-term__result { animation: none; }
   .js-term__spinner { animation-duration: 1.5s; }
 }
+
+/* Dos terminales lado a lado (p. ej. 4-3 Literales | Variables):
+   <div class="row js-term-pair"><div class="col-md-6">título + .js-term</div>…</div>
+   Ambas columnas estiran su terminal para quedar de la misma altura. */
+.js-term-pair > [class*="col-"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.js-term-pair .js-term {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.js-term-pair .js-term__body {
+  flex: 1;
+}
