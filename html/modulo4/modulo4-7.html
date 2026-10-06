@@ -23,6 +23,7 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -178,12 +179,9 @@
                                             los resultados?</p>
                                         <p>También puedes asignar los valores de "True" y "False" a una variable. Esto
                                             convierte a la variable a tipo booleano:</p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">x = </span>True<span class="codetext">;</span> <span class="codecom">// Declaramos x como una variable booleana con valor True</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="booleanos.js">
+<pre class="js-term__src">// Declaramos x como una variable booleana con valor true
+var x = true;</pre>
                                             </div>
                                     </div>
                                 </div>
@@ -201,15 +199,10 @@
                                             permite establecer una condición inicial: si esta se cumple (se evalúa como
                                             <span class="code">True</span>), entonces se ejecuta el código dentro de
                                             ella. </p>
-                                        <div class="card">
-                                            <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                <p class="code">
-                                                    if (<span class="codetext"><i>condición</i></span>){ <br>
-                                                    &nbsp;&nbsp;&nbsp;<span class="codecom">//código a ejecutar si se
-                                                        cumple la condición</span> <br>
-                                                    }
-                                                </p>
-                                            </div>
+                                        <div class="js-term" data-file="if.js">
+<pre class="js-term__src">if (condición) {
+  // código a ejecutar si se cumple la condición
+}</pre>
                                         </div>
                                         <p>Una sentencia <span class="code">else</span> nos permite tomar acción cuando
                                             la condición inicial <b>no se cumple</b> (que es cuando la condición
@@ -220,19 +213,13 @@
                                             escribir una sentencia <span class="code">if</span> antes. El siguiente
                                             ejemplo siempre ejecuta el código dentro del <span class="code">else</span>;
                                             compruébalo en tu consola:</p>
-                                        <div class="card">
-                                            <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                <p class="code">
-                                                    <span class="codecom">//Checamos si 2 es mayor a 3</span> <br>
-                                                    if (<span class="codetext">2 &gt; 3</span>){ <br>
-                                                    &nbsp;&nbsp; console.<span class="codetext">log("2 es mayor a
-                                                        3");</span> <br>
-                                                    } else { <br>
-                                                    &nbsp;&nbsp; console.<span class="codetext">log("2 no es mayor a
-                                                        3");</span> <br>
-                                                    }
-                                                </p>
-                                            </div>
+                                        <div class="js-term" data-file="if-else.js" data-result="2 no es mayor a 3">
+<pre class="js-term__src">// Checamos si 2 es mayor a 3
+if (2 &gt; 3) {
+  console.log("2 es mayor a 3");
+} else {
+  console.log("2 no es mayor a 3");
+}</pre>
                                         </div>
                                         <p>Como puedes ver, para implementar un <span class="code">else</span> sólo hay
                                             que colocarlo después del cierre del <span class="code">if</span>. Un <span
@@ -247,30 +234,17 @@
                                             necesitamos verificar otras condiciones. Estas condiciones se revisan
                                             consecutivamente, y solo si <b>las condiciones anteriores a la actual no se
                                                 han cumplido</b>. Observa el ejemplo:</p>
-                                        <div class="card">
-                                            <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                <p class="code">
-                                                    <span class="codecom">//Checamos si 2 es mayor a 3</span> <br>
-                                                    if (<span class="codetext">2 &gt; 3</span>){ <br>
-                                                    &nbsp;&nbsp; console.<span class="codetext">log("2 es mayor a
-                                                        3");</span> <br>
-                                                    } else if <span class="codetext">(2 &lt; 3)</span>{ <span
-                                                        class="codecom">//Si la primera condición no se cumple,
-                                                        JavaScript revisará si esta condición se cumple</span><br>
-                                                    &nbsp;&nbsp; <span class="codecom">// Imprimimos la siguiente línea
-                                                        si no se cumple la primera condición, pero la segunda sí</span>
-                                                    <br>
-                                                    &nbsp;&nbsp; console.<span class="codetext">log("2 es menor a
-                                                        3");</span> <br>
-                                                    } else { <br>
-                                                    &nbsp;&nbsp; <span class="codecom">// Imprimimos la siguiente línea
-                                                        si no se cumple ninguna de las condiciones antes de la sentencia
-                                                        else</span><br>
-                                                    &nbsp;&nbsp; console.<span class="codetext">log("2 es igual a
-                                                        3");</span> <br>
-                                                    }
-                                                </p>
-                                            </div>
+                                        <div class="js-term" data-file="else-if.js" data-result="2 es menor a 3">
+<pre class="js-term__src">// Checamos si 2 es mayor a 3
+if (2 &gt; 3) {
+  console.log("2 es mayor a 3");
+} else if (2 &lt; 3) {
+  // Si la primera condición no se cumple, se revisa esta
+  console.log("2 es menor a 3");
+} else {
+  // Si no se cumple ninguna de las condiciones anteriores
+  console.log("2 es igual a 3");
+}</pre>
                                         </div>
                                     </div>
                                 </div>
@@ -351,6 +325,7 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/js-terminal.js"></script>
 </body>
 
 </html>

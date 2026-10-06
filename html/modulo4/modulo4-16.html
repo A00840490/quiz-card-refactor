@@ -23,6 +23,7 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -108,23 +109,13 @@
                                         </div>
                                         <h3 class="card-title mrg-top-20">Eventos en JavaScript</h3>
                                         <p>Para usar eventos en JS tenemos que seleccionar al elemento:</p>
-                                        <div class="card">
-                                            <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                <p class="code">
-                                                    <span class="codecom">// Opción 1: asignar una función que ya
-                                                        declaramos</span><br>
-                                                    document.getElementById("<span
-                                                        class="codetext">elemento1</span>").onclick <span
-                                                        class="codetext">=</span> miFuncion;<br>
-                                                    <span class="codecom">// Opción 2: asignar una nueva función al
-                                                        evento</span><br>
-                                                    document.getElementById("<span
-                                                        class="codetext">elemento1</span>").onclick <span
-                                                        class="codetext">=</span> function (<span
-                                                        class="codecom">//parámetros</span> ) {<span
-                                                        class="codecom">//tu código aquí</span>};
-                                                </p>
-                                            </div>
+                                        <div class="js-term" data-file="eventos.js">
+<pre class="js-term__src">// Opción 1: asignar una función que ya declaramos
+document.getElementById("elemento1").onclick = miFuncion;
+// Opción 2: asignar una nueva función al evento
+document.getElementById("elemento1").onclick = function () {
+  // tu código aquí
+};</pre>
                                         </div>
                                         <h3 class="card-title mrg-top-20">Otros Eventos</h3>
                                         <p>A continuación te enlistamos algunos de los eventos más utilizados. Puedes
@@ -237,6 +228,7 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/js-terminal.js"></script>
 </body>
 
 </html>

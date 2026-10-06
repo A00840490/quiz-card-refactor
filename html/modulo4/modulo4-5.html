@@ -23,6 +23,7 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
     <link href="../../assets/css/modulos/modulo4/modulo4-5-operator-toys.css" rel="stylesheet">
@@ -243,24 +244,16 @@
                                             <p>Los <b>operadores de asignación</b> nos facilitan actualizar variables ya
                                                 hechas y asignarles nuevos valores utilizando su valor anterior. Por
                                                 ejemplo: </p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">x = 2;</span> <br>
-                                                        <span class="codetext">x *= 8;</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="asignacion.js">
+<pre class="js-term__src">var x = 2;
+x *= 8;</pre>
                                             </div>
                                             <p>Modifica el valor de <span class="code">x</span> mulitiplicándolo por 8.
                                                 De
                                                 esta forma el ejemplo de arriba es equivalente a: </p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">x = 2;</span> <br>
-                                                        <span class="codetext">x = x * 8;</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="equivalente.js">
+<pre class="js-term__src">var x = 2;
+x = x * 8;</pre>
                                             </div>
                                             <p>Simplemente es una forma más sencilla y elegante de escribir esta
                                                 operación.
@@ -282,31 +275,20 @@
                                                 Este operador puede utilizarse para combinar strings secuencialmente;
                                                 esto se conoce como concatenación.
                                             </p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">x = "Hola, "+"Mundo!";</span><span
-                                                            class="codecom"> //Después de correr esta línea, se le
-                                                            asigna el string "Hola, Mundo!" a la variable x</span> <br>
-                                                        var <span class="codetext">x = "1"+"2"+"3";</span><span
-                                                            class="codecom"> //Después de correr esta línea, se le
-                                                            asigna el string "123" a la variable x</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="concatenar.js">
+<pre class="js-term__src">// x guarda el string "Hola, Mundo!"
+var x = "Hola, " + "Mundo!";
+// x guarda el string "123"
+var x = "1" + "2" + "3";</pre>
                                             </div>
                                             <p>
                                                 También podemos utilizar el operador += para agregar cadenas de
                                                 caracteres al final de una variable que guarda un string.
                                             </p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">x = "Hola, ";</span><br>
-                                                        <span class="codetext">x += "Mundo!";<span class="codecom">
-                                                                //Después de correr esta línea, la variable x tendrá
-                                                                asignado el valor de "Hola, Mundo!"</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="concatenar.js">
+<pre class="js-term__src">var x = "Hola, ";
+x += "Mundo!";
+// Ahora x tiene asignado el valor "Hola, Mundo!"</pre>
                                             </div>
                                     </div>
                                 </div>
@@ -388,6 +370,7 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/js-terminal.js"></script>
 </body>
 
 </html>

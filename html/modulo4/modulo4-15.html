@@ -23,6 +23,7 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -92,13 +93,8 @@
                                         <div class="card-block">
                                             <h2 class="card-title">Modificar Propiedades de CSS</h2>
                                             <p>Para cambiar el estilo de un elemento, seguimos el siguiente formato:</p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        <i>elemento</i>.style.<i>propiedad</i> <span class="codetext">=
-                                                            "<i>valor</i>";</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="estilos.js">
+<pre class="js-term__src">elemento.style.propiedad = "valor";</pre>
                                             </div>
                                             <p>En la parte de <span class="code">elemento</span> debemos tener una
                                                 variable con el elemento seleccionado, y en propiedad escribimos el
@@ -259,6 +255,7 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/js-terminal.js"></script>
 </body>
 
 </html>

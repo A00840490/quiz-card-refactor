@@ -23,6 +23,7 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -143,29 +144,19 @@
                                                 nuestras sentencias if y else if:
                                             </p>
 
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        if <span class="codetext">(x&gt;=1 && x&lt;=50){ <br>
-                                                            &nbsp;&nbsp;&nbsp;<span class="codecom">//código a ejecutar
-                                                                si
-                                                                x tiene asignado un valor entre 1 y 50 inclusivo</span>
-                                                            <br>
-                                                            }
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="and.js">
+<pre class="js-term__src">if (x &gt;= 1 &amp;&amp; x &lt;= 50) {
+  // código a ejecutar si x vale entre 1 y 50 (inclusivo)
+}</pre>
                                             </div>
                                             <p>
                                                 Uno de los usos más comunes del operador <b>not</b> es invertir el valor
                                                 de una variable booleana:
                                             </p>
-                                            <div class="card">
-                                                <div class="container-fluid" style=" background-color: #1a1a1a">
-                                                    <p class="code">
-                                                        var <span class="codetext">x = </span>True<span class="codetext">;</span><br>
-                                                        <span class="codetext">x = !x;</span> <span class="codecom">// Después de correr esta línea, x tendrá un valor de False</span>
-                                                    </p>
-                                                </div>
+                                            <div class="js-term" data-file="not.js">
+<pre class="js-term__src">var x = true;
+// Después de correr esta línea, x vale false
+x = !x;</pre>
                                             </div>
                                     </div>
                                 </div>
@@ -242,6 +233,7 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/js-terminal.js"></script>
 </body>
 
 </html>
