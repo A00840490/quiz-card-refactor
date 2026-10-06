@@ -236,20 +236,23 @@
   .arr-train.is-rolling .arr-wheel { animation: none; }
 }
 
-/* Reiniciar: al final de la fila de botones */
-.arr-train__reset {
-  align-self: center;
-  margin-left: auto;
-  padding: 6px 12px;
-  border: 1px solid #c9d9ec;
-  border-radius: 6px;
-  background: #fff;
-  color: var(--theme-color, #093b8b);
-  font: 600 13px Arial, sans-serif;
-  cursor: pointer;
+/* Reiniciar: mismo botón físico, en celeste y un poco separado del grupo */
+.arr-train__btn--reset {
+  margin-left: 18px;
 }
 
-.arr-train__reset:hover { border-color: var(--theme-color, #093b8b); }
+.arr-train__btn--reset .arr-train__btn-cap {
+  background: radial-gradient(ellipse at 38% 30%, #b8e3fb 0, #6cc0ee 40%, #3fa5e0 70%, #2b8fcf 100%);
+  box-shadow: 0 9px 0 #1f73a8, 0 11px 8px rgba(0, 0, 0, .25);
+}
+
+.arr-train__btn--reset:active .arr-train__btn-cap {
+  box-shadow: 0 2px 0 #1f73a8, 0 3px 4px rgba(0, 0, 0, .25);
+}
+
+.arr-train__btn--reset .arr-train__btn-label {
+  font-family: Arial, sans-serif;
+}
 
 .arr-train__term { margin: 14px 0 10px; }
 
