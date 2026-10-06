@@ -41,6 +41,11 @@
   animation-play-state: paused;
 }
 
+/* Clic para reanudar: gana sobre el :hover mientras el cursor siga encima. */
+.text-carousel-stage.is-playing .text-carousel {
+  animation-play-state: running;
+}
+
 .text-carousel-stage {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
