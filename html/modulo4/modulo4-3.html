@@ -134,23 +134,29 @@ var x = "¡Hola!";</pre>
                                             valor, y después utilizamos el <b>operador =</b> para <b>asignar</b> valores
                                             iniciales a variables. Asignamos un valor de tipo string a la tercer
                                             variable.</p>
-                                        <p>Así como <span class="code">var</span>, existen otras <b>palabras clave</b>
-                                            que tienen funciones distintas y veremos más adelante. </p>
-                                        <p>Cada línea de código en la sección de "Variables" es una <b>declaración</b>.
-                                            Para legibilidad y orden, las líneas de código en JavaScript que no sean
-                                            estructuras de control o funciones deben terminar con un <b>punto y coma
-                                                (";").</b></p>
-                                        <p>La idea de crear variables es tener almacenados datos que podremos utilizar y
-                                            modificar más adelante. Podemos nombrar variables con cualquier nombre que
-                                            queramos, con la excepción de <b>palabras clave</b> y a nombres que
-                                            contengan caracteres especiales a excepción de "_" y "-".</p>
-                                        <div class="js-term" data-file="nombres.js" data-result="SyntaxError: Unexpected token &#x27;var&#x27;">
+                                        <div class="content-split content-split--center">
+                                            <div>
+                                                <p>Así como <span class="code">var</span>, existen otras <b>palabras clave</b>
+                                                    que tienen funciones distintas y veremos más adelante. </p>
+                                                <p>Cada línea de código en la sección de "Variables" es una <b>declaración</b>.
+                                                    Para legibilidad y orden, las líneas de código en JavaScript que no sean
+                                                    estructuras de control o funciones deben terminar con un <b>punto y coma
+                                                        (";").</b></p>
+                                                <p>La idea de crear variables es tener almacenados datos que podremos utilizar y
+                                                    modificar más adelante. Podemos nombrar variables con cualquier nombre que
+                                                    queramos, con la excepción de <b>palabras clave</b> y a nombres que
+                                                    contengan caracteres especiales a excepción de "_" y "-".</p>
+                                            </div>
+                                            <div>
+                                                <div class="js-term" data-file="nombres.js" data-result="SyntaxError: Unexpected token &#x27;var&#x27;">
 <pre class="js-term__src">// incorrecta: usa var, que es una palabra reservada, como nombre
 var var = 5;
 // incorrecta: usa un carácter especial en el nombre
 var vari*able = 5;
 // correcta: los "_" y "-" son símbolos válidos
 var mi_variable = 5;</pre>
+                                                </div>
+                                            </div>
                                         </div>
                                         <p>También podemos hacer que diferentes variables interactúen entre sí. Para
                                             utilizar el valor actual de una variable, basta con utilizar el nombre que
