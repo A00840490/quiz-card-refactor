@@ -8575,6 +8575,68 @@ label.success {
   margin-top: 0;
 }
 
+/* =====================================================================
+   content-split: acomoda el contenido de un card-block en dos columnas
+   para compactarlo (texto | consola, consola | consola, texto | imagen).
+   En pantallas menores a 768px las columnas se apilan.
+
+   <div class="content-split">
+     <div>texto…</div>
+     <div><div class="js-term">…</div></div>
+   </div>
+
+   Modificadores:
+   --wide-start   la primera columna ocupa más (3/5)
+   --wide-end     la segunda columna ocupa más (3/5)
+   --center       centra verticalmente las columnas (texto junto a una consola)
+   --stretch      ambas columnas con la misma altura; el último elemento de
+                  cada columna (p. ej. la consola) crece para llenarla
+   ===================================================================== */
+.content-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 30px;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.content-split--wide-start {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+}
+
+.content-split--wide-end {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
+
+.content-split--center {
+  align-items: center;
+}
+
+.content-split--stretch {
+  align-items: stretch;
+}
+
+.content-split--stretch > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-split--stretch > * > :last-child {
+  flex: 1;
+}
+
+.content-split > * > :first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .content-split,
+  .content-split--wide-start,
+  .content-split--wide-end {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* @media (min-width: 576px) {
   .card-block {
     padding: 30px;
