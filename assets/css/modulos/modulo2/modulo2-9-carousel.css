@@ -23,6 +23,21 @@
   transform-style: preserve-3d;
 }
 
+/* Con data-demo-autoheight todas las diapositivas miden lo que la más alta,
+   así no queda espacio vacío debajo de las más cortas. */
+.demo-carousel[data-demo-autoheight] .demo-carousel__slide {
+  bottom: 0;
+  display: flex;
+}
+
+.demo-carousel[data-demo-autoheight] .demo-carousel__slide > * {
+  flex: 1;
+}
+
+.demo-carousel[data-demo-autoheight] .is-measuring .demo-carousel__slide {
+  bottom: auto;
+}
+
 .demo-carousel__slide {
   --enter: 55%;
   --back: -16%;

@@ -109,6 +109,8 @@
             max-width: 900px;
             margin: 0 auto;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .tutorial-slide-header {
@@ -137,6 +139,7 @@
             justify-content: center;
             align-items: center;
             min-height: 400px;
+            flex: 1;
         }
 
         .tutorial-slide-body img {
@@ -299,13 +302,13 @@
 <div class="card-block">
                             <p>A continuación hay un pequeño tutorial para que te familiarices con Visual Studio
                                 Code.</p>
-                            <p class="card-info mb-4" style="width: fit-content;">
+                            <p class="card-info mb-2" style="width: fit-content;">
                                 <img src="../../assets/images/clic.svg" class="mrg-right-5"> Haz clic en las flechas a
                                 los lados (<b>&lt;</b> y <b>&gt;</b>) para navegar por los diferentes pasos.
                             </p>
 
-                            <div class="text-center py-5">
-                                <div class="demo-carousel" data-demo-carousel data-demo-autoheight
+                            <div class="text-center">
+                                <div class="demo-carousel mt-0" data-demo-carousel data-demo-autoheight
                                     data-demo-label="Paso">
                                     <div class="demo-carousel__viewport">
                                         <div class="demo-carousel__track">

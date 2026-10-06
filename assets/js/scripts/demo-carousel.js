@@ -45,9 +45,13 @@
     function fitHeight() {
       if (!autoHeight || !track) return;
       var tallest = 0;
+      // Las diapositivas se estiran a la altura del track; para medir su
+      // altura natural se quita el estiramiento un momento.
+      track.classList.add("is-measuring");
       slides.forEach(function (slide) {
         tallest = Math.max(tallest, slide.offsetHeight);
       });
+      track.classList.remove("is-measuring");
       track.style.minHeight = tallest + "px";
     }
 
@@ -135,7 +139,13 @@
           if (!img.complete) img.addEventListener("load", fitHeight);
         });
       });
-      window.addEventListener("resize", fitHeight);
+      // Se espera a que termine el cambio de tamaño (y las transiciones del
+      // menú lateral) antes de medir; si no, se queda con una altura vieja.
+      var resizeTimer;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fitHeight, 350);
+      });
     }
 
     render(0);
