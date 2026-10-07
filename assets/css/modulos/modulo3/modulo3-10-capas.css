@@ -5,10 +5,11 @@
    En celular la explicación va debajo del botón. */
 .capas {
   --capas-header: 65px; /* alto del header fijo del curso */
-  --capas-ink: #1b2433;
-  --capas-line: rgba(27, 36, 51, 0.22);
-  --capas-accent: #0a3d91;
-  --capas-code-prop: #7fb8ff;
+  --capas-stage: #3f4a60;
+  --capas-dot: #4d5970;
+  --capas-ink: #ffffff;
+  --capas-muted: #c6cedb;
+  --capas-accent: #7fb8ff;
   --capas-code-bg: #1e2430;
   --capas-code-ink: #d7dde8;
   --capas-code-sel: #ffcb6b;
@@ -34,6 +35,10 @@
   display: grid;
   place-items: center;
   overflow: hidden;
+  border-radius: 14px 0 0 14px;
+  background-color: var(--capas-stage);
+  background-image: radial-gradient(var(--capas-dot) 1px, transparent 1px);
+  background-size: 16px 16px;
   perspective: 1100px;
 }
 
@@ -43,6 +48,8 @@
   flex-direction: column;
   justify-content: center;
   padding: 28px 32px 28px 8px;
+  border-radius: 0 14px 14px 0;
+  background-color: var(--capas-stage);
   color: var(--capas-ink);
 }
 
@@ -75,6 +82,11 @@
   text-decoration: underline;
 }
 
+.capas__callout .code {
+  color: var(--capas-code-sel);
+  background: rgba(0, 0, 0, 0.25);
+}
+
 .capas__line,
 .capas__callout pre {
   max-width: 100%;
@@ -98,7 +110,7 @@
 }
 
 .capas__prop {
-  color: var(--capas-code-prop);
+  color: var(--capas-accent);
 }
 
 .capas__sel {
@@ -125,7 +137,7 @@
   width: 22px;
   height: 4px;
   border-radius: 99px;
-  background: var(--capas-line);
+  background: rgba(255, 255, 255, 0.25);
   transition: background 0.2s;
 }
 
@@ -165,8 +177,8 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 99px;
-  background: rgba(27, 36, 51, 0.78);
-  color: #ffffff;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--capas-ink);
   font-size: 14px;
   font-weight: 700;
   white-space: nowrap;
@@ -214,19 +226,19 @@
   content: "";
   position: absolute;
   inset: -7px;
-  border: 1px dashed var(--capas-line);
+  border: 1px dashed rgba(255, 255, 255, 0.3);
   border-radius: 19px;
-  background: rgba(10, 61, 145, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   opacity: var(--t);
 }
 
 .capas__layer.is-active::before {
   border: 2px solid var(--capas-ink);
-  background: rgba(10, 61, 145, 0.06);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .capas__layer.is-dim {
-  opacity: calc(1 - var(--t) * 0.5);
+  opacity: calc(1 - var(--t) * 0.65);
 }
 
 .capas__paint {
@@ -266,9 +278,6 @@
 
 .capas__layer--color .capas__text span {
   color: var(--v);
-  /* El texto es blanco: al desarmar, un contorno lo deja ver sobre el fondo claro. */
-  -webkit-text-stroke: calc(var(--t) * 1.5px) rgba(27, 36, 51, 0.55);
-  paint-order: stroke fill;
 }
 
 .capas__layer--deco .capas__text span {
@@ -284,10 +293,15 @@
     grid-template-rows: minmax(0, 1fr) auto;
   }
 
+  .capas__stage {
+    border-radius: 14px 14px 0 0;
+  }
+
   .capas__panel {
     justify-content: flex-start;
     min-height: 220px;
-    padding: 4px 4px 16px;
+    padding: 4px 20px 20px;
+    border-radius: 0 0 14px 14px;
   }
 
   .capas__connector {
