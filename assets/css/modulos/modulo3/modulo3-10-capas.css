@@ -15,19 +15,20 @@
   --capas-code-sel: #ffcb6b;
   --capas-mono: "Courier New", Courier, monospace;
   position: relative;
+  /* Alto del panel: lo justo para el botón desarmado y la explicación. */
+  --capas-h: min(470px, calc(100svh - var(--capas-header) - 24px));
   /* 6 capas + 1 tramo para armar, más la altura del panel fijo */
-  height: calc(7 * 60vh + 100vh - var(--capas-header));
+  height: calc(7 * 60vh + var(--capas-h));
   margin: 24px 0 8px;
 }
 
 .capas__sticky {
   position: sticky;
-  top: var(--capas-header);
+  /* centrado en el espacio visible debajo del header */
+  top: calc(var(--capas-header) + (100svh - var(--capas-header) - var(--capas-h)) / 2);
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  height: calc(100vh - var(--capas-header));
-  height: calc(100svh - var(--capas-header));
-  padding: 16px 0;
+  height: var(--capas-h);
 }
 
 .capas__stage {
@@ -47,7 +48,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 28px 32px 28px 8px;
+  padding: 12px 32px 12px 8px;
   border-radius: 0 14px 14px 0;
   background-color: var(--capas-stage);
   color: var(--capas-ink);
@@ -208,7 +209,7 @@
   width: 260px;
   height: 80px;
   transform-style: preserve-3d;
-  transform: translate(calc(var(--t) * -10px), calc(var(--t) * 120px))
+  transform: translate(calc(var(--t) * -16px), calc(var(--t) * 106px))
     rotateX(calc(var(--t) * 58deg)) rotateZ(calc(var(--t) * -32deg));
 }
 
@@ -288,6 +289,10 @@
 }
 
 @media (max-width: 860px) {
+  .capas {
+    --capas-h: calc(100svh - var(--capas-header) - 16px);
+  }
+
   .capas__sticky {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) auto;
