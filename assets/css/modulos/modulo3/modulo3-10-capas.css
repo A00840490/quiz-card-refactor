@@ -1,0 +1,354 @@
+/* Tema 9 (modulo3-10): botón desarmado en capas.
+   Un panel fijo (sticky) con el botón desarmado a la izquierda y la
+   explicación a la derecha, unidas por una línea punteada. Cada tramo de
+   scroll pasa a la siguiente capa y el último tramo arma el botón.
+   En celular la explicación va debajo del botón. */
+.capas {
+  --capas-header: 65px; /* alto del header fijo del curso */
+  --capas-stage: #3f4a60;
+  --capas-dot: #4d5970;
+  --capas-ink: #ffffff;
+  --capas-muted: #c6cedb;
+  --capas-accent: #7fb8ff;
+  --capas-code-bg: #1e2430;
+  --capas-code-ink: #d7dde8;
+  --capas-code-sel: #ffcb6b;
+  --capas-mono: "Courier New", Courier, monospace;
+  position: relative;
+  /* 6 capas + 1 tramo para armar, más la altura del panel fijo */
+  height: calc(7 * 60vh + 100vh - var(--capas-header));
+  margin: 24px 0 8px;
+}
+
+.capas__sticky {
+  position: sticky;
+  top: var(--capas-header);
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  height: calc(100vh - var(--capas-header));
+  height: calc(100svh - var(--capas-header));
+  padding: 16px 0;
+}
+
+.capas__stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 14px 0 0 14px;
+  background-color: var(--capas-stage);
+  background-image: radial-gradient(var(--capas-dot) 1px, transparent 1px);
+  background-size: 16px 16px;
+  perspective: 1100px;
+}
+
+.capas__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 32px 28px 8px;
+  border-radius: 0 14px 14px 0;
+  background-color: var(--capas-stage);
+  color: var(--capas-ink);
+}
+
+/* ---------- Explicación ---------- */
+.capas__callout {
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.capas__callout.is-swapping {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.capas__count {
+  color: var(--capas-muted);
+  font: 700 12px/1 var(--capas-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.capas__callout h2 {
+  margin: 10px 0 8px;
+  color: var(--capas-accent);
+  font: 700 clamp(19px, 2.2vw, 24px)/1.2 var(--capas-mono);
+  overflow-wrap: anywhere;
+}
+
+.capas__callout p {
+  max-width: 36ch;
+  margin: 0 0 14px;
+  color: var(--capas-ink);
+  font-size: 17px;
+}
+
+.capas__callout a {
+  color: var(--capas-accent);
+  text-decoration: underline;
+}
+
+.capas__callout .code {
+  color: var(--capas-code-sel);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.capas__line,
+.capas__callout pre {
+  max-width: 100%;
+  margin: 0;
+  padding: 8px 12px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: var(--capas-code-bg);
+  color: var(--capas-code-ink);
+  font: 400 14px/1.6 var(--capas-mono);
+}
+
+.capas__line {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.capas__callout pre {
+  padding: 12px 14px;
+  font-size: 13px;
+}
+
+.capas__prop {
+  color: var(--capas-accent);
+}
+
+.capas__sel {
+  color: var(--capas-code-sel);
+}
+
+.capas__swatch {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  margin-right: 0.35em;
+  vertical-align: -1px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+}
+
+.capas__dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 22px;
+}
+
+.capas__dots span {
+  width: 22px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.25);
+  transition: background 0.2s;
+}
+
+.capas__dots span.is-on {
+  background: var(--capas-accent);
+}
+
+/* Línea punteada de la capa activa a su explicación */
+.capas__connector {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.capas__connector path {
+  fill: none;
+  stroke: var(--capas-ink);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.capas__connector circle {
+  fill: var(--capas-ink);
+}
+
+.capas__hint {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  z-index: 4;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 99px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--capas-ink);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  translate: -50% 0;
+  transition: opacity 0.3s;
+}
+
+.capas__hint svg {
+  animation: capas-bob 1.4s ease-in-out infinite;
+}
+
+.capas__hint.is-gone {
+  opacity: 0;
+}
+
+@keyframes capas-bob {
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+/* ---------- Botón en capas ---------- */
+.capas__rig {
+  --t: 1;
+  --gap: 52px;
+  position: relative;
+  width: 260px;
+  height: 80px;
+  transform-style: preserve-3d;
+  transform: translate(calc(var(--t) * -10px), calc(var(--t) * 120px))
+    rotateX(calc(var(--t) * 58deg)) rotateZ(calc(var(--t) * -32deg));
+}
+
+.capas__layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--i) * var(--gap) * var(--t)));
+  font: 800 26px/80px Arial, sans-serif;
+  text-align: center;
+  transition: opacity 0.3s;
+}
+
+.capas__layer::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 19px;
+  background: rgba(255, 255, 255, 0.05);
+  opacity: var(--t);
+}
+
+.capas__layer.is-active::before {
+  border: 2px solid var(--capas-ink);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.capas__layer.is-dim {
+  opacity: calc(1 - var(--t) * 0.65);
+}
+
+.capas__paint {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+}
+
+.capas__layer--shadow .capas__paint {
+  background: var(--v);
+  transform: translateY(10px);
+}
+
+.capas__layer--bg .capas__paint {
+  background: var(--v);
+}
+
+.capas__layer--border .capas__paint {
+  border: 4px solid var(--v);
+}
+
+.capas__text {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.capas__text span {
+  line-height: 1.2;
+}
+
+.capas__layer--tshadow .capas__text span {
+  color: var(--v);
+  transform: translate(3px, 3px);
+}
+
+.capas__layer--color .capas__text span {
+  color: var(--v);
+}
+
+.capas__layer--deco .capas__text span {
+  color: transparent;
+  text-decoration: underline 4px;
+  text-decoration-color: var(--v);
+  text-underline-offset: 7px;
+}
+
+@media (max-width: 860px) {
+  .capas__sticky {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .capas__stage {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .capas__panel {
+    justify-content: flex-start;
+    min-height: 220px;
+    padding: 4px 20px 20px;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .capas__connector {
+    display: none;
+  }
+
+  .capas__rig {
+    --gap: 38px;
+    width: 200px;
+    height: 64px;
+    transform: translate(0, calc(var(--t) * 80px)) rotateX(calc(var(--t) * 58deg))
+      rotateZ(calc(var(--t) * -32deg));
+  }
+
+  .capas__layer {
+    font-size: 21px;
+    line-height: 64px;
+  }
+
+  .capas__callout p {
+    max-width: none;
+    font-size: 16px;
+  }
+
+  .capas__callout pre {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .capas__dots {
+    margin-top: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capas__hint svg {
+    animation: none;
+  }
+
+  .capas__callout {
+    transition: none;
+  }
+}

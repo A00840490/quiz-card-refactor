@@ -14,10 +14,9 @@
   <link href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css" rel="stylesheet" />
   <link href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet" />
   <!-- color plugin -->
-  <link href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" rel="stylesheet" />
   <!-- 'classic' theme -->
   <!-- page plugins css -->
-  <link href="../../assets/css/modulos/modulo3/modulo1-8-7.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo3/modulo3-10-capas.css" rel="stylesheet" />
   <!-- core css -->
   <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
   <link href="../../assets/css/themify-icons.css" rel="stylesheet" />
@@ -57,78 +56,75 @@
                         Recuerda que puedes utilizar cualquier formato de
                         color.
                       </p>
-                      <div aria-label="Propiedades CSS de color" class="property-wheel">
-                        <section class="property-wheel__item">
-                          <div aria-hidden="true" class="property-wheel__segment"></div>
-                          <div class="property-wheel__text">
-                            <h2>1. color</h2>
+                      <p class="card-info mb-2" style="width: fit-content;">
+                        <img src="../../assets/images/clic.svg" class="mrg-right-5"> Desplázate hacia abajo para
+                        recorrer cada capa del botón; al final se arma.
+                      </p>
+                      <!-- Botón desarmado: cada capa es una propiedad de color. El scroll
+                           recorre las capas de arriba hacia abajo y al final arma el botón. -->
+                      <div class="capas" data-capas>
+                        <div class="capas__sticky">
+                          <div class="capas__stage">
+                            <div class="capas__rig" data-rig aria-hidden="true"></div>
+                            <div class="capas__hint" data-hint>
+                              <svg width="12" height="14" viewBox="0 0 12 14" aria-hidden="true">
+                                <path d="M6 1v11M1 7l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"
+                                  stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                              Desplázate para recorrer cada capa
+                            </div>
+                          </div>
+                          <div class="capas__panel">
+                            <div class="capas__callout" data-callout aria-live="polite"></div>
+                            <div class="capas__dots" data-dots aria-hidden="true"></div>
+                          </div>
+                          <svg class="capas__connector" data-connector aria-hidden="true">
+                            <path></path>
+                            <circle r="0"></circle>
+                          </svg>
+                        </div>
+
+                        <!-- Textos de cada capa, de arriba hacia abajo (los muestra el JS) -->
+                        <div hidden>
+                          <div data-capa="text-decoration-color">
+                            <h2>text-decoration-color</h2>
+                            <p>Cambia el color de la decoración aplicada al texto, como el subrayado.</p>
+                          </div>
+                          <div data-capa="color">
+                            <h2>color</h2>
                             <p>Especifica el color del texto.</p>
                           </div>
-                        </section>
-                        <section class="property-wheel__item">
-                          <div aria-hidden="true" class="property-wheel__segment"></div>
-                          <div class="property-wheel__text">
-                            <h2>2. background-color</h2>
-                            <p>
-                              Especifica el color del fondo del elemento.
-                              Alternativamente puedes utilizar
-                              <span class="code">background</span>, ya que
-                              combina múltiples propiedades del fondo.
-                              También podemos utilizar un gradiente para
-                              el color de fondo. Puedes ver más ejemplos
-                              dando clic
-                              <img alt="" class="mrg-right-5" src="../../assets/images/clic_blanco.svg" />
+                          <div data-capa="text-shadow">
+                            <h2>text-shadow</h2>
+                            <p>Agrega una sombra del color especificado al texto.</p>
+                          </div>
+                          <div data-capa="border-color">
+                            <h2>border-color</h2>
+                            <p>Especifica el color del borde del elemento. Se necesita especificar un estilo de
+                              borde utilizando la propiedad <span class="code">border-style</span>.
+                              Alternativamente puedes utilizar la propiedad <span class="code">border</span>, ya
+                              que puede combinar la asignación del estilo con el color.</p>
+                          </div>
+                          <div data-capa="background-color">
+                            <h2>background-color</h2>
+                            <p>Especifica el color del fondo del elemento. Alternativamente puedes utilizar
+                              <span class="code">background</span>, ya que combina múltiples propiedades del
+                              fondo. También podemos utilizar un gradiente para el color de fondo; puedes ver
+                              más ejemplos
                               <a href="https://developer.mozilla.org/es/docs/CSS/Using_CSS_gradients"
-                                rel="noopener noreferrer" target="_blank">aquí</a>.
-                            </p>
+                                rel="noopener noreferrer" target="_blank">aquí</a>.</p>
                           </div>
-                        </section>
-                        <section class="property-wheel__item">
-                          <div aria-hidden="true" class="property-wheel__segment"></div>
-                          <div class="property-wheel__text">
-                            <h2>3. border-color</h2>
-                            <p>
-                              Especifica el color del borde del elemento.
-                              Se necesita especificar un estilo de borde
-                              utilizando la propiedad
-                              <span class="code">border-style</span>.
-                              Alternativamente puedes utilizar la
-                              propiedad <span class="code">border</span>,
-                              ya que puede combinar la asignación del
-                              estilo con el color.
-                            </p>
+                          <div data-capa="box-shadow">
+                            <h2>box-shadow</h2>
+                            <p>Le añade una sombra al contenedor con el color especificado. Es lo primero que se
+                              pinta, así que queda detrás de todo.</p>
                           </div>
-                        </section>
-                        <section class="property-wheel__item">
-                          <div aria-hidden="true" class="property-wheel__segment"></div>
-                          <div class="property-wheel__text">
-                            <h2>4. box-shadow</h2>
-                            <p>
-                              Le añade una sombra al contenedor con el
-                              color especificado.
-                            </p>
+                          <div data-capas-final>
+                            <h2>.boton</h2>
+                            <p>Juntas, las seis capas forman el botón. Así se ve el código completo, en el orden
+                              en que el navegador las pinta, de atrás hacia adelante.</p>
                           </div>
-                        </section>
-                        <section class="property-wheel__item">
-                          <div aria-hidden="true" class="property-wheel__segment"></div>
-                          <div class="property-wheel__text">
-                            <h2>5. text-shadow</h2>
-                            <p>
-                              Agrega una sombra del color especificado al
-                              texto.
-                            </p>
-                          </div>
-                        </section>
-                        <section class="property-wheel__item">
-                          <div aria-hidden="true" class="property-wheel__segment"></div>
-                          <div class="property-wheel__text">
-                            <h2>6. text-decoration-color</h2>
-                            <p>
-                              Cambia el color de la decoración aplicada al
-                              texto.
-                            </p>
-                          </div>
-                        </section>
+                        </div>
                       </div>
                     </div>
               </div>
@@ -188,69 +184,7 @@
   <script src="../../assets/js/progress/url-script.js"></script>
   <!-- endbuild -->
   <!-- Insert your dependencies here -->
-  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-  <script>
-    // Simple example, see optional options for more configuration.
-    const pickr = Pickr.create({
-      el: ".color-picker",
-      theme: "classic", // or 'monolith', or 'nano'
-      default: "#000000",
-
-      swatches: [
-        "rgba(244, 67, 54, 1)",
-        "rgba(233, 30, 99, 0.95)",
-        "rgba(156, 39, 176, 0.9)",
-        "rgba(103, 58, 183, 0.85)",
-        "rgba(63, 81, 181, 0.8)",
-        "rgba(33, 150, 243, 0.75)",
-        "rgba(3, 169, 244, 0.7)",
-        "rgba(0, 188, 212, 0.7)",
-        "rgba(0, 150, 136, 0.75)",
-        "rgba(76, 175, 80, 0.8)",
-        "rgba(139, 195, 74, 0.85)",
-        "rgba(205, 220, 57, 0.9)",
-        "rgba(255, 235, 59, 0.95)",
-        "rgba(255, 193, 7, 1)",
-      ],
-
-      components: {
-        // Main components
-        preview: true,
-        opacity: true,
-        hue: true,
-
-        // Input / output Options
-        interaction: {
-          hex: true,
-          rgba: true,
-          hsla: true,
-          input: true,
-          save: true,
-        },
-      },
-    });
-
-    pickr.on("save", (color, instance) => {
-      const hexcolor = color.toHEXA().toString(0);
-      const rgbcolor = color.toRGBA().toString(0);
-      const hslcolor = color.toHSLA().toString(0);
-
-      document.getElementById("color-code1").innerHTML = hexcolor;
-      document.getElementById("color-code2").innerHTML = rgbcolor;
-      document.getElementById("color-code3").innerHTML = hslcolor;
-      document.getElementById("color-code4").innerHTML = hexcolor;
-      document.getElementById("seccion1").style.color = rgbcolor;
-      document.getElementById("seccion2").style.background = rgbcolor;
-      document
-        .getElementById("seccion3")
-        .style.setProperty("border-color", rgbcolor, "important");
-
-      var backcode = "linear-gradient(#ffffff, ";
-      backcode = backcode + hexcolor + ")";
-      console.log(backcode);
-      document.getElementById("seccion4").style.backgroundImage = backcode;
-    });
-  </script>
+  <script src="../../assets/js/scripts/modulo3/modulo3-10-capas.js"></script>
 </body>
 
 </html>
