@@ -168,39 +168,6 @@
   fill: var(--capas-ink);
 }
 
-.capas__hint {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  z-index: 4;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 8px 12px;
-  border-radius: 99px;
-  background: rgba(0, 0, 0, 0.28);
-  color: var(--capas-ink);
-  font-size: 14px;
-  font-weight: 700;
-  white-space: nowrap;
-  translate: -50% 0;
-  transition: opacity 0.3s;
-}
-
-.capas__hint svg {
-  animation: capas-bob 1.4s ease-in-out infinite;
-}
-
-.capas__hint.is-gone {
-  opacity: 0;
-}
-
-@keyframes capas-bob {
-  50% {
-    transform: translateY(3px);
-  }
-}
-
 /* ---------- Botón en capas ---------- */
 .capas__rig {
   --t: 1;
@@ -342,10 +309,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .capas__hint svg {
-    animation: none;
-  }
-
   .capas__callout {
     transition: none;
   }

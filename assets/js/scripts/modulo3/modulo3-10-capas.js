@@ -25,7 +25,6 @@
   var sticky = root.querySelector(".capas__sticky");
   var callout = root.querySelector("[data-callout]");
   var dotsBox = root.querySelector("[data-dots]");
-  var hint = root.querySelector("[data-hint]");
   var svg = root.querySelector("[data-connector]");
   var path = svg.querySelector("path");
   var dot = svg.querySelector("circle");
@@ -125,7 +124,6 @@
       n.classList.toggle("is-active", i === active);
       n.classList.toggle("is-dim", active !== -1 && i !== active);
     });
-    hint.classList.toggle("is-gone", p > 0.02);
     showStep(step);
     drawConnector();
   }
