@@ -74,13 +74,11 @@
     if (step < N) {
       var l = LAYERS[steps[step].layer];
       return (
-        '<span class="capas__count">Capa ' + (step + 1) + " de " + N + "</span>" +
         steps[step].html +
         '<code class="capas__line">' + decl(l) + "</code>"
       );
     }
     return (
-      '<span class="capas__count">Botón armado</span>' +
       (final ? final.innerHTML : "") +
       '<pre><span class="capas__sel">.boton</span> {\n  border: 4px solid;\n' +
       LAYERS.map(function (l) {
