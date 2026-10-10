@@ -1,7 +1,7 @@
 /* ===================== Tren de arreglos ===================== */
 .arr-train {
   --theme-dark: #062b66;
-  --ink: #172033;
+  --ink: #000000;
   --muted: #5b6577;
   --line: #dce3ec;
   --wagon-w: 104px;
@@ -324,18 +324,11 @@
 }
 
 .arr-polaroid__cap {
-  padding: 8px 4px 0;
-  color: #24324f;
+  padding: 8px 4px 12px;
+  color: var(--ink);
   font: 700 18px "Segoe Print", "Bradley Hand", "Comic Sans MS", "Chalkboard SE", cursive;
   text-align: center;
   white-space: nowrap;
-}
-
-.arr-polaroid__note {
-  padding: 0 4px 10px;
-  color: var(--muted);
-  font: 12px "Segoe Print", "Bradley Hand", "Comic Sans MS", "Chalkboard SE", cursive;
-  text-align: center;
 }
 
 /* Vía llena: push y unshift se apagan y tiemblan si se presionan */
@@ -344,9 +337,22 @@
 .arr-train__btn.is-shake { animation: arr-shake .4s; }
 @keyframes arr-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
+/* Consola y explicación lado a lado; en pantallas angostas, una debajo de otra */
+.arr-train__console {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  margin: 14px 0 1rem;
+}
+
+@media (max-width: 767px) {
+  .arr-train__console { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+}
+
 .arr-train__info {
   min-height: 24px;
-  margin: 0 0 1rem;
+  margin: 0;
   color: var(--ink);
 }
 
@@ -387,7 +393,7 @@
   font-family: Arial, sans-serif;
 }
 
-.arr-train__term { margin: 14px 0 10px; }
+.arr-train__term { margin: 0; }
 
 .arr-train__term .js-term__code { min-height: 5.25em; }
 
