@@ -1,0 +1,238 @@
+/* ===================== modulo1-3: la Web en acción =====================
+   Una sola escena (navegador, Internet y servidor) que cambia según el
+   concepto elegido. La altura no cambia entre conceptos: la escena tiene
+   proporción fija y los textos se apilan en la misma celda de un grid, así
+   el bloque siempre mide lo que mide el texto más largo. */
+.wa {
+  --wa-accent: #fac775;
+  --wa-muted: #5b6577;
+  --wa-dim: .28;
+}
+
+.wa__tabs .nav-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.wa__tabs .nav-pills .nav-item { margin: 0; }
+
+/* El botón activo conserva el grosor del borde para que nada se mueva */
+.wa__tabs.pill-info .nav-pills > li > a.active { border-width: 2px; border-style: solid; }
+
+.wa__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.wa__scene {
+  background: #f6f8fb;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 14px 14px 10px;
+}
+
+.wa__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.wa__svg text { font-family: inherit; }
+.wa-label { font-size: 15px; font-weight: 700; fill: #000000; }
+
+/* Pilas: todos los elementos ocupan la misma celda y sólo se ve el activo */
+.wa__captions,
+.wa__panels { display: grid; }
+
+.wa__cap,
+.wa__panel {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .35s ease, visibility 0s linear .35s;
+}
+
+.wa[data-mode="navegador"] [data-wa-for="navegador"],
+.wa[data-mode="servidor"] [data-wa-for="servidor"],
+.wa[data-mode="framework"] [data-wa-for="framework"],
+.wa[data-mode="lenguaje"] [data-wa-for="lenguaje"] {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .35s ease, visibility 0s;
+}
+
+.wa__cap {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #062b66;
+}
+
+.wa__panel p { margin-bottom: 0; }
+
+.wa__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e3e8ef;
+}
+
+.wa__count { color: var(--wa-muted); font-size: 13px; }
+.wa__next i { margin-left: 6px; font-size: 12px; }
+
+@media (max-width: 991px) {
+  .wa__body { grid-template-columns: 1fr; gap: 18px; }
+}
+
+@media (max-width: 575px) {
+  .wa__scene { padding: 8px 6px 8px; border-radius: 10px; }
+  .wa__cap { font-size: 13px; }
+}
+
+/* ---------- Escena: estado base (también es el estado sin animación) ---------- */
+.wa-browser, .wa-net, .wa-server, .wa-units { transition: opacity .4s ease; }
+.wa-browser__frame { transition: stroke .3s ease, stroke-width .3s ease; }
+
+.wa-code, .wa-scan, .wa-spin, .wa-req, .wa-file, .wa-legend, .wa-fw,
+.wa-wire, .wa-cursor, .wa-bubble { opacity: 0; }
+
+.wa-btn, .wa-spin { transform-box: fill-box; transform-origin: center; }
+
+/* Navegador: se resalta el navegador y el código se vuelve página */
+.wa[data-mode="navegador"] .wa-browser__frame { stroke: var(--wa-accent); stroke-width: 4; }
+.wa[data-mode="navegador"] .wa-net,
+.wa[data-mode="navegador"] .wa-server { opacity: var(--wa-dim); }
+.wa[data-mode="navegador"] .wa-code { animation: wa-nav-code 6s ease-in-out infinite; }
+.wa[data-mode="navegador"] .wa-scan { animation: wa-nav-scan 6s ease-in-out infinite; }
+.wa[data-mode="navegador"] .wa-page { animation: wa-nav-page 6s ease-in-out infinite; }
+
+@keyframes wa-nav-code { 0%, 40% { opacity: 1; } 52%, 94% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes wa-nav-scan {
+  0%, 30% { opacity: 0; transform: translateY(0); }
+  33% { opacity: 1; transform: translateY(0); }
+  55% { opacity: 1; transform: translateY(157px); }
+  58%, 100% { opacity: 0; transform: translateY(157px); }
+}
+@keyframes wa-nav-page { 0%, 42% { opacity: 0; } 54%, 92% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Servidor: petición GET, el servidor responde con los archivos */
+.wa[data-mode="servidor"] .wa-server { filter: drop-shadow(0 0 6px rgba(250, 199, 117, .9)); }
+.wa[data-mode="servidor"] .wa-page { animation: wa-srv-page 6.5s ease-in-out infinite; }
+.wa[data-mode="servidor"] .wa-spin { animation: wa-srv-spin 6.5s linear infinite; }
+.wa[data-mode="servidor"] .wa-req { animation: wa-srv-req 6.5s ease-in-out infinite; }
+.wa[data-mode="servidor"] .wa-led { animation: wa-srv-led 6.5s steps(1) infinite; }
+.wa[data-mode="servidor"] .wa-file--html { animation: wa-srv-file 6.5s ease-in-out infinite; }
+.wa[data-mode="servidor"] .wa-file--css { animation: wa-srv-file 6.5s ease-in-out infinite; animation-delay: .45s; }
+.wa[data-mode="servidor"] .wa-file--js { animation: wa-srv-file 6.5s ease-in-out infinite; animation-delay: .9s; }
+
+@keyframes wa-srv-page { 0%, 72% { opacity: 0; } 78%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes wa-srv-spin {
+  0% { opacity: 1; transform: rotate(0deg); }
+  70% { opacity: 1; transform: rotate(1080deg); }
+  74%, 100% { opacity: 0; transform: rotate(1080deg); }
+}
+@keyframes wa-srv-req {
+  0%, 4% { opacity: 0; transform: translateX(0); }
+  8% { opacity: 1; transform: translateX(0); }
+  28% { opacity: 1; transform: translateX(120px); }
+  32%, 100% { opacity: 0; transform: translateX(120px); }
+}
+@keyframes wa-srv-led {
+  0%, 30% { fill: #5fd38d; } 33% { fill: #fac775; } 36% { fill: #5fd38d; }
+  39% { fill: #fac775; } 42%, 100% { fill: #5fd38d; }
+}
+@keyframes wa-srv-file {
+  0%, 40% { opacity: 0; transform: translateX(0); }
+  43% { opacity: 1; transform: translateX(0); }
+  62% { opacity: 1; transform: translateX(-176px); }
+  66%, 100% { opacity: 0; transform: translateX(-176px); }
+}
+
+/* Framework: el servidor se abre y las piezas listas se acomodan */
+.wa[data-mode="framework"] .wa-browser,
+.wa[data-mode="framework"] .wa-net { opacity: var(--wa-dim); }
+.wa[data-mode="framework"] .wa-units { opacity: 0; }
+.wa[data-mode="framework"] .wa-fw { opacity: 1; }
+.wa[data-mode="framework"] .wa-fw__b { animation: wa-fw-drop 6s ease-out infinite both; }
+.wa[data-mode="framework"] .wa-fw__b:nth-child(2) { animation-delay: .35s; }
+.wa[data-mode="framework"] .wa-fw__b:nth-child(3) { animation-delay: .7s; }
+.wa[data-mode="framework"] .wa-fw__b:nth-child(4) { animation-delay: 1.05s; }
+.wa[data-mode="framework"] .wa-fw__b--yo { animation-name: wa-fw-yo; animation-delay: 1.8s; }
+
+@keyframes wa-fw-drop {
+  0% { opacity: 0; transform: translateY(-46px); }
+  8% { opacity: 1; transform: translateY(3px); }
+  11%, 82% { opacity: 1; transform: translateY(0); }
+  90%, 100% { opacity: 0; transform: translateY(0); }
+}
+@keyframes wa-fw-yo {
+  0% { opacity: 0; transform: translateX(-150px); }
+  10% { opacity: 1; transform: translateX(4px); }
+  13%, 72% { opacity: 1; transform: translateX(0); }
+  80%, 100% { opacity: 0; transform: translateX(0); }
+}
+
+/* Lenguaje: llega cada archivo y la página se construye por capas */
+.wa[data-mode="lenguaje"] .wa-server { opacity: .55; }
+.wa[data-mode="lenguaje"] .wa-legend { opacity: 1; }
+.wa[data-mode="lenguaje"] .wa-file--html { animation: wa-lng-html 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-file--css { animation: wa-lng-css 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-file--js { animation: wa-lng-js 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-wire { animation: wa-lng-wire 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-style { animation: wa-lng-style 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-cursor { animation: wa-lng-cursor 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-btn { animation: wa-lng-btn 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-bubble { animation: wa-lng-bubble 8s ease-in-out infinite; }
+.wa[data-mode="lenguaje"] .wa-legend circle:nth-of-type(1) { animation: wa-lng-dot 8s infinite; }
+.wa[data-mode="lenguaje"] .wa-legend circle:nth-of-type(2) { animation: wa-lng-dot 8s infinite 2s; }
+.wa[data-mode="lenguaje"] .wa-legend circle:nth-of-type(3) { animation: wa-lng-dot 8s infinite 4s; }
+
+@keyframes wa-lng-html {
+  0%, 3% { opacity: 0; transform: translateX(0); }
+  6% { opacity: 1; transform: translateX(0); }
+  18% { opacity: 1; transform: translateX(-176px); }
+  21%, 100% { opacity: 0; transform: translateX(-176px); }
+}
+@keyframes wa-lng-css {
+  0%, 28% { opacity: 0; transform: translateX(0); }
+  31% { opacity: 1; transform: translateX(0); }
+  43% { opacity: 1; transform: translateX(-176px); }
+  46%, 100% { opacity: 0; transform: translateX(-176px); }
+}
+@keyframes wa-lng-js {
+  0%, 53% { opacity: 0; transform: translateX(0); }
+  56% { opacity: 1; transform: translateX(0); }
+  68% { opacity: 1; transform: translateX(-176px); }
+  71%, 100% { opacity: 0; transform: translateX(-176px); }
+}
+@keyframes wa-lng-wire { 0%, 18% { opacity: 0; } 21%, 43% { opacity: 1; } 46%, 100% { opacity: 0; } }
+@keyframes wa-lng-style { 0%, 43% { opacity: 0; } 46%, 95% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes wa-lng-cursor {
+  0%, 69% { opacity: 0; transform: translate(0, 0); }
+  71% { opacity: 1; transform: translate(0, 0); }
+  79%, 92% { opacity: 1; transform: translate(-128px, -24px); }
+  95%, 100% { opacity: 0; transform: translate(-128px, -24px); }
+}
+@keyframes wa-lng-btn { 0%, 80% { transform: scale(1); } 82% { transform: scale(.9); } 85%, 100% { transform: scale(1); } }
+@keyframes wa-lng-bubble {
+  0%, 82% { opacity: 0; transform: translateY(6px); }
+  85%, 94% { opacity: 1; transform: translateY(-34px); }
+  98%, 100% { opacity: 0; transform: translateY(-34px); }
+}
+@keyframes wa-lng-dot { 0%, 100% { r: 5px; } 6% { r: 8px; } 14% { r: 5px; } }
+
+/* Sin movimiento: cada concepto muestra su estado final */
+@media (prefers-reduced-motion: reduce) {
+  .wa *, .wa *::before { animation: none !important; transition: none !important; }
+  .wa[data-mode="framework"] .wa-fw__b { opacity: 1; }
+  .wa[data-mode="lenguaje"] .wa-bubble { opacity: 1; transform: translateY(-34px); }
+}
