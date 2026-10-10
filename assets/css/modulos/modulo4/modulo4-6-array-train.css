@@ -230,7 +230,7 @@
 .arr-train__photo {
   display: none;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .arr-train__photo.is-visible { display: flex; }
@@ -337,7 +337,8 @@
 .arr-train__btn.is-shake { animation: arr-shake .4s; }
 @keyframes arr-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
-/* Consola y explicación lado a lado; en pantallas angostas, una debajo de otra */
+/* Consola a la izquierda; explicación y polaroid a la derecha. En pantallas
+   angostas todo va en una columna */
 .arr-train__console {
   display: none;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
