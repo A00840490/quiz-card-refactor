@@ -15,7 +15,6 @@
   var open = root.querySelector("[data-cc-open]");
   var nameEl = root.querySelector("[data-cc-name]");
   var panels = Array.prototype.slice.call(root.querySelectorAll("[data-cc-panel]"));
-  var closeBtn = root.querySelector("[data-cc-close]");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var T = reduce ? { flip: 0, grow: 0, fade: 0 } : { flip: 520, grow: 470, fade: 250 };
   var active = null;
@@ -103,7 +102,7 @@
       return wait(T.fade);
     }).then(function () {
       busy = false;
-      closeBtn.focus({ preventScroll: true });
+      open.focus({ preventScroll: true });
     });
   }
 
@@ -145,6 +144,12 @@
   // Tocar cualquier parte de la tarjeta abierta la voltea de nuevo (menos los enlaces)
   open.addEventListener("click", function (e) {
     if (e.target.closest("a")) return;
+    if (!busy && active) collapse();
+  });
+
+  open.addEventListener("keydown", function (e) {
+    if (e.target !== open || (e.key !== "Enter" && e.key !== " ")) return;
+    e.preventDefault();
     if (!busy && active) collapse();
   });
 

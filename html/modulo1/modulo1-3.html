@@ -66,7 +66,6 @@
                                                 <span class="cc__face cc__front">
                                                     <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="10" width="52" height="42" rx="5"/><path d="M6 21h52"/><circle cx="13" cy="15.5" r="1.6" fill="#ffffff"/><circle cx="19" cy="15.5" r="1.6" fill="#ffffff"/><rect x="14" y="28" width="22" height="6" rx="2" fill="#fac775" stroke="none"/><path d="M14 41h34M14 46h24"/></svg>
                                                     <strong>Navegador</strong>
-                                                    <small>Toca para voltear</small>
                                                 </span>
                                                 <span class="cc__face cc__back"><strong>Navegador</strong></span>
                                             </span>
@@ -76,7 +75,6 @@
                                                 <span class="cc__face cc__front">
                                                     <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="6" width="40" height="15" rx="3"/><rect x="12" y="25" width="40" height="15" rx="3"/><rect x="12" y="44" width="40" height="15" rx="3"/><circle cx="20" cy="13.5" r="2.4" fill="#fac775" stroke="none"/><circle cx="20" cy="32.5" r="2.4" fill="#fac775" stroke="none"/><circle cx="20" cy="51.5" r="2.4" fill="#fac775" stroke="none"/><path d="M30 13.5h14M30 32.5h14M30 51.5h14"/></svg>
                                                     <strong>Servidor Web</strong>
-                                                    <small>Toca para voltear</small>
                                                 </span>
                                                 <span class="cc__face cc__back"><strong>Servidor Web</strong></span>
                                             </span>
@@ -86,7 +84,6 @@
                                                 <span class="cc__face cc__front">
                                                     <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="36" width="22" height="20" rx="3"/><rect x="34" y="36" width="22" height="20" rx="3"/><rect x="21" y="12" width="22" height="20" rx="3" fill="#fac775" stroke="#fac775"/></svg>
                                                     <strong>Framework</strong>
-                                                    <small>Toca para voltear</small>
                                                 </span>
                                                 <span class="cc__face cc__back"><strong>Framework</strong></span>
                                             </span>
@@ -96,7 +93,6 @@
                                                 <span class="cc__face cc__front">
                                                     <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 18L8 32l14 14M42 18l14 14-14 14"/><path d="M37 12L27 52" stroke="#fac775"/></svg>
                                                     <strong>Lenguaje</strong>
-                                                    <small>Toca para voltear</small>
                                                 </span>
                                                 <span class="cc__face cc__back"><strong>Lenguaje</strong></span>
                                             </span>
@@ -104,10 +100,11 @@
                                     </div>
 
                                     <!-- Tarjeta abierta: crece desde la tarjeta volteada hasta cubrir las cuatro -->
-                                    <div class="cc__open" id="cc-detalle" role="region" aria-label="Concepto" data-cc-open hidden>
+                                    <div class="cc__open" id="cc-detalle" role="region" aria-label="Concepto" tabindex="-1" data-cc-open hidden>
                                         <div class="cc__open-name" data-cc-name aria-hidden="true"></div>
                                         <div class="cc__open-body">
                                             <div class="cc__panel" data-cc-panel="navegador" hidden>
+                                                <span class="cc__img" style="background-image: url('../../assets/images/course/modulo1/m1-2/1.1_navegador.jpg')" aria-hidden="true"></span>
                                                 <h2 class="card-title">Navegador</h2>
                                                 <p>Un navegador es el software o programa que nos permite acceder a la Web. Este
                                                     interpreta todo el código de las páginas web a las que accedamos para desplegarlas
@@ -118,6 +115,7 @@
                                                     requisitos.</p>
                                             </div>
                                             <div class="cc__panel" data-cc-panel="servidor" hidden>
+                                                <span class="cc__img" style="background-image: url('../../assets/images/course/modulo1/m1-2/1.1_servidor%20web.jpg')" aria-hidden="true"></span>
                                                 <h2 class="card-title">Servidor Web</h2>
                                                 <p>Un servidor, explicado de manera simple, es una computadora ajena que está en
                                                     funcionamiento 24/7; incluso tu propia computadora puede funcionar como servidor.
@@ -131,6 +129,7 @@
                                                     HTTP más popular es Apache, el cual es open-source y gratuito.</p>
                                             </div>
                                             <div class="cc__panel" data-cc-panel="framework" hidden>
+                                                <span class="cc__img" style="background-image: url('../../assets/images/course/modulo1/m1-2/1.1_framework.jpg')" aria-hidden="true"></span>
                                                 <h2 class="card-title">Framework</h2>
                                                 <p>Framework quiere decir entorno de trabajo, el cual consiste en una serie de
                                                     herramientas y prácticas que nos ayudan a resolver cierto problema. En el contexto
@@ -141,16 +140,14 @@
                                                     o <a href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank" rel="noopener">Flask</a>.</p>
                                             </div>
                                             <div class="cc__panel" data-cc-panel="lenguaje" hidden>
+                                                <span class="cc__img" style="background-image: url('../../assets/images/course/modulo1/m1-2/1.1_lenguaje.jpg')" aria-hidden="true"></span>
                                                 <h2 class="card-title">Lenguaje</h2>
                                                 <p>Un lenguaje en el contexto de programación web es una serie de reglas e
                                                     instrucciones que permiten realizar cierto tipo de acciones o añadir cierto formato
                                                     a algún elemento. En este curso aprenderás las nociones de los 3 lenguajes pilares
                                                     de la programación web y todas sus instrucciones básicas para crear páginas web.</p>
                                             </div>
-                                            <div class="cc__foot">
-                                                <span class="cc__hint">Toca la tarjeta para voltearla de nuevo.</span>
-                                                <button type="button" class="btn btn-info cc__close" data-cc-close>Voltear tarjeta</button>
-                                            </div>
+                                            <span class="sr-only">Toca la tarjeta o presiona Enter para voltearla de nuevo.</span>
                                         </div>
                                     </div>
                                 </div>
