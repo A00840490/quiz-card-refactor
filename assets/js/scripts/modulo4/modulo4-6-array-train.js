@@ -288,6 +288,7 @@
 
   function reset() {
     clearFx();
+    root.classList.remove("is-started");
     line.querySelectorAll(".arr-wagon").forEach(function (w) { w.remove(); });
     train = START.map(item);
     render(train, { instant: true });
@@ -315,6 +316,7 @@
     b.innerHTML = '<span class="arr-train__btn-ring"><span class="arr-train__btn-cap">' + ICON[m.icon] + '</span></span><span class="arr-train__btn-label">.' + m.name + "</span>";
     b.addEventListener("click", function () {
       clearFx();
+      root.classList.add("is-started");
       if (train.length + grows(m) > MAX) {
         press(null);
         terminal(state(train) + "\n// La vía solo tiene espacio para " + MAX + " vagones.\n// Quita uno con pop, shift o splice, o presiona Reiniciar.");

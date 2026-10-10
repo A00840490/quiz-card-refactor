@@ -339,12 +339,20 @@
 
 /* Consola y explicación lado a lado; en pantallas angostas, una debajo de otra */
 .arr-train__console {
-  display: grid;
+  display: none;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: 24px;
   margin: 14px 0 1rem;
 }
+
+/* Aparecen hasta que se presiona el primer botón */
+.arr-train.is-started .arr-train__console {
+  display: grid;
+  animation: arr-console-in .4s ease-out;
+}
+
+@keyframes arr-console-in { from { opacity: 0; transform: translateY(10px); } }
 
 @media (max-width: 767px) {
   .arr-train__console { grid-template-columns: minmax(0, 1fr); gap: 10px; }
@@ -371,7 +379,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .arr-wagon, .arr-wagon__idx span { transition: none; }
-  .arr-polaroid, .arr-wagon.is-photo::after, .arr-train__btn.is-shake { animation: none; }
+  .arr-polaroid, .arr-wagon.is-photo::after, .arr-train__btn.is-shake,
+  .arr-train.is-started .arr-train__console { animation: none; }
   .arr-train.is-rolling .arr-wheel { animation: none; }
 }
 
