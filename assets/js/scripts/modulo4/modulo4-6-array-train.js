@@ -17,6 +17,7 @@
   var infoEl = root.querySelector("[data-info]");
   var photo = root.querySelector("[data-photo]");
   var photoRow = root.querySelector("[data-photo-row]");
+  var photoCap = root.querySelector("[data-photo-cap]");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var uid = 0;
@@ -45,22 +46,58 @@
 
   var START = ["Hola", "Mundo", 7];
 
-  // Cada método: args visibles, ícono, por dónde salen/entran los vagones y explicación
+  function vals(a) { return a.map(function (x) { return show(x.v); }).join(" y "); }
+
+  // Cada método: args visibles, ícono, por dónde salen/entran los vagones,
+  // cuántos vagones agrega (para el límite de la vía) y una explicación
+  // que describe lo que pasó con el tren en ese momento.
   var METHODS = [
-    { name: "length", args: "", icon: "count", info: "<code>.length</code> no mueve el tren: cuenta los vagones. Es una propiedad, por eso no lleva paréntesis.",
-      run: function (a) { return { a: a, r: a.length, count: true }; } },
-    { name: "push", args: '("nuevo")', icon: "in", enter: "in-right", info: "<code>.push()</code> engancha un vagón al final y regresa cuántos vagones hay ahora.",
-      run: function (a) { return { a: a.concat([item("nuevo")]), r: a.length + 1 }; } },
-    { name: "pop", args: "()", icon: "out", leave: "out-right", info: "<code>.pop()</code> suelta el último vagón y regresa lo que llevaba.",
-      run: function (a) { return { a: a.slice(0, -1), r: a.length ? a[a.length - 1].v : undefined }; } },
-    { name: "unshift", args: "(5)", icon: "down", enter: "in-up", info: "<code>.unshift()</code> pone un vagón al frente, junto a la locomotora. Todos los demás cambian de índice.",
-      run: function (a) { return { a: [item(5)].concat(a), r: a.length + 1 }; } },
-    { name: "shift", args: "()", icon: "up", leave: "out-up", info: "<code>.shift()</code> retira el primer vagón y regresa lo que llevaba. Los demás avanzan y cambian de índice.",
-      run: function (a) { return { a: a.slice(1), r: a.length ? a[0].v : undefined }; } },
-    { name: "splice", args: '(1, 2, 8, "world")', icon: "swap", leave: "out-up", enter: "in-up", info: '<code>.splice(1, 2, 8, "world")</code>: desde el índice 1 quita 2 vagones y pone 8 y "world" en su lugar. Regresa los que quitó.',
-      run: function (a) { var b = a.slice(); var del = b.splice(1, 2, item(8), item("world")); return { a: b, r: del.map(function (x) { return x.v; }) }; } },
-    { name: "slice", args: "(1, 2)", icon: "photo", info: "<code>.slice(1, 2)</code> le toma una foto a los vagones del índice 1 hasta antes del 2. El tren no cambia.",
-      run: function (a) { return { a: a, r: a.slice(1, 2).map(function (x) { return x.v; }), photo: [1, 2] }; } },
+    { name: "length", args: "", icon: "count",
+      run: function (a) { return { a: a, r: a.length, count: true }; },
+      info: function (a) {
+        return "<code>.length</code> no mueve el tren: cuenta los vagones. Hay " + a.length + (a.length === 1 ? " vagón" : " vagones") +
+          (a.length ? ", así que el último índice es " + (a.length - 1) + "." : ".") + " Es una propiedad, por eso no lleva paréntesis.";
+      } },
+    { name: "push", args: '("nuevo")', icon: "in", enter: "in-right", adds: 1,
+      run: function (a) { return { a: a.concat([item("nuevo")]), r: a.length + 1 }; },
+      info: function (a, out) {
+        return '<code>.push()</code> enganchó "nuevo" al final, en el índice ' + (out.r - 1) + ", y regresa cuántos vagones hay ahora: " + out.r + ".";
+      } },
+    { name: "pop", args: "()", icon: "out", leave: "out-right",
+      run: function (a) { return { a: a.slice(0, -1), r: a.length ? a[a.length - 1].v : undefined }; },
+      info: function (a, out) {
+        return a.length ? "<code>.pop()</code> soltó el último vagón (" + show(out.r) + ", índice " + (a.length - 1) + ") y regresa lo que llevaba."
+          : "<code>.pop()</code> no tenía vagones que soltar: el arreglo está vacío, así que regresa <code>undefined</code>.";
+      } },
+    { name: "unshift", args: "(5)", icon: "down", enter: "in-up", adds: 1,
+      run: function (a) { return { a: [item(5)].concat(a), r: a.length + 1 }; },
+      info: function (a, out) {
+        return "<code>.unshift()</code> puso el 5 al frente, junto a la locomotora" + (a.length ? ", y los demás vagones avanzaron un índice" : "") +
+          ". Regresa cuántos vagones hay ahora: " + out.r + ".";
+      } },
+    { name: "shift", args: "()", icon: "up", leave: "out-up",
+      run: function (a) { return { a: a.slice(1), r: a.length ? a[0].v : undefined }; },
+      info: function (a, out) {
+        return !a.length ? "<code>.shift()</code> no tenía vagones que retirar: el arreglo está vacío, así que regresa <code>undefined</code>."
+          : "<code>.shift()</code> retiró el primer vagón (" + show(out.r) + ") y regresa lo que llevaba." + (a.length > 1 ? " Los demás retrocedieron un índice." : "");
+      } },
+    { name: "splice", args: '(1, 2, 8, "world")', icon: "swap", leave: "out-up", enter: "in-up", adds: 2,
+      run: function (a) {
+        var b = a.slice(); var del = b.splice(1, 2, item(8), item("world"));
+        return { a: b, r: del.map(function (x) { return x.v; }), removed: del.length };
+      },
+      info: function (a, out) {
+        var at = Math.min(1, a.length);
+        var quito = out.removed ? "quitó " + vals(a.slice(1, 3)) + " y" : "no encontró vagones que quitar, así que solo";
+        return '<code>.splice(1, 2, 8, "world")</code>: desde el índice ' + at + " " + quito + ' puso 8 y "world" en su lugar. Regresa un arreglo con los que quitó.';
+      } },
+    { name: "slice", args: "(1, 2)", icon: "photo",
+      run: function (a) { return { a: a, r: a.slice(1, 2).map(function (x) { return x.v; }), photo: [1, 2] }; },
+      info: function (a, out) {
+        return out.r.length
+          ? "<code>.slice(1, 2)</code> le tomó una foto al vagón del índice 1 (hasta antes del 2). La foto es una copia nueva: el tren no cambia."
+          : "<code>.slice(1, 2)</code> no encontró vagón en el índice 1, así que la foto salió vacía: <code>[]</code>. El tren no cambia.";
+      } },
   ];
 
   function wagonSVG(p) {
@@ -87,8 +124,18 @@
 
   var train = [];
 
-  function rolling(on) {
-    root.classList.toggle("is-rolling", on);
+  // Efectos temporales del último método. Se cancelan cuando se presiona otro
+  // botón para que un clic rápido no deje restos del anterior (conteo a medias,
+  // índices resaltados, flash de la cámara).
+  var fx = [];
+  function later(fn, ms) { fx.push(setTimeout(fn, ms)); }
+  function clearFx() {
+    fx.forEach(clearTimeout);
+    fx = [];
+    root.classList.remove("is-rolling", "is-flash");
+    line.querySelectorAll(".arr-wagon__idx span").forEach(function (s) { s.classList.remove("is-count", "is-changed"); });
+    photo.classList.remove("is-visible", "is-developing");
+    line.querySelectorAll(".arr-wagon.is-photo").forEach(function (w) { w.classList.remove("is-photo"); });
   }
 
   // Dibuja el tren; anima los vagones que se quedan (FLIP), los que entran y los que salen.
@@ -129,7 +176,6 @@
       idx.className = "";
       if (o && o.idx !== label && !instant) idx.classList.add("is-changed");
       idx.textContent = label;
-      el.classList.toggle("is-photo", !!(opts.photo && i >= opts.photo[0] && i < opts.photo[1]));
       line.appendChild(el);
     });
 
@@ -152,10 +198,10 @@
       entering.forEach(function (el) { el.classList.remove(opts.enter || "in-right"); });
     });
     if (moved || entering.length || opts.leave) {
-      rolling(true);
-      setTimeout(function () { rolling(false); }, 800);
+      root.classList.add("is-rolling");
+      later(function () { root.classList.remove("is-rolling"); }, 800);
     }
-    setTimeout(function () {
+    later(function () {
       line.querySelectorAll(".arr-wagon__idx span.is-changed").forEach(function (s) { s.classList.remove("is-changed"); });
     }, 1400);
   }
@@ -177,8 +223,8 @@
   function countWagons() {
     var spans = line.querySelectorAll(".arr-wagon:not([data-leaving]) .arr-wagon__idx span");
     spans.forEach(function (s, i) {
-      setTimeout(function () { s.classList.add("is-count"); }, i * 280);
-      setTimeout(function () { s.classList.remove("is-count"); }, spans.length * 280 + 900);
+      later(function () { s.classList.add("is-count"); }, i * 280);
+      later(function () { s.classList.remove("is-count"); }, spans.length * 280 + 900);
     });
   }
 
@@ -203,50 +249,91 @@
 
   var MAX = 6;
 
+  // slice: el visor encuadra los vagones copiados, salta el flash y sale una
+  // polaroid con la foto de esos mismos vagones sobre su tramo de vía.
+  function snap(range, values) {
+    var shot = [];
+    line.querySelectorAll(".arr-wagon:not([data-leaving])").forEach(function (el, i) {
+      if (i >= range[0] && i < range[1]) { el.classList.add("is-photo"); shot.push(el); }
+    });
+    photoRow.innerHTML = "";
+    values.forEach(function (v) {
+      var w = document.createElement("div");
+      w.className = "arr-polaroid__wagon";
+      w.style.setProperty("--tx", palette(v).tx);
+      w.innerHTML = wagonSVG(palette(v)).replace(/ class="arr-wheel"/g, "") + '<span class="arr-polaroid__val"></span>';
+      w.querySelector(".arr-polaroid__val").textContent = show(v);
+      photoRow.appendChild(w);
+    });
+    photoRow.classList.toggle("is-empty", !values.length);
+    photoCap.textContent = "r = " + fmt(values);
+    var go = function () {
+      root.classList.remove("is-flash");
+      void root.offsetWidth;
+      root.classList.add("is-flash");
+      photo.classList.add("is-visible", "is-developing");
+      later(function () { photo.classList.remove("is-developing"); }, 60);
+      later(function () { root.classList.remove("is-flash"); }, 700);
+    };
+    if (reduce) { photo.classList.add("is-visible"); return; }
+    later(go, 450);
+  }
+
+  // Con la vía llena, push y unshift se ven apagados (siguen avisando al presionarlos).
+  function setFull() {
+    buttons.querySelectorAll("[data-adds]").forEach(function (b) {
+      b.classList.toggle("is-blocked", train.length >= MAX);
+    });
+  }
+
   function reset() {
+    clearFx();
     line.querySelectorAll(".arr-wagon").forEach(function (w) { w.remove(); });
     train = START.map(item);
     render(train, { instant: true });
     terminal(state(train) + "\n// Presiona un botón para usar un método");
     infoEl.innerHTML = "";
-    photo.classList.remove("is-visible");
     buttons.querySelectorAll(".arr-train__btn").forEach(function (b) { b.classList.remove("is-on"); });
+    setFull();
+  }
+
+  function press(b) {
+    buttons.querySelectorAll(".arr-train__btn").forEach(function (x) { x.classList.toggle("is-on", x === b); });
+  }
+
+  // splice quita hasta 2 vagones y pone 2: solo agrega si había menos de 3.
+  function grows(m) {
+    if (m.name === "splice") return 2 - Math.max(0, Math.min(2, train.length - 1));
+    return m.adds || 0;
   }
 
   METHODS.forEach(function (m) {
     var b = document.createElement("button");
     b.type = "button";
     b.className = "arr-train__btn";
+    if (m.adds && !m.leave) b.setAttribute("data-adds", "");
     b.innerHTML = '<span class="arr-train__btn-ring"><span class="arr-train__btn-cap">' + ICON[m.icon] + '</span></span><span class="arr-train__btn-label">.' + m.name + "</span>";
     b.addEventListener("click", function () {
-      buttons.querySelectorAll(".arr-train__btn").forEach(function (x) { x.classList.toggle("is-on", x === b); });
-      if (m.enter && !m.leave && train.length >= MAX) {
-        infoEl.innerHTML = "El tren ya es muy largo para la vía. Quita vagones o presiona <b>Reiniciar</b>.";
+      clearFx();
+      if (train.length + grows(m) > MAX) {
+        press(null);
+        terminal(state(train) + "\n// La vía solo tiene espacio para " + MAX + " vagones.\n// Quita uno con pop, shift o splice, o presiona Reiniciar.");
+        infoEl.innerHTML = "El tren ya es muy largo para la vía: <code>." + m.name + "()</code> no cabe. Quita vagones o presiona <b>Reiniciar</b>.";
+        b.classList.remove("is-shake");
+        void b.offsetWidth;
+        b.classList.add("is-shake");
         return;
       }
-      var before = state(train);
+      press(b);
+      var before = train;
       var out = m.run(train);
       train = out.a;
-      terminal(before + "\nvar r = miArreglo." + m.name + m.args + ";\nconsole.log(r);", out.r);
-      infoEl.innerHTML = m.info;
-      render(train, { leave: m.leave, enter: m.enter, photo: out.photo });
+      terminal(state(before) + "\nvar r = miArreglo." + m.name + m.args + ";\nconsole.log(r);", out.r);
+      infoEl.innerHTML = m.info(before, out);
+      render(train, { leave: m.leave, enter: m.enter });
       if (out.count) countWagons();
-      photo.classList.remove("is-visible");
-      if (out.photo) {
-        photoRow.innerHTML = "";
-        out.r.forEach(function (v) {
-          var p = palette(v);
-          var w = document.createElement("span");
-          w.className = "arr-mini-wagon";
-          w.style.setProperty("--bg", p.bg);
-          w.style.setProperty("--st", p.st);
-          w.style.setProperty("--tx", p.tx);
-          w.textContent = show(v);
-          photoRow.appendChild(w);
-        });
-        void photo.offsetWidth;
-        photo.classList.add("is-visible");
-      }
+      if (out.photo) snap(out.photo, out.r);
+      setFull();
     });
     buttons.insertBefore(b, buttons.querySelector("[data-reset]"));
   });
