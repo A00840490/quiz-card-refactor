@@ -74,6 +74,18 @@
   padding: 4px 0;
 }
 
+/* El console.log es largo: se parte entre sus trozos, con sangría, para no
+   apretar el cuadro de información. */
+.op-toys__log {
+  max-width: 30ch;
+  padding-left: 2ch;
+  text-indent: -2ch;
+}
+
+.op-toys__log span {
+  white-space: nowrap;
+}
+
 .op-toys__expr {
   display: flex;
   flex-wrap: wrap;
@@ -198,7 +210,7 @@
 
 .op-toys__tray {
   position: relative;
-  height: 210px;
+  height: 160px; /* dos cubos apilados más un respiro arriba */
   border: 1px solid #efc98c;
   background: #faeeda;
 }
@@ -327,6 +339,6 @@
   }
 
   .op-toys__tray {
-    height: 190px;
+    height: 175px; /* aquí los cubos llegan a apilarse de tres en tres */
   }
 }
