@@ -238,7 +238,7 @@
   }
 
   function state(list) {
-    return "// miArreglo = " + fmt(list.map(function (x) { return x.v; }));
+    return "var miArreglo = " + fmt(list.map(function (x) { return x.v; })) + ";";
   }
 
   function terminal(code, result) {
