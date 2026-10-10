@@ -158,21 +158,21 @@
 @media (max-width: 767px) {
   .cc__front svg { width: 60px; height: 60px; }
   .cc__front strong { font-size: 18px; }
-  .cc__open-body { padding: 18px 16px 16px; }
+  /* Espacio abajo para la imagen, que aquí va a todo lo ancho */
+  .cc__open-body { padding: 18px 16px 145px; }
   .cc__panel h2,
   .cc__panel p { max-width: none; }
-  .cc__panel h2 { font-size: 20px; min-height: 72px; margin-bottom: 10px; }
+  .cc__panel h2 { font-size: 20px; margin-bottom: 10px; }
   .cc__panel p { line-height: 1.6; }
 
-  /* En celular la imagen es una franja arriba, detrás del título */
+  /* En celular la imagen va abajo y se desvanece de abajo hacia arriba */
   .cc__img {
-    bottom: auto;
-    width: 72%;
-    height: 96px;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000000 80%), linear-gradient(to bottom, #000000 45%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent 0%, #000000 80%), linear-gradient(to bottom, #000000 45%, transparent 100%);
-    mask-composite: intersect;
+    top: auto;
+    left: 0;
+    width: auto;
+    height: 170px;
+    -webkit-mask-image: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, .85) 35%, transparent 100%);
+    mask-image: linear-gradient(to top, #000000 0%, rgba(0, 0, 0, .85) 35%, transparent 100%);
   }
 }
 
