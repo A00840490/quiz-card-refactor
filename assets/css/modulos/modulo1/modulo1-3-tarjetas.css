@@ -1,0 +1,164 @@
+/* ===================== modulo1-3: tarjetas que se voltean =====================
+   Cuatro tarjetas del mismo tamaño. Al tocar una, gira, crece hasta cubrir el
+   bloque y "absorbe" a las demás para mostrar el texto completo. Al tocarla de
+   nuevo se encoge a su lugar y regresa a su frente. El bloque siempre mide lo
+   que mide la cuadrícula, así que la página no cambia de altura; el script
+   ajusta --cc-h para que el texto más largo quepa en la tarjeta abierta. */
+.cc {
+  --cc-blue: #093b8b;
+  --cc-soft: #e6f1fb;
+  --cc-amber: #fac775;
+  --cc-muted: #5b6577;
+  --cc-base: 260px;
+  position: relative;
+}
+
+.cc__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* ---------- Tarjeta ---------- */
+.cc__card {
+  position: relative;
+  height: var(--cc-h, var(--cc-base));
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: transform .46s cubic-bezier(.5, 0, .3, 1), opacity .36s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cc__card:focus { outline: none; }
+.cc__card:focus-visible { outline: 3px solid var(--cc-amber); outline-offset: 3px; border-radius: 12px; }
+
+.cc__in {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .52s cubic-bezier(.3, .7, .3, 1);
+}
+
+.cc__card.is-flipped .cc__in { transform: rotateY(180deg); }
+
+.cc__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.cc__front {
+  background: var(--cc-blue);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(6, 43, 102, .18);
+  transition: box-shadow .25s ease;
+}
+
+.cc__card:hover .cc__front { box-shadow: 0 12px 26px rgba(6, 43, 102, .3); }
+.cc__front svg { width: 72px; height: 72px; }
+.cc__front strong { font-size: 20px; font-weight: 700; line-height: 1.2; }
+.cc__front small { font-size: 13px; opacity: .8; }
+
+.cc__back {
+  background: var(--cc-soft);
+  border: 2px solid var(--cc-blue);
+  color: var(--cc-blue);
+  transform: rotateY(180deg);
+}
+
+.cc__back strong,
+.cc__open-name { font-size: 20px; font-weight: 700; }
+
+/* La tarjeta elegida se esconde mientras su copia grande está abierta */
+.cc__card.is-hidden { visibility: hidden; }
+
+/* Las demás se van hacia la tarjeta elegida y desaparecen */
+.cc__card.is-absorbed {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(var(--cc-dx, 0), var(--cc-dy, 0)) scale(.3);
+}
+
+/* ---------- Tarjeta abierta ---------- */
+.cc__open {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  background: var(--cc-soft);
+  border: 2px solid var(--cc-blue);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: left .46s cubic-bezier(.5, 0, .2, 1), top .46s cubic-bezier(.5, 0, .2, 1),
+    width .46s cubic-bezier(.5, 0, .2, 1), height .46s cubic-bezier(.5, 0, .2, 1);
+}
+
+.cc__open[hidden] { display: none; }
+
+.cc__open-name {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--cc-blue);
+  transition: opacity .2s ease;
+}
+
+.cc__open-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 28px 32px 24px;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.cc__open.is-full .cc__open-name { opacity: 0; }
+.cc__open.is-full .cc__open-body { opacity: 1; }
+
+.cc__panel[hidden] { display: none; }
+.cc__panel h2 { margin-bottom: 14px; }
+.cc__panel p { margin-bottom: 0; line-height: 1.7; }
+
+.cc__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.cc__hint { font-size: 13px; color: var(--cc-muted); }
+
+@media (max-width: 991px) {
+  .cc { --cc-base: 240px; }
+  .cc__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
+
+@media (max-width: 767px) {
+  .cc__front svg { width: 60px; height: 60px; }
+  .cc__front strong { font-size: 18px; }
+  .cc__open-body { padding: 18px 16px 16px; }
+  .cc__panel h2 { font-size: 20px; margin-bottom: 10px; }
+  .cc__panel p { line-height: 1.6; }
+  .cc__foot { padding-top: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc__card, .cc__in, .cc__front, .cc__open, .cc__open-name, .cc__open-body { transition: none; }
+}

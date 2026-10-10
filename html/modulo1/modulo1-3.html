@@ -26,7 +26,7 @@
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
-    <link href="../../assets/css/modulos/modulo1/modulo1-3-web-escena.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo1/modulo1-3-tarjetas.css" rel="stylesheet">
 
 </head>
 
@@ -57,185 +57,99 @@
                                 <p class="mrg-btm-20">Si los conceptos anteriores te parecieron algo confusos,
                                     estos conceptos te ayudarán a conocer lo más básico de la Web.</p>
                                 <p class="card-info mb-4" style="width: fit-content;">
-                                    <img src="../../assets/images/clic.svg" class="mrg-right-5"> Haz clic en los botones para conocer más conceptos.
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5"> Haz clic en cada tarjeta para conocer el concepto.
                                 </p>
-                                <div class="wa" data-web-escena data-mode="navegador">
-                                    <div class="pill-info wa__tabs">
-                                        <ul class="nav nav-pills" role="tablist">
-                                            <li class="nav-item"><a href="#wa-navegador" class="nav-link active" role="tab" aria-selected="true" data-wa-tab="navegador">Navegador</a></li>
-                                            <li class="nav-item"><a href="#wa-servidor" class="nav-link" role="tab" aria-selected="false" data-wa-tab="servidor">Servidor Web</a></li>
-                                            <li class="nav-item"><a href="#wa-framework" class="nav-link" role="tab" aria-selected="false" data-wa-tab="framework">Framework</a></li>
-                                            <li class="nav-item"><a href="#wa-lenguaje" class="nav-link" role="tab" aria-selected="false" data-wa-tab="lenguaje">Lenguaje</a></li>
-                                        </ul>
+                                <div class="cc" data-cc>
+                                    <div class="cc__grid">
+                                        <button class="cc__card" type="button" data-cc-card="navegador" aria-expanded="false" aria-controls="cc-detalle">
+                                            <span class="cc__in">
+                                                <span class="cc__face cc__front">
+                                                    <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="10" width="52" height="42" rx="5"/><path d="M6 21h52"/><circle cx="13" cy="15.5" r="1.6" fill="#ffffff"/><circle cx="19" cy="15.5" r="1.6" fill="#ffffff"/><rect x="14" y="28" width="22" height="6" rx="2" fill="#fac775" stroke="none"/><path d="M14 41h34M14 46h24"/></svg>
+                                                    <strong>Navegador</strong>
+                                                    <small>Toca para voltear</small>
+                                                </span>
+                                                <span class="cc__face cc__back"><strong>Navegador</strong></span>
+                                            </span>
+                                        </button>
+                                        <button class="cc__card" type="button" data-cc-card="servidor" aria-expanded="false" aria-controls="cc-detalle">
+                                            <span class="cc__in">
+                                                <span class="cc__face cc__front">
+                                                    <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="6" width="40" height="15" rx="3"/><rect x="12" y="25" width="40" height="15" rx="3"/><rect x="12" y="44" width="40" height="15" rx="3"/><circle cx="20" cy="13.5" r="2.4" fill="#fac775" stroke="none"/><circle cx="20" cy="32.5" r="2.4" fill="#fac775" stroke="none"/><circle cx="20" cy="51.5" r="2.4" fill="#fac775" stroke="none"/><path d="M30 13.5h14M30 32.5h14M30 51.5h14"/></svg>
+                                                    <strong>Servidor Web</strong>
+                                                    <small>Toca para voltear</small>
+                                                </span>
+                                                <span class="cc__face cc__back"><strong>Servidor Web</strong></span>
+                                            </span>
+                                        </button>
+                                        <button class="cc__card" type="button" data-cc-card="framework" aria-expanded="false" aria-controls="cc-detalle">
+                                            <span class="cc__in">
+                                                <span class="cc__face cc__front">
+                                                    <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="36" width="22" height="20" rx="3"/><rect x="34" y="36" width="22" height="20" rx="3"/><rect x="21" y="12" width="22" height="20" rx="3" fill="#fac775" stroke="#fac775"/></svg>
+                                                    <strong>Framework</strong>
+                                                    <small>Toca para voltear</small>
+                                                </span>
+                                                <span class="cc__face cc__back"><strong>Framework</strong></span>
+                                            </span>
+                                        </button>
+                                        <button class="cc__card" type="button" data-cc-card="lenguaje" aria-expanded="false" aria-controls="cc-detalle">
+                                            <span class="cc__in">
+                                                <span class="cc__face cc__front">
+                                                    <svg viewBox="0 0 64 64" fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 18L8 32l14 14M42 18l14 14-14 14"/><path d="M37 12L27 52" stroke="#fac775"/></svg>
+                                                    <strong>Lenguaje</strong>
+                                                    <small>Toca para voltear</small>
+                                                </span>
+                                                <span class="cc__face cc__back"><strong>Lenguaje</strong></span>
+                                            </span>
+                                        </button>
                                     </div>
-                                    <div class="wa__body">
-                                        <div class="wa__scene">
-                                            <svg class="wa__svg" viewBox="0 0 640 270" role="img" aria-label="Escena: un navegador conectado por Internet a un servidor web">
-                                                <!-- Navegador -->
-                                                <g class="wa-browser">
-                                                    <rect class="wa-browser__frame" x="16" y="36" width="268" height="206" rx="10" fill="#ffffff" stroke="#c9d3e0" stroke-width="2"/>
-                                                    <path d="M17 64V46a9 9 0 0 1 9-9h248a9 9 0 0 1 9 9v18z" fill="#eef2f7"/>
-                                                    <circle cx="32" cy="51" r="4" fill="#f08c7d"/>
-                                                    <circle cx="44" cy="51" r="4" fill="#fac775"/>
-                                                    <circle cx="56" cy="51" r="4" fill="#7fd6a0"/>
-                                                    <rect x="70" y="44" width="202" height="14" rx="7" fill="#ffffff" stroke="#dce3ec"/>
-                                                    <text x="80" y="54.5" font-size="9" fill="#5b6577">www.misitio.com</text>
 
-                                                    <!-- Código fuente que interpreta el navegador -->
-                                                    <g class="wa-code">
-                                                        <rect x="28" y="72" width="244" height="160" rx="4" fill="#0f1d33"/>
-                                                        <g font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#ffffff">
-                                                            <text x="40" y="98"><tspan fill="#7fb3ff">&lt;h1&gt;</tspan>Hola<tspan fill="#7fb3ff">&lt;/h1&gt;</tspan></text>
-                                                            <text x="40" y="122"><tspan fill="#7fb3ff">&lt;p&gt;</tspan>Bienvenido a</text>
-                                                            <text x="40" y="140">mi sitio<tspan fill="#7fb3ff">&lt;/p&gt;</tspan></text>
-                                                            <text x="40" y="164"><tspan fill="#7fb3ff">&lt;img</tspan> <tspan fill="#fac775">src</tspan>=<tspan fill="#a5e3b8">"foto.jpg"</tspan><tspan fill="#7fb3ff">&gt;</tspan></text>
-                                                            <text x="40" y="188"><tspan fill="#7fb3ff">&lt;button&gt;</tspan>Clic<tspan fill="#7fb3ff">&lt;/button&gt;</tspan></text>
-                                                        </g>
-                                                    </g>
-
-                                                    <!-- Página ya dibujada -->
-                                                    <g class="wa-page">
-                                                        <g class="wa-wire">
-                                                            <rect x="40" y="82" width="220" height="34" fill="none" stroke="#9aa4b2" stroke-dasharray="4 3"/>
-                                                            <text x="48" y="105" font-family="Georgia, serif" font-size="17" fill="#000000">Hola</text>
-                                                            <rect x="40" y="130" width="140" height="6" fill="#c9d0da"/>
-                                                            <rect x="40" y="144" width="110" height="6" fill="#c9d0da"/>
-                                                            <rect x="196" y="126" width="64" height="48" fill="none" stroke="#9aa4b2"/>
-                                                            <path d="M196 126l64 48M260 126l-64 48" stroke="#c9d0da"/>
-                                                            <rect x="40" y="170" width="70" height="24" fill="#eeeeee" stroke="#777777"/>
-                                                            <text x="75" y="186" text-anchor="middle" font-family="Georgia, serif" font-size="12" fill="#000000">Clic</text>
-                                                        </g>
-                                                        <g class="wa-style">
-                                                            <rect x="40" y="82" width="220" height="34" rx="6" fill="#093b8b"/>
-                                                            <text x="52" y="105" font-size="17" font-weight="700" fill="#ffffff">Hola</text>
-                                                            <rect x="40" y="130" width="140" height="6" rx="3" fill="#b5d4f4"/>
-                                                            <rect x="40" y="144" width="110" height="6" rx="3" fill="#dce3ec"/>
-                                                            <rect x="196" y="126" width="64" height="48" rx="6" fill="#b5d4f4"/>
-                                                            <circle cx="244" cy="138" r="6" fill="#fac775"/>
-                                                            <path d="M196 168l20-22 14 14 10-9 20 17v0a6 6 0 0 1-6 6h-52a6 6 0 0 1-6-6z" fill="#3b6fb6"/>
-                                                            <g class="wa-btn">
-                                                                <rect x="40" y="170" width="70" height="24" rx="12" fill="#fac775"/>
-                                                                <text x="75" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#412402">Clic</text>
-                                                            </g>
-                                                        </g>
-                                                        <g class="wa-bubble">
-                                                            <rect x="122" y="168" width="76" height="28" rx="14" fill="#062b66"/>
-                                                            <text x="160" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">¡Hola!</text>
-                                                        </g>
-                                                        <g class="wa-cursor">
-                                                            <path transform="translate(206 206)" d="M0 0v17l4.5-4 3.5 7.5 3-1.4-3.4-7.3h6z" fill="#000000" stroke="#ffffff" stroke-width="1.2" stroke-linejoin="round"/>
-                                                        </g>
-                                                    </g>
-
-                                                    <rect class="wa-scan" x="28" y="72" width="244" height="3" fill="#fac775"/>
-                                                    <g class="wa-spin"><circle cx="150" cy="152" r="14" fill="none" stroke="#3b6fb6" stroke-width="4" stroke-linecap="round" stroke-dasharray="44 44"/></g>
-                                                </g>
-                                                <text class="wa-label" x="150" y="262" text-anchor="middle">Navegador</text>
-
-                                                <!-- Internet -->
-                                                <g class="wa-net">
-                                                    <path d="M286 150H468" stroke="#c9d3e0" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
-                                                    <text x="377" y="128" text-anchor="middle" font-size="12" fill="#5b6577">Internet · HTTP</text>
-                                                </g>
-                                                <g class="wa-req">
-                                                    <rect x="292" y="139" width="56" height="22" rx="11" fill="#093b8b"/>
-                                                    <text x="320" y="154" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">GET /</text>
-                                                </g>
-                                                <g class="wa-file wa-file--html">
-                                                    <rect x="396" y="139" width="70" height="22" rx="11" fill="#e8613c"/>
-                                                    <text x="431" y="154" text-anchor="middle" font-size="10.5" font-weight="700" fill="#ffffff">index.html</text>
-                                                </g>
-                                                <g class="wa-file wa-file--css">
-                                                    <rect x="396" y="139" width="70" height="22" rx="11" fill="#2f5fd8"/>
-                                                    <text x="431" y="154" text-anchor="middle" font-size="10.5" font-weight="700" fill="#ffffff">estilo.css</text>
-                                                </g>
-                                                <g class="wa-file wa-file--js">
-                                                    <rect x="396" y="139" width="70" height="22" rx="11" fill="#f0db4f"/>
-                                                    <text x="431" y="154" text-anchor="middle" font-size="10.5" font-weight="700" fill="#2b2400">app.js</text>
-                                                </g>
-
-                                                <!-- Qué aporta cada lenguaje -->
-                                                <g class="wa-legend" font-size="13">
-                                                    <circle cx="306" cy="182" r="5" fill="#e8613c"/><text x="316" y="186" fill="#000000"><tspan font-weight="700">HTML</tspan> estructura</text>
-                                                    <circle cx="306" cy="202" r="5" fill="#2f5fd8"/><text x="316" y="206" fill="#000000"><tspan font-weight="700">CSS</tspan> estilo</text>
-                                                    <circle cx="306" cy="222" r="5" fill="#d9bf1f"/><text x="316" y="226" fill="#000000"><tspan font-weight="700">JavaScript</tspan> acciones</text>
-                                                </g>
-
-                                                <!-- Servidor -->
-                                                <g class="wa-server">
-                                                    <rect x="470" y="46" width="130" height="196" rx="8" fill="#062b66"/>
-                                                    <g class="wa-units">
-                                                        <g><rect x="482" y="60" width="106" height="34" rx="4" fill="#093b8b"/><circle class="wa-led" cx="496" cy="77" r="4" fill="#5fd38d"/><rect x="510" y="71" width="66" height="4" rx="2" fill="#1b55b3"/><rect x="510" y="80" width="66" height="4" rx="2" fill="#1b55b3"/></g>
-                                                        <g><rect x="482" y="104" width="106" height="34" rx="4" fill="#093b8b"/><circle class="wa-led" cx="496" cy="121" r="4" fill="#5fd38d"/><rect x="510" y="115" width="66" height="4" rx="2" fill="#1b55b3"/><rect x="510" y="124" width="66" height="4" rx="2" fill="#1b55b3"/></g>
-                                                        <g><rect x="482" y="148" width="106" height="34" rx="4" fill="#093b8b"/><circle class="wa-led" cx="496" cy="165" r="4" fill="#5fd38d"/><rect x="510" y="159" width="66" height="4" rx="2" fill="#1b55b3"/><rect x="510" y="168" width="66" height="4" rx="2" fill="#1b55b3"/></g>
-                                                        <g><rect x="482" y="192" width="106" height="34" rx="4" fill="#093b8b"/><circle class="wa-led" cx="496" cy="209" r="4" fill="#5fd38d"/><rect x="510" y="203" width="66" height="4" rx="2" fill="#1b55b3"/><rect x="510" y="212" width="66" height="4" rx="2" fill="#1b55b3"/></g>
-                                                    </g>
-                                                    <!-- Framework: piezas listas que se acomodan dentro del servidor -->
-                                                    <g class="wa-fw" font-size="11" font-weight="700" text-anchor="middle">
-                                                        <g class="wa-fw__b"><rect x="482" y="58" width="106" height="28" rx="5" fill="#b5d4f4"/><text x="535" y="76" fill="#042c53">Django</text></g>
-                                                        <g class="wa-fw__b"><rect x="482" y="92" width="106" height="28" rx="5" fill="#b5d4f4"/><text x="535" y="110" fill="#042c53">Flask</text></g>
-                                                        <g class="wa-fw__b"><rect x="482" y="126" width="51" height="28" rx="5" fill="#e6f1fb"/><text x="507.5" y="144" fill="#042c53">rutas</text><rect x="537" y="126" width="51" height="28" rx="5" fill="#e6f1fb"/><text x="562.5" y="144" fill="#042c53">librerías</text></g>
-                                                        <g class="wa-fw__b"><rect x="482" y="160" width="106" height="28" rx="5" fill="#e6f1fb"/><text x="535" y="178" fill="#042c53">módulos</text></g>
-                                                        <g class="wa-fw__b wa-fw__b--yo"><rect x="482" y="200" width="106" height="30" rx="5" fill="#fac775" stroke="#ffffff" stroke-width="2" stroke-dasharray="4 3"/><text x="535" y="219" fill="#412402">tu código</text></g>
-                                                    </g>
-                                                    <g class="wa-247"><rect x="566" y="30" width="48" height="22" rx="11" fill="#fac775"/><text x="590" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="#412402">24/7</text></g>
-                                                </g>
-                                                <text class="wa-label" x="535" y="262" text-anchor="middle">Servidor web</text>
-                                            </svg>
-                                            <div class="wa__captions" aria-hidden="true">
-                                                <p class="wa__cap" data-wa-for="navegador">El navegador lee el código y lo convierte en la página que ves.</p>
-                                                <p class="wa__cap" data-wa-for="servidor">Tu navegador pide la página por HTTP y el servidor le envía los archivos.</p>
-                                                <p class="wa__cap" data-wa-for="framework">El framework trae piezas listas; tú sólo agregas tu código.</p>
-                                                <p class="wa__cap" data-wa-for="lenguaje">HTML da la estructura, CSS el estilo y JavaScript las acciones.</p>
+                                    <!-- Tarjeta abierta: crece desde la tarjeta volteada hasta cubrir las cuatro -->
+                                    <div class="cc__open" id="cc-detalle" role="region" aria-label="Concepto" data-cc-open hidden>
+                                        <div class="cc__open-name" data-cc-name aria-hidden="true"></div>
+                                        <div class="cc__open-body">
+                                            <div class="cc__panel" data-cc-panel="navegador" hidden>
+                                                <h2 class="card-title">Navegador</h2>
+                                                <p>Un navegador es el software o programa que nos permite acceder a la Web. Este
+                                                    interpreta todo el código de las páginas web a las que accedamos para desplegarlas
+                                                    en nuestra pantalla. Existen muchos navegadores como Chrome, Firefox, Edge o
+                                                    Safari; cada uno cuenta con características diferentes, pero su función es la misma.
+                                                    A diferencia de los navegadores mencionados, algunos otros navegadores pueden
+                                                    interpretar erróneamente código si están desactualizados o no cumplen ciertos
+                                                    requisitos.</p>
                                             </div>
-                                        </div>
-
-                                        <div class="wa__text">
-                                            <div class="wa__panels">
-                                                <div class="wa__panel" role="tabpanel" id="wa-navegador" data-wa-for="navegador">
-                                                    <h2 class="card-title mrg-btm-15">Navegador</h2>
-                                                    <p>Un navegador es el software o programa que nos permite acceder a la Web. Este
-                                                        interpreta todo el código de las páginas web a las que accedamos para desplegarlas
-                                                        en nuestra pantalla. Existen muchos navegadores como Chrome, Firefox, Edge o
-                                                        Safari; cada uno cuenta con características diferentes, pero su función es la misma.
-                                                        A diferencia de los navegadores mencionados, algunos otros navegadores pueden
-                                                        interpretar erróneamente código si están desactualizados o no cumplen ciertos
-                                                        requisitos.</p>
-                                                </div>
-                                                <div class="wa__panel" role="tabpanel" id="wa-servidor" data-wa-for="servidor">
-                                                    <h2 class="card-title mrg-btm-15">Servidor Web</h2>
-                                                    <p>Un servidor, explicado de manera simple, es una computadora ajena que está en
-                                                        funcionamiento 24/7; incluso tu propia computadora puede funcionar como servidor.
-                                                        Los servidores web utilizan el protocolo: HTTP (Hyper-Text Transfer Protocol) para
-                                                        transferir información y manejar todas las conexiones que se establecen entre el
-                                                        servidor y sus clientes (computadoras de los usuarios). Cada vez que alguien quiera
-                                                        ingresar a nuestro sitio web, el servidor le proporciona los archivos necesarios al
-                                                        cliente para que su navegador pueda visualizar las páginas. Por ello, requerimos de
-                                                        algún servicio de hosting (alojamiento) para mantener nuestra página visible para el
-                                                        Internet en todo momento; hay muchas compañías que nos ayudan con esto. El servicio
-                                                        HTTP más popular es Apache, el cual es open-source y gratuito.</p>
-                                                </div>
-                                                <div class="wa__panel" role="tabpanel" id="wa-framework" data-wa-for="framework">
-                                                    <h2 class="card-title mrg-btm-15">Framework</h2>
-                                                    <p>Framework quiere decir entorno de trabajo, el cual consiste en una serie de
-                                                        herramientas y prácticas que nos ayudan a resolver cierto problema. En el contexto
-                                                        del desarrollo web, un framework nos da soporte con módulos y librerías para
-                                                        facilitar nuestro código, o utilizar funciones que serían más complicadas de
-                                                        implementar sin este. Por ejemplo, existen frameworks para incorporar Python en
-                                                        desarrollo web como <a href="https://www.djangoproject.com/" target="_blank">Django</a>
-                                                        o <a href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank">Flask</a>.</p>
-                                                </div>
-                                                <div class="wa__panel" role="tabpanel" id="wa-lenguaje" data-wa-for="lenguaje">
-                                                    <h2 class="card-title mrg-btm-15">Lenguaje</h2>
-                                                    <p>Un lenguaje en el contexto de programación web es una serie de reglas e
-                                                        instrucciones que permiten realizar cierto tipo de acciones o añadir cierto formato
-                                                        a algún elemento. En este curso aprenderás las nociones de los 3 lenguajes pilares
-                                                        de la programación web y todas sus instrucciones básicas para crear páginas web.</p>
-                                                </div>
+                                            <div class="cc__panel" data-cc-panel="servidor" hidden>
+                                                <h2 class="card-title">Servidor Web</h2>
+                                                <p>Un servidor, explicado de manera simple, es una computadora ajena que está en
+                                                    funcionamiento 24/7; incluso tu propia computadora puede funcionar como servidor.
+                                                    Los servidores web utilizan el protocolo: HTTP (Hyper-Text Transfer Protocol) para
+                                                    transferir información y manejar todas las conexiones que se establecen entre el
+                                                    servidor y sus clientes (computadoras de los usuarios). Cada vez que alguien quiera
+                                                    ingresar a nuestro sitio web, el servidor le proporciona los archivos necesarios al
+                                                    cliente para que su navegador pueda visualizar las páginas. Por ello, requerimos de
+                                                    algún servicio de hosting (alojamiento) para mantener nuestra página visible para el
+                                                    Internet en todo momento; hay muchas compañías que nos ayudan con esto. El servicio
+                                                    HTTP más popular es Apache, el cual es open-source y gratuito.</p>
                                             </div>
-                                            <div class="wa__nav">
-                                                <span class="wa__count" data-wa-count>1 de 4</span>
-                                                <button type="button" class="btn btn-info wa__next" data-wa-next>Siguiente concepto <i class="ti-arrow-right"></i></button>
+                                            <div class="cc__panel" data-cc-panel="framework" hidden>
+                                                <h2 class="card-title">Framework</h2>
+                                                <p>Framework quiere decir entorno de trabajo, el cual consiste en una serie de
+                                                    herramientas y prácticas que nos ayudan a resolver cierto problema. En el contexto
+                                                    del desarrollo web, un framework nos da soporte con módulos y librerías para
+                                                    facilitar nuestro código, o utilizar funciones que serían más complicadas de
+                                                    implementar sin este. Por ejemplo, existen frameworks para incorporar Python en
+                                                    desarrollo web como <a href="https://www.djangoproject.com/" target="_blank" rel="noopener">Django</a>
+                                                    o <a href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank" rel="noopener">Flask</a>.</p>
+                                            </div>
+                                            <div class="cc__panel" data-cc-panel="lenguaje" hidden>
+                                                <h2 class="card-title">Lenguaje</h2>
+                                                <p>Un lenguaje en el contexto de programación web es una serie de reglas e
+                                                    instrucciones que permiten realizar cierto tipo de acciones o añadir cierto formato
+                                                    a algún elemento. En este curso aprenderás las nociones de los 3 lenguajes pilares
+                                                    de la programación web y todas sus instrucciones básicas para crear páginas web.</p>
+                                            </div>
+                                            <div class="cc__foot">
+                                                <span class="cc__hint">Toca la tarjeta para voltearla de nuevo.</span>
+                                                <button type="button" class="btn btn-info cc__close" data-cc-close>Voltear tarjeta</button>
                                             </div>
                                         </div>
                                     </div>
@@ -307,7 +221,7 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
-    <script src="../../assets/js/scripts/modulo1/modulo1-3-web-escena.js"></script>
+    <script src="../../assets/js/scripts/modulo1/modulo1-3-tarjetas.js"></script>
 
 </body>
 
