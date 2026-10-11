@@ -7,6 +7,9 @@
      se vuelve botón y regresa al inicio.
    - En las explicaciones (menos la última) aparece una flecha en la esquina
      inferior derecha que lleva a la siguiente pregunta.
+   - El ? de fondo se vuelve una columna de signos; aparecen de abajo hacia
+     arriba cuando la tarjeta entra en pantalla y cada vez que vuelve a ser
+     pregunta.
    - La escena la anima cada lección con
        EvoCard.create(root, { layout: function (i, st, later, scene) {}, fb: {...} })
      layout(i) acomoda los actores para el paso i; st.pick es la última
@@ -92,6 +95,26 @@
       if (h) h.setAttribute("tabindex", "-1");
     });
     var dots = Array.prototype.slice.call(track.children);
+
+    // Columna de ? de fondo. El primero queda escondido abajo para que la
+    // columna pueda subir sin que se note dónde vuelve a empezar.
+    var mark = root.querySelector(".evo__mark");
+    if (mark) {
+      var col = "";
+      for (var m = 0; m < 6; m++) col += '<i style="--k:' + Math.max(0, m - 1) + '">?</i>';
+      mark.innerHTML = '<span class="evo__marks">' + col + "</span>";
+    }
+    // Los ? aparecen hasta que la tarjeta se ve en pantalla
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) {
+        if (!es[0].isIntersecting) return;
+        root.classList.add("is-seen");
+        io.disconnect();
+      }, { threshold: 0.4 });
+      io.observe(root);
+    } else {
+      root.classList.add("is-seen");
+    }
 
     // Flecha de la esquina inferior derecha: lleva de una explicación a la siguiente pregunta
     var next = document.createElement("button");

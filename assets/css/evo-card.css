@@ -4,7 +4,7 @@
    pregunta y, al responder, la misma tarjeta se transforma en la explicación.
 
    <div class="evo" data-evo="nombre" data-kind="q">
-     <span class="evo__mark" aria-hidden="true">?</span>
+     <span class="evo__mark" aria-hidden="true">?</span>  ← columna de ? (la llena el JS)
      <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
      <div class="evo__grid">
        <div class="evo__text">
@@ -91,21 +91,58 @@
   opacity: 1;
 }
 
-/* Signo ? gigante de fondo: solo en las preguntas */
+/* Columna de signos ? de fondo: solo en las preguntas.
+   evo-card.js la llena con varios <i>?</i> (el primero es el de abajo).
+   Al aparecer la pregunta salen de abajo hacia arriba, uno tras otro, y la
+   columna sube despacio sin fin; arriba se desvanecen. */
 .evo__mark {
+  --m-step: 136px;
   position: absolute;
-  left: -18px;
-  bottom: -70px;
-  font: 700 300px/1 var(--evo-display);
+  left: 4px;
+  bottom: 0;
+  width: 170px;
+  height: min(100%, 470px);
+  overflow: hidden;
   color: #ffffff;
-  opacity: 0.07;
+  font: 700 156px/var(--m-step) var(--evo-display);
+  opacity: 0.1;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, #000 50%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 50%, transparent 100%);
   transition: opacity 0.6s ease, transform 0.9s cubic-bezier(0.6, 0, 0.2, 1);
 }
 
-.evo[data-kind="a"] .evo__mark {
+.evo[data-kind="a"] .evo__mark,
+.evo:not(.is-seen) .evo__mark {
   opacity: 0;
-  transform: rotate(-25deg) scale(0.5);
+}
+
+.evo[data-kind="a"] .evo__mark {
+  transform: translateY(40px);
+}
+
+.evo__marks {
+  position: absolute;
+  left: 0;
+  bottom: calc(-38px - var(--m-step));
+  display: flex;
+  flex-direction: column-reverse;
+  animation: evo-rise 9s linear infinite;
+}
+
+.evo[data-kind="a"] .evo__marks {
+  animation-play-state: paused;
+}
+
+.evo__marks i {
+  display: block;
+  height: var(--m-step);
+  font-style: normal;
+}
+
+.evo.is-seen[data-kind="q"] .evo__marks i {
+  animation: evo-mark-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  animation-delay: calc(0.15s + var(--k, 0) * 0.28s);
 }
 
 /* ---------- Mini barra de progreso: arriba a la derecha ---------- */
@@ -443,6 +480,19 @@
 @keyframes evo-blink {
   50% {
     opacity: 0;
+  }
+}
+
+@keyframes evo-rise {
+  to {
+    transform: translateY(calc(-1 * var(--m-step)));
+  }
+}
+
+@keyframes evo-mark-in {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.6);
   }
 }
 
