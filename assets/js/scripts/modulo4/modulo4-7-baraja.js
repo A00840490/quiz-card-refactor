@@ -2,10 +2,12 @@
    - "El valor de x es [−] 10 [+]" cambia x; cada carta se evalúa con ese
      valor (x <op> 2) y su reverso se actualiza.
    - Al entrar en pantalla, las cartas juntas se abren en abanico.
-   - Al sacar una carta, crece y se voltea; luego cae una gota de tinta mágica
-     que la tiñe de verde (true) o rojo (false) desde donde aterriza. Al
-     regresarla a la mano, la tinta se desvanece. Si cambia x y cambia el
-     resultado de la carta abierta, cae una gota nueva del otro color.
+   - Al sacar una carta, crece y se voltea; luego cae una gota mágica y desde
+     donde aterriza la carta se tiñe de verde (true) o rojo (false). La
+     tinta es una copia teñida del reverso que se descubre con un círculo de
+     borde ondulado que crece. Al regresar la carta a la mano vuelve a su
+     color. Si cambia x y cambia el resultado de la carta afuera, cae una gota
+     nueva del otro color.
    - Con ← → se saca la carta anterior o siguiente; con Esc se regresa.
    - Empieza con la carta marcada con data-start afuera. */
 (function () {
@@ -16,7 +18,6 @@
 
   var cards = Array.prototype.slice.call(root.querySelectorAll(".baraja__card"));
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var NS = "http://www.w3.org/2000/svg";
 
   // ---------- Valor de x ----------
   var N = 2; // el valor contra el que se compara en los ejemplos
@@ -45,42 +46,60 @@
     var op = card.getAttribute("data-op");
     var v = String(result(card));
     card.setAttribute("data-v", v);
-    card.querySelector(".baraja__with").textContent = "con x = " + x;
-    card.querySelector(".baraja__sub").textContent = x + " " + op + " " + N;
-    card.querySelector(".baraja__res").textContent = v;
+    // También actualiza la copia teñida, si la hay.
+    setText(card, ".baraja__with", "con x = " + x);
+    setText(card, ".baraja__sub", x + " " + op + " " + N);
+    setText(card, ".baraja__res", v);
     card.setAttribute("aria-label", card.querySelector(".baraja__name").textContent + ": x " + op + " " + N + " da " + v);
   }
 
-  // ---------- Tinta mágica ----------
-  // Filtro compartido: deforma el borde de la tinta como si se difundiera en agua.
-  var defs = document.createElementNS(NS, "svg");
-  defs.setAttribute("width", "0");
-  defs.setAttribute("height", "0");
-  defs.setAttribute("aria-hidden", "true");
-  defs.style.position = "absolute";
-  defs.innerHTML =
-    '<filter id="baraja-ink" x="-30%" y="-30%" width="160%" height="160%">' +
-    '<feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="7" result="ruido" />' +
-    '<feDisplacementMap in="SourceGraphic" in2="ruido" scale="16" xChannelSelector="R" yChannelSelector="G" />' +
-    '<feGaussianBlur stdDeviation="0.5" />' +
-    "</filter>";
-  document.body.appendChild(defs);
+  function setText(card, sel, text) {
+    Array.prototype.forEach.call(card.querySelectorAll(sel), function (el) {
+      el.textContent = text;
+    });
+  }
 
-  var INK = { "true": "#6fd391", "false": "#f08f7d" };
-  // Manchas que crecen desde donde cae la gota: [dx, dy, radio, escala final, retraso ms, duración ms]
-  var BLOBS = [
-    [0, 0, 10, 12.5, 0, 2300],
-    [-9, 7, 7, 11, 150, 2100],
-    [8, -8, 6, 12, 80, 2500],
-    [6, 11, 5, 13, 260, 2600],
-    [-7, -10, 5, 12, 200, 2200],
-  ];
+  // ---------- Tinta mágica ----------
+  var DROP = { "true": "#34b865", "false": "#e0603f" };
   var SPARKS = [[-2.6, -2.2], [2.4, -2.6], [3, 0.8], [-3, 1], [0.3, -3.4]];
 
-  function svgEl(name, attrs) {
-    var e = document.createElementNS(NS, name);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    return e;
+  // Descubre la capa teñida con un círculo de borde ondulado que crece desde
+  // (px, py) hasta cubrir toda la carta.
+  function reveal(layer, px, py, done) {
+    var w = layer.offsetWidth;
+    var h = layer.offsetHeight;
+    var cx = (px / 100) * w;
+    var cy = (py / 100) * h;
+    var far = Math.sqrt(Math.pow(Math.max(cx, w - cx), 2) + Math.pow(Math.max(cy, h - cy), 2));
+    var maxR = far * 1.3; // con la onda más chica (-23%) igual cubre la esquina más lejana
+    var ph = [Math.random() * 6.3, Math.random() * 6.3, Math.random() * 6.3];
+    var DUR = 1500;
+    var t0 = null;
+    function frame(t) {
+      if (!layer.parentNode) return;
+      if (t0 === null) t0 = t;
+      var k = Math.min(1, (t - t0) / DUR);
+      var e = 1 - Math.pow(1 - k, 3);
+      var R = 2 + e * maxR;
+      var pts = [];
+      for (var i = 0; i < 48; i++) {
+        var a = (i / 48) * Math.PI * 2;
+        var wob = 1 + 0.11 * Math.sin(3 * a + ph[0] + k * 4) + 0.07 * Math.sin(5 * a + ph[1] - k * 3) + 0.05 * Math.sin(9 * a + ph[2] + k * 6);
+        var r = R * wob;
+        pts.push((cx + r * Math.cos(a)).toFixed(1) + "px " + (cy + r * Math.sin(a)).toFixed(1) + "px");
+      }
+      var clip = "polygon(" + pts.join(",") + ")";
+      layer.style.webkitClipPath = clip;
+      layer.style.clipPath = clip;
+      if (k < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        layer.style.webkitClipPath = "";
+        layer.style.clipPath = "";
+        done();
+      }
+    }
+    requestAnimationFrame(frame);
   }
 
   // Deja caer una gota del color del resultado y tiñe la carta desde ahí.
@@ -89,52 +108,37 @@
     var face = card.querySelector(".baraja__back");
     var px = 30 + Math.random() * 40; // % del ancho
     var py = 30 + Math.random() * 30; // % del alto
-    var old = Array.prototype.slice.call(face.querySelectorAll(".baraja__tint"));
+    var old = Array.prototype.slice.call(face.querySelectorAll(".baraja__dye"));
 
-    // Todas las tintas van en una capa que se mezcla con el papel; entre ellas
-    // la nueva tapa a la anterior, así el color cambia sin mezclarse.
-    var layer = face.querySelector(".baraja__inks");
-    if (!layer) {
-      layer = document.createElement("span");
-      layer.className = "baraja__inks";
-      layer.setAttribute("aria-hidden", "true");
-      face.appendChild(layer);
-    }
-    var tint = svgEl("svg", { "class": "baraja__tint", viewBox: "0 0 100 140", preserveAspectRatio: "none" });
-    var g = svgEl("g", { filter: "url(#baraja-ink)", fill: INK[v] });
-    var blobs = BLOBS.map(function (b) {
-      var c = svgEl("circle", { cx: px + b[0], cy: py * 1.4 + b[1], r: b[2] });
-      c.style.transitionDuration = reduce ? "0s" : b[5] + "ms";
-      c.style.transitionDelay = reduce ? "0s" : b[4] + "ms";
-      g.appendChild(c);
-      return { el: c, scale: b[3] };
-    });
-    tint.appendChild(g);
-    layer.appendChild(tint);
+    // Copia del reverso con los colores del resultado.
+    var layer = document.createElement("span");
+    layer.className = "baraja__dye";
+    layer.setAttribute("data-dye", v);
+    layer.setAttribute("aria-hidden", "true");
+    layer.appendChild(face.querySelector(".baraja__detail").cloneNode(true));
 
-    function spread() {
-      blobs.forEach(function (b) {
-        b.el.style.transform = "scale(" + b.scale + ")";
+    function removeOld() {
+      old.forEach(function (d) {
+        if (d.parentNode) d.parentNode.removeChild(d);
       });
-      // La tinta anterior se quita cuando la nueva ya la cubrió.
-      setTimeout(function () {
-        old.forEach(function (t) {
-          if (t.parentNode) t.parentNode.removeChild(t);
-        });
-      }, reduce ? 0 : 2800);
     }
 
     if (reduce) {
-      spread();
+      face.appendChild(layer);
+      removeOld();
       return;
     }
+
+    layer.style.clipPath = "circle(0 at " + px + "% " + py + "%)";
+    layer.style.webkitClipPath = layer.style.clipPath;
+    face.appendChild(layer);
 
     var drop = document.createElement("span");
     drop.className = "baraja__drop";
     drop.setAttribute("aria-hidden", "true");
     drop.style.left = px + "%";
     drop.style.top = py + "%";
-    drop.style.setProperty("--drop", INK[v]);
+    drop.style.setProperty("--drop", DROP[v]);
     SPARKS.forEach(function (d) {
       var s = document.createElement("span");
       s.className = "baraja__spark";
@@ -144,8 +148,9 @@
       drop.appendChild(s);
     });
     card.appendChild(drop);
-    void tint.getBoundingClientRect();
-    card._inkTimers.push(setTimeout(spread, 400));
+    card._inkTimers.push(setTimeout(function () {
+      reveal(layer, px, py, removeOld);
+    }, 400));
     card._inkTimers.push(setTimeout(function () {
       if (drop.parentNode) drop.parentNode.removeChild(drop);
     }, 1500));
@@ -158,10 +163,10 @@
     Array.prototype.forEach.call(card.querySelectorAll(".baraja__drop"), function (d) {
       d.parentNode.removeChild(d);
     });
-    Array.prototype.forEach.call(card.querySelectorAll(".baraja__tint"), function (t) {
-      t.classList.add("is-fading");
+    Array.prototype.forEach.call(card.querySelectorAll(".baraja__dye"), function (d) {
+      d.classList.add("is-fading");
       setTimeout(function () {
-        if (t.parentNode) t.parentNode.removeChild(t);
+        if (d.parentNode) d.parentNode.removeChild(d);
       }, 500);
     });
   }

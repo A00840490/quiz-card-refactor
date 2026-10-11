@@ -2,9 +2,10 @@
    Arriba, "El valor de x es [−] 10 [+]" cambia el valor con el que se evalúan
    las cartas. Seis cartas abiertas en abanico, alternando los dos colores de
    una baraja (azul = --theme-color, rojo). Al sacar una, crece y se voltea
-   para mostrar la función, el ejemplo y el resultado; luego cae una gota de
-   tinta mágica que tiñe la carta de verde (true) o rojo (false) desde donde
-   aterriza. Al regresar la carta a la mano, la tinta se desvanece. */
+   para mostrar su símbolo, nombre, función, ejemplo y resultado; luego cae
+   una gota mágica y desde donde aterriza la carta se tiñe de verde (true) o
+   rojo (false): fondo, trama y textos. Al regresarla a la mano vuelve a su
+   color. Toda la letra hereda la fuente del body. */
 
 .baraja {
   --cw: 140px; /* ancho de una carta */
@@ -15,7 +16,6 @@
   --zoom: 1.38; /* cuánto crece la carta elegida */
   --paper: #fffdf8;
   --false: #c0503a;
-  --mono: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
   position: relative;
   width: 100%;
   max-width: 660px;
@@ -44,7 +44,9 @@
   gap: 10px 16px;
   margin: 22px auto 0;
   color: #1c2434;
-  font: 700 28px/1.2 "Fira Sans", "Segoe UI", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .baraja-x__ctl {
@@ -62,7 +64,9 @@
   border: 0;
   background: #ffffff;
   color: var(--theme-color);
-  font: 700 26px/1 "Source Code Pro", Consolas, monospace;
+  font: inherit;
+  font-size: 26px;
+  line-height: 1;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -95,8 +99,10 @@
   padding: 4px 12px;
   border-inline: 2px solid var(--theme-color);
   background: #f6f8fb;
-  color: var(--theme-color);
-  font: 700 30px/1.2 "Source Code Pro", Consolas, monospace;
+  color: #000000;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .baraja-x__val.is-bump {
@@ -136,6 +142,7 @@
   padding: 0;
   border: 0;
   background: none;
+  font-family: inherit;
   font-size: calc(var(--cw) / 13); /* todo lo de adentro se mide en em */
   line-height: 1.3;
   text-align: center;
@@ -212,6 +219,23 @@
   backface-visibility: hidden;
 }
 
+/* Cada cara se oculta a la mitad del giro (0.12s de espera + 0.35s), así el
+   frente nunca se transparenta en el reverso aunque el navegador ignore
+   backface-visibility. */
+.baraja__front,
+.baraja__back {
+  transition: visibility 0s linear 0.47s;
+}
+
+.baraja__back,
+.baraja__card.is-open .baraja__front {
+  visibility: hidden;
+}
+
+.baraja__card.is-open .baraja__back {
+  visibility: visible;
+}
+
 /* Frente: esquinas, marco y el operador en grande */
 .baraja__front::before,
 .baraja__front::after {
@@ -238,7 +262,6 @@
   justify-items: center;
   gap: 0.25em;
   line-height: 1;
-  font-family: var(--mono);
 }
 
 .baraja__corner b {
@@ -265,7 +288,6 @@
 .baraja__mid {
   position: absolute;
   inset: 0;
-  z-index: 1;
   display: grid;
   place-content: center;
   justify-items: center;
@@ -273,7 +295,9 @@
 }
 
 .baraja__mid b {
-  font: 700 3.9em/1 var(--mono);
+  font-size: 3.9em;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .baraja__mid span {
@@ -317,7 +341,15 @@
   border-color: rgba(192, 80, 58, 0.3);
 }
 
+.baraja__sym {
+  color: var(--ink);
+  font-size: 2.3em;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .baraja__name {
+  margin-top: -0.3em;
   font-size: 1.15em;
   font-weight: 700;
   line-height: 1.15;
@@ -338,14 +370,18 @@
 }
 
 .baraja__ex {
-  font: 700 1.3em/1.2 var(--mono);
+  font-size: 1.3em;
+  font-weight: 700;
+  line-height: 1.2;
   color: #1c2434;
 }
 
 .baraja__res {
   padding: 0.2em 0.8em;
   border-radius: 999px;
-  font: 700 1.05em/1.3 var(--mono);
+  font-size: 1.05em;
+  font-weight: 700;
+  line-height: 1.3;
   background: #e3f6eb;
   color: #1f7a45;
 }
@@ -358,42 +394,64 @@
 .baraja__sub {
   margin-top: -0.35em;
   color: #6b7686;
-  font: 600 0.82em/1.2 var(--mono);
+  font-size: 0.82em;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
 /* ---------- Tinta mágica ----------
-   La gota cae sobre la carta, salpica unas chispas y deja una onda. Desde
-   ahí se difunde la tinta (círculos que crecen, con el borde deformado por
-   el filtro #baraja-ink para que parezca tinta en agua). La tinta se mezcla
-   con multiply, así tiñe el papel sin tapar el texto. */
-.baraja__inks {
+   La gota cae sobre la carta, salpica chispas y deja una onda. Desde ahí se
+   extiende una copia teñida del reverso (.baraja__dye); el JS la recorta con
+   un círculo de borde ondulado que crece, como tinta en una bebida. */
+.baraja__dye {
+  --dye-bg: #b9e6c9;
+  --dye-panel: #def4e6;
+  --dye-ink: #1f7a45;
+  --dye-text: #2f5a40;
+  --dye-line: rgba(31, 122, 69, 0.35);
   position: absolute;
   inset: 0;
   z-index: 2;
-  pointer-events: none;
-  mix-blend-mode: multiply;
-  opacity: 0.72;
-}
-
-.baraja__tint {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+  border-radius: inherit;
+  background-color: var(--dye-bg);
+  background-image:
+    repeating-linear-gradient(45deg, var(--dye-line) 0 1px, transparent 1px 0.6em),
+    repeating-linear-gradient(-45deg, var(--dye-line) 0 1px, transparent 1px 0.6em);
+  box-shadow: inset 0 0 0 1px var(--dye-line);
   transition: opacity 0.45s ease;
 }
 
-.baraja__tint.is-fading {
+.baraja__dye[data-dye="false"] {
+  --dye-bg: #f6c2b4;
+  --dye-panel: #fbe3db;
+  --dye-ink: #b4472a;
+  --dye-text: #6e3426;
+  --dye-line: rgba(180, 71, 42, 0.35);
+}
+
+.baraja__dye.is-fading {
   opacity: 0;
 }
 
-.baraja__tint circle {
-  transform: scale(0.01);
-  transform-box: fill-box;
-  transform-origin: center;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.25, 0.45, 0.35, 1);
+.baraja__card .baraja__dye .baraja__detail {
+  border-color: var(--dye-line);
+  background: var(--dye-panel);
+}
+
+.baraja__card .baraja__dye .baraja__sym,
+.baraja__card .baraja__dye .baraja__name {
+  color: var(--dye-ink);
+}
+
+.baraja__card .baraja__dye .baraja__fn,
+.baraja__card .baraja__dye .baraja__with,
+.baraja__card .baraja__dye .baraja__sub {
+  color: var(--dye-text);
+}
+
+.baraja__card .baraja__dye .baraja__res {
+  background: var(--dye-ink);
+  color: #ffffff;
 }
 
 .baraja__drop {
