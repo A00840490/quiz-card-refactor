@@ -16,7 +16,7 @@
   --zoom: 1.38; /* cuánto crece la carta elegida */
   --paper: #fffdf8;
   --gold: #e0a409;
-  --gold-text: #b88400; /* amarillo más oscuro para las letras chicas */
+  --gold-text: #b88400; /* amarillo más oscuro para el nombre en el reverso */
   position: relative;
   width: 100%;
   max-width: 660px;
@@ -225,7 +225,8 @@
   transform: translateZ(1px);
 }
 
-/* Frente: esquinas, marco y el operador en grande */
+/* Frente: esquinas, marco y el operador en grande (sin su nombre; el nombre
+   va en el reverso) */
 .baraja__front::before,
 .baraja__front::after {
   content: "";
@@ -279,24 +280,12 @@
   inset: 0;
   display: grid;
   place-content: center;
-  justify-items: center;
-  gap: 0.5em;
 }
 
 .baraja__mid b {
   font-size: 3.9em;
   font-weight: 700;
   line-height: 1;
-}
-
-.baraja__mid span {
-  max-width: 7em;
-  font-size: 0.72em;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  text-transform: uppercase;
-  opacity: 0.85;
 }
 
 /* Reverso: trama de rombos y una ficha con los datos */
@@ -330,7 +319,6 @@
   border-color: rgba(224, 164, 9, 0.45);
 }
 
-.baraja__card[data-suit="yellow"] .baraja__mid span,
 .baraja__card[data-suit="yellow"] .baraja__name {
   color: var(--gold-text);
 }
