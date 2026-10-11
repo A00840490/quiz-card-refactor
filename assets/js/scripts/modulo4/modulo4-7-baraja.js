@@ -1,5 +1,5 @@
 /* Módulo 4-7: los operadores de comparación como una baraja.
-   - "El valor de x es [−] 10 [+]" cambia x; cada carta se evalúa con ese
+   - "El valor de x es [−] 5 [+]" cambia x; cada carta se evalúa con ese
      valor (x <op> 2) y su reverso se actualiza.
    - Al entrar en pantalla, las cartas juntas se abren en abanico.
    - Al sacar una carta, crece y se voltea. Cuando llega, a la izquierda o a
@@ -12,7 +12,7 @@
      color. Si cambia x y cambia el resultado de la carta afuera, cae una gota
      nueva del otro color.
    - Con ← → se saca la carta anterior o siguiente; con Esc se regresa.
-   - Empieza con la carta marcada con data-start afuera. */
+   - Empieza sin ninguna carta afuera. */
 (function () {
   "use strict";
 
@@ -28,8 +28,8 @@
   var MAX = 20;
   var ctl = document.querySelector("[data-baraja-x]");
   var out = ctl ? ctl.querySelector(".baraja-x__val") : null;
-  var x = out ? parseInt(out.textContent, 10) : 10;
-  if (isNaN(x)) x = 10;
+  var x = out ? parseInt(out.textContent, 10) : 5;
+  if (isNaN(x)) x = 5;
 
   var TESTS = {
     "==": function (a, b) { return a === b; },
@@ -303,15 +303,13 @@
   }
 
   // ---------- Reparto inicial ----------
-  var first = root.querySelector(".baraja__card[data-start]") || cards[0];
-
   if (reduce || typeof IntersectionObserver === "undefined") {
     root.classList.add("is-ready");
-    open(first);
     return;
   }
 
-  // Se reparte al entrar en pantalla: juntas → abanico → sale la primera.
+  // Se reparte al entrar en pantalla: juntas → abanico. Ninguna carta sale
+  // sola; se queda la mano esperando a que saquen una.
   root.classList.add("is-stacked");
   var io = new IntersectionObserver(
     function (entries) {
@@ -320,7 +318,6 @@
       root.classList.remove("is-stacked");
       setTimeout(function () {
         root.classList.add("is-ready");
-        open(first);
       }, 800);
     },
     { threshold: 0.35 }

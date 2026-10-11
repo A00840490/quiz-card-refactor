@@ -1,5 +1,5 @@
 /* Módulo 4-7: los operadores de comparación como una baraja.
-   Arriba, "El valor de x es [−] 10 [+]" cambia el valor con el que se evalúan
+   Arriba, "El valor de x es [−] 5 [+]" cambia el valor con el que se evalúan
    las cartas. Seis cartas abiertas en abanico, alternando los dos colores de
    una baraja (azul = --theme-color, amarillo). Al sacar una, crece y se voltea
    para mostrar su símbolo, nombre, ejemplo y resultado, y a un lado sale una
@@ -36,7 +36,7 @@
   }
 }
 
-/* "El valor de x es [−] 10 [+]" */
+/* "El valor de x es [−] 5 [+]" */
 .baraja-x {
   display: flex;
   flex-wrap: wrap;
