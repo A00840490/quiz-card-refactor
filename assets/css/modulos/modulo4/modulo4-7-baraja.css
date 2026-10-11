@@ -1,0 +1,279 @@
+/* Módulo 4-7: los operadores de comparación como una baraja.
+   Seis cartas abiertas en abanico. Las que dan true con x = 10 son azules
+   (--theme-color) y las que dan false son rojas, como los dos colores de una
+   baraja. Al elegir una, sale de la mano, crece y se voltea para mostrar su
+   reverso con la función, el ejemplo y el resultado. */
+
+.baraja {
+  --cw: 140px; /* ancho de una carta */
+  --ch: 196px; /* alto de una carta */
+  --R: 300px; /* distancia del eje del abanico bajo las cartas */
+  --spread: 9deg; /* ángulo entre cartas */
+  --lift: 118px; /* cuánto sube la carta elegida */
+  --zoom: 1.38; /* cuánto crece la carta elegida */
+  --paper: #fffdf8;
+  --false: #c0503a;
+  --mono: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  height: 430px;
+  margin: 10px auto 44px;
+}
+
+@media (max-width: 575px) {
+  .baraja {
+    --cw: 88px;
+    --ch: 124px;
+    --R: 200px;
+    --spread: 7.5deg;
+    --lift: 82px;
+    --zoom: 1.9;
+    height: 340px;
+  }
+}
+
+/* El abanico: cada carta gira alrededor de un punto que está debajo de la
+   mano. --k es su lugar en el abanico (de -2.5 a 2.5). */
+.baraja__card {
+  --a: calc(var(--k) * var(--spread));
+  --ty: 0px;
+  --hy: 0px;
+  --s: 1;
+  --ink: var(--theme-color);
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: var(--z);
+  display: block;
+  width: var(--cw);
+  height: var(--ch);
+  margin-left: calc(var(--cw) / -2);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: calc(var(--cw) / 13); /* todo lo de adentro se mide en em */
+  line-height: 1.3;
+  text-align: center;
+  cursor: pointer;
+  perspective: 1100px;
+  transform-origin: 50% 100%;
+  transform: translateY(var(--ty)) translateY(var(--R)) rotate(var(--a)) translateY(calc(var(--R) * -1 + var(--hy))) scale(var(--s));
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
+}
+
+.baraja__card[data-v="false"] {
+  --ink: var(--false);
+}
+
+.baraja__card:focus {
+  outline: none;
+}
+
+.baraja__card:focus-visible .baraja__face {
+  box-shadow: 0 0 0 3px #fac775, 0 6px 14px rgba(6, 43, 102, 0.14);
+}
+
+.baraja__card:not(.is-open):hover {
+  --hy: -18px;
+}
+
+/* Carta elegida: sale de la mano, se endereza y crece */
+.baraja__card.is-open {
+  --a: 0deg;
+  --ty: calc(var(--lift) * -1);
+  --s: var(--zoom);
+  z-index: 20;
+}
+
+.baraja.has-open .baraja__card:not(.is-open) {
+  filter: brightness(0.95) saturate(0.75);
+}
+
+/* Al entrar en pantalla las cartas están juntas y se abren en abanico */
+.baraja.is-stacked .baraja__card {
+  --a: 0deg;
+  --hy: 0px;
+}
+
+.baraja:not(.is-stacked) .baraja__card {
+  transition-delay: calc(var(--i, 0) * 0.05s), 0s;
+}
+
+.baraja.is-ready .baraja__card {
+  transition-delay: 0s;
+}
+
+/* Volteo */
+.baraja__in {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.3, 0.7, 0.2, 1) 0.12s;
+}
+
+.baraja__card.is-open .baraja__in {
+  transform: rotateY(180deg);
+}
+
+.baraja__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 0.9em;
+  background-color: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(6, 43, 102, 0.12), 0 6px 14px rgba(6, 43, 102, 0.14);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Frente: esquinas, marco y el operador en grande */
+.baraja__front::before,
+.baraja__front::after {
+  content: "";
+  position: absolute;
+  inset: 1.1em 2.5em;
+  border-radius: 0.5em;
+}
+
+.baraja__front::before {
+  border: 1px solid currentColor;
+  opacity: 0.28;
+}
+
+.baraja__front::after {
+  background-image: radial-gradient(currentColor 0.07em, transparent 0.1em);
+  background-size: 0.8em 0.8em;
+  opacity: 0.12;
+}
+
+.baraja__corner {
+  position: absolute;
+  display: grid;
+  justify-items: center;
+  gap: 0.25em;
+  line-height: 1;
+  font-family: var(--mono);
+}
+
+.baraja__corner b {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.baraja__corner i {
+  font-size: 0.85em;
+  font-style: normal;
+}
+
+.baraja__corner--tl {
+  left: 0.5em;
+  top: 0.7em;
+}
+
+.baraja__corner--br {
+  right: 0.5em;
+  bottom: 0.7em;
+  transform: rotate(180deg);
+}
+
+.baraja__mid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.5em;
+}
+
+.baraja__mid b {
+  font: 700 3.9em/1 var(--mono);
+}
+
+.baraja__mid span {
+  max-width: 7em;
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* Reverso: trama de rombos y una ficha con los datos */
+.baraja__back {
+  transform: rotateY(180deg);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(6, 43, 102, 0.1) 0 1px, transparent 1px 0.6em),
+    repeating-linear-gradient(-45deg, rgba(6, 43, 102, 0.1) 0 1px, transparent 1px 0.6em);
+}
+
+.baraja__card[data-v="false"] .baraja__back {
+  background-image:
+    repeating-linear-gradient(45deg, rgba(192, 80, 58, 0.14) 0 1px, transparent 1px 0.6em),
+    repeating-linear-gradient(-45deg, rgba(192, 80, 58, 0.14) 0 1px, transparent 1px 0.6em);
+}
+
+.baraja__detail {
+  position: absolute;
+  inset: 0.8em;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.5em;
+  padding: 0.8em 0.7em;
+  border: 1px solid rgba(6, 43, 102, 0.25);
+  border-radius: 0.55em;
+  background: var(--paper);
+}
+
+.baraja__card[data-v="false"] .baraja__detail {
+  border-color: rgba(192, 80, 58, 0.3);
+}
+
+.baraja__name {
+  font-size: 1.15em;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.baraja__fn {
+  font-size: 0.88em;
+  line-height: 1.3;
+  color: #4b5566;
+}
+
+.baraja__with {
+  font-size: 0.66em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b7686;
+}
+
+.baraja__ex {
+  font: 700 1.3em/1.2 var(--mono);
+  color: #1c2434;
+}
+
+.baraja__res {
+  padding: 0.2em 0.8em;
+  border-radius: 999px;
+  font: 700 1.05em/1.3 var(--mono);
+  background: #e3f6eb;
+  color: #1f7a45;
+}
+
+.baraja__card[data-v="false"] .baraja__res {
+  background: #fde9e2;
+  color: #b4472a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baraja__card,
+  .baraja__in {
+    transition: none;
+  }
+}

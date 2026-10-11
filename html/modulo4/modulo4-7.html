@@ -24,6 +24,7 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-7-baraja.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -105,64 +106,121 @@
                                     regresan un <b>valor booleano</b>. Si se cumple la condición, entonces
                                     regresan <span class="code">True</span>, sino <span
                                         class="code">False</span>.</p>
-                                <p style="font-weight: bold;">Lee la siguiente tabla y analiza los ejemplos.
-                                    Para todos ellos asume que la variable <span class="code">x</span> tiene un
-                                    valor de 10.</p>
-                                <div class="d-flex justify-content-center">
-                                <table class="table table-bordered table-hover" style="max-width: 800px; text-align: center;">
-                                    <thead class="table-primary">
-                                        <tr>
-                                            <th colspan="4" style="text-align: center;">Operadores de
-                                                Comparación</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Operador</th>
-                                            <th>Función</th>
-                                            <th>Ejemplo de uso</th>
-                                            <th>Resultado del ejemplo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="height: 29px">==</td>
-                                            <td style="height: 29px">verifica si es igual al valor dado</td>
-                                            <td style="height: 29px"><span class="code">x == 2</span></td>
-                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height: 29px">!=</td>
-                                            <td style="height: 29px">verifica si no es igual al valor dado</td>
-                                            <td style="height: 29px"><span class="code">x != 2</span></td>
-                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height: 29px">&lt;</td>
-                                            <td style="height: 29px">verifica si es menor al valor dado</td>
-                                            <td style="height: 29px"><span class="code">x &lt; 2</span></td>
-                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height: 29px">&gt;</td>
-                                            <td style="height: 29px">verifica si es mayor al valor dado</td>
-                                            <td style="height: 29px"><span class="code">x > 2</span></td>
-                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height: 29px">&lt;=</td>
-                                            <td style="height: 29px">verifica si es menor o igual al valor dado
-                                            </td>
-                                            <td style="height: 29px"><span class="code">x &lt;= 2</span></td>
-                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>False</b></span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height: 29px">&gt;=</td>
-                                            <td style="height: 29px">verifica si es mayor o igual al valor dado
-                                            </td>
-                                            <td style="height: 29px"><span class="code">x &gt;= 2</span></td>
-                                            <td style="height: 29px"><span class="code" style="color: lightsalmon;"><b>True</b></span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>                                        
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Haz clic en cada carta para voltearla. En todos los ejemplos, la variable
+                                    <span class="code">x</span> tiene un valor de 10.
+                                </p>
+                                <!-- Operadores como baraja (ver modulo4-7-baraja.css / .js) -->
+                                <div class="baraja" data-baraja role="group" aria-label="Operadores de comparación">
+                                    <button type="button" class="baraja__card" style="--k: -2.5; --z: 1" data-v="false" aria-pressed="false" aria-label="Igual a: x == 2 da false">
+                                      <span class="baraja__in">
+                                        <span class="baraja__face baraja__front">
+                                          <span class="baraja__corner baraja__corner--tl"><b>==</b><i>◆</i></span>
+                                          <span class="baraja__corner baraja__corner--br"><b>==</b><i>◆</i></span>
+                                          <span class="baraja__mid"><b>==</b><span>igual</span></span>
+                                        </span>
+                                        <span class="baraja__face baraja__back">
+                                          <span class="baraja__detail">
+                                            <span class="baraja__name">Igual a</span>
+                                            <span class="baraja__fn">verifica si es igual al valor dado</span>
+                                            <span class="baraja__with">con x = 10</span>
+                                            <span class="baraja__ex">x == 2</span>
+                                            <span class="baraja__res">false</span>
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </button>
+                                    <button type="button" class="baraja__card" style="--k: -1.5; --z: 2" data-v="true" aria-pressed="false" aria-label="Distinto de: x != 2 da true">
+                                      <span class="baraja__in">
+                                        <span class="baraja__face baraja__front">
+                                          <span class="baraja__corner baraja__corner--tl"><b>!=</b><i>◆</i></span>
+                                          <span class="baraja__corner baraja__corner--br"><b>!=</b><i>◆</i></span>
+                                          <span class="baraja__mid"><b>!=</b><span>distinto</span></span>
+                                        </span>
+                                        <span class="baraja__face baraja__back">
+                                          <span class="baraja__detail">
+                                            <span class="baraja__name">Distinto de</span>
+                                            <span class="baraja__fn">verifica si no es igual al valor dado</span>
+                                            <span class="baraja__with">con x = 10</span>
+                                            <span class="baraja__ex">x != 2</span>
+                                            <span class="baraja__res">true</span>
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </button>
+                                    <button type="button" class="baraja__card" style="--k: -0.5; --z: 3" data-v="false" aria-pressed="false" aria-label="Menor que: x &lt; 2 da false">
+                                      <span class="baraja__in">
+                                        <span class="baraja__face baraja__front">
+                                          <span class="baraja__corner baraja__corner--tl"><b>&lt;</b><i>◆</i></span>
+                                          <span class="baraja__corner baraja__corner--br"><b>&lt;</b><i>◆</i></span>
+                                          <span class="baraja__mid"><b>&lt;</b><span>menor</span></span>
+                                        </span>
+                                        <span class="baraja__face baraja__back">
+                                          <span class="baraja__detail">
+                                            <span class="baraja__name">Menor que</span>
+                                            <span class="baraja__fn">verifica si es menor al valor dado</span>
+                                            <span class="baraja__with">con x = 10</span>
+                                            <span class="baraja__ex">x &lt; 2</span>
+                                            <span class="baraja__res">false</span>
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </button>
+                                    <button type="button" class="baraja__card" style="--k: 0.5; --z: 4" data-v="true" data-start aria-pressed="false" aria-label="Mayor que: x &gt; 2 da true">
+                                      <span class="baraja__in">
+                                        <span class="baraja__face baraja__front">
+                                          <span class="baraja__corner baraja__corner--tl"><b>&gt;</b><i>◆</i></span>
+                                          <span class="baraja__corner baraja__corner--br"><b>&gt;</b><i>◆</i></span>
+                                          <span class="baraja__mid"><b>&gt;</b><span>mayor</span></span>
+                                        </span>
+                                        <span class="baraja__face baraja__back">
+                                          <span class="baraja__detail">
+                                            <span class="baraja__name">Mayor que</span>
+                                            <span class="baraja__fn">verifica si es mayor al valor dado</span>
+                                            <span class="baraja__with">con x = 10</span>
+                                            <span class="baraja__ex">x &gt; 2</span>
+                                            <span class="baraja__res">true</span>
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </button>
+                                    <button type="button" class="baraja__card" style="--k: 1.5; --z: 5" data-v="false" aria-pressed="false" aria-label="Menor o igual que: x &lt;= 2 da false">
+                                      <span class="baraja__in">
+                                        <span class="baraja__face baraja__front">
+                                          <span class="baraja__corner baraja__corner--tl"><b>&lt;=</b><i>◆</i></span>
+                                          <span class="baraja__corner baraja__corner--br"><b>&lt;=</b><i>◆</i></span>
+                                          <span class="baraja__mid"><b>&lt;=</b><span>menor o igual</span></span>
+                                        </span>
+                                        <span class="baraja__face baraja__back">
+                                          <span class="baraja__detail">
+                                            <span class="baraja__name">Menor o igual que</span>
+                                            <span class="baraja__fn">verifica si es menor o igual al valor dado</span>
+                                            <span class="baraja__with">con x = 10</span>
+                                            <span class="baraja__ex">x &lt;= 2</span>
+                                            <span class="baraja__res">false</span>
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </button>
+                                    <button type="button" class="baraja__card" style="--k: 2.5; --z: 6" data-v="true" aria-pressed="false" aria-label="Mayor o igual que: x &gt;= 2 da true">
+                                      <span class="baraja__in">
+                                        <span class="baraja__face baraja__front">
+                                          <span class="baraja__corner baraja__corner--tl"><b>&gt;=</b><i>◆</i></span>
+                                          <span class="baraja__corner baraja__corner--br"><b>&gt;=</b><i>◆</i></span>
+                                          <span class="baraja__mid"><b>&gt;=</b><span>mayor o igual</span></span>
+                                        </span>
+                                        <span class="baraja__face baraja__back">
+                                          <span class="baraja__detail">
+                                            <span class="baraja__name">Mayor o igual que</span>
+                                            <span class="baraja__fn">verifica si es mayor o igual al valor dado</span>
+                                            <span class="baraja__with">con x = 10</span>
+                                            <span class="baraja__ex">x &gt;= 2</span>
+                                            <span class="baraja__res">true</span>
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </button>
                                 </div>
                                 <p>Podemos comparar cualquier valor o variable entre sí, sin importar su tipo.
                                     Verifica en la consola de tu navegador los ejemplos de arriba, la consola
@@ -306,6 +364,7 @@ console.log("2 es igual a 3");
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-7-baraja.js"></script>
 </body>
 
 </html>

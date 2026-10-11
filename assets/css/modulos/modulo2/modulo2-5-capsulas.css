@@ -1,0 +1,396 @@
+/* Módulo 2-5: las etiquetas para formatear texto como una máquina de cápsulas.
+   Cada etiqueta es una cápsula dentro del domo. Al girar la perilla (o tocar
+   una cápsula) cae una, rueda, se abre y saca un papelito con lo que hace la
+   etiqueta y un ejemplo de código con su resultado. */
+
+.capsulas {
+  --paper: #fffdf7;
+  --mono: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+  max-width: 860px;
+  margin: 10px auto 28px;
+}
+
+@media (max-width: 767px) {
+  .capsulas {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 22px;
+  }
+}
+
+/* Lista original: se ve solo si el JavaScript no corre */
+.capsulas__data.is-built {
+  display: none;
+}
+
+/* ---------- Máquina ---------- */
+.capsulas__machine {
+  display: grid;
+  justify-items: center;
+  width: 290px;
+  max-width: 100%;
+}
+
+.capsulas__dome {
+  position: relative;
+  z-index: 1;
+  width: 260px;
+  height: 260px;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 120%, rgba(9, 59, 139, 0.12), transparent 60%), rgba(230, 241, 251, 0.65);
+  box-shadow:
+    inset 0 0 0 2px rgba(9, 59, 139, 0.12),
+    inset -12px -18px 30px rgba(9, 59, 139, 0.1),
+    0 8px 18px rgba(6, 43, 102, 0.12);
+}
+
+/* Reflejo del vidrio */
+.capsulas__dome::after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  left: 34px;
+  top: 24px;
+  width: 60px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  transform: rotate(28deg);
+  pointer-events: none;
+}
+
+.capsulas__neck {
+  width: 130px;
+  height: 18px;
+  margin-top: -8px;
+  border-radius: 0 0 6px 6px;
+  background: #062b66;
+}
+
+.capsulas__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "label label" "knob chute";
+  gap: 14px 10px;
+  align-items: center;
+  width: 270px;
+  max-width: 100%;
+  padding: 16px 18px 20px;
+  border-radius: 18px 18px 30px 30px;
+  background: linear-gradient(#0f4ea8, var(--theme-color) 55%, #072f70);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.18), 0 12px 24px rgba(6, 43, 102, 0.22);
+}
+
+.capsulas__label {
+  grid-area: label;
+  justify-self: center;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: #fac775;
+  box-shadow: inset 0 -2px 0 rgba(65, 36, 2, 0.15);
+  color: #412402;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.capsulas__knob {
+  grid-area: knob;
+  justify-self: center;
+  position: relative;
+  width: 78px;
+  height: 78px;
+  padding: 0;
+  border: 5px solid #062b66;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #dbe5f3 70%);
+  box-shadow: 0 4px 0 #041e48, 0 6px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.capsulas__knob:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #041e48, 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.capsulas__knob:focus {
+  outline: none;
+}
+
+.capsulas__knob:focus-visible {
+  box-shadow: 0 0 0 4px #fac775, 0 4px 0 #041e48;
+}
+
+/* Manija: gira una vuelta completa cada vez */
+.capsulas__handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 54px;
+  height: 14px;
+  margin: -7px 0 0 -27px;
+  border-radius: 7px;
+  background: linear-gradient(#1b5bb8, var(--theme-color));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transform: rotate(var(--turn, 0deg));
+  transition: transform 0.8s cubic-bezier(0.4, 1.4, 0.5, 1);
+}
+
+.capsulas__chute {
+  grid-area: chute;
+  justify-self: center;
+  position: relative;
+  width: 80px;
+  height: 58px;
+  overflow: hidden;
+  border-radius: 12px 12px 16px 16px;
+  background: #041a3d;
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+.capsulas__chute::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  top: 7px;
+  height: 22px;
+  border-radius: 8px 8px 4px 4px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.capsulas__count {
+  margin: 12px 0 0;
+  color: #5b6577;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ---------- Cápsulas dentro del domo ---------- */
+.capsulas__cap {
+  position: absolute;
+  z-index: 2;
+  left: var(--x);
+  top: var(--y);
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  padding: 0;
+  border: 1.5px solid rgba(6, 43, 102, 0.22);
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--c) 0 50%, #ffffff 50% 100%);
+  box-shadow:
+    inset 0 6px 10px rgba(255, 255, 255, 0.55),
+    inset 0 -6px 10px rgba(6, 43, 102, 0.1),
+    0 2px 4px rgba(6, 43, 102, 0.18);
+  cursor: pointer;
+  transform: rotate(var(--r));
+  transition: transform 0.4s ease, opacity 0.35s ease;
+}
+
+.capsulas__cap:focus {
+  outline: none;
+}
+
+.capsulas__cap:focus-visible {
+  box-shadow: 0 0 0 3px #fac775;
+}
+
+/* Etiqueta pegada en la cápsula; se queda derecha aunque la cápsula gire */
+.capsulas__sticker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 3px 5px;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(6, 43, 102, 0.15);
+  color: var(--theme-color);
+  font: 700 11px/1 var(--mono);
+  white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(calc(var(--r) * -1));
+}
+
+/* Etiquetas largas (<strong>) con letra más chica para que quepan */
+.capsulas__sticker.is-long {
+  padding: 3px;
+  font-size: 9px;
+}
+
+.capsulas__cap.is-gone {
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(var(--r)) translateY(70px) scale(0.3);
+}
+
+.capsulas__dome.is-shake .capsulas__cap:not(.is-gone) {
+  animation: capsulas-jiggle 0.5s ease;
+}
+
+@keyframes capsulas-jiggle {
+  25% { translate: -3px -5px; rotate: 9deg; }
+  50% { translate: 3px 1px; rotate: -7deg; }
+  75% { translate: -1px -2px; rotate: 3deg; }
+}
+
+/* ---------- Premio: cápsula abierta y papelito ---------- */
+.capsulas__prize {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 330px;
+}
+
+.capsulas__shell {
+  position: relative;
+  width: 88px;
+  height: 88px;
+}
+
+.capsulas__half {
+  position: absolute;
+  left: 0;
+  width: 88px;
+  height: 44px;
+  border: 1.5px solid rgba(6, 43, 102, 0.22);
+  transition: transform 0.55s cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+
+.capsulas__half--top {
+  top: 0;
+  border-radius: 44px 44px 0 0;
+  background: var(--c);
+  box-shadow: inset 0 8px 12px rgba(255, 255, 255, 0.5);
+}
+
+.capsulas__half--bottom {
+  bottom: 0;
+  border-radius: 0 0 44px 44px;
+  background: #ffffff;
+  box-shadow: inset 0 -8px 12px rgba(6, 43, 102, 0.08);
+}
+
+.capsulas__prize.is-open .capsulas__half--top {
+  transform: translate(-30px, -16px) rotate(-34deg);
+}
+
+.capsulas__prize.is-open .capsulas__half--bottom {
+  transform: translate(16px, 6px) rotate(12deg);
+}
+
+.capsulas__prize.is-rolling .capsulas__shell {
+  animation: capsulas-roll 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes capsulas-roll {
+  from { opacity: 0; transform: translateX(-150px) rotate(-340deg); }
+  30% { opacity: 1; }
+  to { transform: none; }
+}
+
+@media (max-width: 767px) {
+  @keyframes capsulas-roll {
+    from { opacity: 0; transform: translateY(-80px) rotate(-340deg); }
+    30% { opacity: 1; }
+    to { transform: none; }
+  }
+}
+
+.capsulas__slip {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  max-width: 360px;
+  padding: 16px 18px;
+  border-radius: 6px;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(transparent 0 23px, rgba(59, 111, 182, 0.12) 23px 24px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 10px 22px rgba(6, 43, 102, 0.1);
+  transform-origin: 50% 0;
+  rotate: -1.5deg;
+}
+
+.capsulas__prize:not(.is-open) .capsulas__slip {
+  opacity: 0;
+}
+
+.capsulas__prize.is-open .capsulas__slip {
+  animation: capsulas-unfold 0.55s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes capsulas-unfold {
+  from { opacity: 0; transform: scaleY(0.1) translateY(-20px); }
+  to { opacity: 1; transform: none; }
+}
+
+.capsulas__kicker {
+  color: #5b6577;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.capsulas__tag {
+  justify-self: start;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: #1a1a1a;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.capsulas__desc {
+  margin: 0;
+  color: #263040;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+/* Mini editor y vista previa, como en los ejemplos del curso */
+.capsulas__demo {
+  overflow: hidden;
+  border: 1px solid #dce3ec;
+  border-radius: 8px;
+}
+
+.capsulas__src {
+  display: block;
+  padding: 8px 12px;
+  background: #1a1a1a;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.capsulas__out {
+  padding: 8px 12px;
+  background: #ffffff;
+  color: #263040;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capsulas__cap,
+  .capsulas__handle,
+  .capsulas__half {
+    transition: none;
+  }
+
+  .capsulas__dome.is-shake .capsulas__cap,
+  .capsulas__prize.is-rolling .capsulas__shell,
+  .capsulas__prize.is-open .capsulas__slip {
+    animation: none;
+  }
+}

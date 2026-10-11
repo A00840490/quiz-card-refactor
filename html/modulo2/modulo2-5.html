@@ -15,6 +15,7 @@
   <link href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet" />
   <!-- page plugins css -->
   <link href="../../assets/css/lesson-demo.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo2/modulo2-5-capsulas.css" rel="stylesheet" />
   <!-- core css -->
   <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
   <link href="../../assets/css/themify-icons.css" rel="stylesheet" />
@@ -55,55 +56,90 @@
                     aprenderás a agregar estas variaciones de estilo a tu
                     texto.
                   </p>
-                  <ul>
-                    <li>
+                  <p class="card-info" style="width: fit-content;">
+                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                    Gira la perilla o toca una cápsula para ver qué hace cada etiqueta.
+                  </p>
+                  <!-- Etiquetas como máquina de cápsulas (ver modulo2-5-capsulas.css / .js).
+                       La lista es la fuente de datos; el JS la oculta al armar la máquina. -->
+                  <ul class="capsulas__data">
+                      <li>
                       <span class="code">&lt;<span class="codetag">br</span>&gt;</span>
                       Se utiliza para indicar un salto de línea.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Primera línea<br>Segunda línea</span>
+                      </li>
+                      <li data-start>
                       <span class="code">&lt;<span class="codetag">b</span>&gt;</span>
                       Texto en negritas.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Ejemplo <b>negritas</b></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">i</span>&gt;</span>
                       Texto en cursiva.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Ejemplo <i>cursiva</i></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">u</span>&gt;</span>
                       Texto subrayado.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Ejemplo <u>subrayado</u></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">strong</span>&gt;</span>
                       Indica al navegador que el texto es importante. Por
                       defecto, los navegadores lo interpretan igual que
                       <b>&lt;b&gt;</b>
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Ejemplo <strong>importante</strong></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">em</span>&gt;</span>
                       Indica al navegador que el texto se enfatiza. Por
                       defecto se muestra igual que
                       <b>&lt;i&gt; </b>, pero a diferencia de i, se pueden
                       anidar elementos em dentro de otros elementos em
                       para dar mayores niveles de énfasis al contenido.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Ejemplo <em>enfatizado</em></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">sub</span>&gt;</span>
                       Texto en subíndice.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>H<sub>2</sub>O</span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">sup</span>&gt;</span>
                       Texto en superíndice.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>E = mc<sup>2</sup></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">del</span>&gt;</span>
                       Texto "borrado". El navegador normalmente atravesará
                       una linea en medio del texto.
-                    </li>
-                    <li>
+                        <span class="capsulas__ex" hidden>Ejemplo <del>tachado</del></span>
+                      </li>
+                      <li>
                       <span class="code">&lt;<span class="codetag">mark</span>&gt;</span>
                       Texto marcado.
-                    </li>
+                        <span class="capsulas__ex" hidden>Ejemplo <mark>marcado</mark></span>
+                      </li>
                   </ul>
+                  <div class="capsulas" data-capsulas>
+                    <div class="capsulas__machine">
+                      <div class="capsulas__dome"></div>
+                      <div class="capsulas__neck" aria-hidden="true"></div>
+                      <div class="capsulas__body">
+                        <span class="capsulas__label">Etiquetas</span>
+                        <button type="button" class="capsulas__knob" aria-label="Girar la perilla"><span class="capsulas__handle"></span></button>
+                        <span class="capsulas__chute" aria-hidden="true"></span>
+                      </div>
+                      <p class="capsulas__count" aria-live="polite"></p>
+                    </div>
+                    <div class="capsulas__prize" aria-live="polite">
+                      <div class="capsulas__shell" aria-hidden="true">
+                        <span class="capsulas__half capsulas__half--top"></span>
+                        <span class="capsulas__half capsulas__half--bottom"></span>
+                      </div>
+                      <div class="capsulas__slip"></div>
+                    </div>
+                  </div>
                   <br />
                   <p>
                     El siguiente ejemplo utiliza todos los elementos
@@ -234,6 +270,7 @@
   <!-- endbuild -->
   <!-- Insert your dependencies here -->
     <script src="../../assets/js/lesson-demo.js"></script>
+    <script src="../../assets/js/scripts/modulo2/modulo2-5-capsulas.js"></script>
 </body>
 
 </html>
