@@ -1,0 +1,204 @@
+/* modulo1-4: escena de la tarjeta evolutiva de herramientas
+   (motor en assets/js/evo-card.js, actores en
+   assets/js/scripts/modulo1/modulo1-4-evo.js).
+   Tres apps como íconos; la elegida brilla, el editor crece hasta volverse
+   la ventana de VS Code y luego el navegador se abre al lado. */
+.b-paper {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  padding: 0 16px;
+  border-radius: 6px;
+  background: #fffdf6;
+  color: #3a2a05;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.b-paper small {
+  font: 700 11px var(--evo-display);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a6d2f;
+}
+
+.b-paper code {
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: 500 15px var(--evo-mono);
+}
+
+.b-app {
+  overflow: hidden;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #1c2434;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.b-code {
+  background: #1f2430;
+  color: #d8dee9;
+}
+
+.b-app.is-pick {
+  box-shadow: 0 0 0 4px var(--evo-amber), 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.b-app.is-pulse {
+  animation: evo-ring 1.6s ease infinite;
+}
+
+.b-icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  padding: 6px;
+  text-align: center;
+  font: 700 13px/1.2 var(--evo-display);
+  transition: opacity 0.3s;
+}
+
+.b-icon i {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  font: 700 18px var(--evo-mono);
+  font-style: normal;
+}
+
+.b-word .b-icon i {
+  background: #2b579a;
+  color: #ffffff;
+  font-family: var(--evo-display);
+  font-size: 22px;
+}
+
+.b-code .b-icon i {
+  background: #2d6fd6;
+  color: #ffffff;
+}
+
+.b-web .b-icon i {
+  background: var(--evo-blue-soft);
+  color: var(--evo-blue);
+}
+
+.b-win {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.b-app.is-win .b-icon {
+  opacity: 0;
+}
+
+.b-app.is-win .b-win {
+  opacity: 1;
+  transition-delay: 0.35s;
+}
+
+.b-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  font: 500 12px var(--evo-display);
+}
+
+.b-bar b {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #4a5263;
+}
+
+.b-code .b-bar {
+  background: #161a22;
+  color: #9aa4b6;
+}
+
+.b-code pre {
+  margin: 0;
+  padding: 12px 14px;
+  overflow: hidden;
+  border: 0;
+  background: none;
+  color: #d8dee9;
+  font: 13.5px/1.7 var(--evo-mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.b-code pre::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: #d8dee9;
+  vertical-align: text-bottom;
+  animation: evo-blink 1s steps(1) infinite;
+}
+
+.b-code .t-tag {
+  color: #7fb3ff;
+}
+
+.b-web .b-bar {
+  background: #eef2f7;
+}
+
+.b-url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 2px 10px;
+  border: 1px solid #dce3ec;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #5b6577;
+  text-overflow: ellipsis;
+}
+
+.b-page {
+  overflow: hidden;
+  padding: 10px 16px;
+  color: #000000;
+  font-family: "Times New Roman", Georgia, serif;
+}
+
+.b-page h1 {
+  margin: 0 0 6px;
+  color: #000000;
+  font: 700 28px/1.2 "Times New Roman", Georgia, serif;
+  letter-spacing: 0;
+}
+
+.b-page p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.b-arrow {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--evo-amber);
+  color: var(--evo-amber-ink);
+  font: 700 16px var(--evo-display);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}

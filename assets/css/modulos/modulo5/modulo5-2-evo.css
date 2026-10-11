@@ -1,0 +1,212 @@
+/* modulo5-2: escena de la tarjeta evolutiva de "¿Cómo funciona Internet?"
+   (motor en assets/js/evo-card.js, actores en
+   assets/js/scripts/modulo5/modulo5-2-evo.js).
+   La barra de direcciones se vuelve el navegador; "google.com" viaja al DNS
+   y regresa como IP; luego los paquetes del servidor arman la página. */
+.c-brow {
+  overflow: hidden;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.c-url {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 8px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #eef2f7;
+  color: #1c2434;
+  white-space: nowrap;
+  font: 500 14px var(--evo-display);
+  transition: height 0.6s, font-size 0.6s;
+}
+
+.c-brow.is-bar .c-url {
+  height: 40px;
+  font-size: 18px;
+}
+
+.c-lock {
+  flex: none;
+  width: 10px;
+  height: 12px;
+  border-radius: 2px;
+  background: #9aa4b2;
+}
+
+.c-caret {
+  width: 2px;
+  height: 1.1em;
+  background: var(--evo-blue);
+  animation: evo-blink 1s steps(1) infinite;
+}
+
+.c-brow:not(.is-bar) .c-caret {
+  display: none;
+}
+
+.c-body {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  top: 50px;
+  bottom: 12px;
+  display: grid;
+  gap: 9px;
+  align-content: start;
+  transition: opacity 0.3s;
+}
+
+.c-brow.is-bar .c-body {
+  opacity: 0;
+}
+
+/* Renglones de la página: aparecen conforme llegan los paquetes */
+.c-l {
+  display: block;
+  height: 9px;
+  border-radius: 4px;
+  background: #d8dfe9;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.c-l.is-on {
+  transform: none;
+}
+
+.c-l1 {
+  width: 55%;
+  height: 20px;
+  background: var(--evo-blue-soft);
+}
+
+.c-l2 {
+  width: 92%;
+}
+
+.c-l3 {
+  width: 80%;
+}
+
+.c-l4 {
+  width: 64%;
+}
+
+.c-bubble {
+  display: grid;
+  place-items: center;
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: #ffffff;
+  color: var(--evo-blue);
+  text-align: center;
+  font: 700 15px/1.25 var(--evo-display);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.c-bubble::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  transform: translateY(-50%);
+}
+
+.c-node {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 2px solid #ffffff;
+  background: #ffffff;
+  color: #1c2434;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.c-node b {
+  font: 700 15px var(--evo-display);
+}
+
+.c-node small {
+  overflow: hidden;
+  color: #5b6577;
+  font: 400 11.5px var(--evo-mono);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.c-node.is-hot {
+  border-color: var(--evo-amber-2);
+  background: var(--evo-amber-soft);
+}
+
+.c-node.is-pulse {
+  animation: evo-ring 1.6s ease infinite;
+}
+
+.c-tok {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1.5px solid var(--evo-blue-2);
+  background: var(--evo-blue-soft);
+  color: var(--evo-blue);
+  white-space: nowrap;
+  font: 700 12px var(--evo-mono);
+}
+
+.c-tok.is-ip {
+  border-color: var(--evo-amber-2);
+  background: var(--evo-amber);
+  color: var(--evo-amber-ink);
+}
+
+.c-req {
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--evo-blue);
+  color: #ffffff;
+  white-space: nowrap;
+  font: 700 11.5px var(--evo-mono);
+}
+
+.c-pk {
+  z-index: 2;
+  border-radius: 3px;
+  background: var(--evo-blue-2);
+}
+
+@container (max-width: 480px) {
+  .c-node {
+    padding: 0 10px;
+  }
+
+  .c-node small {
+    font-size: 10px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .c-tok {
+    font-size: 11px;
+  }
+}

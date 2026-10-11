@@ -91,6 +91,16 @@
       })();
     }
 
+    // Dentro de una tarjeta evolutiva (assets/js/evo-card.js) se escribe
+    // cuando aparece su paso, no al entrar en pantalla.
+    if (term.closest(".evo__step")) {
+      term.addEventListener("evo:show", function first() {
+        term.removeEventListener("evo:show", first);
+        type();
+      });
+      return;
+    }
+
     // Se escribe solo la primera vez que entra en pantalla
     if (!("IntersectionObserver" in window)) return showRun();
     var io = new IntersectionObserver(

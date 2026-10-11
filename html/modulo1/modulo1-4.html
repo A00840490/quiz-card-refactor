@@ -89,6 +89,8 @@
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
     <link href="../../assets/css/modulos/modulo2/modulo2-9-carousel.css" rel="stylesheet">
+    <link href="../../assets/css/evo-card.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo1/modulo1-4-evo.css" rel="stylesheet">
 
 
     <style>
@@ -223,73 +225,53 @@
                                                     de texto</b>. El navegador nos servirá para poder visualizar
                                                 nuestro progreso en tiempo real, y el editor nos servirá para
                                                 poder editar nuestro código de manera rápida y eficiente.</p>
-                                            <div id="accordion-1" class="accordion panel-group" role="tablist"
-                                                aria-multiselectable="true">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="regla-1">
-                                                        <h4 class="panel-title">
-                                                            <a class="collapsed" onclick="tabSelect1()"
-                                                                data-toggle="collapse"
-                                                                data-parent="#accordion-1" href="#collapseOne">
-                                                                <span>El Navegador</span>
-                                                                <i class="icon ti-arrow-circle-down"></i>
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="collapseOne" class="collapse panel-collapse"
-                                                        role="tabpanel">
-                                                        <div class="panel-body">
-                                                            <p>Para el navegador te recomendamos utilizar alguno
-                                                                moderno como <a
-                                                                    href="https://www.google.com.mx/intl/es/chrome/"
-                                                                    target="_blank">Chrome</a>, <a
-                                                                    href="https://www.mozilla.org/es-MX/firefox/new/"
-                                                                    target="_blank">Firefox</a>, o <a
-                                                                    href="https://www.microsoft.com/es-es/edge/download?form=MA13FJ"
-                                                                    target="_blank">Edge</a>, que
-                                                                viene junto con Windows 10. Si cuentas con
-                                                                MacOS, puedes utilizar Safari. Internet Explorer
-                                                                no se considera un navegador moderno, ya que
-                                                                perdió su soporte y muchas funcionalidades
-                                                                modernas tienden a fallar. </p>
+                                            <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
+                                                 en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
+                                            <div class="evo" data-evo="herramientas" data-kind="q">
+                                                <span class="evo__mark" aria-hidden="true">?</span>
+                                                <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
+                                                <div class="evo__grid">
+                                                    <div class="evo__text">
+                                                        <div class="evo__step is-on" data-k="q">
+                                                            <h4>Una página web es puro texto. ¿Dónde lo escribirías?</h4>
+                                                            <div class="evo__opts">
+                                                                <button class="evo__opt" type="button" data-pick="word"><i>W</i>En Word</button>
+                                                                <button class="evo__opt" type="button" data-pick="code"><i>&lt;/&gt;</i>En un editor de código</button>
+                                                                <button class="evo__opt" type="button" data-pick="web"><i>◎</i>En el navegador</button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="regla-2">
-                                                        <h4 class="panel-title">
-                                                            <a class="collapsed" onclick="tabSelect2()"
-                                                                data-toggle="collapse"
-                                                                data-parent="#accordion-1" href="#collapseTwo">
-                                                                <span>Editor de texto</span>
-                                                                <i class="icon ti-arrow-circle-down"></i>
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="collapseTwo" class="collapse panel-collapse"
-                                                        role="tabpanel">
-                                                        <div class="panel-body">
-                                                            <p>El editor de texto que utilizaremos es <a
-                                                                    href="https://code.visualstudio.com/download"
-                                                                    target="_blank">Visual Studio Code</a>. Haz
-                                                                clic <img src="../../assets/images/clic.svg"
-                                                                    class="mrg-right-5"> en la liga para ir a la
-                                                                página de descarga. Asegúrate de realizar la
-                                                                instalación correcta de acuerdo a las
-                                                                especificaciones y sistema operativo de tu
+                                                        <div class="evo__step" data-k="a">
+                                                            <span class="evo__fb" data-fb hidden></span>
+                                                            <h4>Se escribe en un editor de código</h4>
+                                                            <p>El editor de texto que utilizaremos es <a href="https://code.visualstudio.com/download"
+                                                                    target="_blank">Visual Studio Code</a>, de los más populares en la industria. Nos permite
+                                                                crear archivos de todo tipo; en este curso nos enfocaremos en archivos con extensión .html,
+                                                                .css y .js, y nos brinda muchas herramientas y atajos para escribir código eficientemente.</p>
+                                                            <p class="evo__note">Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en la
+                                                                liga para ir a la página de descarga e instálalo según el sistema operativo de tu
                                                                 computadora.</p>
-                                                            <p>VS Code es de los editores de texto más populares
-                                                                en la industria, y nos permite crear archivos de
-                                                                todo tipo. En este curso nos enfocaremos en
-                                                                archivos con extensión .html, .css y .js. Este
-                                                                editor nos permite modificar fácilmente este
-                                                                tipo de archivos y nos brinda una gran cantidad
-                                                                de herramientas y atajos para escribir código
-                                                                eficientemente.</p>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Siguiente pregunta</button></div>
+                                                        </div>
+                                                        <div class="evo__step" data-k="q">
+                                                            <h4>Ya escribiste tu página. ¿Dónde la ves como página y no como código?</h4>
+                                                            <p>Tu archivo <b>index.html</b> ya existe. Falta abrirlo.</p>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Ábrelo</button></div>
+                                                        </div>
+                                                        <div class="evo__step" data-k="a">
+                                                            <span class="evo__eyebrow">El Navegador</span>
+                                                            <h4>Se ve en el navegador</h4>
+                                                            <p>El navegador lee el código y lo dibuja como página, así vemos nuestro progreso en tiempo real.
+                                                                Te recomendamos utilizar alguno moderno como <a
+                                                                    href="https://www.google.com.mx/intl/es/chrome/" target="_blank">Chrome</a>, <a
+                                                                    href="https://www.mozilla.org/es-MX/firefox/new/" target="_blank">Firefox</a> o <a
+                                                                    href="https://www.microsoft.com/es-es/edge/download?form=MA13FJ" target="_blank">Edge</a>,
+                                                                que viene junto con Windows. Si cuentas con MacOS, puedes utilizar Safari.</p>
+                                                            <p class="evo__note">Internet Explorer no se considera un navegador moderno: perdió su soporte y
+                                                                muchas funcionalidades modernas tienden a fallar.</p>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go="restart">Volver a empezar ↺</button></div>
                                                         </div>
                                                     </div>
+                                                    <div class="evo__scene" aria-hidden="true"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -562,16 +544,12 @@
     <!-- Insert your dependencies here 
     Dependencias de JS necesarias para el carrusel -->
     <script src="../../assets/js/scripts/demo-carousel.js"></script>
+    <script src="../../assets/js/evo-card.js"></script>
+    <script src="../../assets/js/scripts/modulo1/modulo1-4-evo.js"></script>
 
     <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
     <script type="text/javascript">
         show(0.11)
-        function tabSelect1() {
-            $("#collapseTwo").collapse("hide");
-        }
-        function tabSelect2() {
-            $("#collapseOne").collapse("hide");
-        }
         $(".carousel-control-next").mouseover(function () {
             $(".carousel-control-prev-icon-after").css("animation", "none");
             $(".carousel-control-next-icon-after").css("animation", "none");

@@ -1,0 +1,433 @@
+/* =========================================================================
+   Tarjeta evolutiva (comportamiento en assets/js/evo-card.js).
+   Reemplaza al acordeón de barras azules: cada sección empieza como una
+   pregunta y, al responder, la misma tarjeta se transforma en la explicación.
+
+   <div class="evo" data-evo="nombre" data-kind="q">
+     <span class="evo__mark" aria-hidden="true">?</span>
+     <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
+     <div class="evo__grid">
+       <div class="evo__text">
+         <div class="evo__step is-on" data-k="q">          ← pregunta (azul)
+           <h4>¿...?</h4>
+           <button class="evo__btn" data-go>Siguiente</button>
+         </div>
+         <div class="evo__step" data-k="a">                ← explicación (blanca)
+           <span class="evo__fb" data-fb hidden></span>    ← frase según la respuesta
+           ...
+         </div>
+       </div>
+       <div class="evo__scene" aria-hidden="true"></div>  ← la anima cada lección
+     </div>
+   </div>
+
+   - data-go avanza un paso; data-pick="x" avanza y recuerda la respuesta;
+     data-go="restart" vuelve al inicio.
+   - Todos los pasos ocupan la misma celda, así la altura no brinca.
+   - La escena de cada lección vive en assets/css/modulos/... y
+     assets/js/scripts/...
+   ========================================================================= */
+.evo {
+  --evo-blue: var(--theme-color, #093b8b);
+  --evo-blue-2: #3b6fb6;
+  --evo-blue-soft: #e6f1fb;
+  --evo-amber: #fac775;
+  --evo-amber-2: #e3a43a;
+  --evo-amber-soft: #fdf0d9;
+  --evo-amber-ink: #412402;
+  --evo-green: #1f7a45;
+  --evo-green-soft: #e3f6eb;
+  --evo-display: "Fira Sans", "Segoe UI", system-ui, sans-serif;
+  --evo-mono: Consolas, "Courier New", monospace;
+
+  /* Explicación (blanca) */
+  --e-bg: #ffffff;
+  --e-ink: #1c2434;
+  --e-muted: #5b6577;
+  --e-line: #d6dde8;
+  --e-scene: #f6f8fb;
+  --e-scene-line: #e1e7ef;
+  --e-btn: var(--evo-blue);
+  --e-btn-ink: #ffffff;
+  --e-dot: #e1e7ef;
+  --e-dot-ink: var(--evo-blue);
+
+  container-type: inline-size;
+  position: relative;
+  overflow: hidden;
+  margin: 6px 0 4px;
+  border-radius: 12px;
+  background: var(--e-bg);
+  color: var(--e-ink);
+  box-shadow: 0 1px 2px rgba(6, 43, 102, 0.08), 0 10px 30px rgba(6, 43, 102, 0.1);
+  transition: background-color 0.7s ease, color 0.7s ease;
+}
+
+/* Pregunta (azul) */
+.evo[data-kind="q"] {
+  --e-bg: var(--evo-blue);
+  --e-ink: #ffffff;
+  --e-muted: rgba(255, 255, 255, 0.8);
+  --e-line: rgba(255, 255, 255, 0.3);
+  --e-scene: rgba(255, 255, 255, 0.07);
+  --e-scene-line: rgba(255, 255, 255, 0.16);
+  --e-btn: var(--evo-amber);
+  --e-btn-ink: var(--evo-amber-ink);
+  --e-dot: rgba(255, 255, 255, 0.16);
+  --e-dot-ink: #ffffff;
+}
+
+.evo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 0% 0%, rgba(120, 170, 255, 0.35), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+}
+
+.evo[data-kind="q"]::before {
+  opacity: 1;
+}
+
+/* Signo ? gigante de fondo: solo en las preguntas */
+.evo__mark {
+  position: absolute;
+  left: -18px;
+  bottom: -70px;
+  font: 700 300px/1 var(--evo-display);
+  color: #ffffff;
+  opacity: 0.07;
+  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+}
+
+.evo[data-kind="a"] .evo__mark {
+  opacity: 0;
+  transform: rotate(-25deg) scale(0.5);
+}
+
+/* ---------- Mini barra de progreso: arriba a la derecha ---------- */
+.evo__top {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 18px 0;
+}
+
+.evo__track {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.evo__dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--e-dot);
+  color: var(--e-dot-ink);
+  transition: background-color 0.5s, color 0.5s, transform 0.4s;
+}
+
+.evo__dot.is-q {
+  width: 15px;
+  height: 15px;
+  font: 700 10px/1 var(--evo-display);
+}
+
+.evo__dot:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 7px;
+  height: 1.5px;
+  background: var(--e-line);
+}
+
+.evo__dot.is-done {
+  background: var(--e-line);
+}
+
+.evo__dot.is-on {
+  background: var(--evo-amber);
+  color: var(--evo-amber-ink);
+  transform: scale(1.15);
+}
+
+/* ---------- Texto y escena ---------- */
+.evo__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+  gap: 26px;
+  align-items: center;
+  padding: 10px 24px 24px;
+}
+
+/* Todos los pasos en la misma celda: sólo se ve el activo y la altura no cambia */
+.evo__text {
+  display: grid;
+}
+
+.evo__step {
+  grid-area: 1 / 1;
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  min-width: 0;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.45s ease, visibility 0s linear 0.35s;
+}
+
+.evo__step.is-on {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.45s ease 0.2s, transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s, visibility 0s;
+}
+
+.evo__step p {
+  margin: 0;
+  color: var(--e-ink);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.evo__step h4 {
+  margin: 0;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.evo__step[data-k="q"] h4 {
+  font: 700 clamp(21px, 4.2cqi, 28px)/1.2 var(--evo-display);
+  color: var(--e-ink);
+}
+
+.evo__step[data-k="q"] p {
+  color: var(--e-muted);
+  font-size: 16px;
+}
+
+.evo__step[data-k="a"] h4 {
+  font: 700 20px/1.25 var(--evo-display);
+  color: var(--evo-blue);
+}
+
+.evo__eyebrow {
+  font: 700 12px var(--evo-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--e-muted);
+}
+
+.evo__step p.evo__note {
+  font-size: 13.5px;
+  color: var(--e-muted);
+}
+
+.evo__step a {
+  color: var(--evo-blue);
+  font-weight: 700;
+}
+
+.evo__step .js-term {
+  margin: 0;
+}
+
+/* La terminal se escribe cuando aparece su paso: el código original queda
+   invisible debajo para apartar su altura y que la tarjeta no crezca al teclear. */
+.evo .js-term.is-ready {
+  display: grid;
+}
+
+.evo .js-term.is-ready .js-term__src,
+.evo .js-term__body {
+  grid-area: 2 / 1;
+}
+
+.evo .js-term.is-ready .js-term__src {
+  display: block;
+  visibility: hidden;
+}
+
+.evo__acts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  margin-top: 2px;
+}
+
+.evo__btn {
+  font: 700 15px var(--evo-display);
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--e-btn);
+  color: var(--e-btn-ink);
+  cursor: pointer;
+  transition: transform 0.15s, background-color 0.5s, color 0.5s;
+}
+
+.evo__btn:hover {
+  transform: translateY(-2px);
+}
+
+.evo__opts {
+  display: grid;
+  gap: 8px;
+}
+
+.evo__opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 15px var(--evo-display);
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.evo__opt:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #ffffff;
+  transform: translateX(4px);
+}
+
+.evo__opt--code {
+  font-family: var(--evo-mono);
+}
+
+.evo__opt i {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.16);
+  font: 700 12px var(--evo-mono);
+  font-style: normal;
+}
+
+.evo__fb {
+  justify-self: start;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.evo__fb[data-tone="ok"] {
+  background: var(--evo-green-soft);
+  color: var(--evo-green);
+}
+
+.evo__fb[data-tone="nope"] {
+  background: var(--evo-amber-soft);
+  color: #6b4a0c;
+}
+
+.evo button:focus-visible,
+.evo a:focus-visible {
+  outline: 3px solid var(--evo-amber);
+  outline-offset: 2px;
+}
+
+.evo h4:focus {
+  outline: none;
+}
+
+.evo__scene {
+  position: relative;
+  height: 290px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--e-scene);
+  border: 1px solid var(--e-scene-line);
+  transition: background-color 0.7s, border-color 0.7s;
+}
+
+/* Actores de la escena: se mueven entre pasos con transform y tamaño, así la
+   escena "se transforma" en lugar de cambiar de golpe. */
+.evo__scene .act {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.25, 1), width 0.8s cubic-bezier(0.65, 0, 0.25, 1),
+    height 0.8s cubic-bezier(0.65, 0, 0.25, 1), opacity 0.45s ease, background-color 0.5s, border-color 0.5s,
+    border-radius 0.5s, box-shadow 0.5s, color 0.5s;
+}
+
+.evo__scene.no-anim .act,
+.evo__scene.no-anim .act * {
+  transition: none !important;
+}
+
+@keyframes evo-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(250, 199, 117, 0.9);
+  }
+  60% {
+    box-shadow: 0 0 0 12px rgba(250, 199, 117, 0);
+  }
+}
+
+@keyframes evo-pop {
+  40% {
+    transform: scale(1.35);
+  }
+}
+
+@keyframes evo-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Tarjeta angosta (celular o columna estrecha): la escena arriba y el texto abajo */
+@container (max-width: 640px) {
+  .evo__grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+    padding: 10px 16px 18px;
+  }
+
+  .evo__scene {
+    order: -1;
+    height: 260px;
+  }
+
+  .evo__step {
+    align-content: start;
+  }
+
+  .evo__top {
+    padding: 12px 16px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .evo,
+  .evo *,
+  .evo *::before,
+  .evo::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}

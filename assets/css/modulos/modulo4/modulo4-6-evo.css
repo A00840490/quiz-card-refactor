@@ -1,0 +1,129 @@
+/* modulo4-6: escena de la tarjeta evolutiva de arreglos
+   (motor en assets/js/evo-card.js, actores en
+   assets/js/scripts/modulo4/modulo4-6-evo.js).
+   Paso 0: notas sueltas "var cal1 = 90;" · 1: muchas notas "cal6"...
+   2-4: las notas se vuelven las cajas del arreglo (ámbar como los números
+   del tren de Métodos). */
+.a-chip {
+  border-radius: 5px;
+  background: #fffdf6;
+  color: #3a2a05;
+  border: 1px solid #f0d9a8;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+  font: 500 13px var(--evo-mono);
+}
+
+.a-chip > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.evo__scene[data-s="0"] .a-chip .a-var,
+.evo__scene[data-s="1"] .a-chip .a-short,
+.evo__scene[data-s="2"] .a-chip .a-val,
+.evo__scene[data-s="3"] .a-chip .a-val,
+.evo__scene[data-s="4"] .a-chip .a-val {
+  opacity: 1;
+}
+
+.evo__scene[data-s="1"] .a-chip {
+  background: var(--evo-amber);
+  border-color: var(--evo-amber);
+  font-size: 12px;
+}
+
+.evo__scene[data-s="2"] .a-chip,
+.evo__scene[data-s="3"] .a-chip,
+.evo__scene[data-s="4"] .a-chip {
+  background: var(--evo-amber-soft);
+  border: 2px solid var(--evo-amber-2);
+  border-radius: 8px;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--evo-amber-ink);
+}
+
+.a-chip.is-hot {
+  box-shadow: 0 0 0 4px var(--evo-amber) !important;
+}
+
+.a-chip.is-flash .a-val span {
+  display: inline-block;
+  animation: evo-pop 0.6s ease;
+}
+
+.a-ghost {
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #5b6577;
+  font: 500 11px var(--evo-mono);
+}
+
+.a-name {
+  font: 700 13px var(--evo-mono);
+  color: var(--evo-blue);
+  white-space: nowrap;
+  transition: color 0.5s;
+}
+
+.a-br {
+  display: grid;
+  place-items: center;
+  font: 400 52px/1 var(--evo-mono);
+  color: var(--evo-blue-2);
+}
+
+.evo[data-kind="q"] .a-name {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.evo[data-kind="q"] .a-br {
+  color: #8fb4f0;
+}
+
+.a-idx {
+  display: grid;
+  place-items: center;
+  font: 500 12px var(--evo-mono);
+  color: #5b6577;
+}
+
+.a-idx.is-hot {
+  color: #1c2434;
+  font-weight: 700;
+}
+
+.a-bubble {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--evo-blue);
+  font: 700 12px var(--evo-display);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.a-more {
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--evo-amber);
+  color: var(--evo-amber-ink);
+  font: 700 12px var(--evo-display);
+}
+
+@container (max-width: 480px) {
+  .evo__scene[data-s="2"] .a-chip,
+  .evo__scene[data-s="3"] .a-chip,
+  .evo__scene[data-s="4"] .a-chip {
+    font-size: 14px;
+  }
+}

@@ -24,6 +24,8 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/evo-card.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-6-evo.css" rel="stylesheet">
     <link href="../../assets/css/modulos/modulo4/modulo4-6-array-train.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
@@ -64,10 +66,10 @@
                                 <div class="row">
                                     <div class="col-md-8 ml-auto">
                                         <div class="card-block">
-                                            <div class="hides-accordion">
-                                            <h1 class="mrg-btm-20 card-title hides-accordion"><span
+                                            <div>
+                                            <h1 class="mrg-btm-20 card-title"><span
                                                     class="badge badge-light">Tema 5</span>Arreglos</h1>
-                                            <p class="hides-accordion">Hemos aprendido cómo utilizar variables para almacenar diferentes
+                                            <p>Hemos aprendido cómo utilizar variables para almacenar diferentes
                                                 tipos de datos. Puede haber casos en los que necesitamos
                                                 utilizar múltiples variables, lo cual implicaría tener que
                                                 asignar un nombre a cada una. Esto claramente no es muy
@@ -79,102 +81,68 @@
                                                 como listas de un tipo de dato en específico, pero en JavaScript
                                                 podemos asignar cualquier tipo de dato a un elemento de un
                                                 arreglo.</p>
-                                            <p class="hides-accordion">Los arreglos cuentan con varias funciones que nos ayudan a
+                                            <p>Los arreglos cuentan con varias funciones que nos ayudan a
                                                 modificarlos u obtener información sobre ellos y sus elementos,
                                                 como saber su longitud, agregar o borrar elementos, y ordenar
                                                 los elementos, entre muchas otras.</p>
                                             </div>
 
-                                            <div id="accordion-1" class="accordion panel-group" role="tablist"
-                                                aria-multiselectable="true">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="regla-1">
-                                                        <h4 class="panel-title">
-                                                            <a class="collapsed" onclick="tabSelect1()"
-                                                                data-toggle="collapse"
-                                                                data-parent="#accordion-1" href="#collapseOne">
-                                                                <span>Crear un Arreglo</span>
-                                                                <i class="icon ti-arrow-circle-down"></i>
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="collapseOne" class="collapse panel-collapse"
-                                                        role="tabpanel">
-                                                        <div class="panel-body">
-                                                            <p>Para declarar un arreglo también utilizamos la
-                                                                palabra reservada <span class="code">var</span>
-                                                                con una pequeña variación: para el valor inicial
-                                                                encerramos entre corchetes <b>[ ]</b> una lista
-                                                                separada por comas con todos los valores
-                                                                iniciales que queramos en nuestro arreglo.</p>
+                                            <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
+                                                 en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
+                                            <div class="evo" data-evo="arreglos" data-kind="q">
+                                                <span class="evo__mark" aria-hidden="true">?</span>
+                                                <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
+                                                <div class="evo__grid">
+                                                    <div class="evo__text">
+                                                        <div class="evo__step is-on" data-k="q">
+                                                            <h4>Tienes las calificaciones de 5 alumnos. ¿Cómo las guardas?</h4>
+                                                            <p>Con lo que llevas del curso, harías una variable para cada una.</p>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>¿Y si fueran 200 alumnos?</button></div>
+                                                        </div>
+                                                        <div class="evo__step" data-k="q">
+                                                            <h4>200 alumnos son 200 variables, cada una con su nombre.</h4>
+                                                            <p>Imagina sacar el promedio así. Tiene que haber una forma de guardarlas todas juntas.</p>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Muéstrame cómo</button></div>
+                                                        </div>
+                                                        <div class="evo__step" data-k="a">
+                                                            <span class="evo__eyebrow">Crear un arreglo</span>
+                                                            <h4>Un arreglo guarda muchos valores con un solo nombre</h4>
+                                                            <p>Para declararlo también utilizamos la palabra reservada <span class="code">var</span>, con una
+                                                                pequeña variación: encerramos entre corchetes <b>[ ]</b> una lista separada por comas con
+                                                                todos los valores que queramos guardar.</p>
                                                             <div class="js-term" data-file="arreglos.js">
-<pre class="js-term__src">// Arreglo con 3 valores
-var miArreglo = ["Hola", "Mundo", 7];</pre>
+<pre class="js-term__src">// Un arreglo con las 5 calificaciones
+var calificaciones = [90, 75, 88, 100, 62];
+// También puede empezar vacío
+var lista = [];</pre>
                                                             </div>
-                                                            <p>También podemos declarar arreglos vacíos:</p>
-                                                            <div class="js-term" data-file="arreglos.js">
-<pre class="js-term__src">// Arreglo vacío: podemos insertar valores después
-var miArreglo = [];</pre>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Siguiente pregunta</button></div>
+                                                        </div>
+                                                        <div class="evo__step" data-k="q">
+                                                            <h4>¿Cómo sacas la calificación del tercer alumno?</h4>
+                                                            <div class="evo__opts">
+                                                                <button class="evo__opt evo__opt--code" type="button" data-pick="a">calificaciones[3]</button>
+                                                                <button class="evo__opt evo__opt--code" type="button" data-pick="b">calificaciones[2]</button>
+                                                                <button class="evo__opt evo__opt--code" type="button" data-pick="c">calificaciones.tercero</button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="regla-2">
-                                                        <h4 class="panel-title">
-                                                            <a class="collapsed" onclick="tabSelect2()"
-                                                                data-toggle="collapse"
-                                                                data-parent="#accordion-1" href="#collapseTwo">
-                                                                <span>Acceder a los elementos y modificar un
-                                                                    arreglo</span>
-                                                                <i class="icon ti-arrow-circle-down"></i>
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-                                                    <div id="collapseTwo" class="collapse panel-collapse"
-                                                        role="tabpanel">
-                                                        <div class="panel-body">
-                                                            <p>Perfecto, hemos creado nuestro arreglo. Ahora,
-                                                                ¿cómo podemos acceder a los elementos dentro de
-                                                                él? Como un arreglo almacena varios valores,
-                                                                tenemos que ser un poco más específicos en la
-                                                                forma en la que accedemos a los valores. Esto se
-                                                                logra a través de algo llamado <b>índices</b>.
-                                                                La estructura de un arreglo se puede visualizar
-                                                                de la siguiente manera:</p>
-                                                            <div class="text-center">
-                                                                <img src="../../assets/images/course/modulo4/m4-4/arraydiag.png"
-                                                                    alt="" style="max-width: 300px;">
+                                                        <div class="evo__step" data-k="a">
+                                                            <span class="evo__fb" data-fb hidden></span>
+                                                            <h4>Cada valor tiene un índice, y los índices empiezan en 0</h4>
+                                                            <p>El índice es la <b>posición</b> de un valor en el arreglo: al primero le toca el 0, al segundo
+                                                                el 1 y así sucesivamente. Escribimos el nombre del arreglo y el índice entre corchetes para
+                                                                leer un valor, y con lo mismo lo cambiamos:</p>
+                                                            <div class="js-term" data-file="arreglos.js" data-result="88">
+<pre class="js-term__src">// Leemos la calificación del tercer alumno
+console.log(calificaciones[2]);
+// Y la cambiamos por otra
+calificaciones[2] = 95;</pre>
                                                             </div>
-                                                            <p>El índice es un valor entero que representa la
-                                                                <b>posición</b> de un valor en el arreglo. Algo
-                                                                muy importante que debes tener en cuenta, es que
-                                                                las posiciones dentro de un arreglo inician
-                                                                desde <b>cero</b>, es decir, al primer elemento
-                                                                se le asigna un 0 como posición, al segundo un 1
-                                                                y así sucesivamente. Para acceder un elemento,
-                                                                escribimos el nombre del arreglo junto con el
-                                                                índice del valor que queremos encerrado entre
-                                                                corchetes. Observa este ejemplo para acceder y
-                                                                modificar a los 3 elementos del primer ejemplo
-                                                                anterior: </p>
-                                                            <div class="js-term" data-file="arreglos.js">
-<pre class="js-term__src">// Cambiamos el string del primer valor
-miArreglo[0] = "Hello";
-// Agregamos un ! al valor original
-miArreglo[1] = miArreglo[1] + "!";
-// Cambiamos al resultado de una operación
-miArreglo[2] = 24 / 4;</pre>
-                                                            </div>
+                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go="restart">Volver a empezar ↺</button></div>
                                                         </div>
                                                     </div>
+                                                    <div class="evo__scene" aria-hidden="true"></div>
                                                 </div>
-
-
-
-
                                             </div>
 
                                         </div>
@@ -183,7 +151,7 @@ miArreglo[2] = 24 / 4;</pre>
                             </div>
                         </div>
 
-                        <div class="card hides-accordion">
+                        <div class="card">
                             <div class="card-block">
                                 <h2 class="card-title"> Métodos de Arreglos</h2>
 
@@ -196,8 +164,8 @@ miArreglo[2] = 24 / 4;</pre>
                                             Tienen el mismo comportamiento que una variable, pero están asociadas con el
                                             objeto. Para utilizar los métodos y propiedades de un objeto, solo
                                             escribimos el nombre de nuestro arreglo, seguido de un punto y el nombre del
-                                            método o propiedad. Aquí hay algunos ejemplos utilizando el arreglo
-                                            anterior:</p>
+                                            método o propiedad. Aquí hay algunos ejemplos con el arreglo
+                                            <span class="code">miArreglo</span>:</p>
                                         <div class="arr-train" data-arr-train>
                                             <div class="arr-train__stage">
                                                 <div class="arr-train__buttons" data-buttons>
@@ -394,19 +362,6 @@ var miArreglo4 = miArreglo.slice(1);    // ["Mundo", 7]</pre>
     <!-- Aquí se inserta el porcentage del círculo de progreso como una fracción -->
     <script type="text/javascript">
         show(0.11)
-        function tabSelect1() {
-            $("#collapseTwo").collapse("hide");
-        }
-        function tabSelect2() {
-            $("#collapseOne").collapse("hide");
-        }
-        function hideBoth(){
-            $("#collapseOne").collapse("hide");
-            $("#collapseTwo").collapse("hide");
-        }
-        $('.hides-accordion').on("click", function(e){
-           hideBoth(); 
-        });
     </script>
 
 
@@ -415,6 +370,8 @@ var miArreglo4 = miArreglo.slice(1);    // ["Mundo", 7]</pre>
     <!-- Insert your dependencies here -->
 
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/evo-card.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-6-evo.js"></script>
     <script src="../../assets/js/scripts/modulo4/modulo4-6-array-train.js"></script>
 </body>
 
