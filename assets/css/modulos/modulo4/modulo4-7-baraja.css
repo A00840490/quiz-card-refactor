@@ -1,8 +1,10 @@
 /* Módulo 4-7: los operadores de comparación como una baraja.
-   Seis cartas abiertas en abanico. Las que dan true con x = 10 son azules
-   (--theme-color) y las que dan false son rojas, como los dos colores de una
-   baraja. Al elegir una, sale de la mano, crece y se voltea para mostrar su
-   reverso con la función, el ejemplo y el resultado. */
+   Arriba, "El valor de x es [−] 10 [+]" cambia el valor con el que se evalúan
+   las cartas. Seis cartas abiertas en abanico, alternando los dos colores de
+   una baraja (azul = --theme-color, rojo). Al sacar una, crece y se voltea
+   para mostrar la función, el ejemplo y el resultado; luego cae una gota de
+   tinta mágica que tiñe la carta de verde (true) o rojo (false) desde donde
+   aterriza. Al regresar la carta a la mano, la tinta se desvanece. */
 
 .baraja {
   --cw: 140px; /* ancho de una carta */
@@ -30,6 +32,88 @@
     --lift: 82px;
     --zoom: 1.9;
     height: 340px;
+  }
+}
+
+/* "El valor de x es [−] 10 [+]" */
+.baraja-x {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 16px;
+  margin: 22px auto 0;
+  color: #1c2434;
+  font: 700 28px/1.2 "Fira Sans", "Segoe UI", sans-serif;
+}
+
+.baraja-x__ctl {
+  display: inline-flex;
+  align-items: stretch;
+  overflow: hidden;
+  border: 2px solid var(--theme-color);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.baraja-x__btn {
+  width: 48px;
+  padding: 0;
+  border: 0;
+  background: #ffffff;
+  color: var(--theme-color);
+  font: 700 26px/1 "Source Code Pro", Consolas, monospace;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.baraja-x__btn:hover {
+  background: #e6f1fb;
+}
+
+.baraja-x__btn:active {
+  background: #cfe0f7;
+}
+
+.baraja-x__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.baraja-x__btn:focus {
+  outline: none;
+}
+
+.baraja-x__btn:focus-visible {
+  box-shadow: inset 0 0 0 3px #fac775;
+}
+
+.baraja-x__val {
+  display: grid;
+  place-items: center;
+  min-width: 70px;
+  padding: 4px 12px;
+  border-inline: 2px solid var(--theme-color);
+  background: #f6f8fb;
+  color: var(--theme-color);
+  font: 700 30px/1.2 "Source Code Pro", Consolas, monospace;
+}
+
+.baraja-x__val.is-bump {
+  animation: baraja-bump 0.3s ease;
+}
+
+@keyframes baraja-bump {
+  40% { transform: scale(1.18); }
+}
+
+@media (max-width: 575px) {
+  .baraja-x {
+    font-size: 21px;
+  }
+
+  .baraja-x__val {
+    font-size: 24px;
   }
 }
 
@@ -62,7 +146,7 @@
   transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
 }
 
-.baraja__card[data-v="false"] {
+.baraja__card[data-suit="red"] {
   --ink: var(--false);
 }
 
@@ -210,7 +294,7 @@
     repeating-linear-gradient(-45deg, rgba(6, 43, 102, 0.1) 0 1px, transparent 1px 0.6em);
 }
 
-.baraja__card[data-v="false"] .baraja__back {
+.baraja__card[data-suit="red"] .baraja__back {
   background-image:
     repeating-linear-gradient(45deg, rgba(192, 80, 58, 0.14) 0 1px, transparent 1px 0.6em),
     repeating-linear-gradient(-45deg, rgba(192, 80, 58, 0.14) 0 1px, transparent 1px 0.6em);
@@ -229,7 +313,7 @@
   background: var(--paper);
 }
 
-.baraja__card[data-v="false"] .baraja__detail {
+.baraja__card[data-suit="red"] .baraja__detail {
   border-color: rgba(192, 80, 58, 0.3);
 }
 
@@ -269,6 +353,115 @@
 .baraja__card[data-v="false"] .baraja__res {
   background: #fde9e2;
   color: #b4472a;
+}
+
+.baraja__sub {
+  margin-top: -0.35em;
+  color: #6b7686;
+  font: 600 0.82em/1.2 var(--mono);
+}
+
+/* ---------- Tinta mágica ----------
+   La gota cae sobre la carta, salpica unas chispas y deja una onda. Desde
+   ahí se difunde la tinta (círculos que crecen, con el borde deformado por
+   el filtro #baraja-ink para que parezca tinta en agua). La tinta se mezcla
+   con multiply, así tiñe el papel sin tapar el texto. */
+.baraja__inks {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+}
+
+.baraja__tint {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transition: opacity 0.45s ease;
+}
+
+.baraja__tint.is-fading {
+  opacity: 0;
+}
+
+.baraja__tint circle {
+  transform: scale(0.01);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.25, 0.45, 0.35, 1);
+}
+
+.baraja__drop {
+  position: absolute;
+  z-index: 30;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* La gota */
+.baraja__drop::before {
+  content: "";
+  position: absolute;
+  left: -0.45em;
+  top: -0.45em;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 0 50% 50% 50%;
+  background: radial-gradient(circle at 60% 60%, var(--drop) 40%, #ffffff 100%);
+  box-shadow: 0 0 0.5em var(--drop), 0 0 1.2em var(--drop);
+  opacity: 0;
+  animation: baraja-fall 0.45s cubic-bezier(0.5, 0, 0.9, 0.5) forwards;
+}
+
+/* La onda al caer */
+.baraja__drop::after {
+  content: "";
+  position: absolute;
+  left: -1em;
+  top: -1em;
+  width: 2em;
+  height: 2em;
+  border: 0.14em solid var(--drop);
+  border-radius: 50%;
+  opacity: 0;
+  animation: baraja-ripple 0.9s 0.4s ease-out forwards;
+}
+
+@keyframes baraja-fall {
+  0% { opacity: 0; transform: translateY(-11em) rotate(45deg) scale(0.7); }
+  15% { opacity: 1; }
+  85% { opacity: 1; transform: translateY(0) rotate(45deg) scale(1); }
+  100% { opacity: 0; transform: translateY(0) rotate(45deg) scale(1.6, 0.4); }
+}
+
+@keyframes baraja-ripple {
+  0% { opacity: 0.9; transform: scale(0.1); }
+  100% { opacity: 0; transform: scale(3.2); }
+}
+
+/* Chispas que salen de donde cae la gota */
+.baraja__spark {
+  position: absolute;
+  left: -0.4em;
+  top: -0.6em;
+  color: #ffffff;
+  font-size: 0.9em;
+  line-height: 1;
+  text-shadow: 0 0 0.3em var(--drop), 0 0 0.7em var(--drop);
+  opacity: 0;
+  animation: baraja-spark 0.85s 0.38s ease-out forwards;
+}
+
+@keyframes baraja-spark {
+  0% { opacity: 1; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1) rotate(160deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {

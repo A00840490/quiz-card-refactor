@@ -108,12 +108,20 @@
                                         class="code">False</span>.</p>
                                 <p class="card-info" style="width: fit-content;">
                                     <img src="../../assets/images/clic.svg" class="mrg-right-5">
-                                    Haz clic en cada carta para voltearla. En todos los ejemplos, la variable
-                                    <span class="code">x</span> tiene un valor de 10.
+                                    Saca una carta para ver su resultado y cambia el valor de
+                                    <span class="code">x</span> con los botones.
                                 </p>
+                                <div class="baraja-x" data-baraja-x>
+                                    <span>El valor de x es</span>
+                                    <span class="baraja-x__ctl">
+                                        <button type="button" class="baraja-x__btn" data-step="-1" aria-label="Bajar el valor de x">&minus;</button>
+                                        <output class="baraja-x__val" aria-live="polite">10</output>
+                                        <button type="button" class="baraja-x__btn" data-step="1" aria-label="Subir el valor de x">+</button>
+                                    </span>
+                                </div>
                                 <!-- Operadores como baraja (ver modulo4-7-baraja.css / .js) -->
                                 <div class="baraja" data-baraja role="group" aria-label="Operadores de comparación">
-                                    <button type="button" class="baraja__card" style="--k: -2.5; --z: 1" data-v="false" aria-pressed="false" aria-label="Igual a: x == 2 da false">
+                                    <button type="button" class="baraja__card" style="--k: -2.5; --z: 1" data-op="==" data-suit="red" data-v="false" aria-pressed="false" aria-label="Igual a: x == 2 da false">
                                       <span class="baraja__in">
                                         <span class="baraja__face baraja__front">
                                           <span class="baraja__corner baraja__corner--tl"><b>==</b><i>◆</i></span>
@@ -126,12 +134,13 @@
                                             <span class="baraja__fn">verifica si es igual al valor dado</span>
                                             <span class="baraja__with">con x = 10</span>
                                             <span class="baraja__ex">x == 2</span>
+                                            <span class="baraja__sub">10 == 2</span>
                                             <span class="baraja__res">false</span>
                                           </span>
                                         </span>
                                       </span>
                                     </button>
-                                    <button type="button" class="baraja__card" style="--k: -1.5; --z: 2" data-v="true" aria-pressed="false" aria-label="Distinto de: x != 2 da true">
+                                    <button type="button" class="baraja__card" style="--k: -1.5; --z: 2" data-op="!=" data-suit="blue" data-v="true" aria-pressed="false" aria-label="Distinto de: x != 2 da true">
                                       <span class="baraja__in">
                                         <span class="baraja__face baraja__front">
                                           <span class="baraja__corner baraja__corner--tl"><b>!=</b><i>◆</i></span>
@@ -144,12 +153,13 @@
                                             <span class="baraja__fn">verifica si no es igual al valor dado</span>
                                             <span class="baraja__with">con x = 10</span>
                                             <span class="baraja__ex">x != 2</span>
+                                            <span class="baraja__sub">10 != 2</span>
                                             <span class="baraja__res">true</span>
                                           </span>
                                         </span>
                                       </span>
                                     </button>
-                                    <button type="button" class="baraja__card" style="--k: -0.5; --z: 3" data-v="false" aria-pressed="false" aria-label="Menor que: x &lt; 2 da false">
+                                    <button type="button" class="baraja__card" style="--k: -0.5; --z: 3" data-op="&lt;" data-suit="red" data-v="false" aria-pressed="false" aria-label="Menor que: x &lt; 2 da false">
                                       <span class="baraja__in">
                                         <span class="baraja__face baraja__front">
                                           <span class="baraja__corner baraja__corner--tl"><b>&lt;</b><i>◆</i></span>
@@ -162,12 +172,13 @@
                                             <span class="baraja__fn">verifica si es menor al valor dado</span>
                                             <span class="baraja__with">con x = 10</span>
                                             <span class="baraja__ex">x &lt; 2</span>
+                                            <span class="baraja__sub">10 &lt; 2</span>
                                             <span class="baraja__res">false</span>
                                           </span>
                                         </span>
                                       </span>
                                     </button>
-                                    <button type="button" class="baraja__card" style="--k: 0.5; --z: 4" data-v="true" data-start aria-pressed="false" aria-label="Mayor que: x &gt; 2 da true">
+                                    <button type="button" class="baraja__card" style="--k: 0.5; --z: 4" data-op="&gt;" data-suit="blue" data-v="true" data-start aria-pressed="false" aria-label="Mayor que: x &gt; 2 da true">
                                       <span class="baraja__in">
                                         <span class="baraja__face baraja__front">
                                           <span class="baraja__corner baraja__corner--tl"><b>&gt;</b><i>◆</i></span>
@@ -180,12 +191,13 @@
                                             <span class="baraja__fn">verifica si es mayor al valor dado</span>
                                             <span class="baraja__with">con x = 10</span>
                                             <span class="baraja__ex">x &gt; 2</span>
+                                            <span class="baraja__sub">10 &gt; 2</span>
                                             <span class="baraja__res">true</span>
                                           </span>
                                         </span>
                                       </span>
                                     </button>
-                                    <button type="button" class="baraja__card" style="--k: 1.5; --z: 5" data-v="false" aria-pressed="false" aria-label="Menor o igual que: x &lt;= 2 da false">
+                                    <button type="button" class="baraja__card" style="--k: 1.5; --z: 5" data-op="&lt;=" data-suit="red" data-v="false" aria-pressed="false" aria-label="Menor o igual que: x &lt;= 2 da false">
                                       <span class="baraja__in">
                                         <span class="baraja__face baraja__front">
                                           <span class="baraja__corner baraja__corner--tl"><b>&lt;=</b><i>◆</i></span>
@@ -198,12 +210,13 @@
                                             <span class="baraja__fn">verifica si es menor o igual al valor dado</span>
                                             <span class="baraja__with">con x = 10</span>
                                             <span class="baraja__ex">x &lt;= 2</span>
+                                            <span class="baraja__sub">10 &lt;= 2</span>
                                             <span class="baraja__res">false</span>
                                           </span>
                                         </span>
                                       </span>
                                     </button>
-                                    <button type="button" class="baraja__card" style="--k: 2.5; --z: 6" data-v="true" aria-pressed="false" aria-label="Mayor o igual que: x &gt;= 2 da true">
+                                    <button type="button" class="baraja__card" style="--k: 2.5; --z: 6" data-op="&gt;=" data-suit="blue" data-v="true" aria-pressed="false" aria-label="Mayor o igual que: x &gt;= 2 da true">
                                       <span class="baraja__in">
                                         <span class="baraja__face baraja__front">
                                           <span class="baraja__corner baraja__corner--tl"><b>&gt;=</b><i>◆</i></span>
@@ -216,6 +229,7 @@
                                             <span class="baraja__fn">verifica si es mayor o igual al valor dado</span>
                                             <span class="baraja__with">con x = 10</span>
                                             <span class="baraja__ex">x &gt;= 2</span>
+                                            <span class="baraja__sub">10 &gt;= 2</span>
                                             <span class="baraja__res">true</span>
                                           </span>
                                         </span>
