@@ -2,7 +2,10 @@
    - "El valor de x es [−] 10 [+]" cambia x; cada carta se evalúa con ese
      valor (x <op> 2) y su reverso se actualiza.
    - Al entrar en pantalla, las cartas juntas se abren en abanico.
-   - Al sacar una carta, crece y se voltea; luego cae una gota mágica y desde
+   - Al sacar una carta, crece y se voltea. Cuando llega, a la izquierda o a
+     la derecha (al azar) sale una burbuja con lo que hace el operador, y el
+     ejemplo alterna entre el valor ("1 >= 2", 6 s) y la variable ("x >= 2",
+     4.2 s). Luego cae una gota mágica y desde
      donde aterriza la carta se tiñe de verde (true) o rojo (false). La
      tinta es una copia teñida del reverso que se descubre con un círculo de
      borde ondulado que crece. Al regresar la carta a la mano vuelve a su
@@ -47,10 +50,14 @@
     var v = String(result(card));
     card.setAttribute("data-v", v);
     // También actualiza la copia teñida, si la hay.
-    setText(card, ".baraja__with", "con x = " + x);
-    setText(card, ".baraja__sub", x + " " + op + " " + N);
+    setText(card, ".baraja__ex-v", x + " " + op + " " + N);
+    setText(card, ".baraja__ex-x", "x " + op + " " + N);
     setText(card, ".baraja__res", v);
-    card.setAttribute("aria-label", card.querySelector(".baraja__name").textContent + ": x " + op + " " + N + " da " + v);
+    card.setAttribute(
+      "aria-label",
+      card.querySelector(".baraja__name").textContent + ", " + card.querySelector(".baraja__fn").textContent +
+        ": " + x + " " + op + " " + N + " da " + v
+    );
   }
 
   function setText(card, sel, text) {
@@ -171,11 +178,60 @@
     });
   }
 
+  // ---------- Ejemplo: valor ↔ variable ----------
+  var HOLD_V = 6000; // cuánto se ve "1 >= 2"
+  var HOLD_X = 4200; // cuánto se ve "x >= 2"
+  var FADE = 600; // lo que tarda en cambiar (igual que en el CSS)
+
+  // Empieza con el valor y después de `delay` + 6 s pasa a la variable.
+  function cycle(card, delay) {
+    clearTimeout(card._cycle);
+    card.classList.remove("is-var");
+    function toVar() {
+      card.classList.add("is-var");
+      card._cycle = setTimeout(toValue, FADE + HOLD_X);
+    }
+    function toValue() {
+      card.classList.remove("is-var");
+      card._cycle = setTimeout(toVar, FADE + HOLD_V);
+    }
+    card._cycle = setTimeout(toVar, delay + HOLD_V);
+  }
+
+  function stopCycle(card) {
+    clearTimeout(card._cycle);
+    card.classList.remove("is-var");
+  }
+
+  // ---------- Burbuja con la descripción ----------
+  var bubble = document.createElement("span");
+  bubble.className = "baraja__bubble";
+  bubble.setAttribute("data-side", "right");
+  bubble.setAttribute("aria-hidden", "true"); // la descripción ya va en el aria-label de la carta
+  root.appendChild(bubble);
+  var bubbleTimer = 0;
+
+  function showBubble(card) {
+    clearTimeout(bubbleTimer);
+    bubble.classList.remove("is-shown");
+    if (!card) return;
+    bubbleTimer = setTimeout(function () {
+      bubble.textContent = card.querySelector(".baraja__fn").textContent;
+      bubble.setAttribute("data-side", Math.random() < 0.5 ? "left" : "right");
+      bubble.classList.add("is-shown");
+    }, reduce ? 0 : ARRIVE);
+  }
+
   // ---------- Sacar y regresar cartas ----------
+  var ARRIVE = 850; // la carta termina de voltearse
   var current = null;
 
   function open(card) {
-    if (current && current !== card) clearInk(current);
+    if (current && current !== card) {
+      clearInk(current);
+      stopCycle(current);
+    }
+    if (card !== current) showBubble(card);
     cards.forEach(function (c) {
       var on = c === card;
       c.classList.toggle("is-open", on);
@@ -183,10 +239,11 @@
     });
     root.classList.toggle("has-open", !!card);
     if (card && card !== current) {
+      cycle(card, reduce ? 0 : ARRIVE);
       // La gota cae cuando la carta ya terminó de voltearse.
       card._inkTimers.push(setTimeout(function () {
         ink(card);
-      }, reduce ? 0 : 850));
+      }, reduce ? 0 : ARRIVE));
     }
     current = card;
   }
@@ -225,8 +282,11 @@
     cards.forEach(function (card) {
       var before = card.getAttribute("data-v");
       refresh(card);
+      if (card !== current) return;
+      // Muestra el ejemplo con el valor nuevo y vuelve a contar los 6 s.
+      cycle(card, 0);
       // Si la carta abierta cambió de resultado, cae una gota del otro color.
-      if (card === current && card.getAttribute("data-v") !== before) {
+      if (card.getAttribute("data-v") !== before) {
         card._inkTimers.forEach(clearTimeout);
         card._inkTimers = [];
         ink(card);
