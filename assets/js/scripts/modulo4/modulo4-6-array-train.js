@@ -3,7 +3,8 @@
    Cada vagón es un elemento y el número bajo la vía es su índice. Los botones
    aplican un método: los vagones entran, salen o se recorren, la terminal
    muestra el código con su resultado y debajo se explica el método.
-   El tren conserva su estado entre clics; "Reiniciar" lo regresa al inicio. */
+   El tren conserva su estado entre clics; "Reiniciar" lo cambia por uno nuevo
+   con el arreglo inicial. */
 (function () {
   "use strict";
 
@@ -286,16 +287,55 @@
     });
   }
 
-  function reset() {
+  // Reiniciar: el tren actual sale por la izquierda y uno nuevo, con el
+  // arreglo inicial, llega por la derecha. El estado cambia desde el clic, así
+  // que si se presiona un método a media animación, esta termina de golpe.
+  var swap = null;
+  var swapTimers = [];
+
+  function build() {
+    line.querySelectorAll(".arr-wagon").forEach(function (w) { w.remove(); });
+    render(train, { instant: true });
+  }
+
+  function settle() {
+    if (!swap) return;
+    swapTimers.forEach(clearTimeout);
+    swapTimers = [];
+    line.style.transition = "";
+    line.style.transform = "";
+    root.classList.remove("is-rolling");
+    if (swap === "out") build();
+    swap = null;
+  }
+
+  function reset(animate) {
+    settle();
     clearFx();
     root.classList.remove("is-started");
-    line.querySelectorAll(".arr-wagon").forEach(function (w) { w.remove(); });
     train = START.map(item);
-    render(train, { instant: true });
     terminal(state(train) + "\n// Presiona un botón para usar un método");
     infoEl.innerHTML = "";
-    buttons.querySelectorAll(".arr-train__btn").forEach(function (b) { b.classList.remove("is-on"); });
+    press(null);
     setFull();
+    if (!animate || reduce) return build();
+
+    var yard = line.parentNode;
+    var away = line.getBoundingClientRect().right - yard.getBoundingClientRect().left + 20;
+    swap = "out";
+    root.classList.add("is-rolling");
+    line.style.transition = "transform .8s cubic-bezier(.55, 0, .85, .45)";
+    line.style.transform = "translateX(" + -away + "px)";
+    swapTimers.push(setTimeout(function () {
+      swap = "in";
+      build();
+      line.style.transition = "none";
+      line.style.transform = "translateX(" + (yard.clientWidth - line.offsetLeft + 20) + "px)";
+      line.getBoundingClientRect();
+      line.style.transition = "transform 1.1s cubic-bezier(.15, .6, .3, 1)";
+      line.style.transform = "";
+      swapTimers.push(setTimeout(settle, 1100));
+    }, 800));
   }
 
   function press(b) {
@@ -315,6 +355,7 @@
     if (m.adds && !m.leave) b.setAttribute("data-adds", "");
     b.innerHTML = '<span class="arr-train__btn-ring"><span class="arr-train__btn-cap">' + ICON[m.icon] + '</span></span><span class="arr-train__btn-label">.' + m.name + "</span>";
     b.addEventListener("click", function () {
+      settle();
       clearFx();
       root.classList.add("is-started");
       if (train.length + grows(m) > MAX) {
@@ -340,6 +381,6 @@
     buttons.insertBefore(b, buttons.querySelector("[data-reset]"));
   });
 
-  root.querySelector("[data-reset]").addEventListener("click", reset);
-  reset();
+  root.querySelector("[data-reset]").addEventListener("click", function () { reset(true); });
+  reset(false);
 })();
