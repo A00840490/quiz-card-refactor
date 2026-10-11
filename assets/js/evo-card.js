@@ -225,5 +225,73 @@
     still(function () { go(0, undefined, true); });
   }
 
+  // Página con .evo-split (estilos en evo-card.css): el texto rodea la
+  // tarjeta. Busca cuánto bajar la tarjeta para que termine junto con el
+  // último párrafo; si el texto es corto, la deja arriba.
+  function wrap(split) {
+    var text = split.querySelector(".evo-split__text");
+    var card = split.querySelector(".evo");
+    if (!text || !card || card.parentNode !== split) return;
+    var push = document.createElement("span");
+    var gap = document.createElement("span");
+    push.className = "evo-split__push";
+    gap.className = "evo-split__gap";
+    push.setAttribute("aria-hidden", "true");
+    gap.setAttribute("aria-hidden", "true");
+    text.insertBefore(gap, text.firstChild);
+    text.insertBefore(push, gap);
+    split.classList.add("is-wrap");
+    var last = text.lastElementChild;
+    var seen = "";
+
+    function fit() {
+      // En pantallas angostas el CSS deja la tarjeta abajo y aquí no hay nada que hacer
+      if (getComputedStyle(card).position !== "absolute") {
+        card.style.top = "";
+        seen = "";
+        return;
+      }
+      var h = card.offsetHeight, key = split.clientWidth + "x" + h;
+      if (key === seen) return;
+      seen = key;
+      // Si la tarjeta baja, deja 10px entre el último renglón de arriba y la tarjeta
+      var pad = 10;
+      function end(top) {
+        push.style.height = top + "px";
+        return last.getBoundingClientRect().bottom - text.getBoundingClientRect().top;
+      }
+      gap.style.height = h + "px";
+      var lo = 0, hi = end(0);
+      // Texto corto (o casi): la tarjeta queda arriba y todo el texto a su izquierda
+      if (hi <= h + 30) {
+        hi = 0;
+      } else {
+        // La tarjeta termina abajo del último renglón (o a la par): búsqueda binaria
+        gap.style.height = h + pad + "px";
+        for (var k = 0; k < 14; k++) {
+          var mid = (lo + hi) / 2;
+          if (end(mid) <= mid + pad + h) hi = mid;
+          else lo = mid;
+        }
+        hi = Math.ceil(hi);
+      }
+      push.style.height = hi + "px";
+      card.style.top = (hi ? hi + pad : 0) + "px";
+    }
+
+    fit();
+    if ("ResizeObserver" in window) {
+      var ro = new ResizeObserver(function () { requestAnimationFrame(fit); });
+      ro.observe(split);
+      ro.observe(card);
+    } else {
+      window.addEventListener("resize", fit);
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    window.addEventListener("load", fit);
+  }
+
+  document.querySelectorAll(".evo-split").forEach(wrap);
+
   window.EvoCard = { create: create, put: put, mk: mk, hideRest: hideRest };
 })();

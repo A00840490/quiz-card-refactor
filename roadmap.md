@@ -15,4 +15,4 @@
 - [x] Aplicar el formato código / vista previa al módulo 4-2 y mover el estilo compartido a assets/css/lesson-demo.css.
 - [x] Mostrar el código JavaScript de los módulos 4-3 y 4-4 en una terminal verde que se escribe sola y se ejecuta con ▶ Correr (assets/css/js-terminal.css y assets/js/js-terminal.js).
 - [x] Reemplazar las barras desplegables de los módulos 1-4, 4-6 y 5-2 por tarjetas evolutivas: cada sección empieza como pregunta y la misma tarjeta se transforma en la explicación (assets/css/evo-card.css y assets/js/evo-card.js).
-- [x] Quitar la imagen lateral de los módulos 1-4, 4-6 y 5-2 y repartir el espacio: texto a la izquierda (30%) y tarjeta evolutiva a la derecha (70%), que se queda a la vista mientras se lee (.evo-split en assets/css/evo-card.css).
+- [x] Quitar la imagen lateral de los módulos 1-4, 4-6 y 5-2: la tarjeta evolutiva ocupa el 70% del ancho y el texto la rodea, arriba a todo lo ancho y luego a su izquierda, terminando junto con la tarjeta (.evo-split en assets/css/evo-card.css y assets/js/evo-card.js).

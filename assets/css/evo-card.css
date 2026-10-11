@@ -523,37 +523,53 @@
   }
 }
 
-/* ---------- Página: texto a la izquierda (30%) y tarjeta a la derecha (70%) ----------
+/* ---------- Página: texto arriba y a la izquierda, tarjeta abajo a la derecha ----------
    <div class="evo-split">
      <div class="evo-split__text"> título y párrafos </div>
      <div class="evo" ...> ... </div>
    </div>
-   Si no cabe (menos de 960px), el texto queda arriba y la tarjeta abajo.
-   Cuando el texto es más largo que la tarjeta, la tarjeta se queda a la
-   vista mientras se lee (debajo de la barra fija de 65px). */
+   La tarjeta ocupa el 70% del ancho y el texto la rodea: arriba a todo lo
+   ancho y luego en la columna de la izquierda (30%). evo-card.js mete dos
+   apartados invisibles al inicio del texto (.evo-split__push baja la
+   tarjeta y .evo-split__gap le aparta su lugar) y calcula cuánto bajarla
+   para que la tarjeta termine junto con el texto. Si el texto es corto, la
+   tarjeta queda arriba y todo el texto a su izquierda.
+   Si no cabe (menos de 960px) o no hay JavaScript, el texto queda arriba y
+   la tarjeta abajo. */
 .evo-split {
   container: evo-split / inline-size;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 0 32px;
+  position: relative;
 }
 
-.evo-split > * {
-  flex: 1 1 100%;
-  min-width: 0;
+.evo-split__push,
+.evo-split__gap {
+  display: none;
 }
 
 @container evo-split (min-width: 960px) {
-  .evo-split > .evo-split__text {
-    flex: 3 1 0;
+  .evo-split.is-wrap > .evo-split__text {
+    display: flow-root;
   }
 
-  .evo-split > .evo {
-    flex: 7 1 0;
-    position: sticky;
-    top: 85px;
-    margin-top: 0;
+  .evo-split.is-wrap .evo-split__push {
+    display: block;
+    float: right;
+    width: 0;
+  }
+
+  /* 70% de la tarjeta más 32px de separación con el texto */
+  .evo-split.is-wrap .evo-split__gap {
+    display: block;
+    float: right;
+    clear: right;
+    width: calc(70% + 9.6px);
+  }
+
+  .evo-split.is-wrap > .evo {
+    position: absolute;
+    right: 0;
+    width: calc(70% - 22.4px);
+    margin: 0;
   }
 }
 
