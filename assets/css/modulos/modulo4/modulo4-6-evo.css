@@ -4,6 +4,14 @@
    Paso 0: notas sueltas "var cal1 = 90;" · 1: muchas notas "cal6"...
    2-4: las notas se vuelven las cajas del arreglo (ámbar como los números
    del tren de Métodos). */
+/* Las explicaciones llevan terminal: el texto toma más ancho que la escena
+   para que la tarjeta no quede tan alta */
+@container (min-width: 641px) {
+  .evo[data-evo="arreglos"] .evo__grid {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  }
+}
+
 .a-chip {
   border-radius: 5px;
   background: #fffdf6;

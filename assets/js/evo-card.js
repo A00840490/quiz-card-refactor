@@ -244,6 +244,26 @@
     var last = text.lastElementChild;
     var seen = "";
 
+    // Inicio del renglón que queda a la altura y (relativa al texto), para
+    // que la tarjeta empiece justo en un renglón y no a medias
+    function lineTop(y) {
+      var base = text.getBoundingClientRect().top;
+      var blocks = text.children;
+      for (var k = 0; k < blocks.length; k++) {
+        var b = blocks[k];
+        if (b === push || b === gap) continue;
+        var r = b.getBoundingClientRect(), top = r.top - base, bottom = r.bottom - base;
+        // Hacia arriba al pixel siguiente: así el renglón anterior no queda tocando la tarjeta
+        if (y < top) return Math.ceil(top);
+        if (y < bottom) {
+          var lh = parseFloat(getComputedStyle(b).lineHeight);
+          if (!lh) return y;
+          return Math.ceil(top + Math.floor((y - top) / lh) * lh);
+        }
+      }
+      return y;
+    }
+
     function fit() {
       // En pantallas angostas el CSS deja la tarjeta abajo y aquí no hay nada que hacer
       if (getComputedStyle(card).position !== "absolute") {
@@ -254,29 +274,32 @@
       var h = card.offsetHeight, key = split.clientWidth + "x" + h;
       if (key === seen) return;
       seen = key;
-      // Si la tarjeta baja, deja 10px entre el último renglón de arriba y la tarjeta
-      var pad = 10;
       function end(top) {
         push.style.height = top + "px";
         return last.getBoundingClientRect().bottom - text.getBoundingClientRect().top;
       }
       gap.style.height = h + "px";
-      var lo = 0, hi = end(0);
+      var lo = 0, hi = end(0), off = 0;
       // Texto corto (o casi): la tarjeta queda arriba y todo el texto a su izquierda
-      if (hi <= h + 30) {
+      if (hi <= h + 60) {
         hi = 0;
       } else {
-        // La tarjeta termina abajo del último renglón (o a la par): búsqueda binaria
-        gap.style.height = h + pad + "px";
+        // Búsqueda binaria: la tarjeta baja lo menos posible para que el
+        // texto termine a más tardar al 90% de su altura (así sube un poco
+        // más de texto y la tarjeta baja un poco más que el último renglón)
         for (var k = 0; k < 14; k++) {
           var mid = (lo + hi) / 2;
-          if (end(mid) <= mid + pad + h) hi = mid;
+          if (end(mid) <= mid + h * 0.9) hi = mid;
           else lo = mid;
         }
-        hi = Math.ceil(hi);
+        end(Math.ceil(hi));
+        hi = lineTop(Math.ceil(hi));
+        // La tarjeta arranca a la altura de las letras del primer renglón angosto
+        off = 6;
+        gap.style.height = h + off + "px";
       }
       push.style.height = hi + "px";
-      card.style.top = (hi ? hi + pad : 0) + "px";
+      card.style.top = hi + off + "px";
     }
 
     fit();

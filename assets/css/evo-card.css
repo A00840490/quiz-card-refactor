@@ -222,8 +222,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
   gap: 26px;
   align-items: center;
-  /* abajo queda espacio para la flecha de la esquina */
-  padding: 10px 24px 80px;
+  padding: 10px 24px 20px;
 }
 
 /* Todos los pasos en la misma celda: sólo se ve el activo y la altura no cambia */
@@ -288,8 +287,24 @@
   font-weight: 700;
 }
 
+/* Terminal un poco más compacta dentro de la tarjeta, para que no la haga tan alta */
 .evo__step .js-term {
   margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.evo .js-term__bar {
+  min-height: 32px;
+}
+
+.evo .js-term__body,
+.evo .js-term.is-ready .js-term__src {
+  padding: 12px 16px 14px;
+}
+
+.evo .js-term__run-row {
+  margin-top: 10px;
 }
 
 /* La terminal se escribe cuando aparece su paso: el código original queda
@@ -317,9 +332,9 @@
 }
 
 /* Con botón Correr, el código invisible aparta también su renglón
-   (14px de margen + 34px de alto, como en js-terminal.css) */
+   (10px de margen + 34px de alto de js-terminal.css) */
 .evo .js-term.is-ready[data-result] .js-term__src {
-  padding-bottom: calc(18px + 48px);
+  padding-bottom: calc(14px + 44px);
 }
 
 .evo__acts {
@@ -462,9 +477,12 @@
   outline: none;
 }
 
+/* Debajo de la escena queda el lugar de la flecha de la esquina; así la
+   flecha no le roba altura a la tarjeta cuando el texto es más alto */
 .evo__scene {
   position: relative;
   height: 290px;
+  margin-bottom: 56px;
   overflow: hidden;
   border-radius: 12px;
   background: var(--e-scene);
@@ -587,9 +605,11 @@
     bottom: 16px;
   }
 
+  /* Una sola columna: la flecha queda abajo del texto */
   .evo__scene {
     order: -1;
     height: 260px;
+    margin-bottom: 0;
   }
 
   .evo__step {
