@@ -57,94 +57,83 @@
                         <!-- Your content goes here -->
 
                         <div class="card">
-                            <div class="card-horizon">
-                                <div class="image-container col-md-4">
-                                    <div class="background-holder has-content"
-                                        style="background-image: url('../../assets/images/course/modulo1/m1-3/1.3_intro.jpg')">
-                                    </div>
+                            <div class="card-block">
+                                <div>
+                                <h1 class="mrg-btm-20 card-title"><span
+                                        class="badge badge-light">Tema 5</span>Arreglos</h1>
+                                <p>Hemos aprendido cómo utilizar variables para almacenar diferentes
+                                    tipos de datos. Puede haber casos en los que necesitamos
+                                    utilizar múltiples variables, lo cual implicaría tener que
+                                    asignar un nombre a cada una. Esto claramente no es muy
+                                    conveniente cuando necesitamos 100 o 200 variables, por lo que
+                                    existe una forma de guardar muchos datos con un mismo nombre. A
+                                    este tipo de variables se denomina <b>arreglo</b> ("array" en
+                                    inglés), los cuales son muy útiles y están presentes en todos
+                                    los lenguajes de programación. En otros lenguajes, los arreglos
+                                    como listas de un tipo de dato en específico, pero en JavaScript
+                                    podemos asignar cualquier tipo de dato a un elemento de un
+                                    arreglo.</p>
+                                <p>Los arreglos cuentan con varias funciones que nos ayudan a
+                                    modificarlos u obtener información sobre ellos y sus elementos,
+                                    como saber su longitud, agregar o borrar elementos, y ordenar
+                                    los elementos, entre muchas otras.</p>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-8 ml-auto">
-                                        <div class="card-block">
-                                            <div>
-                                            <h1 class="mrg-btm-20 card-title"><span
-                                                    class="badge badge-light">Tema 5</span>Arreglos</h1>
-                                            <p>Hemos aprendido cómo utilizar variables para almacenar diferentes
-                                                tipos de datos. Puede haber casos en los que necesitamos
-                                                utilizar múltiples variables, lo cual implicaría tener que
-                                                asignar un nombre a cada una. Esto claramente no es muy
-                                                conveniente cuando necesitamos 100 o 200 variables, por lo que
-                                                existe una forma de guardar muchos datos con un mismo nombre. A
-                                                este tipo de variables se denomina <b>arreglo</b> ("array" en
-                                                inglés), los cuales son muy útiles y están presentes en todos
-                                                los lenguajes de programación. En otros lenguajes, los arreglos
-                                                como listas de un tipo de dato en específico, pero en JavaScript
-                                                podemos asignar cualquier tipo de dato a un elemento de un
-                                                arreglo.</p>
-                                            <p>Los arreglos cuentan con varias funciones que nos ayudan a
-                                                modificarlos u obtener información sobre ellos y sus elementos,
-                                                como saber su longitud, agregar o borrar elementos, y ordenar
-                                                los elementos, entre muchas otras.</p>
-                                            </div>
 
-                                            <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
-                                                 en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
-                                            <div class="evo" data-evo="arreglos" data-kind="q">
-                                                <span class="evo__mark" aria-hidden="true">?</span>
-                                                <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
-                                                <div class="evo__grid">
-                                                    <div class="evo__text">
-                                                        <div class="evo__step is-on" data-k="q">
-                                                            <h4>Tienes las calificaciones de 5 alumnos. ¿Cómo las guardas?</h4>
-                                                            <p>Con lo que llevas del curso, harías una variable para cada una.</p>
-                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>¿Y si fueran 200 alumnos?</button></div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="q">
-                                                            <h4>200 alumnos son 200 variables, cada una con su nombre.</h4>
-                                                            <p>Imagina sacar el promedio así. Tiene que haber una forma de guardarlas todas juntas.</p>
-                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Muéstrame cómo</button></div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="a">
-                                                            <h4>Un arreglo guarda muchos valores con un solo nombre</h4>
-                                                            <p>Para declararlo también utilizamos la palabra reservada <span class="code">var</span>, con una
-                                                                pequeña variación: encerramos entre corchetes <b>[ ]</b> una lista separada por comas con
-                                                                todos los valores que queramos guardar.</p>
-                                                            <div class="js-term" data-file="arreglos.js">
+                                <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
+                                     en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
+                                <div class="evo" data-evo="arreglos" data-kind="q">
+                                    <span class="evo__mark" aria-hidden="true">?</span>
+                                    <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
+                                    <div class="evo__grid">
+                                        <div class="evo__text">
+                                            <div class="evo__step is-on" data-k="q">
+                                                <h4>Tienes las calificaciones de 5 alumnos. ¿Cómo las guardas?</h4>
+                                                <p>Con lo que llevas del curso, harías una variable para cada una.</p>
+                                                <div class="evo__acts"><button class="evo__btn" type="button" data-go>¿Y si fueran 200 alumnos?</button></div>
+                                            </div>
+                                            <div class="evo__step" data-k="q">
+                                                <h4>200 alumnos son 200 variables, cada una con su nombre.</h4>
+                                                <p>Imagina sacar el promedio así. Tiene que haber una forma de guardarlas todas juntas.</p>
+                                                <div class="evo__acts"><button class="evo__btn" type="button" data-go>Muéstrame cómo</button></div>
+                                            </div>
+                                            <div class="evo__step" data-k="a">
+                                                <h4>Un arreglo guarda muchos valores con un solo nombre</h4>
+                                                <p>Para declararlo también utilizamos la palabra reservada <span class="code">var</span>, con una
+                                                    pequeña variación: encerramos entre corchetes <b>[ ]</b> una lista separada por comas con
+                                                    todos los valores que queramos guardar.</p>
+                                                <div class="js-term" data-file="arreglos.js">
 <pre class="js-term__src">// Un arreglo con las 5 calificaciones
 var calificaciones = [90, 75, 88, 100, 62];
 // También puede empezar vacío
 var lista = [];</pre>
-                                                            </div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="q">
-                                                            <h4>¿Cómo sacas la calificación del tercer alumno?</h4>
-                                                            <div class="evo__opts">
-                                                                <button class="evo__opt evo__opt--code" type="button" data-pick="a">calificaciones[3]</button>
-                                                                <button class="evo__opt evo__opt--code" type="button" data-pick="b">calificaciones[2]</button>
-                                                                <button class="evo__opt evo__opt--code" type="button" data-pick="c">calificaciones.tercero</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="a">
-                                                            <span class="evo__fb" data-fb hidden></span>
-                                                            <h4>Cada valor tiene un índice, y los índices empiezan en 0</h4>
-                                                            <p>El índice es la <b>posición</b> de un valor en el arreglo: al primero le toca el 0, al segundo
-                                                                el 1 y así sucesivamente. Escribimos el nombre del arreglo y el índice entre corchetes para
-                                                                leer un valor, y con lo mismo lo cambiamos:</p>
-                                                            <div class="js-term" data-file="arreglos.js" data-result="88">
+                                                </div>
+                                            </div>
+                                            <div class="evo__step" data-k="q">
+                                                <h4>¿Cómo sacas la calificación del tercer alumno?</h4>
+                                                <div class="evo__opts">
+                                                    <button class="evo__opt evo__opt--code" type="button" data-pick="a">calificaciones[3]</button>
+                                                    <button class="evo__opt evo__opt--code" type="button" data-pick="b">calificaciones[2]</button>
+                                                    <button class="evo__opt evo__opt--code" type="button" data-pick="c">calificaciones.tercero</button>
+                                                </div>
+                                            </div>
+                                            <div class="evo__step" data-k="a">
+                                                <span class="evo__fb" data-fb hidden></span>
+                                                <h4>Cada valor tiene un índice, y los índices empiezan en 0</h4>
+                                                <p>El índice es la <b>posición</b> de un valor en el arreglo: al primero le toca el 0, al segundo
+                                                    el 1 y así sucesivamente. Escribimos el nombre del arreglo y el índice entre corchetes para
+                                                    leer un valor, y con lo mismo lo cambiamos:</p>
+                                                <div class="js-term" data-file="arreglos.js" data-result="88">
 <pre class="js-term__src">// Leemos la calificación del tercer alumno
 console.log(calificaciones[2]);
 // Y la cambiamos por otra
 calificaciones[2] = 95;</pre>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="evo__scene" aria-hidden="true"></div>
                                                 </div>
                                             </div>
-
                                         </div>
+                                        <div class="evo__scene" aria-hidden="true"></div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 

@@ -296,6 +296,14 @@
    invisible debajo para apartar su altura y que la tarjeta no crezca al teclear. */
 .evo .js-term.is-ready {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* En columnas angostas una línea larga se parte igual en el código invisible
+   y en el que se escribe, así los dos miden lo mismo */
+.evo .js-term__src,
+.evo .js-term__code {
+  overflow-wrap: anywhere;
 }
 
 .evo .js-term.is-ready .js-term__src,
@@ -306,6 +314,12 @@
 .evo .js-term.is-ready .js-term__src {
   display: block;
   visibility: hidden;
+}
+
+/* Con botón Correr, el código invisible aparta también su renglón
+   (14px de margen + 34px de alto, como en js-terminal.css) */
+.evo .js-term.is-ready[data-result] .js-term__src {
+  padding-bottom: calc(18px + 48px);
 }
 
 .evo__acts {
@@ -406,6 +420,19 @@
   background: rgba(255, 255, 255, 0.16);
   font: 700 12px var(--evo-mono);
   font-style: normal;
+}
+
+/* Todas las frases posibles ocupan la misma celda (invisibles menos la que toca) */
+.evo__fbbox {
+  display: grid;
+}
+
+.evo__fbbox > * {
+  grid-area: 1 / 1;
+}
+
+.evo__fb--ghost {
+  visibility: hidden;
 }
 
 .evo__fb {

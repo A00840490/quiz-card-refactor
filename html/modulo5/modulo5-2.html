@@ -55,88 +55,77 @@
                         <!-- Your content goes here -->
 
                         <div class="card">
-                            <div class="card-horizon">
-                                <div class="image-container col-md-4">
-                                    <div class="background-holder has-content"
-                                        style="background-image: url('../../assets/images/course/modulo5/m5-2/funcionamiento.jpg')">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8 ml-auto">
-                                        <div class="card-block">
-                                            <h1 class="mrg-btm-20 card-title"><span
-                                                    class="badge badge-light">Tema 1</span>Funcionamiento del
-                                                Sitio Web</h1>
-                                            <p>Mencionamos al inicio del curso el concepto de <b>servidor</b>,
-                                                que básicamente es la computadora que almacenará todos los
-                                                archivos de tu página web, como código, imágenes, vídeos, etc.
-                                                Normalmente, cuando publicamos nuestras páginas,
-                                                debemos rentar
-                                                algún servidor, pero también existen servicios gratuitos de
-                                                hosting, como veremos más adelante.</p>
-                                            <p>Si sólo necesito una computadora, ¿puedo usar la mía? Tal vez te
-                                                hayas hecho esta pregunta al leer lo de arriba y la respuesta es
-                                                que sí, sin embargo, debes configurar la red de tu casa para
-                                                recibir tráfico del Internet desde tu computadora. También
-                                                necesitamos recursos adicionales para mantener el sitio web
-                                                activo: necesitamos que esté disponible 24/7 (no podríamos
-                                                apagar la computadora), una conexión a Internet con suficiente
-                                                ancho de banda para satisfacer todas las peticiones de los
-                                                usuarios, y necesitamos que la computadora sea lo
-                                                suficientemente potente para procesar las peticiones. Todo esto
-                                                resultaría en una gran inversión de nuestra parte, por lo que es
-                                                mejor contratar o utilizar un servicio de hosting.</p>
+                            <div class="card-block">
+                                <h1 class="mrg-btm-20 card-title"><span
+                                        class="badge badge-light">Tema 1</span>Funcionamiento del
+                                    Sitio Web</h1>
+                                <p>Mencionamos al inicio del curso el concepto de <b>servidor</b>,
+                                    que básicamente es la computadora que almacenará todos los
+                                    archivos de tu página web, como código, imágenes, vídeos, etc.
+                                    Normalmente, cuando publicamos nuestras páginas,
+                                    debemos rentar
+                                    algún servidor, pero también existen servicios gratuitos de
+                                    hosting, como veremos más adelante.</p>
+                                <p>Si sólo necesito una computadora, ¿puedo usar la mía? Tal vez te
+                                    hayas hecho esta pregunta al leer lo de arriba y la respuesta es
+                                    que sí, sin embargo, debes configurar la red de tu casa para
+                                    recibir tráfico del Internet desde tu computadora. También
+                                    necesitamos recursos adicionales para mantener el sitio web
+                                    activo: necesitamos que esté disponible 24/7 (no podríamos
+                                    apagar la computadora), una conexión a Internet con suficiente
+                                    ancho de banda para satisfacer todas las peticiones de los
+                                    usuarios, y necesitamos que la computadora sea lo
+                                    suficientemente potente para procesar las peticiones. Todo esto
+                                    resultaría en una gran inversión de nuestra parte, por lo que es
+                                    mejor contratar o utilizar un servicio de hosting.</p>
 
 
-                                            <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
-                                                 en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
-                                            <div class="evo" data-evo="internet" data-kind="q">
-                                                <span class="evo__mark" aria-hidden="true">?</span>
-                                                <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
-                                                <div class="evo__grid">
-                                                    <div class="evo__text">
-                                                        <div class="evo__step is-on" data-k="q">
-                                                            <h4>Escribes google.com y presionas Enter. ¿Qué pasa en ese segundo?</h4>
-                                                            <p>Pasan varias cosas antes de que veas la página. Vamos a seguirlas.</p>
-                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Presionar Enter ↵</button></div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="q">
-                                                            <h4>¿Tu computadora sabe dónde está google.com?</h4>
-                                                            <div class="evo__opts">
-                                                                <button class="evo__opt" type="button" data-pick="si">Sí, ya lo sabe</button>
-                                                                <button class="evo__opt" type="button" data-pick="no">No, tiene que preguntar</button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="a">
-                                                            <span class="evo__fb" data-fb hidden></span>
-                                                            <h4>Le pregunta al DNS por la dirección IP</h4>
-                                                            <p>Cada computadora en una red tiene una <b>dirección IP</b>: una serie de números que van de
-                                                                0.0.0.0 a 255.255.255.255 y sirven para identificarla. El <b>DNS</b> (Sistema de Nombres de
-                                                                Dominio) nos permite usar un nombre de dominio como google.com en lugar de su IP,
-                                                                74.125.198.104.</p>
-                                                            <p class="evo__note">Escribe 74.125.198.104 en tu navegador y verás que te lleva a la página de
-                                                                Google.</p>
-                                                        </div>
-                                                        <div class="evo__step" data-k="q">
-                                                            <h4>Ya tiene la dirección. ¿Cómo le pide la página al servidor?</h4>
-                                                            <div class="evo__acts"><button class="evo__btn" type="button" data-go>Hacer la petición</button></div>
-                                                        </div>
-                                                        <div class="evo__step" data-k="a">
-                                                            <h4>Con una petición HTTP, y la respuesta llega en paquetes</h4>
-                                                            <p>El navegador pide los archivos con <b>HTTP</b> (Protocolo de Transferencia de Hipertexto). El
-                                                                servidor acepta la petición y envía los archivos en pequeños paquetes usando <b>TCP/IP</b>
-                                                                (Protocolo de Control de Transmisión y Protocolo de Internet). Después, el navegador junta los
-                                                                datos recibidos y los interpreta para mostrar la página.</p>
-                                                            <p class="evo__note">A grandes rasgos así funciona Internet: una serie de peticiones y envíos de
-                                                                información. Puedes leer más sobre el funcionamiento de la web <a
-                                                                    href="https://developer.mozilla.org/es/docs/Learn/Getting_started_with_the_web/C%C3%B3mo_funciona_la_Web"
-                                                                    target="_blank">aquí</a>.</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="evo__scene" aria-hidden="true"></div>
+                                <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
+                                     en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
+                                <div class="evo" data-evo="internet" data-kind="q">
+                                    <span class="evo__mark" aria-hidden="true">?</span>
+                                    <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
+                                    <div class="evo__grid">
+                                        <div class="evo__text">
+                                            <div class="evo__step is-on" data-k="q">
+                                                <h4>Escribes google.com y presionas Enter. ¿Qué pasa en ese segundo?</h4>
+                                                <p>Pasan varias cosas antes de que veas la página. Vamos a seguirlas.</p>
+                                                <div class="evo__acts"><button class="evo__btn" type="button" data-go>Presionar Enter ↵</button></div>
+                                            </div>
+                                            <div class="evo__step" data-k="q">
+                                                <h4>¿Tu computadora sabe dónde está google.com?</h4>
+                                                <div class="evo__opts">
+                                                    <button class="evo__opt" type="button" data-pick="si">Sí, ya lo sabe</button>
+                                                    <button class="evo__opt" type="button" data-pick="no">No, tiene que preguntar</button>
                                                 </div>
                                             </div>
+                                            <div class="evo__step" data-k="a">
+                                                <span class="evo__fb" data-fb hidden></span>
+                                                <h4>Le pregunta al DNS por la dirección IP</h4>
+                                                <p>Cada computadora en una red tiene una <b>dirección IP</b>: una serie de números que van de
+                                                    0.0.0.0 a 255.255.255.255 y sirven para identificarla. El <b>DNS</b> (Sistema de Nombres de
+                                                    Dominio) nos permite usar un nombre de dominio como google.com en lugar de su IP,
+                                                    74.125.198.104.</p>
+                                                <p class="evo__note">Escribe 74.125.198.104 en tu navegador y verás que te lleva a la página de
+                                                    Google.</p>
+                                            </div>
+                                            <div class="evo__step" data-k="q">
+                                                <h4>Ya tiene la dirección. ¿Cómo le pide la página al servidor?</h4>
+                                                <div class="evo__acts"><button class="evo__btn" type="button" data-go>Hacer la petición</button></div>
+                                            </div>
+                                            <div class="evo__step" data-k="a">
+                                                <h4>Con una petición HTTP, y la respuesta llega en paquetes</h4>
+                                                <p>El navegador pide los archivos con <b>HTTP</b> (Protocolo de Transferencia de Hipertexto). El
+                                                    servidor acepta la petición y envía los archivos en pequeños paquetes usando <b>TCP/IP</b>
+                                                    (Protocolo de Control de Transmisión y Protocolo de Internet). Después, el navegador junta los
+                                                    datos recibidos y los interpreta para mostrar la página.</p>
+                                                <p class="evo__note">A grandes rasgos así funciona Internet: una serie de peticiones y envíos de
+                                                    información. Puedes leer más sobre el funcionamiento de la web <a
+                                                        href="https://developer.mozilla.org/es/docs/Learn/Getting_started_with_the_web/C%C3%B3mo_funciona_la_Web"
+                                                        target="_blank">aquí</a>.</p>
+                                            </div>
                                         </div>
+                                        <div class="evo__scene" aria-hidden="true"></div>
                                     </div>
                                 </div>
                             </div>

@@ -96,6 +96,25 @@
     });
     var dots = Array.prototype.slice.call(track.children);
 
+    // La frase de respuesta guarda su lugar desde el inicio: todas las
+    // frases posibles quedan invisibles en la misma celda, así la tarjeta
+    // no crece cuando aparece la que toca.
+    root.querySelectorAll("[data-fb]").forEach(function (fb) {
+      var box = document.createElement("div");
+      box.className = "evo__fbbox";
+      fb.parentNode.insertBefore(box, fb);
+      Object.keys(cfg.fb || {}).forEach(function (key) {
+        var g = document.createElement("span");
+        g.className = "evo__fb evo__fb--ghost";
+        g.setAttribute("aria-hidden", "true");
+        g.innerHTML = cfg.fb[key][1];
+        box.appendChild(g);
+      });
+      box.appendChild(fb);
+      fb.hidden = false;
+      fb.style.visibility = "hidden";
+    });
+
     // Columna de ? de fondo. El primero queda escondido abajo para que la
     // columna pueda subir sin que se note dónde vuelve a empezar.
     var mark = root.querySelector(".evo__mark");
@@ -152,7 +171,7 @@
       var fb = s.querySelector("[data-fb]");
       if (fb) {
         var f = cfg.fb && cfg.fb[st.pick];
-        fb.hidden = !f;
+        fb.style.visibility = f ? "" : "hidden";
         if (f) {
           fb.setAttribute("data-tone", f[0]);
           fb.innerHTML = f[1];
