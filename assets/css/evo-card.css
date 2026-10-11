@@ -185,7 +185,8 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
   gap: 26px;
   align-items: center;
-  padding: 10px 24px 24px;
+  /* abajo queda espacio para la flecha de la esquina */
+  padding: 10px 24px 80px;
 }
 
 /* Todos los pasos en la misma celda: sólo se ve el activo y la altura no cambia */
@@ -291,6 +292,41 @@
 
 .evo__btn:hover {
   transform: translateY(-2px);
+}
+
+/* Flecha a la siguiente pregunta: esquina inferior derecha de la tarjeta */
+.evo__next {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--evo-blue);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(6, 43, 102, 0.25);
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.evo__next.is-on {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s, visibility 0s;
+}
+
+.evo__next.is-on:hover {
+  transform: translateX(4px);
+  transition-delay: 0s;
 }
 
 .evo__opts {
@@ -416,7 +452,12 @@
     grid-template-columns: 1fr;
     gap: 18px;
     align-items: start;
-    padding: 10px 16px 18px;
+    padding: 10px 16px 80px;
+  }
+
+  .evo__next {
+    right: 16px;
+    bottom: 16px;
   }
 
   .evo__scene {

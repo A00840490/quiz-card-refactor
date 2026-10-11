@@ -5,6 +5,8 @@
    - La mini barra de arriba se arma sola: "?" para las preguntas y un punto
      sin título para las explicaciones. En el último paso, la primera esfera
      se vuelve botón y regresa al inicio.
+   - En las explicaciones (menos la última) aparece una flecha en la esquina
+     inferior derecha que lleva a la siguiente pregunta.
    - La escena la anima cada lección con
        EvoCard.create(root, { layout: function (i, st, later, scene) {}, fb: {...} })
      layout(i) acomoda los actores para el paso i; st.pick es la última
@@ -91,6 +93,16 @@
     });
     var dots = Array.prototype.slice.call(track.children);
 
+    // Flecha de la esquina inferior derecha: lleva de una explicación a la siguiente pregunta
+    var next = document.createElement("button");
+    next.type = "button";
+    next.className = "evo__next";
+    next.setAttribute("data-go", "");
+    next.setAttribute("aria-label", "Siguiente pregunta");
+    next.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    root.appendChild(next);
+
     function later(fn, ms) {
       timers.push(setTimeout(fn, reduce ? 0 : ms));
     }
@@ -109,6 +121,9 @@
         d.classList.toggle("is-done", k < i);
       });
       dots[0].disabled = i !== last;
+      var showNext = s.getAttribute("data-k") === "a" && i !== last;
+      next.classList.toggle("is-on", showNext);
+      next.disabled = !showNext;
       if (i === last) dots[0].title = "Volver a empezar";
       else dots[0].removeAttribute("title");
       var fb = s.querySelector("[data-fb]");
