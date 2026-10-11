@@ -230,14 +230,9 @@
   transform: rotate(var(--r)) translateY(70px) scale(0.3);
 }
 
-.capsulas__dome.is-shake .capsulas__cap:not(.is-gone) {
-  animation: capsulas-jiggle 0.5s ease;
-}
-
-@keyframes capsulas-jiggle {
-  25% { translate: -3px -5px; rotate: 9deg; }
-  50% { translate: 3px 1px; rotate: -7deg; }
-  75% { translate: -1px -2px; rotate: 3deg; }
+/* Mientras se revuelven, el JS mueve las cápsulas cuadro por cuadro */
+.capsulas__dome.is-stirring .capsulas__cap {
+  transition: opacity 0.3s ease;
 }
 
 /* ---------- Premio: cápsula abierta y papelito ---------- */
@@ -388,7 +383,6 @@
     transition: none;
   }
 
-  .capsulas__dome.is-shake .capsulas__cap,
   .capsulas__prize.is-rolling .capsulas__shell,
   .capsulas__prize.is-open .capsulas__slip {
     animation: none;

@@ -17,4 +17,4 @@
 - [x] Reemplazar las barras desplegables de los módulos 1-4, 4-6 y 5-2 por tarjetas evolutivas: cada sección empieza como pregunta y la misma tarjeta se transforma en la explicación (assets/css/evo-card.css y assets/js/evo-card.js).
 - [x] Quitar la imagen lateral de los módulos 1-4, 4-6 y 5-2: la tarjeta evolutiva ocupa el 70% del ancho y el texto la rodea, arriba a todo lo ancho y luego a su izquierda, terminando junto con la tarjeta (.evo-split en assets/css/evo-card.css y assets/js/evo-card.js).
 - [x] Reemplazar la tabla de operadores de comparación del módulo 4-7 por una baraja en abanico: cada carta se voltea y muestra su función, ejemplo y resultado (modulo4-7-baraja.css / .js).
-- [x] Convertir la lista de etiquetas de formato del módulo 2-5 en una máquina de cápsulas: cada cápsula saca un papelito con la descripción y un ejemplo de código con su resultado (modulo2-5-capsulas.css / .js).
+- [x] Convertir la lista de etiquetas de formato del módulo 2-5 en una máquina de cápsulas: al girar la perilla las cápsulas rebotan contra la cúpula y una sale con un papelito con la descripción y un ejemplo de código con su resultado (modulo2-5-capsulas.css / .js).

@@ -3,8 +3,9 @@
      etiqueta (.codetag), su descripción y su ejemplo (.capsulas__ex), y arma
      una cápsula por etiqueta. La lista se oculta; sin JavaScript se ve igual
      que antes.
-   - Al girar la perilla cae una cápsula al azar; también se puede tocar una
-     cápsula para sacarla. La cápsula rueda, se abre y saca un papelito con la
+   - Al girar la perilla las cápsulas se revuelven: saltan, chocan entre sí y
+     rebotan contra la cúpula. Luego una al azar sale por abajo; también se
+     puede tocar una cápsula para sacar esa. La cápsula rueda, se abre y saca un papelito con la
      descripción y el ejemplo de código con su resultado.
    - Cuando se acaban, la perilla vuelve a llenar la máquina.
    - Empieza con la cápsula de <li data-start> ya abierta. */
@@ -88,6 +89,125 @@
   var turn = 0;
   var busy = false;
 
+  // ---------- Física: las cápsulas saltan y rebotan dentro del domo ----------
+  // Cada cápsula es un círculo con posición, velocidad y giro. Se mueve con
+  // gravedad, choca con las demás y rebota contra la cúpula (un círculo).
+  // Mientras se revuelve, cada tanto un "soplido" desde abajo las avienta.
+  var RADIUS = 25;
+  var bodies = caps.map(function (c, i) {
+    var p = PILE[i % PILE.length];
+    return { el: c, x: p[0], y: p[1], vx: 0, vy: 0, a: p[2], va: 0, falling: false };
+  });
+
+  function render(b) {
+    b.el.style.setProperty("--x", b.x.toFixed(1) + "px");
+    b.el.style.setProperty("--y", b.y.toFixed(1) + "px");
+    b.el.style.setProperty("--r", b.a.toFixed(1) + "deg");
+  }
+
+  function inDome() {
+    return bodies.filter(function (b) {
+      return !b.el.classList.contains("is-gone");
+    });
+  }
+
+  function step(list, dt, bounce, damp) {
+    var c = dome.clientWidth / 2;
+    var lim = c - RADIUS;
+    list.forEach(function (b) {
+      b.vy += 1500 * dt;
+      if (damp) {
+        b.vx *= 0.996;
+        b.vy *= 0.996;
+      }
+      b.x += b.vx * dt;
+      b.y += b.vy * dt;
+      b.a += b.va * dt;
+      b.va *= 0.995;
+    });
+    var solid = list.filter(function (b) {
+      return !b.falling;
+    });
+    for (var it = 0; it < 3; it++) {
+      // Choques entre cápsulas
+      for (var i = 0; i < solid.length; i++) {
+        for (var j = i + 1; j < solid.length; j++) {
+          var p = solid[i], q = solid[j];
+          var dx = q.x - p.x, dy = q.y - p.y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d >= RADIUS * 2 || d === 0) continue;
+          var nx = dx / d, ny = dy / d, push = (RADIUS * 2 - d) / 2;
+          p.x -= nx * push; p.y -= ny * push;
+          q.x += nx * push; q.y += ny * push;
+          var rel = (q.vx - p.vx) * nx + (q.vy - p.vy) * ny;
+          if (rel < 0) {
+            var imp = (-(1 + bounce) * rel) / 2;
+            p.vx -= imp * nx; p.vy -= imp * ny;
+            q.vx += imp * nx; q.vy += imp * ny;
+          }
+        }
+      }
+      // Rebote contra la cúpula
+      solid.forEach(function (b) {
+        var dx = b.x - c, dy = b.y - c;
+        var d = Math.sqrt(dx * dx + dy * dy);
+        if (d <= lim) return;
+        var nx = dx / d, ny = dy / d;
+        b.x = c + nx * lim;
+        b.y = c + ny * lim;
+        var vn = b.vx * nx + b.vy * ny;
+        if (vn > 0) {
+          b.vx -= (1 + bounce) * vn * nx;
+          b.vy -= (1 + bounce) * vn * ny;
+          // Al rozar la cúpula, gira hacia donde rueda.
+          b.va = ((-b.vx * ny + b.vy * nx) / RADIUS) * 40;
+        }
+      });
+    }
+  }
+
+  var stirUntil = 0, simUntil = 0, nextPuff = 0, last = 0, raf = 0;
+
+  // Revuelve durante stirMs y deja que se acomoden hasta totalMs.
+  function simulate(stirMs, totalMs) {
+    var now = performance.now();
+    stirUntil = Math.max(stirUntil, now + stirMs);
+    simUntil = Math.max(simUntil, now + totalMs);
+    dome.classList.add("is-stirring");
+    if (!raf) {
+      last = now;
+      nextPuff = now;
+      raf = requestAnimationFrame(tick);
+    }
+  }
+
+  function tick(t) {
+    var list = inDome();
+    var dt = Math.min(0.05, (t - last) / 1000);
+    last = t;
+    var stirring = t < stirUntil;
+    if (stirring && t >= nextPuff) {
+      var size = dome.clientWidth;
+      list.forEach(function (b) {
+        if (b.falling || Math.random() < 0.25) return;
+        var low = Math.max(0.2, b.y / size); // más fuerte abajo, donde está el soplido
+        b.vy -= (420 + Math.random() * 520) * low;
+        b.vx += (Math.random() - 0.5) * 520;
+        b.va += (Math.random() - 0.5) * 900;
+      });
+      nextPuff = t + 150 + Math.random() * 90;
+    }
+    var n = Math.max(1, Math.ceil(dt / (1 / 240)));
+    for (var k = 0; k < n; k++) step(list, dt / n, stirring ? 0.8 : 0.3, !stirring);
+    list.forEach(render);
+    if (t < simUntil) {
+      raf = requestAnimationFrame(tick);
+    } else {
+      raf = 0;
+      dome.classList.remove("is-stirring");
+    }
+  }
+
   function left() {
     return caps.filter(function (c) {
       return !c.classList.contains("is-gone");
@@ -110,10 +230,6 @@
   function spin() {
     turn += 360;
     handle.style.setProperty("--turn", turn + "deg");
-    if (reduce) return;
-    dome.classList.remove("is-shake");
-    void dome.offsetWidth;
-    dome.classList.add("is-shake");
   }
 
   function showPrize(i, animate) {
@@ -139,33 +255,69 @@
     }, 760);
   }
 
+  // Revuelve, deja caer la cápsula i por el fondo y la abre.
   function pick(i) {
     if (busy || caps[i].classList.contains("is-gone")) return;
     busy = true;
     spin();
-    setTimeout(
-      function () {
+    if (reduce) {
+      setGone(caps[i], true);
+      updateCount();
+      showPrize(i, false);
+      busy = false;
+      return;
+    }
+    simulate(1000, 1500);
+    setTimeout(function () {
+      // Sale por abajo: ya no choca con nada y la gravedad la saca del domo.
+      var b = bodies[i];
+      b.falling = true;
+      b.vy = Math.max(b.vy, 250);
+      simulate(0, 1000); // las demás se acomodan en el hueco
+      setTimeout(function () {
         setGone(caps[i], true);
+        b.falling = false;
         updateCount();
         showPrize(i, true);
         setTimeout(function () {
           busy = false;
-        }, reduce ? 0 : 900);
-      },
-      reduce ? 0 : 450
-    );
+        }, 900);
+      }, 350);
+    }, 1250);
+  }
+
+  // Vuelve a llenar: las cápsulas caen desde arriba y se acomodan.
+  function refill() {
+    busy = true;
+    spin();
+    var c = dome.clientWidth / 2;
+    bodies.forEach(function (b, k) {
+      b.x = c + (Math.random() - 0.5) * 110;
+      b.y = 30 + (k % 3) * 10;
+      b.vx = (Math.random() - 0.5) * 120;
+      b.vy = Math.random() * 80;
+      b.falling = false;
+      render(b);
+      setGone(b.el, false);
+    });
+    updateCount();
+    if (reduce) {
+      for (var s = 0; s < 480; s++) step(bodies, 1 / 240, 0.3, true);
+      bodies.forEach(render);
+      busy = false;
+      return;
+    }
+    simulate(0, 1800);
+    setTimeout(function () {
+      busy = false;
+    }, 1200);
   }
 
   knob.addEventListener("click", function () {
     if (busy) return;
     var l = left();
     if (!l.length) {
-      // Rellena la máquina.
-      spin();
-      caps.forEach(function (c) {
-        setGone(c, false);
-      });
-      updateCount();
+      refill();
       return;
     }
     pick(caps.indexOf(l[Math.floor(Math.random() * l.length)]));
