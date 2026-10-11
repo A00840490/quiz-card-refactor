@@ -22,32 +22,33 @@
   background: #ffffff;
 }
 
+/* Pestañas pegadas al borde de arriba, a todo lo ancho */
 .op-toys__modes {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
+  margin: -14px -18px 14px;
 }
 
 .op-toys__btn {
   flex: 1;
-  padding: 8px 14px;
-  border: 1px solid #c9d9ec;
-  border-radius: 8px;
+  padding: 14px;
+  border: 0;
+  border-radius: 0;
   background: #ffffff;
   color: var(--ot-blue);
   font: 600 1.2rem Arial, sans-serif;
   cursor: pointer;
 }
 
-.op-toys__btn:hover,
+.op-toys__btn:hover {
+  background: #eef4fb;
+}
+
 .op-toys__btn:focus-visible {
-  border-color: var(--ot-blue);
-  outline: none;
+  outline: 2px solid var(--ot-blue);
+  outline-offset: -4px;
 }
 
 .op-toys__btn.is-active {
-  border-color: var(--ot-blue);
   background: var(--ot-blue);
   color: #ffffff;
 }
@@ -72,18 +73,6 @@
 
 .op-toys__line {
   padding: 4px 0;
-}
-
-/* El console.log es largo: se parte entre sus trozos, con sangría, para no
-   apretar el cuadro de información. */
-.op-toys__log {
-  max-width: 30ch;
-  padding-left: 2ch;
-  text-indent: -2ch;
-}
-
-.op-toys__log span {
-  white-space: nowrap;
 }
 
 .op-toys__expr {

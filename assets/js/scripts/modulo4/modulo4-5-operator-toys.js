@@ -70,9 +70,9 @@
     return stage.clientWidth < 520 ? 46 : 56;
   }
 
-  // El mensaje tal como lo imprimiría console.log('El valor de "x" es ' + x).
+  // El número tal como lo imprimiría console.log.
   function fmt(n) {
-    return 'El valor de "x" es ' + n;
+    return String(n);
   }
 
   function isUnary(op) {
@@ -288,7 +288,7 @@
     infoEl.classList.add("is-visible");
   }
 
-  // La consola muestra lo que imprimiría el console.log del código.
+  // La consola muestra solo lo que imprimiría console.log(x).
   function compute(c) {
     var op = c.op;
     var m = MODES[mode];
