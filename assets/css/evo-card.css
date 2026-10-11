@@ -21,8 +21,8 @@
      </div>
    </div>
 
-   - data-go avanza un paso; data-pick="x" avanza y recuerda la respuesta;
-     data-go="restart" vuelve al inicio.
+   - data-go avanza un paso; data-pick="x" avanza y recuerda la respuesta.
+   - En el último paso, la primera esfera de la mini barra vuelve al inicio.
    - Todos los pasos ocupan la misma celda, así la altura no brinca.
    - La escena de cada lección vive en assets/css/modulos/... y
      assets/js/scripts/...
@@ -160,6 +160,24 @@
   transform: scale(1.15);
 }
 
+/* Primera esfera: en el último paso se vuelve botón para regresar al inicio */
+.evo__home {
+  padding: 0;
+  border: 0;
+  cursor: default;
+}
+
+.evo__home:not(:disabled) {
+  cursor: pointer;
+  animation: evo-ring 1.6s ease 2;
+}
+
+.evo__home:not(:disabled):hover {
+  background: var(--evo-amber);
+  color: var(--evo-amber-ink);
+  transform: scale(1.3);
+}
+
 /* ---------- Texto y escena ---------- */
 .evo__grid {
   position: relative;
@@ -220,13 +238,6 @@
 .evo__step[data-k="a"] h4 {
   font: 700 20px/1.25 var(--evo-display);
   color: var(--evo-blue);
-}
-
-.evo__eyebrow {
-  font: 700 12px var(--evo-display);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--e-muted);
 }
 
 .evo__step p.evo__note {

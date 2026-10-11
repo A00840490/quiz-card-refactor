@@ -3,7 +3,8 @@
      (data-k="a", tarjeta blanca). Al avanzar, la tarjeta cambia de color y
      el texto se reemplaza en la misma celda, sin cambiar de altura.
    - La mini barra de arriba se arma sola: "?" para las preguntas y un punto
-     sin título para las explicaciones.
+     sin título para las explicaciones. En el último paso, la primera esfera
+     se vuelve botón y regresa al inicio.
    - La escena la anima cada lección con
        EvoCard.create(root, { layout: function (i, st, later, scene) {}, fb: {...} })
      layout(i) acomoda los actores para el paso i; st.pick es la última
@@ -68,11 +69,22 @@
     var timers = [];
     var st = { i: 0, pick: null };
 
-    steps.forEach(function (s) {
-      var d = document.createElement("span");
+    var last = steps.length - 1;
+    track.removeAttribute("aria-hidden");
+    steps.forEach(function (s, k) {
+      // La primera esfera es un botón para volver al inicio (activo sólo en el último paso)
+      var d = document.createElement(k === 0 ? "button" : "span");
       var q = s.getAttribute("data-k") === "q";
       d.className = "evo__dot" + (q ? " is-q" : "");
       if (q) d.textContent = "?";
+      if (k === 0) {
+        d.type = "button";
+        d.className += " evo__home";
+        d.setAttribute("data-go", "restart");
+        d.setAttribute("aria-label", "Volver a empezar");
+      } else {
+        d.setAttribute("aria-hidden", "true");
+      }
       track.appendChild(d);
       var h = s.querySelector("h4");
       if (h) h.setAttribute("tabindex", "-1");
@@ -96,6 +108,9 @@
         d.classList.toggle("is-on", k === i);
         d.classList.toggle("is-done", k < i);
       });
+      dots[0].disabled = i !== last;
+      if (i === last) dots[0].title = "Volver a empezar";
+      else dots[0].removeAttribute("title");
       var fb = s.querySelector("[data-fb]");
       if (fb) {
         var f = cfg.fb && cfg.fb[st.pick];
