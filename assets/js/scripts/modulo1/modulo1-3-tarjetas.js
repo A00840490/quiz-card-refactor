@@ -1,8 +1,9 @@
 /* modulo1-3: tarjetas que se voltean (estilos en
    assets/css/modulos/modulo1/modulo1-3-tarjetas.css).
-   Abrir: la tarjeta gira, una copia grande (.cc__open) toma su lugar y crece
-   hasta cubrir el bloque mientras las demás se van hacia ella; luego aparece
-   el texto. Cerrar hace lo mismo al revés y la tarjeta regresa a su frente.
+   Abrir: la tarjeta gira hasta quedar de canto (media vuelta); en ese momento
+   su reverso (.cc__open) aparece de canto en el mismo lugar y termina el giro
+   mientras crece hasta cubrir el bloque y las demás se van hacia ella; al
+   final aparece el texto. Cerrar hace lo mismo al revés.
    fit() mide el texto más largo y fija la altura de las tarjetas para que
    quepa abierto; así el bloque mide siempre lo mismo mientras se usa. */
 (function () {
@@ -16,7 +17,8 @@
   var nameEl = root.querySelector("[data-cc-name]");
   var panels = Array.prototype.slice.call(root.querySelectorAll("[data-cc-panel]"));
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var T = reduce ? { flip: 0, grow: 0, fade: 0 } : { flip: 520, grow: 470, fade: 250 };
+  // half: media vuelta de la tarjeta; grow: crecer/encoger; fade: el texto
+  var T = reduce ? { half: 0, grow: 0, fade: 0 } : { half: 260, grow: 500, fade: 220 };
   var active = null;
   var busy = false;
 
@@ -67,19 +69,27 @@
     busy = true;
     active = card;
     var id = card.getAttribute("data-cc-card");
-    var label = card.querySelector(".cc__back strong").textContent;
-    card.classList.add("is-flipped");
+    var label = card.querySelector(".cc__front strong").textContent;
     card.setAttribute("aria-expanded", "true");
+    card.classList.add("is-edge");
 
-    wait(T.flip).then(function () {
-      panels.forEach(function (p) { p.hidden = p.getAttribute("data-cc-panel") !== id; });
-      nameEl.textContent = label;
-      open.setAttribute("aria-label", label);
+    // Mientras la tarjeta gira, el reverso se prepara oculto en su lugar
+    panels.forEach(function (p) { p.hidden = p.getAttribute("data-cc-panel") !== id; });
+    nameEl.textContent = label;
+    open.setAttribute("aria-label", label);
+    open.classList.remove("is-full", "is-open", "is-closing");
+    open.classList.add("is-edge");
+    var from = rectOf(card);
+    place(from);
 
-      var from = rectOf(card);
-      place(from);
-      open.hidden = false;
+    wait(T.half).then(function () {
+      // Media vuelta: el reverso toma el lugar y termina el giro mientras crece
       card.classList.add("is-hidden");
+      open.hidden = false;
+      void open.offsetWidth;
+      open.classList.remove("is-edge");
+      open.classList.add("is-open");
+      place(full());
 
       var cx = from.left + from.width / 2;
       var cy = from.top + from.height / 2;
@@ -91,15 +101,15 @@
         o.classList.add("is-absorbed");
         o.setAttribute("tabindex", "-1");
       });
-
-      void open.offsetWidth; // aplica la posición inicial antes de crecer
-      place(full());
-      return wait(T.grow);
+      // El texto empieza a aparecer justo antes de que termine de crecer
+      return wait(Math.max(0, T.grow - 150));
+    }).then(function () {
+      open.classList.add("is-full");
+      return wait(Math.min(T.grow, 150));
     }).then(function () {
       open.style.width = "100%";
       open.style.height = "100%";
-      open.classList.add("is-full");
-      return wait(T.fade);
+      return wait(Math.max(0, T.fade - 150));
     }).then(function () {
       busy = false;
       open.focus({ preventScroll: true });
@@ -112,8 +122,11 @@
     open.classList.remove("is-full");
 
     wait(T.fade).then(function () {
+      // Se encoge hacia su lugar y en el último tramo gira hasta quedar de canto
       place(full());
       void open.offsetWidth;
+      open.classList.remove("is-open");
+      open.classList.add("is-closing", "is-edge");
       place(rectOf(card));
       cards.forEach(function (o) {
         o.classList.remove("is-absorbed");
@@ -121,13 +134,17 @@
       });
       return wait(T.grow);
     }).then(function () {
+      // Media vuelta de regreso: la tarjeta sale de canto y vuelve a su frente
       open.hidden = true;
+      open.classList.remove("is-closing");
+      card.classList.add("is-return");
       card.classList.remove("is-hidden");
       void card.offsetWidth;
-      card.classList.remove("is-flipped");
+      card.classList.remove("is-edge");
       card.setAttribute("aria-expanded", "false");
-      return wait(T.flip);
+      return wait(T.half);
     }).then(function () {
+      card.classList.remove("is-return");
       busy = false;
       active = null;
       card.focus({ preventScroll: true });

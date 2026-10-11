@@ -1,7 +1,8 @@
 /* ===================== modulo1-3: tarjetas que se voltean =====================
-   Cuatro tarjetas del mismo tamaño. Al tocar una, gira, crece hasta cubrir el
-   bloque y "absorbe" a las demás para mostrar el texto completo. Al tocarla de
-   nuevo se encoge a su lugar y regresa a su frente. El bloque siempre mide lo
+   Cuatro tarjetas del mismo tamaño. Al tocar una, gira y, a media vuelta, su
+   reverso (.cc__open) termina el giro mientras crece hasta cubrir el bloque y
+   "absorbe" a las demás para mostrar el texto completo. Al tocarla de nuevo
+   hace lo mismo al revés. El bloque siempre mide lo
    que mide la cuadrícula, así que la página no cambia de altura; el script
    ajusta --cc-h para que el texto más largo quepa en la tarjeta abierta. */
 .cc {
@@ -10,6 +11,9 @@
   --cc-amber: #fac775;
   --cc-muted: #5b6577;
   --cc-base: 260px;
+  --cc-in: cubic-bezier(.55, 0, 1, .45);   /* acelera hasta media vuelta */
+  --cc-out: cubic-bezier(0, .55, .45, 1);  /* y desacelera desde ahí: el giro no se nota cortado */
+  --cc-grow: cubic-bezier(.45, 0, .2, 1);
   position: relative;
 }
 
@@ -29,7 +33,7 @@
   font: inherit;
   cursor: pointer;
   perspective: 1000px;
-  transition: transform .46s cubic-bezier(.5, 0, .3, 1), opacity .36s ease;
+  transition: transform .5s var(--cc-grow), opacity .38s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -39,11 +43,12 @@
 .cc__in {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
-  transition: transform .52s cubic-bezier(.3, .7, .3, 1);
+  transition: transform .26s var(--cc-in);
 }
 
-.cc__card.is-flipped .cc__in { transform: rotateY(180deg); }
+/* Media vuelta: la tarjeta queda de canto y su reverso continúa el giro */
+.cc__card.is-edge .cc__in { transform: rotateY(90deg); }
+.cc__card.is-return .cc__in { transition-timing-function: var(--cc-out); }
 
 .cc__face {
   position: absolute;
@@ -71,14 +76,6 @@
 .cc__front svg { width: 72px; height: 72px; }
 .cc__front strong { font-size: 20px; font-weight: 700; line-height: 1.2; }
 
-.cc__back {
-  background: var(--cc-soft);
-  border: 2px solid var(--cc-blue);
-  color: var(--cc-blue);
-  transform: rotateY(180deg);
-}
-
-.cc__back strong,
 .cc__open-name { font-size: 20px; font-weight: 700; }
 
 /* La tarjeta elegida se esconde mientras su copia grande está abierta */
@@ -100,8 +97,18 @@
   border: 2px solid var(--cc-blue);
   border-radius: 12px;
   cursor: pointer;
-  transition: left .46s cubic-bezier(.5, 0, .2, 1), top .46s cubic-bezier(.5, 0, .2, 1),
-    width .46s cubic-bezier(.5, 0, .2, 1), height .46s cubic-bezier(.5, 0, .2, 1);
+  transform: perspective(1000px) rotateY(0deg);
+  transition: left .5s var(--cc-grow), top .5s var(--cc-grow), width .5s var(--cc-grow),
+    height .5s var(--cc-grow), transform .26s var(--cc-out);
+}
+
+/* De canto: así aparece a media vuelta y así se va al cerrar */
+.cc__open.is-edge { transform: perspective(1000px) rotateY(-90deg); }
+
+/* Al cerrar, primero se encoge y en el último tramo gira hasta quedar de canto */
+.cc__open.is-closing {
+  transition: left .5s var(--cc-grow), top .5s var(--cc-grow), width .5s var(--cc-grow),
+    height .5s var(--cc-grow), transform .26s var(--cc-in) .24s;
 }
 
 .cc__open[hidden] { display: none; }
@@ -122,10 +129,11 @@
   overflow-y: auto;
   padding: 28px 32px 24px;
   opacity: 0;
-  transition: opacity .25s ease;
+  transition: opacity .22s ease;
 }
 
-.cc__open.is-full .cc__open-name { opacity: 0; }
+/* El nombre se desvanece mientras crece, antes de que aparezca el texto */
+.cc__open.is-open .cc__open-name { opacity: 0; transition-delay: .12s; }
 .cc__open.is-full .cc__open-body { opacity: 1; }
 
 .cc__open:focus { outline: none; }
