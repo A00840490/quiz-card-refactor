@@ -337,7 +337,7 @@
 .arr-train__btn.is-shake { animation: arr-shake .4s; }
 @keyframes arr-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
-/* Consola a la izquierda; explicación y polaroid a la derecha. En pantallas
+/* Explicación y polaroid a la izquierda; consola a la derecha. En pantallas
    angostas todo va en una columna */
 .arr-train__console {
   display: none;
