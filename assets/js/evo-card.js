@@ -16,8 +16,8 @@
      respuesta elegida; later(fn, ms) programa algo que se cancela si el
      alumno cambia de paso. fb[pick] = ["ok" | "nope", "frase"] llena el
      [data-fb] de la explicación según la respuesta.
-   - Las terminales verdes (.js-term) dentro de un paso se escriben cuando
-     ese paso aparece, no al entrar en pantalla.
+   - Las terminales verdes (.js-term) dentro de un paso aparecen con el
+     código ya escrito (assets/js/js-terminal.js).
    - Con "reducir movimiento" todo cambia de inmediato. */
 (function () {
   "use strict";
@@ -177,9 +177,6 @@
           fb.innerHTML = f[1];
         }
       }
-      s.querySelectorAll(".js-term").forEach(function (t) {
-        t.dispatchEvent(new CustomEvent("evo:show"));
-      });
       cfg.layout(i, st, later, scene);
       if (!quiet) {
         var h = s.querySelector("h4");

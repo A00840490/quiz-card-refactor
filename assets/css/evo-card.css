@@ -307,8 +307,8 @@
   margin-top: 10px;
 }
 
-/* La terminal se escribe cuando aparece su paso: el código original queda
-   invisible debajo para apartar su altura y que la tarjeta no crezca al teclear. */
+/* La terminal aparece ya escrita; el código original queda invisible debajo
+   para apartar su altura (y la del botón Correr) desde el inicio. */
 .evo .js-term.is-ready {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

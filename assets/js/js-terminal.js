@@ -4,7 +4,8 @@
      data-result (sin él, el código no muestra nada y no hay botón); al
      presionarlo se quita, gira una rueda de carga y luego aparece en blanco
      "Resultado: ..." con el cursor parpadeando al final.
-   - Con "reducir movimiento" el código aparece completo de inmediato. */
+   - Con "reducir movimiento" o dentro de una tarjeta evolutiva el código
+     aparece completo de inmediato. */
 (function () {
   "use strict";
 
@@ -91,15 +92,9 @@
       })();
     }
 
-    // Dentro de una tarjeta evolutiva (assets/js/evo-card.js) se escribe
-    // cuando aparece su paso, no al entrar en pantalla.
-    if (term.closest(".evo__step")) {
-      term.addEventListener("evo:show", function first() {
-        term.removeEventListener("evo:show", first);
-        type();
-      });
-      return;
-    }
+    // Dentro de una tarjeta evolutiva (assets/js/evo-card.js) el código
+    // aparece ya escrito, sin teclear.
+    if (term.closest(".evo__step")) return showRun();
 
     // Se escribe solo la primera vez que entra en pantalla
     if (!("IntersectionObserver" in window)) return showRun();
