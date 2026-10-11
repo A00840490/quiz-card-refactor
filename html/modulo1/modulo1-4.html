@@ -207,60 +207,65 @@
 
                         <div class="card">
                             <div class="card-block">
-                                <h1 class="mrg-btm-20 card-title"><span
-                                        class="badge badge-light">Tema 3</span> Preparación del
-                                    Ambiente de Trabajo</h1>
+                                <!-- Texto a la izquierda (30%) y tarjeta a la derecha (70%); en pantallas angostas, uno debajo del otro -->
+                                <div class="evo-split">
+                                    <div class="evo-split__text">
+                                        <h1 class="mrg-btm-20 card-title"><span
+                                                class="badge badge-light">Tema 3</span> Preparación del
+                                            Ambiente de Trabajo</h1>
 
-                                <p>El primer paso para comenzar nuestro camino de programación web
-                                    es preparando nuestro ambiente de trabajo. Para esto
-                                    necesitaremos sólo dos cosas: un <b>navegador</b> y un <b>editor
-                                        de texto</b>. El navegador nos servirá para poder visualizar
-                                    nuestro progreso en tiempo real, y el editor nos servirá para
-                                    poder editar nuestro código de manera rápida y eficiente.</p>
-                                <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
-                                     en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
-                                <div class="evo" data-evo="herramientas" data-kind="q">
-                                    <span class="evo__mark" aria-hidden="true">?</span>
-                                    <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
-                                    <div class="evo__grid">
-                                        <div class="evo__text">
-                                            <div class="evo__step is-on" data-k="q">
-                                                <h4>Una página web es puro texto. ¿Dónde lo escribirías?</h4>
-                                                <div class="evo__opts">
-                                                    <button class="evo__opt" type="button" data-pick="word"><i>W</i>En Word</button>
-                                                    <button class="evo__opt" type="button" data-pick="code"><i>&lt;/&gt;</i>En un editor de código</button>
-                                                    <button class="evo__opt" type="button" data-pick="web"><i>◎</i>En el navegador</button>
+                                        <p>El primer paso para comenzar nuestro camino de programación web
+                                            es preparando nuestro ambiente de trabajo. Para esto
+                                            necesitaremos sólo dos cosas: un <b>navegador</b> y un <b>editor
+                                                de texto</b>. El navegador nos servirá para poder visualizar
+                                            nuestro progreso en tiempo real, y el editor nos servirá para
+                                            poder editar nuestro código de manera rápida y eficiente.</p>
+                                    </div>
+                                    <!-- Tarjeta evolutiva: cada sección empieza como pregunta y se transforma
+                                         en la explicación (assets/css/evo-card.css y assets/js/evo-card.js) -->
+                                    <div class="evo" data-evo="herramientas" data-kind="q">
+                                        <span class="evo__mark" aria-hidden="true">?</span>
+                                        <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
+                                        <div class="evo__grid">
+                                            <div class="evo__text">
+                                                <div class="evo__step is-on" data-k="q">
+                                                    <h4>Una página web es puro texto. ¿Dónde lo escribirías?</h4>
+                                                    <div class="evo__opts">
+                                                        <button class="evo__opt" type="button" data-pick="word"><i>W</i>En Word</button>
+                                                        <button class="evo__opt" type="button" data-pick="code"><i>&lt;/&gt;</i>En un editor de código</button>
+                                                        <button class="evo__opt" type="button" data-pick="web"><i>◎</i>En el navegador</button>
+                                                    </div>
+                                                </div>
+                                                <div class="evo__step" data-k="a">
+                                                    <span class="evo__fb" data-fb hidden></span>
+                                                    <h4>Se escribe en un editor de código</h4>
+                                                    <p>El editor de texto que utilizaremos es <a href="https://code.visualstudio.com/download"
+                                                            target="_blank">Visual Studio Code</a>, de los más populares en la industria. Nos permite
+                                                        crear archivos de todo tipo; en este curso nos enfocaremos en archivos con extensión .html,
+                                                        .css y .js, y nos brinda muchas herramientas y atajos para escribir código eficientemente.</p>
+                                                    <p class="evo__note">Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en la
+                                                        liga para ir a la página de descarga e instálalo según el sistema operativo de tu
+                                                        computadora.</p>
+                                                </div>
+                                                <div class="evo__step" data-k="q">
+                                                    <h4>Ya escribiste tu página. ¿Dónde la ves como página y no como código?</h4>
+                                                    <p>Tu archivo <b>index.html</b> ya existe. Falta abrirlo.</p>
+                                                    <div class="evo__acts"><button class="evo__btn" type="button" data-go>Ábrelo</button></div>
+                                                </div>
+                                                <div class="evo__step" data-k="a">
+                                                    <h4>Se ve en el navegador</h4>
+                                                    <p>El navegador lee el código y lo dibuja como página, así vemos nuestro progreso en tiempo real.
+                                                        Te recomendamos utilizar alguno moderno como <a
+                                                            href="https://www.google.com.mx/intl/es/chrome/" target="_blank">Chrome</a>, <a
+                                                            href="https://www.mozilla.org/es-MX/firefox/new/" target="_blank">Firefox</a> o <a
+                                                            href="https://www.microsoft.com/es-es/edge/download?form=MA13FJ" target="_blank">Edge</a>,
+                                                        que viene junto con Windows. Si cuentas con MacOS, puedes utilizar Safari.</p>
+                                                    <p class="evo__note">Internet Explorer no se considera un navegador moderno: perdió su soporte y
+                                                        muchas funcionalidades modernas tienden a fallar.</p>
                                                 </div>
                                             </div>
-                                            <div class="evo__step" data-k="a">
-                                                <span class="evo__fb" data-fb hidden></span>
-                                                <h4>Se escribe en un editor de código</h4>
-                                                <p>El editor de texto que utilizaremos es <a href="https://code.visualstudio.com/download"
-                                                        target="_blank">Visual Studio Code</a>, de los más populares en la industria. Nos permite
-                                                    crear archivos de todo tipo; en este curso nos enfocaremos en archivos con extensión .html,
-                                                    .css y .js, y nos brinda muchas herramientas y atajos para escribir código eficientemente.</p>
-                                                <p class="evo__note">Haz clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en la
-                                                    liga para ir a la página de descarga e instálalo según el sistema operativo de tu
-                                                    computadora.</p>
-                                            </div>
-                                            <div class="evo__step" data-k="q">
-                                                <h4>Ya escribiste tu página. ¿Dónde la ves como página y no como código?</h4>
-                                                <p>Tu archivo <b>index.html</b> ya existe. Falta abrirlo.</p>
-                                                <div class="evo__acts"><button class="evo__btn" type="button" data-go>Ábrelo</button></div>
-                                            </div>
-                                            <div class="evo__step" data-k="a">
-                                                <h4>Se ve en el navegador</h4>
-                                                <p>El navegador lee el código y lo dibuja como página, así vemos nuestro progreso en tiempo real.
-                                                    Te recomendamos utilizar alguno moderno como <a
-                                                        href="https://www.google.com.mx/intl/es/chrome/" target="_blank">Chrome</a>, <a
-                                                        href="https://www.mozilla.org/es-MX/firefox/new/" target="_blank">Firefox</a> o <a
-                                                        href="https://www.microsoft.com/es-es/edge/download?form=MA13FJ" target="_blank">Edge</a>,
-                                                    que viene junto con Windows. Si cuentas con MacOS, puedes utilizar Safari.</p>
-                                                <p class="evo__note">Internet Explorer no se considera un navegador moderno: perdió su soporte y
-                                                    muchas funcionalidades modernas tienden a fallar.</p>
-                                            </div>
+                                            <div class="evo__scene" aria-hidden="true"></div>
                                         </div>
-                                        <div class="evo__scene" aria-hidden="true"></div>
                                     </div>
                                 </div>
                             </div>
