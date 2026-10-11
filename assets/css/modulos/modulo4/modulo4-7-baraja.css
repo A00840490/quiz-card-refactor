@@ -147,7 +147,6 @@
   line-height: 1.3;
   text-align: center;
   cursor: pointer;
-  perspective: 1100px;
   transform-origin: 50% 100%;
   transform: translateY(var(--ty)) translateY(var(--R)) rotate(var(--a)) translateY(calc(var(--R) * -1 + var(--hy))) scale(var(--s));
   transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease;
@@ -195,16 +194,20 @@
   transition-delay: 0s;
 }
 
-/* Volteo */
+/* Volteo, como el carrusel del 3-17: el frente y el reverso existen al mismo
+   tiempo, uno de cada lado de la carta y separados por 2px. Al girar, el
+   navegador dibuja adelante el que queda más cerca, así el contenido cambia
+   justo cuando la carta queda de canto, sin ocultar nada a destiempo. */
 .baraja__in {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.3, 0.7, 0.2, 1) 0.12s;
+  transform: perspective(1100px) rotateY(0deg);
+  transition: transform 0.7s cubic-bezier(0.45, 0.05, 0.3, 1) 0.12s;
 }
 
 .baraja__card.is-open .baraja__in {
-  transform: rotateY(180deg);
+  transform: perspective(1100px) rotateY(180deg);
 }
 
 .baraja__face {
@@ -215,25 +218,10 @@
   background-color: var(--paper);
   color: var(--ink);
   box-shadow: 0 0 0 1px rgba(6, 43, 102, 0.12), 0 6px 14px rgba(6, 43, 102, 0.14);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 
-/* Cada cara se oculta a la mitad del giro (0.12s de espera + 0.35s), así el
-   frente nunca se transparenta en el reverso aunque el navegador ignore
-   backface-visibility. */
-.baraja__front,
-.baraja__back {
-  transition: visibility 0s linear 0.47s;
-}
-
-.baraja__back,
-.baraja__card.is-open .baraja__front {
-  visibility: hidden;
-}
-
-.baraja__card.is-open .baraja__back {
-  visibility: visible;
+.baraja__front {
+  transform: translateZ(1px);
 }
 
 /* Frente: esquinas, marco y el operador en grande */
@@ -312,7 +300,7 @@
 
 /* Reverso: trama de rombos y una ficha con los datos */
 .baraja__back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(1px);
   background-image:
     repeating-linear-gradient(45deg, rgba(6, 43, 102, 0.1) 0 1px, transparent 1px 0.6em),
     repeating-linear-gradient(-45deg, rgba(6, 43, 102, 0.1) 0 1px, transparent 1px 0.6em);
