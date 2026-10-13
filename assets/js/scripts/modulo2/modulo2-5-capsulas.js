@@ -7,8 +7,8 @@
      rebotan contra la cúpula. Luego una al azar sale por abajo; también se
      puede tocar una cápsula para sacar esa. La cápsula rueda, se abre y se
      desenrolla una ficha tipo Pokédex: la etiqueta en neón flotando sobre una
-     cuadrícula que se mueve, a un lado su descripción y debajo el ejemplo de
-     código con su resultado.
+     cuadrícula con ojo de pez que se mueve en una diagonal al azar, a un lado
+     su descripción y debajo el ejemplo de código con su resultado.
    - Cuando se acaban, la perilla vuelve a llenar la máquina.
    - Empieza con la cápsula de <li data-start> ya abierta. */
 (function () {
@@ -235,6 +235,76 @@
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(", ");
   }
 
+  // ---------- Cuadrícula con ojo de pez ----------
+  // Las líneas viven en un plano "real" y cada punto se lleva a la pantalla
+  // con s = p / √(1 + K·|p|²): el centro se ve grande y las orillas se
+  // comprimen, así las líneas se abomban como en un lente de ojo de pez.
+  var K = 0.42; // qué tan abombado
+  var GAP = 0.3; // separación entre líneas en el plano real
+  var REACH = 3.3; // hasta dónde se dibujan las líneas (cubre las esquinas)
+  var SPEED = 0.12; // plano real por segundo
+  var gridRaf = 0;
+
+  function fisheye(x, y) {
+    var f = 1 / Math.sqrt(1 + K * (x * x + y * y));
+    return [x * f, y * f];
+  }
+
+  function startGrid(canvas, color) {
+    cancelAnimationFrame(gridRaf);
+    var ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    var dpr = window.devicePixelRatio || 1;
+    var size = canvas.clientWidth || 120;
+    canvas.width = Math.round(size * dpr);
+    canvas.height = Math.round(size * dpr);
+    var half = canvas.width / 2;
+    var scale = half / 0.86; // la orilla del cuadro queda cerca del límite del lente
+    // Una de las cuatro diagonales al azar.
+    var dx = Math.random() < 0.5 ? -1 : 1;
+    var dy = Math.random() < 0.5 ? -1 : 1;
+    var stroke = ctx.createRadialGradient(half, half, 0, half, half, half * 1.45);
+    stroke.addColorStop(0, "rgba(" + color + ", 0.75)");
+    stroke.addColorStop(1, "rgba(" + color + ", 0.1)");
+    var t0 = null;
+
+    function line(points) {
+      ctx.beginPath();
+      points.forEach(function (p, k) {
+        var s = fisheye(p[0], p[1]);
+        var X = half + s[0] * scale;
+        var Y = half + s[1] * scale;
+        if (k) ctx.lineTo(X, Y);
+        else ctx.moveTo(X, Y);
+      });
+      ctx.stroke();
+    }
+
+    function draw(t) {
+      if (!canvas.isConnected) return;
+      if (t0 === null) t0 = t;
+      var shift = (((t - t0) / 1000) * SPEED) % GAP;
+      var ox = dx * shift;
+      var oy = dy * shift;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = Math.max(1, dpr);
+      for (var a = -REACH; a <= REACH + 0.001; a += GAP) {
+        var v = [], h = [];
+        for (var b = -REACH; b <= REACH + 0.001; b += REACH / 24) {
+          v.push([a + ox, b]);
+          h.push([b, a + oy]);
+        }
+        line(v);
+        line(h);
+      }
+      if (!reduce) gridRaf = requestAnimationFrame(draw);
+    }
+
+    if (reduce) draw(0);
+    else gridRaf = requestAnimationFrame(draw);
+  }
+
   function showPrize(i, animate) {
     var item = items[i];
     prize.style.setProperty("--c", item.color);
@@ -247,7 +317,7 @@
       "</div>" +
       '<div class="capsulas__dex-screen">' +
       '<div class="capsulas__dex-entry">' +
-      '<div class="capsulas__dex-sprite"><span class="capsulas__dex-tag" style="--chars: ' + (item.tag.length + 2) + '">&lt;' + item.tag + "&gt;</span></div>" +
+      '<div class="capsulas__dex-sprite"><canvas class="capsulas__dex-grid" aria-hidden="true"></canvas><span class="capsulas__dex-tag" style="--chars: ' + (item.tag.length + 2) + '">&lt;' + item.tag + "&gt;</span></div>" +
       '<p class="capsulas__dex-desc">' + item.desc + "</p>" +
       "</div>" +
       (item.example
@@ -258,6 +328,7 @@
       "</div>" +
       "</div>" +
       '<span class="capsulas__roll" aria-hidden="true"></span>';
+    startGrid(slip.querySelector(".capsulas__dex-grid"), rgb(item.color));
     prize.classList.remove("is-open", "is-rolling");
     if (!animate || reduce) {
       prize.classList.add("is-open");
