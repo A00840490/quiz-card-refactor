@@ -19,17 +19,26 @@
   perspective: 1500px;
 }
 
-/* Variante para 8 tarjetas: más ancha y con tarjetas más juntas. */
+/* Variante para 8 tarjetas (modulo2-11): ocupa todo el ancho de la columna.
+   El paso entre tarjetas se calcula con el ancho del contenedor (cqw) para que
+   la pila se reparta sin dejar tanto espacio vacío a los lados, y --edge la
+   centra: la tarjeta del frente queda a 3.5 pasos a la derecha del centro. */
 .size-stack--wide {
-  --card-w: 200px;
-  --card-h: 290px;
-  --step: 78px;
+  --card-w: 220px;
+  --card-h: 300px;
   --depth: 9px;
-  --edge: 130px;
   --name-size: 20px;
   --desc-size: 14px;
-  width: min(820px, 100%);
-  height: 400px;
+  container-type: inline-size;
+  width: 100%;
+  height: 410px;
+}
+
+/* Doble clase para ganarle a los --step y --edge fijos de .size-stack
+   dentro de los @media de abajo. */
+.size-stack.size-stack--wide {
+  --step: clamp(20px, calc((100cqw - var(--card-w) - 24px) / 7), 128px);
+  --edge: calc(50cqw - var(--step) * 3.5);
 }
 
 .size-stack__card {
@@ -140,10 +149,8 @@
   .size-stack--wide {
     --card-w: 150px;
     --card-h: 230px;
-    --step: 44px;
     --depth: 7px;
     --lift: 110px;
-    --edge: 84px;
     --name-size: 16px;
     --desc-size: 12px;
     height: 320px;
@@ -168,10 +175,8 @@
   .size-stack--wide {
     --card-w: 136px;
     --card-h: 210px;
-    --step: 26px;
     --depth: 6px;
     --lift: 100px;
-    --edge: 70px;
     --name-size: 15px;
     height: 290px;
   }
