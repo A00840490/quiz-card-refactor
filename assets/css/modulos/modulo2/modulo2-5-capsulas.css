@@ -2,25 +2,25 @@
    Cada etiqueta es una cápsula dentro del domo. Al girar la perilla (o tocar
    una cápsula) cae una, rueda, se abre y se desenrolla una ficha tipo
    Pokédex: la etiqueta en neón flotando sobre una cuadrícula que se mueve,
-   a su lado lo que hace y debajo un ejemplo de código con su resultado. */
+   a su lado lo que hace y debajo un ejemplo de código con su resultado.
+   Donde no caben la máquina y la ficha lado a lado (el JS pone .is-compact),
+   solo se ve la máquina y la ficha sale centrada en una ventana encima de la
+   página; se cierra al tocar fuera de ella. */
 
 .capsulas {
   --paper: #fffdf7;
   --mono: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
   display: grid;
   grid-template-columns: 290px minmax(0, 1fr);
-  gap: 32px;
+  gap: 40px;
   align-items: center;
-  max-width: 860px;
+  max-width: 1080px;
   margin: 28px auto 28px;
 }
 
-@media (max-width: 767px) {
-  .capsulas {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 22px;
-  }
+.capsulas.is-compact {
+  grid-template-columns: 1fr;
+  justify-items: center;
 }
 
 /* Lista original: se ve solo si el JavaScript no corre */
@@ -296,13 +296,55 @@
   }
 }
 
+/* ---------- Ventana para pantallas angostas ----------
+   La ficha y su cápsula quedan centradas sobre un fondo oscuro. Si la ficha
+   no cabe a lo alto, el fondo se desplaza. */
+.capsulas.is-compact .capsulas__prize {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  min-height: 0;
+  padding: 24px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(4, 16, 40, 0.62);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.capsulas.is-compact.has-modal .capsulas__prize {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.25s ease;
+}
+
+.capsulas.is-compact .capsulas__shell {
+  flex: none;
+  margin-top: auto;
+}
+
+.capsulas.is-compact .capsulas__slip {
+  flex: none;
+  max-width: 460px;
+  margin-bottom: auto;
+}
+
+.capsulas__prize:focus {
+  outline: none;
+}
+
 /* ---------- Ficha tipo Pokédex ----------
    Carcasa azul con luces arriba y una pantalla. Se desenrolla de arriba
    hacia abajo con un rodillo que baja por el borde. */
 .capsulas__slip {
   position: relative;
   width: 100%;
-  max-width: 440px;
+  max-width: 640px;
 }
 
 .capsulas__prize:not(.is-open) .capsulas__slip {

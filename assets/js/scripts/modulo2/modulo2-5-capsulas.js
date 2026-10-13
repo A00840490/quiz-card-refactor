@@ -9,6 +9,9 @@
      desenrolla una ficha tipo Pokédex: la etiqueta en neón flotando sobre una
      cuadrícula con ojo de pez invertido que se mueve en una diagonal al azar, a un lado
      su descripción y debajo el ejemplo de código con su resultado.
+   - Donde no caben la máquina y la ficha lado a lado, solo se ve la máquina
+     y la ficha sale centrada en una ventana encima de la página. Tocar fuera
+     de la ficha (o Esc) la cierra.
    - Cuando se acaban, la perilla vuelve a llenar la máquina.
    - Empieza con la cápsula de <li data-start> ya abierta. */
 (function () {
@@ -343,6 +346,65 @@
     }, 760);
   }
 
+  // ---------- Ventana en pantallas angostas ----------
+  var COMPACT_AT = 820; // ancho mínimo para máquina (290) + espacio + ficha
+  var compact = false;
+  var modalOpen = false;
+  var bodyOverflow = "";
+  prize.setAttribute("tabindex", "-1");
+
+  function layout() {
+    var w = (root.parentElement || root).clientWidth;
+    var c = w < COMPACT_AT;
+    if (c === compact) return;
+    if (!c) closeModal();
+    compact = c;
+    root.classList.toggle("is-compact", c);
+    if (c) {
+      prize.setAttribute("role", "dialog");
+      prize.setAttribute("aria-modal", "true");
+      prize.removeAttribute("aria-live");
+    } else {
+      prize.removeAttribute("role");
+      prize.removeAttribute("aria-modal");
+      prize.setAttribute("aria-live", "polite");
+    }
+  }
+
+  function openModal() {
+    if (!compact) return;
+    modalOpen = true;
+    root.classList.add("has-modal");
+    bodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    prize.scrollTop = 0;
+    prize.focus({ preventScroll: true });
+  }
+
+  function closeModal() {
+    if (!modalOpen) return;
+    modalOpen = false;
+    root.classList.remove("has-modal");
+    document.body.style.overflow = bodyOverflow;
+    if (prize.contains(document.activeElement)) knob.focus({ preventScroll: true });
+  }
+
+  // Cualquier toque fuera de la ficha la cierra (el fondo, la cápsula abierta…).
+  prize.addEventListener("click", function (e) {
+    if (modalOpen && !e.target.closest(".capsulas__dex")) closeModal();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (modalOpen && e.key === "Escape") closeModal();
+  });
+
+  layout();
+  if (typeof ResizeObserver !== "undefined") {
+    new ResizeObserver(layout).observe(root.parentElement || root);
+  } else {
+    window.addEventListener("resize", layout);
+  }
+
   // Revuelve, deja caer la cápsula i por el fondo y la abre.
   function pick(i) {
     if (busy || caps[i].classList.contains("is-gone")) return;
@@ -352,6 +414,7 @@
       setGone(caps[i], true);
       updateKnob();
       showPrize(i, false);
+      openModal();
       busy = false;
       return;
     }
@@ -367,6 +430,7 @@
         b.falling = false;
         updateKnob();
         showPrize(i, true);
+        openModal();
         setTimeout(function () {
           busy = false;
         }, 900);
