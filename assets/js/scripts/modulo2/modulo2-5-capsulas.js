@@ -240,7 +240,8 @@
   // con s = p · (1 + K·|p|²): el centro se ve chico y las orillas se estiran,
   // así las líneas se curvan hacia adentro (ojo de pez invertido).
   var K = 0.55; // qué tan curvado
-  var EDGE = 1.35; // valor de s en la orilla del cuadro
+  var EDGE = 0.88; // valor de s en la orilla del cuadro: acercado para que solo
+  // se vea la parte de en medio del efecto, sin las orillas tan deformadas
   var GAP = 0.22; // separación entre líneas en el plano real
   var REACH = 1.8; // hasta dónde se dibujan las líneas (cubre las esquinas)
   var SPEED = 0.09; // plano real por segundo
