@@ -442,7 +442,7 @@
 }
 
 /* Cuadro con la cuadrícula y la etiqueta en neón. La cuadrícula la dibuja el
-   JS en un canvas, abombada como vista con ojo de pez, y se mueve en una de
+   JS en un canvas, curvada como ojo de pez invertido, y se mueve en una de
    las cuatro diagonales al azar. */
 .capsulas__dex-sprite {
   position: relative;
@@ -463,14 +463,14 @@
   height: 100%;
 }
 
-/* Brillo al centro, orilla oscura como de lente y líneas de pantalla */
+/* Brillo al centro, orilla un poco oscura y líneas de pantalla */
 .capsulas__dex-sprite::after {
   content: "";
   position: absolute;
   inset: 0;
   background:
     radial-gradient(circle at 50% 50%, rgba(var(--c-rgb), 0.22), transparent 55%),
-    radial-gradient(circle at 50% 50%, transparent 55%, rgba(4, 10, 28, 0.55) 100%),
+    radial-gradient(circle at 50% 50%, transparent 60%, rgba(4, 10, 28, 0.35) 100%),
     repeating-linear-gradient(transparent 0 2px, rgba(255, 255, 255, 0.04) 2px 3px);
   pointer-events: none;
 }
@@ -517,11 +517,12 @@
   line-height: 1.45;
 }
 
-/* Ejemplo: mini editor y vista previa, como en los ejemplos del curso */
+/* Ejemplo: mini editor y vista previa, como en los ejemplos del curso. Va de
+   orilla a orilla de la pantalla (cancela su padding de los lados). */
 .capsulas__demo {
+  margin: 0 -12px;
   overflow: hidden;
-  border: 1px solid #c8d3e3;
-  border-radius: 8px;
+  border-block: 1px solid #c8d3e3;
 }
 
 .capsulas__src {
@@ -549,7 +550,11 @@
   }
 
   .capsulas__dex-screen {
-    padding: 10px;
+    padding: 18px 10px 10px;
+  }
+
+  .capsulas__demo {
+    margin: 0 -10px;
   }
 
   .capsulas__dex-entry {

@@ -7,7 +7,7 @@
      rebotan contra la cúpula. Luego una al azar sale por abajo; también se
      puede tocar una cápsula para sacar esa. La cápsula rueda, se abre y se
      desenrolla una ficha tipo Pokédex: la etiqueta en neón flotando sobre una
-     cuadrícula con ojo de pez que se mueve en una diagonal al azar, a un lado
+     cuadrícula con ojo de pez invertido que se mueve en una diagonal al azar, a un lado
      su descripción y debajo el ejemplo de código con su resultado.
    - Cuando se acaban, la perilla vuelve a llenar la máquina.
    - Empieza con la cápsula de <li data-start> ya abierta. */
@@ -235,18 +235,19 @@
     return [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(", ");
   }
 
-  // ---------- Cuadrícula con ojo de pez ----------
+  // ---------- Cuadrícula con ojo de pez invertido ----------
   // Las líneas viven en un plano "real" y cada punto se lleva a la pantalla
-  // con s = p / √(1 + K·|p|²): el centro se ve grande y las orillas se
-  // comprimen, así las líneas se abomban como en un lente de ojo de pez.
-  var K = 0.42; // qué tan abombado
-  var GAP = 0.3; // separación entre líneas en el plano real
-  var REACH = 3.3; // hasta dónde se dibujan las líneas (cubre las esquinas)
-  var SPEED = 0.12; // plano real por segundo
+  // con s = p · (1 + K·|p|²): el centro se ve chico y las orillas se estiran,
+  // así las líneas se curvan hacia adentro (ojo de pez invertido).
+  var K = 0.55; // qué tan curvado
+  var EDGE = 1.35; // valor de s en la orilla del cuadro
+  var GAP = 0.22; // separación entre líneas en el plano real
+  var REACH = 1.8; // hasta dónde se dibujan las líneas (cubre las esquinas)
+  var SPEED = 0.09; // plano real por segundo
   var gridRaf = 0;
 
   function fisheye(x, y) {
-    var f = 1 / Math.sqrt(1 + K * (x * x + y * y));
+    var f = 1 + K * (x * x + y * y);
     return [x * f, y * f];
   }
 
@@ -259,13 +260,13 @@
     canvas.width = Math.round(size * dpr);
     canvas.height = Math.round(size * dpr);
     var half = canvas.width / 2;
-    var scale = half / 0.86; // la orilla del cuadro queda cerca del límite del lente
+    var scale = half / EDGE;
     // Una de las cuatro diagonales al azar.
     var dx = Math.random() < 0.5 ? -1 : 1;
     var dy = Math.random() < 0.5 ? -1 : 1;
     var stroke = ctx.createRadialGradient(half, half, 0, half, half, half * 1.45);
-    stroke.addColorStop(0, "rgba(" + color + ", 0.75)");
-    stroke.addColorStop(1, "rgba(" + color + ", 0.1)");
+    stroke.addColorStop(0, "rgba(" + color + ", 0.6)");
+    stroke.addColorStop(1, "rgba(" + color + ", 0.3)");
     var t0 = null;
 
     function line(points) {
