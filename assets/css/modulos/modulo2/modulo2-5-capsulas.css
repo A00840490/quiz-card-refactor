@@ -1,7 +1,8 @@
 /* Módulo 2-5: las etiquetas para formatear texto como una máquina de cápsulas.
    Cada etiqueta es una cápsula dentro del domo. Al girar la perilla (o tocar
-   una cápsula) cae una, rueda, se abre y saca un papelito con lo que hace la
-   etiqueta y un ejemplo de código con su resultado. */
+   una cápsula) cae una, rueda, se abre y se desenrolla una ficha tipo
+   Pokédex: la etiqueta en neón flotando sobre una cuadrícula que se mueve,
+   a su lado lo que hace y debajo un ejemplo de código con su resultado. */
 
 .capsulas {
   --paper: #fffdf7;
@@ -166,13 +167,6 @@
   background: rgba(255, 255, 255, 0.16);
 }
 
-.capsulas__count {
-  margin: 12px 0 0;
-  color: #5b6577;
-  font-size: 14px;
-  text-align: center;
-}
-
 /* ---------- Cápsulas dentro del domo ---------- */
 .capsulas__cap {
   position: absolute;
@@ -203,7 +197,8 @@
   box-shadow: 0 0 0 3px #fac775;
 }
 
-/* Etiqueta pegada en la cápsula; se queda derecha aunque la cápsula gire */
+/* Etiqueta pegada en la cápsula: gira con ella, siempre sobre la línea donde
+   se juntan las dos mitades */
 .capsulas__sticker {
   position: absolute;
   left: 50%;
@@ -215,7 +210,7 @@
   color: var(--theme-color);
   font: 700 11px/1 var(--mono);
   white-space: nowrap;
-  transform: translate(-50%, -50%) rotate(calc(var(--r) * -1));
+  transform: translate(-50%, -50%);
 }
 
 /* Etiquetas largas (<strong>) con letra más chica para que quepan */
@@ -300,61 +295,228 @@
   }
 }
 
+/* ---------- Ficha tipo Pokédex ----------
+   Carcasa azul con luces arriba y una pantalla. Se desenrolla de arriba
+   hacia abajo con un rodillo que baja por el borde. */
 .capsulas__slip {
-  display: grid;
-  gap: 10px;
+  position: relative;
   width: 100%;
-  max-width: 360px;
-  padding: 16px 18px;
-  border-radius: 6px;
-  background-color: var(--paper);
-  background-image: repeating-linear-gradient(transparent 0 23px, rgba(59, 111, 182, 0.12) 23px 24px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 10px 22px rgba(6, 43, 102, 0.1);
-  transform-origin: 50% 0;
-  rotate: -1.5deg;
+  max-width: 440px;
 }
 
 .capsulas__prize:not(.is-open) .capsulas__slip {
-  opacity: 0;
+  visibility: hidden;
 }
 
-.capsulas__prize.is-open .capsulas__slip {
-  animation: capsulas-unfold 0.55s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+.capsulas__dex {
+  --sprite: 120px;
+  padding: 12px 14px 16px;
+  border-radius: 18px 18px 18px 40px;
+  background: linear-gradient(#0f4ea8, var(--theme-color) 55%, #072f70);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.18), 0 12px 24px rgba(6, 43, 102, 0.22);
 }
 
-@keyframes capsulas-unfold {
-  from { opacity: 0; transform: scaleY(0.1) translateY(-20px); }
-  to { opacity: 1; transform: none; }
+.capsulas__prize.is-open .capsulas__dex {
+  animation: capsulas-unroll 0.9s cubic-bezier(0.3, 0.7, 0.2, 1) backwards;
 }
 
-.capsulas__kicker {
-  color: #5b6577;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+@keyframes capsulas-unroll {
+  from { clip-path: inset(0 0 100% 0 round 18px); }
+  to { clip-path: inset(0 0 0 0 round 18px 18px 18px 40px); }
 }
 
-.capsulas__tag {
-  justify-self: start;
-  padding: 4px 12px;
+/* Rodillo: baja junto con el borde que se va desenrollando y desaparece */
+.capsulas__roll {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: 0;
+  height: 16px;
+  margin-top: -8px;
   border-radius: 8px;
-  background: #1a1a1a;
-  font-size: 22px;
-  font-weight: 700;
+  background: linear-gradient(#041e48, #3a78d0 35%, #8fb4ea 50%, #1b5bb8 65%, #041e48);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.capsulas__desc {
+.capsulas__prize.is-open .capsulas__roll {
+  animation: capsulas-roller 0.9s cubic-bezier(0.3, 0.7, 0.2, 1) backwards;
+}
+
+@keyframes capsulas-roller {
+  0% { top: 0; opacity: 1; }
+  85% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Luces de arriba: el lente grande y tres foquitos */
+.capsulas__dex-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.capsulas__dex-lens {
+  width: 30px;
+  height: 30px;
+  margin-right: 6px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0 12%, #8fd3ff 22%, #2b8fe0 60%, #0d4f9e);
+  box-shadow: 0 0 10px rgba(143, 211, 255, 0.8);
+}
+
+.capsulas__dex-led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f4675a;
+  box-shadow: inset 0 -2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.capsulas__dex-led:nth-child(3) {
+  background: #fac775;
+}
+
+.capsulas__dex-led:nth-child(4) {
+  background: #6fd08c;
+}
+
+/* Pantalla: marco claro con la esquina de abajo a la izquierda cortada, dos
+   puntos rojos arriba y, abajo, un botón rojo y la bocina */
+.capsulas__dex-screen {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 20px 12px 10px;
+  border-radius: 10px 10px 10px 0;
+  background: #e8edf5;
+  box-shadow: inset 0 2px 6px rgba(6, 43, 102, 0.25);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+}
+
+.capsulas__dex-screen::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  margin-left: -11px;
+  border-radius: 50%;
+  background: #e0443a;
+  box-shadow: 16px 0 0 #e0443a;
+}
+
+.capsulas__dex-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 26px;
+}
+
+.capsulas__dex-btn {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff8a7f, #e0443a 60%, #a3271f);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Bocina: cuatro rayitas */
+.capsulas__dex-speaker {
+  width: 30px;
+  height: 14px;
+  background: repeating-linear-gradient(#5b6577 0 2px, transparent 2px 4px);
+  border-radius: 1px;
+}
+
+.capsulas__dex-entry {
+  display: grid;
+  grid-template-columns: var(--sprite) minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+}
+
+/* Cuadro con la cuadrícula que se mueve y la etiqueta en neón */
+.capsulas__dex-sprite {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--sprite);
+  height: var(--sprite);
+  overflow: hidden;
+  border: 2px solid #0a1a3a;
+  border-radius: 8px;
+  background-color: #0a1430;
+  background-image:
+    linear-gradient(rgba(var(--c-rgb), 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--c-rgb), 0.35) 1px, transparent 1px);
+  background-size: 15px 15px;
+  animation: capsulas-grid 2.4s linear infinite;
+}
+
+/* Brillo al centro y líneas de pantalla */
+.capsulas__dex-sprite::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(var(--c-rgb), 0.28), transparent 65%),
+    repeating-linear-gradient(transparent 0 2px, rgba(255, 255, 255, 0.04) 2px 3px);
+}
+
+@keyframes capsulas-grid {
+  to { background-position: 15px 15px; }
+}
+
+.capsulas__dex-tag {
+  position: relative;
+  color: #ffffff;
+  font: 700 min(32px, calc(var(--sprite) * 0.8 / (var(--chars, 3) * 0.6))) / 1 var(--mono);
+  white-space: nowrap;
+  text-shadow:
+    0 0 2px #ffffff,
+    0 0 5px var(--c),
+    0 0 10px var(--c),
+    0 0 20px var(--c),
+    0 0 36px var(--c),
+    0 0 60px var(--c);
+  animation: capsulas-float 3s ease-in-out infinite;
+}
+
+/* Al desenrollarse, el neón se prende parpadeando */
+.capsulas__prize.is-open .capsulas__dex-tag {
+  animation: capsulas-neon 0.7s 0.75s steps(1, end) both, capsulas-float 3s 1.45s ease-in-out infinite;
+}
+
+@keyframes capsulas-float {
+  0%, 100% { transform: translateY(3px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes capsulas-neon {
+  0% { opacity: 0; }
+  20% { opacity: 0.8; }
+  30% { opacity: 0.15; }
+  45% { opacity: 1; }
+  55% { opacity: 0.4; }
+  70%, 100% { opacity: 1; }
+}
+
+.capsulas__dex-desc {
   margin: 0;
-  color: #263040;
-  font-size: 15px;
+  color: #1c2434;
+  font-size: 16px;
   line-height: 1.45;
 }
 
-/* Mini editor y vista previa, como en los ejemplos del curso */
+/* Ejemplo: mini editor y vista previa, como en los ejemplos del curso */
 .capsulas__demo {
   overflow: hidden;
-  border: 1px solid #dce3ec;
+  border: 1px solid #c8d3e3;
   border-radius: 8px;
 }
 
@@ -376,6 +538,25 @@
   line-height: 1.5;
 }
 
+@media (max-width: 575px) {
+  .capsulas__dex {
+    --sprite: 96px;
+    padding: 10px 10px 14px;
+  }
+
+  .capsulas__dex-screen {
+    padding: 10px;
+  }
+
+  .capsulas__dex-entry {
+    gap: 10px;
+  }
+
+  .capsulas__dex-desc {
+    font-size: 14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .capsulas__cap,
   .capsulas__handle,
@@ -384,7 +565,11 @@
   }
 
   .capsulas__prize.is-rolling .capsulas__shell,
-  .capsulas__prize.is-open .capsulas__slip {
+  .capsulas__prize.is-open .capsulas__dex,
+  .capsulas__prize.is-open .capsulas__roll,
+  .capsulas__dex-sprite,
+  .capsulas__dex-tag,
+  .capsulas__prize.is-open .capsulas__dex-tag {
     animation: none;
   }
 }

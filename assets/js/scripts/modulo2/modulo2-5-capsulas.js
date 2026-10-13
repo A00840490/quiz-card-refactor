@@ -5,8 +5,10 @@
      que antes.
    - Al girar la perilla las cápsulas se revuelven: saltan, chocan entre sí y
      rebotan contra la cúpula. Luego una al azar sale por abajo; también se
-     puede tocar una cápsula para sacar esa. La cápsula rueda, se abre y saca un papelito con la
-     descripción y el ejemplo de código con su resultado.
+     puede tocar una cápsula para sacar esa. La cápsula rueda, se abre y se
+     desenrolla una ficha tipo Pokédex: la etiqueta en neón flotando sobre una
+     cuadrícula que se mueve, a un lado su descripción y debajo el ejemplo de
+     código con su resultado.
    - Cuando se acaban, la perilla vuelve a llenar la máquina.
    - Empieza con la cápsula de <li data-start> ya abierta. */
 (function () {
@@ -19,7 +21,6 @@
   var dome = root.querySelector(".capsulas__dome");
   var knob = root.querySelector(".capsulas__knob");
   var handle = root.querySelector(".capsulas__handle");
-  var count = root.querySelector(".capsulas__count");
   var prize = root.querySelector(".capsulas__prize");
   var slip = root.querySelector(".capsulas__slip");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -219,12 +220,8 @@
     c.disabled = gone;
   }
 
-  function updateCount() {
-    var n = left().length;
-    count.textContent = n
-      ? "Quedan " + n + (n === 1 ? " cápsula" : " cápsulas")
-      : "Ya no quedan. Gira la perilla para rellenar.";
-    knob.setAttribute("aria-label", n ? "Girar la perilla" : "Rellenar la máquina");
+  function updateKnob() {
+    knob.setAttribute("aria-label", left().length ? "Girar la perilla" : "Rellenar la máquina");
   }
 
   function spin() {
@@ -232,17 +229,35 @@
     handle.style.setProperty("--turn", turn + "deg");
   }
 
+  // "#fac775" → "250, 199, 117" para usarlo en rgba().
+  function rgb(hex) {
+    var n = parseInt(hex.slice(1), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255].join(", ");
+  }
+
   function showPrize(i, animate) {
     var item = items[i];
     prize.style.setProperty("--c", item.color);
+    prize.style.setProperty("--c-rgb", rgb(item.color));
     slip.innerHTML =
-      '<span class="capsulas__kicker">Te salió</span>' +
-      '<span class="capsulas__tag code">&lt;<span class="codetag">' + item.tag + "</span>&gt;</span>" +
-      '<p class="capsulas__desc">' + item.desc + "</p>" +
+      '<div class="capsulas__dex">' +
+      '<div class="capsulas__dex-top" aria-hidden="true">' +
+      '<span class="capsulas__dex-lens"></span><span class="capsulas__dex-led"></span>' +
+      '<span class="capsulas__dex-led"></span><span class="capsulas__dex-led"></span>' +
+      "</div>" +
+      '<div class="capsulas__dex-screen">' +
+      '<div class="capsulas__dex-entry">' +
+      '<div class="capsulas__dex-sprite"><span class="capsulas__dex-tag" style="--chars: ' + (item.tag.length + 2) + '">&lt;' + item.tag + "&gt;</span></div>" +
+      '<p class="capsulas__dex-desc">' + item.desc + "</p>" +
+      "</div>" +
       (item.example
         ? '<div class="capsulas__demo"><div class="capsulas__src code">' + codeHTML(item.example) + "</div>" +
           '<div class="capsulas__out">' + item.example + "</div></div>"
-        : "");
+        : "") +
+      '<div class="capsulas__dex-foot" aria-hidden="true"><span class="capsulas__dex-btn"></span><span class="capsulas__dex-speaker"></span></div>' +
+      "</div>" +
+      "</div>" +
+      '<span class="capsulas__roll" aria-hidden="true"></span>';
     prize.classList.remove("is-open", "is-rolling");
     if (!animate || reduce) {
       prize.classList.add("is-open");
@@ -262,7 +277,7 @@
     spin();
     if (reduce) {
       setGone(caps[i], true);
-      updateCount();
+      updateKnob();
       showPrize(i, false);
       busy = false;
       return;
@@ -277,7 +292,7 @@
       setTimeout(function () {
         setGone(caps[i], true);
         b.falling = false;
-        updateCount();
+        updateKnob();
         showPrize(i, true);
         setTimeout(function () {
           busy = false;
@@ -300,7 +315,7 @@
       render(b);
       setGone(b.el, false);
     });
-    updateCount();
+    updateKnob();
     if (reduce) {
       for (var s = 0; s < 480; s++) step(bodies, 1 / 240, 0.3, true);
       bodies.forEach(render);
@@ -329,5 +344,5 @@
   });
   setGone(caps[first], true);
   showPrize(first, false);
-  updateCount();
+  updateKnob();
 })();
