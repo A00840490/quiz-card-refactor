@@ -1,7 +1,7 @@
 /* Pila de tarjetas tipo libro, de derecha a izquierda.
    La primera tarjeta (--i: 0) queda al frente a la derecha y las siguientes
    se apilan detrás hacia la izquierda.
-   Se usa en modulo3-20 (propiedades de tamaño) y modulo2-11 (tipos de input). */
+   Se usa en modulo3-20 (propiedades de tamaño). */
 
 .size-stack {
   --card-w: 230px;
@@ -17,28 +17,6 @@
   height: 440px;
   margin: 2.5rem auto;
   perspective: 1500px;
-}
-
-/* Variante para 8 tarjetas (modulo2-11): ocupa todo el ancho de la columna.
-   El paso entre tarjetas se calcula con el ancho del contenedor (cqw) para que
-   la pila se reparta sin dejar tanto espacio vacío a los lados, y --edge la
-   centra: la tarjeta del frente queda a 3.5 pasos a la derecha del centro. */
-.size-stack--wide {
-  --card-w: 220px;
-  --card-h: 300px;
-  --depth: 9px;
-  --name-size: 20px;
-  --desc-size: 14px;
-  container-type: inline-size;
-  width: 100%;
-  height: 410px;
-}
-
-/* Doble clase para ganarle a los --step y --edge fijos de .size-stack
-   dentro de los @media de abajo. */
-.size-stack.size-stack--wide {
-  --step: clamp(20px, calc((100cqw - var(--card-w) - 24px) / 7), 128px);
-  --edge: calc(50cqw - var(--step) * 3.5);
 }
 
 .size-stack__card {
@@ -146,16 +124,6 @@
     height: 350px;
   }
 
-  .size-stack--wide {
-    --card-w: 150px;
-    --card-h: 230px;
-    --depth: 7px;
-    --lift: 110px;
-    --name-size: 16px;
-    --desc-size: 12px;
-    height: 320px;
-  }
-
   .size-stack__card {
     padding: 18px 16px;
   }
@@ -170,19 +138,6 @@
     --lift: 110px;
     --edge: 76px;
     height: 310px;
-  }
-
-  .size-stack--wide {
-    --card-w: 136px;
-    --card-h: 210px;
-    --depth: 6px;
-    --lift: 100px;
-    --name-size: 15px;
-    height: 290px;
-  }
-
-  .size-stack--wide .size-stack__card {
-    padding: 14px 12px;
   }
 }
 

@@ -1,0 +1,322 @@
+/* Módulo 2-11: los tipos de input como una navaja suiza.
+   El mango dice <input> y cada herramienta es un type. Al tocar la navaja
+   las ocho herramientas salen en abanico; la punta de cada una tiene la forma
+   del input que crea. Al elegir una, la ficha de papel de al lado muestra su
+   descripción y el input real para probarlo. Cada herramienta trae un punto
+   verde mientras no se ha revisado. Tocar el mango cierra la navaja, y al
+   revisar las ocho se cierra sola. */
+
+.navaja {
+  --navaja-blue: #093b8b;
+  --navaja-blue-2: #3b6fb6;
+  --navaja-ink: #1c2434;
+  --navaja-muted: #5b6577;
+  --navaja-mono: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 10px auto 30px;
+}
+
+/* Lista original: se ve solo si el JavaScript no corre */
+.navaja__data.is-built {
+  display: none;
+}
+
+/* ---------- Navaja ---------- */
+.navaja__knife {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  outline: none;
+}
+
+.navaja:not(.is-open) .navaja__knife {
+  cursor: pointer;
+  animation: navaja-wiggle 2.6s ease-in-out infinite;
+  transform-origin: 50% 80%;
+}
+
+.navaja__knife:focus-visible .navaja__handle {
+  stroke: #fac775;
+  stroke-width: 4;
+}
+
+@keyframes navaja-wiggle {
+  0%, 66%, 100% { transform: rotate(0); }
+  72% { transform: rotate(-2.5deg); }
+  78% { transform: rotate(2.5deg); }
+  84% { transform: rotate(-1.5deg); }
+  90% { transform: rotate(1deg); }
+}
+
+.navaja.is-open .navaja__body {
+  cursor: pointer;
+}
+
+/* Cada herramienta gira desde su remache. .navaja__up gira al revés para que
+   la punta se quede derecha mientras la herramienta da la vuelta. */
+.navaja__tool {
+  transform: rotate(var(--rest));
+  transition: transform 0.75s cubic-bezier(0.3, 1.45, 0.5, 1) var(--delay);
+  cursor: pointer;
+  outline: none;
+}
+
+.navaja__up {
+  transform: rotate(calc(var(--rest) * -1));
+  transition: transform 0.75s cubic-bezier(0.3, 1.45, 0.5, 1) var(--delay);
+}
+
+.navaja.is-open .navaja__tool {
+  transform: rotate(var(--open));
+}
+
+.navaja.is-open .navaja__up {
+  transform: rotate(calc(var(--open) * -1));
+}
+
+.navaja.is-open .navaja__tool.is-on {
+  transform: rotate(var(--open)) scale(1.08);
+  transition-delay: 0s;
+}
+
+.navaja.is-open .navaja__tool.is-on .navaja__up {
+  transition-delay: 0s;
+}
+
+.navaja:not(.is-open) .navaja__tool {
+  pointer-events: none;
+}
+
+.navaja__steel {
+  fill: url(#navaja-steel);
+  stroke: #8794a7;
+  stroke-width: 1.5;
+  transition: stroke 0.2s;
+}
+
+.navaja__tool:hover .navaja__steel,
+.navaja__tool:focus-visible .navaja__steel {
+  stroke: var(--navaja-blue-2);
+  stroke-width: 2.5;
+}
+
+.navaja__tool.is-on .navaja__steel {
+  stroke: var(--navaja-blue);
+  stroke-width: 3;
+}
+
+.navaja__tool.is-on {
+  filter: drop-shadow(0 0 7px rgba(59, 111, 182, 0.6));
+}
+
+.navaja__ico {
+  font: 700 15px var(--navaja-mono);
+  fill: #4a5a70;
+}
+
+.navaja__ico--at {
+  font-size: 24px;
+}
+
+.navaja__ico-f {
+  fill: #4a5a70;
+}
+
+.navaja__ico-s {
+  fill: none;
+  stroke: #4a5a70;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.navaja__tool.is-on .navaja__ico,
+.navaja__tool.is-on .navaja__ico-f {
+  fill: var(--navaja-blue);
+}
+
+.navaja__tool.is-on .navaja__ico-s {
+  stroke: var(--navaja-blue);
+}
+
+/* Punto verde: la herramienta todavía no se revisa */
+.navaja__todo {
+  fill: #3fb58f;
+  stroke: #ffffff;
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: navaja-todo 1.6s ease-in-out infinite;
+  transition: opacity 0.3s;
+}
+
+.navaja__tool.is-seen .navaja__todo {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes navaja-todo {
+  50% { transform: scale(1.25); }
+}
+
+/* ---------- Ficha de papel ---------- */
+.navaja__slip {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-height: 290px;
+  padding: 26px 22px 20px;
+  border-radius: 4px;
+  background-color: #fffdf7;
+  background-image: repeating-linear-gradient(transparent 0 31px, #e8ebf1 31px 32px);
+  box-shadow: 0 1px 0 #ece6d8, 0 16px 34px rgba(6, 43, 102, 0.14);
+  color: var(--navaja-ink);
+  transform: rotate(1.2deg);
+}
+
+.navaja__slip.is-new {
+  animation: navaja-slip 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+@keyframes navaja-slip {
+  from { transform: rotate(7deg) translateY(16px) scale(0.94); opacity: 0.2; }
+  to { transform: rotate(1.2deg); opacity: 1; }
+}
+
+.navaja__eye {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navaja-muted);
+}
+
+.navaja__code {
+  justify-self: start;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #1e2433;
+  color: #f39c6b;
+  font: 500 15px var(--navaja-mono);
+}
+
+.navaja__code .navaja__attr {
+  color: #8fb4f0;
+}
+
+.navaja__code .navaja__val {
+  color: #9fe0b8;
+}
+
+.navaja__desc {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.navaja__try {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  min-height: 58px;
+  padding: 12px;
+  border: 2px dashed #c9d2df;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--navaja-muted);
+  font-size: 13px;
+}
+
+.navaja__try > * {
+  animation: navaja-pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes navaja-pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.navaja__try input[type="text"],
+.navaja__try input[type="password"],
+.navaja__try input[type="email"],
+.navaja__try input[type="date"] {
+  max-width: 100%;
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid #b9c3d3;
+  border-radius: 4px;
+  background: #ffffff;
+  color: var(--navaja-ink);
+  font-size: 15px;
+}
+
+.navaja__try input[type="file"] {
+  max-width: 100%;
+  font-size: 13px;
+}
+
+.navaja__try input[type="submit"] {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 4px;
+  background: #1da1f2;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navaja__try label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--navaja-ink);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.navaja__try input[type="radio"],
+.navaja__try input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--navaja-blue);
+}
+
+.navaja__sent {
+  color: #2e8b57;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.navaja__left {
+  margin: 0;
+  font-size: 13px;
+  color: var(--navaja-muted);
+}
+
+@media (max-width: 820px) {
+  .navaja {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .navaja__slip {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navaja *,
+  .navaja__knife {
+    animation: none !important;
+    transition-duration: 1ms !important;
+  }
+}
