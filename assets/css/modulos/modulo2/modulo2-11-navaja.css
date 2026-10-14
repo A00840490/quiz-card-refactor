@@ -1,10 +1,11 @@
 /* Módulo 2-11: los tipos de input como una navaja suiza.
    El mango dice <input> y cada herramienta es un type. Al tocar la navaja
    las ocho herramientas salen en abanico; la punta de cada una tiene la forma
-   del input que crea. Al elegir una, la ficha de papel de al lado muestra su
-   descripción y, debajo, el código con el input real para probarlo. Cada
-   herramienta trae un punto verde mientras no se ha revisado. Tocar el mango
-   cierra la navaja. */
+   del input que crea. La navaja empieza centrada; al elegir una herramienta
+   se corre a la izquierda y aparece la ficha de papel con su descripción y,
+   al fondo, el código con el input real para probarlo. Cada herramienta trae
+   un punto verde mientras no se ha revisado. Tocar el mango cierra la navaja,
+   se va la ficha y la navaja vuelve al centro. */
 
 .navaja {
   --navaja-blue: #093b8b;
@@ -12,9 +13,11 @@
   --navaja-ink: #1c2434;
   --navaja-muted: #5b6577;
   --navaja-mono: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
+  --navaja-gap: 28px;
+  container-type: inline-size;
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  gap: 28px;
+  gap: var(--navaja-gap);
   align-items: center;
   max-width: 1080px;
   margin: 10px auto 30px;
@@ -26,6 +29,17 @@
 }
 
 /* ---------- Navaja ---------- */
+/* Sin ficha, el escenario se corre la mitad de la columna de la ficha (más el
+   espacio entre columnas) para quedar al centro. 2.35 = 1.35fr + 1fr. */
+.navaja__stage {
+  transform: translateX(calc(((100cqw - var(--navaja-gap)) / 2.35 + var(--navaja-gap)) / 2));
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navaja.has-slip .navaja__stage {
+  transform: none;
+}
+
 .navaja__knife {
   display: block;
   width: 100%;
@@ -173,13 +187,24 @@
   display: grid;
   gap: 12px;
   align-content: start;
-  padding: 24px 22px 22px;
+  overflow: hidden;
+  padding: 24px 22px 0;
   border-radius: 4px;
   background-color: #fffdf7;
   background-image: repeating-linear-gradient(transparent 0 31px, #e8ebf1 31px 32px);
   box-shadow: 0 1px 0 #ece6d8, 0 16px 34px rgba(6, 43, 102, 0.14);
   color: var(--navaja-ink);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(30px) rotate(4deg);
+  transition: opacity 0.25s, transform 0.3s, visibility 0s linear 0.3s;
+}
+
+.navaja.has-slip .navaja__slip {
+  visibility: visible;
+  opacity: 1;
   transform: rotate(1.2deg);
+  transition: opacity 0.35s 0.2s, transform 0.6s cubic-bezier(0.3, 1.3, 0.5, 1) 0.2s, visibility 0s;
 }
 
 .navaja__slip.is-new {
@@ -198,11 +223,10 @@
 }
 
 /* Ejemplo: código y vista previa, como en los ejemplos del curso (igual que
-   la ficha del 2-5). Va de orilla a orilla de la ficha. */
+   la ficha del 2-5). Va de orilla a orilla y hasta el fondo de la ficha. */
 .navaja__demo {
   margin: 0 -22px;
-  overflow: hidden;
-  border-block: 1px solid #c8d3e3;
+  border-top: 1px solid #c8d3e3;
 }
 
 .navaja__src {
@@ -294,6 +318,14 @@
   .navaja {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  .navaja__stage {
+    transform: none;
+  }
+
+  .navaja:not(.has-slip) .navaja__slip {
+    display: none;
   }
 }
 

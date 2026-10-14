@@ -3,10 +3,12 @@
      descripción. La lista se oculta; sin JavaScript se ve igual que antes.
    - Arma la navaja en SVG: cuatro herramientas en cada remache. Al tocar la
      navaja salen en abanico; la punta de cada una dibuja el input que crea.
-   - Al tocar una herramienta, la ficha de papel muestra su descripción y,
-     debajo, el código y el input real para probarlo, como los ejemplos del
+   - La navaja empieza centrada y sin ficha. Al tocar una herramienta se
+     corre a la izquierda y aparece la ficha de papel con su descripción y,
+     al fondo, el código y el input real para probarlo, como los ejemplos del
      curso. También se quita su punto verde.
-   - Tocar el mango cierra la navaja. */
+   - Tocar el mango cierra la navaja, se va la ficha y la navaja vuelve al
+     centro. */
 (function () {
   "use strict";
 
@@ -82,13 +84,18 @@
   slip.className = "navaja__slip";
   slip.setAttribute("aria-live", "polite");
   slip.innerHTML =
-    '<p class="navaja__desc">Todas las herramientas son el mismo &lt;input&gt;; lo único que cambia es su type.</p>' +
+    '<p class="navaja__desc"></p>' +
     '<div class="navaja__demo">' +
     '<div class="navaja__src code"></div>' +
-    '<div class="navaja__try">Aquí podrás probar cada herramienta.</div>' +
+    '<div class="navaja__try"></div>' +
     '</div>';
 
-  root.appendChild(svg);
+  // La navaja va dentro de un escenario que se corre a la izquierda cuando
+  // aparece la ficha; así no choca con su meneo de "tócame".
+  var stage = document.createElement("div");
+  stage.className = "navaja__stage";
+  stage.appendChild(svg);
+  root.appendChild(stage);
   root.appendChild(slip);
   list.classList.add("is-built");
 
@@ -102,7 +109,6 @@
   function code(type) {
     return '&lt;<span class="codetag">input</span> <span class="codetext">type="' + type + '"</span>&gt;';
   }
-  codeEl.innerHTML = code("?");
 
 
   // Un input real y funcional del tipo pedido
@@ -136,7 +142,7 @@
     toolEls.forEach(function (el) { el.setAttribute("tabindex", "0"); });
   }
   function close() {
-    root.classList.remove("is-open");
+    root.classList.remove("is-open", "has-slip");
     toolEls.forEach(function (el) {
       el.classList.remove("is-on");
       el.setAttribute("tabindex", "-1");
@@ -150,6 +156,10 @@
     desc.textContent = it.desc;
     tryEl.innerHTML = "";
     tryEl.appendChild(sample(it.type));
+    if (!root.classList.contains("has-slip")) {
+      root.classList.add("has-slip");
+      return;
+    }
     slip.classList.remove("is-new");
     void slip.offsetWidth;
     slip.classList.add("is-new");
