@@ -5,7 +5,7 @@
      navaja salen en abanico; la punta de cada una dibuja el input que crea.
    - Al tocar una herramienta, la ficha de papel muestra su type, la
      descripción y el input real para probarlo, y se quita su punto verde.
-   - Tocar el mango cierra la navaja. Al revisar las ocho se cierra sola. */
+   - Tocar el mango cierra la navaja. */
 (function () {
   "use strict";
 
@@ -14,23 +14,23 @@
   if (!root || !list) return;
 
   var NS = "http://www.w3.org/2000/svg";
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var items = [].map.call(list.querySelectorAll("li[data-type]"), function (li) {
     var text = li.cloneNode(true);
     [].forEach.call(text.querySelectorAll(".code"), function (c) { c.remove(); });
     return { type: li.getAttribute("data-type"), desc: text.textContent.replace(/\s+/g, " ").trim() };
   });
   var byType = {};
-  items.forEach(function (it, i) { it.n = i + 1; byType[it.type] = it; });
+  items.forEach(function (it) { byType[it.type] = it; });
 
   // Mango y remaches: [x del remache izquierdo, x del derecho], y = 195
   var PIVOT_L = 205;
   var PIVOT_R = 395;
   // Cuatro herramientas por remache; cerradas quedan bajo el mango y abiertas
-  // salen hacia afuera. [type, remache, ángulo cerrado, ángulo abierto]
+  // salen hacia afuera; todas giran por encima del mango.
+  // [type, remache, ángulo cerrado, ángulo abierto]
   var LAYOUT = [
     ["text", PIVOT_L, 0, -98], ["password", PIVOT_L, 0, -124], ["radio", PIVOT_L, 0, -150], ["checkbox", PIVOT_L, 0, -176],
-    ["date", PIVOT_R, 180, -82], ["email", PIVOT_R, 180, -56], ["file", PIVOT_R, 180, -30], ["submit", PIVOT_R, 180, -4]
+    ["date", PIVOT_R, -180, -82], ["email", PIVOT_R, -180, -56], ["file", PIVOT_R, -180, -30], ["submit", PIVOT_R, -180, -4]
   ];
   var SHAFT = '<path class="navaja__steel" d="M0,-9 L128,-6 Q134,0 128,6 L0,9 Z"/><circle class="navaja__steel" r="15"/>';
   // Punta de cada herramienta, con la forma del input que crea
@@ -81,24 +81,18 @@
   slip.className = "navaja__slip";
   slip.setAttribute("aria-live", "polite");
   slip.innerHTML =
-    '<p class="navaja__eye">La navaja está cerrada</p>' +
     '<span class="navaja__code"></span>' +
     '<p class="navaja__desc">Todas las herramientas son el mismo &lt;input&gt;; lo único que cambia es su type.</p>' +
-    '<div class="navaja__try">Aquí podrás probar cada herramienta.</div>' +
-    '<p class="navaja__left"></p>';
+    '<div class="navaja__try">Aquí podrás probar cada herramienta.</div>';
 
   root.appendChild(svg);
   root.appendChild(slip);
   list.classList.add("is-built");
 
   var toolEls = [].slice.call(svg.querySelectorAll(".navaja__tool"));
-  var eye = slip.querySelector(".navaja__eye");
   var codeEl = slip.querySelector(".navaja__code");
   var desc = slip.querySelector(".navaja__desc");
   var tryEl = slip.querySelector(".navaja__try");
-  var left = slip.querySelector(".navaja__left");
-  var seen = {};
-  var closeTimer;
   var uid = 0;
 
   function code(type) {
@@ -106,15 +100,6 @@
   }
   codeEl.innerHTML = code("?");
 
-  function remaining() {
-    return toolEls.length - Object.keys(seen).length;
-  }
-  function updateLeft() {
-    var n = remaining();
-    left.textContent = n === 0 ? "¡Revisaste las " + toolEls.length + " herramientas!" :
-      "Te " + (n === 1 ? "falta 1 herramienta" : "faltan " + n + " herramientas") + " por revisar.";
-  }
-  updateLeft();
 
   // Un input real y funcional del tipo pedido
   function sample(type) {
@@ -147,7 +132,6 @@
     toolEls.forEach(function (el) { el.setAttribute("tabindex", "0"); });
   }
   function close() {
-    clearTimeout(closeTimer);
     root.classList.remove("is-open");
     toolEls.forEach(function (el) {
       el.classList.remove("is-on");
@@ -158,20 +142,13 @@
     var it = byType[el.getAttribute("data-type")];
     toolEls.forEach(function (o) { o.classList.toggle("is-on", o === el); });
     el.classList.add("is-seen");
-    seen[it.type] = true;
-    eye.textContent = "Herramienta " + it.n + " de " + items.length;
     codeEl.innerHTML = code(it.type);
     desc.textContent = it.desc;
     tryEl.innerHTML = "";
     tryEl.appendChild(sample(it.type));
-    updateLeft();
     slip.classList.remove("is-new");
     void slip.offsetWidth;
     slip.classList.add("is-new");
-    if (remaining() === 0) {
-      clearTimeout(closeTimer);
-      closeTimer = setTimeout(close, reduce ? 600 : 1400);
-    }
   }
 
   svg.addEventListener("click", function (e) {
