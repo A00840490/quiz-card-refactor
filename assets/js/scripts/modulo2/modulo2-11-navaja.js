@@ -3,12 +3,12 @@
      descripción. La lista se oculta; sin JavaScript se ve igual que antes.
    - Arma la navaja en SVG: cuatro herramientas en cada remache. Al tocar la
      navaja salen en abanico; la punta de cada una dibuja el input que crea.
-   - La navaja empieza centrada y sin ficha. Al tocar una herramienta se
-     corre a la izquierda y aparece la ficha de papel con su descripción y,
-     al fondo, el código y el input real para probarlo, como los ejemplos del
-     curso. También se quita su punto verde.
-   - Tocar el mango cierra la navaja, se va la ficha y la navaja vuelve al
-     centro. */
+   - La navaja empieza centrada. Al tocar una herramienta se corre a la
+     izquierda y a su lado aparece su descripción y, debajo, el código y el
+     input real para probarlo, como los ejemplos del curso. También se quita
+     su punto verde.
+   - Tocar el mango cierra la navaja, se va la explicación y la navaja vuelve
+     al centro. */
 (function () {
   "use strict";
 
@@ -80,10 +80,10 @@
     '<circle cx="' + PIVOT_R + '" cy="195" r="7" fill="url(#navaja-rivet)" stroke="#8794a7"/>' +
     '</g>';
 
-  var slip = document.createElement("div");
-  slip.className = "navaja__slip";
-  slip.setAttribute("aria-live", "polite");
-  slip.innerHTML =
+  var info = document.createElement("div");
+  info.className = "navaja__info";
+  info.setAttribute("aria-live", "polite");
+  info.innerHTML =
     '<p class="navaja__desc"></p>' +
     '<div class="navaja__demo">' +
     '<div class="navaja__src code"></div>' +
@@ -91,18 +91,18 @@
     '</div>';
 
   // La navaja va dentro de un escenario que se corre a la izquierda cuando
-  // aparece la ficha; así no choca con su meneo de "tócame".
+  // aparece la explicación; así no choca con su meneo de "tócame".
   var stage = document.createElement("div");
   stage.className = "navaja__stage";
   stage.appendChild(svg);
   root.appendChild(stage);
-  root.appendChild(slip);
+  root.appendChild(info);
   list.classList.add("is-built");
 
   var toolEls = [].slice.call(svg.querySelectorAll(".navaja__tool"));
-  var codeEl = slip.querySelector(".navaja__src");
-  var desc = slip.querySelector(".navaja__desc");
-  var tryEl = slip.querySelector(".navaja__try");
+  var codeEl = info.querySelector(".navaja__src");
+  var desc = info.querySelector(".navaja__desc");
+  var tryEl = info.querySelector(".navaja__try");
   var uid = 0;
 
   // Mismos colores que los ejemplos del curso (.code / .codetag / .codetext)
@@ -142,7 +142,7 @@
     toolEls.forEach(function (el) { el.setAttribute("tabindex", "0"); });
   }
   function close() {
-    root.classList.remove("is-open", "has-slip");
+    root.classList.remove("is-open", "has-info");
     toolEls.forEach(function (el) {
       el.classList.remove("is-on");
       el.setAttribute("tabindex", "-1");
@@ -156,13 +156,13 @@
     desc.textContent = it.desc;
     tryEl.innerHTML = "";
     tryEl.appendChild(sample(it.type));
-    if (!root.classList.contains("has-slip")) {
-      root.classList.add("has-slip");
+    if (!root.classList.contains("has-info")) {
+      root.classList.add("has-info");
       return;
     }
-    slip.classList.remove("is-new");
-    void slip.offsetWidth;
-    slip.classList.add("is-new");
+    info.classList.remove("is-new");
+    void info.offsetWidth;
+    info.classList.add("is-new");
   }
 
   svg.addEventListener("click", function (e) {

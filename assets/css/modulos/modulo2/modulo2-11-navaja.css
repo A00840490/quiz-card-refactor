@@ -2,10 +2,10 @@
    El mango dice <input> y cada herramienta es un type. Al tocar la navaja
    las ocho herramientas salen en abanico; la punta de cada una tiene la forma
    del input que crea. La navaja empieza centrada; al elegir una herramienta
-   se corre a la izquierda y aparece la ficha de papel con su descripción y,
-   al fondo, el código con el input real para probarlo. Cada herramienta trae
-   un punto verde mientras no se ha revisado. Tocar el mango cierra la navaja,
-   se va la ficha y la navaja vuelve al centro. */
+   se corre a la izquierda y a su lado aparece su descripción y, debajo, el
+   código con el input real para probarlo. Cada herramienta trae un punto
+   verde mientras no se ha revisado. Tocar el mango cierra la navaja, se va la
+   explicación y la navaja vuelve al centro. */
 
 .navaja {
   --navaja-blue: #093b8b;
@@ -29,14 +29,15 @@
 }
 
 /* ---------- Navaja ---------- */
-/* Sin ficha, el escenario se corre la mitad de la columna de la ficha (más el
-   espacio entre columnas) para quedar al centro. 2.35 = 1.35fr + 1fr. */
+/* Sin explicación, el escenario se corre la mitad de la columna de la
+   explicación (más el espacio entre columnas) para quedar al centro.
+   2.35 = 1.35fr + 1fr. */
 .navaja__stage {
   transform: translateX(calc(((100cqw - var(--navaja-gap)) / 2.35 + var(--navaja-gap)) / 2));
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.navaja.has-slip .navaja__stage {
+.navaja.has-info .navaja__stage {
   transform: none;
 }
 
@@ -182,51 +183,43 @@
   50% { transform: scale(1.25); }
 }
 
-/* ---------- Ficha de papel ---------- */
-.navaja__slip {
+/* ---------- Explicación ----------
+   Texto normal de la página y, debajo, el ejemplo: código y vista previa,
+   como en los ejemplos del curso (igual que la ficha del 2-5). */
+.navaja__info {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   align-content: start;
-  overflow: hidden;
-  padding: 24px 22px 0;
-  border-radius: 4px;
-  background-color: #fffdf7;
-  background-image: repeating-linear-gradient(transparent 0 31px, #e8ebf1 31px 32px);
-  box-shadow: 0 1px 0 #ece6d8, 0 16px 34px rgba(6, 43, 102, 0.14);
-  color: var(--navaja-ink);
   visibility: hidden;
   opacity: 0;
-  transform: translateX(30px) rotate(4deg);
+  transform: translateX(24px);
   transition: opacity 0.25s, transform 0.3s, visibility 0s linear 0.3s;
 }
 
-.navaja.has-slip .navaja__slip {
+.navaja.has-info .navaja__info {
   visibility: visible;
   opacity: 1;
-  transform: rotate(1.2deg);
-  transition: opacity 0.35s 0.2s, transform 0.6s cubic-bezier(0.3, 1.3, 0.5, 1) 0.2s, visibility 0s;
+  transform: none;
+  transition: opacity 0.35s 0.2s, transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.2s, visibility 0s;
 }
 
-.navaja__slip.is-new {
-  animation: navaja-slip 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+.navaja__info.is-new {
+  animation: navaja-info 0.4s ease-out;
 }
 
-@keyframes navaja-slip {
-  from { transform: rotate(7deg) translateY(16px) scale(0.94); opacity: 0.2; }
-  to { transform: rotate(1.2deg); opacity: 1; }
+@keyframes navaja-info {
+  from { transform: translateY(8px); opacity: 0.3; }
+  to { transform: none; opacity: 1; }
 }
 
 .navaja__desc {
   margin: 0;
-  font-size: 16px;
-  line-height: 1.5;
 }
 
-/* Ejemplo: código y vista previa, como en los ejemplos del curso (igual que
-   la ficha del 2-5). Va de orilla a orilla y hasta el fondo de la ficha. */
 .navaja__demo {
-  margin: 0 -22px;
-  border-top: 1px solid #c8d3e3;
+  overflow: hidden;
+  border: 1px solid #c8d3e3;
+  border-radius: 6px;
 }
 
 .navaja__src {
@@ -324,7 +317,7 @@
     transform: none;
   }
 
-  .navaja:not(.has-slip) .navaja__slip {
+  .navaja:not(.has-info) .navaja__info {
     display: none;
   }
 }
