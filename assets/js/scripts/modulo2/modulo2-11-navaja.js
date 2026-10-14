@@ -74,8 +74,7 @@
     '<g class="navaja__body">' +
     '<rect class="navaja__handle" x="170" y="160" width="260" height="70" rx="35" fill="url(#navaja-body)" filter="url(#navaja-shadow)"/>' +
     '<rect x="190" y="166" width="220" height="13" rx="6.5" fill="#ffffff" opacity=".18"/>' +
-    '<rect x="248" y="180" width="104" height="30" rx="8" fill="#ffffff"/>' +
-    '<text x="300" y="201" text-anchor="middle" style="font: 700 15px var(--navaja-mono); fill: #093b8b">&lt;input&gt;</text>' +
+    '<text x="300" y="203" text-anchor="middle" style="font: 700 21px var(--navaja-mono); fill: #ffffff">&lt;input&gt;</text>' +
     '<circle cx="' + PIVOT_L + '" cy="195" r="7" fill="url(#navaja-rivet)" stroke="#8794a7"/>' +
     '<circle cx="' + PIVOT_R + '" cy="195" r="7" fill="url(#navaja-rivet)" stroke="#8794a7"/>' +
     '</g>';
