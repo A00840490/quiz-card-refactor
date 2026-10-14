@@ -3,8 +3,9 @@
      descripción. La lista se oculta; sin JavaScript se ve igual que antes.
    - Arma la navaja en SVG: cuatro herramientas en cada remache. Al tocar la
      navaja salen en abanico; la punta de cada una dibuja el input que crea.
-   - Al tocar una herramienta, la ficha de papel muestra su type, la
-     descripción y el input real para probarlo, y se quita su punto verde.
+   - Al tocar una herramienta, la ficha de papel muestra su descripción y,
+     debajo, el código y el input real para probarlo, como los ejemplos del
+     curso. También se quita su punto verde.
    - Tocar el mango cierra la navaja. */
 (function () {
   "use strict";
@@ -81,22 +82,25 @@
   slip.className = "navaja__slip";
   slip.setAttribute("aria-live", "polite");
   slip.innerHTML =
-    '<span class="navaja__code"></span>' +
     '<p class="navaja__desc">Todas las herramientas son el mismo &lt;input&gt;; lo único que cambia es su type.</p>' +
-    '<div class="navaja__try">Aquí podrás probar cada herramienta.</div>';
+    '<div class="navaja__demo">' +
+    '<div class="navaja__src code"></div>' +
+    '<div class="navaja__try">Aquí podrás probar cada herramienta.</div>' +
+    '</div>';
 
   root.appendChild(svg);
   root.appendChild(slip);
   list.classList.add("is-built");
 
   var toolEls = [].slice.call(svg.querySelectorAll(".navaja__tool"));
-  var codeEl = slip.querySelector(".navaja__code");
+  var codeEl = slip.querySelector(".navaja__src");
   var desc = slip.querySelector(".navaja__desc");
   var tryEl = slip.querySelector(".navaja__try");
   var uid = 0;
 
+  // Mismos colores que los ejemplos del curso (.code / .codetag / .codetext)
   function code(type) {
-    return '&lt;input <span class="navaja__attr">type</span>=<span class="navaja__val">"' + type + '"</span>&gt;';
+    return '&lt;<span class="codetag">input</span> <span class="codetext">type="' + type + '"</span>&gt;';
   }
   codeEl.innerHTML = code("?");
 
