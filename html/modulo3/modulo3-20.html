@@ -107,94 +107,100 @@
               <div class="card">
                   <div class="card-block">
                     <h2 class="card-title">Ajustando tamaños</h2>
-                    <p>
-                      A lo largo de este módulo hemos utilizado las dos
-                      propiedades básicas de tamaño: estas son
-                      <span class="code">height</span> (altura) y
-                      <span class="code">width</span> (anchura). Estas se
-                      pueden aplicar a cualquier elemento para cambiar su
-                      tamaño y aceptan como valores las unidades que vimos
-                      anteriormente en la sección de
-                      <a href="../../html/modulo3/modulo3-6.html"
-                        >márgenes</a
-                      >. El valor predeterminado de tamaño para cualquier
-                      elemento es <span class="code">auto</span>; si
-                      queremos que nuestro elemento cambie de tamaño en
-                      ciertas condiciones, entonces nos conviene utilizar
-                      algún valor <b>relativo</b> como los
-                      <b>porcentajes</b>. Además de esto, también podemos
-                      modificar los valores máximos y mínimos que puede
-                      adquirir un elemento, esto con las siguientes
-                      propiedades:
-                    </p>
-                    <div
-                      class="size-stack"
-                      aria-label="Propiedades de tamaño mínimo y máximo"
-                    >
-                      <article
-                        class="size-stack__card"
-                        tabindex="0"
-                        style="--i: 0; --c: #56b8e6"
-                      >
-                        <h3 class="size-stack__name">min-height</h3>
-                        <p class="size-stack__desc">Altura mínima</p>
-                        <span
-                          class="size-stack__pages size-stack__pages--side"
-                          aria-hidden="true"
-                        ></span>
-                        <span
-                          class="size-stack__pages size-stack__pages--bottom"
-                          aria-hidden="true"
-                        ></span>
-                      </article>
-                      <article
-                        class="size-stack__card"
-                        tabindex="0"
-                        style="--i: 1; --c: #ef8a3c"
-                      >
-                        <h3 class="size-stack__name">min-width</h3>
-                        <p class="size-stack__desc">Anchura mínima</p>
-                        <span
-                          class="size-stack__pages size-stack__pages--side"
-                          aria-hidden="true"
-                        ></span>
-                        <span
-                          class="size-stack__pages size-stack__pages--bottom"
-                          aria-hidden="true"
-                        ></span>
-                      </article>
-                      <article
-                        class="size-stack__card"
-                        tabindex="0"
-                        style="--i: 2; --c: #f0d43f; --ink: #4a4a2e"
-                      >
-                        <h3 class="size-stack__name">max-height</h3>
-                        <p class="size-stack__desc">Altura máxima</p>
-                        <span
-                          class="size-stack__pages size-stack__pages--side"
-                          aria-hidden="true"
-                        ></span>
-                        <span
-                          class="size-stack__pages size-stack__pages--bottom"
-                          aria-hidden="true"
-                        ></span>
-                      </article>
-                      <article
-                        class="size-stack__card"
-                        tabindex="0"
-                        style="--i: 3; --c: #4a90d9"
-                      >
-                        <h3 class="size-stack__name">max-width</h3>
-                        <p class="size-stack__desc">Anchura máxima</p>
-                        <span
-                          class="size-stack__pages size-stack__pages--side"
-                          aria-hidden="true"
-                        ></span>
-                        <span
-                          class="size-stack__pages size-stack__pages--bottom"
-                          aria-hidden="true"
-                        ></span>
-                      </article>
+                    <div class="size-split">
+                      <div class="size-split__text">
+                        <p>
+                          A lo largo de este módulo hemos utilizado las dos
+                          propiedades básicas de tamaño: estas son
+                          <span class="code">height</span> (altura) y
+                          <span class="code">width</span> (anchura). Estas se
+                          pueden aplicar a cualquier elemento para cambiar su
+                          tamaño y aceptan como valores las unidades que vimos
+                          anteriormente en la sección de
+                          <a href="../../html/modulo3/modulo3-6.html"
+                            >márgenes</a
+                          >. El valor predeterminado de tamaño para cualquier
+                          elemento es <span class="code">auto</span>; si
+                          queremos que nuestro elemento cambie de tamaño en
+                          ciertas condiciones, entonces nos conviene utilizar
+                          algún valor <b>relativo</b> como los
+                          <b>porcentajes</b>. Además de esto, también podemos
+                          modificar los valores máximos y mínimos que puede
+                          adquirir un elemento, esto con las siguientes
+                          propiedades:
+                        </p>
+                      </div>
+                      <div class="size-split__graphic">
+                        <div
+                          class="size-stack"
+                          aria-label="Propiedades de tamaño mínimo y máximo"
+                        >
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 0; --c: #56b8e6"
+                          >
+                            <h3 class="size-stack__name">min-height</h3>
+                            <p class="size-stack__desc">Altura mínima</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 1; --c: #ef8a3c"
+                          >
+                            <h3 class="size-stack__name">min-width</h3>
+                            <p class="size-stack__desc">Anchura mínima</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 2; --c: #f0d43f; --ink: #4a4a2e"
+                          >
+                            <h3 class="size-stack__name">max-height</h3>
+                            <p class="size-stack__desc">Altura máxima</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                          <article
+                            class="size-stack__card"
+                            tabindex="0"
+                            style="--i: 3; --c: #4a90d9"
+                          >
+                            <h3 class="size-stack__name">max-width</h3>
+                            <p class="size-stack__desc">Anchura máxima</p>
+                            <span
+                              class="size-stack__pages size-stack__pages--side"
+                              aria-hidden="true"
+                            ></span>
+                            <span
+                              class="size-stack__pages size-stack__pages--bottom"
+                              aria-hidden="true"
+                            ></span>
+                          </article>
+                        </div>
+                      </div>
                     </div>
 
                     <p>
