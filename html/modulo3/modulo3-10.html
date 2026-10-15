@@ -58,19 +58,18 @@
                       </p>
                       <p class="card-info mb-2" style="width: fit-content;">
                         <img src="../../assets/images/clic.svg" class="mrg-right-5"> Mueve el control deslizante para
-                        recorrer cada capa del botón; al final se arma.
+                        recorrer cada capa del botón.
                       </p>
                       <!-- Botón desarmado: cada capa es una propiedad de color. El control
-                           deslizante recorre las capas de arriba hacia abajo y al final arma el botón. -->
+                           deslizante recorre las capas de arriba hacia abajo mientras el botón se arma. -->
                       <div class="capas" data-capas>
                         <div class="capas__stage">
                           <div class="capas__view">
                             <div class="capas__rig" data-rig aria-hidden="true"></div>
                           </div>
                           <div class="capas__control">
-                            <input type="range" class="capas__slider" min="0" max="6" step="1" value="0"
-                              data-slider aria-label="Capa del botón" />
-                            <div class="capas__ticks" data-ticks aria-hidden="true"></div>
+                            <input type="range" class="capas__slider" min="0" max="1000" step="1" value="0"
+                              data-slider aria-label="Armado del botón" />
                           </div>
                         </div>
                         <div class="capas__panel">

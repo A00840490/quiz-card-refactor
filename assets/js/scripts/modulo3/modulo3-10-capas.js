@@ -1,7 +1,8 @@
 /* Tema 9 (modulo3-10): botón desarmado en capas.
-   El botón empieza desarmado; con el control deslizante se recorre cada
-   capa (una propiedad de color por capa) de arriba hacia abajo y, en el
-   último paso, el botón se arma. Regresando, se vuelve a desarmar.
+   El botón empieza desarmado; el control deslizante es continuo: al moverlo
+   el botón se va armando poco a poco y la explicación pasa por cada capa
+   (una propiedad de color por capa) de arriba hacia abajo. Al final queda
+   armado con el código completo. Regresando, se vuelve a desarmar.
 
    Los textos de cada capa están en el HTML ([data-capa]); aquí solo se
    define cómo se dibuja cada una. */
@@ -25,7 +26,6 @@
   var stage = root.querySelector(".capas__stage");
   var slider = root.querySelector("[data-slider]");
   var callout = root.querySelector("[data-callout]");
-  var ticksBox = root.querySelector("[data-ticks]");
   var svg = root.querySelector("[data-connector]");
   var paths = svg.querySelectorAll("path");
   var dot = svg.querySelector("circle");
@@ -61,14 +61,6 @@
     return layer;
   });
 
-  slider.max = N;
-  var ticks = [];
-  for (var d = 0; d <= N; d++) {
-    var tick = ticksBox.appendChild(document.createElement("span"));
-    tick.textContent = d < N ? d + 1 : "armado";
-    ticks.push(tick);
-  }
-
   function decl(l) {
     return (
       '<span class="capas__prop">' + l.name + "</span>: " +
@@ -102,9 +94,6 @@
     var first = shown === -1;
     shown = step;
     clearTimeout(swapTimer);
-    ticks.forEach(function (s, i) {
-      s.classList.toggle("is-on", i === step);
-    });
     if (first) {
       callout.innerHTML = stepHtml(step);
       return;
@@ -118,36 +107,22 @@
   }
 
   var active = -1;
-  var t = 1;
-  var anim;
   function update() {
-    var step = +slider.value;
-    slider.style.setProperty("--capas-fill", (step / N) * 100 + "%");
+    var p = slider.value / slider.max;
+    // El armado sigue al control sin saltos (t: 1 desarmado → 0 armado); la
+    // explicación cambia cada 1/(N+1) del recorrido y el último tramo es el botón armado.
+    var t = 1 - p;
+    var step = Math.min(N, Math.floor(p * (N + 1)));
+    slider.style.setProperty("--capas-fill", p * 100 + "%");
     slider.setAttribute("aria-valuetext", step < N ? LAYERS[steps[step].layer].name : "botón armado");
+    rig.style.setProperty("--t", t.toFixed(3));
     active = step < N ? steps[step].layer : -1;
     nodes.forEach(function (n, i) {
       n.classList.toggle("is-active", i === active);
       n.classList.toggle("is-dim", active !== -1 && i !== active);
     });
     showStep(step);
-    // El último paso arma el botón (t: 1 desarmado → 0 armado), con una transición corta.
-    animateTo(step < N ? 1 : 0);
-  }
-
-  function animateTo(target) {
-    cancelAnimationFrame(anim);
-    var from = t;
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var dur = reduce || from === target ? 0 : 600;
-    var start = performance.now();
-    (function frame(now) {
-      var k = dur ? Math.min(1, (now - start) / dur) : 1;
-      var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-      t = from + (target - from) * e;
-      rig.style.setProperty("--t", t.toFixed(3));
-      drawConnector();
-      if (k < 1) anim = requestAnimationFrame(frame);
-    })(start);
+    drawConnector();
   }
 
   // Línea de la capa activa a su explicación (solo en pantallas anchas).

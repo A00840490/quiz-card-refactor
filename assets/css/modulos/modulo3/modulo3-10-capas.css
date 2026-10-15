@@ -2,7 +2,9 @@
    Un recuadro gris con el botón desarmado y un control deslizante; a su
    derecha, sobre el fondo de la página, la explicación de la capa activa,
    unidas por una línea punteada (blanca dentro del recuadro, negra fuera).
-   Cada paso del control pasa a la siguiente capa y el último arma el botón.
+   El control es continuo: al moverlo el botón se va armando poco a poco y
+   la explicación cambia a la capa que va pasando. Las dos columnas tienen
+   ancho fijo para que nada se recentre cuando cambia la explicación.
    En celular la explicación va debajo del recuadro. */
 .capas {
   --capas-stage: #3f4a60;
@@ -17,9 +19,9 @@
   --capas-mono: "Courier New", Courier, monospace;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 470px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 470px) minmax(0, 460px);
+  justify-content: center;
   gap: 56px;
-  align-items: center;
   margin: 24px 0 8px;
 }
 
@@ -43,7 +45,7 @@
 
 /* ---------- Control deslizante ---------- */
 .capas__control {
-  padding: 4px 28px 18px;
+  padding: 4px 28px 24px;
 }
 
 .capas__slider {
@@ -109,33 +111,11 @@
   box-shadow: 0 0 0 4px rgba(127, 184, 255, 0.5);
 }
 
-/* Etiquetas debajo del control: el número de capa y "armado" al final */
-.capas__ticks {
-  display: flex;
-  justify-content: space-between;
-  margin: 6px -2px 0;
-  color: rgba(255, 255, 255, 0.55);
-  font: 700 12px/1 Arial, sans-serif;
-}
-
-.capas__ticks span {
-  width: 20px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.capas__ticks span.is-on {
-  color: var(--capas-ink);
-}
-
-/* El último (armado) se alinea a la derecha para no salirse del recuadro */
-.capas__ticks span:last-child {
-  width: auto;
-}
-
 /* ---------- Explicación (sobre el fondo de la página) ---------- */
+/* Arriba y con un margen fijo: el título queda siempre a la misma altura */
 .capas__panel {
   position: relative;
+  padding-top: 64px;
   color: var(--capas-text);
 }
 
@@ -325,12 +305,16 @@
     gap: 20px;
   }
 
+  .capas__panel {
+    padding-top: 0;
+  }
+
   .capas__view {
     height: 340px;
   }
 
   .capas__control {
-    padding: 0 20px 16px;
+    padding: 0 20px 20px;
   }
 
   .capas__connector {
