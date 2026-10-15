@@ -63,7 +63,7 @@
                                         sobre variables y expresiones booleanas. Estos nos permiten combinar
                                         múltiples condiciones en una sola expresión y con un solo resultado
                                         booleano (True o False).</p>
-                                    <p>
+                                    <p class="card-info" style="width: fit-content;">
                                         <img src="../../assets/images/clic.svg" class="mrg-right-5">
                                         Haz clic en el casete para meterlo a la videocasetera y ver la cinta de
                                         introducción.
@@ -83,10 +83,19 @@
                                                     <span class="tv__slot" aria-hidden="true"></span>
                                                     <i class="tv__vcr-led" aria-hidden="true"></i>
                                                     <div class="tv__deck">
-                                                        <button type="button" class="tv__btn" data-vhs-prev aria-label="Regresar"><svg viewBox="0 0 24 24"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg></button>
-                                                        <button type="button" class="tv__btn" data-vhs-play aria-label="Pausar la cinta"><svg class="ico-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><svg class="ico-play" viewBox="0 0 24 24"><path d="M7 4.5v15L19.5 12z"/></svg></button>
-                                                        <button type="button" class="tv__btn" data-vhs-next aria-label="Adelantar"><svg viewBox="0 0 24 24"><path d="M15.5 5H18v14h-2.5zM4 5l10.5 7L4 19z"/></svg></button>
-                                                        <button type="button" class="tv__btn tv__eject" data-vhs-eject aria-label="Sacar el casete"><svg viewBox="0 0 24 24"><path d="M12 4l8 9H4zM4 16h16v3H4z"/></svg><span>EJECT</span></button>
+                                                        <div class="tv__keys" style="--n: 3">
+                                                            <span class="tv__tag" aria-hidden="true">EJECT</span>
+                                                            <span class="tv__tag tv__tag--dark tv__tag--2" aria-hidden="true">REW · FF</span>
+                                                            <button type="button" class="tv__key" data-vhs-eject aria-label="Sacar el casete"><svg viewBox="0 0 24 24"><path d="M12 4.5l7.5 8.5h-15zM4.5 15.5h15V19h-15z"/></svg></button>
+                                                            <button type="button" class="tv__key" data-vhs-prev aria-label="Regresar"><svg viewBox="0 0 24 24"><path d="M11.5 6v12L3 12zM21 6v12l-8.5-6z"/></svg></button>
+                                                            <button type="button" class="tv__key" data-vhs-next aria-label="Adelantar"><svg viewBox="0 0 24 24"><path d="M3 6v12l8.5-6zM12.5 6v12L21 12z"/></svg></button>
+                                                        </div>
+                                                        <div class="tv__keys" style="--n: 2">
+                                                            <span class="tv__tag tv__tag--dark" aria-hidden="true">STILL</span>
+                                                            <span class="tv__tag" aria-hidden="true">PLAY</span>
+                                                            <button type="button" class="tv__key" data-vhs-still aria-label="Pausar la cinta" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M8.8 8.8h2.3v6.4H8.8zM12.9 8.8h2.3v6.4h-2.3z"/></svg></button>
+                                                            <button type="button" class="tv__key tv__key--play" data-vhs-play aria-label="Reproducir la cinta" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M9.6 8.4v7.2l5.8-3.6z"/></svg></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,6 +105,7 @@
                                                         <div class="tv__on">
                                                             <div class="vhs">
                                                                 <div class="vhs__grain"></div>
+                                                                <div class="vhs__grid"></div>
                                                                 <div class="vhs__osd"><span class="vhs__mode">PLAY ▶</span><span class="vhs__time">0:00:00</span></div>
                                                                 <div class="vhs__stage"></div>
                                                                 <div class="vhs__bar"><b></b></div>

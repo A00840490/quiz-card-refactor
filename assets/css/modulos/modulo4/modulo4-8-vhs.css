@@ -91,34 +91,68 @@
 .tv__vcr-led { position: absolute; left: 54cqw; top: 3.4cqw; width: 1.4cqw; height: 1.4cqw; min-width: 6px; min-height: 6px; border-radius: 50%; background: #4a1c1c; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5); transition: background .3s, box-shadow .3s; }
 .tv.has-tape .tv__vcr-led { background: #5dff8a; box-shadow: 0 0 6px #5dff8a; }
 .tv.is-paused .tv__vcr-led { animation: vhs-blink 1s steps(1) infinite; }
-.tv__deck { position: absolute; right: 4cqw; top: 50%; display: flex; gap: 1.1cqw; transform: translateY(-50%); }
-.tv__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  min-width: clamp(26px, 6.4cqw, 34px);
-  height: clamp(20px, 5cqw, 26px);
-  padding: 0 5px;
-  border: 0;
-  border-radius: 3px;
-  cursor: pointer;
-  background: linear-gradient(#ececef, #a8a8ae);
-  box-shadow: 0 2px 0 #0b0b0d, inset 0 1px 0 #fff;
-  color: #1d1d21;
-  font: 700 9px/1 Arial, sans-serif;
-  letter-spacing: .08em;
-  transition: transform .1s, box-shadow .1s;
+/* Teclas tipo piano de una videocasetera ochentera, sobre una placa gris:
+   cada grupo lleva su letrero arriba (blanco o negro) y las teclas son
+   grises con una franja oscura abajo, separadas por un marco negro.
+   PLAY y STILL se quedan hundidas mientras están activas. */
+.tv__deck {
+  position: absolute;
+  right: 3.2cqw;
+  top: 50%;
+  display: flex;
+  gap: 2cqw;
+  padding: .8cqw 1.2cqw 1cqw;
+  border-radius: .5cqw;
+  background: linear-gradient(#8d8b8e, #706e71);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -1px 0 rgba(0, 0, 0, .35), 0 0 0 1px #0d0d0f;
+  transform: translateY(-50%);
 }
-.tv__btn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 0 0 #0b0b0d, inset 0 1px 0 #fff; }
-.tv__btn svg { width: 12px; height: 12px; fill: currentColor; flex: none; }
-.tv__btn:disabled { opacity: .45; cursor: default; }
-.tv__eject { margin-left: 1cqw; background: linear-gradient(#ffd27a, #d99a2b); }
-.tv__btn .ico-play { display: none; }
-.tv.is-paused .tv__btn .ico-play { display: block; }
-.tv.is-paused .tv__btn .ico-pause { display: none; }
+.tv__keys {
+  display: grid;
+  grid-template-columns: repeat(var(--n), 6.4cqw);
+  grid-template-rows: auto 7.6cqw;
+  gap: .6cqw .35cqw;
+}
+.tv__tag {
+  padding: .4cqw 0 .3cqw;
+  background: #eeece6;
+  box-shadow: inset 0 0 0 1px #b9b7b2;
+  color: #26262a;
+  font: 700 max(1.7cqw, 7px)/1 Arial, sans-serif;
+  letter-spacing: .06em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.tv__tag--dark { background: #3b3b3f; box-shadow: inset 0 0 0 1px #a7a5a0; color: #ecebe6; }
+.tv__tag--2 { grid-column: span 2; }
+.tv__key {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 1.1cqw 0 0;
+  border: 0;
+  border-radius: 1px;
+  cursor: pointer;
+  /* cara gris con la franja oscura de abajo */
+  background: linear-gradient(#a9a8a5, #8e8d8a 62%, #424242 62%, #2b2b2b);
+  box-shadow: 0 0 0 .35cqw #0f0f11, inset 0 1px 0 rgba(255, 255, 255, .5), inset 1px 0 0 rgba(255, 255, 255, .15);
+  color: #f3f3f1;
+  transition: transform .08s, filter .08s;
+}
+.tv__key svg { width: 3.8cqw; height: 3.8cqw; fill: currentColor; filter: drop-shadow(0 1px 0 rgba(0, 0, 0, .45)); }
+.tv__key--play { color: #38e06a; }
+.tv__key:active:not(:disabled), .tv__key[aria-pressed="true"] { transform: translateY(.3cqw); filter: brightness(.82); }
+.tv__key:disabled { cursor: default; }
+.tv__key:disabled svg { opacity: .55; }
+/* Videocasetera angosta: las teclas bajan a un renglón propio, debajo de la ranura */
 @container vcr (max-width: 380px) {
-  .tv__eject span { display: none; }
+  .tv__vcr-front { height: 32cqw; }
+  .tv__deck { left: 50%; right: auto; top: 13cqw; gap: 3cqw; padding: 1.4cqw 1.8cqw 1.6cqw; transform: translateX(-50%); }
+  .tv__keys { grid-template-columns: repeat(var(--n), 10.4cqw); grid-template-rows: auto 9.6cqw; gap: 1cqw .5cqw; }
+  .tv__tag { font-size: 2.4cqw; }
+  .tv__key { padding-top: 1.5cqw; box-shadow: 0 0 0 .5cqw #0f0f11, inset 0 1px 0 rgba(255, 255, 255, .5), inset 1px 0 0 rgba(255, 255, 255, .15); }
+  .tv__key svg { width: 5cqw; height: 5cqw; }
 }
 .tv.is-clunk .tv__cab, .tv.is-clunk .tv__vcr { animation: tv-clunk .28s ease-out; }
 @keyframes tv-clunk { 40% { transform: translateY(3px); } }
@@ -283,7 +317,7 @@
   background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .3) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0, 0, 0, .25) 0 1px, transparent 1px 3px), linear-gradient(#6a5139, #45342a);
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, .55), 0 1px 0 rgba(255, 255, 255, .5);
 }
-.tv__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
+.tv__key:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; z-index: 1; }
 
 /* ---------- La cinta ---------- */
 .vhs {
@@ -308,8 +342,27 @@
 @keyframes vhs-grain { 25% { transform: translate(-7%, 4%); } 50% { transform: translate(5%, -6%); } 75% { transform: translate(-3%, -2%); } }
 /* banda de tracking que baja de vez en cuando */
 .vhs::after { content: ""; position: absolute; left: 0; right: 0; top: -14%; height: 8%; z-index: 4; background: linear-gradient(transparent, rgba(255, 255, 255, .08) 40%, rgba(255, 255, 255, .14) 50%, rgba(255, 255, 255, .08) 60%, transparent); mix-blend-mode: screen; animation: vhs-track 8s linear infinite; pointer-events: none; }
-.tv.is-paused .vhs::after, .tv.is-paused .vhs__grain { animation-play-state: paused; }
+.tv.is-paused .vhs::after, .tv.is-paused .vhs__grain, .tv.is-paused .vhs__grid { animation-play-state: paused; }
 @keyframes vhs-track { 0%, 72% { top: -14%; } 100% { top: 110%; } }
+
+/* Cuadrícula de fondo en "¿Qué hace?", como la del 2-5 pero plana (sin ojo de
+   pez): líneas tenues que avanzan en una diagonal al azar (--gx, --gy) */
+.vhs__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(150, 185, 255, .3) max(1px, .25cqw), transparent 0), linear-gradient(90deg, rgba(150, 185, 255, .3) max(1px, .25cqw), transparent 0);
+  background-size: 9cqw 9cqw;
+  background-position: 0 0;
+  -webkit-mask: radial-gradient(ellipse at 50% 50%, #000 35%, rgba(0, 0, 0, .4) 85%);
+  mask: radial-gradient(ellipse at 50% 50%, #000 35%, rgba(0, 0, 0, .4) 85%);
+  transition: opacity .6s ease;
+  animation: vhs-grid 3.4s linear infinite;
+}
+.vhs.is-grid .vhs__grid { opacity: 1; }
+@keyframes vhs-grid { to { background-position: calc(var(--gx, 1) * 9cqw) calc(var(--gy, 1) * 9cqw); } }
 
 .vhs__osd { position: absolute; top: 7%; left: 10%; right: 10%; z-index: 4; display: flex; justify-content: space-between; font-size: 7cqw; line-height: 1; pointer-events: none; }
 .vhs__mode.blink { animation: vhs-blink 1s steps(1) infinite; }
@@ -372,6 +425,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vhs::after, .vhs__grain, .vhs__op, .vhs__title--cover, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tv.is-off .tape, .tv.is-paused .tv__vcr-led, .tv__slot::before { animation: none !important; }
+  .vhs::after, .vhs__grain, .vhs__op, .vhs__title--cover, .vhs__grid, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tv.is-off .tape, .tv.is-paused .tv__vcr-led, .tv__slot::before { animation: none !important; }
   .vhs__stage { transition: none; }
 }

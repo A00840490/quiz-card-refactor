@@ -12,7 +12,10 @@
    - Entre operadores pasa estática; al final se rebobina y vuelve a empezar.
    - El casete descansa acostado encima de la videocasetera. Al hacerle clic
      baja hasta la ranura de enfrente, entra y la tele se prende; EJECT lo
-     saca, vuelve a quedar acostado encima y la tele se apaga. ⏮ ⏯ ⏭ regresan, pausan o adelantan.
+     saca, vuelve a quedar acostado encima y la tele se apaga. Las teclas
+     ◀◀ ▶▶ regresan o adelantan; STILL pausa y PLAY sigue (la que está
+     activa se queda hundida).
+   - En "¿Qué hace?" el fondo es una cuadrícula que avanza en diagonal.
    - Las perillas de la tele son de adorno; los focos marcan los operadores vistos. */
 (function () {
   "use strict";
@@ -23,6 +26,8 @@
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var stage = tv.querySelector(".vhs__stage");
+  var vhs = tv.querySelector(".vhs");
+  var grid = tv.querySelector(".vhs__grid");
   var mode = tv.querySelector(".vhs__mode");
   var clock = tv.querySelector(".vhs__time");
   var fill = tv.querySelector(".vhs__bar b");
@@ -30,6 +35,7 @@
   var tape = tv.querySelector(".tape");
   var btnPrev = tv.querySelector("[data-vhs-prev]");
   var btnPlay = tv.querySelector("[data-vhs-play]");
+  var btnStill = tv.querySelector("[data-vhs-still]");
   var btnNext = tv.querySelector("[data-vhs-next]");
   var btnEject = tv.querySelector("[data-vhs-eject]");
   var cv = tv.querySelector(".tv__noise");
@@ -112,7 +118,7 @@
     beats.push({ how: k ? "zap" : "fade", chapter: k, dur: 3800, html: scene("",
       '<span class="vhs__op">' + esc(o.op) + '</span><span class="vhs__name">Operador <em>' + esc(o.name) + "</em></span>") });
     pages(o.fn, 30).forEach(function (txt) {
-      beats.push({ how: "fade", chapter: k, dur: read(txt, 4000), html: scene("¿Qué hace?",
+      beats.push({ how: "fade", chapter: k, grid: true, dur: read(txt, 4000), html: scene("¿Qué hace?",
         '<p class="vhs__text">' + bools(txt) + "</p>") });
     });
     beats.push({ how: "fade", chapter: k, dur: 2200, html: scene("Ejemplo",
@@ -201,11 +207,21 @@
     clearTimeout(swapTimer);
     armed = false;
   }
+  // La cuadrícula se prende con su escena y se apaga cuando esta se desvanece;
+  // cada vez que aparece avanza en otra diagonal
+  function setGrid(g) {
+    if (g && !vhs.classList.contains("is-grid")) {
+      grid.style.setProperty("--gx", Math.random() < .5 ? -1 : 1);
+      grid.style.setProperty("--gy", Math.random() < .5 ? -1 : 1);
+    }
+    vhs.classList.toggle("is-grid", !!g);
+  }
   function render(i) {
     idx = i;
     var b = beats[i];
     stage.innerHTML = b.html;
     stage.classList.remove("is-out");
+    setGrid(b.grid);
     marks(b.chapter != null ? b.chapter : null);
     arm();
     paint();
@@ -213,6 +229,7 @@
   function enter(i, how) {
     disarm();
     idx = i;
+    if (!beats[i].grid) setGrid(false);
     if (reduce || how === "none") { render(i); return; }
     if (how === "zap") {
       zap(ZAP);
@@ -231,6 +248,7 @@
     disarm();
     setMode("REW ◀◀");
     stage.classList.add("is-out");
+    setGrid(false);
     zap(1400);
     ledsOff();
     var from = length, t0 = performance.now();
@@ -274,7 +292,7 @@
     if (p === playing) return;
     playing = p;
     tv.classList.toggle("is-paused", !p);
-    btnPlay.setAttribute("aria-label", p ? "Pausar la cinta" : "Reproducir la cinta");
+    keys();
     if (!on) return;
     playMode();
     if (!armed) return;
@@ -282,7 +300,14 @@
     else { clearTimeout(timer); left -= performance.now() - since; }
   }
   function deck(enabled) {
-    [btnPrev, btnPlay, btnNext, btnEject].forEach(function (b) { b.disabled = !enabled; });
+    [btnPrev, btnStill, btnPlay, btnNext, btnEject].forEach(function (b) { b.disabled = !enabled; });
+    keys();
+  }
+  // PLAY o STILL se queda hundida según el estado; con la tele apagada, ninguna
+  function keys() {
+    var active = on && !btnEject.disabled;
+    btnPlay.setAttribute("aria-pressed", String(active && playing));
+    btnStill.setAttribute("aria-pressed", String(active && !playing));
   }
 
   // ---------- Casete: entra y la tele se prende; EJECT lo saca y se apaga ----------
@@ -337,5 +362,6 @@
   btnEject.addEventListener("click", eject);
   btnPrev.addEventListener("click", prev);
   btnNext.addEventListener("click", next);
-  btnPlay.addEventListener("click", function () { setPlaying(!playing); });
+  btnPlay.addEventListener("click", function () { setPlaying(true); });
+  btnStill.addEventListener("click", function () { setPlaying(!playing); });
 })();
