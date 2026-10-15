@@ -57,25 +57,38 @@
                         color.
                       </p>
                       <p class="card-info mb-2" style="width: fit-content;">
-                        <img src="../../assets/images/clic.svg" class="mrg-right-5"> Desplázate hacia abajo para
+                        <img src="../../assets/images/clic.svg" class="mrg-right-5"> Mueve el control deslizante para
                         recorrer cada capa del botón; al final se arma.
                       </p>
-                      <!-- Botón desarmado: cada capa es una propiedad de color. El scroll
-                           recorre las capas de arriba hacia abajo y al final arma el botón. -->
+                      <!-- Botón desarmado: cada capa es una propiedad de color. El control
+                           deslizante recorre las capas de arriba hacia abajo y al final arma el botón. -->
                       <div class="capas" data-capas>
-                        <div class="capas__sticky">
-                          <div class="capas__stage">
+                        <div class="capas__stage">
+                          <div class="capas__view">
                             <div class="capas__rig" data-rig aria-hidden="true"></div>
                           </div>
-                          <div class="capas__panel">
-                            <div class="capas__callout" data-callout aria-live="polite"></div>
-                            <div class="capas__dots" data-dots aria-hidden="true"></div>
+                          <div class="capas__control">
+                            <input type="range" class="capas__slider" min="0" max="6" step="1" value="0"
+                              data-slider aria-label="Capa del botón" />
+                            <div class="capas__ticks" data-ticks aria-hidden="true"></div>
                           </div>
-                          <svg class="capas__connector" data-connector aria-hidden="true">
-                            <path></path>
-                            <circle r="0"></circle>
-                          </svg>
                         </div>
+                        <div class="capas__panel">
+                          <div class="capas__callout" data-callout aria-live="polite"></div>
+                        </div>
+                        <svg class="capas__connector" data-connector aria-hidden="true">
+                          <defs>
+                            <clipPath id="capas-dentro"><rect data-stage-rect></rect></clipPath>
+                            <mask id="capas-fuera" maskUnits="userSpaceOnUse">
+                              <rect data-mask-all fill="#fff"></rect>
+                              <rect data-stage-rect fill="#000"></rect>
+                            </mask>
+                          </defs>
+                          <!-- Mismo trazo dos veces: blanco dentro del recuadro, negro fuera -->
+                          <path class="capas__line-in" clip-path="url(#capas-dentro)"></path>
+                          <path class="capas__line-out" mask="url(#capas-fuera)"></path>
+                          <circle r="0"></circle>
+                        </svg>
 
                         <!-- Textos de cada capa, de arriba hacia abajo (los muestra el JS) -->
                         <div hidden>

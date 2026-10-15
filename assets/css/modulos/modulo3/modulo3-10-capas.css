@@ -1,60 +1,144 @@
 /* Tema 9 (modulo3-10): botón desarmado en capas.
-   Un panel fijo (sticky) con el botón desarmado a la izquierda y la
-   explicación a la derecha, unidas por una línea punteada. Cada tramo de
-   scroll pasa a la siguiente capa y el último tramo arma el botón.
-   En celular la explicación va debajo del botón. */
+   Un recuadro gris con el botón desarmado y un control deslizante; a su
+   derecha, sobre el fondo de la página, la explicación de la capa activa,
+   unidas por una línea punteada (blanca dentro del recuadro, negra fuera).
+   Cada paso del control pasa a la siguiente capa y el último arma el botón.
+   En celular la explicación va debajo del recuadro. */
 .capas {
-  --capas-header: 65px; /* alto del header fijo del curso */
   --capas-stage: #3f4a60;
   --capas-dot: #4d5970;
   --capas-ink: #ffffff;
-  --capas-muted: #c6cedb;
+  --capas-text: #2a3142;
   --capas-accent: #7fb8ff;
+  --capas-title: #1d5fb8;
   --capas-code-bg: #1e2430;
   --capas-code-ink: #d7dde8;
   --capas-code-sel: #ffcb6b;
   --capas-mono: "Courier New", Courier, monospace;
   position: relative;
-  /* Alto del panel: lo justo para el botón desarmado y la explicación. */
-  --capas-h: min(470px, calc(100svh - var(--capas-header) - 24px));
-  /* 6 capas + 1 tramo para armar, más la altura del panel fijo */
-  height: calc(7 * 60vh + var(--capas-h));
+  display: grid;
+  grid-template-columns: minmax(0, 470px) minmax(0, 1fr);
+  gap: 56px;
+  align-items: center;
   margin: 24px 0 8px;
 }
 
-.capas__sticky {
-  position: sticky;
-  /* centrado en el espacio visible debajo del header */
-  top: calc(var(--capas-header) + (100svh - var(--capas-header) - var(--capas-h)) / 2);
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  height: var(--capas-h);
-}
-
 .capas__stage {
-  position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  border-radius: 14px 0 0 14px;
+  border-radius: 14px;
   background-color: var(--capas-stage);
   background-image: radial-gradient(var(--capas-dot) 1px, transparent 1px);
   background-size: 16px 16px;
+}
+
+.capas__view {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 420px;
   perspective: 1100px;
 }
 
-.capas__panel {
-  position: relative;
+/* ---------- Control deslizante ---------- */
+.capas__control {
+  padding: 4px 28px 18px;
+}
+
+.capas__slider {
+  display: block;
+  width: 100%;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.capas__slider:focus {
+  outline: none;
+}
+
+.capas__slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(var(--capas-accent), var(--capas-accent)) 0 / var(--capas-fill, 0%) 100% no-repeat,
+    rgba(255, 255, 255, 0.25);
+}
+
+.capas__slider::-moz-range-track {
+  height: 6px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.capas__slider::-moz-range-progress {
+  height: 6px;
+  border-radius: 99px;
+  background: var(--capas-accent);
+}
+
+.capas__slider::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
+  border: 3px solid var(--capas-ink);
+  border-radius: 50%;
+  background: var(--capas-accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.capas__slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 3px solid var(--capas-ink);
+  border-radius: 50%;
+  background: var(--capas-accent);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.capas__slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px rgba(127, 184, 255, 0.5);
+}
+
+.capas__slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px rgba(127, 184, 255, 0.5);
+}
+
+/* Etiquetas debajo del control: el número de capa y "armado" al final */
+.capas__ticks {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 12px 32px 12px 8px;
-  border-radius: 0 14px 14px 0;
-  background-color: var(--capas-stage);
+  justify-content: space-between;
+  margin: 6px -2px 0;
+  color: rgba(255, 255, 255, 0.55);
+  font: 700 12px/1 Arial, sans-serif;
+}
+
+.capas__ticks span {
+  width: 20px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.capas__ticks span.is-on {
   color: var(--capas-ink);
 }
 
-/* ---------- Explicación ---------- */
+/* El último (armado) se alinea a la derecha para no salirse del recuadro */
+.capas__ticks span:last-child {
+  width: auto;
+}
+
+/* ---------- Explicación (sobre el fondo de la página) ---------- */
+.capas__panel {
+  position: relative;
+  color: var(--capas-text);
+}
+
 .capas__callout {
   transition: opacity 0.25s, transform 0.25s;
 }
@@ -66,26 +150,16 @@
 
 .capas__callout h2 {
   margin: 0 0 8px;
-  color: var(--capas-accent);
+  color: var(--capas-title);
   font: 700 clamp(19px, 2.2vw, 24px)/1.2 var(--capas-mono);
   overflow-wrap: anywhere;
 }
 
 .capas__callout p {
-  max-width: 36ch;
+  max-width: 42ch;
   margin: 0 0 14px;
-  color: var(--capas-ink);
+  color: var(--capas-text);
   font-size: 17px;
-}
-
-.capas__callout a {
-  color: var(--capas-accent);
-  text-decoration: underline;
-}
-
-.capas__callout .code {
-  color: var(--capas-code-sel);
-  background: rgba(0, 0, 0, 0.25);
 }
 
 .capas__line,
@@ -106,6 +180,7 @@
 }
 
 .capas__callout pre {
+  width: fit-content;
   padding: 12px 14px;
   font-size: 13px;
 }
@@ -128,24 +203,6 @@
   border-radius: 2px;
 }
 
-.capas__dots {
-  display: flex;
-  gap: 6px;
-  margin-top: 22px;
-}
-
-.capas__dots span {
-  width: 22px;
-  height: 4px;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.25);
-  transition: background 0.2s;
-}
-
-.capas__dots span.is-on {
-  background: var(--capas-accent);
-}
-
 /* Línea punteada de la capa activa a su explicación */
 .capas__connector {
   position: absolute;
@@ -159,9 +216,16 @@
 
 .capas__connector path {
   fill: none;
-  stroke: var(--capas-ink);
   stroke-width: 2;
   stroke-dasharray: 5 5;
+}
+
+.capas__connector .capas__line-in {
+  stroke: var(--capas-ink);
+}
+
+.capas__connector .capas__line-out {
+  stroke: #000000;
 }
 
 .capas__connector circle {
@@ -176,7 +240,7 @@
   width: 260px;
   height: 80px;
   transform-style: preserve-3d;
-  transform: translate(calc(var(--t) * -16px), calc(var(--t) * 106px))
+  transform: translate(calc(var(--t) * -10px), calc(var(--t) * 96px))
     rotateX(calc(var(--t) * 58deg)) rotateZ(calc(var(--t) * -32deg));
 }
 
@@ -257,23 +321,16 @@
 
 @media (max-width: 860px) {
   .capas {
-    --capas-h: calc(100svh - var(--capas-header) - 16px);
-  }
-
-  .capas__sticky {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 20px;
   }
 
-  .capas__stage {
-    border-radius: 14px 14px 0 0;
+  .capas__view {
+    height: 340px;
   }
 
-  .capas__panel {
-    justify-content: flex-start;
-    min-height: 220px;
-    padding: 4px 20px 20px;
-    border-radius: 0 0 14px 14px;
+  .capas__control {
+    padding: 0 20px 16px;
   }
 
   .capas__connector {
@@ -284,13 +341,17 @@
     --gap: 38px;
     width: 200px;
     height: 64px;
-    transform: translate(0, calc(var(--t) * 80px)) rotateX(calc(var(--t) * 58deg))
+    transform: translate(0, calc(var(--t) * 74px)) rotateX(calc(var(--t) * 58deg))
       rotateZ(calc(var(--t) * -32deg));
   }
 
   .capas__layer {
     font-size: 21px;
     line-height: 64px;
+  }
+
+  .capas__callout {
+    min-height: 200px;
   }
 
   .capas__callout p {
@@ -301,10 +362,6 @@
   .capas__callout pre {
     font-size: 12px;
     line-height: 1.5;
-  }
-
-  .capas__dots {
-    margin-top: 14px;
   }
 }
 
