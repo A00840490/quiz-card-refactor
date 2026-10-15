@@ -200,9 +200,21 @@
 .tape__spine::after { content: "T-120"; right: 3%; }
 .tape:focus-visible { outline: 3px solid #fac775; outline-offset: 3px; }
 
-.tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape { animation: tape-bob 1.8s ease-in-out infinite; }
-.tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape:hover { animation: none; transform: translateY(-1.2cqw); }
-@keyframes tape-bob { 50% { transform: translateY(-.8cqw); } }
+/* Mientras espera, al casete le sale de vez en cuando un contorno dorado
+   para indicar que se puede presionar; al pasar el mouse se queda prendido */
+.tape::after {
+  content: "";
+  position: absolute;
+  inset: -.9cqw;
+  border: max(2px, .7cqw) solid #f7c948;
+  border-radius: .9cqw;
+  box-shadow: 0 0 2cqw .4cqw rgba(247, 201, 72, .8), inset 0 0 1.2cqw rgba(247, 201, 72, .55);
+  opacity: 0;
+  pointer-events: none;
+}
+.tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape::after { animation: tape-glow 2.6s ease-in-out infinite; }
+.tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape:hover::after { animation: none; opacity: 1; }
+@keyframes tape-glow { 0%, 45% { opacity: 0; } 65%, 72% { opacity: 1; } 92%, 100% { opacity: 0; } }
 .tv.is-loading .tape { animation: tape-in 1.4s ease-in-out forwards; pointer-events: none; }
 .tv.has-tape .tape { left: 6.5cqw; top: 6cqw; visibility: hidden; }
 .tv.is-ejecting .tape { animation: tape-out 1.2s ease-in-out forwards; pointer-events: none; }
@@ -425,6 +437,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vhs::after, .vhs__grain, .vhs__op, .vhs__title--cover, .vhs__grid, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tv.is-off .tape, .tv.is-paused .tv__vcr-led, .tv__slot::before { animation: none !important; }
+  .vhs::after, .vhs__grain, .vhs__op, .vhs__title--cover, .vhs__grid, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tape::after, .tv.is-paused .tv__vcr-led, .tv__slot::before { animation: none !important; }
   .vhs__stage { transition: none; }
+  .tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape::after { opacity: 1; }
 }
