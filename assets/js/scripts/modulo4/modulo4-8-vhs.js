@@ -6,10 +6,12 @@
    - La cinta es una lista de escenas con su duración. Por cada operador:
      el operador, lo que hace (se desvanece al cambiar) y el ejemplo, que
      se evalúa paso a paso y termina con la explicación como subtítulo.
-     El tiempo de lectura depende del número de palabras.
+     Los textos largos se parten en páginas, como subtítulos, y el tiempo
+     de lectura de cada página depende de su número de palabras.
    - Entre operadores pasa estática; al final se rebobina y vuelve a empezar.
-   - La perilla y sus números saltan a un operador; ⏮ ⏯ ⏭ regresan, pausan
-     o adelantan. El botón de encendido prende o apaga la tele. */
+   - Al hacer clic en el casete entra en la ranura y la tele se prende;
+     EJECT lo saca y la tele se apaga. ⏮ ⏯ ⏭ regresan, pausan o adelantan,
+     y la perilla salta a un operador. */
 (function () {
   "use strict";
 
@@ -22,19 +24,21 @@
   var mode = tv.querySelector(".vhs__mode");
   var clock = tv.querySelector(".vhs__time");
   var bar = tv.querySelector(".vhs__bar");
-  var fill = bar.querySelector("b");
   var dial = tv.querySelector(".tv__dial");
   var knob = tv.querySelector(".tv__knob");
   var leds = tv.querySelector(".tv__leds");
-  var power = tv.querySelector(".tv__power");
+  var tape = tv.querySelector(".tape");
   var btnPrev = tv.querySelector("[data-vhs-prev]");
   var btnPlay = tv.querySelector("[data-vhs-play]");
   var btnNext = tv.querySelector("[data-vhs-next]");
+  var btnEject = tv.querySelector("[data-vhs-eject]");
   var cv = tv.querySelector(".tv__noise");
   var ctx = cv.getContext("2d");
 
   var FADE = 600; // lo que tarda una escena en desvanecerse
   var ZAP = 420; // lo que dura la estática
+  var LOAD = 800; // lo que tarda el casete en entrar
+  var SQUARES = 20; // cuadros de la barra de avance
 
   function clean(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -47,6 +51,23 @@
     return esc(code.slice(0, i)) + '<span class="op">' + esc(op) + "</span>" + esc(code.slice(i + op.length));
   }
   function bools(s) { return esc(s).replace(/\b(True|False)\b/g, "<b>$1</b>"); }
+  // Parte un texto largo en páginas de subtítulo de hasta "max" palabras,
+  // cortando en puntos y punto y coma (o en comas si una oración no cabe)
+  function pages(s, max) {
+    var parts = [];
+    (s.match(/[^.;]+[.;]?\)?(\s+|$)/g) || [s]).forEach(function (sentence) {
+      if (words(sentence.trim()) <= max) parts.push(sentence.trim());
+      else (sentence.match(/[^,]+,?(\s+|$)/g) || [sentence]).forEach(function (c) { parts.push(c.trim()); });
+    });
+    var out = [], cur = "";
+    parts.forEach(function (p) {
+      if (cur && words(cur + " " + p) > max) { out.push(cur); cur = p; }
+      else cur = cur ? cur + " " + p : p;
+    });
+    if (cur) out.push(cur);
+    // una página que sigue a media oración empieza con puntos suspensivos
+    return out.map(function (p) { return /^[a-záéíóúñ]/.test(p) ? "…" + p : p; });
+  }
 
   // ---------- Contenido de la tabla ----------
   var ops = Array.prototype.map.call(src.querySelectorAll("tbody tr"), function (tr) {
@@ -65,7 +86,7 @@
 
   // ---------- Escenas ----------
   function scene(kicker, body) {
-    return '<div class="vhs__scene"><span class="vhs__kicker">' + kicker + "</span>" + body + "</div>";
+    return '<div class="vhs__scene">' + (kicker ? '<span class="vhs__kicker">' + kicker + "</span>" : "") + body + "</div>";
   }
   function resultHtml(o) {
     return '<span class="vhs__result' + (/false/i.test(o.res) ? " is-false" : "") + '">' + esc(o.res) + "</span>";
@@ -74,46 +95,43 @@
   var chapters = [];
   beats.push({
     how: "fade", dur: 4200,
-    html: '<div class="vhs__scene"><span class="vhs__logo" aria-hidden="true">CVA</span>' +
-      '<span class="vhs__kicker">Cinta de inducción</span>' +
-      '<h3 class="vhs__title">Operadores Booleanos</h3>' +
-      '<p class="vhs__sub">Bienvenido al equipo. En los próximos minutos conocerás a los ' + total + " operadores con los que vas a trabajar.</p></div>"
+    html: scene("Cinta de inducción", '<h3 class="vhs__title">Operadores<br>Booleanos</h3>' +
+      '<p class="vhs__sub">Bienvenido al equipo. En los próximos minutos conocerás a los ' + total + " operadores con los que vas a trabajar.</p>")
   });
   ops.forEach(function (o, k) {
-    var label = "Operador " + (k + 1) + " de " + total;
     var code = '<span class="vhs__line">' + mark(o.ex, o.op) + "</span>";
     var codeOld = '<span class="vhs__line is-old">' + mark(o.ex, o.op) + "</span>";
     var step = '<span class="vhs__line">' + mark(o.steps, o.op) + "</span>";
     var stepOld = '<span class="vhs__line is-old">' + mark(o.steps, o.op) + "</span>";
     var arrow = '<span class="vhs__arrow" aria-hidden="true">▼</span>';
     chapters.push(beats.length);
-    beats.push({ how: k ? "zap" : "fade", chapter: k, dur: 3800, html: scene(label,
+    beats.push({ how: k ? "zap" : "fade", chapter: k, dur: 3800, html: scene("",
       '<span class="vhs__op">' + esc(o.op) + '</span><span class="vhs__name">Operador <em>' + esc(o.name) + "</em></span>") });
-    beats.push({ how: "fade", chapter: k, dur: read(o.fn, 6000), html: scene("¿Qué hace?",
-      '<p class="vhs__text">' + bools(o.fn) + "</p>") });
+    pages(o.fn, 30).forEach(function (txt) {
+      beats.push({ how: "fade", chapter: k, dur: read(txt, 4000), html: scene("¿Qué hace?",
+        '<p class="vhs__text">' + bools(txt) + "</p>") });
+    });
     beats.push({ how: "fade", chapter: k, dur: 2200, html: scene("Ejemplo",
       '<div class="vhs__steps">' + code + "</div>") });
     beats.push({ how: "none", chapter: k, dur: 2000, html: scene("Ejemplo",
       '<div class="vhs__steps">' + codeOld + arrow + step + "</div>") });
     beats.push({ how: "none", chapter: k, dur: 2400, html: scene("Ejemplo",
       '<div class="vhs__steps">' + codeOld + stepOld + arrow + resultHtml(o) + "</div>") });
-    beats.push({ how: "none", chapter: k, dur: read(o.why, 6000), html: scene("Ejemplo",
-      '<div class="vhs__steps">' + codeOld + resultHtml(o) + "</div>" +
-      '<p class="vhs__cap">' + bools(o.why) + "</p>") });
+    pages(o.why, 24).forEach(function (txt) {
+      beats.push({ how: "none", chapter: k, dur: read(txt, 4000), html: scene("Ejemplo",
+        '<div class="vhs__steps vhs__steps--row">' + codeOld + resultHtml(o) + "</div>" +
+        '<p class="vhs__cap">' + bools(txt) + "</p>") });
+    });
   });
-  beats.push({ how: "zap", dur: 4500, end: true, html: '<div class="vhs__scene"><span class="vhs__logo" aria-hidden="true">CVA</span>' +
-    '<span class="vhs__kicker">Fin de la cinta</span>' +
+  beats.push({ how: "zap", dur: 4500, end: true, html: scene("Fin de la cinta",
     '<h3 class="vhs__title">¡Ya eres parte del equipo!</h3>' +
-    '<p class="vhs__sub">Ahora combina condiciones con <b>&amp;&amp;</b>, <b>||</b> y <b>!</b> en tus if.</p></div>' });
+    '<p class="vhs__sub">Ahora combina condiciones con <b>&amp;&amp;</b>, <b>||</b> y <b>!</b> en tus if.</p>') });
 
   // Posición de cada escena en la cinta (para el contador y la barra)
-  var start = [], tape = 0;
-  beats.forEach(function (b) { start.push(tape); tape += b.dur; });
-  chapters.forEach(function (i) {
-    var t = document.createElement("i");
-    t.style.left = (start[i] / tape * 100) + "%";
-    bar.appendChild(t);
-  });
+  var start = [], tape0 = 0;
+  beats.forEach(function (b) { start.push(tape0); tape0 += b.dur; });
+  var length = tape0;
+  for (var q = 0; q < SQUARES; q++) bar.appendChild(document.createElement("i"));
 
   // ---------- Perilla y focos ----------
   function ang(k) { return total > 1 ? -60 + k * (120 / (total - 1)) : 0; }
@@ -138,21 +156,22 @@
     return Math.floor(s / 3600) + ":" + ("0" + Math.floor(s / 60) % 60).slice(-2) + ":" + ("0" + s % 60).slice(-2);
   }
   function elapsed() {
-    var b = beats[idx];
     if (!armed) return 0;
-    return b.dur - left + (playing ? performance.now() - since : 0);
+    return beats[idx].dur - left + (playing ? performance.now() - since : 0);
   }
-  function paint() {
-    var t = Math.min(start[idx] + elapsed(), tape);
+  function showTime(t) {
     clock.textContent = fmt(t);
-    fill.style.width = (t / tape * 100) + "%";
+    var n = Math.floor(t / length * SQUARES + .001);
+    Array.prototype.forEach.call(bar.children, function (sq, i) { sq.classList.toggle("on", i < n); });
   }
-  setInterval(function () { if (on) paint(); }, 250);
+  function paint() { showTime(Math.min(start[idx] + elapsed(), length)); }
+  setInterval(function () { if (on && armed) paint(); }, 250);
 
   function setMode(txt, blink) {
     mode.textContent = txt;
     mode.classList.toggle("blink", !!blink);
   }
+  function playMode() { setMode(playing ? "PLAY ▶" : "PAUSA ❚❚", !playing); }
   function noise() {
     var img = ctx.createImageData(160, 120), d = img.data;
     for (var p = 0; p < d.length; p += 4) { var v = Math.random() * 255 | 0; d[p] = d[p + 1] = d[p + 2] = v; d[p + 3] = 255; }
@@ -168,6 +187,11 @@
     zapUntil = performance.now() + ms;
     noise();
   }
+  function restart(cls) {
+    tv.classList.remove(cls);
+    void tv.offsetWidth;
+    tv.classList.add(cls);
+  }
   function marks(k) {
     Array.prototype.forEach.call(dial.querySelectorAll(".tv__num"), function (b, i) { b.classList.toggle("on", i === k); });
     if (k != null) {
@@ -175,6 +199,7 @@
       for (var i = 0; i <= k; i++) leds.children[i].classList.add("on");
     }
   }
+  function ledsOff() { Array.prototype.forEach.call(leds.children, function (l) { l.classList.remove("on"); }); }
 
   // Corre el reloj de la escena actual
   function arm() {
@@ -216,33 +241,28 @@
   // Al terminar, la cinta se rebobina con estática y vuelve a la portada
   function rewind() {
     disarm();
-    setMode("◀◀ REW");
+    setMode("REW ◀◀");
     stage.classList.add("is-out");
-    if (!reduce) {
-      zap(1400);
-      Array.prototype.forEach.call(leds.children, function (l) { l.classList.remove("on"); });
-    }
-    var from = start[idx] + beats[idx].dur, t0 = performance.now();
-    function roll() {
-      var p = Math.min((performance.now() - t0) / 1400, 1);
-      var t = from * (1 - p);
-      clock.textContent = fmt(t);
-      fill.style.width = (t / tape * 100) + "%";
-      if (p < 1 && !reduce) requestAnimationFrame(roll);
-    }
-    roll();
+    zap(1400);
+    ledsOff();
+    var from = length, t0 = performance.now();
+    (function roll() {
+      var p = reduce ? 1 : Math.min((performance.now() - t0) / 1400, 1);
+      showTime(from * (1 - p));
+      if (p < 1 && on) requestAnimationFrame(roll);
+    })();
     swapTimer = setTimeout(function () {
       if (!on) return;
-      setMode(playing ? "▶ PLAY" : "❚❚ PAUSA", !playing);
+      playMode();
       render(0);
     }, reduce ? 10 : 1400);
   }
   function jump(i) {
     if (busy) return;
-    if (!on) { powerOn(i); return; }
+    if (!on) { insert(i); return; }
     if (i === idx && armed) { disarm(); render(i); return; }
-    setMode(i > idx ? "▶▶ FF" : "◀◀ REW");
-    setTimeout(function () { if (on) setMode(playing ? "▶ PLAY" : "❚❚ PAUSA", !playing); }, 900);
+    setMode(i > idx ? "FF ▶▶" : "REW ◀◀");
+    setTimeout(function () { if (on) playMode(); }, 900);
     disarm();
     zap(ZAP);
     swapTimer = setTimeout(function () { render(i); }, reduce ? 0 : ZAP / 2);
@@ -268,51 +288,62 @@
     tv.classList.toggle("is-paused", !p);
     btnPlay.setAttribute("aria-label", p ? "Pausar la cinta" : "Reproducir la cinta");
     if (!on) return;
-    setMode(p ? "▶ PLAY" : "❚❚ PAUSA", !p);
+    playMode();
     if (!armed) return;
     if (p) { since = performance.now(); timer = setTimeout(advance, left); }
     else { clearTimeout(timer); left -= performance.now() - since; }
   }
-
   function deck(enabled) {
-    [btnPrev, btnPlay, btnNext].forEach(function (b) { b.disabled = !enabled; });
+    [btnPrev, btnPlay, btnNext, btnEject].forEach(function (b) { b.disabled = !enabled; });
   }
-  function powerOn(i) {
-    on = true; busy = true;
-    tv.classList.remove("is-off");
-    power.lastChild.textContent = "APAGAR";
-    power.setAttribute("aria-label", "Apagar la tele");
-    deck(true);
-    setPlaying(true);
-    setMode("▶ PLAY");
-    render(i || 0);
-    tv.classList.remove("is-booting");
-    void tv.offsetWidth;
-    tv.classList.add("is-booting");
-    setTimeout(function () { tv.classList.remove("is-booting"); busy = false; }, reduce ? 10 : 720);
+
+  // ---------- Casete: entra y la tele se prende; EJECT lo saca y se apaga ----------
+  function insert(i) {
+    if (busy || on) return;
+    busy = true;
+    var hadFocus = document.activeElement === tape;
+    tv.classList.add("has-tape");
+    setTimeout(function () {
+      restart("is-clunk");
+      on = true;
+      tv.classList.remove("is-off");
+      deck(true);
+      setPlaying(true);
+      playMode();
+      render(i || 0);
+      restart("is-booting");
+      if (hadFocus) btnPlay.focus();
+      setTimeout(function () { tv.classList.remove("is-booting", "is-clunk"); busy = false; }, reduce ? 10 : 720);
+    }, reduce ? 10 : LOAD);
   }
-  function powerOff() {
+  function eject() {
+    if (busy || !on) return;
     busy = true;
     disarm();
-    tv.classList.add("is-shutting");
+    setMode("EJECT ⏏");
+    var hadFocus = document.activeElement === btnEject;
     setTimeout(function () {
-      tv.classList.remove("is-shutting");
-      tv.classList.add("is-off");
-      on = false; busy = false;
-      power.lastChild.textContent = "ENCENDER";
-      power.setAttribute("aria-label", "Encender la tele");
+      tv.classList.add("is-shutting");
+      tv.classList.remove("has-tape");
       deck(false);
-      marks(null);
-      Array.prototype.forEach.call(leds.children, function (l) { l.classList.remove("on"); });
-    }, reduce ? 10 : 460);
+      if (hadFocus) tape.focus();
+      setTimeout(function () {
+        tv.classList.remove("is-shutting");
+        tv.classList.add("is-off");
+        on = false;
+        busy = false;
+        marks(null);
+        ledsOff();
+      }, reduce ? 10 : 460);
+    }, reduce ? 10 : 450);
   }
 
   deck(false);
-  power.addEventListener("click", function () { if (!busy) (on ? powerOff : powerOn)(); });
+  tape.addEventListener("click", function () { insert(0); });
+  btnEject.addEventListener("click", eject);
   knob.addEventListener("click", function () {
-    if (!on) { powerOn(); return; }
-    var c = chapterOf(idx);
-    jump(chapters[(c + 1) % total]);
+    if (!on) { insert(0); return; }
+    jump(chapters[(chapterOf(idx) + 1) % total]);
   });
   btnPrev.addEventListener("click", prev);
   btnNext.addEventListener("click", next);
