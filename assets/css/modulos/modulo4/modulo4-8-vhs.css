@@ -1,0 +1,168 @@
+/* Módulo 4-8: los operadores booleanos como una cinta VHS de inducción.
+   La tele de la idea 2 del 2-11 (antena de conejo, gabinete azul, perilla
+   de canales, focos y botón de encendido). Al encenderla con el destello de
+   tubo arranca la cinta: una portada y luego, por cada operador, tres
+   escenas que se desvanecen una tras otra: el operador, lo que hace y un
+   ejemplo que se evalúa paso a paso con su explicación como subtítulo.
+   Entre operadores pasa estática. Al final se rebobina y vuelve a empezar.
+   La perilla salta a un operador; los botones pausan o adelantan.
+   El contenido sale de la tabla oculta (.sr-only) de la página. */
+
+.vhs-wrap {
+  container-type: inline-size;
+  display: grid;
+  justify-items: center;
+  margin: 8px 0 24px;
+}
+
+.tv {
+  --tv-blue: var(--theme-color, #093b8b);
+  --tv-navy: #062b66;
+  --osd: #8dff9a;
+  position: relative;
+  width: min(660px, 100%);
+  padding-top: 64px;
+}
+
+/* ---------- Antena ---------- */
+.tv__ant { position: absolute; top: 0; left: 50%; width: 160px; height: 84px; transform: translateX(-50%); }
+.tv__ant::before { content: ""; position: absolute; left: 50%; bottom: 0; width: 64px; height: 26px; transform: translateX(-50%); border-radius: 32px 32px 0 0; background: linear-gradient(#1b5fc4, var(--tv-navy)); z-index: 1; }
+.tv__ant i { position: absolute; left: 50%; bottom: 14px; width: 4px; height: 76px; margin-left: -2px; background: linear-gradient(90deg, #9aa6b6, #eef1f5, #9aa6b6); transform-origin: bottom center; transform: rotate(var(--r)); }
+.tv__ant i::after { content: ""; position: absolute; top: -6px; left: -4px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #aab4c2); }
+.tv.is-zapping .tv__ant i { animation: vhs-antena .45s ease-in-out; }
+@keyframes vhs-antena { 30% { transform: rotate(calc(var(--r) - 6deg)); } 65% { transform: rotate(calc(var(--r) + 5deg)); } }
+
+/* ---------- Gabinete y pantalla ---------- */
+.tv__cab { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 132px; gap: 18px; padding: 20px; border-radius: 30px; background: linear-gradient(160deg, #1b5fc4, var(--tv-blue) 55%, var(--tv-navy)); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .25), inset 0 -6px 0 rgba(0, 0, 0, .22), 0 18px 32px rgba(6, 43, 102, .28); }
+.tv__bezel { padding: 14px; border-radius: 24px; background: #f3efe4; box-shadow: inset 0 3px 8px rgba(0, 0, 0, .28); min-width: 0; }
+.tv__screen { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 26px / 30px; background: radial-gradient(ellipse at 40% 35%, #1d2a44, #0a1020 70%); }
+.tv__on { position: absolute; inset: 0; }
+.tv.is-off .tv__on { visibility: hidden; }
+.tv.is-booting .tv__on { animation: vhs-crt-on .7s ease-out; }
+.tv.is-shutting .tv__on { animation: vhs-crt-off .45s ease-in forwards; }
+@keyframes vhs-crt-on { 0% { transform: scale(0, .008); filter: brightness(6); } 35% { transform: scale(1, .008); filter: brightness(6); } 70% { transform: scale(1, 1); filter: brightness(1.8); } 100% { transform: scale(1, 1); filter: brightness(1); } }
+@keyframes vhs-crt-off { 0% { transform: scale(1, 1); } 55% { transform: scale(1, .008); filter: brightness(6); } 100% { transform: scale(0, .008); filter: brightness(6); } }
+
+.tv__noise { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; image-rendering: pixelated; pointer-events: none; z-index: 3; transition: opacity .12s; }
+.tv.is-zapping .tv__noise { opacity: 1; }
+.tv__glass { position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .08) 0 1px, transparent 1px 3px), radial-gradient(ellipse at center, transparent 58%, rgba(0, 0, 0, .5) 100%); box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .35); }
+.tv__glass::after { content: ""; position: absolute; left: 6%; top: 5%; width: 45%; height: 30%; border-radius: 50%; background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, .2), transparent 70%); }
+.tv__offmsg { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; font: 26px "VT323", monospace; color: rgba(255, 255, 255, .28); letter-spacing: .1em; }
+.tv:not(.is-off) .tv__offmsg { display: none; }
+
+/* ---------- La cinta ---------- */
+.vhs { position: absolute; inset: 0; overflow: hidden; color: #fff; background: radial-gradient(ellipse at 50% 30%, #1f4f9e, #0b2a5e 60%, #061a3c); }
+/* cuadrícula de video corporativo de los noventa */
+.vhs::before { content: ""; position: absolute; inset: -20%; background-image: linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px); background-size: 34px 34px; transform: perspective(300px) rotateX(48deg) translateY(30%); transform-origin: bottom; }
+/* banda de tracking que baja de vez en cuando */
+.vhs::after { content: ""; position: absolute; left: 0; right: 0; top: -14%; height: 9%; z-index: 4; background: linear-gradient(transparent, rgba(255, 255, 255, .1) 40%, rgba(255, 255, 255, .16) 50%, rgba(255, 255, 255, .1) 60%, transparent); mix-blend-mode: screen; animation: vhs-track 7s linear infinite; pointer-events: none; }
+.tv.is-paused .vhs::after { animation-play-state: paused; }
+@keyframes vhs-track { 0%, 70% { top: -14%; } 100% { top: 110%; } }
+
+.vhs__osd { position: absolute; top: 12px; left: 18px; right: 18px; z-index: 4; display: flex; justify-content: space-between; font: 26px/1 "VT323", monospace; color: var(--osd); text-shadow: 0 0 6px rgba(141, 255, 154, .7), 2px 2px 0 rgba(0, 0, 0, .45); pointer-events: none; }
+.vhs__mode.blink { animation: vhs-blink 1s steps(1) infinite; }
+@keyframes vhs-blink { 50% { opacity: 0; } }
+.vhs__brand { position: absolute; left: 18px; bottom: 22px; z-index: 4; font: 18px/1 "VT323", monospace; letter-spacing: .08em; color: rgba(255, 255, 255, .55); pointer-events: none; }
+.vhs__bar { position: absolute; left: 18px; right: 18px; bottom: 12px; z-index: 4; height: 4px; border-radius: 2px; background: rgba(255, 255, 255, .18); }
+.vhs__bar b { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: inherit; background: var(--osd); box-shadow: 0 0 6px rgba(141, 255, 154, .7); }
+.vhs__bar i { position: absolute; top: -3px; width: 2px; height: 10px; background: rgba(255, 255, 255, .55); }
+
+/* Cada escena se desvanece al salir y aparece al entrar */
+.vhs__stage { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 46px 30px 58px; text-align: center; transition: opacity .6s ease, filter .6s ease; }
+.vhs__stage.is-out { opacity: 0; filter: blur(3px); }
+.vhs__scene { display: grid; justify-items: center; gap: 10px; width: 100%; max-width: 440px; text-shadow: -1px 0 rgba(255, 70, 90, .45), 1px 0 rgba(70, 200, 255, .45); }
+.vhs__kicker { font: 20px/1 "VT323", monospace; letter-spacing: .14em; color: #fac775; text-transform: uppercase; }
+
+/* Portada y cierre */
+.vhs__title { margin: 0; font-weight: 700; font-size: 30px; line-height: 1.1; color: #fff; }
+.vhs__sub { margin: 0; font-size: 15px; line-height: 1.4; color: rgba(255, 255, 255, .8); }
+.vhs__logo { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; border: 3px solid #fac775; font: 30px/1 "VT323", monospace; color: #fac775; animation: vhs-glow 2.4s ease-in-out infinite; }
+@keyframes vhs-glow { 50% { box-shadow: 0 0 14px rgba(250, 199, 117, .7); } }
+
+/* Operador */
+.vhs__op { font: 700 92px/1 "Roboto Mono", Consolas, "Courier New", monospace; color: #fff; animation: vhs-zoom 1s cubic-bezier(.2, 1.3, .4, 1) both; }
+.vhs__name { font-size: 22px; font-weight: 700; color: #fff; }
+.vhs__name em { font-style: normal; color: #fac775; }
+@keyframes vhs-zoom { from { transform: scale(.4); opacity: 0; letter-spacing: .4em; } to { transform: none; opacity: 1; } }
+
+/* Función */
+.vhs__text { margin: 0; font-size: 18px; line-height: 1.5; color: #fff; text-align: left; }
+.vhs__text b { color: #fac775; }
+
+/* Ejemplo: cada paso de la evaluación aparece debajo del anterior */
+.vhs__steps { display: grid; justify-items: center; gap: 4px; }
+.vhs__line { font: 600 24px/1.25 "Roboto Mono", Consolas, "Courier New", monospace; color: #fff; animation: vhs-in .5s ease both; }
+.vhs__line.is-old { color: rgba(255, 255, 255, .5); font-size: 18px; }
+.vhs__line .op { color: #fac775; }
+.vhs__arrow { font: 20px/1 "VT323", monospace; color: rgba(255, 255, 255, .5); animation: vhs-in .5s ease both; }
+.vhs__result { display: inline-block; padding: 2px 14px; border-radius: 6px; background: #2e9e64; color: #fff; font: 700 26px/1.3 "Roboto Mono", Consolas, monospace; animation: vhs-in .5s ease both; }
+.vhs__result.is-false { background: #c0392b; }
+.vhs__cap { margin: 4px 0 0; padding: 6px 10px; background: rgba(0, 0, 0, .55); font-size: 15px; line-height: 1.4; color: #fff; text-shadow: none; animation: vhs-in .6s ease both; }
+@keyframes vhs-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Panel ---------- */
+.tv__panel { display: grid; justify-items: center; align-content: space-between; gap: 14px; padding: 4px 0; }
+.tv__dial { position: relative; width: 124px; height: 124px; }
+.tv__num { position: absolute; left: 50%; top: 50%; width: 34px; height: 26px; margin: -13px 0 0 -17px; padding: 0; border: 0; border-radius: 13px; background: none; color: rgba(255, 255, 255, .7); font: 21px/26px "VT323", monospace; cursor: pointer; transform: rotate(var(--ang)) translateY(-52px) rotate(calc(var(--ang) * -1)); }
+.tv__num:hover, .tv__num.on { color: #fac775; text-shadow: 0 0 8px rgba(250, 199, 117, .8); }
+.tv__knob { position: absolute; left: 50%; top: 50%; width: 66px; height: 66px; margin: -33px 0 0 -33px; border: 0; padding: 0; border-radius: 50%; cursor: pointer; background: repeating-conic-gradient(rgba(0, 0, 0, .09) 0 5deg, transparent 5deg 15deg), radial-gradient(circle at 35% 30%, #fff, #dfe5ee 45%, #a3aebd); box-shadow: 0 6px 12px rgba(0, 0, 0, .35), inset 0 -3px 4px rgba(0, 0, 0, .2); transform: rotate(var(--ang, -60deg)); transition: transform .45s cubic-bezier(.34, 1.56, .64, 1); }
+.tv__knob::after { content: ""; position: absolute; left: 50%; top: 5px; width: 6px; height: 20px; margin-left: -3px; border-radius: 3px; background: var(--tv-navy); }
+.tv__leds { display: flex; gap: 8px; }
+.tv__leds i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .16); transition: background .3s, box-shadow .3s; }
+.tv__leds i.on { background: #fac775; box-shadow: 0 0 8px #fac775; }
+.tv__deck { display: flex; gap: 6px; }
+.tv__btn { width: 34px; height: 28px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 6px; cursor: pointer; background: linear-gradient(#e9edf3, #b7c1cf); box-shadow: 0 3px 0 #041c44, 0 4px 6px rgba(0, 0, 0, .3); color: var(--tv-navy); transition: transform .1s, box-shadow .1s; }
+.tv__btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #041c44, 0 2px 3px rgba(0, 0, 0, .3); }
+.tv__btn svg { width: 14px; height: 14px; fill: currentColor; }
+.tv__btn:disabled { opacity: .45; cursor: default; }
+.tv__btn .ico-play { display: none; }
+.tv.is-paused .tv__btn .ico-play { display: block; }
+.tv.is-paused .tv__btn .ico-pause { display: none; }
+.tv__speaker { width: 84px; height: 34px; border-radius: 8px; background: repeating-linear-gradient(0deg, #041c44 0 3px, #0b3c86 3px 7px); box-shadow: inset 0 2px 4px rgba(0, 0, 0, .4); }
+.tv__power { display: inline-flex; align-items: center; gap: 7px; border: 0; padding: 0; background: none; color: rgba(255, 255, 255, .78); font-weight: 700; font-size: 10px; letter-spacing: .12em; cursor: pointer; }
+.tv__power b { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #ff8a7a, #c0392b); box-shadow: 0 3px 6px rgba(0, 0, 0, .35), inset 0 -2px 3px rgba(0, 0, 0, .25); }
+.tv__power b svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2.6; stroke-linecap: round; }
+.tv:not(.is-off) .tv__power b { background: radial-gradient(circle at 35% 30%, #a6f5c0, #2e9e64); }
+.tv.is-off:not(.is-shutting) .tv__power b { animation: vhs-pulse 1.6s ease-in-out infinite; }
+@keyframes vhs-pulse { 50% { box-shadow: 0 3px 6px rgba(0, 0, 0, .35), 0 0 0 7px rgba(255, 138, 122, .3); } }
+.tv__num:focus-visible, .tv__knob:focus-visible, .tv__power:focus-visible, .tv__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
+.tv__feet { display: flex; justify-content: space-between; padding: 0 70px; }
+.tv__feet i { width: 46px; height: 14px; border-radius: 0 0 10px 10px; background: var(--tv-navy); }
+
+/* ---------- Celular: el panel pasa abajo de la pantalla ---------- */
+@container (max-width: 560px) {
+  .tv { padding-top: 54px; }
+  .tv__ant { height: 70px; }
+  .tv__ant i { height: 62px; }
+  .tv__cab { grid-template-columns: 1fr; padding: 12px; gap: 12px; border-radius: 24px; }
+  .tv__bezel { padding: 8px; border-radius: 18px; }
+  .tv__screen { aspect-ratio: 5 / 4; border-radius: 20px / 24px; }
+  .tv__panel { grid-template-columns: auto 1fr; grid-template-rows: auto auto auto; align-items: center; justify-items: center; gap: 8px 10px; padding: 0 4px; }
+  .tv__dial { grid-row: 1 / 4; width: 100px; height: 100px; }
+  .tv__num { transform: rotate(var(--ang)) translateY(-42px) rotate(calc(var(--ang) * -1)); font-size: 19px; }
+  .tv__knob { width: 52px; height: 52px; margin: -26px 0 0 -26px; }
+  .tv__speaker { display: none; }
+  .vhs__osd { top: 9px; left: 14px; right: 14px; font-size: 21px; }
+  .vhs__brand { left: 14px; bottom: 18px; font-size: 15px; }
+  .vhs__bar { left: 14px; right: 14px; bottom: 9px; }
+  .vhs__stage { padding: 34px 14px 40px; }
+  .vhs__scene { gap: 6px; }
+  .vhs__kicker { font-size: 17px; }
+  .vhs__title { font-size: 25px; }
+  .vhs__sub { font-size: 13px; }
+  .vhs__logo { width: 46px; height: 46px; font-size: 22px; }
+  .vhs__op { font-size: 64px; }
+  .vhs__name { font-size: 18px; }
+  .vhs__text { font-size: 14px; line-height: 1.42; }
+  .vhs__line { font-size: 17px; }
+  .vhs__line.is-old { font-size: 13px; }
+  .vhs__arrow { font-size: 15px; }
+  .vhs__result { font-size: 18px; }
+  .vhs__cap { font-size: 12.5px; line-height: 1.35; padding: 5px 8px; }
+  .tv__feet { padding: 0 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vhs::after, .vhs__logo, .vhs__op, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tv.is-off .tv__power b { animation: none; }
+  .vhs__stage { transition: none; }
+}

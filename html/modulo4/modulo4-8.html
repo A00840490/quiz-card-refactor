@@ -24,6 +24,8 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-8-vhs.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -61,8 +63,52 @@
                                         sobre variables y expresiones booleanas. Estos nos permiten combinar
                                         múltiples condiciones en una sola expresión y con un solo resultado
                                         booleano (True o False).</p>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="overflow-auto" style="max-width: 900px;">
+                                    <p>
+                                        <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                        Haz clic en el botón de encendido para ver la cinta de inducción. Con la
+                                        perilla saltas a otro operador y con los botones del panel regresas, pausas
+                                        o adelantas.
+                                    </p>
+                                    <!-- Operadores como cinta VHS de inducción (ver modulo4-8-vhs.css / .js) -->
+                                    <div class="vhs-wrap">
+                                        <div class="tv is-off" data-vhs>
+                                            <div class="tv__ant" aria-hidden="true"><i style="--r: -34deg"></i><i style="--r: 30deg"></i></div>
+                                            <div class="tv__cab">
+                                                <div class="tv__bezel">
+                                                    <div class="tv__screen" aria-hidden="true">
+                                                        <div class="tv__offmsg">sin señal</div>
+                                                        <div class="tv__on">
+                                                            <div class="vhs">
+                                                                <div class="vhs__osd"><span class="vhs__mode">▶ PLAY</span><span class="vhs__time">0:00:00</span></div>
+                                                                <div class="vhs__stage"></div>
+                                                                <div class="vhs__brand">CVA · INDUCCIÓN</div>
+                                                                <div class="vhs__bar"><b></b></div>
+                                                            </div>
+                                                        </div>
+                                                        <canvas class="tv__noise" width="160" height="120"></canvas>
+                                                        <div class="tv__glass"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="tv__panel">
+                                                    <div class="tv__dial">
+                                                        <button type="button" class="tv__knob" aria-label="Siguiente operador"></button>
+                                                    </div>
+                                                    <div class="tv__leds" aria-hidden="true"></div>
+                                                    <div class="tv__deck">
+                                                        <button type="button" class="tv__btn" data-vhs-prev aria-label="Regresar"><svg viewBox="0 0 24 24"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg></button>
+                                                        <button type="button" class="tv__btn" data-vhs-play aria-label="Pausar la cinta"><svg class="ico-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><svg class="ico-play" viewBox="0 0 24 24"><path d="M7 4.5v15L19.5 12z"/></svg></button>
+                                                        <button type="button" class="tv__btn" data-vhs-next aria-label="Adelantar"><svg viewBox="0 0 24 24"><path d="M15.5 5H18v14h-2.5zM4 5l10.5 7L4 19z"/></svg></button>
+                                                    </div>
+                                                    <div class="tv__speaker" aria-hidden="true"></div>
+                                                    <button type="button" class="tv__power" aria-label="Encender la tele"><b><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 7.2a7.5 7.5 0 1 0 11.4 0"/></svg></b>ENCENDER</button>
+                                                </div>
+                                            </div>
+                                            <div class="tv__feet" aria-hidden="true"><i></i><i></i></div>
+                                        </div>
+                                    </div>
+                                    <!-- La tabla queda para lectores de pantalla y es la fuente de la cinta (ver modulo4-8-vhs.js) -->
+                                    <div class="sr-only">
+                                        <div data-vhs-src>
                                             <table class="table table-bordered table-hover">
                                                 <thead class="table-primary" style="text-align: center;">
                                                     <tr>
@@ -79,8 +125,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>&&</td>
+                                                    <tr data-name="and" data-steps="True &amp;&amp; True">
+                                                        <td>&amp;&amp;</td>
                                                         <td>Se le conoce como operador "and". Su aplicación sobre 2
                                                             valores u expresiones booleanas es equivalente a True
                                                             únicamente si los 2 valores o expresiones a los lados
@@ -98,13 +144,13 @@
                                                             de
                                                             los 2 lados fuera False, el resultado sería False.)</td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr data-name="or" data-steps="True || False">
                                                         <td>||</td>
                                                         <td>Se le conoce como operador "or". Su aplicación sobre 2
                                                             valores u expresiones booleanas es equivalente a True
-                                                            únicamente si los 2 valores o expresiones a los lados
-                                                            equivalen a True; de lo contrario, el resultado será
-                                                            False.
+                                                            si al menos uno de los 2 valores o expresiones a los
+                                                            lados equivale a True; únicamente si ambos equivalen a
+                                                            False, el resultado será False.
                                                         </td>
                                                         <td class="text-left" style="min-width: 150px"><span
                                                                 class="code">(2>1) <span style="color:black;"><b>||</b></span> (1>2)</span></td>
@@ -117,7 +163,7 @@
                                                             fueran
                                                             False, el resultado sería False.)</td>
                                                     </tr>
-                                                    <tr>
+                                                    <tr data-name="not" data-steps="!False">
                                                         <td>!</td>
                                                         <td>Se le conoce como operador "not" o de negación. Su
                                                             aplicación sobre un valor o una expresión booleana es
@@ -222,6 +268,7 @@ x = !x;</pre>
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-8-vhs.js"></script>
 </body>
 
 </html>
