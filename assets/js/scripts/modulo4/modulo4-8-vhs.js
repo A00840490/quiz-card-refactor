@@ -9,8 +9,9 @@
      Los textos largos se parten en páginas, como subtítulos, y el tiempo
      de lectura de cada página depende de su número de palabras.
    - Entre operadores pasa estática; al final se rebobina y vuelve a empezar.
-   - Al hacer clic en el casete entra en la ranura y la tele se prende;
-     EJECT lo saca y la tele se apaga. ⏮ ⏯ ⏭ regresan, pausan o adelantan,
+   - El casete descansa acostado encima de la videocasetera. Al hacerle clic
+     baja hasta la ranura de enfrente, entra y la tele se prende; EJECT lo
+     saca, vuelve a quedar acostado encima y la tele se apaga. ⏮ ⏯ ⏭ regresan, pausan o adelantan,
      y la perilla salta a un operador. */
 (function () {
   "use strict";
@@ -23,7 +24,7 @@
   var stage = tv.querySelector(".vhs__stage");
   var mode = tv.querySelector(".vhs__mode");
   var clock = tv.querySelector(".vhs__time");
-  var bar = tv.querySelector(".vhs__bar");
+  var fill = tv.querySelector(".vhs__bar b");
   var dial = tv.querySelector(".tv__dial");
   var knob = tv.querySelector(".tv__knob");
   var leds = tv.querySelector(".tv__leds");
@@ -37,8 +38,8 @@
 
   var FADE = 600; // lo que tarda una escena en desvanecerse
   var ZAP = 420; // lo que dura la estática
-  var LOAD = 800; // lo que tarda el casete en entrar
-  var SQUARES = 20; // cuadros de la barra de avance
+  var LOAD = 1200; // lo que tarda el casete en llegar a la ranura y entrar
+  var EJECT = 1100; // lo que tarda en salir y volver a quedar acostado
 
   function clean(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -131,7 +132,6 @@
   var start = [], tape0 = 0;
   beats.forEach(function (b) { start.push(tape0); tape0 += b.dur; });
   var length = tape0;
-  for (var q = 0; q < SQUARES; q++) bar.appendChild(document.createElement("i"));
 
   // ---------- Perilla y focos ----------
   function ang(k) { return total > 1 ? -60 + k * (120 / (total - 1)) : 0; }
@@ -161,8 +161,7 @@
   }
   function showTime(t) {
     clock.textContent = fmt(t);
-    var n = Math.floor(t / length * SQUARES + .001);
-    Array.prototype.forEach.call(bar.children, function (sq, i) { sq.classList.toggle("on", i < n); });
+    fill.style.width = (t / length * 100) + "%";
   }
   function paint() { showTime(Math.min(start[idx] + elapsed(), length)); }
   setInterval(function () { if (on && armed) paint(); }, 250);
@@ -302,8 +301,12 @@
     if (busy || on) return;
     busy = true;
     var hadFocus = document.activeElement === tape;
-    tv.classList.add("has-tape");
+    // se levanta, baja frente a la ranura, se abre la tapa y entra
+    tv.classList.add("is-loading");
+    setTimeout(function () { tv.classList.add("is-door"); }, reduce ? 0 : LOAD * .6);
     setTimeout(function () {
+      tv.classList.remove("is-loading", "is-door");
+      tv.classList.add("has-tape");
       restart("is-clunk");
       on = true;
       tv.classList.remove("is-off");
@@ -322,19 +325,24 @@
     disarm();
     setMode("EJECT ⏏");
     var hadFocus = document.activeElement === btnEject;
+    deck(false);
     setTimeout(function () {
-      tv.classList.add("is-shutting");
+      // la tele se apaga mientras el casete sale y vuelve a quedar acostado
+      tv.classList.add("is-shutting", "is-door", "is-ejecting");
       tv.classList.remove("has-tape");
-      deck(false);
-      if (hadFocus) tape.focus();
+      setTimeout(function () { tv.classList.remove("is-door"); }, reduce ? 0 : EJECT * .35);
       setTimeout(function () {
         tv.classList.remove("is-shutting");
         tv.classList.add("is-off");
         on = false;
-        busy = false;
         marks(null);
         ledsOff();
       }, reduce ? 10 : 460);
+      setTimeout(function () {
+        tv.classList.remove("is-ejecting");
+        busy = false;
+        if (hadFocus) tape.focus();
+      }, reduce ? 20 : EJECT);
     }, reduce ? 10 : 450);
   }
 

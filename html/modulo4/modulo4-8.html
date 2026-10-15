@@ -65,7 +65,8 @@
                                         booleano (True o False).</p>
                                     <p>
                                         <img src="../../assets/images/clic.svg" class="mrg-right-5">
-                                        Haz clic en el casete para meterlo a la tele y ver la cinta de inducción.
+                                        Haz clic en el casete para meterlo a la videocasetera y ver la cinta de
+                                        inducción.
                                         Con la perilla saltas a otro operador; con los botones de la videocasetera
                                         regresas, pausas o adelantas, y con EJECT sacas el casete.
                                     </p>
@@ -73,16 +74,14 @@
                                     <div class="vhs-wrap">
                                         <div class="tv is-off" data-vhs>
                                             <div class="tv__vcr">
-                                                <div class="tv__bay">
-                                                    <button type="button" class="tape" aria-label="Meter el casete">
-                                                        <span class="tape__label"><b>Inducción</b><small>Operadores booleanos · CVA</small></span>
-                                                        <span class="tape__win" aria-hidden="true"><i></i><i></i></span>
-                                                        <span class="tape__sp" aria-hidden="true">VHS</span>
-                                                    </button>
-                                                </div>
-                                                <div class="tv__vcr-top" aria-hidden="true"><span class="tv__slot"></span></div>
+                                                <button type="button" class="tape" aria-label="Meter el casete">
+                                                    <span class="tape__top" aria-hidden="true"></span>
+                                                    <span class="tape__spine" aria-hidden="true"><span class="tape__label">Inducción · Operadores booleanos</span></span>
+                                                </button>
+                                                <div class="tv__vcr-top" aria-hidden="true"></div>
                                                 <div class="tv__vcr-front">
-                                                    <span class="tv__vcr-brand" aria-hidden="true"><i class="tv__vcr-led"></i>VIDEO</span>
+                                                    <span class="tv__slot" aria-hidden="true"></span>
+                                                    <i class="tv__vcr-led" aria-hidden="true"></i>
                                                     <div class="tv__deck">
                                                         <button type="button" class="tv__btn" data-vhs-prev aria-label="Regresar"><svg viewBox="0 0 24 24"><path d="M6 5h2.5v14H6zM20 5v14L9.5 12z"/></svg></button>
                                                         <button type="button" class="tv__btn" data-vhs-play aria-label="Pausar la cinta"><svg class="ico-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg><svg class="ico-play" viewBox="0 0 24 24"><path d="M7 4.5v15L19.5 12z"/></svg></button>
@@ -99,7 +98,7 @@
                                                                 <div class="vhs__grain"></div>
                                                                 <div class="vhs__osd"><span class="vhs__mode">PLAY ▶</span><span class="vhs__time">0:00:00</span></div>
                                                                 <div class="vhs__stage"></div>
-                                                                <div class="vhs__bar"></div>
+                                                                <div class="vhs__bar"><b></b></div>
                                                             </div>
                                                         </div>
                                                         <canvas class="tv__noise" width="160" height="120"></canvas>
