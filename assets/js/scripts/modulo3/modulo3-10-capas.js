@@ -1,8 +1,8 @@
 /* Tema 9 (modulo3-10): botón desarmado en capas.
-   El botón empieza desarmado; el control deslizante es continuo: al moverlo
-   el botón se va armando poco a poco y la explicación pasa por cada capa
-   (una propiedad de color por capa) de arriba hacia abajo. Al final queda
-   armado con el código completo. Regresando, se vuelve a desarmar.
+   El botón empieza desarmado; con el control deslizante (continuo) se
+   recorre cada capa (una propiedad de color por capa) de arriba hacia
+   abajo y, después de la última, el último tramo del control va armando el
+   botón poco a poco, junto con el código completo. Regresando, se desarma.
 
    Los textos de cada capa están en el HTML ([data-capa]); aquí solo se
    define cómo se dibuja cada una. */
@@ -109,10 +109,11 @@
   var active = -1;
   function update() {
     var p = slider.value / slider.max;
-    // El armado sigue al control sin saltos (t: 1 desarmado → 0 armado); la
-    // explicación cambia cada 1/(N+1) del recorrido y el último tramo es el botón armado.
-    var t = 1 - p;
-    var step = Math.min(N, Math.floor(p * (N + 1)));
+    // N tramos para recorrer las capas (desarmado, t = 1) y 1 tramo final en el
+    // que el armado sigue al control sin saltos (t: 1 desarmado → 0 armado).
+    var seg = p * (N + 1);
+    var step = Math.min(N, Math.floor(seg));
+    var t = seg < N ? 1 : 1 - (seg - N);
     slider.style.setProperty("--capas-fill", p * 100 + "%");
     slider.setAttribute("aria-valuetext", step < N ? LAYERS[steps[step].layer].name : "botón armado");
     rig.style.setProperty("--t", t.toFixed(3));

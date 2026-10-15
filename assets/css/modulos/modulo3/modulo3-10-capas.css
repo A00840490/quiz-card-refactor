@@ -2,8 +2,9 @@
    Un recuadro gris con el botón desarmado y un control deslizante; a su
    derecha, sobre el fondo de la página, la explicación de la capa activa,
    unidas por una línea punteada (blanca dentro del recuadro, negra fuera).
-   El control es continuo: al moverlo el botón se va armando poco a poco y
-   la explicación cambia a la capa que va pasando. Las dos columnas tienen
+   El control es continuo: primero recorre las capas y la explicación cambia
+   a la capa que va pasando; en el último tramo el botón se va armando poco
+   a poco conforme se mueve. Las dos columnas tienen
    ancho fijo para que nada se recentre cuando cambia la explicación.
    En celular la explicación va debajo del recuadro. */
 .capas {
