@@ -11,8 +11,8 @@
    - Entre operadores pasa estática; al final se rebobina y vuelve a empezar.
    - El casete descansa acostado encima de la videocasetera. Al hacerle clic
      baja hasta la ranura de enfrente, entra y la tele se prende; EJECT lo
-     saca, vuelve a quedar acostado encima y la tele se apaga. ⏮ ⏯ ⏭ regresan, pausan o adelantan,
-     y la perilla salta a un operador. */
+     saca, vuelve a quedar acostado encima y la tele se apaga. ⏮ ⏯ ⏭ regresan, pausan o adelantan.
+   - Las perillas de la tele son de adorno; los focos marcan los operadores vistos. */
 (function () {
   "use strict";
 
@@ -25,8 +25,6 @@
   var mode = tv.querySelector(".vhs__mode");
   var clock = tv.querySelector(".vhs__time");
   var fill = tv.querySelector(".vhs__bar b");
-  var dial = tv.querySelector(".tv__dial");
-  var knob = tv.querySelector(".tv__knob");
   var leds = tv.querySelector(".tv__leds");
   var tape = tv.querySelector(".tape");
   var btnPrev = tv.querySelector("[data-vhs-prev]");
@@ -86,8 +84,10 @@
   var total = ops.length;
 
   // ---------- Escenas ----------
+  // El título de la sección va arriba, subrayado; el contenido, centrado debajo
   function scene(kicker, body) {
-    return '<div class="vhs__scene">' + (kicker ? '<span class="vhs__kicker">' + kicker + "</span>" : "") + body + "</div>";
+    return '<div class="vhs__scene">' + (kicker ? '<span class="vhs__kicker">' + kicker + "</span>" : "") +
+      '<div class="vhs__body">' + body + "</div></div>";
   }
   function resultHtml(o) {
     return '<span class="vhs__result' + (/false/i.test(o.res) ? " is-false" : "") + '">' + esc(o.res) + "</span>";
@@ -118,7 +118,7 @@
       '<div class="vhs__steps">' + codeOld + arrow + step + "</div>") });
     beats.push({ how: "none", chapter: k, dur: 2400, html: scene("Ejemplo",
       '<div class="vhs__steps">' + codeOld + stepOld + arrow + resultHtml(o) + "</div>") });
-    pages(o.why, 24).forEach(function (txt) {
+    pages(o.why, 20).forEach(function (txt) {
       beats.push({ how: "none", chapter: k, dur: read(txt, 4000), html: scene("Ejemplo",
         '<div class="vhs__steps vhs__steps--row">' + codeOld + resultHtml(o) + "</div>" +
         '<p class="vhs__cap">' + bools(txt) + "</p>") });
@@ -133,19 +133,8 @@
   beats.forEach(function (b) { start.push(tape0); tape0 += b.dur; });
   var length = tape0;
 
-  // ---------- Perilla y focos ----------
-  function ang(k) { return total > 1 ? -60 + k * (120 / (total - 1)) : 0; }
-  ops.forEach(function (o, k) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = "tv__num";
-    b.textContent = o.op;
-    b.style.setProperty("--ang", ang(k) + "deg");
-    b.setAttribute("aria-label", "Ir al operador " + o.name + " (" + o.op + ")");
-    b.addEventListener("click", function () { jump(chapters[k]); });
-    dial.appendChild(b);
-    leds.appendChild(document.createElement("i"));
-  });
+  // ---------- Focos: uno por operador ----------
+  ops.forEach(function () { leds.appendChild(document.createElement("i")); });
 
   // ---------- Reproductor ----------
   var on = false, busy = false, playing = true;
@@ -192,11 +181,7 @@
     tv.classList.add(cls);
   }
   function marks(k) {
-    Array.prototype.forEach.call(dial.querySelectorAll(".tv__num"), function (b, i) { b.classList.toggle("on", i === k); });
-    if (k != null) {
-      knob.style.setProperty("--ang", ang(k) + "deg");
-      for (var i = 0; i <= k; i++) leds.children[i].classList.add("on");
-    }
+    if (k != null) for (var i = 0; i <= k; i++) leds.children[i].classList.add("on");
   }
   function ledsOff() { Array.prototype.forEach.call(leds.children, function (l) { l.classList.remove("on"); }); }
 
@@ -335,7 +320,6 @@
         tv.classList.remove("is-shutting");
         tv.classList.add("is-off");
         on = false;
-        marks(null);
         ledsOff();
       }, reduce ? 10 : 460);
       setTimeout(function () {
@@ -349,10 +333,6 @@
   deck(false);
   tape.addEventListener("click", function () { insert(0); });
   btnEject.addEventListener("click", eject);
-  knob.addEventListener("click", function () {
-    if (!on) { insert(0); return; }
-    jump(chapters[(chapterOf(idx) + 1) % total]);
-  });
   btnPrev.addEventListener("click", prev);
   btnNext.addEventListener("click", next);
   btnPlay.addEventListener("click", function () { setPlaying(!playing); });
