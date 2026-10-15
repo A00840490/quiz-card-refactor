@@ -1,11 +1,12 @@
-/* Módulo 4-8: los operadores booleanos como una cinta VHS de inducción
+/* Módulo 4-8: los operadores booleanos como una cinta VHS de introducción
    (estilos en modulo4-8-vhs.css).
    - El contenido sale de la tabla oculta [data-vhs-src]: por cada fila,
      el operador, su nombre (data-name), la función, el ejemplo, el paso
      intermedio (data-steps), el resultado y la explicación.
-   - La cinta es una lista de escenas con su duración. Por cada operador:
-     el operador, lo que hace (se desvanece al cambiar) y el ejemplo, que
-     se evalúa paso a paso y termina con la explicación como subtítulo.
+   - La cinta es una lista de escenas con su duración: la portada, la
+     bienvenida y, por cada operador, el operador, lo que hace (se desvanece
+     al cambiar) y el ejemplo, que se evalúa paso a paso y termina con la
+     explicación como subtítulo.
      Los textos largos se parten en páginas, como subtítulos, y el tiempo
      de lectura de cada página depende de su número de palabras.
    - Entre operadores pasa estática; al final se rebobina y vuelve a empezar.
@@ -36,8 +37,9 @@
 
   var FADE = 600; // lo que tarda una escena en desvanecerse
   var ZAP = 420; // lo que dura la estática
-  var LOAD = 1200; // lo que tarda el casete en llegar a la ranura y entrar
-  var EJECT = 1100; // lo que tarda en salir y volver a quedar acostado
+  // iguales a las animaciones tape-in / flap-in y tape-out / flap-out del CSS
+  var LOAD = 1400; // lo que tarda el casete en llegar a la ranura y entrar
+  var EJECT = 1200; // lo que tarda en salir y volver a quedar acostado
 
   function clean(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
   function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
@@ -94,11 +96,12 @@
   }
   var beats = [];
   var chapters = [];
-  beats.push({
-    how: "fade", dur: 4200,
-    html: scene("Cinta de inducción", '<h3 class="vhs__title">Operadores<br>Booleanos</h3>' +
-      '<p class="vhs__sub">Bienvenido al equipo. En los próximos minutos conocerás a los ' + total + " operadores con los que vas a trabajar.</p>")
-  });
+  // Portada y bienvenida (los minutos se llenan cuando se sabe lo que dura la cinta)
+  beats.push({ how: "fade", dur: 3600, html: scene("", '<h3 class="vhs__title vhs__title--cover">Operadores<br>Booleanos</h3>') });
+  var list = ops.map(function (o) { return "<b>" + esc(o.op) + "</b> (" + esc(o.name) + ")"; });
+  var welcome = "Bienvenido a la cinta de Introducción al uso de operadores booleanos. En los próximos {min} minutos " +
+    "conocerás el funcionamiento de " + list.slice(0, -1).join(", ") + (total > 1 ? " y " : "") + list[total - 1] + ", con un ejemplo de cada uno.";
+  beats.push({ how: "fade", dur: read(welcome.replace(/<[^>]+>/g, ""), 4000), html: scene("", '<p class="vhs__text">' + welcome + "</p>") });
   ops.forEach(function (o, k) {
     var code = '<span class="vhs__line">' + mark(o.ex, o.op) + "</span>";
     var codeOld = '<span class="vhs__line is-old">' + mark(o.ex, o.op) + "</span>";
@@ -125,13 +128,14 @@
     });
   });
   beats.push({ how: "zap", dur: 4500, end: true, html: scene("Fin de la cinta",
-    '<h3 class="vhs__title">¡Ya eres parte del equipo!</h3>' +
+    '<h3 class="vhs__title">¡Ya conoces los operadores!</h3>' +
     '<p class="vhs__sub">Ahora combina condiciones con <b>&amp;&amp;</b>, <b>||</b> y <b>!</b> en tus if.</p>') });
 
   // Posición de cada escena en la cinta (para el contador y la barra)
   var start = [], tape0 = 0;
   beats.forEach(function (b) { start.push(tape0); tape0 += b.dur; });
   var length = tape0;
+  beats[1].html = beats[1].html.replace("{min}", Math.ceil(length / 60000));
 
   // ---------- Focos: uno por operador ----------
   ops.forEach(function () { leds.appendChild(document.createElement("i")); });
@@ -286,11 +290,10 @@
     if (busy || on) return;
     busy = true;
     var hadFocus = document.activeElement === tape;
-    // se levanta, baja frente a la ranura, se abre la tapa y entra
+    // se levanta, baja frente a la ranura, se abre la tapa, entra y la tapa se cierra
     tv.classList.add("is-loading");
-    setTimeout(function () { tv.classList.add("is-door"); }, reduce ? 0 : LOAD * .6);
     setTimeout(function () {
-      tv.classList.remove("is-loading", "is-door");
+      tv.classList.remove("is-loading");
       tv.classList.add("has-tape");
       restart("is-clunk");
       on = true;
@@ -313,9 +316,8 @@
     deck(false);
     setTimeout(function () {
       // la tele se apaga mientras el casete sale y vuelve a quedar acostado
-      tv.classList.add("is-shutting", "is-door", "is-ejecting");
+      tv.classList.add("is-shutting", "is-ejecting");
       tv.classList.remove("has-tape");
-      setTimeout(function () { tv.classList.remove("is-door"); }, reduce ? 0 : EJECT * .35);
       setTimeout(function () {
         tv.classList.remove("is-shutting");
         tv.classList.add("is-off");

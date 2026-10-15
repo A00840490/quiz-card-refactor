@@ -1,10 +1,10 @@
-/* Módulo 4-8: los operadores booleanos como una cinta VHS de inducción.
-   Una tele clásica de madera con patas, perilla cromada, focos y bocina de
-   tela. Arriba, donde iba la antena, una videocasetera con la ranura y el
-   casete asomándose: al hacer clic en él entra en la ranura, la tele se
-   prende con el destello de tubo y arranca la cinta. Con EJECT el casete
+/* Módulo 4-8: los operadores booleanos como una cinta VHS de introducción.
+   Una tele clásica de madera con dos perillas cromadas de adorno, focos y
+   bocina de tela. Arriba, donde iba la antena, una videocasetera con el
+   casete acostado encima: al hacer clic en él entra por la ranura, la tele
+   se prende con el destello de tubo y arranca la cinta. Con EJECT el casete
    sale y la tele se apaga. Los botones de la videocasetera regresan, pausan
-   o adelantan; la perilla salta a un operador.
+   o adelantan.
    La pantalla imita la salida de una videocasetera: degradado azul, letra
    de OSD (VT323 engrosada), grano, banda de tracking y la barra de avance
    de cuadros blancos. El contenido sale de la tabla oculta (.sr-only). */
@@ -30,7 +30,9 @@
    la ranura y los botones guarden su proporción en cualquier pantalla.
    El casete descansa acostado encima: se ve su lomo con la etiqueta. Al
    hacerle clic se levanta, baja hasta la ranura de enfrente, la tapa se
-   abre y entra; con EJECT hace el camino de regreso. */
+   abre, entra y la tapa se cierra; con EJECT hace el camino de regreso.
+   El casete y la tapa se mueven con animaciones de la misma duración para
+   que no se desfasen. */
 .tv__vcr {
   container: vcr / inline-size;
   position: relative;
@@ -71,9 +73,20 @@
   background: linear-gradient(#3b3b41, #26262b 60%, #1d1d21);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14);
   transform-origin: top center;
-  transition: transform .3s ease;
 }
-.tv.is-door .tv__slot::before { transform: perspective(160px) rotateX(-74deg); }
+.tv.is-loading .tv__slot::before { animation: flap-in 1.4s ease-in-out forwards; }
+.tv.is-ejecting .tv__slot::before { animation: flap-out 1.2s ease-in-out forwards; }
+/* la tapa se abre hacia adentro cuando el casete toca la ranura y se cierra en cuanto entra */
+@keyframes flap-in {
+  0%, 56% { transform: none; }
+  64%, 86% { transform: perspective(160px) rotateX(-74deg); }
+  97%, 100% { transform: none; }
+}
+@keyframes flap-out {
+  0% { transform: none; }
+  10%, 38% { transform: perspective(160px) rotateX(-74deg); }
+  48%, 100% { transform: none; }
+}
 .tv__slot::after { content: ""; position: absolute; left: 4%; right: 4%; bottom: 14%; height: 1px; background: rgba(255, 255, 255, .08); }
 .tv__vcr-led { position: absolute; left: 54cqw; top: 3.4cqw; width: 1.4cqw; height: 1.4cqw; min-width: 6px; min-height: 6px; border-radius: 50%; background: #4a1c1c; box-shadow: inset 0 1px 1px rgba(0, 0, 0, .5); transition: background .3s, box-shadow .3s; }
 .tv.has-tape .tv__vcr-led { background: #5dff8a; box-shadow: 0 0 6px #5dff8a; }
@@ -107,7 +120,7 @@
 @container vcr (max-width: 380px) {
   .tv__eject span { display: none; }
 }
-.tv.is-clunk .tv__cab, .tv.is-clunk .tv__vcr-front { animation: tv-clunk .28s ease-out; }
+.tv.is-clunk .tv__cab, .tv.is-clunk .tv__vcr { animation: tv-clunk .28s ease-out; }
 @keyframes tv-clunk { 40% { transform: translateY(3px); } }
 
 /* Casete acostado: una franja de la cara de arriba y el lomo con su etiqueta */
@@ -156,20 +169,24 @@
 .tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape { animation: tape-bob 1.8s ease-in-out infinite; }
 .tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape:hover { animation: none; transform: translateY(-1.2cqw); }
 @keyframes tape-bob { 50% { transform: translateY(-.8cqw); } }
-.tv.is-loading .tape { animation: tape-in 1.2s ease-in-out forwards; pointer-events: none; }
+.tv.is-loading .tape { animation: tape-in 1.4s ease-in-out forwards; pointer-events: none; }
 .tv.has-tape .tape { left: 6.5cqw; top: 6cqw; visibility: hidden; }
-.tv.is-ejecting .tape { animation: tape-out 1.1s ease-in-out forwards; pointer-events: none; }
-/* se levanta, baja frente a la ranura (más cerca, más grande) y entra (más chico y oscuro) */
+.tv.is-ejecting .tape { animation: tape-out 1.2s ease-in-out forwards; pointer-events: none; }
+/* se levanta, baja frente a la ranura (más cerca, más grande), la toca y
+   entra (más chico y oscuro) mientras la tapa está abierta (flap-in) */
 @keyframes tape-in {
   0% { left: 28.25cqw; top: -5cqw; transform: none; }
-  25% { left: 20cqw; top: -10cqw; transform: scale(1.04) rotate(-2deg); }
-  55%, 68% { left: 6.5cqw; top: 6cqw; transform: scale(1.08); filter: none; opacity: 1; }
-  100% { left: 6.5cqw; top: 6cqw; transform: scale(.92); filter: brightness(.2); opacity: 0; }
+  24% { left: 20cqw; top: -10cqw; transform: scale(1.04) rotate(-2deg); }
+  46% { left: 6.5cqw; top: 6cqw; transform: scale(1.07); filter: none; opacity: 1; }
+  58%, 64% { left: 6.5cqw; top: 6cqw; transform: none; filter: none; opacity: 1; }
+  86%, 100% { left: 6.5cqw; top: 6cqw; transform: scale(.88); filter: brightness(.15); opacity: 0; }
 }
+/* sale por la tapa abierta (flap-out), se aleja de la ranura y vuelve a quedar acostado */
 @keyframes tape-out {
-  0% { left: 6.5cqw; top: 6cqw; transform: scale(.92); filter: brightness(.2); opacity: 0; }
-  28% { left: 6.5cqw; top: 6cqw; transform: scale(1.08); filter: none; opacity: 1; }
-  60% { left: 20cqw; top: -10cqw; transform: scale(1.04) rotate(-2deg); }
+  0%, 12% { left: 6.5cqw; top: 6cqw; transform: scale(.88); filter: brightness(.15); opacity: 0; }
+  36% { left: 6.5cqw; top: 6cqw; transform: none; filter: none; opacity: 1; }
+  46% { left: 6.5cqw; top: 6cqw; transform: scale(1.07); }
+  72% { left: 20cqw; top: -10cqw; transform: scale(1.04) rotate(-2deg); }
   100% { left: 28.25cqw; top: -5cqw; transform: none; }
 }
 
@@ -268,11 +285,6 @@
 }
 .tv__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
 
-/* Patas de madera, abiertas, con punta dorada */
-.tv__legs { display: flex; justify-content: space-between; padding: 0 13%; }
-.tv__legs i { width: 18px; height: 44px; margin-top: -4px; background: linear-gradient(transparent 85%, #c9a24a 85%), linear-gradient(90deg, var(--wood-2), var(--wood-1), var(--wood-2)); clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%); transform-origin: top center; transform: rotate(14deg); }
-.tv__legs i:last-child { transform: rotate(-14deg); }
-
 /* ---------- La cinta ---------- */
 .vhs {
   position: absolute;
@@ -316,6 +328,8 @@
 .vhs__kicker::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: .7cqw; background: currentColor; box-shadow: -1px 0 0 rgba(255, 60, 90, .35), 1.5px 0 0 rgba(60, 210, 255, .35), 0 0 6px rgba(200, 215, 255, .45); }
 .vhs__body { flex: 1; display: grid; justify-items: center; align-content: center; gap: 1.8cqw; width: 100%; }
 .vhs__title { margin: 0; font: inherit; font-size: 10cqw; line-height: .95; color: inherit; text-transform: uppercase; }
+/* portada: solo el nombre de la cinta, más grande */
+.vhs__title--cover { font-size: 14cqw; line-height: .9; animation: vhs-zoom 1s cubic-bezier(.2, 1.3, .4, 1) both; }
 /* el curso le pone Lato y negro a todos los p */
 .vhs p { font-family: inherit; color: inherit; }
 .vhs__sub { margin: 0; font-size: 5cqw; line-height: 1.05; }
@@ -351,7 +365,6 @@
   .tv__knob::after { top: 4px; height: 16px; width: 4px; margin-left: -2px; }
   .tv__leds { flex-direction: column; }
   .tv__grille { min-height: 0; height: 70px; }
-  .tv__legs i { height: 34px; width: 14px; }
   .vhs { text-shadow: 1px 0 0 currentColor, -1px 0 0 rgba(255, 60, 90, .35), 2px 0 0 rgba(60, 210, 255, .35), 0 0 6px rgba(200, 215, 255, .45); }
   .vhs__stage { padding: 15% 7% 13%; }
   .vhs__text { font-size: 6.2cqw; }
@@ -359,6 +372,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vhs::after, .vhs__grain, .vhs__op, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tv.is-off .tape, .tv.is-paused .tv__vcr-led { animation: none !important; }
-  .vhs__stage, .tv__slot::before { transition: none; }
+  .vhs::after, .vhs__grain, .vhs__op, .vhs__title--cover, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tv.is-off .tape, .tv.is-paused .tv__vcr-led, .tv__slot::before { animation: none !important; }
+  .vhs__stage { transition: none; }
 }
