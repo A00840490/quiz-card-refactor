@@ -24,6 +24,7 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-11-tocadiscos.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -78,29 +79,57 @@
                                     arreglo. Este ejemplo realiza lo mismo que el ejemplo del ciclo for, pero
                                     esta vez utilizamos un ciclo <span class="code">while</span> en su lugar:
                                 </p>
-                                <div class="card">
-                                    <div class="container-fluid">
-                                        <p class="codepen" data-height="500" data-theme-id="dark"
-                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                            data-slug-hash="dypQpBQ"
-                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                            data-pen-title="while loop-js ejemplo">
-                                            <span>See the Pen <a
-                                                    href="https://codepen.io/luis-yerik-arambula/pen/dypQpBQ"
-                                                    target="_blank">
-                                                    while loop-js ejemplo</a> by Luis Yerik Arambula (<a
-                                                    href="https://codepen.io/luis-yerik-arambula"
-                                                    target="_blank">@luis-yerik-arambula</a>)
-                                                on <a href="https://codepen.io"
-                                                    target="_blank">CodePen</a>.</span>
-                                        </p>
-                                        <script async
-                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                <!-- El ciclo while como un tocadiscos (ver modulo4-11-tocadiscos.css / .js) -->
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Haz clic en <span class="tt__ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></span> para
+                                    avanzar una parte del ciclo a la vez, en <span class="tt__ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></span> para
+                                    regresar a la parte anterior o en <span class="tt__ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></span>
+                                    para empezar de nuevo. Prueba también hacer clic en <span class="code">i++</span>
+                                    o en la condición, dentro del código.
+                                </p>
+                                <div class="tt" data-tocadiscos>
+                                    <!-- El arreglo del ejemplo: cada elemento es una canción del disco -->
+                                    <ol class="tt__src" data-tt-src>
+                                        <li data-img="rock.png" data-color="#d64532">rock</li>
+                                        <li data-img="jazz.png" data-color="#6b3e8f">jazz</li>
+                                        <li data-img="salsa.png" data-color="#f0a030">salsa</li>
+                                        <li data-img="cumbia.png" data-color="#7fae3a">cumbia</li>
+                                        <li data-img="pop.png" data-color="#d9488f">pop</li>
+                                    </ol>
+                                    <div class="tt__main">
+                                        <div class="tt__scene" data-tt-scene>
+                                            <div data-tt-disco></div>
+                                            <!-- Amplificador: medidor, pantalla con i y la condición, y las teclas -->
+                                            <div class="tt__amp">
+                                                <div class="tt__vu" data-tt-vu></div>
+                                                <div class="tt__screen" aria-live="polite"><span data-counter>i = –</span><span data-check></span></div>
+                                                <div class="tt__keys">
+                                                    <button type="button" class="tt__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
+                                                    <button type="button" class="tt__btn" data-back aria-label="Paso anterior" title="Paso anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></button>
+                                                    <button type="button" class="tt__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
+                                                    <button type="button" class="tt__btn tt__btn--alto" data-alto aria-label="Alto" title="Alto">ALTO</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
+                                             .js-term__src: así js-terminal.js no la toca y el código no se escribe letra por letra -->
+                                        <div class="js-term tt__code" data-code>
+                                            <div class="js-term__bar" aria-hidden="true"><i></i><i></i><i></i>while.js</div>
+                                            <div class="js-term__body">
+<pre class="js-term__code">var elementos = ["rock", "jazz", "salsa",
+                 "cumbia", "pop"];
+var i = 0;
+
+while (i &lt; elementos.length) {
+  console.log(i + ": " + elementos[i]);
+  i++;
+}</pre>
+                                                <div class="tt__console" aria-live="polite"><span>Consola:</span><span class="tt__console-out" data-console></span></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                        <!-- Fuente  -->
-                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                      </p>
+                                    <p class="tt__status" data-status aria-live="polite"></p>
                                 </div>
                                 <p>¿Qué diferencias observas entre ambos ciclos?</p>
                                 <p>En este ejemplo tuvimos que declarar y asignar nuestra variable antes del
@@ -182,6 +211,7 @@
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-11-tocadiscos.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,449 @@
+/* Módulo 4-11: el ciclo while como un tocadiscos
+   (comportamiento en assets/js/scripts/modulo4/modulo4-11-tocadiscos.js).
+
+   Cada canción del disco es un elemento del arreglo, de afuera hacia
+   adentro. El foco junto al brazo es la condición, la canción que suena es
+   el cuerpo del ciclo e i++ pasa la aguja a la siguiente. Sin i++ el disco
+   "se raya": la aguja repite la misma canción para siempre.
+
+   El tocadiscos y el medidor del amplificador son SVG que arma el JavaScript;
+   los instrumentos de las etiquetas son fotos con licencia libre en
+   assets/images/course/modulo4/m4-11/tocadiscos/fotos/ (créditos en
+   fotos/CREDITOS.md). La ventana de código usa el formato de las terminales
+   del módulo 4 (js-terminal.css), igual que la banda del 4-10. */
+
+.tt {
+  --ink: #1c2434;
+  --true: #1f7a45;
+  --false: #b4472a;
+  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+
+  margin: 16px 0 24px;
+}
+
+/* Sin JavaScript no hay tocadiscos: quedan la lista del arreglo y el código */
+.tt:not(.tt--ready) .tt__scene,
+.tt:not(.tt--ready) .tt__console { display: none; }
+
+.tt--ready .tt__src {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===================== Escena =====================
+   El tocadiscos a la izquierda y el amplificador (medidor, pantalla y
+   teclas) a la derecha. */
+.tt__scene {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(172px, 31%);
+  gap: 2.5%;
+  align-items: center;
+}
+
+.tt__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.tt__disco {
+  transform-box: view-box;
+  transform-origin: 210px 220px;
+}
+
+.tt__scene.is-playing .tt__disco { animation: tt-gira 1.8s linear infinite; }
+.tt.is-loco .tt__scene.is-playing .tt__disco { animation-duration: 1.1s; }
+
+@keyframes tt-gira {
+  to { transform: rotate(360deg); }
+}
+
+/* El brazo gira sobre su base; la cabeza brinca en el mismo lugar si el disco está rayado */
+.tt__brazo {
+  transform-box: view-box;
+  transform-origin: 440px 74px;
+  transform: rotate(90deg);
+  transition: transform 1.3s cubic-bezier(.45, .05, .3, 1);
+}
+
+.tt__cabeza {
+  transform-box: view-box;
+  transform-origin: 690px 74px;
+}
+
+.tt.is-loco .tt__cabeza { animation: tt-salto .45s steps(2) infinite; }
+
+@keyframes tt-salto {
+  50% { transform: translateX(-5px); }
+}
+
+/* Las canciones: la que suena brilla y las que ya sonaron quedan marcadas */
+.tt__pista {
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.tt__pista.is-done { opacity: .55; }
+.tt__pista.is-here { opacity: 1; }
+
+.tt__etq {
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.tt__etq.is-on { opacity: 1; }
+
+.tt__rayon {
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.tt.is-sin-inc .tt__rayon { opacity: .9; }
+
+.tt__nota { opacity: 0; }
+.tt__scene.is-singing .tt__nota { animation: tt-nota 1.6s ease-out infinite; }
+.tt__scene.is-singing g:nth-of-type(2) > .tt__nota { animation-delay: .5s; }
+.tt__scene.is-singing g:nth-of-type(3) > .tt__nota { animation-delay: 1s; }
+
+@keyframes tt-nota {
+  0% { opacity: 0; transform: translate(0, 0) scale(.6); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-26px, -64px) scale(1.15) rotate(-12deg); }
+}
+
+/* El foco de la condición: verde con true y rojo con false */
+.tt__led {
+  fill: #3a2a20;
+  transition: fill .25s ease;
+}
+.tt__led.is-true { fill: #3be37b; }
+.tt__led.is-false { fill: #ff5a3c; }
+
+/* ===================== Amplificador =====================
+   Aluminio cepillado entre dos tapas de madera, como el tocadiscos. La
+   pantalla fluorescente muestra i y la condición; las teclas son los
+   botones (solo íconos, con aria-label y title). */
+.tt__amp {
+  display: grid;
+  gap: 12px;
+  padding: 14px 12px;
+  border-right: 10px solid #5b331b;
+  border-left: 10px solid #5b331b;
+  border-radius: 12px;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .35) 0 1px, rgba(0, 0, 0, .035) 1px 2px),
+    linear-gradient(180deg, #e6e9ee, #c3c9d2);
+  box-shadow: inset 0 1px 0 #ffffff, 0 10px 22px rgba(30, 20, 10, .25), inset 0 0 0 1px rgba(0, 0, 0, .08);
+}
+
+.tt__vu svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.tt__vu-aguja {
+  transform-box: view-box;
+  transform-origin: 80px 78px;
+  transform: rotate(-48deg);
+  transition: transform .25s ease;
+}
+
+.tt__scene.is-singing .tt__vu-aguja { animation: tt-vu .7s ease-in-out infinite alternate; }
+
+@keyframes tt-vu {
+  0% { transform: rotate(-20deg); }
+  30% { transform: rotate(14deg); }
+  55% { transform: rotate(-4deg); }
+  80% { transform: rotate(28deg); }
+  100% { transform: rotate(6deg); }
+}
+
+.tt__screen {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border-radius: 6px;
+  background: radial-gradient(ellipse at 50% 0%, #0f3b35, #041a17 70%);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .6), 0 1px 0 #ffffff;
+  color: #5ef2d6;
+  font: 700 15px/1.3 Consolas, "Courier New", monospace;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(94, 242, 214, .75);
+}
+
+.tt__screen [data-counter] { font-size: 22px; }
+.tt__screen [data-check] { white-space: pre-wrap; }
+.tt.is-texto .tt__screen [data-check] { font-size: 13px; }
+.tt__screen b.is-true { color: #b8ff9c; text-shadow: 0 0 6px rgba(150, 255, 120, .8); }
+.tt__screen b.is-false { color: #ff9a7a; text-shadow: 0 0 6px rgba(255, 120, 90, .8); }
+
+/* Al pasar el cursor sobre la i se ve el valor que tiene en ese momento */
+.tt__i {
+  border-bottom: 1px dotted currentColor;
+  cursor: help;
+}
+.tt__i-val { display: none; }
+.tt__i:hover .tt__i-nom,
+.tt__i:focus .tt__i-nom { display: none; }
+.tt__i:hover .tt__i-val,
+.tt__i:focus .tt__i-val { display: inline; color: #fff6a8; }
+
+.tt__keys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+}
+
+.tt__btn {
+  --s: 42px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--s);
+  height: calc(var(--s) * .82);
+  padding: 0;
+  border: 1px solid #8f98a5;
+  border-radius: 6px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .4) 0 1px, rgba(0, 0, 0, .03) 1px 2px),
+    linear-gradient(180deg, #fbfcfd, #cfd5dd);
+  color: var(--ink);
+  box-shadow: 0 3px 0 #8f98a5, 0 5px 8px rgba(0, 0, 0, .25), inset 0 1px 0 #ffffff;
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .08s ease;
+}
+
+/* el foquito de cada tecla se prende al pasar el cursor */
+.tt__btn::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5a6472;
+}
+.tt__btn:hover::after { background: #ffb347; box-shadow: 0 0 5px #ffb347; }
+.tt__btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 #8f98a5, 0 2px 4px rgba(0, 0, 0, .25), inset 0 1px 0 #ffffff;
+}
+.tt__btn:focus-visible { outline: 3px solid var(--tec); outline-offset: 3px; }
+.tt__btn:disabled { color: #9aa3b0; cursor: default; transform: none; }
+.tt__btn:disabled::after { background: #8a929e; box-shadow: none; }
+
+.tt__btn svg {
+  width: 38%;
+  height: 46%;
+}
+
+/* ALTO solo aparece cuando se quita i++ y parpadea mientras el disco está rayado */
+.tt__btn--alto {
+  display: none;
+  border-color: #8f2414;
+  background: linear-gradient(180deg, #ff7a5c, #c73320);
+  color: #ffffff;
+  box-shadow: 0 3px 0 #8f2414, 0 5px 8px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .4);
+  font: 800 11px Roboto, Arial, sans-serif;
+  letter-spacing: .05em;
+}
+.tt.is-sin-inc .tt__btn--alto { display: inline-flex; }
+.tt__btn--alto:disabled { background: linear-gradient(180deg, #e9b3a6, #c98a7c); color: #ffffff; }
+.tt.is-loco .tt__btn--alto { animation: tt-alto .8s ease-in-out infinite; }
+
+@keyframes tt-alto {
+  50% { filter: brightness(1.2); box-shadow: 0 3px 0 #8f2414, 0 0 0 7px rgba(226, 65, 42, .25); }
+}
+
+/* Las mismas teclas, en chico, dentro del texto de instrucciones */
+.tt__ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 21px;
+  margin: 0 2px;
+  border: 1px solid #8f98a5;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fbfcfd, #cfd5dd);
+  color: var(--ink);
+  box-shadow: 0 2px 0 #8f98a5;
+  vertical-align: -5px;
+}
+
+.tt__ico svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* ===================== Panel de código ===================== */
+.tt .tt__code {
+  min-width: 0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.tt__code .js-term__code {
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Lo que se puede tocar dentro del código: i++ (se quita y se pone) y la condición (cambia) */
+.tt__tog {
+  cursor: pointer;
+  text-decoration: underline dotted rgba(74, 222, 128, .7);
+  text-underline-offset: 4px;
+}
+.tt__tog:hover { background: rgba(74, 222, 128, .14); }
+.tt__tog:focus-visible { outline: 2px solid #4f7fd1; outline-offset: 2px; }
+.tt__tog.is-on { text-decoration: none; }
+.tt__tog.js-term__com { text-decoration-color: rgba(63, 143, 92, .9); }
+
+.tt__console {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: .6em;
+  margin-top: 14px;
+  color: #ffffff;
+}
+
+.tt__console-out {
+  display: grid;
+  align-content: start;
+  min-height: calc(5 * 1.75em);
+  max-height: calc(6 * 1.75em);
+  overflow: hidden;
+}
+
+.tt__console-out span {
+  display: block;
+  white-space: pre;
+}
+.tt__console-out span.is-new { animation: tt-linea .3s ease; }
+.tt__console-out .tt__mas { color: #8a968d; font-style: italic; }
+
+/* el mismo cursor que .js-term__cursor */
+.tt__console-out:empty::after,
+.tt__console-out span:last-child::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -3px;
+  animation: tt-cursor 1s steps(1) infinite;
+}
+.tt__console-out .tt__mas:last-child::after { display: none; }
+
+@keyframes tt-linea {
+  from { opacity: 0; transform: translateY(3px); }
+}
+
+@keyframes tt-cursor {
+  50% { opacity: 0; }
+}
+
+/* Cada parte del while se resalta en azul Tec cuando le toca ejecutarse */
+.tt__code [data-part] {
+  margin: 0 -3px;
+  padding: 1px 3px;
+  border-radius: 4px;
+  transition: background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+
+.tt__code [data-part].is-on {
+  background: var(--tec);
+  box-shadow: 0 0 0 1px #4f7fd1;
+  color: #ffffff;
+}
+
+.tt__status {
+  margin: 16px 0 0;
+  min-height: 3em;
+}
+
+.tt__status b { font-family: Consolas, "Courier New", monospace; }
+.tt__status .si { color: var(--true); font-weight: 700; }
+.tt__status .no { color: var(--false); font-weight: 700; }
+
+/* ===================== Acomodo =====================
+   En pantallas anchas la escena y la ventana de código (con su consola) van
+   lado a lado (65 / 35) y abajo, a todo lo ancho, la explicación. En
+   pantallas angostas todo va en una columna. */
+.tt__main {
+  display: grid;
+  gap: 18px;
+}
+
+@media (min-width: 992px) {
+  .tt__main {
+    grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
+    align-items: center;
+  }
+}
+
+/* en pantallas medianas el código no cabe en 35 %, así que ahí queda 60 / 40 */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .tt__main { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); }
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
+  .tt .tt__code { font-size: 11px; }
+  .tt__amp { gap: 10px; padding: 12px 10px; }
+  .tt__keys { gap: 7px; }
+  .tt__btn { --s: 36px; }
+  .tt__code .js-term__body { padding-left: 10px; padding-right: 10px; }
+}
+
+@media (min-width: 1280px) and (max-width: 1365px) {
+  .tt .tt__code { font-size: 12px; }
+}
+
+/* En celular el amplificador queda arriba como una barra (pantalla y
+   teclas) y el tocadiscos completo debajo */
+@media (max-width: 599px) {
+  .tt__scene { grid-template-columns: 1fr; gap: 12px; }
+  .tt__amp {
+    grid-row: 1;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-right-width: 8px;
+    border-left-width: 8px;
+  }
+  .tt__vu { display: none; }
+  .tt__screen { padding: 8px; font-size: 13px; }
+  .tt__screen [data-counter] { font-size: 18px; }
+  .tt.is-texto .tt__screen [data-check] { font-size: 11.5px; }
+  .tt__keys { gap: 8px; max-width: 160px; }
+}
+
+@media (max-width: 575px) {
+  .tt .tt__code { font-size: 11.5px; }
+  .tt__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt__scene.is-playing .tt__disco,
+  .tt__scene.is-singing .tt__nota,
+  .tt__scene.is-singing .tt__vu-aguja,
+  .tt.is-loco .tt__cabeza,
+  .tt.is-loco .tt__btn--alto,
+  .tt__console-out span.is-new { animation: none; }
+  .tt__brazo,
+  .tt__pista,
+  .tt__etq,
+  .tt__code [data-part] { transition: none; }
+}
