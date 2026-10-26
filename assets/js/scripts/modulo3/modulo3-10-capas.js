@@ -103,8 +103,12 @@
       callout.innerHTML = stepHtml(step);
       callout.classList.remove("is-swapping");
       drawConnector();
-    }, 180);
+    }, 300);
   }
+  // Al terminar el desvanecido el título ya tiene su tamaño final
+  callout.addEventListener("transitionend", function (e) {
+    if (e.target === callout && e.propertyName === "transform") drawConnector();
+  });
 
   var active = -1;
   function update() {

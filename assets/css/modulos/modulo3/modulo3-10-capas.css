@@ -120,13 +120,16 @@
   color: var(--capas-text);
 }
 
+/* Cambio de capa: se desvanece con desenfoque, como la x de las cartas del 4-7 */
 .capas__callout {
-  transition: opacity 0.25s, transform 0.25s;
+  transform-origin: left top;
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
 }
 
 .capas__callout.is-swapping {
   opacity: 0;
-  transform: translateY(8px);
+  filter: blur(3px);
+  transform: scale(0.9);
 }
 
 .capas__callout h2 {
