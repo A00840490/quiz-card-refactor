@@ -2,10 +2,11 @@
    assets/css/modulos/modulo4/modulo4-11-tocadiscos.css).
 
    El arreglo sale de la lista oculta [data-tt-src] de la página: cada
-   elemento es una canción del disco, de afuera hacia adentro. Antes del
-   ciclo, var i = 0 baja la aguja al inicio del disco; la condición es el
-   foco junto al brazo; el cuerpo hace sonar la canción (la etiqueta muestra
-   su instrumento y el medidor se mueve) e i++ pasa la aguja a la siguiente.
+   elemento es un disco de vinil del color de su género. Antes del ciclo,
+   var i = 0 sube el disco 0 al tocadiscos; la condición es el foco junto al
+   brazo (si es true, la aguja baja); el cuerpo hace sonar el disco (notas y
+   medidor VU) e i++ levanta la aguja y cambia el disco: el que sonó sale por
+   la izquierda y el siguiente sube desde abajo.
 
    El recorrido se arma como una lista de pasos (antes del ciclo, condición,
    cuerpo, i++) y la escena se pinta a partir del paso en el que vamos, así
@@ -30,7 +31,6 @@
   var N = items.length;
   var ALT = items[Math.min(3, N - 1)].nombre; // la condición de texto se detiene en este elemento
 
-  var tt = root.querySelector("[data-tt-scene]");
   var codeEl = root.querySelector("[data-code]");
   var status = root.querySelector("[data-status]");
   var counter = root.querySelector("[data-counter]");
@@ -45,26 +45,59 @@
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
 
   /* ---------- El tocadiscos (SVG) ----------
-     Visto desde arriba: el disco gira alrededor de (210, 220) y el brazo
-     alrededor de su base en (440, 74); la aguja queda a 250 unidades de la
-     base. Cada canción es un anillo del disco, de afuera hacia adentro. */
+     Visto desde arriba: el plato gira alrededor de (210, 220) y el brazo
+     alrededor de su base en (440, 74). Cada elemento del arreglo es un disco
+     de vinil del color de su género, con su nombre escrito cuatro veces
+     alrededor (así siempre se alcanza a leer uno mientras gira) y el
+     instrumento en la etiqueta. Los discos esperan abajo, fuera del mueble;
+     con i++ el disco que sonó sale por la izquierda y el siguiente sube. */
   var CX = 210, CY = 220;
-  function radio(k) { return 184 - 21 * k - 9.5; }
+  var CABEZA = 20; // la cabeza del brazo va girada hacia el centro del disco
+
+  function dibujaDisco(it, k) {
+    var s = [];
+    s.push('<g class="tt__disco" data-disco="' + k + '"><g class="tt__giro">');
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="190" fill="' + it.color + '"/>');
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="190" fill="url(#tt-sombra)"/>');
+    for (var r = 186; r > 72; r -= 2.6) {
+      s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + r.toFixed(1) + '" fill="none" stroke="#000" stroke-opacity=".2" stroke-width=".7"/>');
+    }
+    // El nombre del género, cuatro veces alrededor del disco
+    s.push('<text font-family="Roboto, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="5" fill="#ffffff" fill-opacity=".9">');
+    for (var q = 0; q < 4; q++) {
+      s.push('<textPath href="#tt-anillo" startOffset="' + (12.5 + 25 * q) + '%" text-anchor="middle">' + it.nombre.toUpperCase() + "</textPath>");
+    }
+    s.push("</text>");
+    // Etiqueta: solo el instrumento
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="64" fill="#fff6df"/>');
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="60.5" fill="none" stroke="' + it.color + '" stroke-width="5"/>');
+    s.push('<image href="' + FOTOS + it.img + '" x="' + (CX - 50) + '" y="' + (CY - 50) + '" width="100" height="100" clip-path="url(#tt-etq)" preserveAspectRatio="xMidYMid meet"/>');
+    // El rayón del disco 0 (solo se ve sin i++)
+    if (k === 0) s.push('<path class="tt__rayon" d="M357 158q6 8 9 17l-4 1q4 6 5 14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>');
+    s.push("</g>");
+    // Reflejos fijos sobre el vinil (no giran)
+    s.push('<path d="M' + CX + ' ' + CY + 'L' + (CX + 120) + ' ' + (CY - 150) + 'A190 190 0 0 1 ' + (CX + 168) + ' ' + (CY - 88) + 'Z" fill="url(#tt-brillo)"/>');
+    s.push('<path d="M' + CX + ' ' + CY + 'L' + (CX - 120) + ' ' + (CY + 150) + 'A190 190 0 0 1 ' + (CX - 168) + ' ' + (CY + 88) + 'Z" fill="url(#tt-brillo)"/>');
+    s.push("</g>");
+    return s.join("");
+  }
 
   function dibujaTocadiscos() {
     var s = [];
-    s.push('<svg class="tt__svg" viewBox="0 0 520 440" role="img" aria-label="Tocadiscos con un disco de ' + N +
-      ' canciones; el brazo avanza una canción por vuelta del ciclo">');
+    s.push('<svg class="tt__svg" viewBox="0 0 520 440" role="img" aria-label="Tocadiscos: cada elemento del arreglo es un disco y el brazo toca uno por vuelta del ciclo">');
     s.push('<defs>' +
       '<linearGradient id="tt-madera" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#83502d"/><stop offset=".5" stop-color="#6b3f22"/><stop offset="1" stop-color="#4f2c16"/></linearGradient>' +
       '<pattern id="tt-veta" width="520" height="46" patternUnits="userSpaceOnUse"><path d="M0 10c80 -6 160 8 260 0s180 -6 260 2M0 26c90 6 170 -6 260 2s170 8 260 -2M0 38c60 -4 140 6 230 0s200 -4 290 2" fill="none" stroke="#2e170a" stroke-opacity=".28" stroke-width="1.4"/></pattern>' +
       '<linearGradient id="tt-alu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#cfd5dd"/><stop offset="1" stop-color="#a9b1bc"/></linearGradient>' +
       '<linearGradient id="tt-borde" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e9ee"/><stop offset=".5" stop-color="#aab2be"/><stop offset="1" stop-color="#d4d9e0"/></linearGradient>' +
-      '<radialGradient id="tt-vinilo"><stop offset=".3" stop-color="#1d1d1f"/><stop offset="1" stop-color="#0c0c0d"/></radialGradient>' +
-      '<linearGradient id="tt-brillo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".13"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
+      '<radialGradient id="tt-sombra"><stop offset=".3" stop-color="#000" stop-opacity=".1"/><stop offset=".8" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>' +
+      '<linearGradient id="tt-brillo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
       '<linearGradient id="tt-tubo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8e99aa"/><stop offset=".4" stop-color="#f7f9fb"/><stop offset="1" stop-color="#7d8796"/></linearGradient>' +
       '<linearGradient id="tt-contrapeso" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b6577"/><stop offset=".45" stop-color="#c9d0da"/><stop offset="1" stop-color="#3a4352"/></linearGradient>' +
       '<clipPath id="tt-etq"><circle cx="' + CX + '" cy="' + CY + '" r="58"/></clipPath>' +
+      '<clipPath id="tt-mueble"><rect x="6" y="6" width="508" height="428" rx="22"/></clipPath>' +
+      // El círculo sobre el que se escribe el nombre del género (empieza arriba, en el sentido del reloj)
+      '<path id="tt-anillo" d="M' + CX + ' ' + (CY - 128) + 'a128 128 0 1 1 0 256a128 128 0 1 1 0 -256"/>' +
       '</defs>');
 
     // Mueble de madera, placa de aluminio, descanso del brazo y foco de la condición
@@ -77,64 +110,50 @@
     s.push('<circle cx="472" cy="232" r="10" fill="#2b3346"/><circle class="tt__led" data-led cx="472" cy="232" r="6.5"/>');
     s.push('<text x="472" y="256" text-anchor="middle" font-family="Consolas, monospace" font-size="8.6" font-weight="700" fill="#3a4352">condición</text>');
 
-    // Disco que gira: plato, puntos estroboscópicos, vinilo, surcos, canciones y etiqueta
-    s.push('<g class="tt__disco">');
+    // Plato: borde con puntos estroboscópicos (giran) y el tapete de hule
+    s.push('<g class="tt__plato"><g class="tt__giro">');
     s.push('<circle cx="' + CX + '" cy="' + CY + '" r="206" fill="url(#tt-borde)" stroke="#6c7480" stroke-width="1.5"/>');
     s.push('<circle cx="' + CX + '" cy="' + CY + '" r="199" fill="none" stroke="#5f6773" stroke-width="5" stroke-dasharray="3.5 6.97"/>');
-    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="188" fill="url(#tt-vinilo)"/>');
-    for (var r = 186; r > 62; r -= 2.3) {
-      s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + r.toFixed(1) + '" fill="none" stroke="#2a2a2c" stroke-width=".7"/>');
+    s.push("</g></g>");
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="193" fill="#24272d"/>');
+    for (var r = 180; r > 40; r -= 14) {
+      s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + r + '" fill="none" stroke="#33373f" stroke-width="3"/>');
     }
-    for (var k = 0; k < N; k++) {
-      s.push('<circle class="tt__pista" data-pista="' + k + '" cx="' + CX + '" cy="' + CY + '" r="' + radio(k) +
-        '" fill="none" stroke="#fac775" stroke-opacity=".28" stroke-width="18"/>');
-      s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + (184 - 21 * k - 19.5) + '" fill="none" stroke="#4a4a4e" stroke-width="2.2"/>');
-    }
-    // El rayón del disco (solo se ve sin i++)
-    s.push('<path class="tt__rayon" d="M357 158q6 8 9 17l-4 1q4 6 5 14" fill="none" stroke="#f2f2f2" stroke-width="1.8" stroke-linecap="round"/>');
-    // Etiqueta azul del disco: "Lado A" y el nombre del arreglo
-    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="58" fill="#093b8b"/><circle cx="' + CX + '" cy="' + CY + '" r="52" fill="none" stroke="#fac775" stroke-width="1.5"/>');
-    s.push('<text x="' + CX + '" y="' + (CY - 14) + '" text-anchor="middle" font-family="Roboto, Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="#fac775">LADO A</text>');
-    s.push('<text x="' + CX + '" y="' + (CY + 26) + '" text-anchor="middle" font-family="Consolas, monospace" font-size="12" font-weight="700" fill="#ffffff">elementos</text>');
-    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="4" fill="url(#tt-alu)" stroke="#6c7480"/>');
-    s.push('</g>');
-    // La etiqueta de la canción que suena no gira con el disco, para que se
-    // alcance a ver su instrumento
-    items.forEach(function (it, k) {
-      s.push('<g class="tt__etq" data-etq="' + k + '">' +
-        '<circle cx="' + CX + '" cy="' + CY + '" r="66" fill="#fff6df"/>' +
-        '<circle cx="' + CX + '" cy="' + CY + '" r="62" fill="none" stroke="' + it.color + '" stroke-width="6"/>' +
-        '<image href="' + FOTOS + it.img + '" x="' + (CX - 42) + '" y="' + (CY - 54) + '" width="84" height="76" clip-path="url(#tt-etq)" preserveAspectRatio="xMidYMid meet"/>' +
-        '<text x="' + CX + '" y="' + (CY + 40) + '" text-anchor="middle" font-family="Consolas, monospace" font-size="13" font-weight="700" fill="#1c2434">' + it.nombre + '</text>' +
-        '<circle cx="' + CX + '" cy="' + CY + '" r="4" fill="url(#tt-alu)" stroke="#6c7480"/>' +
-        '</g>');
-    });
-    // Reflejos fijos sobre el vinilo
-    s.push('<path d="M' + CX + ' ' + CY + 'L' + (CX + 120) + ' ' + (CY - 150) + 'A190 190 0 0 1 ' + (CX + 168) + ' ' + (CY - 88) + 'Z" fill="url(#tt-brillo)"/>');
-    s.push('<path d="M' + CX + ' ' + CY + 'L' + (CX - 120) + ' ' + (CY + 150) + 'A190 190 0 0 1 ' + (CX - 168) + ' ' + (CY + 88) + 'Z" fill="url(#tt-brillo)"/>');
 
-    // Notas musicales: salen junto a la aguja mientras suena una canción
+    // Los discos, recortados al mueble para que entren por abajo y salgan por la izquierda
+    s.push('<g clip-path="url(#tt-mueble)">');
+    items.forEach(function (it, k) { s.push(dibujaDisco(it, k)); });
+    s.push("</g>");
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="5" fill="url(#tt-alu)" stroke="#6c7480"/>');
+
+    // Notas musicales: salen junto a la aguja mientras suena un disco
     var nota = function (c, x, y) {
       return '<g transform="translate(' + x + ' ' + y + ')"><g class="tt__nota" fill="' + c + '"><ellipse cx="0" cy="0" rx="5" ry="3.6" transform="rotate(-22)"/>' +
         '<rect x="3.6" y="-18" width="1.8" height="18"/><path d="M5.4 -18q8 3 6.5 11q-1.5 -5 -6.5 -6z"/></g></g>';
     };
     s.push('<g data-notas>' + nota("#fac775", -4, -6) + nota("#ffffff", 10, -2) + nota("#ffd98a", 2, 4) + '</g>');
 
-    // Base del brazo (fija) y brazo, dibujado hacia la derecha desde la base; la aguja queda en (690, 74)
+    // Base del brazo (fija) y brazo, dibujado hacia la derecha desde la base.
+    // La cabeza va girada hacia el centro del disco, como en un tocadiscos de
+    // verdad, con la palanquita para levantarla del lado de afuera; la aguja
+    // (el punto dorado) queda debajo de la cápsula.
     s.push('<circle cx="440" cy="74" r="31" fill="url(#tt-alu)" stroke="#8f98a5" stroke-width="1.5"/><circle cx="440" cy="74" r="19" fill="#2b3346"/>');
     s.push('<g class="tt__brazo" data-brazo>' +
       '<rect x="382" y="61" width="32" height="26" rx="6" fill="url(#tt-contrapeso)" stroke="#2b3346" stroke-width="1"/>' +
       '<path d="M388 61v26M394 61v26M400 61v26" stroke="#2b3346" stroke-opacity=".35"/>' +
-      '<rect x="412" y="71" width="254" height="6" rx="3" fill="url(#tt-tubo)" stroke="#6c7480" stroke-width=".6"/>' +
+      '<rect x="412" y="71" width="256" height="6" rx="3" fill="url(#tt-tubo)" stroke="#6c7480" stroke-width=".6"/>' +
       '<circle cx="440" cy="74" r="11" fill="#d7dce3" stroke="#6c7480" stroke-width="1.2"/><circle cx="440" cy="74" r="3" fill="#2b3346"/>' +
-      '<g class="tt__cabeza"><g transform="rotate(-14 664 74)"><rect x="662" y="64" width="40" height="20" rx="3" fill="#1c2434"/><rect x="666" y="67" width="22" height="13" rx="2" fill="#093b8b"/>' +
-      '<path d="M702 68l12 -8" stroke="#c9d0da" stroke-width="3" stroke-linecap="round"/></g><circle cx="690" cy="76" r="2.4" fill="#fac775"/></g>' +
+      '<g class="tt__cabeza"><g transform="rotate(' + CABEZA + ' 666 74)">' +
+      '<path d="M684 66v-8" stroke="#c9d0da" stroke-width="3" stroke-linecap="round"/>' +
+      '<rect x="662" y="66" width="38" height="18" rx="3" fill="#1c2434"/>' +
+      '<rect x="676" y="69" width="20" height="13" rx="2" fill="#093b8b"/>' +
+      '<circle cx="690" cy="79" r="2.4" fill="#fac775"/></g></g>' +
       '</g>');
     s.push('</svg>');
     return s.join("");
   }
 
-  // Medidor VU del amplificador: la aguja baila mientras suena una canción
+  // Medidor VU del amplificador: la aguja baila mientras suena un disco
   function dibujaVumetro() {
     var s = ['<svg class="tt__vu" viewBox="0 0 160 92" aria-hidden="true">',
       '<rect x="1" y="1" width="158" height="90" rx="7" fill="#f6ecd2" stroke="#8f98a5"/>',
@@ -160,15 +179,25 @@
   var brazo = root.querySelector("[data-brazo]");
   var notas = root.querySelector("[data-notas]");
   var led = root.querySelector("[data-led]");
-  var pistas = root.querySelectorAll("[data-pista]");
-  var etqs = root.querySelectorAll("[data-etq]");
+  var discos = root.querySelectorAll("[data-disco]");
 
-  // Para cada canción se busca el ángulo del brazo que deja la aguja a la
-  // distancia r del centro del disco (ley de cosenos). En reposo, 90°.
-  var P = { x: 440, y: 74 }, L = 250, REPOSO = 90;
+  // El brazo gira sobre su base P. La aguja está en (690, 79) dentro de la
+  // cabeza, que va girada CABEZA grados alrededor de (666, 74); S es dónde
+  // queda la aguja y DELTA el pequeño ángulo entre el tubo y la aguja. Para
+  // dejar la aguja a la distancia r del centro del disco se usa la ley de
+  // cosenos. En reposo el brazo apunta hacia abajo (90°).
+  var P = { x: 440, y: 74 }, REPOSO = 90;
+  var RAD = Math.PI / 180;
+  var S = {
+    x: 666 + 24 * Math.cos(CABEZA * RAD) - 5 * Math.sin(CABEZA * RAD),
+    y: 74 + 24 * Math.sin(CABEZA * RAD) + 5 * Math.cos(CABEZA * RAD)
+  };
+  var L = Math.sqrt((S.x - P.x) * (S.x - P.x) + (S.y - P.y) * (S.y - P.y));
+  var DELTA = Math.atan2(S.y - P.y, S.x - P.x) / RAD;
   var D = Math.sqrt((CX - P.x) * (CX - P.x) + (CY - P.y) * (CY - P.y));
   var PHI = Math.atan2(CY - P.y, CX - P.x);
-  function angulo(r) { return (PHI - Math.acos((L * L + D * D - r * r) / (2 * L * D))) * 180 / Math.PI; }
+  function angulo(r) { return (PHI - Math.acos((L * L + D * D - r * r) / (2 * L * D))) / RAD - DELTA; }
+  var INICIO = 178, AVANCE = 146; // dónde baja la aguja y hasta dónde llega mientras suena el disco
 
   root.classList.add("tt--ready");
 
@@ -248,32 +277,32 @@
   function explica(f) {
     var st = f.st, i = st.i;
     var cond = texto ? '<b>elementos[' + i + '] != "' + ALT + '"</b>' : "<b>" + i + " &lt; " + N + "</b>";
-    if (loco) return nom("Ciclo infinito") + ": la aguja nunca avanza y el disco se queda rayado, repitiendo la canción 0. Presiona <b>ALTO</b> para detenerlo.";
+    if (loco) return nom("Ciclo infinito") + ": la aguja nunca se levanta y el disco se queda rayado, repitiendo el disco 0. Presiona <b>ALTO</b> para detenerlo.";
     switch (st.parte) {
       case "init":
-        return nom("Antes del ciclo") + ": el <b>while</b> no tiene lugar para la expresión inicial, así que el contador <b>i = 0</b> se crea afuera, en la línea de arriba. El brazo pone la aguja al inicio del disco, en la canción <b>0</b>, y el disco empieza a girar.";
+        return nom("Antes del ciclo") + ": el <b>while</b> no tiene lugar para la expresión inicial, así que el contador <b>i = 0</b> se crea afuera, en la línea de arriba, y el disco <b>0</b> sube al tocadiscos.";
       case "cond":
         if (!st.ok) {
           return nom("Expresión condicional") + ": ¿" + cond + "? " +
-            (texto ? "La canción <b>" + i + '</b> es <b>"' + ALT + '"</b>' : "La aguja llegó al centro del disco, donde ya no hay canciones") +
-            ', así que es <span class="no">false</span> y el ciclo termina.';
+            (texto ? "El disco <b>" + i + '</b> es <b>"' + ALT + '"</b>' : "Ya no queda ningún disco por tocar") +
+            ', así que es <span class="no">false</span>, la aguja no baja y el ciclo termina.';
         }
         if (!inc && f.vueltas >= 1) {
           return nom("Expresión condicional") + ": ¿" + cond + '? Otra vez <span class="si">true</span>: como quitamos <b>i++</b>, i sigue valiendo <b>0</b> y la condición nunca cambia.';
         }
         return nom("Expresión condicional") + ": ¿" + cond + "? " +
-          (texto ? 'La canción es <b>"' + items[i].nombre + '"</b>' : "Hay una canción <b>" + i + "</b> debajo de la aguja") +
-          ', así que es <span class="si">true</span> y entramos al ciclo.';
+          (texto ? 'El disco es <b>"' + items[i].nombre + '"</b>' : "Hay un disco <b>" + i + "</b> en el tocadiscos") +
+          ', así que es <span class="si">true</span>, la aguja baja y entramos al ciclo.';
       case "body":
         if (!inc && st.vuelta >= 2) {
-          return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": la aguja vuelve a tocar la canción 0, como un disco rayado, y la consola vuelve a mostrar <b>0: " + items[0].nombre + "</b>.";
+          return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": la aguja vuelve a tocar el disco 0, como un disco rayado, y la consola vuelve a mostrar <b>0: " + items[0].nombre + "</b>.";
         }
-        return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": suena la canción <b>" + i + "</b> y la consola muestra <b>" + i + ": " + items[i].nombre + "</b>.";
+        return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": suena el disco <b>" + i + "</b> y la consola muestra <b>" + i + ": " + items[i].nombre + "</b>.";
       case "inc":
         return nom("Actualizar el contador") + ": <b>i++</b> es la última línea del cuerpo. Sube i a <b>" + i + "</b> y " +
-          (i < N ? "la aguja pasa a la canción <b>" + i + "</b>" : "la aguja llega al centro del disco") + ". Después el while vuelve a revisar la condición.";
+          (i < N ? "cambia el disco: la aguja se levanta, el disco <b>" + (i - 1) + "</b> sale y llega el disco <b>" + i + "</b>" : "la aguja se levanta y el disco <b>" + (i - 1) + "</b> sale, pero ya no llega otro") + ". Después el while vuelve a revisar la condición.";
       default:
-        return "Fin del ciclo: " + (texto ? "el brazo se levanta antes de tocar la canción <b>\"" + ALT + "\"</b>." : "sonaron las " + N + " canciones y el brazo regresa a su lugar.") +
+        return "Fin del ciclo: " + (texto ? "la aguja no tocó el disco <b>\"" + ALT + "\"</b>." : "sonaron los " + N + " discos y el brazo se queda en su lugar.") +
           " El programa sigue con la línea que está después de la llave <b>}</b>.";
     }
   }
@@ -297,19 +326,27 @@
     });
     pintaConsola(f, dir > 0 && antes && f.lineas.length > antes.lineas.length);
 
-    // El brazo: en reposo, o con la aguja sobre la canción i (en el centro si ya no hay)
-    var th = !hay || fin ? REPOSO : angulo(f.i >= N ? 70 : radio(f.i));
-    brazo.style.transform = "rotate(" + th + "deg)";
-    var rad = th * Math.PI / 180;
-    notas.setAttribute("transform", "translate(" + (P.x + L * Math.cos(rad)).toFixed(1) + " " + (P.y + L * Math.sin(rad)).toFixed(1) + ")");
-    tt.classList.toggle("is-playing", hay && !fin);
-    tt.classList.toggle("is-singing", !!st && st.parte === "body");
-    each(pistas, function (p, n) {
-      p.classList.toggle("is-here", !!st && st.parte === "body" && st.i === n);
-      p.classList.toggle("is-done", !!f.visitas[n]);
+    // Los discos: los que ya sonaron se fueron por la izquierda, el disco i
+    // está en el plato y los que faltan esperan abajo. Al avanzar con i++,
+    // primero se levanta la aguja, luego sale el disco que sonó y después
+    // sube el siguiente.
+    var cambio = dir > 0 && !!st && st.parte === "inc";
+    each(discos, function (d, n) {
+      var pos = !hay || n > f.i ? "translate(0px, 470px)" : n < f.i ? "translate(-430px, 0px)" : "translate(0px, 0px)";
+      d.style.transitionDelay = !cambio ? "0s" : n === f.i ? ".8s" : ".45s";
+      d.style.transform = pos;
     });
-    var etq = hay && !fin && f.i < N ? f.i : -1;
-    each(etqs, function (e, n) { e.classList.toggle("is-on", n === etq); });
+
+    // La aguja baja cuando la condición es true y avanza un poco mientras suena el disco
+    var suena = !!st && st.parte === "body";
+    var baja = suena || (!!st && st.parte === "cond" && st.ok);
+    var th = baja ? angulo(suena ? AVANCE : INICIO) : REPOSO;
+    brazo.style.transitionDuration = suena && !loco ? "2.2s" : "";
+    brazo.style.transform = "rotate(" + th + "deg)";
+    var rad = (th + DELTA) * RAD;
+    notas.setAttribute("transform", "translate(" + (P.x + L * Math.cos(rad)).toFixed(1) + " " + (P.y + L * Math.sin(rad)).toFixed(1) + ")");
+    root.classList.toggle("is-playing", baja);
+    root.classList.toggle("is-singing", suena);
     led.classList.remove("is-true", "is-false");
     if (st && (st.parte === "cond" || fin)) led.classList.add(f.ok ? "is-true" : "is-false");
 
@@ -380,7 +417,7 @@
         : "Quitaste <b>i++</b> del cuerpo del ciclo (quedó como comentario). Avanza paso a paso para ver qué pasa.";
     } else {
       nota = texto
-        ? "Ahora la condición compara texto: el ciclo sigue <b>mientras</b> la canción no sea <b>\"" + ALT + "\"</b>, sin contar cuántas hay."
+        ? "Ahora la condición compara texto: el ciclo sigue <b>mientras</b> el disco no sea <b>\"" + ALT + "\"</b>, sin contar cuántos hay."
         : "La condición volvió a ser <b>i &lt; elementos.length</b>.";
     }
     reiniciar();

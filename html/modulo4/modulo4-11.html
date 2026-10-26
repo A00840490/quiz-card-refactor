@@ -88,28 +88,28 @@
                                     para recorrer el ciclo paso a paso. También puedes hacer clic en <span class="code">i++</span> o en la condición del código.
                                 </p>
                                 <div class="tt" data-tocadiscos>
-                                    <!-- El arreglo del ejemplo: cada elemento es una canción del disco -->
+                                    <!-- El arreglo del ejemplo: cada elemento es un disco del tocadiscos -->
                                     <ol class="tt__src" data-tt-src>
-                                        <li data-img="rock.png" data-color="#d64532">rock</li>
-                                        <li data-img="jazz.png" data-color="#6b3e8f">jazz</li>
-                                        <li data-img="salsa.png" data-color="#f0a030">salsa</li>
-                                        <li data-img="cumbia.png" data-color="#7fae3a">cumbia</li>
-                                        <li data-img="pop.png" data-color="#d9488f">pop</li>
+                                        <li data-img="rock.png" data-color="#c8322a">rock</li>
+                                        <li data-img="jazz.png" data-color="#5b3f9e">jazz</li>
+                                        <li data-img="salsa.png" data-color="#e8892a">salsa</li>
+                                        <li data-img="cumbia.png" data-color="#3f9a4a">cumbia</li>
+                                        <li data-img="pop.png" data-color="#e0468f">pop</li>
                                     </ol>
+                                    <!-- Amplificador arriba de todo: medidor, pantalla con i y la condición, y las teclas -->
+                                    <div class="tt__amp">
+                                        <div class="tt__vu" data-tt-vu></div>
+                                        <div class="tt__screen" aria-live="polite"><span data-counter>i = –</span><span data-check></span></div>
+                                        <div class="tt__keys">
+                                            <button type="button" class="tt__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
+                                            <button type="button" class="tt__btn" data-back aria-label="Paso anterior" title="Paso anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></button>
+                                            <button type="button" class="tt__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
+                                            <button type="button" class="tt__btn tt__btn--alto" data-alto aria-label="Alto" title="Alto">ALTO</button>
+                                        </div>
+                                    </div>
                                     <div class="tt__main">
-                                        <div class="tt__scene" data-tt-scene>
+                                        <div class="tt__scene">
                                             <div data-tt-disco></div>
-                                            <!-- Amplificador: medidor, pantalla con i y la condición, y las teclas -->
-                                            <div class="tt__amp">
-                                                <div class="tt__vu" data-tt-vu></div>
-                                                <div class="tt__screen" aria-live="polite"><span data-counter>i = –</span><span data-check></span></div>
-                                                <div class="tt__keys">
-                                                    <button type="button" class="tt__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
-                                                    <button type="button" class="tt__btn" data-back aria-label="Paso anterior" title="Paso anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></button>
-                                                    <button type="button" class="tt__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
-                                                    <button type="button" class="tt__btn tt__btn--alto" data-alto aria-label="Alto" title="Alto">ALTO</button>
-                                                </div>
-                                            </div>
                                         </div>
                                         <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
                                              .js-term__src: así js-terminal.js no la toca y el código no se escribe letra por letra -->
