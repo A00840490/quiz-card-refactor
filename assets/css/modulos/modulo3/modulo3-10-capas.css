@@ -11,7 +11,7 @@
   --capas-stage: #3f4a60;
   --capas-dot: #4d5970;
   --capas-ink: #ffffff;
-  --capas-text: #2a3142;
+  --capas-text: #000000;
   --capas-accent: #7fb8ff;
   --capas-title: #1d5fb8;
   --capas-code-bg: #1e2430;
@@ -161,8 +161,10 @@
 }
 
 .capas__callout pre {
-  width: fit-content;
+  width: 100%;
   padding: 12px 14px;
+  border-radius: 0;
+  text-align: left;
   font-size: 13px;
 }
 
