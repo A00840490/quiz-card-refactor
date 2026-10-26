@@ -321,55 +321,28 @@
 .banda__i:hover .banda__i-val { display: inline; color: #ffe08a; }
 
 /* ===================== Panel de código ===================== */
-.banda__code {
+/* La ventana de código usa la terminal del módulo 4 (js-terminal.css):
+   misma barra, mismo verde y "Consola:" en blanco debajo del código, igual
+   que el "Resultado:" de las demás terminales. Aquí solo se ajusta lo que
+   cambia por ir al lado de la banda. */
+.banda .banda__code {
   min-width: 0;
-  overflow: hidden;
   margin: 0;
-  border-radius: 12px;
-  background: #0b0f0c;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, .2);
+  font-size: 13px; /* un poco más chico que 14px para que quepa la línea del for */
 }
 
-.banda__code-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 36px;
-  padding: 0 14px;
-  background: #161b17;
-  color: #7f9a86;
-  font: 12px/1 Consolas, "Courier New", monospace;
-}
-
-.banda__code-bar i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #2f3a32;
-}
-
-.banda__code-bar i:nth-of-type(3) { margin-right: 8px; }
-
-.banda__code pre {
-  margin: 0;
-  padding: 12px 14px 14px;
+.banda__code .js-term__code {
   overflow-x: auto;
-  color: var(--green);
-  font: 12.5px/1.65 Consolas, "Courier New", monospace;
   white-space: pre;
 }
 
-/* Consola: igual que las terminales del módulo 4, el código va en verde y lo
-   que muestra la consola en blanco, con el cursor parpadeando al final */
 .banda__console {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   column-gap: .6em;
-  min-height: calc(5 * 1.65em + 26px);
-  padding: 12px 14px 14px;
-  border-top: 1px solid #1f2a22;
+  min-height: calc(5 * 1.75em);
+  margin-top: 14px;
   color: #ffffff;
-  font: 12.5px/1.65 Consolas, "Courier New", monospace;
 }
 
 .banda__console-out span {
@@ -378,11 +351,12 @@
   animation: banda-linea .3s ease;
 }
 
+/* el mismo cursor que .js-term__cursor */
 .banda__console-out:empty::after,
 .banda__console-out span:last-child::after {
   content: "";
   display: inline-block;
-  width: .6em;
+  width: 9px;
   height: 1.1em;
   margin-left: 2px;
   background: currentColor;
@@ -398,9 +372,6 @@
   50% { opacity: 0; }
 }
 
-.banda__code .str { color: #f0c987; }
-.banda__code .key { color: #7dd3fc; }
-
 /* Cada parte del for se resalta en azul Tec cuando le toca ejecutarse */
 .banda__code [data-part] {
   padding: 1px 3px;
@@ -413,9 +384,6 @@
   box-shadow: 0 0 0 1px #4f7fd1;
   color: #ffffff;
 }
-
-.banda__code [data-part].is-on .str,
-.banda__code [data-part].is-on .key { color: #ffffff; }
 
 .banda__status {
   margin: 16px 0 0;
@@ -541,7 +509,7 @@
 @media (min-width: 992px) {
   .banda__main {
     grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
-    align-items: start;
+    align-items: center; /* la ventana de código queda centrada respecto a la banda */
   }
 }
 
@@ -551,8 +519,12 @@
 }
 
 @media (min-width: 992px) and (max-width: 1279px) {
-  .banda__code pre,
-  .banda__console { padding-left: 10px; padding-right: 10px; font-size: 11px; }
+  .banda .banda__code { font-size: 11px; }
+  .banda__code .js-term__body { padding-left: 10px; padding-right: 10px; }
+}
+
+@media (min-width: 1280px) and (max-width: 1365px) {
+  .banda .banda__code { font-size: 12px; }
 }
 
 @media (max-width: 767px) {
@@ -590,8 +562,8 @@
 }
 
 @media (max-width: 575px) {
-  .banda__code pre,
-  .banda__console { padding-left: 10px; padding-right: 10px; font-size: 11.5px; }
+  .banda .banda__code { font-size: 11.5px; }
+  .banda__code .js-term__body { padding-left: 12px; padding-right: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
