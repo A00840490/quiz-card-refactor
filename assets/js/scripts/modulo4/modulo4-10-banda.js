@@ -158,8 +158,6 @@
   }
 
   /* ---------- Los botones ---------- */
-  var INICIO = "La banda está vacía: las cajas esperan fuera del cuadro. El ciclo todavía no empieza.";
-
   var pasos = makeSteps();
   var k = -1;
   var sello = null;      // el sello del cuerpo llega un poco después del pistón
@@ -226,7 +224,7 @@
     placa(null);
     counter.textContent = "i = –";
     consola.innerHTML = "";
-    status.innerHTML = INICIO;
+    status.innerHTML = "";
     botones();
   }
 
