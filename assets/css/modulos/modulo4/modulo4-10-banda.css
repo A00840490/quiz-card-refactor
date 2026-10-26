@@ -25,8 +25,9 @@
 
   /* Geometría de la escena, en cqw (porcentaje del ancho de la escena) */
   --press: 42%;   /* dónde está la etiquetadora */
+  --alto: 11cqw;  /* lugar arriba de la etiquetadora para el tablero */
   --slot: 16.5cqw;/* separación entre cajas */
-  --belt: 34cqw;  /* altura de la cinta desde arriba */
+  --belt: 45cqw;  /* altura de la cinta desde arriba */
   --box: 14cqw;
   --travel: 1.8cqw; /* cuánto baja el pistón al sellar */
   --viaje: 2s;      /* lo que tarda una caja en llegar desde la derecha */
@@ -57,7 +58,7 @@
   container: banda-scene / inline-size;
   position: relative;
   /* la cinta queda pegada al borde de abajo: alto = --belt + 4.6cqw */
-  aspect-ratio: 1000 / 386;
+  aspect-ratio: 1000 / 496;
   overflow: hidden;
 }
 
@@ -183,19 +184,19 @@
 .banda__press {
   position: absolute;
   left: var(--press);
-  top: 0;
+  top: var(--alto);
   width: 19cqw;
   transform: translateX(-50%);
 }
 
-/* Dos cables la cuelgan del techo */
+/* Dos barras la cuelgan del tablero de control */
 .banda__press::before {
   content: "";
   position: absolute;
   left: 30%;
   right: 30%;
-  top: 0;
-  height: 2cqw;
+  top: -1.2cqw;
+  height: 3cqw;
   border: solid #4b5566;
   border-width: 0 .3cqw;
 }
@@ -232,9 +233,9 @@
 .banda__beam {
   position: absolute;
   left: var(--press);
-  top: 17cqw;
+  top: calc(17cqw + var(--alto));
   width: 12cqw;
-  height: calc(var(--belt) - 16cqw);
+  height: calc(var(--belt) - 16cqw - var(--alto));
   transform: translateX(-50%);
   clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
   background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, 0));
@@ -425,42 +426,86 @@
 .banda__status .si { color: var(--true); font-weight: 700; }
 .banda__status .no { color: var(--false); font-weight: 700; }
 
-/* ===================== Botones =====================
-   Solo íconos, arriba de la escena y todos iguales: reiniciar, paso
-   anterior y paso siguiente. Cada uno lleva aria-label y title con su
-   nombre. */
+/* ===================== Tablero de control =====================
+   Los tres botones (reiniciar, paso anterior y paso siguiente) van en un
+   tablero del mismo metal azul que la etiquetadora, colgado del techo y
+   montado sobre ella, para que se sienta que tú manejas la máquina. Son
+   botones industriales: tapa amarilla, como las franjas de la máquina, y
+   aro de acero. Cada uno lleva aria-label y title con su nombre. */
 .banda__ctrls {
+  --b: 6cqw;      /* tamaño de cada botón */
+  position: absolute;
+  z-index: 3;
+  left: var(--press);
+  top: 1.2cqw;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 14px;
+  gap: 2.3cqw;
+  padding: 1.5cqw 2.1cqw;
+  border-radius: 1.3cqw;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle .35cqw at .8cqw .8cqw, #7fa6e0 70%, transparent 75%),
+    radial-gradient(circle .35cqw at calc(100% - .8cqw) .8cqw, #7fa6e0 70%, transparent 75%),
+    radial-gradient(circle .35cqw at .8cqw calc(100% - .8cqw), #7fa6e0 70%, transparent 75%),
+    radial-gradient(circle .35cqw at calc(100% - .8cqw) calc(100% - .8cqw), #7fa6e0 70%, transparent 75%),
+    linear-gradient(#4a83d6, #1d58b0 22%, #0b3f94 55%, #062b66);
+  box-shadow: inset 0 .15cqw 0 rgba(255, 255, 255, .3), 0 .5cqw .8cqw rgba(6, 43, 102, .25);
+}
+
+/* Los dos cables que lo cuelgan del techo */
+.banda__ctrls::before {
+  content: "";
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  bottom: 100%;
+  height: 1.4cqw;
+  border: solid #4b5566;
+  border-width: 0 .3cqw;
 }
 
 .banda__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: var(--b);
+  height: var(--b);
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--tec);
-  color: #ffffff;
-  box-shadow: 0 6px 14px rgba(9, 59, 139, .3);
+  background: radial-gradient(circle at 50% 35%, #ffe7b0, #fac775 55%, #e0a23c);
+  color: #1c2434;
+  /* aro de acero y el borde de abajo que hace que el botón se vea hundible */
+  box-shadow:
+    inset 0 -.45cqw 0 rgba(120, 72, 10, .35),
+    0 0 0 max(.45cqw, 2px) #8e99aa,
+    0 0 0 max(.65cqw, 3px) #3a4352,
+    0 .5cqw .6cqw .2cqw rgba(0, 0, 0, .35);
   cursor: pointer;
-  transition: filter .15s ease, transform .1s ease, opacity .15s ease;
+  transition: filter .15s ease, transform .1s ease, box-shadow .1s ease;
 }
 
-.banda__btn:hover { filter: brightness(1.15); }
-.banda__btn:active { transform: scale(.94); }
-.banda__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
-.banda__btn:disabled { opacity: .35; cursor: default; filter: none; transform: none; box-shadow: none; }
+.banda__btn:hover { filter: brightness(1.08); }
+.banda__btn:active {
+  transform: translateY(.25cqw);
+  box-shadow:
+    inset 0 -.15cqw 0 rgba(120, 72, 10, .35),
+    0 0 0 max(.45cqw, 2px) #8e99aa,
+    0 0 0 max(.65cqw, 3px) #3a4352,
+    0 .2cqw .3cqw .2cqw rgba(0, 0, 0, .35);
+}
+.banda__btn:focus-visible { outline: 3px solid #ffffff; outline-offset: .9cqw; }
+.banda__btn:disabled {
+  background: radial-gradient(circle at 50% 35%, #e8edf3, #b9c3d0);
+  color: #6b778a;
+  cursor: default;
+  filter: none;
+  transform: none;
+}
 
 .banda__btn svg {
-  width: 18px;
-  height: 18px;
+  width: 42%;
+  height: 42%;
 }
 
 /* Los mismos íconos, en chico, dentro del texto de instrucciones */
@@ -472,8 +517,9 @@
   height: 22px;
   margin: 0 2px;
   border-radius: 50%;
-  background: var(--theme-color, #093b8b); /* va fuera de .banda: sin --tec */
-  color: #ffffff;
+  background: radial-gradient(circle at 50% 35%, #ffe7b0, #fac775 55%, #e0a23c);
+  color: #1c2434;
+  box-shadow: 0 0 0 2px #8e99aa, 0 0 0 3px #3a4352;
   vertical-align: -6px;
 }
 
@@ -484,7 +530,7 @@
 
 /* ===================== Acomodo =====================
    En pantallas anchas la escena y la ventana de código (con su consola) van
-   lado a lado (60 / 40) y abajo, a todo lo ancho, la explicación. En
+   lado a lado (65 / 35) y abajo, a todo lo ancho, la explicación. En
    pantallas angostas todo va en una columna. */
 .banda__main {
   display: grid;
@@ -497,15 +543,11 @@
     grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
     align-items: start;
   }
-  /* los botones quedan centrados sobre la escena */
-  .banda__ctrls { width: calc((100% - 18px) * .65); }
 }
 
-/* entre 992 y 1199 px la columna del código es más angosta */
 /* en pantallas medianas el código no cabe en 35 %, así que ahí queda 60 / 40 */
 @media (min-width: 992px) and (max-width: 1199px) {
   .banda__main { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); }
-  .banda__ctrls { width: calc((100% - 18px) * .6); }
 }
 
 @media (min-width: 992px) and (max-width: 1279px) {
@@ -516,21 +558,24 @@
 @media (max-width: 767px) {
   .banda {
     --press: 38%;
+    --alto: 20cqw;
     --slot: 34cqw;
-    --belt: 70cqw;
+    --belt: 82cqw;
     --box: 30cqw;
     --travel: 4.4cqw;
   }
 
   /* en vertical la escena se acerca para que se vean bien las cajas */
-  .banda__scene { aspect-ratio: 100 / 79; }
+  .banda__scene { aspect-ratio: 100 / 91; }
   .banda__belt { height: 9cqw; background-size: 22cqw 100%; }
 
-  /* la etiquetadora baja un poco para dejar lugar al letrero */
-  .banda__press { top: 8cqw; width: 34cqw; }
-  .banda__press::before { top: -8cqw; height: 11cqw; border-width: 0 .5cqw; }
+  /* el tablero crece para que los botones se puedan tocar con el dedo */
+  .banda__ctrls { --b: 10.5cqw; top: 2cqw; gap: 3.4cqw; padding: 2.4cqw 3.2cqw; border-radius: 2.4cqw; }
+  .banda__ctrls::before { height: 2cqw; border-width: 0 .5cqw; }
+  .banda__press { width: 34cqw; }
+  .banda__press::before { top: -2.4cqw; height: 6cqw; border-width: 0 .5cqw; }
   .banda__piston { top: 7.3cqw; width: 14cqw; }
-  .banda__beam { top: 32.4cqw; width: 24cqw; height: calc(var(--belt) - 31.4cqw); }
+  .banda__beam { top: calc(24.4cqw + var(--alto)); width: 24cqw; height: calc(var(--belt) - 23.4cqw - var(--alto)); }
   .banda__label { font-size: 6.4cqw; border-radius: 1.2cqw; }
 
   /* el letrero se acomoda en la pared y el predicado, debajo */
