@@ -320,13 +320,6 @@
 .banda__i:hover .banda__i-val { display: inline; color: #ffe08a; }
 
 /* ===================== Panel de código ===================== */
-.banda__panel {
-  display: grid;
-  gap: 12px;
-  align-content: start;
-  min-width: 0;
-}
-
 .banda__code {
   min-width: 0;
   overflow: hidden;
@@ -423,36 +416,9 @@
 .banda__code [data-part].is-on .str,
 .banda__code [data-part].is-on .key { color: #ffffff; }
 
-.banda__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.banda__legend span {
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: #e6f1fb;
-  color: var(--theme-color, #093b8b);
-  font: 700 12px/1.5 Arial, sans-serif;
-  transition: background .25s ease, color .25s ease;
-}
-
-.banda__legend span.is-on {
-  background: var(--tec);
-  color: #ffffff;
-}
-
 .banda__status {
-  margin: 0;
-  padding: 10px 12px;
-  min-height: 4.6em;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #f6f8fb;
-  color: var(--ink);
-  font-size: 14px;
-  line-height: 1.5;
+  margin: 16px 0 0;
+  min-height: 3em;
 }
 
 .banda__status b { font-family: Consolas, "Courier New", monospace; }
@@ -525,19 +491,24 @@
   gap: 18px;
 }
 
-.banda__bottom { margin-top: 14px; }
 
 @media (min-width: 992px) {
   .banda__main {
-    grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+    grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
     align-items: start;
   }
   /* los botones quedan centrados sobre la escena */
-  .banda__ctrls { width: calc((100% - 18px) * .6); }
+  .banda__ctrls { width: calc((100% - 18px) * .65); }
 }
 
 /* entre 992 y 1199 px la columna del código es más angosta */
+/* en pantallas medianas el código no cabe en 35 %, así que ahí queda 60 / 40 */
 @media (min-width: 992px) and (max-width: 1199px) {
+  .banda__main { grid-template-columns: minmax(0, 6fr) minmax(0, 4fr); }
+  .banda__ctrls { width: calc((100% - 18px) * .6); }
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
   .banda__code pre,
   .banda__console { padding-left: 10px; padding-right: 10px; font-size: 11px; }
 }
@@ -583,7 +554,6 @@
   .banda__box,
   .banda__beam,
   .banda__code [data-part],
-  .banda__legend span { transition-duration: .01ms; }
   .banda__belt.is-running,
   .banda__belt.is-returning,
   .banda__press.is-pressing .banda__piston,

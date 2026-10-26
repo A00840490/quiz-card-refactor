@@ -27,7 +27,6 @@
   var consola = root.querySelector("[data-console]");
   var status = root.querySelector("[data-status]");
   var code = root.querySelector("[data-code]");
-  var legend = root.querySelector("[data-legend]");
   var backBtn = root.querySelector("[data-back]");
   var stepBtn = root.querySelector("[data-step]");
   var resetBtn = root.querySelector("[data-reset]");
@@ -70,21 +69,19 @@
     return pasos;
   }
 
-  var PARTES = { init: "Expresión inicial", cond: "Expresión condicional", body: "Cuerpo del ciclo", inc: "Expresión cíclica" };
-
   function explica(st) {
     switch (st.parte) {
       case "init":
-        return "<b>Expresión inicial</b>: se crea el contador <b>i = 0</b> y la banda trae la caja <b>0</b> hasta la etiquetadora. Esta parte se ejecuta una sola vez, antes de la primera vuelta.";
+        return "<span class=\"code\">Expresión inicial</span>: se crea el contador <b>i = 0</b> y la banda trae la caja <b>0</b> hasta la etiquetadora. Esta parte se ejecuta una sola vez, antes de la primera vuelta.";
       case "cond":
         return st.ok
-          ? "<b>Expresión condicional</b>: ¿<b>" + st.i + " &lt; " + N + "</b>? El sensor encuentra una caja enfrente, así que es <span class=\"si\">true</span> y entramos al ciclo."
-          : "<b>Expresión condicional</b>: ¿<b>" + st.i + " &lt; " + N + "</b>? Ya no hay más cajas, así que es <span class=\"no\">false</span> y el ciclo termina.";
+          ? "<span class=\"code\">Expresión condicional</span>: ¿<b>" + st.i + " &lt; " + N + "</b>? El sensor encuentra una caja enfrente, así que es <span class=\"si\">true</span> y entramos al ciclo."
+          : "<span class=\"code\">Expresión condicional</span>: ¿<b>" + st.i + " &lt; " + N + "</b>? Ya no hay más cajas, así que es <span class=\"no\">false</span> y el ciclo termina.";
       case "body":
-        return "<b>Cuerpo del ciclo</b>, vuelta " + (st.vuelta + 1) + " de " + N + ": la etiquetadora sella la caja <b>" + st.i +
+        return "<span class=\"code\">Cuerpo del ciclo</span>, vuelta " + (st.vuelta + 1) + " de " + N + ": la etiquetadora sella la caja <b>" + st.i +
           "</b> y la consola muestra <b>" + st.i + ": " + items[st.i].nombre + "</b>.";
       case "inc":
-        return "<b>Expresión cíclica</b>: <b>i++</b> sube el contador a <b>" + st.i + "</b> y la banda avanza " +
+        return "<span class=\"code\">Expresión cíclica</span>: <b>i++</b> sube el contador a <b>" + st.i + "</b> y la banda avanza " +
           (st.i < N ? "para traer la caja <b>" + st.i + "</b>" : "pero ya no llega ninguna caja") + ". Después volvemos a revisar la condición.";
       default:
         return "Fin del ciclo. La consola ya mostró los " + N + " elementos del arreglo y el programa sigue con la línea que está después de la llave <b>}</b>.";
@@ -95,9 +92,6 @@
   function marca(parte) {
     [].forEach.call(code.querySelectorAll("[data-part]"), function (el) {
       el.classList.toggle("is-on", el.getAttribute("data-part") === parte);
-    });
-    [].forEach.call(legend.children, function (el) {
-      el.classList.toggle("is-on", el.getAttribute("data-leg") === parte);
     });
   }
 
