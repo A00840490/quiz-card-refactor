@@ -145,26 +145,26 @@
 
 .capas__line,
 .capas__callout pre {
+  box-sizing: border-box;
+  width: 100%;
   max-width: 100%;
   margin: 0;
   padding: 8px 12px;
   overflow-x: auto;
-  border-radius: 8px;
+  border-radius: 0;
+  text-align: left;
   background: var(--capas-code-bg);
   color: var(--capas-code-ink);
   font: 400 14px/1.6 var(--capas-mono);
 }
 
 .capas__line {
-  display: inline-block;
+  display: block;
   white-space: nowrap;
 }
 
 .capas__callout pre {
-  width: 100%;
   padding: 12px 14px;
-  border-radius: 0;
-  text-align: left;
   font-size: 13px;
 }
 
