@@ -21,6 +21,7 @@
   if (!root) return;
 
   var FOTOS = "../../assets/images/course/modulo4/m4-11/tocadiscos/fotos/";
+  var TEXTURAS = "../../assets/images/course/modulo4/m4-11/tocadiscos/texturas/";
 
   // Los elementos del arreglo, tal como están escritos en la página
   var items = [].map.call(root.querySelectorAll("[data-tt-src] li"), function (li) {
@@ -86,8 +87,12 @@
     var s = [];
     s.push('<svg class="tt__svg" viewBox="0 0 520 440" role="img" aria-label="Tocadiscos: cada elemento del arreglo es un disco y el brazo toca uno por vuelta del ciclo">');
     s.push('<defs>' +
-      '<linearGradient id="tt-madera" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#83502d"/><stop offset=".5" stop-color="#6b3f22"/><stop offset="1" stop-color="#4f2c16"/></linearGradient>' +
-      '<pattern id="tt-veta" width="520" height="46" patternUnits="userSpaceOnUse"><path d="M0 10c80 -6 160 8 260 0s180 -6 260 2M0 26c90 6 170 -6 260 2s170 8 260 -2M0 38c60 -4 140 6 230 0s200 -4 290 2" fill="none" stroke="#2e170a" stroke-opacity=".28" stroke-width="1.4"/></pattern>' +
+      '<linearGradient id="tt-madera" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a2e12" stop-opacity=".25"/><stop offset=".6" stop-color="#3b1d0b" stop-opacity=".45"/><stop offset="1" stop-color="#24110a" stop-opacity=".62"/></linearGradient>' +
+      // Texturas de fotos reales: chapa de nogal, aluminio cepillado y hule del tapete
+      '<pattern id="tt-nogal" width="520" height="520" patternUnits="userSpaceOnUse"><image href="' + TEXTURAS + 'madera.jpg" width="520" height="520" preserveAspectRatio="none"/></pattern>' +
+      '<pattern id="tt-cepillado" x="384" y="10" width="300" height="300" patternUnits="userSpaceOnUse"><image href="' + TEXTURAS + 'aluminio.jpg" width="300" height="300" preserveAspectRatio="none"/></pattern>' +
+      '<pattern id="tt-hule" width="160" height="160" patternUnits="userSpaceOnUse"><image href="' + TEXTURAS + 'hule.jpg" width="160" height="160" preserveAspectRatio="none"/></pattern>' +
+      '<linearGradient id="tt-luz" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient>' +
       '<linearGradient id="tt-alu" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6f8"/><stop offset=".5" stop-color="#cfd5dd"/><stop offset="1" stop-color="#a9b1bc"/></linearGradient>' +
       '<linearGradient id="tt-borde" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6e9ee"/><stop offset=".5" stop-color="#aab2be"/><stop offset="1" stop-color="#d4d9e0"/></linearGradient>' +
       '<radialGradient id="tt-sombra"><stop offset=".3" stop-color="#000" stop-opacity=".1"/><stop offset=".8" stop-color="#000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity=".5"/></radialGradient>' +
@@ -101,10 +106,12 @@
       '</defs>');
 
     // Mueble de madera, placa de aluminio, descanso del brazo y foco de la condición
+    // el nogal de la foto, entintado más oscuro y con sombra hacia la esquina de abajo
+    s.push('<rect x="6" y="6" width="508" height="428" rx="22" fill="url(#tt-nogal)"/>');
     s.push('<rect x="6" y="6" width="508" height="428" rx="22" fill="url(#tt-madera)"/>');
-    s.push('<rect x="6" y="6" width="508" height="428" rx="22" fill="url(#tt-veta)"/>');
     s.push('<rect x="12" y="12" width="496" height="416" rx="18" fill="none" stroke="#ffdcb4" stroke-opacity=".2" stroke-width="2"/>');
-    s.push('<rect x="384" y="22" width="114" height="272" rx="12" fill="url(#tt-alu)" stroke="#8f98a5" stroke-width="1"/>');
+    s.push('<rect x="384" y="22" width="114" height="272" rx="12" fill="url(#tt-cepillado)" stroke="#8f98a5" stroke-width="1"/>');
+    s.push('<rect x="384" y="22" width="114" height="272" rx="12" fill="url(#tt-luz)"/>');
     s.push('<path d="M392 32H490" stroke="#fff" stroke-opacity=".7"/>');
     s.push('<rect x="430" y="306" width="20" height="16" rx="4" fill="#2b3346"/><path d="M432 306v-6h4v6M444 306v-6h4v6" fill="#2b3346"/>');
     s.push('<circle cx="472" cy="232" r="10" fill="#2b3346"/><circle class="tt__led" data-led cx="472" cy="232" r="6.5"/>');
@@ -115,9 +122,9 @@
     s.push('<circle cx="' + CX + '" cy="' + CY + '" r="206" fill="url(#tt-borde)" stroke="#6c7480" stroke-width="1.5"/>');
     s.push('<circle cx="' + CX + '" cy="' + CY + '" r="199" fill="none" stroke="#5f6773" stroke-width="5" stroke-dasharray="3.5 6.97"/>');
     s.push("</g></g>");
-    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="193" fill="#24272d"/>');
+    s.push('<circle cx="' + CX + '" cy="' + CY + '" r="193" fill="url(#tt-hule)"/>');
     for (var r = 180; r > 40; r -= 14) {
-      s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + r + '" fill="none" stroke="#33373f" stroke-width="3"/>');
+      s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + r + '" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="2.5"/>');
     }
 
     // Los discos, recortados al mueble para que entren por abajo y salgan por la izquierda
@@ -137,7 +144,7 @@
     // La cabeza va girada hacia el centro del disco, como en un tocadiscos de
     // verdad, con la palanquita para levantarla del lado de afuera; la aguja
     // (el punto dorado) queda debajo de la cápsula.
-    s.push('<circle cx="440" cy="74" r="31" fill="url(#tt-alu)" stroke="#8f98a5" stroke-width="1.5"/><circle cx="440" cy="74" r="19" fill="#2b3346"/>');
+    s.push('<circle cx="440" cy="74" r="31" fill="url(#tt-cepillado)" stroke="#8f98a5" stroke-width="1.5"/><circle cx="440" cy="74" r="19" fill="#2b3346"/>');
     s.push('<g class="tt__brazo" data-brazo>' +
       '<rect x="382" y="61" width="32" height="26" rx="6" fill="url(#tt-contrapeso)" stroke="#2b3346" stroke-width="1"/>' +
       '<path d="M388 61v26M394 61v26M400 61v26" stroke="#2b3346" stroke-opacity=".35"/>' +

@@ -169,9 +169,10 @@
   padding: 0;
   border: 1px solid #8f98a5;
   border-radius: 6px;
+  /* aluminio cepillado de verdad (foto), con luz arriba y sombra abajo */
   background:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, .4) 0 1px, rgba(0, 0, 0, .03) 1px 2px),
-    linear-gradient(180deg, #fbfcfd, #cfd5dd);
+    linear-gradient(180deg, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, .12)),
+    url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/aluminio.jpg") center / 120px;
   color: var(--ink);
   box-shadow: 0 3px 0 #8f98a5, 0 5px 8px rgba(0, 0, 0, .25), inset 0 1px 0 #ffffff;
   cursor: pointer;
