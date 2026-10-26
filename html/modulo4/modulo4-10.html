@@ -24,6 +24,7 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-10-banda.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -123,43 +124,93 @@
                                     </ul>
                                     <p>Este ejemplo utiliza un ciclo <span class="code">for</span> para mostrar
                                         todos los elementos en un arreglo.</p>
-                                <div class="card">
-                                    <div class="container-fluid">
-                                        <p class="codepen" data-height="500" data-theme-id="dark"
-                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                            data-slug-hash="vYXQKop"
-                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                            data-pen-title="for-loop-js ejemplo">
-                                            <span>See the Pen <a
-                                                    href="https://codepen.io/luis-yerik-arambula/pen/vYXQKop"
-                                                    target="_blank">
-                                                    for-loop-js ejemplo</a> by Luis Yerik Arambula (<a
-                                                    href="https://codepen.io/luis-yerik-arambula"
-                                                    target="_blank">@luis-yerik-arambula</a>)
-                                                on <a href="https://codepen.io"
-                                                    target="_blank">CodePen</a>.</span>
-                                        </p>
-                                        <script async
-                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                <!-- El ciclo for como una banda transportadora (ver modulo4-10-banda.css / .js) -->
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Haz clic en <span class="banda__ico banda__ico--main"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l10-5.5z" fill="currentColor"/></svg></span> para que la
+                                    banda recorra el arreglo completo, en <span class="banda__ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></span> para
+                                    avanzar una parte del ciclo a la vez o en <span class="banda__ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></span>
+                                    para empezar de nuevo.
+                                </p>
+                                <div class="banda" data-banda>
+                                    <!-- El arreglo del ejemplo: cada elemento es una caja de la banda -->
+                                    <ol class="banda__src" data-banda-src>
+                                        <li data-img="fotos/manzana.png">manzana</li>
+                                        <li data-img="fotos/pera.png">pera</li>
+                                        <li data-img="fotos/uvas.png">uvas</li>
+                                        <li data-img="fotos/mango.png">mango</li>
+                                        <li data-img="fotos/kiwi.png">kiwi</li>
+                                    </ol>
+                                    <div class="banda__ctrls">
+                                        <button type="button" class="banda__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
+                                        <button type="button" class="banda__btn banda__btn--main" data-run data-state="play" aria-label="Correr" title="Correr"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l10-5.5z" fill="currentColor"/></svg></button>
+                                        <button type="button" class="banda__btn" data-step aria-label="Paso" title="Paso"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
                                     </div>
-                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                        <!-- Fuente  -->
-                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                      </p>
+                                    <div class="banda__main">
+                                        <div class="banda__scene">
+                                            <div class="banda__belt" data-belt aria-hidden="true"></div>
+                                            <div class="banda__track" data-track aria-hidden="true"></div>
+                                            <div class="banda__beam" data-beam aria-hidden="true"></div>
+                                            <div class="banda__press" data-press aria-hidden="true">
+                                                <img class="banda__piston" src="../../assets/images/course/modulo4/m4-10/banda/piston.svg" alt="">
+                                                <img class="banda__machine" src="../../assets/images/course/modulo4/m4-10/banda/etiquetadora.svg" alt="">
+                                            </div>
+                                            <div class="banda__check" data-check aria-hidden="true"><span class="banda__screen">i &lt; 5 = <b>…</b></span></div>
+                                            <div class="banda__sign" aria-hidden="true">
+                                                <span class="banda__screen" data-counter>i = –</span>
+                                            </div>
+                                        </div>
+                                        <div class="banda__code" data-code>
+                                            <div class="banda__code-bar" aria-hidden="true"><i></i><i></i><i></i>ciclos.js</div>
+<pre><span class="key">var</span> elementos = [
+  <span class="str">"manzana"</span>, <span class="str">"pera"</span>, <span class="str">"uvas"</span>,
+  <span class="str">"mango"</span>, <span class="str">"kiwi"</span>
+];
+<span class="key">var</span> texto = <span class="str">""</span>;
+
+<span class="key">for</span> (<span data-part="init"><span class="key">var</span> i = 0</span>;
+     <span data-part="cond">i &lt; elementos.length</span>;
+     <span data-part="inc">i++</span>) {
+  <span data-part="body">texto += i + <span class="str">": "</span> +</span>
+           <span data-part="body">elementos[i] + <span class="str">"\n"</span>;</span>
+}</pre>
+                                        </div>
+                                    </div>
+                                    <div class="banda__bottom">
+                                        <div class="banda__panel">
+                                            <div class="banda__legend" data-legend aria-hidden="true">
+                                                <span data-leg="init">Expresión inicial</span>
+                                                <span data-leg="cond">Expresión condicional</span>
+                                                <span data-leg="body">Cuerpo del ciclo</span>
+                                                <span data-leg="inc">Expresión cíclica</span>
+                                            </div>
+                                            <p class="banda__status" data-status aria-live="polite">La banda está vacía: las cajas esperan fuera del cuadro. El ciclo todavía no empieza.</p>
+                                        </div>
+                                        <div class="banda__out">
+                                            <div class="banda__printer">
+                                                <img src="../../assets/images/course/modulo4/m4-10/banda/impresora.svg" alt="Impresora que va escribiendo la variable texto">
+                                            </div>
+                                            <div class="banda__paper" data-paper aria-live="polite"><i>texto =</i></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>Presiona <img src="../../assets/images/clic.svg" class="mrg-right-5"> el botón y observa lo que sucede. Lee detenidamente el código,
-                                    especialmente el ciclo <span class="code">for</span> y sus
-                                    <b>declaraciones</b>. Primero, declaramos la variable <span
-                                        class="code">i</span> con un valor de 0 en la expresión inicial. Después
-                                    revisamos si <span class="code">i</span> en la expresión condicional. Si la
-                                    expresión condicional resulta en True, la línea dentro del ciclo se ejecuta,
-                                    y, al terminar la primera ejecución, se ejecuta la expresión cíclica para
-                                    aumentar el valor de <span class="code">i</span> en uno. Dentro del ciclo,
-                                    modificamos la variable <span class="code">texto</span> que creamos
-                                    anteriormente en la función. Con cada iteración le concatenamos una cadena
-                                    de caracteres que indica el índice del elemento y su valor. Al final de
-                                    la nueva cadena agregamos <span class="code">\n</span> para que se agregue un salto de línea al
-                                    final de cada elemento. </p>
+                                <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
+                                    <!-- Fuente -->
+                                    Fotografías de Wikimedia Commons: <a href="https://commons.wikimedia.org/wiki/File:Apple_red_1.png" target="_blank">manzana</a> y <a href="https://commons.wikimedia.org/wiki/File:Grapes_blue.png" target="_blank">uvas</a> de Andrikkos (dominio público); <a href="https://commons.wikimedia.org/wiki/File:La_France_pear_-_2024_Dec_9_clear.png" target="_blank">pera</a> de Nesnad (CC BY 4.0); <a href="https://commons.wikimedia.org/wiki/File:Mangifera_indica20100405_23.png" target="_blank">mango</a> de Bff (CC BY-SA 3.0);
+                                    <a href="https://commons.wikimedia.org/wiki/File:Kiwi_aka.jpg" target="_blank">kiwi</a> de André Karwath (CC BY-SA 2.5, se le quitó el fondo); <a href="https://commons.wikimedia.org/wiki/File:Puesto_de_frutas_en_el_Mercado_Municipal_de_Sao_Paulo_01.jpg" target="_blank">puesto de frutas</a> de Wilfredor (CC0); <a href="https://commons.wikimedia.org/wiki/File:Open_Cardboard_Moving_Box_(32067347137).jpg" target="_blank">caja</a> de HireAHelper (CC BY 2.0, se le quitó el fondo). Ilustraciones de la banda: elaboración propia.
+                                </p>
+                                <p>Lee detenidamente el código, especialmente el ciclo <span class="code">for</span> y sus
+                                    <b>declaraciones</b>. Primero, declaramos la variable <span class="code">i</span> con un
+                                    valor de 0 en la expresión inicial. Después revisamos la expresión condicional: el
+                                    sensor de la banda busca si todavía hay una caja enfrente. Si resulta en True, la línea
+                                    dentro del ciclo se ejecuta, y, al terminar la primera ejecución, se ejecuta la
+                                    expresión cíclica para aumentar el valor de <span class="code">i</span> en uno y la
+                                    banda avanza una caja. Dentro del ciclo, modificamos la variable <span
+                                        class="code">texto</span> que creamos anteriormente. Con cada iteración le
+                                    concatenamos una cadena de caracteres que indica el índice del elemento y su valor, tal
+                                    como la impresora lo va sacando en el ticket. Al final de la nueva cadena agregamos
+                                    <span class="code">\n</span> para que se agregue un salto de línea al final de cada
+                                    elemento.</p>
                                 <p>El ciclo for se ejecuta 5 veces debido a que el arreglo "elementos" contiene
                                     5 elementos. Después de la última iteración, a la variable <span
                                         class="code">i</span> se le asigna un valor de 5, y, como este no es
@@ -239,6 +290,7 @@
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-10-banda.js"></script>
 </body>
 
 </html>
