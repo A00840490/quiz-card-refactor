@@ -253,13 +253,13 @@
 }
 
 /* ===================== Letrero del contador y predicado ===================== */
-/* Dos tablitas de madera colgadas en la pared: arriba "i = 2" y abajo el
+/* Dos tablitas de madera colgadas en la pared, a la derecha: arriba "i = 2" y abajo el
    predicado "i < 5 = true" (al pasar el cursor sobre la i se ve el valor que
    tiene). La veta de la madera sale de gradientes, sin imágenes. */
 .banda__sign,
 .banda__check {
   position: absolute;
-  left: 2cqw;
+  right: 2cqw;
   width: 21cqw;
   padding: .5cqw 1.6cqw;
   border: .2cqw solid #6b4220;
@@ -479,8 +479,9 @@
 .banda__status .no { color: var(--false); font-weight: 700; }
 
 /* ===================== Botones =====================
-   Solo íconos, arriba de la escena: reiniciar, correr/pausa (al centro y más
-   grande) y paso. Cada uno lleva aria-label y title con su nombre. */
+   Solo íconos, arriba de la escena y todos iguales: reiniciar, paso
+   anterior y paso siguiente. Cada uno lleva aria-label y title con su
+   nombre. */
 .banda__ctrls {
   display: flex;
   justify-content: center;
@@ -493,42 +494,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: #e6f1fb;
-  color: var(--theme-color, #093b8b);
-  cursor: pointer;
-  transition: filter .15s ease, transform .1s ease;
-}
-
-.banda__btn--main {
-  width: 56px;
-  height: 56px;
-  background: var(--theme-color, #093b8b);
+  background: var(--tec);
   color: #ffffff;
   box-shadow: 0 6px 14px rgba(9, 59, 139, .3);
+  cursor: pointer;
+  transition: filter .15s ease, transform .1s ease, opacity .15s ease;
 }
 
-.banda__btn:hover { filter: brightness(1.08); }
+.banda__btn:hover { filter: brightness(1.15); }
 .banda__btn:active { transform: scale(.94); }
 .banda__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
-.banda__btn:disabled { opacity: .45; cursor: default; filter: none; transform: none; }
+.banda__btn:disabled { opacity: .35; cursor: default; filter: none; transform: none; box-shadow: none; }
 
 .banda__btn svg {
   width: 18px;
   height: 18px;
 }
-
-.banda__btn--main svg {
-  width: 22px;
-  height: 22px;
-}
-
-/* El triángulo de "correr" se ve centrado si se recorre un poco a la derecha */
-.banda__btn--main[data-state="play"] svg { margin-left: 3px; }
 
 /* Los mismos íconos, en chico, dentro del texto de instrucciones */
 .banda__ico {
@@ -539,14 +525,9 @@
   height: 22px;
   margin: 0 2px;
   border-radius: 50%;
-  background: #e6f1fb;
-  color: var(--theme-color, #093b8b);
-  vertical-align: -6px;
-}
-
-.banda__ico--main {
-  background: var(--theme-color, #093b8b);
+  background: var(--theme-color, #093b8b); /* va fuera de .banda: sin --tec */
   color: #ffffff;
+  vertical-align: -6px;
 }
 
 .banda__ico svg {

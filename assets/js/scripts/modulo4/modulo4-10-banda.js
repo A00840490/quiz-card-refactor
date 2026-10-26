@@ -6,9 +6,9 @@
    pasos (inicial, condición, cuerpo, incremento) y cada paso ilumina su parte
    del código, mueve la escena y explica lo que acaba de pasar.
 
-   Los botones son solo íconos: Correr (se vuelve Pausa) los ejecuta solos,
-   Paso avanza uno a uno y Reiniciar deja la banda como al principio. Con
-   "reducir movimiento" todo ocurre sin animaciones. */
+   Los botones son solo íconos: Paso siguiente avanza una parte del ciclo,
+   Paso anterior regresa a la de antes y Reiniciar deja la banda como al
+   principio. Con "reducir movimiento" todo ocurre sin animaciones. */
 (function () {
   "use strict";
 
@@ -28,7 +28,7 @@
   var status = root.querySelector("[data-status]");
   var code = root.querySelector("[data-code]");
   var legend = root.querySelector("[data-legend]");
-  var runBtn = root.querySelector("[data-run]");
+  var backBtn = root.querySelector("[data-back]");
   var stepBtn = root.querySelector("[data-step]");
   var resetBtn = root.querySelector("[data-reset]");
 
@@ -145,10 +145,11 @@
       press.classList.remove("is-pressing");
       void press.offsetWidth;
       press.classList.add("is-pressing");
-      setTimeout(function () {
+      pendiente = function () {
         boxes[st.i].classList.add("is-stamped");
         imprime(st.i + ": " + items[st.i].nombre);
-      }, reduce ? 0 : 330);
+      };
+      sello = setTimeout(sellar, reduce ? 0 : 330);
     }
 
     if (st.parte === "inc") {
@@ -167,33 +168,31 @@
   }
 
   /* ---------- Los botones ---------- */
-  var PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l10-5.5z" fill="currentColor"/></svg>';
-  var PAUSE = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5h3.2v11H4zm4.8 0H12v11H8.8z" fill="currentColor"/></svg>';
-
-  // El botón del centro cambia entre correr y pausa: ícono, nombre y estado
-  function botonCorrer(enPausa) {
-    var nombre = enPausa ? "Pausa" : "Correr";
-    runBtn.innerHTML = enPausa ? PAUSE : PLAY;
-    runBtn.setAttribute("aria-label", nombre);
-    runBtn.setAttribute("title", nombre);
-    runBtn.setAttribute("data-state", enPausa ? "pause" : "play");
-  }
   var INICIO = "La banda está vacía: las cajas esperan fuera del cuadro. El ciclo todavía no empieza.";
 
   var pasos = makeSteps();
   var k = -1;
-  var timer = null;
-  var corriendo = false;
-
-  // init e inc esperan a que la caja termine de llegar (--viaje en el CSS)
-  var ESPERA = { init: 2300, cond: 1000, body: 1500, inc: 2400, fin: 0 };
+  var sello = null;      // el sello del cuerpo llega un poco después del pistón
+  var pendiente = null;  // lo que hace ese sello (etiqueta e impresión)
   var REGRESO = 1600; // --regreso en el CSS
   var volviendo = null;
 
-  function detener() {
-    corriendo = false;
-    clearTimeout(timer);
-    botonCorrer(false);
+  // Hace ya el sello pendiente (si se avanza rápido) o lo cancela (al regresar)
+  function sellar() {
+    clearTimeout(sello);
+    var f = pendiente;
+    pendiente = null;
+    if (f) f();
+  }
+
+  function cancelaSello() {
+    clearTimeout(sello);
+    pendiente = null;
+  }
+
+  function botones() {
+    backBtn.disabled = k < 0;
+    stepBtn.disabled = k >= pasos.length - 1;
   }
 
   // Termina el regreso de las cajas: quita las etiquetas ya fuera de cuadro
@@ -208,7 +207,7 @@
   // página es inmediato; con el botón la cinta corre al revés y las cajas
   // regresan deslizándose.
   function reiniciar(inmediato) {
-    detener();
+    cancelaSello();
     pasos = makeSteps();
     k = -1;
     marca(null);
@@ -238,47 +237,68 @@
     counter.textContent = "i = –";
     paper.innerHTML = "<i>texto =</i>";
     status.innerHTML = INICIO;
-    stepBtn.disabled = false;
+    botones();
   }
 
   function siguiente() {
-    if (k >= pasos.length - 1) return false;
+    if (k >= pasos.length - 1) return;
+    sellar();
     if (volviendo) finRegreso();
     var st = pasos[++k];
     marca(st.parte === "fin" ? null : st.parte);
     status.innerHTML = explica(st);
     aplica(st);
-    if (k >= pasos.length - 1) {
-      detener();
-      stepBtn.disabled = true;
-    }
-    return true;
+    botones();
   }
 
-  // El tiempo de espera lo marca el paso que se acaba de ejecutar
-  function tic() {
-    if (!corriendo) return;
-    if (!siguiente()) return detener();
-    if (corriendo) timer = setTimeout(tic, reduce ? 450 : ESPERA[pasos[k].parte] || 1000);
+  // Regresa al paso anterior sin repetir las animaciones: la escena se arma
+  // como queda después de ese paso y las cajas que sobran se deslizan de
+  // vuelta a la derecha.
+  function anterior() {
+    if (k < 0) return;
+    if (k === 0) return reiniciar();
+    cancelaSello();
+    if (volviendo) finRegreso();
+    k--;
+
+    var i = 0, llegadas = 0, selladas = {}, lineas = 0;
+    for (var n = 0; n <= k; n++) {
+      var p = pasos[n];
+      if (p.parte === "init" || p.parte === "inc") { i = p.i; llegadas = p.i; }
+      if (p.parte === "body") { selladas[p.i] = true; lineas++; }
+    }
+    var st = pasos[k];
+
+    track.style.transform = "translateX(calc(" + -i + " * var(--slot)))";
+    boxes.forEach(function (b, n) {
+      b.classList.toggle("is-waiting", n > llegadas);
+      b.classList.toggle("is-stamped", !!selladas[n]);
+    });
+    belt.classList.remove("is-running", "is-returning");
+    press.classList.remove("is-pressing");
+
+    // el ticket se queda solo con los renglones que ya se habían impreso
+    [].slice.call(paper.querySelectorAll("span, u")).forEach(function (el, n) {
+      if (el.tagName === "U" || n >= lineas) paper.removeChild(el);
+    });
+
+    counter.textContent = "i = " + i;
+    iActual = i;
+    beam.classList.remove("is-true", "is-false");
+    if (st.parte === "cond") {
+      beam.classList.add(st.ok ? "is-true" : "is-false");
+      placa(st.ok);
+    } else {
+      placa(null);
+    }
+
+    marca(st.parte);
+    status.innerHTML = explica(st);
+    botones();
   }
 
-  runBtn.addEventListener("click", function () {
-    if (corriendo) return detener();
-    var espera = 0;
-    if (k >= pasos.length - 1) {
-      reiniciar();
-      espera = volviendo ? REGRESO : 0;
-    }
-    corriendo = true;
-    botonCorrer(true);
-    timer = setTimeout(tic, espera);
-  });
-
-  stepBtn.addEventListener("click", function () {
-    detener();
-    siguiente();
-  });
-
+  stepBtn.addEventListener("click", siguiente);
+  backBtn.addEventListener("click", anterior);
   resetBtn.addEventListener("click", function () { reiniciar(); });
 
   reiniciar(true);
