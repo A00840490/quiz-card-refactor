@@ -96,19 +96,18 @@
                                         <li data-img="cumbia.png" data-color="#3f9a4a">cumbia</li>
                                         <li data-img="pop.png" data-color="#e0468f">pop</li>
                                     </ol>
-                                    <!-- Amplificador arriba de todo: medidor, pantalla con i y la condición, y las teclas -->
-                                    <div class="tt__amp">
-                                        <div class="tt__vu" data-tt-vu></div>
-                                        <div class="tt__screen" aria-live="polite"><span data-counter>i = –</span><span data-check></span></div>
-                                        <div class="tt__keys">
-                                            <button type="button" class="tt__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
-                                            <button type="button" class="tt__btn" data-back aria-label="Paso anterior" title="Paso anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></button>
-                                            <button type="button" class="tt__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
-                                            <button type="button" class="tt__btn tt__btn--alto" data-alto aria-label="Alto" title="Alto">ALTO</button>
-                                        </div>
-                                    </div>
                                     <div class="tt__main">
                                         <div class="tt__scene">
+                                            <!-- Arriba del tocadiscos: la pantallita con i y la condición, y los botones -->
+                                            <div class="tt__ctrls">
+                                                <div class="tt__screen" aria-live="polite"><span data-counter>i = –</span><span data-check></span></div>
+                                                <div class="tt__keys">
+                                                    <button type="button" class="tt__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
+                                                    <button type="button" class="tt__btn" data-back aria-label="Paso anterior" title="Paso anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></button>
+                                                    <button type="button" class="tt__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
+                                                    <button type="button" class="tt__btn tt__btn--alto" data-alto aria-label="Alto" title="Alto">ALTO</button>
+                                                </div>
+                                            </div>
                                             <div data-tt-disco></div>
                                         </div>
                                         <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin

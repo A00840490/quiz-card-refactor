@@ -4,8 +4,8 @@
    El arreglo sale de la lista oculta [data-tt-src] de la página: cada
    elemento es un disco de vinil del color de su género. Antes del ciclo,
    var i = 0 sube el disco 0 al tocadiscos; la condición es el foco junto al
-   brazo (si es true, la aguja baja); el cuerpo hace sonar el disco (notas y
-   medidor VU) e i++ levanta la aguja y cambia el disco: el que sonó sale por
+   brazo (si es true, la aguja baja); el cuerpo hace sonar el disco (salen notas
+   junto a la aguja) e i++ levanta la aguja y cambia el disco: el que sonó sale por
    la izquierda y el siguiente sube desde abajo.
 
    El recorrido se arma como una lista de pasos (antes del ciclo, condición,
@@ -153,28 +153,7 @@
     return s.join("");
   }
 
-  // Medidor VU del amplificador: la aguja baila mientras suena un disco
-  function dibujaVumetro() {
-    var s = ['<svg class="tt__vu" viewBox="0 0 160 92" aria-hidden="true">',
-      '<rect x="1" y="1" width="158" height="90" rx="7" fill="#f6ecd2" stroke="#8f98a5"/>',
-      '<path d="M38.4 37.6A56 56 0 0 1 121.6 37.6" fill="none" stroke="#1c2434" stroke-width="1.6"/>',
-      '<path d="M108 30A56 56 0 0 1 121.6 37.6" fill="none" stroke="#d23a22" stroke-width="4"/>'];
-    for (var t = 0; t <= 10; t++) {
-      var a = (90 + 48 - t * 9.6) * Math.PI / 180;
-      s.push('<path d="M' + (80 + 56 * Math.cos(a)).toFixed(1) + " " + (78 - 56 * Math.sin(a)).toFixed(1) +
-        "L" + (80 + 62 * Math.cos(a)).toFixed(1) + " " + (78 - 62 * Math.sin(a)).toFixed(1) +
-        '" stroke="' + (t > 7 ? "#d23a22" : "#1c2434") + '" stroke-width="1.4"/>');
-    }
-    s.push('<text x="80" y="62" text-anchor="middle" font-family="Roboto, Arial, sans-serif" font-size="13" font-weight="700" fill="#1c2434">VU</text>');
-    s.push('<g class="tt__vu-aguja"><path d="M80 78V24" stroke="#1c2434" stroke-width="1.6" stroke-linecap="round"/></g>');
-    s.push('<rect x="60" y="74" width="40" height="18" rx="3" fill="#2b3346"/>');
-    s.push('<path d="M6 6h148v30C110 20 50 20 6 36z" fill="#fff" opacity=".25"/>');
-    s.push("</svg>");
-    return s.join("");
-  }
-
   root.querySelector("[data-tt-disco]").innerHTML = dibujaTocadiscos();
-  root.querySelector("[data-tt-vu]").innerHTML = dibujaVumetro();
 
   var brazo = root.querySelector("[data-brazo]");
   var notas = root.querySelector("[data-notas]");
