@@ -24,7 +24,7 @@
   var beam = root.querySelector("[data-beam]");
   var check = root.querySelector("[data-check]");
   var counter = root.querySelector("[data-counter]");
-  var paper = root.querySelector("[data-paper]");
+  var consola = root.querySelector("[data-console]");
   var status = root.querySelector("[data-status]");
   var code = root.querySelector("[data-code]");
   var legend = root.querySelector("[data-legend]");
@@ -82,12 +82,12 @@
           : "<b>Expresión condicional</b>: ¿<b>" + st.i + " &lt; " + N + "</b>? Ya no hay más cajas, así que es <span class=\"no\">false</span> y el ciclo termina.";
       case "body":
         return "<b>Cuerpo del ciclo</b>, vuelta " + (st.vuelta + 1) + " de " + N + ": la etiquetadora sella la caja <b>" + st.i +
-          "</b> y la impresora agrega <b>\"" + st.i + ": " + items[st.i].nombre + "\"</b> a la variable <b>texto</b>.";
+          "</b> y la consola muestra <b>" + st.i + ": " + items[st.i].nombre + "</b>.";
       case "inc":
         return "<b>Expresión cíclica</b>: <b>i++</b> sube el contador a <b>" + st.i + "</b> y la banda avanza " +
           (st.i < N ? "para traer la caja <b>" + st.i + "</b>" : "pero ya no llega ninguna caja") + ". Después volvemos a revisar la condición.";
       default:
-        return "Fin del ciclo. La variable <b>texto</b> ya tiene los " + N + " elementos del arreglo y el programa sigue con la línea que está después de la llave <b>}</b>.";
+        return "Fin del ciclo. La consola ya mostró los " + N + " elementos del arreglo y el programa sigue con la línea que está después de la llave <b>}</b>.";
     }
   }
 
@@ -110,10 +110,11 @@
       "</span></span> &lt; " + N + " = <b>" + (res === null ? "…" : res ? "true" : "false") + "</b></span>";
   }
 
+  // Un renglón nuevo en la consola de la ventana de código
   function imprime(linea) {
     var s = document.createElement("span");
     s.textContent = linea;
-    paper.appendChild(s);
+    consola.appendChild(s);
   }
 
   // Las cajas esperan fuera del cuadro, a la derecha, y la banda las trae
@@ -160,11 +161,6 @@
       llega(st.i);
     }
 
-    if (st.parte === "fin") {
-      var corte = document.createElement("u");
-      corte.textContent = "✂ fin del ciclo";
-      paper.appendChild(corte);
-    }
   }
 
   /* ---------- Los botones ---------- */
@@ -235,7 +231,7 @@
     iActual = "–";
     placa(null);
     counter.textContent = "i = –";
-    paper.innerHTML = "<i>texto =</i>";
+    consola.innerHTML = "";
     status.innerHTML = INICIO;
     botones();
   }
@@ -277,9 +273,9 @@
     belt.classList.remove("is-running", "is-returning");
     press.classList.remove("is-pressing");
 
-    // el ticket se queda solo con los renglones que ya se habían impreso
-    [].slice.call(paper.querySelectorAll("span, u")).forEach(function (el, n) {
-      if (el.tagName === "U" || n >= lineas) paper.removeChild(el);
+    // la consola se queda solo con los renglones que ya se habían mostrado
+    [].slice.call(consola.children).forEach(function (el, n) {
+      if (n >= lineas) consola.removeChild(el);
     });
 
     counter.textContent = "i = " + i;

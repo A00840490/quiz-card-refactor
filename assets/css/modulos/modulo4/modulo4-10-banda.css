@@ -3,9 +3,9 @@
 
    Cada caja de la banda es un elemento del arreglo. El sensor de la
    etiquetadora es la condición (¿todavía hay caja?), el pistón estampa el
-   índice sobre la caja que está enfrente (el cuerpo del ciclo) y la impresora
-   va sacando el ticket de la variable "texto", un renglón por vuelta. Al
-   terminar, la banda avanza una caja: ese es el incremento.
+   índice sobre la caja que está enfrente (el cuerpo del ciclo) y la consola
+   de la ventana de código muestra un renglón por vuelta. Al terminar, la
+   banda avanza una caja: ese es el incremento.
 
    La maquinaria es SVG en assets/images/course/modulo4/m4-10/banda/;
    las frutas y la caja son fotos con licencia libre en
@@ -38,7 +38,7 @@
 /* Sin JavaScript no hay banda que mover: queda la lista del arreglo */
 .banda:not(.banda--ready) .banda__scene,
 .banda:not(.banda--ready) .banda__ctrls,
-.banda:not(.banda--ready) .banda__out { display: none; }
+.banda:not(.banda--ready) .banda__console { display: none; }
 
 .banda--ready .banda__src {
   position: absolute;
@@ -319,64 +319,6 @@
 .banda__i:hover .banda__i-nom { display: none; }
 .banda__i:hover .banda__i-val { display: inline; color: #ffe08a; }
 
-/* ===================== Impresora y ticket ===================== */
-.banda__out {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 14px;
-}
-
-.banda__printer {
-  width: min(300px, 80%);
-}
-
-.banda__printer img {
-  display: block;
-  width: 100%;
-}
-
-.banda__paper {
-  width: min(206px, 58%);
-  min-height: 56px;
-  margin-top: -6px;
-  padding: 10px 12px 18px;
-  background: #fffdf7;
-  box-shadow: 0 6px 14px rgba(6, 43, 102, .14);
-  color: #2b2b2b;
-  font: 13px/1.7 Consolas, "Courier New", monospace;
-  white-space: pre;
-  overflow-x: auto;
-  -webkit-mask: radial-gradient(circle 5px at 50% 100%, transparent 98%, #000) 0 100% / 12px 100% repeat-x,
-                linear-gradient(#000, #000) 0 0 / 100% calc(100% - 6px) no-repeat;
-          mask: radial-gradient(circle 5px at 50% 100%, transparent 98%, #000) 0 100% / 12px 100% repeat-x,
-                linear-gradient(#000, #000) 0 0 / 100% calc(100% - 6px) no-repeat;
-}
-
-.banda__paper i {
-  display: block;
-  color: #8a8f99;
-  font-size: 11px;
-  font-style: normal;
-}
-
-.banda__paper span {
-  display: block;
-  animation: banda-tinta .5s ease-out;
-}
-
-.banda__paper u {
-  display: block;
-  margin-top: 4px;
-  color: #8a8f99;
-  font-size: 11px;
-  text-decoration: none;
-}
-
-@keyframes banda-tinta {
-  from { opacity: 0; transform: translateY(-5px); }
-}
-
 /* ===================== Panel de código ===================== */
 .banda__panel {
   display: grid;
@@ -421,6 +363,45 @@
   color: var(--green);
   font: 12.5px/1.65 Consolas, "Courier New", monospace;
   white-space: pre;
+}
+
+/* Consola: igual que las terminales del módulo 4, el código va en verde y lo
+   que muestra la consola en blanco, con el cursor parpadeando al final */
+.banda__console {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: .6em;
+  min-height: calc(5 * 1.65em + 26px);
+  padding: 12px 14px 14px;
+  border-top: 1px solid #1f2a22;
+  color: #ffffff;
+  font: 12.5px/1.65 Consolas, "Courier New", monospace;
+}
+
+.banda__console-out span {
+  display: block;
+  white-space: pre;
+  animation: banda-linea .3s ease;
+}
+
+.banda__console-out:empty::after,
+.banda__console-out span:last-child::after {
+  content: "";
+  display: inline-block;
+  width: .6em;
+  height: 1.1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -3px;
+  animation: banda-cursor 1s steps(1) infinite;
+}
+
+@keyframes banda-linea {
+  from { opacity: 0; transform: translateY(3px); }
+}
+
+@keyframes banda-cursor {
+  50% { opacity: 0; }
 }
 
 .banda__code .str { color: #f0c987; }
@@ -536,11 +517,10 @@
 }
 
 /* ===================== Acomodo =====================
-   En pantallas anchas la escena y el código van lado a lado (70 / 30) y
-   abajo la explicación (bajo la escena) y la impresora (bajo el código).
-   En pantallas angostas todo va en una columna. */
-.banda__main,
-.banda__bottom {
+   En pantallas anchas la escena y la ventana de código (con su consola) van
+   lado a lado (60 / 40) y abajo, a todo lo ancho, la explicación. En
+   pantallas angostas todo va en una columna. */
+.banda__main {
   display: grid;
   gap: 18px;
 }
@@ -548,26 +528,23 @@
 .banda__bottom { margin-top: 14px; }
 
 @media (min-width: 992px) {
-  .banda__main,
-  .banda__bottom {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  .banda__main {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
     align-items: start;
   }
   /* los botones quedan centrados sobre la escena */
-  .banda__ctrls { width: calc((100% - 18px) * .7); }
-  .banda__out { margin-top: 0; }
-  .banda__printer { width: min(260px, 92%); }
-  .banda__paper { width: min(190px, 66%); }
+  .banda__ctrls { width: calc((100% - 18px) * .6); }
 }
 
-/* entre 992 y 1199 px la columna del código es angosta */
+/* entre 992 y 1199 px la columna del código es más angosta */
 @media (min-width: 992px) and (max-width: 1199px) {
-  .banda__code pre { padding: 10px 8px 12px; font-size: 11px; }
+  .banda__code pre,
+  .banda__console { padding-left: 10px; padding-right: 10px; font-size: 11px; }
 }
 
 @media (max-width: 767px) {
   .banda {
-    --press: 52%;
+    --press: 38%;
     --slot: 34cqw;
     --belt: 70cqw;
     --box: 30cqw;
@@ -594,13 +571,11 @@
   .banda__check { top: 13.6cqw; }
   .banda__screen { height: 7cqw; font-size: 3.3cqw; }
   .banda__sign .banda__screen { font-size: 5.2cqw; }
-
-  .banda__printer { width: min(220px, 62%); }
 }
 
 @media (max-width: 575px) {
-  .banda__code pre { font-size: 12px; line-height: 1.7; }
-  .banda__paper { width: min(188px, 70%); }
+  .banda__code pre,
+  .banda__console { padding-left: 10px; padding-right: 10px; font-size: 11.5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -613,6 +588,6 @@
   .banda__belt.is-returning,
   .banda__press.is-pressing .banda__piston,
   .banda__box.is-stamped .banda__label,
-  .banda__paper span { animation-duration: .01ms; }
+  .banda__console-out span { animation-duration: .01ms; }
   .banda__box.is-stamped .banda__label { opacity: 1; transform: scale(1) rotate(-3deg); }
 }

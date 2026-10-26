@@ -162,18 +162,13 @@
                                         </div>
                                         <div class="banda__code" data-code>
                                             <div class="banda__code-bar" aria-hidden="true"><i></i><i></i><i></i>ciclos.js</div>
-<pre><span class="key">var</span> elementos = [
-  <span class="str">"manzana"</span>, <span class="str">"pera"</span>, <span class="str">"uvas"</span>,
-  <span class="str">"mango"</span>, <span class="str">"kiwi"</span>
-];
-<span class="key">var</span> texto = <span class="str">""</span>;
+<pre><span class="key">var</span> elementos = [<span class="str">"manzana"</span>, <span class="str">"pera"</span>, <span class="str">"uvas"</span>,
+                 <span class="str">"mango"</span>, <span class="str">"kiwi"</span>];
 
-<span class="key">for</span> (<span data-part="init"><span class="key">var</span> i = 0</span>;
-     <span data-part="cond">i &lt; elementos.length</span>;
-     <span data-part="inc">i++</span>) {
-  <span data-part="body">texto += i + <span class="str">": "</span> +</span>
-           <span data-part="body">elementos[i] + <span class="str">"\n"</span>;</span>
+<span class="key">for</span> (<span data-part="init"><span class="key">var</span> i = 0</span>; <span data-part="cond">i &lt; elementos.length</span>; <span data-part="inc">i++</span>) {
+  <span data-part="body">console.log(i + <span class="str">": "</span> + elementos[i]);</span>
 }</pre>
+                                            <div class="banda__console" aria-live="polite"><span class="banda__console-label">Consola:</span><span class="banda__console-out" data-console></span></div>
                                         </div>
                                     </div>
                                     <div class="banda__bottom">
@@ -185,12 +180,6 @@
                                                 <span data-leg="inc">Expresión cíclica</span>
                                             </div>
                                             <p class="banda__status" data-status aria-live="polite">La banda está vacía: las cajas esperan fuera del cuadro. El ciclo todavía no empieza.</p>
-                                        </div>
-                                        <div class="banda__out">
-                                            <div class="banda__printer">
-                                                <img src="../../assets/images/course/modulo4/m4-10/banda/impresora.svg" alt="Impresora que va escribiendo la variable texto">
-                                            </div>
-                                            <div class="banda__paper" data-paper aria-live="polite"><i>texto =</i></div>
                                         </div>
                                     </div>
                                 </div>
@@ -205,12 +194,10 @@
                                     sensor de la banda busca si todavía hay una caja enfrente. Si resulta en True, la línea
                                     dentro del ciclo se ejecuta, y, al terminar la primera ejecución, se ejecuta la
                                     expresión cíclica para aumentar el valor de <span class="code">i</span> en uno y la
-                                    banda avanza una caja. Dentro del ciclo, modificamos la variable <span
-                                        class="code">texto</span> que creamos anteriormente. Con cada iteración le
-                                    concatenamos una cadena de caracteres que indica el índice del elemento y su valor, tal
-                                    como la impresora lo va sacando en el ticket. Al final de la nueva cadena agregamos
-                                    <span class="code">\n</span> para que se agregue un salto de línea al final de cada
-                                    elemento.</p>
+                                    banda avanza una caja. Dentro del ciclo, usamos <span
+                                        class="code">console.log</span> para mostrar en la consola una cadena de
+                                    caracteres que indica el índice del elemento y su valor, así que con cada iteración
+                                    aparece un renglón nuevo en la consola.</p>
                                 <p>El ciclo for se ejecuta 5 veces debido a que el arreglo "elementos" contiene
                                     5 elementos. Después de la última iteración, a la variable <span
                                         class="code">i</span> se le asigna un valor de 5, y, como este no es
