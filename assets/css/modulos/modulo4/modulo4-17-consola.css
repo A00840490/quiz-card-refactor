@@ -214,28 +214,34 @@
   animation: reto-in 0.3s ease;
 }
 
-/* ===================== Pie: avance y botones ===================== */
+/* ===================== Pie de la consola: botones ===================== */
 .reto__foot {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px 24px;
+  justify-content: flex-end;
   padding: 14px 18px;
   border-top: 1px solid #1d2a21;
   background: #161b17;
 }
 
+.reto__actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===================== Avance: fuera de la consola =====================
+   Debajo de la ventana, como en el Ejercicio 3 (modulo3-24): un tramo por
+   problema que se llena con sus preguntas y se vuelve verde al terminarlo. */
 .reto__progress {
   display: flex;
-  flex: 1 1 260px;
   gap: 6px;
+  margin-top: 20px;
 }
 
 .reto__seg {
   flex: 1;
   height: 8px;
   border-radius: 999px;
-  background: #24302a;
+  background: #e8edf4;
   overflow: hidden;
 }
 
@@ -243,17 +249,11 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--verde-tenue);
+  background: var(--theme-color, #093b8b);
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease 0.3s;
 }
 
-.reto__seg.is-done > span { background: var(--verde); }
-
-.reto__actions {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
-}
+.reto__seg.is-done > span { background: var(--bien); }
 
 /* Botones con el contorno verde del botón Correr de las terminales */
 .reto__btn {
