@@ -104,38 +104,56 @@
   box-shadow: inset 0 0 0 3px var(--plano-gold), inset 0 0 18px rgba(0, 0, 0, 0.28);
 }
 
-/* Pedazos de un cuarto que no es rectángulo: se dibujan como quedó el intento,
-   cubiertos de franjas rojas que laten (la opacidad sube y baja, nunca llega a 0) */
+/* Pedazos de un cuarto que no es rectángulo: conservan su piso; la zona de
+   error va encima, en .plano__error */
 .plano__pedazo {
   position: relative;
-  z-index: 1;
-  display: grid;
-  place-content: center;
   min-width: 0;
   min-height: 0;
-  text-align: center;
-  container-type: inline-size;
   box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.28);
-  animation: plano-aparece 0.3s ease;
 }
 
-.plano__pedazo::after {
-  content: "";
+/* Zona de error: la forma incorrecta, redondeada, con franjas rojas y blancas
+   que laten (la opacidad sube y baja, nunca llega a 0), y su nombre encima */
+.plano__error {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(-45deg, rgba(214, 38, 38, 0.9) 0 12px, rgba(214, 38, 38, 0) 12px 24px) var(--pos, 0 0) / 34px 34px;
+  z-index: 2;
   pointer-events: none;
+}
+
+.plano__error svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+.plano__error-franjas {
+  fill: url(#plano-franjas);
   animation: plano-error 1.2s ease-in-out infinite alternate;
 }
 
-.plano__pedazo .plano__rotulo {
-  position: relative;
-  z-index: 1;
+.plano__error-borde {
+  fill: none;
+  stroke: #d62626;
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.plano__error-rotulo {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: plano-aparece 0.3s ease;
+}
+
+.plano__error-rotulo strong {
+  font-size: 17px;
 }
 
 @keyframes plano-error {
-  from { opacity: 0.25; }
-  to { opacity: 0.85; }
+  from { opacity: 0.3; }
+  to { opacity: 0.8; }
 }
 
 @keyframes plano-aparece {
@@ -541,7 +559,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .plano__pedazo::after {
+  .plano__error-franjas {
     animation: none;
     opacity: 0.6;
   }

@@ -173,15 +173,15 @@
     dibujarCotas();
   }
 
-  // Pedazos del cuarto que no es rectángulo: uno por celda. Cada pedazo se estira sobre
-  // el muro que lo separa de otro pedazo del mismo cuarto, así se ve la forma completa.
+  // Pedazos del cuarto que no es rectángulo: uno por celda, con su piso de siempre.
+  // Cada pedazo se estira sobre el muro que lo separa de otro pedazo del mismo cuarto,
+  // así se ve la forma completa. Encima va la zona de error (ver pintarError).
   var pedazos = [];
   function pintarPedazos(rotos) {
     pedazos.forEach(function (el) { el.parentNode.removeChild(el); });
     pedazos = [];
     rotos.forEach(function (id) {
       var fondo = getComputedStyle(grid.querySelector("[data-item=\"" + id + "\"]"));
-      var primero = true;
       estado.mapa.forEach(function (fila, r) {
         fila.forEach(function (x, c) {
           if (x !== id) return;
@@ -198,20 +198,113 @@
           if (der && abajo && estado.mapa[r + 1][c + 1] !== id) {
             el.style.clipPath = "polygon(0 0, 100% 0, 100% calc(100% - var(--muro, 8px)), calc(100% - var(--muro, 8px)) calc(100% - var(--muro, 8px)), calc(100% - var(--muro, 8px)) 100%, 0 100%)";
           }
-          if (primero) el.innerHTML = "<div class=\"plano__rotulo\"><strong>" + porId[id].nombre + "</strong></div>";
-          primero = false;
           grid.insertBefore(el, celdas);
           pedazos.push(el);
         });
       });
     });
-    // La madera y las franjas siguen de un pedazo al otro, como si fuera una sola pieza
+    // La madera sigue de un pedazo al otro, como si fuera una sola pieza
     pedazos.forEach(function (el) {
-      var pos = -el.offsetLeft + "px " + -el.offsetTop + "px";
-      el.style.backgroundPosition = pos;
-      el.style.setProperty("--pos", pos);
+      el.style.backgroundPosition = -el.offsetLeft + "px " + -el.offsetTop + "px";
     });
   }
+
+  /* ---------- Zona de error: encima del plano, la forma que no es rectángulo ----------
+     Se dibuja el contorno del cuarto con esquinas redondeadas, relleno de franjas rojas
+     y blancas que laten, y su nombre encima. */
+  var NS = "http://www.w3.org/2000/svg";
+  var capaError = document.createElement("div");
+  capaError.className = "plano__error";
+  capaError.setAttribute("aria-hidden", "true");
+  grid.appendChild(capaError);
+
+  function pintarError(rotos) {
+    capaError.innerHTML = "";
+    if (!rotos.length) return;
+    var b = celdas.children, ox = celdas.offsetLeft, oy = celdas.offsetTop;
+    // Bordes de cada columna y renglón: X[0..5] y Y[0..5] (inicio y fin de cada pista)
+    var X = [], Y = [];
+    for (var i = 0; i < 3; i++) {
+      X.push(ox + b[i].offsetLeft, ox + b[i].offsetLeft + b[i].offsetWidth);
+      Y.push(oy + b[i * 3].offsetTop, oy + b[i * 3].offsetTop + b[i * 3].offsetHeight);
+    }
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("width", grid.clientWidth);
+    svg.setAttribute("height", grid.clientHeight);
+    svg.innerHTML =
+      "<defs><pattern id=\"plano-franjas\" width=\"22\" height=\"22\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\">" +
+      "<rect width=\"11\" height=\"22\" fill=\"#d62626\"></rect><rect x=\"11\" width=\"11\" height=\"22\" fill=\"#ffffff\"></rect></pattern></defs>";
+    rotos.forEach(function (id) {
+      var d = contorno(id, X, Y);
+      var relleno = document.createElementNS(NS, "path");
+      relleno.setAttribute("d", d);
+      relleno.setAttribute("class", "plano__error-franjas");
+      var borde = document.createElementNS(NS, "path");
+      borde.setAttribute("d", d);
+      borde.setAttribute("class", "plano__error-borde");
+      svg.appendChild(relleno);
+      svg.appendChild(borde);
+      // El nombre del cuarto, en la primera celda que ocupa
+      var primera = null;
+      estado.mapa.forEach(function (fila, r) { fila.forEach(function (x, c) { if (x === id && !primera) primera = [r, c]; }); });
+      var rotulo = document.createElement("div");
+      rotulo.className = "plano__rotulo plano__error-rotulo";
+      rotulo.innerHTML = "<strong>" + porId[id].nombre + "</strong>";
+      rotulo.style.left = (X[primera[1] * 2] + X[primera[1] * 2 + 1]) / 2 + "px";
+      rotulo.style.top = (Y[primera[0] * 2] + Y[primera[0] * 2 + 1]) / 2 + "px";
+      capaError.appendChild(rotulo);
+    });
+    capaError.insertBefore(svg, capaError.firstChild);
+  }
+
+  // Contorno de las celdas de un cuarto como una sola figura con esquinas redondeadas.
+  // Se trabaja sobre una cuadrícula fina de 5 × 5: las celdas (índices pares) y los
+  // muros entre ellas (impares); un muro cuenta si sus dos lados son del cuarto.
+  function contorno(id, X, Y) {
+    function lleno(i, j) {
+      if (i < 0 || j < 0 || i > 4 || j > 4) return false;
+      var rs = i % 2 ? [(i - 1) / 2, (i + 1) / 2] : [i / 2];
+      var cs = j % 2 ? [(j - 1) / 2, (j + 1) / 2] : [j / 2];
+      return rs.every(function (r) { return cs.every(function (c) { return estado.mapa[r][c] === id; }); });
+    }
+    // Aristas del borde, en el sentido de las manecillas del reloj; los vértices son "fila,columna"
+    var sig = {};
+    for (var i = 0; i < 5; i++) {
+      for (var j = 0; j < 5; j++) {
+        if (!lleno(i, j)) continue;
+        if (!lleno(i - 1, j)) sig[i + "," + j] = [i, j + 1];
+        if (!lleno(i, j + 1)) sig[i + "," + (j + 1)] = [i + 1, j + 1];
+        if (!lleno(i + 1, j)) sig[(i + 1) + "," + (j + 1)] = [i + 1, j];
+        if (!lleno(i, j - 1)) sig[(i + 1) + "," + j] = [i, j];
+      }
+    }
+    var d = "", R = 16;
+    while (Object.keys(sig).length) {
+      // Recorre un contorno y quita los puntos que quedan en línea recta
+      var inicio = Object.keys(sig)[0], k = inicio, pts = [];
+      do {
+        var p = k.split(",").map(Number), n = sig[k];
+        delete sig[k];
+        pts.push([X[p[1]], Y[p[0]]]);
+        k = n[0] + "," + n[1];
+      } while (k !== inicio && sig[k]);
+      pts = pts.filter(function (pt, idx) {
+        var a = pts[(idx - 1 + pts.length) % pts.length], c = pts[(idx + 1) % pts.length];
+        return !((a[0] === pt[0] && pt[0] === c[0]) || (a[1] === pt[1] && pt[1] === c[1]));
+      });
+      pts.forEach(function (pt, idx) {
+        var a = pts[(idx - 1 + pts.length) % pts.length], c = pts[(idx + 1) % pts.length];
+        var la = Math.hypot(a[0] - pt[0], a[1] - pt[1]), lc = Math.hypot(c[0] - pt[0], c[1] - pt[1]);
+        var r = Math.min(R, la / 2, lc / 2);
+        var p1 = [pt[0] + (a[0] - pt[0]) / la * r, pt[1] + (a[1] - pt[1]) / la * r];
+        var p2 = [pt[0] + (c[0] - pt[0]) / lc * r, pt[1] + (c[1] - pt[1]) / lc * r];
+        d += (idx ? "L" : "M") + p1[0] + " " + p1[1] + "Q" + pt[0] + " " + pt[1] + " " + p2[0] + " " + p2[1];
+      });
+      d += "Z";
+    }
+    return d;
+  }
+
 
   // Lo que mide cada cuarto, en las unidades del código: las pistas que ocupa
   function medidas() {
@@ -261,6 +354,8 @@
       html += "<span class=\"plano__num" + (hot ? " is-hot" : "") + "\" style=\"left:38px;top:" + (oy + y) + "px\">" + (i + 1) + "</span>";
     });
     cotas.innerHTML = html;
+    // La zona de error se mide con las celdas, que se acaban de acomodar
+    pintarError(cuartosRotos(estado.mapa));
   }
 
   // Si el valor no cabe entre los dos números de línea, la letra se achica
