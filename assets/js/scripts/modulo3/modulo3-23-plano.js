@@ -93,14 +93,20 @@
 
   // Nombre del primer cuarto que no forma un rectángulo (o null si el mapa es válido)
   function cuartoRoto(mapa) {
-    for (var k = 0; k < CUARTOS.length; k++) {
-      var caja = cajaDe(mapa, CUARTOS[k].id);
-      if (!caja) continue;
+    return cuartosRotos(mapa)[0] || null;
+  }
+
+  // Todos los cuartos que no forman un rectángulo
+  function cuartosRotos(mapa) {
+    var rotos = [];
+    CUARTOS.forEach(function (q) {
+      var caja = cajaDe(mapa, q.id);
+      if (!caja) return;
       var cuenta = 0;
-      mapa.forEach(function (fila) { fila.forEach(function (x) { if (x === CUARTOS[k].id) cuenta++; }); });
-      if (cuenta !== (caja.re - caja.rs) * (caja.ce - caja.cs)) return CUARTOS[k].id;
-    }
-    return null;
+      mapa.forEach(function (fila) { fila.forEach(function (x) { if (x === q.id) cuenta++; }); });
+      if (cuenta !== (caja.re - caja.rs) * (caja.ce - caja.cs)) rotos.push(q.id);
+    });
+    return rotos;
   }
 
   // Líneas donde empieza y termina un área (numeradas desde 1)
@@ -141,17 +147,21 @@
     grid.style.gap = celdas.style.gap = gap;
     hoja.style.setProperty("--muro", gap);
 
-    var roto = cuartoRoto(estado.mapa);
+    var rotos = cuartosRotos(estado.mapa), roto = rotos.length > 0;
     var usados = {};
     estado.mapa.forEach(function (fila) { fila.forEach(function (x) { usados[x] = true; }); });
-    // Si un área no es rectángulo, el navegador ignora todo el mapa
+    // Si un área no es rectángulo, el mapa no es válido. En vez de dejar que el plano
+    // se desarme, se dibuja el intento: cada cuarto se coloca por sus líneas y el que
+    // no es rectángulo se arma con pedazos, cubiertos de franjas rojas.
     grid.style.gridTemplateAreas = roto ? "none" : estado.mapa.map(function (f) { return "\"" + f.join(" ") + "\""; }).join(" ");
     cuartos.forEach(function (el) {
-      var id = el.getAttribute("data-item");
-      el.style.gridArea = roto ? "auto" : id;
-      el.classList.toggle("is-fuera", !usados[id]);
+      var id = el.getAttribute("data-item"), caja = cajaDe(estado.mapa, id);
+      var esRoto = rotos.indexOf(id) >= 0;
+      el.style.gridArea = !roto ? id : caja && !esRoto ? caja.rs + " / " + caja.cs + " / " + caja.re + " / " + caja.ce : "auto";
+      el.classList.toggle("is-fuera", !usados[id] || esRoto);
       el.classList.toggle("is-sel", id === estado.sel && !roto);
     });
+    pintarPedazos(rotos);
 
     Array.prototype.forEach.call(celdas.children, function (b) {
       var x = estado.mapa[+b.getAttribute("data-r")][+b.getAttribute("data-c")];
@@ -163,12 +173,53 @@
     dibujarCotas();
   }
 
+  // Pedazos del cuarto que no es rectángulo: uno por celda. Cada pedazo se estira sobre
+  // el muro que lo separa de otro pedazo del mismo cuarto, así se ve la forma completa.
+  var pedazos = [];
+  function pintarPedazos(rotos) {
+    pedazos.forEach(function (el) { el.parentNode.removeChild(el); });
+    pedazos = [];
+    rotos.forEach(function (id) {
+      var fondo = getComputedStyle(grid.querySelector("[data-item=\"" + id + "\"]"));
+      var primero = true;
+      estado.mapa.forEach(function (fila, r) {
+        fila.forEach(function (x, c) {
+          if (x !== id) return;
+          var el = document.createElement("div");
+          el.className = "plano__pedazo";
+          el.setAttribute("aria-hidden", "true");
+          el.style.gridArea = (r + 1) + " / " + (c + 1);
+          el.style.backgroundImage = fondo.backgroundImage;
+          el.style.backgroundSize = fondo.backgroundSize;
+          var der = fila[c + 1] === id, abajo = estado.mapa[r + 1] && estado.mapa[r + 1][c] === id;
+          if (der) el.style.marginRight = "calc(-1 * var(--muro, 8px))";
+          if (abajo) el.style.marginBottom = "calc(-1 * var(--muro, 8px))";
+          // La esquina del muro solo se cubre si la celda en diagonal también es del cuarto
+          if (der && abajo && estado.mapa[r + 1][c + 1] !== id) {
+            el.style.clipPath = "polygon(0 0, 100% 0, 100% calc(100% - var(--muro, 8px)), calc(100% - var(--muro, 8px)) calc(100% - var(--muro, 8px)), calc(100% - var(--muro, 8px)) 100%, 0 100%)";
+          }
+          if (primero) el.innerHTML = "<div class=\"plano__rotulo\"><strong>" + porId[id].nombre + "</strong></div>";
+          primero = false;
+          grid.insertBefore(el, celdas);
+          pedazos.push(el);
+        });
+      });
+    });
+    // La madera y las franjas siguen de un pedazo al otro, como si fuera una sola pieza
+    pedazos.forEach(function (el) {
+      var pos = -el.offsetLeft + "px " + -el.offsetTop + "px";
+      el.style.backgroundPosition = pos;
+      el.style.setProperty("--pos", pos);
+    });
+  }
+
   // Lo que mide cada cuarto, en las unidades del código: las pistas que ocupa
   function medidas() {
     var cols = pistas(OPCIONES.cols[estado.cols]), rows = pistas(OPCIONES.rows[estado.rows]);
-    var roto = cuartoRoto(estado.mapa);
+    var rotos = cuartosRotos(estado.mapa);
     cuartos.forEach(function (el) {
-      var caja = !roto && cajaDe(estado.mapa, el.getAttribute("data-item"));
+      var id = el.getAttribute("data-item");
+      var caja = rotos.indexOf(id) < 0 && cajaDe(estado.mapa, id);
       var medida = el.querySelector("[data-medida]");
       if (!caja) { medida.hidden = true; return; }
       medida.hidden = false;
@@ -234,31 +285,40 @@
     return "<button type=\"button\" class=\"plano__valor\" data-k=\"" + k + "\" aria-haspopup=\"menu\" aria-label=\"" + PROPIEDAD[k] + ": " + esc(OPCIONES[k][estado[k]]) + ". Elegir otro valor\">" + esc(OPCIONES[k][estado[k]]) + "</button>";
   }
 
+  // Mismo formato que los bloques de código del curso (lesson-demo.css): cada línea es
+  // un .ld-line, que el CSS numera; el selector va en .codetag y los textos en .codetext.
   function pintarCodigo() {
-    var roto = cuartoRoto(estado.mapa);
+    var rotos = cuartosRotos(estado.mapa);
     var anchos = [0, 1, 2].map(function (c) {
       return Math.max.apply(null, estado.mapa.map(function (f) { return f[c].length; }));
     });
     var filas = estado.mapa.map(function (fila, r) {
-      return "    <span class=\"q\">\"" + fila.map(function (x, c) {
-        var cls = "w" + (roto && x === roto ? " is-mal" : "");
+      return "    <span class=\"codetext\">\"" + fila.map(function (x, c) {
+        var cls = "w" + (rotos.indexOf(x) >= 0 ? " is-mal" : "");
         var relleno = c < 2 ? " " + new Array(anchos[c] - x.length + 1).join(" ") : "";
         return "<span class=\"" + cls + "\" data-r=\"" + r + "\" data-c=\"" + c + "\">" + x + "</span>" + relleno;
-      }).join("") + "\"</span>";
-    }).join("\n");
+      }).join("") + "\"</span>" + (r === estado.mapa.length - 1 ? ";" : "");
+    });
     var sel = estado.sel || "sala";
-    pre.innerHTML =
-      "<span class=\"s\">.departamento</span> {\n" +
-      "  <span class=\"p\">display</span>: grid;\n" +
-      "  <span class=\"p\">grid-template-columns</span>: " + valor("cols") + ";\n" +
-      "  <span class=\"p\">grid-template-rows</span>: " + valor("rows") + ";\n" +
-      "  <span class=\"p\">grid-gap</span>: " + valor("gap") + ";\n" +
-      "  <span class=\"p\">grid-template-areas</span>:\n" + filas + ";\n" +
-      "}\n" +
-      "<span class=\"s\">." + sel + "</span> {\n" +
-      "  <span class=\"p\">grid-area</span>: " + sel + ";\n" +
-      "}";
+    var lineas = [
+      "<span class=\"codetag\">.departamento</span> {",
+      "  display: <span class=\"codetext\">grid</span>;",
+      "  grid-template-columns: " + valor("cols") + ";",
+      "  grid-template-rows: " + valor("rows") + ";",
+      "  grid-gap: " + valor("gap") + ";",
+      "  grid-template-areas:"
+    ].concat(filas, [
+      "}",
+      "",
+      "<span class=\"codetag\">." + sel + "</span> {",
+      "  grid-area: <span class=\"codetext\">" + sel + "</span>;",
+      "}"
+    ]);
+    pre.innerHTML = lineas.map(function (l) {
+      return "<span class=\"ld-line\">" + (l || "&nbsp;") + "</span>";
+    }).join("");
   }
+
 
   // Ilumina en el código la palabra de una celda
   function marcarPalabra(r, c, on) {
@@ -418,7 +478,9 @@
     if (antes === id) {
       explicar(id === "." ? lugar + "es un <span class=\"concepto\">.</span>, que deja la celda vacía." : textoCuarto(id, lugar + "dice <b>" + id + "</b>. "));
     } else if (roto) {
-      explicar("<span class=\"mal\">Cuidado:</span> en <span class=\"concepto\">grid-template-areas</span> cada cuarto tiene que formar un rectángulo, y " + porId[roto].con + " ya no lo forma. Cuando eso pasa, el navegador ignora todo el mapa y el departamento se desarma. Elige otro cuarto en alguna celda para arreglarlo.");
+      var rotos = cuartosRotos(estado.mapa).map(function (q) { return porId[q].con; });
+      var quien = rotos.length > 1 ? rotos.slice(0, -1).join(", ") + " y " + rotos[rotos.length - 1] + " ya no lo forman" : rotos[0] + " ya no lo forma";
+      explicar("<span class=\"mal\">Cuidado:</span> en <span class=\"concepto\">grid-template-areas</span> cada cuarto tiene que formar un rectángulo, y " + quien + ": por eso se ve con franjas rojas. Con un mapa así, el navegador ignora todo <span class=\"concepto\">grid-template-areas</span> y el departamento no se acomoda. Elige otro cuarto en alguna celda para arreglarlo.");
     } else if (id === ".") {
       explicar(lugar + "ahora es un <span class=\"concepto\">.</span>, que deja la celda vacía: ese pedazo del terreno se queda sin construir.");
     } else {

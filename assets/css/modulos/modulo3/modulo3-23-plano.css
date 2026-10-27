@@ -12,11 +12,6 @@
   --plano-blue: #093b8b;
   --plano-gold: #fac775;
   --plano-wall: #34302c;
-  --plano-code-bg: #000000;
-  --plano-code-ink: #d7dde8;
-  --plano-code-prop: #82aaff;
-  --plano-code-sel: #ffcb6b;
-  --plano-code-str: #c3e88d;
   --plano-mono: "Source Code Pro", Consolas, "Courier New", monospace;
   --plano-hand: "Architects Daughter", "Comic Sans MS", cursive;
   position: relative;
@@ -109,6 +104,44 @@
   box-shadow: inset 0 0 0 3px var(--plano-gold), inset 0 0 18px rgba(0, 0, 0, 0.28);
 }
 
+/* Pedazos de un cuarto que no es rectángulo: se dibujan como quedó el intento,
+   cubiertos de franjas rojas que laten (la opacidad sube y baja, nunca llega a 0) */
+.plano__pedazo {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  min-width: 0;
+  min-height: 0;
+  text-align: center;
+  container-type: inline-size;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.28);
+  animation: plano-aparece 0.3s ease;
+}
+
+.plano__pedazo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, rgba(214, 38, 38, 0.9) 0 12px, rgba(214, 38, 38, 0) 12px 24px) var(--pos, 0 0) / 34px 34px;
+  pointer-events: none;
+  animation: plano-error 1.2s ease-in-out infinite alternate;
+}
+
+.plano__pedazo .plano__rotulo {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes plano-error {
+  from { opacity: 0.25; }
+  to { opacity: 0.85; }
+}
+
+@keyframes plano-aparece {
+  from { opacity: 0; }
+}
+
 /* Rótulo del cuarto: nombre y lo que mide, en las mismas unidades del código */
 .plano__rotulo {
   display: grid;
@@ -134,7 +167,7 @@
   background: rgba(255, 255, 255, 0.82);
   font: 600 clamp(8.5px, 8cqw, 12px)/1.35 var(--plano-mono);
   color: var(--plano-blue);
-  white-space: nowrap;
+  max-width: 100%;
 }
 
 .plano__medida i {
@@ -273,29 +306,37 @@
   color: #412402;
 }
 
-/* ---------- Código: sin esquinas redondeadas, a todo el ancho, a la izquierda ---------- */
+/* ---------- Código: la ventana estándar del curso (lesson-demo.css) ----------
+   .lesson-demo-stack pone la barra con los tres puntos y el nombre del
+   archivo; .code--numbered numera las líneas. Aquí solo se cambia el nombre
+   del archivo y la letra se achica si una línea larga no cabe. */
 .plano__code {
   container-type: inline-size;
   width: 100%;
   min-width: 0;
-  background: var(--plano-code-bg);
-  color: var(--plano-code-ink);
   text-align: left;
 }
 
-.plano__code pre {
+.plano__code.lesson-demo-stack::before {
+  content: "departamento.css";
+}
+
+.plano__code .code {
   margin: 0;
-  padding: 14px 14px 16px;
+  padding: 24px 22px 28px 0;
   overflow-x: auto;
   background: transparent;
-  color: inherit;
-  font: 400 clamp(11px, calc((100cqw - 28px) / 31), 14px) / 1.85 var(--plano-mono);
+  color: #d7deea;
+  font: 400 min(14px, calc((100cqw - 70px) / 33)) / 1.75 "Courier New", Consolas, monospace;
   white-space: pre;
 }
 
-.plano__code .p { color: var(--plano-code-prop); }
-.plano__code .s { color: var(--plano-code-sel); }
-.plano__code .q { color: var(--plano-code-str); }
+@media (max-width: 575px) {
+  .plano__code .code {
+    padding: 18px 12px 22px 0;
+    font-size: min(12px, calc((100cqw - 60px) / 33));
+  }
+}
 
 /* Palabra del mapa: se ilumina la que corresponde a la celda */
 .plano__code .w {
@@ -500,6 +541,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .plano__pedazo::after {
+    animation: none;
+    opacity: 0.6;
+  }
+
   .plano *,
   .plano__menu,
   .plano__exp {
