@@ -12,8 +12,9 @@
    cuerpo, i++) y la escena se pinta a partir del paso en el que vamos, así
    que avanzar y regresar usan el mismo código. Dentro de la ventana de
    código, i++ y la condición son listas desplegables (el menú de vidrio del
-   3-23): sin i++ el disco se raya (ciclo infinito, con un botón ALTO) y la
-   otra condición compara texto. Con "reducir movimiento" todo ocurre sin
+   3-23): sin i++ el disco se raya (ciclo infinito: se enciende la torreta de
+   emergencia y reiniciar se marca en dorado) y la otra condición compara
+   texto. Con "reducir movimiento" todo ocurre sin
    animaciones. */
 (function () {
   "use strict";
@@ -36,12 +37,10 @@
   var codeEl = root.querySelector("[data-code]");
   var status = root.querySelector("[data-status]");
   var counter = root.querySelector("[data-counter]");
-  var check = root.querySelector("[data-check]");
   var b = {
     reset: root.querySelector("[data-reset]"),
     back: root.querySelector("[data-back]"),
-    step: root.querySelector("[data-step]"),
-    alto: root.querySelector("[data-alto]")
+    step: root.querySelector("[data-step]")
   };
 
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
@@ -86,7 +85,7 @@
 
   function dibujaTocadiscos() {
     var s = [];
-    s.push('<svg class="tt__svg" viewBox="0 0 520 440" role="img" aria-label="Tocadiscos: cada elemento del arreglo es un disco y el brazo toca uno por vuelta del ciclo">');
+    s.push('<svg class="tt__svg" viewBox="0 0 520 500" role="img" aria-label="Tocadiscos: cada elemento del arreglo es un disco y el brazo toca uno por vuelta del ciclo">');
     s.push('<defs>' +
       '<linearGradient id="tt-madera" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a2e12" stop-opacity=".25"/><stop offset=".6" stop-color="#3b1d0b" stop-opacity=".45"/><stop offset="1" stop-color="#24110a" stop-opacity=".62"/></linearGradient>' +
       // Texturas de fotos reales: chapa de nogal, aluminio cepillado y hule del tapete
@@ -108,9 +107,11 @@
 
     // Mueble de madera, placa de aluminio, descanso del brazo y foco de la condición
     // el nogal de la foto, entintado más oscuro y con sombra hacia la esquina de abajo
-    s.push('<rect x="6" y="6" width="508" height="428" rx="22" fill="url(#tt-nogal)"/>');
-    s.push('<rect x="6" y="6" width="508" height="428" rx="22" fill="url(#tt-madera)"/>');
-    s.push('<rect x="12" y="12" width="496" height="416" rx="18" fill="none" stroke="#ffdcb4" stroke-opacity=".2" stroke-width="2"/>');
+    // El mueble llega más abajo que el plato: ahí va el frente con la pantallita,
+    // las teclas y la torreta (son HTML, encima del dibujo; ver .tt__panel)
+    s.push('<rect x="6" y="6" width="508" height="488" rx="22" fill="url(#tt-nogal)"/>');
+    s.push('<rect x="6" y="6" width="508" height="488" rx="22" fill="url(#tt-madera)"/>');
+    s.push('<rect x="12" y="12" width="496" height="476" rx="18" fill="none" stroke="#ffdcb4" stroke-opacity=".2" stroke-width="2"/>');
     s.push('<rect x="384" y="22" width="114" height="272" rx="12" fill="url(#tt-cepillado)" stroke="#8f98a5" stroke-width="1"/>');
     s.push('<rect x="384" y="22" width="114" height="272" rx="12" fill="url(#tt-luz)"/>');
     s.push('<path d="M392 32H490" stroke="#fff" stroke-opacity=".7"/>');
@@ -239,18 +240,6 @@
       "  " + masMenos + "\n}";
   }
 
-  // La pantalla del amplificador dice "i < 5 = true"; al pasar el cursor
-  // sobre la i (o sobre elementos[i]) se ve el valor que tiene
-  function pantalla(f) {
-    var res = f.ok === null ? "<b>…</b>" : f.ok ? '<b class="is-true">true</b>' : '<b class="is-false">false</b>';
-    if (texto) {
-      var e = f.i === null ? "–" : f.i < N ? '"' + items[f.i].nombre + '"' : "undefined";
-      return '<span class="tt__i" tabindex="0"><span class="tt__i-nom">elementos[i]</span><span class="tt__i-val">' + e + "</span></span>\n!= \"" + ALT + "\"\n= " + res;
-    }
-    return '<span class="tt__i" tabindex="0"><span class="tt__i-nom">i</span><span class="tt__i-val">' + (f.i === null ? "–" : f.i) +
-      "</span></span> &lt; " + N + " = " + res;
-  }
-
   // Solo caben 6 renglones: si hay más, arriba se avisa cuántos se fueron
   function pintaConsola(f, nuevo) {
     var MAX = 6, html = "";
@@ -272,7 +261,7 @@
   function explica(f) {
     var st = f.st, i = st.i;
     var cond = texto ? cod("elementos[" + i + '] != "' + ALT + '"') : cod(i + " &lt; " + N);
-    if (loco) return nom("Ciclo infinito") + ": la aguja nunca se levanta y el disco se queda rayado, repitiendo el disco 0. Presiona ALTO para detenerlo.";
+    if (loco) return nom("Ciclo infinito") + ": la aguja nunca se levanta y el disco se queda rayado, repitiendo el disco 0. La torreta de emergencia se encendió: presiona reiniciar para detenerlo.";
     switch (st.parte) {
       case "init":
         return nom("Antes del ciclo") + ": el " + cod("while") + " no tiene lugar para la expresión inicial, así que el contador " + cod("i = 0") + " se crea afuera, en la línea de arriba, y el disco 0 sube al tocadiscos.";
@@ -303,7 +292,10 @@
   }
 
   function textoAlto(f) {
-    return nom("Ciclo infinito") + ": detuviste el tocadiscos después de " + f.vueltas + " vueltas. En un programa de verdad no hay botón de ALTO: la página se queda trabada. Cambia " + cod("// i++;") + " en el código para volver a ponerlo.";
+    return nom("Ciclo infinito") + ": el tocadiscos se apagó solo después de " + f.vueltas + " vueltas. En un programa de verdad nadie lo apaga: la página se queda trabada. Presiona reiniciar y cambia " + cod("// i++;") + " en el código para volver a ponerlo.";
+  }
+  function textoReinicio(v) {
+    return nom("Ciclo infinito") + ": detuviste el tocadiscos después de " + v + " vueltas. En un programa de verdad no hay cómo detenerlo: la página se queda trabada. Cambia " + cod("// i++;") + " en el código para volver a ponerlo.";
   }
 
   // La explicación cambia con desvanecido (en el ciclo infinito va demasiado rápido para eso)
@@ -364,7 +356,6 @@
     if (st && (st.parte === "cond" || fin)) led.classList.add(f.ok ? "is-true" : "is-false");
 
     counter.textContent = "i = " + (hay ? f.i : "–");
-    check.innerHTML = pantalla(f);
 
     // Sin i++, a la tercera vuelta el tocadiscos sigue solo: ciclo infinito
     if (!inc && dir > 0 && st && st.parte === "body" && f.vueltas >= 3 && !loco && !detenido) arranca();
@@ -373,7 +364,6 @@
 
     b.back.disabled = k < 0 || detenido;
     b.step.disabled = detenido || loco || fin;
-    b.alto.disabled = !loco;
   }
 
   function para() {
@@ -383,7 +373,7 @@
     root.classList.remove("is-loco", "is-halted");
   }
 
-  // El ciclo infinito avanza solo, cada vez más rápido, hasta que se presiona ALTO
+  // El ciclo infinito avanza solo, cada vez más rápido, hasta que se presiona reiniciar
   function arranca() {
     var espera = 700;
     loco = true;
@@ -531,11 +521,11 @@
     para();
     pinta(k - 1, -1);
   });
+  // En el ciclo infinito, reiniciar es la única salida (la torreta lo avisa)
   b.reset.addEventListener("click", function () {
-    nota = "";
+    nota = loco || detenido ? textoReinicio(f.vueltas) : "";
     reiniciar();
   });
-  b.alto.addEventListener("click", alto);
 
   codeEl.addEventListener("click", function (e) {
     var t = e.target.closest("[data-k]");

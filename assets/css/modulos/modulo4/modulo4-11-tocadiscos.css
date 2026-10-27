@@ -111,71 +111,77 @@
 .tt__led.is-false { fill: #ff5a3c; }
 
 /* ===================== Controles =====================
-   Arriba del tocadiscos, sin caja alrededor: a la izquierda la pantallita
-   fluorescente con i y la condición, y a la derecha las teclas de aluminio
-   (solo íconos, con aria-label y title). */
-.tt__ctrls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 12px;
+   Son parte del mueble: el SVG deja una franja de madera debajo del plato y
+   ahí va el frente de aluminio con la pantallita fluorescente de i, las
+   teclas (solo íconos, con aria-label y title) y la torreta de emergencia.
+   Todo se mide con cqw (ancho del tocadiscos) para que crezca y se encoja
+   con el dibujo: 1u del SVG = 100cqw / 520. */
+.tt__deck {
+  position: relative;
+  container-type: inline-size;
+  /* el haz de la torreta no sale del mueble (el mueble del SVG mide
+     508 x 488 con esquinas de 22, dentro de 520 x 500) */
+  clip-path: inset(1.2% 1.15% round 4.23% / 4.4%);
 }
 
-.tt__screen {
+.tt__panel {
+  --u: calc(100cqw / 520);
+  position: absolute;
+  left: calc(var(--u) * 24);
+  right: calc(var(--u) * 24);
+  top: calc(var(--u) * 441);
+  height: calc(var(--u) * 44);
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 18px;
-  padding: 8px 16px;
-  border-radius: 6px;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--u) * 12);
+  padding: 0 calc(var(--u) * 12);
+  border: 1px solid #8f98a5;
+  border-radius: calc(var(--u) * 8);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0) 40%, rgba(0, 0, 0, .14)),
+    url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/aluminio.jpg") center / 100% 100%;
+  box-shadow: inset 0 1px 0 #ffffff, 0 2px 5px rgba(0, 0, 0, .35);
+}
+
+/* En el ciclo infinito los pasos van muy rápido: el resaltado entra casi de golpe */
+.tt.is-loco .tt__code [data-part] { --hl-t: .08s; }
+
+.tt__screen {
+  min-width: calc(var(--u) * 92);
+  padding: calc(var(--u) * 4) calc(var(--u) * 12);
+  border-radius: calc(var(--u) * 5);
   background: radial-gradient(ellipse at 50% 0%, #0f3b35, #041a17 70%);
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, .6), 0 1px 0 #ffffff;
   color: #5ef2d6;
-  font: 700 15px/1.3 Consolas, "Courier New", monospace;
+  font: 700 calc(var(--u) * 17)/1.25 Consolas, "Courier New", monospace;
+  text-align: center;
   text-shadow: 0 0 6px rgba(94, 242, 214, .75);
+  white-space: nowrap;
 }
-
-.tt__screen [data-counter] { font-size: 19px; }
-.tt__screen b.is-true { color: #b8ff9c; text-shadow: 0 0 6px rgba(150, 255, 120, .8); }
-.tt__screen b.is-false { color: #ff9a7a; text-shadow: 0 0 6px rgba(255, 120, 90, .8); }
-
-/* Al pasar el cursor sobre la i se ve el valor que tiene en ese momento */
-.tt__i {
-  border-bottom: 1px dotted currentColor;
-  cursor: help;
-}
-.tt__i-val { display: none; }
-.tt__i:hover .tt__i-nom,
-.tt__i:focus .tt__i-nom { display: none; }
-.tt__i:hover .tt__i-val,
-.tt__i:focus .tt__i-val { display: inline; color: #fff6a8; }
 
 .tt__keys {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 9px;
+  gap: calc(var(--u) * 10);
 }
 
 .tt__btn {
-  --s: 42px;
+  --s: calc(var(--u) * 44);
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: var(--s);
-  height: calc(var(--s) * .82);
+  height: calc(var(--s) * .7);
   padding: 0;
   border: 1px solid #8f98a5;
-  border-radius: 6px;
+  border-radius: calc(var(--u) * 5);
   /* aluminio cepillado de verdad (foto), con luz arriba y sombra abajo */
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, .12)),
+    linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, .14)),
     url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/aluminio.jpg") center / 120px;
   color: var(--ink);
-  box-shadow: 0 3px 0 #8f98a5, 0 5px 8px rgba(0, 0, 0, .25), inset 0 1px 0 #ffffff;
+  box-shadow: 0 calc(var(--u) * 3) 0 #7d8796, 0 calc(var(--u) * 4) 6px rgba(0, 0, 0, .3), inset 0 1px 0 #ffffff;
   cursor: pointer;
   transition: transform .08s ease, box-shadow .08s ease;
 }
@@ -184,17 +190,17 @@
 .tt__btn::after {
   content: "";
   position: absolute;
-  top: 4px;
-  right: 5px;
-  width: 5px;
-  height: 5px;
+  top: calc(var(--u) * 3);
+  right: calc(var(--u) * 4);
+  width: calc(var(--u) * 4);
+  height: calc(var(--u) * 4);
   border-radius: 50%;
   background: #5a6472;
 }
 .tt__btn:hover::after { background: #ffb347; box-shadow: 0 0 5px #ffb347; }
 .tt__btn:active {
-  transform: translateY(3px);
-  box-shadow: 0 0 0 #8f98a5, 0 2px 4px rgba(0, 0, 0, .25), inset 0 1px 0 #ffffff;
+  transform: translateY(calc(var(--u) * 3));
+  box-shadow: 0 0 0 #7d8796, 0 1px 3px rgba(0, 0, 0, .25), inset 0 1px 0 #ffffff;
 }
 .tt__btn:focus-visible { outline: 3px solid var(--tec); outline-offset: 3px; }
 .tt__btn:disabled { color: #9aa3b0; cursor: default; transform: none; }
@@ -202,26 +208,75 @@
 
 .tt__btn svg {
   width: 38%;
-  height: 46%;
+  height: 52%;
 }
 
-/* ALTO solo aparece cuando se quita i++ y parpadea mientras el disco está rayado */
-.tt__btn--alto {
-  display: none;
-  border-color: #8f2414;
-  background: linear-gradient(180deg, #ff7a5c, #c73320);
-  color: #ffffff;
-  box-shadow: 0 3px 0 #8f2414, 0 5px 8px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .4);
-  font: 800 11px Roboto, Arial, sans-serif;
-  letter-spacing: .05em;
+/* En el ciclo infinito, reiniciar es la salida: le sale un contorno dorado
+   que late hasta que se presiona */
+.tt.is-loco .tt__btn[data-reset],
+.tt.is-halted .tt__btn[data-reset] { animation: tt-dorado 1.1s ease-in-out infinite; }
+@keyframes tt-dorado {
+  0%, 100% { box-shadow: 0 calc(var(--u) * 3) 0 #7d8796, 0 0 0 2px #e8b931, 0 0 6px 1px rgba(250, 199, 60, .55); }
+  50% { box-shadow: 0 calc(var(--u) * 3) 0 #7d8796, 0 0 0 3px #ffd75e, 0 0 16px 5px rgba(250, 199, 60, .9); }
 }
-.tt.is-sin-inc .tt__btn--alto { display: inline-flex; }
-.tt__btn--alto:disabled { background: linear-gradient(180deg, #e9b3a6, #c98a7c); color: #ffffff; }
-.tt.is-loco .tt__btn--alto { animation: tt-alto .8s ease-in-out infinite; }
 
-@keyframes tt-alto {
-  50% { filter: brightness(1.2); box-shadow: 0 3px 0 #8f2414, 0 0 0 7px rgba(226, 65, 42, .25); }
+/* La torreta de emergencia: de normal está apagada (vidrio rojo oscuro);
+   en el ciclo infinito se prende, gira su reflector y echa un haz de luz
+   roja que barre el mueble */
+.tt__faro {
+  position: relative;
+  flex: none;
+  width: calc(var(--u) * 32);
+  height: calc(var(--u) * 32);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #b26a60, #5e1a14 55%, #300a07);
+  box-shadow: 0 0 0 calc(var(--u) * 3) #c9d0da, 0 0 0 calc(var(--u) * 4) #7d8796, inset 0 -3px 5px rgba(0, 0, 0, .5);
+  transition: background .3s ease, box-shadow .3s ease;
 }
+
+/* el reflector que gira adentro del vidrio */
+.tt__faro i {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.tt__faro i::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, rgba(255, 245, 235, .95) 0deg, rgba(255, 90, 60, 0) 70deg, rgba(255, 90, 60, 0) 180deg, rgba(255, 245, 235, .95) 180deg, rgba(255, 90, 60, 0) 250deg);
+}
+
+/* el haz de luz que sale de la torreta */
+.tt__faro::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--u) * 360);
+  height: calc(var(--u) * 360);
+  margin: calc(var(--u) * -180) 0 0 calc(var(--u) * -180);
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(255, 50, 30, .45) 0deg, rgba(255, 50, 30, 0) 40deg, rgba(255, 50, 30, 0) 180deg, rgba(255, 50, 30, .45) 180deg, rgba(255, 50, 30, 0) 220deg);
+  -webkit-mask-image: radial-gradient(circle, #000 8%, transparent 70%);
+  mask-image: radial-gradient(circle, #000 8%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+.tt.is-loco .tt__faro {
+  background: radial-gradient(circle at 36% 30%, #ffb3a1, #ff3b24 45%, #a10f08);
+  box-shadow: 0 0 0 calc(var(--u) * 3) #c9d0da, 0 0 0 calc(var(--u) * 4) #7d8796, 0 0 calc(var(--u) * 22) calc(var(--u) * 6) rgba(255, 45, 25, .75);
+}
+.tt.is-loco .tt__faro i,
+.tt.is-loco .tt__faro::before { opacity: 1; }
+.tt.is-loco .tt__faro i::before,
+.tt.is-loco .tt__faro::before { animation: tt-faro .8s linear infinite; }
+@keyframes tt-faro { to { transform: rotate(360deg); } }
 
 /* Las mismas teclas, en chico, dentro del texto de instrucciones */
 .tt__ico {
@@ -466,6 +521,7 @@
    tocadiscos y del código y cambia con desvanecido. */
 .tt__status {
   margin: 18px 0 0;
+  text-align: center;
   transition: opacity .2s ease;
 }
 
@@ -510,13 +566,6 @@
   .tt .tt__code { font-size: 14px; }
 }
 
-/* En celular la condición de texto se parte en renglones */
-@media (max-width: 599px) {
-  .tt__screen { padding: 7px 12px; font-size: 13px; }
-  .tt__screen [data-counter] { font-size: 16px; }
-  .tt__screen [data-check] { white-space: pre-wrap; }
-}
-
 @media (max-width: 575px) {
   .tt .tt__code { font-size: 12.5px; }
   .tt__code .js-term__body { padding-left: 12px; padding-right: 12px; }
@@ -526,7 +575,9 @@
   .tt__giro,
   .tt.is-singing .tt__nota,
   .tt.is-loco .tt__cabeza,
-  .tt.is-loco .tt__btn--alto,
+  .tt.is-loco .tt__btn[data-reset],
+  .tt.is-loco .tt__faro i::before,
+  .tt.is-loco .tt__faro::before,
   .tt__console-out span.is-new { animation: none; }
   .tt__brazo,
   .tt__disco,
