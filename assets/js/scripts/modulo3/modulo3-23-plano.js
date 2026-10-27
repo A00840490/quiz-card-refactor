@@ -232,8 +232,8 @@
     svg.setAttribute("width", grid.clientWidth);
     svg.setAttribute("height", grid.clientHeight);
     svg.innerHTML =
-      "<defs><pattern id=\"plano-franjas\" width=\"16\" height=\"16\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\">" +
-      "<rect width=\"5\" height=\"16\" fill=\"#c62828\"></rect><rect x=\"5\" width=\"11\" height=\"16\" fill=\"#ffffff\"></rect></pattern></defs>";
+      "<defs><pattern id=\"plano-franjas\" width=\"22\" height=\"22\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\">" +
+      "<rect width=\"11\" height=\"22\" fill=\"#d62626\"></rect><rect x=\"11\" width=\"11\" height=\"22\" fill=\"#ffffff\" fill-opacity=\"0.45\"></rect></pattern></defs>";
     rotos.forEach(function (id) {
       var d = contorno(id, X, Y);
       var relleno = document.createElementNS(NS, "path");
