@@ -343,11 +343,24 @@
     // está en el plato y los que faltan esperan abajo. Al avanzar con i++,
     // primero se levanta la aguja, luego sale el disco que sonó y después
     // sube el siguiente.
+    // Un disco que pasa de la izquierda a abajo (o al revés), como al
+    // reiniciar, va de un lado escondido a otro: cambia de lugar sin
+    // animación para no cruzar por encima del plato.
     var cambio = dir > 0 && !!st && st.parte === "inc";
     each(discos, function (d, n) {
-      var pos = !hay || n > f.i ? "translate(0px, 470px)" : n < f.i ? "translate(-430px, 0px)" : "translate(0px, 0px)";
+      var lugar = !hay || n > f.i ? "abajo" : n < f.i ? "izq" : "plato";
+      var pos = lugar === "abajo" ? "translate(0px, 470px)" : lugar === "izq" ? "translate(-430px, 0px)" : "translate(0px, 0px)";
+      var salta = d._lugar && d._lugar !== lugar && d._lugar !== "plato" && lugar !== "plato";
+      d._lugar = lugar;
       d.style.transitionDelay = !cambio ? "0s" : n === f.i ? ".8s" : ".45s";
-      d.style.transform = pos;
+      if (salta) {
+        d.style.transition = "none";
+        d.style.transform = pos;
+        void d.getBoundingClientRect();
+        d.style.transition = "";
+      } else {
+        d.style.transform = pos;
+      }
     });
 
     // La aguja baja cuando la condición es true y avanza un poco mientras suena el disco
