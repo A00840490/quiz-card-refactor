@@ -289,8 +289,8 @@
 }
 
 /* Mouse dibujado junto a la explicación: gris en reposo; en los atajos
-   con clic, el botón izquierdo se pinta del color del curso y el mouse
-   se hunde una y otra vez, como si se estuviera haciendo clic */
+   con clic, el botón izquierdo parpadea en el color del curso, como si
+   se estuviera haciendo clic */
 .kb__mouse {
   flex: none;
   display: grid;
@@ -318,18 +318,9 @@
   color: var(--theme-color);
 }
 
-.kb__mouse.is-on svg {
-  animation: kb-click 1.2s ease-in-out infinite;
-}
-
 .kb__mouse.is-on .kb__mouse-btn {
   fill: var(--theme-color);
   animation: kb-click-btn 1.2s ease-in-out infinite;
-}
-
-@keyframes kb-click {
-  0%, 30%, 100% { transform: none; }
-  45%, 55% { transform: translateY(3px) scale(0.96); }
 }
 
 @keyframes kb-click-btn {
@@ -338,12 +329,12 @@
 }
 
 /* Mouse chiquito en la lista ("Alt + Clic") */
-.kb__key svg[viewBox="0 0 40 66"] {
+.kb__key svg[viewBox="0 10 40 56"] {
   stroke-width: 3.5;
   vertical-align: -2px;
 }
 
-.kb__key svg[viewBox="0 0 40 66"] rect:first-of-type,
+.kb__key svg[viewBox="0 10 40 56"] rect:first-of-type,
 .kb__key .kb__mouse-btn {
   fill: none;
 }
@@ -396,7 +387,6 @@
     animation: none;
   }
 
-  .kb__mouse.is-on svg,
   .kb__mouse.is-on .kb__mouse-btn {
     animation: none;
   }

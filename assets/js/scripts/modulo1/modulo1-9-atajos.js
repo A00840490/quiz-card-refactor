@@ -23,13 +23,12 @@
   }
   var ARROWS = { Up: arrow(0), Right: arrow(90), Down: arrow(180), Left: arrow(270) };
 
-  // Mouse dibujado: cuerpo, botón izquierdo, rueda y cable. Al hacer clic
-  // el botón izquierdo se pinta y el mouse se hunde (ver .kb__mouse en el CSS).
+  // Mouse dibujado: cuerpo, botón izquierdo y rueda. Al hacer clic se
+  // pinta el botón izquierdo (ver .kb__mouse en el CSS).
   function mouse(size) {
     return (
-      '<svg viewBox="0 0 40 66" width="' + size * 40 / 66 + '" height="' + size + '" fill="none" stroke="currentColor" ' +
+      '<svg viewBox="0 10 40 56" width="' + size * 40 / 56 + '" height="' + size + '" fill="none" stroke="currentColor" ' +
       'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M20 12C20 6 24 4 28 2"/>' +
       '<rect x="4" y="12" width="32" height="52" rx="16"/>' +
       '<path class="kb__mouse-btn" d="M20 12A16 16 0 0 0 4 28V32H20Z"/>' +
       '<path d="M4 32H36M20 12V32"/>' +
