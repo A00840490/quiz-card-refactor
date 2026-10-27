@@ -45,8 +45,9 @@
 
 .reto__feedback:empty { display: none; }
 
-.reto__ok { color: var(--bien); }
-.reto__no { color: var(--mal); }
+/* La corrección completa va en verde (bien) o en rojo (mal) */
+.reto__feedback.is-right { color: var(--bien); }
+.reto__feedback.is-wrong { color: var(--mal); }
 
 /* Código mencionado en la corrección: estándar del curso (azul, monoespaciada) */
 .reto__feedback code {
@@ -54,12 +55,6 @@
   background: none;
   color: var(--theme-color, #093b8b);
   font-size: 87.5%;
-  font-weight: 700;
-}
-
-.reto__summary {
-  display: block;
-  margin-top: 4px;
   font-weight: 700;
 }
 

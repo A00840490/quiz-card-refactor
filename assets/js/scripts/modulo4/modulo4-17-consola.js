@@ -215,7 +215,6 @@
   var els = {
     ask: root.querySelector("[data-ask]"),
     feedback: root.querySelector("[data-feedback]"),
-    file: root.querySelector("[data-file]"),
     code: root.querySelector("[data-code]"),
     out: root.querySelector("[data-out]"),
     progress: root.querySelector("[data-progress]"),
@@ -353,8 +352,7 @@
     var pr = PROBLEMS[state.pr];
     var last = lastVisibleLine();
     var html = [
-      '<div class="reto__line"><span class="js-term__com">// ' + (state.pr + 1) + ". " +
-        esc(pr.title) + "</span></div>",
+      '<div class="reto__line"><span class="js-term__com">// ' + esc(pr.title) + "</span></div>",
     ];
     for (var li = 0; li <= last; li++) {
       var isCurrent = li === last && !complete();
@@ -364,7 +362,6 @@
       );
     }
     els.code.innerHTML = html.join("");
-    els.file.textContent = "problema" + (state.pr + 1) + ".js";
 
     var input = els.code.querySelector("[data-input]");
     if (input) {
@@ -448,12 +445,10 @@
   /* ---------------- Encabezado y botones ---------------- */
   function renderHeader() {
     renderProgress();
-    var q = QUESTIONS[state.current];
-    var ask;
-    if (state.done) ask = "¡Completaste los problemas!";
-    else if (state.between) ask = "¡Terminaste el problema " + (state.pr + 1) + "!";
-    else ask = q ? q.data.ask : "";
-    setText(els.ask, esc(ask), "reto__ask");
+    // Al terminar un problema se queda la última pregunta con su corrección;
+    // el siguiente problema sale hasta presionar el botón.
+    var q = QUESTIONS[complete() ? state.current - 1 : state.current];
+    setText(els.ask, esc(q ? q.data.ask : ""), "reto__ask");
 
     // Al terminar todo, el botón de Revisar se vuelve "Intentar de nuevo".
     els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
@@ -466,25 +461,6 @@
     renderHeader();
     renderCode();
     renderConsole(animateConsole);
-  }
-
-  function problemScore(pi) {
-    var total = 0;
-    var hits = 0;
-    QUESTIONS.forEach(function (q, i) {
-      if (q.pr !== pi) return;
-      total++;
-      if (state.correct[i]) hits++;
-    });
-    return { hits: hits, total: total };
-  }
-
-  function summaryHtml() {
-    var s = problemScore(state.pr);
-    return (
-      '<span class="reto__summary">Problema ' + (state.pr + 1) + ": " + s.hits + " de " +
-      s.total + (s.total === 1 ? " acierto." : " aciertos.") + "</span>"
-    );
   }
 
   // Recuadro vacío: sacudida de lado a lado (como en los ejercicios 2 y 3).
@@ -528,10 +504,12 @@
     state.answers[state.current] = q.data.a;
 
     var fb = ok
-      ? '<strong class="reto__ok">¡Correcto!</strong> ' + rich(q.data.why)
-      : '<strong class="reto__no">No es correcto.</strong> Escribiste <code>' + esc(given.trim()) +
+      ? "<strong>¡Correcto!</strong> " + rich(q.data.why)
+      : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
         "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " +
         (caseOnly ? "JavaScript distingue mayúsculas de minúsculas. " : "") + rich(q.data.why);
+    // Toda la corrección va en verde o en rojo; el código, en el azul del curso.
+    var fbClass = "reto__feedback " + (ok ? "is-right" : "is-wrong");
 
     var lastOfProblem =
       state.current === QUESTIONS.length - 1 || QUESTIONS[state.current + 1].pr !== state.pr;
@@ -543,7 +521,7 @@
       if (state.current >= QUESTIONS.length) state.done = true;
       else state.between = true;
       render(true);
-      setText(els.feedback, fb + summaryHtml(), "reto__feedback");
+      setText(els.feedback, fb, fbClass);
       if (state.done) {
         // La ventana de aciertos sale cuando la consola termina de imprimir.
         root.addEventListener("reto:ran", finish, { once: true });
@@ -555,7 +533,7 @@
       // Bien o mal, la siguiente pregunta sale hasta presionar "Continuar".
       state.waiting = true;
       render(false);
-      setText(els.feedback, fb, "reto__feedback");
+      setText(els.feedback, fb, fbClass);
       els.next.focus({ preventScroll: true });
     }
   }
