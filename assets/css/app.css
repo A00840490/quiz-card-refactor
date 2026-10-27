@@ -8685,8 +8685,8 @@ label.success {
    del 4-10, tocadiscos del 4-11, árbol del 4-12), la explicación va en una
    ficha de renglones montada sobre la parte de abajo de la ventana. La
    ventana aparta abajo el espacio que la ficha cubre, así que nunca tapa el
-   código ni la salida de la consola. Cada texto nuevo aparece con un
-   desvanecido de abajo hacia arriba.
+   código ni la salida de la consola. Con cada texto nuevo la ficha se
+   desvanece y vuelve a subir desde abajo con un giro suave.
 
    <div class="grafico-ficha-col">
      <div class="js-term">…</div>
@@ -8719,7 +8719,6 @@ label.success {
   background-position: 0 18px, 0 22px;
   box-shadow: 0 1px 2px rgba(15, 23, 42, .18), 0 14px 28px -6px rgba(15, 23, 42, .30);
   font-size: 16px;
-  transition: opacity .3s ease;
 }
 
 /* Sin explicación (antes del primer paso) la ficha no se ve */
@@ -8731,22 +8730,34 @@ label.success {
   text-align: left;
 }
 
-/* El texto nuevo aparece de abajo hacia arriba: una máscara con orilla
-   suave sube por la ficha. Se repite cada vez que la explicación deja de
-   estar .is-fading, que es cuando entra el texto nuevo. */
-.grafico-ficha .grafico-exp:not(.is-fading) {
-  -webkit-mask-image: linear-gradient(to top, #000 40%, transparent 60%);
-          mask-image: linear-gradient(to top, #000 40%, transparent 60%);
-  -webkit-mask-size: 100% 250%;
-          mask-size: 100% 250%;
-  -webkit-mask-position: 0 100%;
-          mask-position: 0 100%;
-  animation: grafico-ficha-sube .55s ease-out;
+/* La que se mueve es la ficha completa, no el texto: cuando la explicación
+   está .is-fading la ficha baja un poco y se desvanece, y cuando entra el
+   texto nuevo sube desde abajo con un giro suave que se endereza. Mientras
+   tanto el texto se queda quieto dentro de la ficha. */
+.grafico-ficha .grafico-exp,
+.grafico-ficha .grafico-exp.is-fading {
+  opacity: 1;
+  transition: none;
+}
+
+.grafico-ficha {
+  transform-origin: 30% 100%;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.grafico-ficha:has(.grafico-exp.is-fading) {
+  opacity: 0;
+  transform: translateY(10px) rotate(1deg);
+}
+
+.grafico-ficha:has(.grafico-exp:not(.is-fading):not(:empty)) {
+  animation: grafico-ficha-sube .6s cubic-bezier(.2, .8, .25, 1) both;
 }
 
 @keyframes grafico-ficha-sube {
-  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
-  to { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+  from { opacity: 0; transform: translateY(34px) rotate(-3deg); }
+  60% { opacity: 1; }
+  to { opacity: 1; transform: none; }
 }
 
 @media (min-width: 576px) {
@@ -8763,7 +8774,8 @@ label.success {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grafico-ficha .grafico-exp:not(.is-fading) { animation: none; }
+  .grafico-ficha,
+  .grafico-ficha:has(.grafico-exp.is-fading) { transform: none; transition: none; animation: none; }
 }
 
 /* card-block se compacta en pantallas pequeñas (mismos cortes que Bootstrap) */
