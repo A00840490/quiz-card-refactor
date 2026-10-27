@@ -375,10 +375,10 @@
 /* Cada parte del for se resalta con el estándar de js-terminal.css */
 
 /* Explicación con el estándar .grafico-exp (app.css) */
-.banda__status {
-  margin: 16px 0 0;
-  min-height: 3em;
-}
+/* La explicación (.grafico-exp) va en la ficha de renglones sobre la ventana
+   de código (.grafico-ficha en app.css) y cambia con desvanecido */
+.banda__status { transition: opacity .2s ease; }
+.banda__status.is-fading { opacity: 0; }
 
 .banda__status .si { color: var(--true); font-weight: 700; }
 .banda__status .no { color: var(--false); font-weight: 700; }
@@ -487,8 +487,8 @@
 
 /* ===================== Acomodo =====================
    En pantallas anchas la escena y la ventana de código (con su consola) van
-   lado a lado (65 / 35) y abajo, a todo lo ancho, la explicación. En
-   pantallas angostas todo va en una columna. */
+   lado a lado (65 / 35); la explicación va en la ficha montada sobre la
+   ventana. En pantallas angostas todo va en una columna. */
 .banda__main {
   display: grid;
   gap: 18px;
@@ -498,7 +498,7 @@
 @media (min-width: 992px) {
   .banda__main {
     grid-template-columns: minmax(0, 65fr) minmax(0, 35fr);
-    align-items: center; /* la ventana de código queda centrada respecto a la banda */
+    align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover la banda ni la ventana */
   }
 }
 

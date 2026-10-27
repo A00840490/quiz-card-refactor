@@ -89,6 +89,17 @@
     }
   }
 
+  // La explicación cambia con desvanecido; el texto nuevo sube desde abajo (ver .grafico-ficha en app.css)
+  function explicar(html) {
+    if (html === status._html) return;
+    status._html = html;
+    clearTimeout(status._t);
+    if (reduce || !html) { status.classList.remove("is-fading"); status.innerHTML = html; return; }
+    if (!status.innerHTML) { status.classList.add("is-fading"); void status.offsetWidth; status.innerHTML = html; status.classList.remove("is-fading"); return; }
+    status.classList.add("is-fading");
+    status._t = setTimeout(function () { status.innerHTML = html; status.classList.remove("is-fading"); }, 200);
+  }
+
   /* ---------- Pintar la escena ---------- */
   function marca(parte) {
     [].forEach.call(code.querySelectorAll("[data-part]"), function (el) {
@@ -225,7 +236,7 @@
     placa(null);
     counter.textContent = "i = –";
     consola.innerHTML = "";
-    status.innerHTML = "";
+    explicar("");
     botones();
   }
 
@@ -235,7 +246,7 @@
     if (volviendo) finRegreso();
     var st = pasos[++k];
     marca(st.parte === "fin" ? null : st.parte);
-    status.innerHTML = explica(st);
+    explicar(explica(st));
     aplica(st);
     botones();
   }
@@ -282,7 +293,7 @@
     }
 
     marca(st.parte);
-    status.innerHTML = explica(st);
+    explicar(explica(st));
     botones();
   }
 

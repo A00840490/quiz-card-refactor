@@ -528,13 +528,10 @@
 .tt__code [data-part].is-on .tt__valor::after { border-top-color: #2b3550; }
 
 /* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6):
-   párrafo normal del curso con el concepto en <code> azul. Va debajo del
-   tocadiscos y del código y cambia con desvanecido. */
-.tt__status {
-  margin: 18px 0 0;
-  text-align: center;
-  transition: opacity .2s ease;
-}
+   párrafo normal del curso con el concepto en <code> azul. Va en la ficha de
+   renglones montada sobre la ventana de código (.grafico-ficha en app.css)
+   y cambia con desvanecido. */
+.tt__status { transition: opacity .2s ease; }
 
 .tt__status.is-fading { opacity: 0; }
 .tt__status code { white-space: nowrap; }
@@ -543,8 +540,9 @@
 
 /* ===================== Acomodo =====================
    En pantallas anchas el tocadiscos (con sus controles) y la ventana de
-   código van lado a lado (55 / 45), centrados verticalmente; abajo, a todo
-   lo ancho, la explicación. En pantallas angostas todo va en una columna. */
+   código van lado a lado (55 / 45), alineados arriba; la explicación
+   va en la ficha montada sobre la ventana. En pantallas angostas todo va en
+   una columna. */
 .tt__main {
   display: grid;
   gap: 18px;
@@ -561,7 +559,7 @@
   .tt__main {
     grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
     gap: 24px;
-    align-items: center;
+    align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
   }
   .tt .tt__code { font-size: 15px; }
 }

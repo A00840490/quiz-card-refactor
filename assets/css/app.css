@@ -8680,6 +8680,92 @@ label.success {
   font-weight: 700;
 }
 
+/* =====================================================================
+   grafico-ficha: cuando el gráfico va junto a una ventana de código (banda
+   del 4-10, tocadiscos del 4-11, árbol del 4-12), la explicación va en una
+   ficha de renglones montada sobre la parte de abajo de la ventana. La
+   ventana aparta abajo el espacio que la ficha cubre, así que nunca tapa el
+   código ni la salida de la consola. Cada texto nuevo aparece con un
+   desvanecido de abajo hacia arriba.
+
+   <div class="grafico-ficha-col">
+     <div class="js-term">…</div>
+     <div class="grafico-ficha"><p class="grafico-exp" data-status></p></div>
+   </div>
+   ===================================================================== */
+.grafico-ficha-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.grafico-ficha-col > .js-term { margin: 0; }
+.grafico-ficha-col > .js-term .js-term__body { padding-bottom: 56px; }
+
+.grafico-ficha {
+  --lh: 1.5em; /* el interlineado de .grafico-exp: cada renglón mide una línea de texto */
+  position: relative;
+  z-index: 2;
+  width: auto;
+  margin: -46px 12px 0;
+  padding: 26px 16px 8px;
+  border-radius: 4px;
+  background-color: #fffffb;
+  background-image:
+    linear-gradient(#e2574c, #e2574c),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), #bcd4ee calc(var(--lh) - 1px) var(--lh));
+  background-repeat: no-repeat;
+  background-size: 100% 2px, 100% calc(100% - 22px);
+  background-position: 0 18px, 0 22px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .18), 0 14px 28px -6px rgba(15, 23, 42, .30);
+  font-size: 16px;
+  transition: opacity .3s ease;
+}
+
+/* Sin explicación (antes del primer paso) la ficha no se ve */
+.grafico-ficha:has(.grafico-exp:empty) { opacity: 0; }
+
+.grafico-ficha .grafico-exp {
+  min-height: calc(3 * var(--lh));
+  margin: 0;
+  text-align: left;
+}
+
+/* El texto nuevo aparece de abajo hacia arriba: una máscara con orilla
+   suave sube por la ficha. Se repite cada vez que la explicación deja de
+   estar .is-fading, que es cuando entra el texto nuevo. */
+.grafico-ficha .grafico-exp:not(.is-fading) {
+  -webkit-mask-image: linear-gradient(to top, #000 40%, transparent 60%);
+          mask-image: linear-gradient(to top, #000 40%, transparent 60%);
+  -webkit-mask-size: 100% 250%;
+          mask-size: 100% 250%;
+  -webkit-mask-position: 0 100%;
+          mask-position: 0 100%;
+  animation: grafico-ficha-sube .55s ease-out;
+}
+
+@keyframes grafico-ficha-sube {
+  from { -webkit-mask-position: 0 0; mask-position: 0 0; }
+  to { -webkit-mask-position: 0 100%; mask-position: 0 100%; }
+}
+
+@media (min-width: 576px) {
+  .grafico-ficha-col > .js-term .js-term__body { padding-bottom: 64px; }
+  .grafico-ficha {
+    --lh: 1.9em;
+    width: min(90%, 500px);
+    margin: -50px 18px 0 auto;
+    padding: 30px 24px 10px;
+    background-size: 100% 2px, 100% calc(100% - 24px);
+    background-position: 0 22px, 0 24px;
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grafico-ficha .grafico-exp:not(.is-fading) { animation: none; }
+}
+
 /* card-block se compacta en pantallas pequeñas (mismos cortes que Bootstrap) */
 @media (max-width: 767px) {
   .card-block {

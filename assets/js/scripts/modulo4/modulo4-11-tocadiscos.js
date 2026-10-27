@@ -304,9 +304,17 @@
     if (html === status._html) return;
     status._html = html;
     clearTimeout(status._t);
-    if (reduce || loco || !status.innerHTML) {
+    if (reduce || loco || !html) {
       status.classList.remove("is-fading");
       status.innerHTML = html;
+      return;
+    }
+    // El primer texto entra sin esperar, pero igual sube desde abajo (ver .grafico-ficha en app.css)
+    if (!status.innerHTML) {
+      status.classList.add("is-fading");
+      void status.offsetWidth;
+      status.innerHTML = html;
+      status.classList.remove("is-fading");
       return;
     }
     status.classList.add("is-fading");

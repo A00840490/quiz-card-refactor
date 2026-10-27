@@ -171,14 +171,16 @@
    una línea completa se resalta de orilla a orilla de la ventana */
 .dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; transition: opacity .35s ease, background-size var(--hl-t) ease, color var(--hl-t) ease; }
 
-/* ===================== Explicación ===================== */
-.dom__status { margin: 18px 0 0; min-height: 1.9em; text-align: center; transition: opacity .2s ease; }
+/* ===================== Explicación =====================
+   Va en la ficha de renglones sobre la ventana de código (.grafico-ficha en app.css) */
+.dom__status { transition: opacity .2s ease; }
 .dom__status.is-fading { opacity: 0; }
 
 /* ===================== Acomodo =====================
    En pantallas anchas el código va a la izquierda y la escena a la derecha
-   (45 / 55), centrados verticalmente; la explicación va debajo, a todo lo
-   ancho. En pantallas angostas todo va en una columna y el código, abajo. */
+   (45 / 55), alineados arriba; la explicación va en la ficha montada
+   sobre la ventana de código. En pantallas angostas todo va en una columna y
+   el código (con su ficha), abajo. */
 .dom__main { display: grid; gap: 18px; }
 .dom__scene {
   display: grid;
@@ -192,9 +194,9 @@
   .dom__main {
     grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
     gap: 24px;
-    align-items: center;
+    align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
   }
-  .dom__code { order: -1; }
+  .dom__main > .grafico-ficha-col { order: -1; }
 }
 
 @media (max-width: 575px) {
