@@ -180,11 +180,12 @@
 .dom__code .js-term__code { display: grid; overflow-x: auto; white-space: pre; scrollbar-width: thin; }
 .dom__ln { display: block; min-height: 1.75em; transition: opacity .35s ease; }
 .dom__ln.is-unread { opacity: .22; }
-.dom__code [data-s] { margin: 0 -3px; padding: 1px 3px; border-radius: 4px; transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
-.dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; border-radius: 0; }
-.dom__code [data-s].is-on { background: var(--tec); box-shadow: 0 0 0 1px #4f7fd1; color: #ffffff; }
-/* El script completo se resalta como un solo bloque */
-.dom__code .dom__ln[data-s].is-on { box-shadow: none; }
+/* Lo que el navegador lee se resalta invirtiendo sus colores (fondo verde
+   del código y letra del fondo de la terminal), con esquinas rectas */
+.dom__code [data-s] { margin: 0 -3px; padding: 1px 3px; transition: background-color .25s ease, color .25s ease; }
+.dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; }
+.dom__code [data-s].is-on { background: var(--verde); color: #0b0f0c; }
+.dom__code [data-s].is-on * { color: inherit; }
 
 /* ===================== Explicación ===================== */
 .dom__status { margin: 18px 0 0; min-height: 1.9em; transition: opacity .2s ease; }

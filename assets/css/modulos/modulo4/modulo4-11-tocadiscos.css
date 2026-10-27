@@ -438,35 +438,38 @@
   50% { opacity: 0; }
 }
 
-/* Cada parte del while se resalta en azul Tec cuando le toca ejecutarse */
+/* Cada parte del while se resalta invirtiendo sus colores (fondo verde del
+   código y letra del fondo de la terminal), en un bloque de esquinas rectas */
 .tt__code [data-part] {
   margin: 0 -3px;
   padding: 1px 3px;
-  border-radius: 4px;
-  transition: background .25s ease, color .25s ease, box-shadow .25s ease;
+  transition: background .25s ease, color .25s ease;
 }
 
 .tt__code [data-part].is-on {
-  background: var(--tec);
-  box-shadow: 0 0 0 1px #4f7fd1;
-  color: #ffffff;
+  background: var(--green);
+  color: #0b0f0c;
 }
 
+.tt__code [data-part].is-on * { color: inherit; }
+
 /* Si la parte que se ejecuta es una lista desplegable (la condición o i++),
-   el botón tapa el resaltado: él mismo se enciende en azul Tec con borde
-   blanco y un brillo, para que se note igual que el resto del código */
+   la lista misma invierte sus colores (fondo blanco y letra azul) y queda
+   con esquinas rectas; la parte alrededor no se pinta */
+.tt__code [data-part].is-on:has(.tt__valor) { background: none; }
+
 .tt__code .tt__valor {
-  transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease, color .25s ease;
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
 }
 
 .tt__code [data-part].is-on .tt__valor {
   border-color: #ffffff;
-  background: #1f5fd1;
-  color: #ffffff;
-  box-shadow: 0 0 0 2px var(--tec), 0 0 12px rgba(111, 160, 255, .85);
+  border-radius: 0;
+  background: #ffffff;
+  color: #2b3550;
 }
 
-.tt__code [data-part].is-on .tt__valor::after { border-top-color: #ffffff; }
+.tt__code [data-part].is-on .tt__valor::after { border-top-color: #2b3550; }
 
 /* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6):
    párrafo normal del curso con el concepto en <code> azul. Va debajo del
