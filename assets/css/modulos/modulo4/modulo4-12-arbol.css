@@ -2,7 +2,7 @@
    (comportamiento en assets/js/scripts/modulo4/modulo4-12-arbol.js).
 
    A la izquierda va la ventana de código con el HTML de la página del
-   ejemplo; a la derecha, los controles y su árbol DOM. Con ▶ el navegador
+   ejemplo; a la derecha, los controles y su árbol DOM. Con ▶| el navegador
    lee el HTML paso a paso: la línea que lee se resalta y el nodo nuevo cae
    al árbol como los caracteres de Matrix. La ventana de código usa el
    formato de las terminales del módulo 4 (js-terminal.css). */
@@ -55,12 +55,10 @@
 .dom__btn:focus-visible { outline: 2px solid #fac775; outline-offset: 2px; }
 .dom__btn:disabled { border-color: #1f4d2e; color: #1f4d2e; cursor: default; box-shadow: none; background: transparent; transform: none; }
 .dom__btn svg { width: 40%; height: 40%; }
-.dom__btn--play { --s: 46px; }
-.dom__btn--play svg { margin-left: 2px; }
-.dom__btn--play.is-hint { animation: dom-llama 1.6s ease-in-out infinite; }
+.dom__btn.is-hint { animation: dom-llama 1.6s ease-in-out infinite; }
 @keyframes dom-llama { 50% { box-shadow: 0 0 0 7px rgba(74, 222, 128, .16), 0 0 14px rgba(74, 222, 128, .5); } }
 
-/* El mismo ícono de ▶, en chico, dentro de la instrucción */
+/* El mismo ícono de paso siguiente, en chico, dentro de la instrucción */
 .dom__ico {
   display: inline-flex;
   align-items: center;
@@ -72,9 +70,9 @@
   border-radius: 50%;
   background: #000000;
   color: #4ade80;
-  vertical-align: -6px;
+  vertical-align: middle;
 }
-.dom__ico svg { width: 10px; height: 10px; margin-left: 1px; }
+.dom__ico svg { width: 11px; height: 11px; }
 
 /* ===================== El árbol ===================== */
 .dom__tree {
@@ -202,7 +200,6 @@
 @media (max-width: 575px) {
   .dom__ctl { padding: 10px 12px; }
   .dom__btn { --s: 34px; }
-  .dom__btn--play { --s: 42px; }
   .dom__tree { height: 330px; }
   .dom__nd { padding: 3px 7px; font-size: 12px; }
   .dom__nd--el .at { font-size: 10.5px; }

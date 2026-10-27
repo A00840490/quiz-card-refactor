@@ -143,6 +143,14 @@ li {
   font-size: medium;
 }
 
+/* Los íconos de botón dentro de una instrucción (banda__ico, tt__ico,
+   dom__ico...) quedan centrados verticalmente con el renglón */
+.card-info [class*="__ico"] {
+  position: relative;
+  top: -.08em;
+  vertical-align: middle;
+}
+
 .card-slide {
   background-color: white;
 }

@@ -16,9 +16,7 @@
   var ICON = {
     reset: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg>',
     back: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg>',
-    step: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg>',
-    play: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.2v11.6l9.5-5.8z" fill="currentColor"/></svg>',
-    pause: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z" fill="currentColor"/></svg>'
+    step: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg>'
   };
   var GLIFOS = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789<>/=*+";
 
@@ -83,7 +81,7 @@
       ] }
     ] }] };
   }
-  var st = { k: 0, m: null, nodo: {}, padre: {}, sig: 0, sel: null, nuevos: [], playing: false, hl: null };
+  var st = { k: 0, m: null, nodo: {}, padre: {}, sig: 0, sel: null, nuevos: [], hl: null };
   function numera(n, p) {
     n.u = "n" + (st.sig++);
     st.nodo[n.u] = n;
@@ -98,10 +96,10 @@
   /* ---------- Referencias ---------- */
   var treeBox = $(".dom__tree"), tree = $("[data-tree]");
   var status = $("[data-status]");
-  var btnPlay = $("[data-play]"), btnBack = $("[data-back]"), btnStep = $("[data-step]"), btnReset = $("[data-reset]");
+  var btnBack = $("[data-back]"), btnStep = $("[data-step]"), btnReset = $("[data-reset]");
   var codeEl = $("[data-code] .js-term__code");
 
-  btnReset.innerHTML = ICON.reset; btnBack.innerHTML = ICON.back; btnStep.innerHTML = ICON.step; btnPlay.innerHTML = ICON.play;
+  btnReset.innerHTML = ICON.reset; btnBack.innerHTML = ICON.back; btnStep.innerHTML = ICON.step;
   $$("[data-ico]", document).forEach(function (el) { el.innerHTML = ICON[el.getAttribute("data-ico")]; });
 
   /* ---------- Lluvia de fondo (solo mientras algo pasa) ---------- */
@@ -333,9 +331,6 @@
   function controles() {
     btnBack.disabled = st.k <= 0;
     btnStep.disabled = st.k >= PASOS;
-    btnPlay.innerHTML = st.playing ? ICON.pause : ICON.play;
-    btnPlay.setAttribute("aria-label", st.playing ? "Pausa" : "Reproducir");
-    btnPlay.title = st.playing ? "Pausa" : "Reproducir";
   }
 
   /* ---------- Armar el árbol paso a paso ---------- */
@@ -345,30 +340,12 @@
     if (conTexto && MSG[k]) say(MSG[k]);
     controles();
   }
-  var timer = null;
-  function para() { st.playing = false; clearTimeout(timer); controles(); }
-  function sigue() {
-    if (!st.playing) return;
-    if (st.k >= PASOS) { para(); return; }
-    ir(st.k + 1, true);
-    if (st.k >= PASOS) { para(); return; }
-    timer = setTimeout(sigue, reduce ? 600 : 1800);
-  }
-  btnPlay.addEventListener("click", function () {
-    btnPlay.classList.remove("is-hint");
-    if (st.playing) { para(); return; }
-    st.playing = true;
-    if (st.k >= PASOS) ir(0, false);
-    controles();
-    sigue();
-  });
-  btnStep.addEventListener("click", function () { btnPlay.classList.remove("is-hint"); para(); if (st.k < PASOS) ir(st.k + 1, true); });
-  btnBack.addEventListener("click", function () { para(); if (st.k > 0) ir(st.k - 1, true); });
+  btnStep.addEventListener("click", function () { btnStep.classList.remove("is-hint"); if (st.k < PASOS) ir(st.k + 1, true); });
+  btnBack.addEventListener("click", function () { if (st.k > 0) ir(st.k - 1, true); });
   btnReset.addEventListener("click", function () {
-    para();
     ir(0, false);
     say("");
-    btnPlay.classList.add("is-hint");
+    btnStep.classList.add("is-hint");
   });
 
   /* ---------- Tocar un nodo ---------- */
@@ -396,7 +373,6 @@
   function selecciona(u) {
     var n = st.nodo[u];
     if (!n) return;
-    para();
     st.sel = u;
     marcaSel();
     resalta(n.s || null);
