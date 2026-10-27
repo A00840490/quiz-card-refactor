@@ -88,9 +88,9 @@
                                     acceder, agregar, borrar y modificar elementos del documento. El modelo DOM
                                     se acomoda como un árbol; más abajo verás cómo el navegador lo arma a
                                     partir del HTML de una página.</p>
-                                <p>A continuación te mostramos un ejemplo modificando HTML con JavaScript.
-                                    Cambia los valores del código y juega con él; la mejor manera de aprender
-                                    es experimentando.</p>
+                                <p>A continuación te mostramos algunos ejemplos modificando HTML utilizando
+                                    diferentes funciones, copia el código de los ejemplos y juega con él; la
+                                    mejor manera de aprender es experimentando.</p>
                                 <h3 class="card-title mrg-top-20">Acceder a Elementos por ID</h3>
                                 <p>Como aprendimos anteriormente, un ID se asigna a un elemento único de la
                                     página. Para obtener un elemento por ID en JavaScript, se utiliza la función
@@ -99,8 +99,7 @@
                                 <p class="card-info" style="width: fit-content;">
                                     <img src="../../assets/images/clic.svg" class="mrg-right-5">
                                     Haz clic en <span class="dom__ico" data-ico="play"></span> para ver cómo el
-                                    navegador arma el árbol de la página. Después haz clic en Cambiar, en Enlace
-                                    o en cualquier nodo del árbol.
+                                    navegador arma el árbol de la página.
                                 </p>
                                 <div class="dom" data-dom>
                                     <div class="dom__main">
@@ -117,20 +116,9 @@
                                                     <span class="dom__lbl" aria-live="polite"></span>
                                                 </div>
                                             </div>
-                                            <!-- La página como la pinta el navegador: cada parte aparece cuando se crea su nodo -->
-                                            <div class="dom__brw">
-                                                <div class="dom__brw-bar"><i></i><i></i><i></i><span class="dom__tab" data-tab>mi-pagina.html</span></div>
-                                                <div class="dom__url"><span>mi-pagina.html</span></div>
-                                                <div class="dom__page" data-body>
-                                                    <div class="dom__rect" data-page hidden></div>
-                                                    <div class="dom__btns"><button type="button" data-run="c" hidden>Cambiar</button><button type="button" data-run="e" hidden>Enlace</button></div>
-                                                </div>
-                                            </div>
                                             <div class="dom__tree">
                                                 <canvas class="dom__rain" aria-hidden="true"></canvas>
-                                                <p class="dom__ttl">Árbol DOM de la página</p>
                                                 <div class="dom__scroll" data-tree></div>
-                                                <span class="dom__nul" aria-hidden="true">elem = null</span>
                                             </div>
                                         </div>
                                         <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
@@ -139,12 +127,10 @@
                                             <div class="js-term__bar" aria-hidden="true"><i></i><i></i><i></i>index.html</div>
                                             <div class="js-term__body">
                                                 <pre class="js-term__code"></pre>
-                                                <div class="dom__console" aria-live="polite"><span>Consola:</span><span class="dom__out" data-console></span></div>
                                             </div>
                                         </div>
                                     </div>
                                     <p class="grafico-exp dom__status" data-status aria-live="polite"></p>
-                                    <div class="dom__menu" data-menu role="menu" hidden></div>
                                 </div>
                                 <p>Observa que, para utilizar las propiedades del elemento, tuvimos que asignar
                                     el resultado de getElementById a la variable <span class="code">elem</span>.
