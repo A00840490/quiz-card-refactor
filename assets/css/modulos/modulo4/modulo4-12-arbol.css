@@ -1,0 +1,479 @@
+/* Módulo 4-12: el árbol DOM se arma frente al estudiante
+   (comportamiento en assets/js/scripts/modulo4/modulo4-12-arbol.js).
+
+   A la izquierda va la ventana de código con el HTML de la página del
+   ejemplo y sus dos funciones; a la derecha, los controles, la página tal
+   como la pinta el navegador y su árbol DOM. Con ▶ el navegador lee el HTML
+   paso a paso: la línea que lee se resalta, el nodo nuevo cae al árbol como
+   los caracteres de Matrix y la página va apareciendo. Cambiar y Enlace
+   recorren el árbol con getElementById y cambian los nodos con innerHTML.
+   La ventana de código usa el formato de las terminales del módulo 4
+   (js-terminal.css) y los valores del código se cambian con el menú de
+   vidrio del 3-23. */
+
+.dom {
+  --ink: #000000;
+  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+  --verde: #4ade80;
+  --verde-tenue: rgba(74, 222, 128, .38);
+
+  position: relative;
+  margin: 16px 0 24px;
+}
+
+/* Sin JavaScript no hay gráfico */
+.dom:not(.dom--ready) { display: none; }
+
+/* ===================== Controles y progreso ===================== */
+.dom__ctl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #f1f4f8;
+  box-shadow: inset 0 0 0 1px #e1e7ef;
+}
+
+.dom__keys { display: flex; gap: 8px; }
+
+.dom__btn {
+  --s: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--s);
+  height: var(--s);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--tec);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(6, 43, 102, .3);
+  transition: background .15s ease, transform .1s ease;
+}
+.dom__btn:hover { background: #0b4bb0; }
+.dom__btn:active { transform: translateY(2px); }
+.dom__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
+.dom__btn:disabled { background: #c9d2de; cursor: default; box-shadow: none; transform: none; }
+.dom__btn svg { width: 42%; height: 42%; }
+.dom__btn--play { --s: 46px; }
+.dom__btn--play.is-hint { animation: dom-llama 1.6s ease-in-out infinite; }
+@keyframes dom-llama { 50% { box-shadow: 0 0 0 9px rgba(9, 59, 139, .18), 0 3px 8px rgba(6, 43, 102, .3); } }
+
+/* El mismo ícono de ▶, en chico, dentro de la instrucción */
+.dom__ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background: var(--theme-color, #093b8b);
+  color: #ffffff;
+  vertical-align: -6px;
+}
+.dom__ico svg { width: 10px; height: 10px; }
+
+.dom__prog { flex: 1 1 220px; display: grid; gap: 5px; min-width: 0; }
+.dom__bar { position: relative; height: 10px; border-radius: 999px; background: #dde3ec; overflow: hidden; }
+.dom__bar i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: var(--tec); transition: width .45s ease, background-color .3s ease; }
+.dom__prog--build .dom__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), rgba(241, 244, 248, .95) calc(10% - 2px) 10%);
+}
+.dom__prog--search .dom__bar i { background: #e0a23c; }
+.dom__prog--found .dom__bar i { background: #1f7a45; }
+.dom__prog--null .dom__bar i { background: #b4472a; }
+.dom__lbl { color: var(--ink); font-size: 15px; line-height: 1.4; }
+.dom__lbl b { font-family: Consolas, "Courier New", monospace; }
+
+/* ===================== La página en el navegador ===================== */
+.dom__brw {
+  overflow: hidden;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #d5dce6, 0 10px 24px rgba(6, 43, 102, .12);
+}
+.dom__brw-bar { display: flex; align-items: flex-end; gap: 6px; height: 34px; padding: 0 10px; background: #e3e8ef; }
+.dom__brw-bar i { align-self: center; width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; }
+.dom__brw-bar i:nth-of-type(2) { background: #febc2e; }
+.dom__brw-bar i:nth-of-type(3) { background: #28c840; }
+.dom__tab { margin-left: 10px; padding: 6px 14px; border-radius: 8px 8px 0 0; background: #ffffff; color: #1c2434; font-size: 13px; line-height: 1.2; cursor: pointer; }
+.dom__url { padding: 7px 10px; border-bottom: 1px solid #e1e7ef; }
+.dom__url span { display: block; padding: 3px 10px; border-radius: 999px; background: #f1f4f8; color: #5b6577; font: 12px Consolas, "Courier New", monospace; }
+.dom__page { display: grid; align-content: start; gap: 12px; justify-items: start; min-height: 158px; padding: 16px; transition: background .4s ease; }
+.dom__page:not(.is-on) { background: repeating-linear-gradient(135deg, #f6f8fb 0 10px, #eef2f7 10px 20px); }
+.dom__page [hidden] { display: none !important; }
+.dom__rect {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  min-height: 74px;
+  padding: 12px;
+  border: 2px solid var(--tec);
+  border-radius: 6px;
+  background: #e6f1fb;
+  color: #062b66;
+  font: 600 16px/1.35 "Fira Sans", sans-serif;
+  text-align: center;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: box-shadow .3s ease;
+}
+.dom__rect a { color: var(--tec); text-decoration: underline; }
+.dom__rect:empty::before { content: "(vacío)"; color: #7f93ad; font: italic 400 13px "Lato", sans-serif; }
+.dom__btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.dom__btns button {
+  padding: 5px 16px;
+  border: 1px solid #8f98a5;
+  border-radius: 4px;
+  background: linear-gradient(#fdfdfd, #e6e9ee);
+  color: #1c2434;
+  font: 15px "Lato", sans-serif;
+  cursor: pointer;
+}
+.dom__btns button:hover { background: linear-gradient(#ffffff, #dde2e8); }
+.dom__btns button:active { background: #d3d9e1; }
+.dom__btns button:disabled { color: #1c2434; cursor: default; }
+.dom__btns button.is-nofn { animation: dom-tiembla .4s ease; }
+@keyframes dom-tiembla { 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+.dom__page .is-new { animation: dom-llega .5s cubic-bezier(.3, 1.4, .5, 1) both; }
+@keyframes dom-llega { from { opacity: 0; transform: translateY(6px) scale(.96); } }
+.dom__tab.is-new { animation: dom-flash .8s ease; }
+.dom__brw .is-sel { box-shadow: 0 0 0 3px var(--tec), 0 0 0 6px rgba(9, 59, 139, .2); }
+.dom__page.is-sel { box-shadow: inset 0 0 0 3px var(--tec); }
+.dom__brw .is-found { box-shadow: 0 0 0 3px #1f7a45, 0 0 0 7px rgba(31, 122, 69, .2); }
+.dom__brw .is-flash { animation: dom-flash .8s ease; }
+@keyframes dom-flash { 30% { background-color: #fff3c4; } }
+
+/* ===================== El árbol ===================== */
+.dom__tree {
+  position: relative;
+  min-height: 470px;
+  overflow: hidden;
+  padding: 14px 14px 16px;
+  border-radius: 12px;
+  background: radial-gradient(ellipse at 30% 0%, #0b2414, #020804 70%);
+  box-shadow: inset 0 0 0 1px #12331d, 0 14px 34px rgba(0, 0, 0, .22);
+}
+
+/* Lluvia de caracteres de fondo: solo corre mientras algo pasa */
+.dom__rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .8s ease; pointer-events: none; }
+.dom__tree.is-lluvia .dom__rain { opacity: .32; }
+
+.dom__ttl { position: relative; margin: 0 0 10px; color: #7fb892; font: 700 11px "Lato", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.dom__scroll { position: relative; overflow-x: auto; scrollbar-width: thin; scrollbar-color: #1d5130 transparent; }
+
+.dom__tr, .dom__tr ul { margin: 0; padding: 0; list-style: none; }
+.dom__tr ul { padding-left: 24px; }
+.dom__tr li { position: relative; padding: 3px 0; }
+.dom__tr ul > li::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 0;
+  width: 13px;
+  height: 17px;
+  border-left: 2px solid var(--verde-tenue);
+  border-bottom: 2px solid var(--verde-tenue);
+  border-bottom-left-radius: 7px;
+}
+.dom__tr ul > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 17px;
+  bottom: 0;
+  border-left: 2px solid var(--verde-tenue);
+}
+
+.dom__nd {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 2px 9px;
+  border: 1px solid;
+  border-radius: 6px;
+  font: 13px/1.5 Consolas, "Courier New", monospace;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.dom__nd:focus-visible { outline: 2px solid #fac775; outline-offset: 2px; }
+.dom__nd--doc { border-color: #22c55e; background: #16a34a; color: #00170a; font-weight: 700; }
+.dom__nd--el { border-color: #2f9e5a; background: rgba(10, 40, 22, .92); color: #86efac; box-shadow: 0 0 10px rgba(74, 222, 128, .08); }
+.dom__nd--el b { color: #bbf7d0; }
+.dom__nd--el .at { padding: 0 5px; border-radius: 4px; background: rgba(250, 204, 21, .14); color: #fde68a; font-style: normal; }
+.dom__nd--tx { border-style: dashed; border-color: rgba(134, 239, 172, .45); background: rgba(2, 12, 6, .9); color: #d1fae5; font-style: italic; }
+.dom__nd:hover { box-shadow: 0 0 0 3px rgba(74, 222, 128, .28); }
+.dom__nd.is-sel { box-shadow: 0 0 0 3px #fac775; }
+.dom__nd.is-scan { border-color: #facc15; background: rgba(250, 204, 21, .28); color: #fff7cc; }
+.dom__nd.is-found { border-color: #bbf7d0; background: #4ade80; color: #00170a; box-shadow: 0 0 0 4px rgba(74, 222, 128, .25), 0 0 18px rgba(74, 222, 128, .6); }
+.dom__nd.is-found b { color: #00170a; }
+.dom__nd.is-found .at { background: rgba(0, 0, 0, .14); color: #00170a; }
+.dom__nd .glifo { color: #4ade80; text-shadow: 0 0 6px rgba(74, 222, 128, .9); font-style: normal; font-weight: 400; }
+
+/* La etiqueta "elem" se cuelga del nodo que encontró getElementById */
+.dom__elem {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 8px;
+  padding: 1px 9px 1px 6px;
+  border-radius: 4px 11px 11px 4px;
+  background: #fac775;
+  color: #412402;
+  font: 700 12px/1.5 Consolas, "Courier New", monospace;
+  vertical-align: 1px;
+  animation: dom-pop .4s cubic-bezier(.3, 1.6, .5, 1);
+}
+.dom__elem::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #020804; }
+@keyframes dom-pop { from { opacity: 0; transform: scale(.4); } }
+
+/* Un nodo nuevo: le cae una gota de caracteres y su nombre se descifra */
+.dom__tr .is-in > .dom__nd { animation: dom-enciende .7s ease both; }
+.dom__tr .is-in::before { animation: dom-aparece .5s ease both; }
+@keyframes dom-enciende {
+  0% { opacity: 0; box-shadow: 0 0 0 rgba(74, 222, 128, 0); }
+  35% { opacity: 1; box-shadow: 0 0 22px rgba(74, 222, 128, .85); }
+  100% { opacity: 1; }
+}
+@keyframes dom-aparece { from { opacity: 0; } }
+.dom__tr li.is-out > .dom__nd { animation: dom-se-va .6s ease forwards; }
+.dom__tr li.is-out::before { animation: dom-se-va .6s ease forwards; }
+@keyframes dom-se-va { to { opacity: 0; transform: translateY(10px); filter: blur(2px); } }
+
+.dom__gota {
+  position: absolute;
+  z-index: 2;
+  width: 1.2em;
+  overflow: hidden;
+  color: #4ade80;
+  font: 13px/1.05 Consolas, "Courier New", monospace;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(74, 222, 128, .9);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 70%);
+  mask-image: linear-gradient(transparent, #000 70%);
+}
+.dom__gota span { display: block; animation: dom-cae .55s cubic-bezier(.4, 0, 1, 1) both; }
+.dom__gota span i { display: block; font-style: normal; }
+.dom__gota span i:last-child { color: #ecfdf5; }
+.dom__gota.is-fin { opacity: 0; transition: opacity .35s ease; }
+@keyframes dom-cae { from { transform: translateY(-100%); } }
+
+/* elem = null: ningún nodo tiene ese id */
+.dom__nul {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: #b4472a;
+  color: #ffffff;
+  font: 700 13px Consolas, "Courier New", monospace;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .3s ease, transform .3s ease;
+  pointer-events: none;
+}
+.dom.is-null .dom__nul { opacity: 1; transform: none; }
+
+/* ===================== Ventana de código ===================== */
+.dom .dom__code {
+  container-type: inline-size;
+  min-width: 0;
+  margin: 0;
+}
+.dom__code .js-term__body { font-size: min(14px, calc((100cqw - 36px) / 33)); }
+.dom__code .js-term__code { display: grid; overflow-x: auto; white-space: pre; scrollbar-width: thin; }
+.dom__ln { display: block; min-height: 1.75em; transition: opacity .35s ease; }
+.dom__ln.is-unread { opacity: .22; }
+.dom__code [data-s],
+.dom__code [data-part] { margin: 0 -3px; padding: 1px 3px; border-radius: 4px; transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
+.dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; border-radius: 0; }
+.dom__code [data-s].is-on,
+.dom__code [data-part].is-on { background: var(--tec); box-shadow: 0 0 0 1px #4f7fd1; color: #ffffff; }
+/* El script completo se resalta como un solo bloque */
+.dom__code .dom__ln[data-s].is-on { box-shadow: none; }
+
+/* Valores que se pueden cambiar: un botón con flecha, como una lista desplegable (estándar del 3-23) */
+.dom__valor {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  margin: 0;
+  padding: 0 .3em 0 .45em;
+  border: 1px solid #5b7bd6;
+  border-radius: 3px;
+  background: #2b3550;
+  color: #ffffff;
+  font: inherit;
+  line-height: 1.45;
+  white-space: pre;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease;
+}
+.dom__valor::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: .3em solid transparent;
+  border-right: .3em solid transparent;
+  border-top: .38em solid #a9c0ff;
+}
+.dom__valor:hover,
+.dom__valor.is-abierta { border-color: #a9c0ff; background: #3a4a78; }
+.dom__valor:focus { outline: none; }
+.dom__valor:focus-visible { outline: 2px solid #fac775; outline-offset: 1px; }
+
+/* Consola dentro de la ventana: "Consola:" en blanco; aparece con el primer clic */
+.dom__console {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: .6em;
+  margin-top: 14px;
+  color: #ffffff;
+}
+.dom:not(.dom--corrio) .dom__console { display: none; }
+.dom__out { display: grid; align-content: start; min-height: calc(2 * 1.75em); }
+.dom__out span { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dom__out span.is-new { animation: dom-linea .3s ease; }
+.dom__out .err { color: #ff9b8a; }
+.dom__out:empty::after,
+.dom__out span:last-child::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: #ffffff;
+  vertical-align: -3px;
+  animation: dom-cursor 1s steps(1) infinite;
+}
+.dom__out:empty::after { margin-left: 0; }
+@keyframes dom-linea { from { opacity: 0; transform: translateY(3px); } }
+@keyframes dom-cursor { 50% { opacity: 0; } }
+
+/* ---------- Menú de vidrio para elegir el valor (estándar del 3-23) ---------- */
+.dom__menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 220px;
+  max-width: calc(100% - 8px);
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 18px;
+  background-color: rgba(246, 247, 250, .72);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .08) 45%, rgba(255, 255, 255, .2));
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    0 0 0 .5px rgba(0, 0, 0, .14),
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    inset 0 -1px 1px rgba(255, 255, 255, .35),
+    0 2px 6px rgba(0, 0, 0, .1),
+    0 18px 44px rgba(0, 0, 0, .28);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
+  opacity: 0;
+  transform: scale(.9);
+  transform-origin: var(--origen, 24px 0);
+  transition: opacity .18s ease, transform .32s cubic-bezier(.2, 1.25, .4, 1);
+}
+.dom__menu.is-on { opacity: 1; transform: none; }
+.dom__menu[hidden] { display: none; }
+.dom__opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 9px 14px 9px 34px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #000000;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+.dom__opcion + .dom__opcion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  border-top: .5px solid rgba(60, 60, 67, .22);
+}
+.dom__opcion:hover,
+.dom__opcion:focus { outline: none; background: rgba(120, 120, 128, .16); }
+.dom__opcion:hover::before,
+.dom__opcion:focus::before,
+.dom__opcion:hover + .dom__opcion::before,
+.dom__opcion:focus + .dom__opcion::before { border-color: transparent; }
+.dom__opcion.is-actual { font-weight: 600; }
+.dom__opcion.is-actual::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  width: 5px;
+  height: 10px;
+  margin-top: -7px;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  transform: rotate(45deg);
+}
+.dom__opcion code {
+  padding: 0;
+  background: none;
+  color: #000000;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14.5px;
+  white-space: nowrap;
+}
+
+/* ===================== Explicación ===================== */
+.dom__status { margin: 18px 0 0; min-height: 1.9em; transition: opacity .2s ease; }
+.dom__status.is-fading { opacity: 0; }
+
+/* ===================== Acomodo =====================
+   En pantallas anchas el código va a la izquierda y la escena a la derecha
+   (45 / 55), centrados verticalmente; la explicación va debajo, a todo lo
+   ancho. En pantallas angostas todo va en una columna y el código, abajo. */
+.dom__main { display: grid; gap: 18px; }
+.dom__scene { display: grid; gap: 14px; min-width: 0; }
+
+@media (min-width: 992px) {
+  .dom__main {
+    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+    gap: 24px;
+    align-items: center;
+  }
+  .dom__code { order: -1; }
+}
+
+@media (max-width: 575px) {
+  .dom__ctl { padding: 10px; }
+  .dom__tree { min-height: 0; padding: 12px 10px 14px; }
+  .dom__nd { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dom *, .dom *::before, .dom *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}

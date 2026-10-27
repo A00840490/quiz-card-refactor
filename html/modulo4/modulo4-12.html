@@ -23,6 +23,8 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-12-arbol.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -84,40 +86,65 @@
                                     documento HTML, sus elementos, atributos, etc. Todo navegador crea un DOM al
                                     acceder a una página web, y JavaScript utiliza este modelo para poder
                                     acceder, agregar, borrar y modificar elementos del documento. El modelo DOM
-                                    se acomoda como un árbol de la siguiente manera:</p>
-                                <div class="text-center mrg-btm-20">
-                                    <img src="../../assets/images/course/modulo4/HTMDOMgif.gif" alt="arbolDOM.gif" style="width: 90%; min-width: 300px;">
-                                </div>
-                                <p>A continuación te mostramos algunos ejemplos modificando HTML utilizando
-                                    diferentes funciones, copia el código de los ejemplos y juega con él; la
-                                    mejor manera de aprender es experimentando.</p>
+                                    se acomoda como un árbol; más abajo verás cómo el navegador lo arma a
+                                    partir del HTML de una página.</p>
+                                <p>A continuación te mostramos un ejemplo modificando HTML con JavaScript.
+                                    Cambia los valores del código y juega con él; la mejor manera de aprender
+                                    es experimentando.</p>
                                 <h3 class="card-title mrg-top-20">Acceder a Elementos por ID</h3>
                                 <p>Como aprendimos anteriormente, un ID se asigna a un elemento único de la
                                     página. Para obtener un elemento por ID en JavaScript, se utiliza la función
                                     <span class="code">document.getElementById()</span>. Se utiliza así:</p>
-                                <div class="card">
-                                    <div class="container-fluid">
-                                        <p class="codepen" data-height="500" data-theme-id="dark"
-                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                            data-slug-hash="mdrjbpB"
-                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                            data-pen-title="mdrjbpB">
-                                            <span>See the Pen <a
-                                                    href="https://codepen.io/luis-yerik-arambula/pen/mdrjbpB"
-                                                    target="_blank">
-                                                    mdrjbpB</a> by Luis Yerik Arambula (<a
-                                                    href="https://codepen.io/luis-yerik-arambula"
-                                                    target="_blank">@luis-yerik-arambula</a>)
-                                                on <a href="https://codepen.io"
-                                                    target="_blank">CodePen</a>.</span>
-                                        </p>
-                                        <script async
-                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                <!-- El árbol DOM se arma paso a paso (ver modulo4-12-arbol.css / .js) -->
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Haz clic en <span class="dom__ico" data-ico="play"></span> para ver cómo el
+                                    navegador arma el árbol de la página. Después haz clic en Cambiar, en Enlace
+                                    o en cualquier nodo del árbol.
+                                </p>
+                                <div class="dom" data-dom>
+                                    <div class="dom__main">
+                                        <div class="dom__scene">
+                                            <div class="dom__ctl">
+                                                <div class="dom__keys">
+                                                    <button type="button" class="dom__btn" data-reset aria-label="Reiniciar" title="Reiniciar"></button>
+                                                    <button type="button" class="dom__btn" data-back aria-label="Paso anterior" title="Paso anterior"></button>
+                                                    <button type="button" class="dom__btn dom__btn--play is-hint" data-play aria-label="Reproducir" title="Reproducir"></button>
+                                                    <button type="button" class="dom__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"></button>
+                                                </div>
+                                                <div class="dom__prog dom__prog--build" data-prog>
+                                                    <div class="dom__bar"><i></i></div>
+                                                    <span class="dom__lbl" aria-live="polite"></span>
+                                                </div>
+                                            </div>
+                                            <!-- La página como la pinta el navegador: cada parte aparece cuando se crea su nodo -->
+                                            <div class="dom__brw">
+                                                <div class="dom__brw-bar"><i></i><i></i><i></i><span class="dom__tab" data-tab>mi-pagina.html</span></div>
+                                                <div class="dom__url"><span>mi-pagina.html</span></div>
+                                                <div class="dom__page" data-body>
+                                                    <div class="dom__rect" data-page hidden></div>
+                                                    <div class="dom__btns"><button type="button" data-run="c" hidden>Cambiar</button><button type="button" data-run="e" hidden>Enlace</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="dom__tree">
+                                                <canvas class="dom__rain" aria-hidden="true"></canvas>
+                                                <p class="dom__ttl">Árbol DOM de la página</p>
+                                                <div class="dom__scroll" data-tree></div>
+                                                <span class="dom__nul" aria-hidden="true">elem = null</span>
+                                            </div>
+                                        </div>
+                                        <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
+                                             .js-term__src: así js-terminal.js no la toca y el código no se escribe letra por letra -->
+                                        <div class="js-term dom__code" data-code>
+                                            <div class="js-term__bar" aria-hidden="true"><i></i><i></i><i></i>index.html</div>
+                                            <div class="js-term__body">
+                                                <pre class="js-term__code"></pre>
+                                                <div class="dom__console" aria-live="polite"><span>Consola:</span><span class="dom__out" data-console></span></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                        <!-- Fuente  -->
-                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                      </p>
+                                    <p class="grafico-exp dom__status" data-status aria-live="polite"></p>
+                                    <div class="dom__menu" data-menu role="menu" hidden></div>
                                 </div>
                                 <p>Observa que, para utilizar las propiedades del elemento, tuvimos que asignar
                                     el resultado de getElementById a la variable <span class="code">elem</span>.
@@ -203,6 +230,7 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/scripts/modulo4/modulo4-12-arbol.js"></script>
 </body>
 
 </html>

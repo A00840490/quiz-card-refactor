@@ -11788,3 +11788,24 @@ a.modulo-siguiente:visited:hover {
     right: 0%;
   }
 }
+
+/* =========================================================================
+   Explicación de los gráficos interactivos (estándar del tren del 4-6).
+   Párrafo con el mismo tamaño que el texto de la página, en negro puro y
+   sin recuadros; el concepto que se enseña va en <code> (o .concepto):
+   monoespaciado, en negritas y en el azul del curso.
+   ========================================================================= */
+.grafico-exp {
+  color: #000000;
+  text-align: left;
+}
+
+.grafico-exp code,
+.grafico-exp .concepto {
+  padding: 0;
+  background: none;
+  color: var(--theme-color, #093b8b);
+  font-family: Consolas, "Courier New", monospace;
+  font-size: .95em;
+  font-weight: 700;
+}
