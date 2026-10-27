@@ -169,6 +169,47 @@
   background: var(--green);
 }
 
+/* Resaltado estándar de una parte del código (data-part o data-s con la
+   clase is-on, la pone el JavaScript de cada gráfico): invierte los colores
+   (fondo verde, letra del fondo de la terminal) en un bloque de esquinas
+   rectas que cubre solo su texto, y entra de izquierda a derecha. El fondo
+   y la letra oscura avanzan juntos: la letra es un degradado recortado al
+   texto que se recorre al mismo ritmo que el fondo. */
+.js-term [data-part],
+.js-term [data-s] {
+  --hl-t: .5s;
+  border-radius: 0;
+  /* Dos capas vacías para que el tamaño y la posición de las capas del
+     resaltado tengan desde dónde avanzar */
+  background-image: linear-gradient(transparent, transparent), linear-gradient(transparent, transparent);
+  background-repeat: no-repeat;
+  background-size: 200% 100%, 0% 100%;
+  background-position: 100% 0, 0 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size var(--hl-t) ease, background-position var(--hl-t) ease;
+}
+
+.js-term [data-part].is-on,
+.js-term [data-s].is-on {
+  background-image: linear-gradient(90deg, #0b0f0c 50%, var(--green) 50%), linear-gradient(var(--green), var(--green));
+  background-size: 200% 100%, 100% 100%;
+  background-position: 0 0, 0 0;
+  color: #0b0f0c;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .js-term [data-part].is-on,
+  .js-term [data-s].is-on {
+    -webkit-background-clip: text, border-box;
+    background-clip: text, border-box;
+    color: transparent;
+  }
+}
+
+.js-term [data-part].is-on *,
+.js-term [data-s].is-on * { color: inherit; }
+
 @keyframes js-term-spin {
   to { transform: rotate(360deg); }
 }
@@ -190,4 +231,6 @@
   .js-term__run,
   .js-term__result { animation: none; }
   .js-term__spinner { animation-duration: 1.5s; }
+  .js-term [data-part],
+  .js-term [data-s] { --hl-t: .01ms; }
 }

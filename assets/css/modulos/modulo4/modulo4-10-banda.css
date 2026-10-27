@@ -372,19 +372,7 @@
   50% { opacity: 0; }
 }
 
-/* Cada parte del for se resalta invirtiendo sus colores (fondo verde del
-   código y letra del fondo de la terminal), en un bloque de esquinas rectas */
-.banda__code [data-part] {
-  padding: 1px 3px;
-  transition: background .25s ease, color .25s ease;
-}
-
-.banda__code [data-part].is-on {
-  background: var(--green);
-  color: #0b0f0c;
-}
-
-.banda__code [data-part].is-on * { color: inherit; }
+/* Cada parte del for se resalta con el estándar de js-terminal.css */
 
 /* Explicación con el estándar .grafico-exp (app.css) */
 .banda__status {

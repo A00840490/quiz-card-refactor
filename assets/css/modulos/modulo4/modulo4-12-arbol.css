@@ -180,12 +180,9 @@
 .dom__code .js-term__code { display: grid; overflow-x: auto; white-space: pre; scrollbar-width: thin; }
 .dom__ln { display: block; min-height: 1.75em; transition: opacity .35s ease; }
 .dom__ln.is-unread { opacity: .22; }
-/* Lo que el navegador lee se resalta invirtiendo sus colores (fondo verde
-   del código y letra del fondo de la terminal), con esquinas rectas */
-.dom__code [data-s] { margin: 0 -3px; padding: 1px 3px; transition: background-color .25s ease, color .25s ease; }
-.dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; }
-.dom__code [data-s].is-on { background: var(--verde); color: #0b0f0c; }
-.dom__code [data-s].is-on * { color: inherit; }
+/* Lo que el navegador lee se resalta con el estándar de js-terminal.css;
+   una línea completa se resalta de orilla a orilla de la ventana */
+.dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; transition: opacity .35s ease, background-size var(--hl-t) ease, background-position var(--hl-t) ease; }
 
 /* ===================== Explicación ===================== */
 .dom__status { margin: 18px 0 0; min-height: 1.9em; transition: opacity .2s ease; }
