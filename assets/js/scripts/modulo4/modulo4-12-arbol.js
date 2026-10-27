@@ -3,8 +3,7 @@
 
    El árbol es un modelo: cada nodo sabe en qué paso lo crea el navegador (s).
    Los controles eligen hasta qué paso se ha leído el HTML (k) y todo se vuelve
-   a pintar desde ahí: el árbol, las líneas leídas del código y la barra de
-   progreso. Los nodos nuevos aparecen como los caracteres de Matrix: les cae
+   a pintar desde ahí: el árbol, y las líneas leídas del código. Los nodos nuevos aparecen como los caracteres de Matrix: les cae
    una gota de caracteres y su nombre se descifra letra por letra. Al tocar
    un nodo se marca su parte del código y la explicación dice qué es. */
 (function () {
@@ -32,7 +31,7 @@
      r: paso en que el navegador ya leyó la línea; s: paso que la resalta completa.
      Dentro de las líneas, data-s marca la parte exacta que crea cada nodo. */
   var INIT = "Hola, soy el rectángulo";
-  var PASOS = 10, TOTAL = 13;
+  var PASOS = 10;
   function tok(s, html) { return '<span data-s="' + s + '">' + html + "</span>"; }
   function funcion(nombre, txt) {
     return [
@@ -92,14 +91,13 @@
     (n.c || []).forEach(function (k) { numera(k, n); });
   }
   function visible(n) { return n.s <= st.k; }
-  function cuenta(n) { return visible(n) ? 1 + (n.c || []).reduce(function (a, k) { return a + cuenta(k); }, 0) : 0; }
   function idDe(n) { var a = (n.a || []).filter(function (p) { return p[0] === "id"; })[0]; return a ? a[1] : null; }
   function enOrden(n, lista) { lista = lista || []; lista.push(n); (n.c || []).forEach(function (k) { enOrden(k, lista); }); return lista; }
   function nombre(n) { return n.t === "#document" ? "document" : "&lt;" + esc(n.t) + "&gt;"; }
 
   /* ---------- Referencias ---------- */
   var treeBox = $(".dom__tree"), tree = $("[data-tree]");
-  var prog = $("[data-prog]"), status = $("[data-status]");
+  var status = $("[data-status]");
   var btnPlay = $("[data-play]"), btnBack = $("[data-back]"), btnStep = $("[data-step]"), btnReset = $("[data-reset]");
   var codeEl = $("[data-code] .js-term__code");
 
@@ -323,12 +321,6 @@
     $$(".dom__ln", codeEl).forEach(function (l) { l.classList.toggle("is-unread", +l.getAttribute("data-r") > st.k); });
     $$("[data-s]", codeEl).forEach(function (e) { e.classList.toggle("is-on", s != null && e.getAttribute("data-s") === String(s)); });
   }
-  function barra() {
-    var n = cuenta(st.m);
-    prog.className = "dom__prog dom__prog--build";
-    $("i", prog).style.width = Math.round(st.k / PASOS * 100) + "%";
-    $(".dom__lbl", prog).innerHTML = st.k >= PASOS ? "Árbol completo: <b>" + n + "</b> nodos" : "Nodos en el árbol: <b>" + n + "</b> de " + TOTAL;
-  }
   // La explicación cambia con desvanecido, como la x del 4-7
   function say(html) {
     if (html === status._html) return;
@@ -349,7 +341,7 @@
   /* ---------- Armar el árbol paso a paso ---------- */
   function ir(k, conTexto) {
     st.k = k; st.sel = null;
-    pintaArbol(); resalta(k || null); barra();
+    pintaArbol(); resalta(k || null);
     if (conTexto && MSG[k]) say(MSG[k]);
     controles();
   }

@@ -19,14 +19,14 @@
 /* Sin JavaScript no hay gráfico */
 .dom:not(.dom--ready) { display: none; }
 
-/* ===================== Controles y progreso =====================
-   Van en una barra negra arriba del árbol, como la tapa del mismo panel:
-   botones redondos con contorno e ícono verdes, y a la derecha el conteo de
-   nodos con una barra de progreso en segmentos */
+/* ===================== Controles =====================
+   Van centrados en una barra negra arriba del árbol, como la tapa del mismo
+   panel: botones redondos con contorno e ícono verdes */
 .dom__ctl {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 10px 18px;
   padding: 10px 16px;
   background: #000000;
@@ -75,18 +75,6 @@
   vertical-align: -6px;
 }
 .dom__ico svg { width: 10px; height: 10px; margin-left: 1px; }
-
-.dom__prog { flex: 1 1 180px; display: grid; gap: 5px; min-width: 0; }
-.dom__bar { position: relative; height: 6px; border-radius: 999px; background: #0f2a18; overflow: hidden; }
-.dom__bar i { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: inherit; background: var(--verde); box-shadow: 0 0 8px rgba(74, 222, 128, .7); transition: width .45s ease; }
-.dom__prog--build .dom__bar::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), #000000 calc(10% - 2px) 10%);
-}
-.dom__lbl { color: #86efac; font: 13px/1.4 Consolas, "Courier New", monospace; }
-.dom__lbl b { color: #ecfdf5; }
 
 /* ===================== El árbol ===================== */
 .dom__tree {
@@ -186,7 +174,7 @@
 .dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; transition: opacity .35s ease, background-size var(--hl-t) ease, color var(--hl-t) ease; }
 
 /* ===================== Explicación ===================== */
-.dom__status { margin: 18px 0 0; min-height: 1.9em; transition: opacity .2s ease; }
+.dom__status { margin: 18px 0 0; min-height: 1.9em; text-align: center; transition: opacity .2s ease; }
 .dom__status.is-fading { opacity: 0; }
 
 /* ===================== Acomodo =====================
