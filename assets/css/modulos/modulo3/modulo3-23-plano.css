@@ -22,7 +22,8 @@
 
 @media (min-width: 992px) {
   .plano {
-    grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+    grid-template-columns: minmax(0, 620px) minmax(380px, 1fr);
+    column-gap: 32px;
     align-items: center;
   }
 }
@@ -153,7 +154,7 @@
 
 @keyframes plano-error {
   from { opacity: 0.3; }
-  to { opacity: 0.8; }
+  to { opacity: 0.55; }
 }
 
 @keyframes plano-aparece {
@@ -561,7 +562,7 @@
 @media (prefers-reduced-motion: reduce) {
   .plano__error-franjas {
     animation: none;
-    opacity: 0.6;
+    opacity: 0.45;
   }
 
   .plano *,
