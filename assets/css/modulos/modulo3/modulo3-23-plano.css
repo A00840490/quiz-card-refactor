@@ -1,0 +1,474 @@
+/* Tema 22 (modulo3-23): plano de un departamento hecho con CSS grid.
+   A la izquierda, el plano visto desde arriba: el contenedor es el
+   departamento, cada área de grid-template-areas es un cuarto con su piso y
+   grid-gap es el grosor de los muros. Arriba y a la izquierda, las cotas
+   dicen cuánto mide cada columna y cada renglón, con el número de cada
+   línea en los extremos. A la derecha, el código que arma el plano (se
+   aplica tal cual) y la explicación del último cambio.
+   El plano se dibuja a un tamaño fijo y se escala para caber, así los px del
+   código miden lo mismo que en pantalla. En celular el plano es más
+   cuadrado y el código va debajo. */
+.plano {
+  --plano-ink: #000000;
+  --plano-name: #2786b2;
+  --plano-blue: #093b8b;
+  --plano-gold: #fac775;
+  --plano-wall: #34302c;
+  --plano-code-bg: #1e2430;
+  --plano-code-ink: #d7dde8;
+  --plano-code-prop: #82aaff;
+  --plano-code-sel: #ffcb6b;
+  --plano-code-str: #c3e88d;
+  --plano-mono: "Source Code Pro", Consolas, "Courier New", monospace;
+  --plano-hand: "Architects Daughter", "Comic Sans MS", cursive;
+  position: relative;
+  display: grid;
+  gap: 22px;
+  margin: 18px 0 10px;
+}
+
+@media (min-width: 992px) {
+  .plano {
+    grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+    align-items: start;
+  }
+}
+
+.plano__side {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+/* ---------- Escala del plano ---------- */
+.plano__fit {
+  position: relative;
+  width: 100%;
+}
+
+.plano__in {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+}
+
+/* ---------- Hoja de papel milimétrico ---------- */
+.plano__hoja {
+  position: relative;
+  width: 620px;
+  height: 470px;
+  padding: 46px 22px 22px 62px;
+  background-color: #f7f9fb;
+  background-image:
+    linear-gradient(rgba(9, 59, 139, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(9, 59, 139, 0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  box-shadow: 0 1px 2px rgba(6, 43, 102, 0.1), 0 12px 28px rgba(6, 43, 102, 0.14);
+  font-family: var(--plano-hand);
+  color: #2a2f38;
+}
+
+.plano__hoja.is-compacta {
+  width: 440px;
+  height: 440px;
+}
+
+/* ---------- El departamento: el contenedor grid ---------- */
+.plano__depto {
+  position: relative;
+  display: grid;
+  height: 100%;
+  padding: var(--muro, 8px);
+  background: var(--plano-wall);
+  box-shadow: 0 0 0 1px #1f1c19, 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.plano__cuarto {
+  position: relative;
+  display: grid;
+  place-content: center;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  text-align: center;
+  container-type: inline-size;
+  background-size: 160px;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.28);
+}
+
+.plano__cuarto.is-fuera {
+  display: none;
+}
+
+.plano__cuarto[data-item="sala"] { background-image: url("../../../images/course/modulo3/m3-23/sala.jpg"); }
+.plano__cuarto[data-item="comedor"] { background-image: url("../../../images/course/modulo3/m3-23/comedor.jpg"); }
+.plano__cuarto[data-item="recamara"] { background-image: url("../../../images/course/modulo3/m3-23/recamara.jpg"); background-size: 140px; }
+.plano__cuarto[data-item="cocina"] { background-image: url("../../../images/course/modulo3/m3-23/cocina.jpg"); background-size: 360px; }
+.plano__cuarto[data-item="bano"] { background-image: url("../../../images/course/modulo3/m3-23/bano.jpg"); background-size: 320px; }
+
+.plano__cuarto.is-sel {
+  box-shadow: inset 0 0 0 3px var(--plano-gold), inset 0 0 18px rgba(0, 0, 0, 0.28);
+}
+
+/* Rótulo del cuarto: nombre y lo que mide, en las mismas unidades del código */
+.plano__rotulo {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 0 4px;
+}
+
+.plano__rotulo strong {
+  padding: 2px 10px;
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  font-size: clamp(11px, 13cqw, 17px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1f2530;
+}
+
+.plano__medida {
+  display: grid;
+  gap: 1px;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, 0.82);
+  font: 600 clamp(8.5px, 8cqw, 12px)/1.35 var(--plano-mono);
+  color: var(--plano-blue);
+  white-space: nowrap;
+}
+
+.plano__medida i {
+  font-style: normal;
+  color: #5b6577;
+}
+
+/* ---------- Celdas para hacer clic: una por cada palabra del mapa ---------- */
+.plano__celdas {
+  position: absolute;
+  inset: var(--muro, 8px);
+  z-index: 3;
+  display: grid;
+}
+
+.plano__celda {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.plano__celda::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.plano__celda:hover::after,
+.plano__celda.is-abierta::after {
+  background-color: rgba(250, 199, 117, 0.2);
+  box-shadow: inset 0 0 0 3px var(--plano-gold);
+}
+
+.plano__celda:focus {
+  outline: none;
+}
+
+.plano__celda:focus-visible::after {
+  box-shadow: inset 0 0 0 3px var(--plano-gold);
+}
+
+/* Celda vacía ("."): terreno sin construir */
+.plano__celda.is-vacia {
+  background: repeating-linear-gradient(45deg, #e9edf1 0 6px, #d6dce3 6px 7px);
+  box-shadow: inset 0 0 0 1px #c2c9d2;
+}
+
+.plano__celda.is-vacia > span {
+  font: 700 26px var(--plano-mono);
+  color: #8893a3;
+}
+
+/* ---------- Cotas ---------- */
+.plano__cotas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.plano__cota {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--plano-blue);
+  font: 600 12.5px var(--plano-mono);
+}
+
+.plano__cota--x {
+  top: 15px;
+  height: 20px;
+  border-left: 1px solid var(--plano-blue);
+  border-right: 1px solid var(--plano-blue);
+}
+
+.plano__cota--x::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--plano-blue);
+}
+
+.plano__cota--y {
+  left: 28px;
+  width: 20px;
+  border-top: 1px solid var(--plano-blue);
+  border-bottom: 1px solid var(--plano-blue);
+}
+
+.plano__cota--y::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 1px solid var(--plano-blue);
+}
+
+.plano__cota em {
+  position: relative;
+  padding: 0 5px;
+  background: #f7f9fb;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.plano__cota--y em {
+  padding: 5px 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.plano__num {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border: 1.5px solid var(--plano-blue);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--plano-blue);
+  font: 700 10.5px/1 Roboto, Arial, sans-serif;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.plano__num.is-hot {
+  border-color: #b07a14;
+  background: var(--plano-gold);
+  color: #412402;
+}
+
+/* ---------- Código: sin esquinas redondeadas, a todo el ancho, a la izquierda ---------- */
+.plano__code {
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+  background: var(--plano-code-bg);
+  color: var(--plano-code-ink);
+  text-align: left;
+}
+
+.plano__code pre {
+  margin: 0;
+  padding: 14px 14px 16px;
+  overflow-x: auto;
+  background: transparent;
+  color: inherit;
+  font: 400 clamp(11px, calc((100cqw - 28px) / 31), 14px) / 1.85 var(--plano-mono);
+  white-space: pre;
+}
+
+.plano__code .p { color: var(--plano-code-prop); }
+.plano__code .s { color: var(--plano-code-sel); }
+.plano__code .q { color: var(--plano-code-str); }
+
+/* Palabra del mapa: se ilumina la que corresponde a la celda */
+.plano__code .w {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.plano__code .w.is-hot {
+  background: var(--plano-blue);
+  color: #ffffff;
+}
+
+.plano__code .w.is-mal {
+  background: #8c2f1d;
+  color: #ffffff;
+}
+
+/* Valores que se pueden cambiar: un botón con flecha, como una lista desplegable */
+.plano__valor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0 0.3em 0 0.45em;
+  border: 1px solid #5b7bd6;
+  border-radius: 3px;
+  background: #2b3550;
+  color: #ffffff;
+  font: inherit;
+  line-height: 1.45;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.plano__valor::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 0.3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-top: 0.38em solid #a9c0ff;
+}
+
+.plano__valor:hover,
+.plano__valor.is-abierta {
+  border-color: #a9c0ff;
+  background: #3a4a78;
+}
+
+.plano__valor:focus {
+  outline: none;
+}
+
+.plano__valor:focus-visible {
+  outline: 2px solid var(--plano-gold);
+  outline-offset: 1px;
+}
+
+/* ---------- Menú que se abre al hacer clic en una celda o en un valor ---------- */
+.plano__menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 190px;
+  max-width: calc(100% - 8px);
+  padding: 6px;
+  border: 1px solid #c9d2df;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(6, 43, 102, 0.22);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.plano__menu.is-on {
+  opacity: 1;
+}
+
+.plano__menu[hidden] {
+  display: none;
+}
+
+.plano__menu-titulo {
+  margin: 2px 6px 6px;
+  color: #000000;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.plano__opcion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  background: transparent;
+  color: #000000;
+  font: 15px Roboto, Arial, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.plano__opcion:hover,
+.plano__opcion:focus {
+  outline: none;
+  background: #e6f1fb;
+}
+
+.plano__opcion.is-actual {
+  font-weight: 700;
+}
+
+.plano__opcion.is-actual::after {
+  content: "";
+  width: 6px;
+  height: 11px;
+  margin-left: auto;
+  border-right: 2px solid var(--plano-blue);
+  border-bottom: 2px solid var(--plano-blue);
+  transform: rotate(45deg) translate(-2px, -2px);
+}
+
+.plano__opcion code {
+  white-space: nowrap;
+  font-family: var(--plano-mono);
+  color: var(--plano-name);
+  font-size: 14px;
+}
+
+.plano__muestra {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  background-size: 60px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.plano__muestra--vacia {
+  background: repeating-linear-gradient(45deg, #e9edf1 0 4px, #d6dce3 4px 5px);
+}
+
+/* ---------- Explicación: párrafo sencillo en negro, el nombre de la parte en azul ---------- */
+.plano__exp {
+  margin: 0;
+  color: var(--plano-ink);
+  font-size: 16px;
+  line-height: 1.75;
+  transition: opacity 0.2s ease;
+}
+
+.plano__exp:empty {
+  display: none;
+}
+
+.plano__exp.is-fading {
+  opacity: 0;
+}
+
+.plano__exp .nom {
+  font-family: var(--plano-mono);
+  font-weight: 600;
+  color: var(--plano-name);
+}
+
+.plano__exp .mal {
+  font-weight: 700;
+  color: #b4472a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plano *,
+  .plano__menu,
+  .plano__exp {
+    transition: none !important;
+  }
+}
