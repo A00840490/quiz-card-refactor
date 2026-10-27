@@ -23,6 +23,8 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-17-consola.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -66,9 +68,13 @@
                                             <h1 class="card-title">Ejercicio 4</h1>
                                             <p>Ya casi has terminado con el módulo de JavaScript. Es momento de
                                                 probar lo que has aprendido a lo largo de esta sección con el
-                                                siguiente ejercicio. Al igual que el ejercicio de <b>CSS</b>,
-                                                completarás fragmentos de código de acuerdo a lo que se pida.
-                                            </p>
+                                                siguiente ejercicio. Al igual que en los ejercicios de <b>HTML</b>
+                                                y <b>CSS</b>, completarás fragmentos de código de acuerdo a lo que
+                                                se pida. Verás un problema a la vez y responderás una pregunta a
+                                                la vez; si te equivocas, te mostraremos la respuesta correcta para
+                                                que sigas adelante. Al completar cada problema, el código corre y
+                                                la consola muestra su resultado. Al terminar verás cuántos aciertos
+                                                tuviste.</p>
                                             <p>Puedes regresar a cualquier parte del curso si necesitas revisar
                                                 conceptos o checar algún ejemplo.</p>
                                         </div>
@@ -79,156 +85,40 @@
 
                         <div class="card">
                             <div class="card-block">
-                                    
-                                    <p class="card-info mb-4" style="width: fit-content;">
-                                        <img src="../../assets/images/clic.svg" class="mrg-right-5"> Completa los fragmentos de código JavaScript:
-                                      </p>
-
-                                    <h3 class="card-title mrg-top-20">1. Variable con nombre <span
-                                            class="code">num</span> con valor de 120.</h3>
-                                    <div class="card">
-                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                            <p class="code mrg-top-10">
-                                                <span class="fillIn"><input type="text"><b class='alertWrong'
-                                                        style="display:none; color:red"> Incorrecto </b><b
-                                                        class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>
-                                                <span class="codetext">num = 120;</span>
-                                            </p>
-                                        </div>
+                                <h2 class="card-title">Completa el código</h2>
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Escribe en el recuadro resaltado del código y haz clic en Revisar.
+                                </p>
+                                <!-- Problemas uno tras otro (ver modulo4-17-consola.css / .js) -->
+                                <section class="reto" id="reto" aria-live="polite">
+                                    <div class="reto__question">
+                                        <p class="reto__ask" data-ask></p>
+                                        <p class="reto__feedback" data-feedback></p>
                                     </div>
-                                    <h3 class="card-title mrg-top-20">2. Modificar el valor de <span
-                                            class="code">x</span> con su mismo valor multiplicado por 8, usa
-                                        sólo un
-                                        operador.</h3>
-                                    <div class="card">
-                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                            <p class="code mrg-top-10">
-                                                var <span class="codetext">x = 5;</span> <br>
-                                                <span class="codetext">x <span class="fillIn"><input
-                                                            type="text"><b class='alertWrong'
-                                                            style="display:none; color:red">
-                                                            Incorrecto </b><b class='alertCorrect'
-                                                            style="display: none; color:green">¡Correcto!</b></span>
-                                                    8;</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <h3 class="card-title mrg-top-20">3. Modificar el tercer valor del array
-                                        <span class="code">palabras</span>.</h3>
-                                    <div class="card">
-                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                            <p class="code mrg-top-10">
-                                                var <span class="codetext">palabras = ["Ejercicio", "de",
-                                                    "programación", "web"];</span> <br>
-                                                <span class="fillIn"><input type="text"><b class='alertWrong'
-                                                        style="display:none; color:red"> Incorrecto </b><b
-                                                        class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>
-                                                <span class="codetext">= "JavaScript";</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <h3 class="card-title mrg-top-20">4. Imprime en consola <span
-                                            class="code">"mayor"</span> si la variable <span
-                                            class="code">x</span>
-                                        es mayor a <span class="code">y</span>. En caso de que no, imprime en
-                                        consola <span class="code">"menor"</span>.</h3>
-                                    <div class="card">
-                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                            <p class="code mrg-top-10">
-                                                var <span class="codetext">x = 27;</span> <br>
-                                                var <span class="codetext">y = 7 * 4;</span> <br>
-                                                if (<span class="fillIn"><input type="text"><b
-                                                        class='alertWrong' style="display:none; color:red">
-                                                        Incorrecto </b><b class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>)
-                                                {
-                                                <br>
-                                                &nbsp;&nbsp;&nbsp; <span class="fillIn"><input type="text"><b
-                                                        class='alertWrong' style="display:none; color:red">
-                                                        Incorrecto </b><b class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>.log("<span
-                                                    class="codetext">mayor</span>"); <br>
-                                                } <span class="fillIn"><input type="text"><b class='alertWrong'
-                                                        style="display:none; color:red"> Incorrecto </b><b
-                                                        class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>
-                                                {
-                                                <br>
-                                                &nbsp;&nbsp;&nbsp; <span class="fillIn"><input type="text"><b
-                                                        class='alertWrong' style="display:none; color:red">
-                                                        Incorrecto </b><b class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>.log("<span
-                                                    class="codetext">menor</span>"); <br>
-                                                }
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <h3 class="card-title mrg-top-20">5. Ciclo que imprime en consola los
-                                        números
-                                        del 1 al 100.</h3>
-                                    <div class="card">
-                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                            <p class="code mrg-top-10">
-                                                <span class="fillIn"><input type="text"><b class='alertWrong'
-                                                        style="display:none; color:red"> Incorrecto </b><b
-                                                        class='alertCorrect'
-                                                        style="display: none; color:green">¡Correcto!</b></span>(var
-                                                <span class="codetext">i = 1; i <span class="fillIn"><input
-                                                            type="text"><b class='alertWrong'
-                                                            style="display:none; color:red"> Incorrecto </b><b
-                                                            class='alertCorrect'
-                                                            style="display: none; color:green">¡Correcto!</b></span>
-                                                    100; i<span class="fillIn"><input type="text"><b
-                                                            class='alertWrong' style="display:none; color:red">
-                                                            Incorrecto </b><b class='alertCorrect'
-                                                            style="display: none; color:green">¡Correcto!</b></span></span>)
-                                                { <br>
-                                                &nbsp;&nbsp;&nbsp;console.log(<span class="codetext">i</span>);
-                                                <br>
-                                                }
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <h3 class="card-title mrg-top-20">6. Guarda el elemento con <b>ID</b> <span
-                                            class="code">cont</span> en una variable y posteriormente cambia su
-                                        estilo de color a rojo.</h3>
-                                    <div class="card">
-                                        <div class="container-fluid" style=" background-color: #1a1a1a">
-                                            <p class="code mrg-top-10">
-                                                var <span class="codetext">elem = document.<span
-                                                        class="fillIn"><input type="text"><b class='alertWrong'
-                                                            style="display:none; color:red"> Incorrecto </b><b
-                                                            class='alertCorrect'
-                                                            style="display: none; color:green">¡Correcto!</b></span>("cont");
-                                                </span> <br>
-                                                <span class="codetext">elem.<span class="fillIn"><input
-                                                            type="text"><b class='alertWrong'
-                                                            style="display:none; color:red"> Incorrecto </b><b
-                                                            class='alertCorrect'
-                                                            style="display: none; color:green">¡Correcto!</b></span>
-                                                    = "red"; </span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex w-100 sticky-score p-3 justify-content-end">
-                                        
-                                        <div class="card d-flex sticky-score p-3 mrg-top-30" style="background-color: white;">
-                                            <button type="button" class="button" data-toggle="modal"
-                                                data-target="#modal-fs" onclick="checkAll()">
-                                                Revisar
-                                            </button>
-                                            <div class="score" style="display: none;">
-                                                <span></span>
+                                    <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
+                                         .js-term__src: así js-terminal.js no la toca -->
+                                    <div class="js-term reto__win">
+                                        <div class="reto__panels">
+                                            <div class="reto__pane reto__pane--code">
+                                                <div class="js-term__bar"><i></i><i></i><i></i><span data-file>problema1.js</span></div>
+                                                <div class="js-term__body" data-code></div>
                                             </div>
-                                            <div class="msg" style="display: none;">
-                                                <span></span>
+                                            <div class="reto__pane reto__pane--out">
+                                                <div class="js-term__bar"><i></i><i></i><i></i>Consola</div>
+                                                <div class="js-term__body reto__out" data-out></div>
                                             </div>
                                         </div>
-
+                                        <div class="reto__foot">
+                                            <div class="reto__progress" data-progress aria-hidden="true"></div>
+                                            <div class="reto__actions">
+                                                <button class="reto__btn" data-check type="button">Revisar</button>
+                                                <button class="reto__btn" data-next type="button" hidden>Continuar</button>
+                                                <button class="reto__btn reto__btn--go" data-next-pr type="button" hidden>Siguiente problema</button>
+                                            </div>
+                                        </div>
                                     </div>
+                                </section>
                             </div>
                         </div>
 
@@ -332,86 +222,7 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
-    <script>
-        var answers = ["var", "*=", "palabras[2]", "x>y", "console", "else", "console", "for", "<=", "++", "getElementById", "style.color"];
-
-        const questionsContainer = document.querySelector('#questions');
-
-        const modal = document.querySelector('#modal-fs');
-        const modalMessage = modal.querySelector('#modal-message');
-        const modalScore = modal.querySelector('#modal-score');
-        const correctImg = modal.querySelector('#correct-img');
-        const incorrectImg = modal.querySelector('#incorrect-img');
-
-        document.addEventListener('DOMContentLoaded', function (_) {
-            $(".custom-control-label").on("click", function () {
-                console.log('clicked')
-                if ($(this).siblings().is(":checked")) {
-                    $(this).siblings().removeAttr("checked");
-                } else {
-                    $(this).siblings().prop("checked", true);
-                }
-            });
-
-            incorrectImg.style.display = "none";
-            correctImg.style.display = "none";
-        });
-
-        $(".custom-control-label").on("click", function () {
-            if ($(this).siblings().is(":checked")) {
-                $(this).siblings().removeAttr("checked");
-
-            } else {
-                $(this).siblings().prop("checked", true);
-
-            }
-        });
-
-        function checkAll() {
-            var correct = 0;
-            var count = 0;
-            $("span.fillIn").each(function () {
-                var ans = $(this).find("input").val();
-                $(this).find(".alertCorrect").css("display", "none");
-                $(this).find(".alertWrong").css("display", "none");
-                if (ans == answers[count]) {
-                    correct++;
-                    $(this).find(".alertCorrect").css("display", "inline");
-                    $(this).addClass("correct");
-                } else {
-                    $(this).find(".alertWrong").css("display", "inline");
-                    $(this).addClass("incorrect");
-                }
-                count++;
-            });
-            $(".score > span").html(parseInt(correct * 100 / count) + "/100");
-            if (parseInt(correct * 100 / count) > 70) {
-                $(".msg > span").html("¡Excelente!");
-                $(".msg > span").css("color", "green")
-            } else {
-                $(".msg > span").html('Te invitamos a regresar al contenido para tu aprendizaje.');
-
-            }
-
-            let score = parseInt((correct * 100) / count);
-            modalScore.textContent = `${score} / 100`;
-
-            if (score >= 80) {
-                modalMessage.textContent = "¡Excelente!"
-                incorrectImg.style.display = "none";
-                correctImg.style.display = "block";
-
-            } else {
-                modalMessage.textContent = "Vuelve a intentarlo..."
-                incorrectImg.style.display = "block";
-                correctImg.style.display = "none";
-
-                if (score < 25) {
-                    // alert("Le recomendamos volver a leer esta sección para tener mayor puntuaje que 25.");
-                }
-            }
-        }
-    </script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-17-consola.js"></script>
 
 </body>
 

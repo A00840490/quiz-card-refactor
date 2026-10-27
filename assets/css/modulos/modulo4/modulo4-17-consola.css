@@ -1,0 +1,333 @@
+/* Ejercicio 4 (modulo4-17): problemas de JavaScript uno tras otro
+   (comportamiento en assets/js/scripts/modulo4/modulo4-17-consola.js).
+
+   Misma estructura que los ejercicios 2 y 3 (pregunta arriba, código y
+   resultado lado a lado, barra con un tramo por problema y botones), con el
+   formato de consola verde del módulo 4: la ventana entera usa el estilo de
+   las terminales (js-terminal.css). */
+
+.reto {
+  --verde: #4ade80;
+  --verde-tenue: #3f8f5c;
+  --bien: #1f9d63;
+  --mal: #d64541;
+  margin: 1.5rem 0;
+}
+
+/* Sin JavaScript no hay ejercicio */
+.reto:not(.reto--ready) { display: none; }
+
+/* ===================== Pregunta y corrección ===================== */
+.reto__question {
+  min-height: 3.2em;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.reto__ask,
+.reto__feedback {
+  transition: opacity 0.18s ease;
+}
+
+.reto__ask.is-fading,
+.reto__feedback.is-fading { opacity: 0; }
+
+.reto__ask {
+  margin: 0;
+  color: #000000;
+  font-weight: 700;
+}
+
+.reto__feedback {
+  margin: 6px 0 0;
+  color: #000000;
+}
+
+.reto__feedback:empty { display: none; }
+
+.reto__ok { color: var(--bien); }
+.reto__no { color: var(--mal); }
+
+/* Código mencionado en la corrección: estándar del curso (azul, monoespaciada) */
+.reto__feedback code {
+  padding: 0;
+  background: none;
+  color: var(--theme-color, #093b8b);
+  font-size: 87.5%;
+  font-weight: 700;
+}
+
+.reto__summary {
+  display: block;
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+/* ===================== Ventana de la consola ===================== */
+.reto__win {
+  margin: 0;
+  border-radius: 14px;
+}
+
+.reto__panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+.reto__pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.reto__pane + .reto__pane { border-left: 1px solid #1d2a21; }
+
+.reto__pane .js-term__body {
+  height: 300px;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* Código */
+.reto__line {
+  padding-left: calc(var(--lv, 0) * 2ch);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  animation: reto-in 0.35s ease;
+}
+
+.reto__line.is-current {
+  margin: 0 -18px;
+  padding-right: 18px;
+  padding-left: calc(18px + var(--lv, 0) * 2ch);
+  background: rgba(74, 222, 128, 0.08);
+  box-shadow: inset 3px 0 0 var(--verde);
+}
+
+.reto__blank {
+  display: inline-block;
+  min-width: 4ch;
+  margin: 0 1px;
+  padding: 0 4px;
+  border: 0;
+  border-bottom: 2px solid var(--verde);
+  border-radius: 3px 3px 0 0;
+  background: rgba(74, 222, 128, 0.14);
+  color: #ffffff;
+  caret-color: var(--verde);
+  font: inherit;
+  line-height: 1.4;
+  outline: 0;
+  vertical-align: baseline;
+}
+
+.reto__blank:focus { background: rgba(74, 222, 128, 0.24); }
+
+/* Recuadro vacío al presionar Revisar: sacudida de lado a lado */
+.reto__blank.is-shaking {
+  border-bottom-color: #ff6b62;
+  background: rgba(255, 107, 98, 0.22);
+  animation: reto-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.reto__pending { color: #2f6b45; }
+
+.reto__filled {
+  padding: 0 2px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.reto__filled.is-right { color: #ffffff; }
+
+.reto__filled.is-fixed {
+  color: #ff8a80;
+  text-decoration: underline wavy rgba(255, 138, 128, 0.7);
+  text-underline-offset: 3px;
+}
+
+/* Consola */
+.reto__out { scroll-behavior: smooth; }
+
+.reto__wait {
+  color: var(--verde-tenue);
+  font-style: italic;
+}
+
+.reto__wait .js-term__cursor { background: var(--verde); font-style: normal; }
+
+.reto__log { color: #ffffff; }
+
+.reto__log-line {
+  overflow-wrap: anywhere;
+  animation: reto-in 0.25s ease;
+}
+
+.reto__log + .js-term__cursor { color: #ffffff; }
+
+/* Página de ejemplo que modifica el código (problema 6) */
+.reto__page {
+  overflow: hidden;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.reto__page-bar {
+  padding: 4px 10px;
+  border-bottom: 1px solid #e3e7ee;
+  background: #f1f3f7;
+  color: #5d6778;
+  font: 600 11px/1.4 Consolas, "Courier New", monospace;
+}
+
+.reto__page-el {
+  position: relative;
+  margin: 12px;
+  padding: 8px 10px;
+  border: 1.5px dashed transparent;
+  border-radius: 6px;
+  color: #000000;
+  font-size: 15px;
+  line-height: 1.4;
+  transition: color 0.6s ease, border-color 0.4s ease, background-color 0.4s ease;
+}
+
+/* getElementById ya encontró el elemento */
+.reto__page-el.is-found {
+  border-color: #22a35a;
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.reto__page-el.is-red { color: #e01e1e; }
+
+.reto__page-tag {
+  position: absolute;
+  top: -10px;
+  left: 8px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: #16a34a;
+  color: #00170a;
+  font: 700 11px/1.6 Consolas, "Courier New", monospace;
+  animation: reto-in 0.3s ease;
+}
+
+/* ===================== Pie: avance y botones ===================== */
+.reto__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 24px;
+  padding: 14px 18px;
+  border-top: 1px solid #1d2a21;
+  background: #161b17;
+}
+
+.reto__progress {
+  display: flex;
+  flex: 1 1 260px;
+  gap: 6px;
+}
+
+.reto__seg {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #24302a;
+  overflow: hidden;
+}
+
+.reto__seg > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--verde-tenue);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease 0.3s;
+}
+
+.reto__seg.is-done > span { background: var(--verde); }
+
+.reto__actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+/* Botones con el contorno verde del botón Correr de las terminales */
+.reto__btn {
+  padding: 7px 18px;
+  border: 1px solid #22a35a;
+  border-radius: 6px;
+  background: rgba(74, 222, 128, 0.08);
+  color: var(--verde);
+  font: 700 14px Consolas, "Courier New", monospace;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.2s ease;
+}
+
+.reto__btn:hover {
+  background: rgba(74, 222, 128, 0.18);
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+}
+
+.reto__btn:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 2px;
+}
+
+.reto__btn--go {
+  background: var(--verde);
+  color: #0b0f0c;
+}
+
+.reto__btn--go:hover { background: #6ee7a0; }
+
+@keyframes reto-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+}
+
+@keyframes reto-shake {
+  0%, 100% { transform: translateX(0); }
+  12% { transform: translateX(-10px); }
+  25% { transform: translateX(10px); }
+  37% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  62% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  87% { transform: translateX(-2px); }
+}
+
+/* ===================== Celular: todo en una columna ===================== */
+@media (max-width: 991px) {
+  .reto__panels { grid-template-columns: 1fr; }
+
+  .reto__pane + .reto__pane {
+    border-top: 1px solid #1d2a21;
+    border-left: 0;
+  }
+
+  .reto__pane--code .js-term__body { height: auto; min-height: 170px; }
+  .reto__pane--out .js-term__body { height: 180px; }
+}
+
+@media (max-width: 575px) {
+  .reto__actions { width: 100%; }
+  .reto__btn { flex: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reto__line,
+  .reto__log-line,
+  .reto__page-tag,
+  .reto__blank.is-shaking { animation: none; }
+  .reto__seg > span,
+  .reto__page-el,
+  .reto__ask,
+  .reto__feedback { transition: none; }
+  .reto__out { scroll-behavior: auto; }
+}
