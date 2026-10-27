@@ -119,9 +119,6 @@
 .tt__deck {
   position: relative;
   container-type: inline-size;
-  /* el haz de la torreta no sale del mueble (el mueble del SVG mide
-     508 x 488 con esquinas de 22, dentro de 520 x 500) */
-  clip-path: inset(1.2% 1.15% round 4.23% / 4.4%);
 }
 
 .tt__panel {
@@ -256,21 +253,29 @@
   background: conic-gradient(from 0deg, rgba(255, 245, 235, .95) 0deg, rgba(255, 90, 60, 0) 70deg, rgba(255, 90, 60, 0) 180deg, rgba(255, 245, 235, .95) 180deg, rgba(255, 90, 60, 0) 250deg);
 }
 
-/* el haz de luz que sale de la torreta */
-.tt__faro::before {
+/* El haz de luz que sale de la torreta barre el mueble. Va en su propia capa
+   recortada a la madera (508 x 488 con esquinas de 22, dentro de 520 x 500)
+   para que no se salga, sin recortar el plato, que sí sobresale del mueble.
+   El centro del haz es el de la torreta: (468, 463) en unidades del SVG. */
+.tt__haz {
+  --u: calc(100cqw / 520);
+  position: absolute;
+  inset: 0;
+  clip-path: inset(1.2% 1.15% round 4.23% / 4.4%);
+  pointer-events: none;
+}
+.tt__haz::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: calc(var(--u) * 288);
+  top: calc(var(--u) * 283);
   width: calc(var(--u) * 360);
   height: calc(var(--u) * 360);
-  margin: calc(var(--u) * -180) 0 0 calc(var(--u) * -180);
   border-radius: 50%;
   background: conic-gradient(from 0deg, rgba(255, 50, 30, .45) 0deg, rgba(255, 50, 30, 0) 40deg, rgba(255, 50, 30, 0) 180deg, rgba(255, 50, 30, .45) 180deg, rgba(255, 50, 30, 0) 220deg);
   -webkit-mask-image: radial-gradient(circle, #000 8%, transparent 70%);
   mask-image: radial-gradient(circle, #000 8%, transparent 70%);
   opacity: 0;
-  pointer-events: none;
   transition: opacity .3s ease;
 }
 
@@ -279,9 +284,9 @@
   box-shadow: 0 0 0 calc(var(--u) * 3) #c9d0da, 0 0 0 calc(var(--u) * 4) #7d8796, 0 0 calc(var(--u) * 22) calc(var(--u) * 6) rgba(255, 45, 25, .75);
 }
 .tt.is-loco .tt__faro i,
-.tt.is-loco .tt__faro::before { opacity: 1; }
+.tt.is-loco .tt__haz::before { opacity: 1; }
 .tt.is-loco .tt__faro i::before,
-.tt.is-loco .tt__faro::before { animation: tt-faro .8s linear infinite; }
+.tt.is-loco .tt__haz::before { animation: tt-faro .8s linear infinite; }
 @keyframes tt-faro { to { transform: rotate(360deg); } }
 
 /* Las mismas teclas, en chico, dentro del texto de instrucciones */
@@ -583,7 +588,7 @@
   .tt.is-loco .tt__cabeza,
   .tt.is-loco .tt__btn[data-reset],
   .tt.is-loco .tt__faro i::before,
-  .tt.is-loco .tt__faro::before,
+  .tt.is-loco .tt__haz::before,
   .tt__console-out span.is-new { animation: none; }
   .tt__brazo,
   .tt__disco,
