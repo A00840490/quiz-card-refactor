@@ -8686,12 +8686,14 @@ label.success {
    ficha de renglones montada sobre la parte de abajo de la ventana. La
    ventana aparta abajo el espacio que la ficha cubre, así que nunca tapa el
    código ni la salida de la consola. Con cada texto nuevo la ficha se
-   desvanece y vuelve a subir desde abajo con un giro suave.
+   desvanece y vuelve a subir desde abajo con un giro suave, y lo que está
+   debajo se desliza a su nuevo lugar (assets/js/grafico-ficha.js).
 
    <div class="grafico-ficha-col">
      <div class="js-term">…</div>
      <div class="grafico-ficha"><p class="grafico-exp" data-status></p></div>
    </div>
+   <script src="../../assets/js/grafico-ficha.js"></script>
    ===================================================================== */
 .grafico-ficha-col {
   display: flex;
@@ -8709,7 +8711,6 @@ label.success {
   width: auto;
   margin: -46px 12px 0;
   padding: 26px 16px 8px;
-  border-radius: 4px;
   background-color: #fffffb;
   background-image:
     linear-gradient(#e2574c, #e2574c),
