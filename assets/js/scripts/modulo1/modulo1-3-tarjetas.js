@@ -16,6 +16,7 @@
   var open = root.querySelector("[data-cc-open]");
   var nameEl = root.querySelector("[data-cc-name]");
   var panels = Array.prototype.slice.call(root.querySelectorAll("[data-cc-panel]"));
+  var closeBtn = root.querySelector("[data-cc-close]");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // half: media vuelta de la tarjeta; grow: crecer/encoger; fade: el texto
   var T = reduce ? { half: 0, grow: 0, fade: 0 } : { half: 260, grow: 500, fade: 220 };
@@ -112,7 +113,7 @@
       return wait(Math.max(0, T.fade - 150));
     }).then(function () {
       busy = false;
-      open.focus({ preventScroll: true });
+      closeBtn.focus({ preventScroll: true });
     });
   }
 
@@ -158,7 +159,7 @@
     });
   });
 
-  // Tocar cualquier parte de la tarjeta abierta la voltea de nuevo (menos los enlaces)
+  // Tocar cualquier parte de la tarjeta abierta, o su X, la voltea de nuevo (menos los enlaces)
   open.addEventListener("click", function (e) {
     if (e.target.closest("a")) return;
     if (!busy && active) collapse();
