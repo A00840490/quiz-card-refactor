@@ -410,6 +410,9 @@
   display: block;
   white-space: pre;
 }
+
+/* Vacía no es grid, para que el cursor quede en un renglón normal, alineado con "Consola:" */
+.tt__console-out:empty { display: block; }
 .tt__console-out span.is-new { animation: tt-linea .3s ease; }
 .tt__console-out .tt__mas { color: #8a968d; font-style: italic; }
 
