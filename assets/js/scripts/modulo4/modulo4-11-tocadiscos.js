@@ -11,9 +11,10 @@
    El recorrido se arma como una lista de pasos (antes del ciclo, condición,
    cuerpo, i++) y la escena se pinta a partir del paso en el que vamos, así
    que avanzar y regresar usan el mismo código. Dentro de la ventana de
-   código se puede hacer clic en i++ para quitarlo (el disco se raya: ciclo
-   infinito, con un botón ALTO) y en la condición para cambiarla por una que
-   compara texto. Con "reducir movimiento" todo ocurre sin animaciones. */
+   código, i++ y la condición son listas desplegables (el menú de vidrio del
+   3-23): sin i++ el disco se raya (ciclo infinito, con un botón ALTO) y la
+   otra condición compara texto. Con "reducir movimiento" todo ocurre sin
+   animaciones. */
 (function () {
   "use strict";
 
@@ -219,17 +220,21 @@
   }
 
   /* ---------- La ventana de código ---------- */
+  function valor(k, html, nombre, extra) {
+    return '<button type="button" class="tt__valor' + (extra || "") + '" data-k="' + k + '" aria-haspopup="menu" aria-label="' + nombre + '. Elegir otro valor">' + html + "</button>";
+  }
+
   function pintaCodigo() {
     var cond = texto ? "elementos[i] != \"" + ALT + "\"" : "i &lt; elementos.length";
     var lista = items.map(function (it) { return '"' + it.nombre + '"'; });
     var linea = lista.slice(0, 3).join(", ") + ",\n                 " + lista.slice(3).join(", ");
     var masMenos = inc
-      ? '<span data-part="inc" class="tt__tog" data-tog="inc" role="button" tabindex="0" title="Quitar i++">i++;</span>'
-      : '<span class="tt__tog js-term__com" data-tog="inc" role="button" tabindex="0" title="Volver a poner i++">// i++;</span>';
+      ? '<span data-part="inc">' + valor("inc", "i++;", "Actualizar el contador: i++") + "</span>"
+      : valor("inc", "// i++;", "Actualizar el contador: quitado", " js-term__com");
     codeEl.querySelector(".js-term__code").innerHTML =
       "var elementos = [" + linea + "];\n" +
       '<span data-part="init">var i = 0;</span>\n\n' +
-      'while (<span data-part="cond" class="tt__tog" data-tog="cond" role="button" tabindex="0" title="Cambiar la condición">' + cond + "</span>) {\n" +
+      'while (<span data-part="cond">' + valor("cond", cond, "Condición: " + cond.replace("&lt;", "<").replace(/"/g, "&quot;")) + "</span>) {\n" +
       '  <span data-part="body">console.log(i + ": " + elementos[i]);</span>\n' +
       "  " + masMenos + "\n}";
   }
@@ -257,44 +262,65 @@
     consola.innerHTML = html;
   }
 
-  /* ---------- La explicación ---------- */
-  function nom(t) { return '<span class="code">' + t + "</span>"; }
+  /* ---------- La explicación ----------
+     Como en el tren del 4-6: el nombre de la parte va en azul y monoespaciada,
+     el código que se menciona en monoespaciada y lo demás en texto normal. */
+  function nom(t) { return '<span class="nom">' + t + "</span>"; }
+  function cod(t) { return "<code>" + t + "</code>"; }
 
   function explica(f) {
     var st = f.st, i = st.i;
-    var cond = texto ? '<b>elementos[' + i + '] != "' + ALT + '"</b>' : "<b>" + i + " &lt; " + N + "</b>";
-    if (loco) return nom("Ciclo infinito") + ": la aguja nunca se levanta y el disco se queda rayado, repitiendo el disco 0. Presiona <b>ALTO</b> para detenerlo.";
+    var cond = texto ? cod("elementos[" + i + '] != "' + ALT + '"') : cod(i + " &lt; " + N);
+    if (loco) return nom("Ciclo infinito") + ": la aguja nunca se levanta y el disco se queda rayado, repitiendo el disco 0. Presiona ALTO para detenerlo.";
     switch (st.parte) {
       case "init":
-        return nom("Antes del ciclo") + ": el <b>while</b> no tiene lugar para la expresión inicial, así que el contador <b>i = 0</b> se crea afuera, en la línea de arriba, y el disco <b>0</b> sube al tocadiscos.";
+        return nom("Antes del ciclo") + ": el " + cod("while") + " no tiene lugar para la expresión inicial, así que el contador " + cod("i = 0") + " se crea afuera, en la línea de arriba, y el disco 0 sube al tocadiscos.";
       case "cond":
         if (!st.ok) {
           return nom("Expresión condicional") + ": ¿" + cond + "? " +
-            (texto ? "El disco <b>" + i + '</b> es <b>"' + ALT + '"</b>' : "Ya no queda ningún disco por tocar") +
+            (texto ? "El disco " + i + ' es "' + ALT + '"' : "Ya no queda ningún disco por tocar") +
             ', así que es <span class="no">false</span>, la aguja no baja y el ciclo termina.';
         }
         if (!inc && f.vueltas >= 1) {
-          return nom("Expresión condicional") + ": ¿" + cond + '? Otra vez <span class="si">true</span>: como quitamos <b>i++</b>, i sigue valiendo <b>0</b> y la condición nunca cambia.';
+          return nom("Expresión condicional") + ": ¿" + cond + '? Otra vez <span class="si">true</span>: como quitamos ' + cod("i++") + ", i sigue valiendo 0 y la condición nunca cambia.";
         }
         return nom("Expresión condicional") + ": ¿" + cond + "? " +
-          (texto ? 'El disco es <b>"' + items[i].nombre + '"</b>' : "Hay un disco <b>" + i + "</b> en el tocadiscos") +
+          (texto ? 'El disco es "' + items[i].nombre + '"' : "Hay un disco " + i + " en el tocadiscos") +
           ', así que es <span class="si">true</span>, la aguja baja y entramos al ciclo.';
       case "body":
         if (!inc && st.vuelta >= 2) {
-          return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": la aguja vuelve a tocar el disco 0, como un disco rayado, y la consola vuelve a mostrar <b>0: " + items[0].nombre + "</b>.";
+          return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": la aguja vuelve a tocar el disco 0, como un disco rayado, y la consola vuelve a mostrar " + cod("0: " + items[0].nombre) + ".";
         }
-        return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": suena el disco <b>" + i + "</b> y la consola muestra <b>" + i + ": " + items[i].nombre + "</b>.";
+        return nom("Cuerpo del ciclo") + ", vuelta " + st.vuelta + ": suena el disco " + i + " y la consola muestra " + cod(i + ": " + items[i].nombre) + ".";
       case "inc":
-        return nom("Actualizar el contador") + ": <b>i++</b> es la última línea del cuerpo. Sube i a <b>" + i + "</b> y " +
-          (i < N ? "cambia el disco: la aguja se levanta, el disco <b>" + (i - 1) + "</b> sale y llega el disco <b>" + i + "</b>" : "la aguja se levanta y el disco <b>" + (i - 1) + "</b> sale, pero ya no llega otro") + ". Después el while vuelve a revisar la condición.";
+        return nom("Actualizar el contador") + ": " + cod("i++") + " es la última línea del cuerpo. Sube i a " + i + " y " +
+          (i < N ? "cambia el disco: la aguja se levanta, el disco " + (i - 1) + " sale y llega el disco " + i : "la aguja se levanta y el disco " + (i - 1) + " sale, pero ya no llega otro") + ". Después el " + cod("while") + " vuelve a revisar la condición.";
       default:
-        return "Fin del ciclo: " + (texto ? "la aguja no tocó el disco <b>\"" + ALT + "\"</b>." : "sonaron los " + N + " discos y el brazo se queda en su lugar.") +
-          " El programa sigue con la línea que está después de la llave <b>}</b>.";
+        return nom("Fin del ciclo") + ": " + (texto ? 'la aguja no tocó el disco "' + ALT + '".' : "sonaron los " + N + " discos y el brazo se queda en su lugar.") +
+          " El programa sigue con la línea que está después de la llave " + cod("}") + ".";
     }
   }
 
   function textoAlto(f) {
-    return nom("Ciclo infinito") + ": detuviste el tocadiscos después de <b>" + f.vueltas + "</b> vueltas. En un programa de verdad no hay botón de ALTO: la página se queda trabada. Haz clic en <b>// i++;</b> dentro del código para volver a ponerlo.";
+    return nom("Ciclo infinito") + ": detuviste el tocadiscos después de " + f.vueltas + " vueltas. En un programa de verdad no hay botón de ALTO: la página se queda trabada. Cambia " + cod("// i++;") + " en el código para volver a ponerlo.";
+  }
+
+  // La explicación cambia con desvanecido (en el ciclo infinito va demasiado rápido para eso)
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function explicar(html) {
+    if (html === status._html) return;
+    status._html = html;
+    clearTimeout(status._t);
+    if (reduce || loco || !status.innerHTML) {
+      status.classList.remove("is-fading");
+      status.innerHTML = html;
+      return;
+    }
+    status.classList.add("is-fading");
+    status._t = setTimeout(function () {
+      status.innerHTML = html;
+      status.classList.remove("is-fading");
+    }, 200);
   }
 
   /* ---------- Pintar la escena ---------- */
@@ -342,7 +368,7 @@
     // Sin i++, a la tercera vuelta el tocadiscos sigue solo: ciclo infinito
     if (!inc && dir > 0 && st && st.parte === "body" && f.vueltas >= 3 && !loco && !detenido) arranca();
 
-    status.innerHTML = detenido ? textoAlto(f) : st ? explica(f) : nota;
+    explicar(detenido ? textoAlto(f) : st ? explica(f) : nota);
 
     b.back.disabled = k < 0 || detenido;
     b.step.disabled = detenido || loco || fin;
@@ -391,25 +417,107 @@
   }
 
   // Quitar o poner i++, o cambiar la condición: el programa cambió, así que empieza de nuevo
-  function cambia(que) {
-    if (que === "inc") inc = !inc;
-    else texto = !texto;
+  function cambia(que, valor) {
+    if (que === "inc") {
+      if (inc === valor) return;
+      inc = valor;
+    } else {
+      if (texto === valor) return;
+      texto = valor;
+    }
     root.classList.toggle("is-sin-inc", !inc);
     root.classList.toggle("is-texto", texto);
     pintaCodigo();
     if (que === "inc") {
       nota = inc
-        ? "Volviste a poner <b>i++</b> al final del cuerpo: el ciclo ya puede terminar."
-        : "Quitaste <b>i++</b> del cuerpo del ciclo (quedó como comentario). Avanza paso a paso para ver qué pasa.";
+        ? "Volviste a poner " + cod("i++") + " al final del cuerpo: el ciclo ya puede terminar."
+        : "Quitaste " + cod("i++") + " del cuerpo del ciclo (quedó como comentario). Avanza paso a paso para ver qué pasa.";
     } else {
       nota = texto
-        ? "Ahora la condición compara texto: el ciclo sigue <b>mientras</b> el disco no sea <b>\"" + ALT + "\"</b>, sin contar cuántos hay."
-        : "La condición volvió a ser <b>i &lt; elementos.length</b>.";
+        ? "Ahora la condición compara texto: el ciclo sigue mientras el disco no sea \"" + ALT + "\", sin contar cuántos hay."
+        : "La condición volvió a ser " + cod("i &lt; elementos.length") + ".";
     }
     reiniciar();
-    var t = codeEl.querySelector('[data-tog="' + que + '"]');
-    if (t) t.focus();
+    var t = codeEl.querySelector('[data-k="' + que + '"]');
+    if (t) t.focus({ preventScroll: true });
   }
+
+  /* ---------- El menú de vidrio para cambiar los valores (estándar del 3-23) ---------- */
+  var menu = root.querySelector("[data-menu]");
+  var abierto = null;
+
+  var OPCIONES = {
+    cond: function () {
+      return [
+        { html: "<code>i &lt; elementos.length</code>", valor: false, actual: !texto },
+        { html: "<code>elementos[i] != \"" + ALT + "\"</code>", valor: true, actual: texto }
+      ];
+    },
+    inc: function () {
+      return [
+        { html: "<code>i++;</code>", valor: true, actual: inc },
+        { html: "<code>// i++;</code>", valor: false, actual: !inc }
+      ];
+    }
+  };
+
+  function abrirMenu(origen) {
+    cerrarMenu();
+    var que = origen.getAttribute("data-k");
+    var opciones = OPCIONES[que]();
+    abierto = { origen: origen, que: que, opciones: opciones };
+    origen.classList.add("is-abierta");
+    origen.setAttribute("aria-expanded", "true");
+    menu.innerHTML = opciones.map(function (o, n) {
+      return '<button type="button" role="menuitem" class="tt__opcion' + (o.actual ? " is-actual" : "") + '" data-i="' + n + '">' + o.html + "</button>";
+    }).join("");
+    menu.hidden = false;
+    var r = root.getBoundingClientRect(), o = origen.getBoundingClientRect();
+    var w = menu.offsetWidth, h = menu.offsetHeight;
+    var left = Math.max(4, Math.min(o.left - r.left, r.width - w - 4));
+    var top = o.bottom - r.top + 6;
+    if (o.bottom + h + 6 > window.innerHeight && o.top - h - 6 > 0) top = o.top - r.top - h - 6;
+    menu.style.left = left + "px";
+    menu.style.top = top + "px";
+    menu.style.setProperty("--origen", Math.max(0, Math.min(w, o.left - r.left - left + 20)) + "px " + (top < o.top - r.top ? h + "px" : "0"));
+    requestAnimationFrame(function () { menu.classList.add("is-on"); });
+    var actual = menu.querySelector(".is-actual") || menu.querySelector(".tt__opcion");
+    actual.focus({ preventScroll: true });
+  }
+
+  function cerrarMenu(devolverFoco) {
+    if (!abierto) return;
+    var origen = abierto.origen;
+    origen.classList.remove("is-abierta");
+    origen.removeAttribute("aria-expanded");
+    menu.hidden = true;
+    menu.classList.remove("is-on");
+    abierto = null;
+    if (devolverFoco) origen.focus({ preventScroll: true });
+  }
+
+  menu.addEventListener("click", function (e) {
+    var op = e.target.closest(".tt__opcion");
+    if (!op || !abierto) return;
+    var que = abierto.que, o = abierto.opciones[+op.getAttribute("data-i")];
+    cerrarMenu(true);
+    cambia(que, o.valor);
+  });
+
+  menu.addEventListener("keydown", function (e) {
+    var ops = [].slice.call(menu.querySelectorAll(".tt__opcion"));
+    var n = ops.indexOf(document.activeElement);
+    if (e.key === "ArrowDown") { e.preventDefault(); ops[(n + 1) % ops.length].focus(); }
+    if (e.key === "ArrowUp") { e.preventDefault(); ops[(n - 1 + ops.length) % ops.length].focus(); }
+    if (e.key === "Escape") { e.preventDefault(); cerrarMenu(true); }
+    if (e.key === "Tab") cerrarMenu();
+  });
+
+  document.addEventListener("pointerdown", function (e) {
+    if (abierto && !menu.contains(e.target) && !abierto.origen.contains(e.target)) cerrarMenu();
+  });
+
+  window.addEventListener("resize", function () { cerrarMenu(); });
 
   /* ---------- Los botones ---------- */
   b.step.addEventListener("click", function () {
@@ -429,15 +537,10 @@
   b.alto.addEventListener("click", alto);
 
   codeEl.addEventListener("click", function (e) {
-    var t = e.target.closest("[data-tog]");
-    if (t) cambia(t.getAttribute("data-tog"));
-  });
-  codeEl.addEventListener("keydown", function (e) {
-    var t = e.target.closest("[data-tog]");
-    if (t && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      cambia(t.getAttribute("data-tog"));
-    }
+    var t = e.target.closest("[data-k]");
+    if (!t) return;
+    if (abierto && abierto.origen === t) cerrarMenu();
+    else abrirMenu(t);
   });
 
   pintaCodigo();
