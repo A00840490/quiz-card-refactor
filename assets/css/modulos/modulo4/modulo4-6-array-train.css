@@ -359,13 +359,10 @@
   .arr-train__console { grid-template-columns: minmax(0, 1fr); gap: 10px; }
 }
 
+/* Texto con el estándar .grafico-exp (app.css) */
 .arr-train__info {
   min-height: 24px;
-  margin: 0;
-  color: var(--ink);
 }
-
-.arr-train__info code { color: var(--theme-color); font-weight: 700; }
 
 @media (max-width: 575px) {
   .arr-train { --gap: 4px; --rail-y: 92px; }

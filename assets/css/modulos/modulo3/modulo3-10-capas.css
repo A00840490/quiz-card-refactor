@@ -13,7 +13,7 @@
   --capas-ink: #ffffff;
   --capas-text: #000000;
   --capas-accent: #7fb8ff;
-  --capas-title: #1d5fb8;
+  --capas-title: #093b8b;
   --capas-code-bg: #1e2430;
   --capas-code-ink: #d7dde8;
   --capas-code-sel: #ffcb6b;
@@ -114,9 +114,11 @@
 
 /* ---------- Explicación (sobre el fondo de la página) ---------- */
 /* Arriba y con un margen fijo: el título queda siempre a la misma altura */
+/* La explicación se centra verticalmente con el recuadro, como la del tren
+   del 4-6; el texto usa el estándar .grafico-exp (app.css) */
 .capas__panel {
   position: relative;
-  padding-top: 64px;
+  align-self: center;
   color: var(--capas-text);
 }
 
@@ -142,8 +144,6 @@
 .capas__callout p {
   max-width: 42ch;
   margin: 0 0 14px;
-  color: var(--capas-text);
-  font-size: 17px;
 }
 
 .capas__line,
@@ -311,10 +311,6 @@
     gap: 20px;
   }
 
-  .capas__panel {
-    padding-top: 0;
-  }
-
   .capas__view {
     height: 340px;
   }
@@ -346,7 +342,6 @@
 
   .capas__callout p {
     max-width: none;
-    font-size: 16px;
   }
 
   .capas__callout pre {

@@ -83,7 +83,7 @@
   info.className = "navaja__info";
   info.setAttribute("aria-live", "polite");
   info.innerHTML =
-    '<p class="navaja__desc"></p>' +
+    '<p class="navaja__desc grafico-exp"></p>' +
     '<div class="navaja__demo">' +
     '<div class="navaja__src code"></div>' +
     '<div class="navaja__try"></div>' +
@@ -103,6 +103,10 @@
   var desc = info.querySelector(".navaja__desc");
   var tryEl = info.querySelector(".navaja__try");
   var uid = 0;
+
+  function esc(t) {
+    return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
 
   // Mismos colores que los ejemplos del curso (.code / .codetag / .codetext)
   function code(type) {
@@ -152,7 +156,8 @@
     toolEls.forEach(function (o) { o.classList.toggle("is-on", o === el); });
     el.classList.add("is-seen");
     codeEl.innerHTML = code(it.type);
-    desc.textContent = it.desc;
+    // El concepto (el type) va primero, en azul y monoespaciada (.grafico-exp)
+    desc.innerHTML = '<code>type="' + it.type + '"</code> ' + esc(it.desc.charAt(0).toLowerCase() + it.desc.slice(1));
     tryEl.innerHTML = "";
     tryEl.appendChild(sample(it.type));
     if (!root.classList.contains("has-info")) {

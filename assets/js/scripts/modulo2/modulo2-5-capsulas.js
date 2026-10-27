@@ -59,7 +59,8 @@
     });
     return {
       tag: tag,
-      desc: desc.innerHTML.trim(),
+      // Las etiquetas que menciona la descripción van en <code> (.grafico-exp)
+      desc: desc.innerHTML.trim().replace(/<b>\s*(&lt;\w+&gt;)\s*<\/b>/g, "<code>$1</code>"),
       example: ex ? ex.innerHTML.trim() : "",
       color: COLORS[i % COLORS.length],
       start: li.hasAttribute("data-start"),
@@ -323,7 +324,7 @@
       '<div class="capsulas__dex-screen">' +
       '<div class="capsulas__dex-entry">' +
       '<div class="capsulas__dex-sprite"><canvas class="capsulas__dex-grid" aria-hidden="true"></canvas><span class="capsulas__dex-tag" style="--chars: ' + (item.tag.length + 2) + '">&lt;' + item.tag + "&gt;</span></div>" +
-      '<p class="capsulas__dex-desc">' + item.desc + "</p>" +
+      '<p class="capsulas__dex-desc grafico-exp">' + item.desc + "</p>" +
       "</div>" +
       (item.example
         ? '<div class="capsulas__demo"><div class="capsulas__src code">' + codeHTML(item.example) + "</div>" +

@@ -69,22 +69,23 @@
     return pasos;
   }
 
+  // Explicación con el estándar .grafico-exp: la parte del for y el código en <code>
   function explica(st) {
     switch (st.parte) {
       case "init":
-        return "<span class=\"code\">Expresión inicial</span>: se crea el contador <b>i = 0</b> y la banda trae la caja <b>0</b> hasta la etiquetadora. Esta parte se ejecuta una sola vez, antes de la primera vuelta.";
+        return "<code>Expresión inicial</code>: se crea el contador <code>i = 0</code> y la banda trae la caja 0 hasta la etiquetadora. Esta parte se ejecuta una sola vez, antes de la primera vuelta.";
       case "cond":
         return st.ok
-          ? "<span class=\"code\">Expresión condicional</span>: ¿<b>" + st.i + " &lt; " + N + "</b>? El sensor encuentra una caja enfrente, así que es <span class=\"si\">true</span> y entramos al ciclo."
-          : "<span class=\"code\">Expresión condicional</span>: ¿<b>" + st.i + " &lt; " + N + "</b>? Ya no hay más cajas, así que es <span class=\"no\">false</span> y el ciclo termina.";
+          ? "<code>Expresión condicional</code>: ¿<code>" + st.i + " &lt; " + N + "</code>? El sensor encuentra una caja enfrente, así que es <span class=\"si\">true</span> y entramos al ciclo."
+          : "<code>Expresión condicional</code>: ¿<code>" + st.i + " &lt; " + N + "</code>? Ya no hay más cajas, así que es <span class=\"no\">false</span> y el ciclo termina.";
       case "body":
-        return "<span class=\"code\">Cuerpo del ciclo</span>, vuelta " + (st.vuelta + 1) + " de " + N + ": la etiquetadora sella la caja <b>" + st.i +
-          "</b> y la consola muestra <b>" + st.i + ": " + items[st.i].nombre + "</b>.";
+        return "<code>Cuerpo del ciclo</code>, vuelta " + (st.vuelta + 1) + " de " + N + ": la etiquetadora sella la caja " + st.i +
+          " y la consola muestra <code>" + st.i + ": " + items[st.i].nombre + "</code>.";
       case "inc":
-        return "<span class=\"code\">Expresión cíclica</span>: <b>i++</b> sube el contador a <b>" + st.i + "</b> y la banda avanza " +
-          (st.i < N ? "para traer la caja <b>" + st.i + "</b>" : "pero ya no llega ninguna caja") + ". Después volvemos a revisar la condición.";
+        return "<code>Expresión cíclica</code>: <code>i++</code> sube el contador a " + st.i + " y la banda avanza " +
+          (st.i < N ? "para traer la caja " + st.i : "pero ya no llega ninguna caja") + ". Después volvemos a revisar la condición.";
       default:
-        return "Fin del ciclo. La consola ya mostró los " + N + " elementos del arreglo y el programa sigue con la línea que está después de la llave <b>}</b>.";
+        return "Fin del ciclo. La consola ya mostró los " + N + " elementos del arreglo y el programa sigue con la línea que está después de la llave <code>}</code>.";
     }
   }
 

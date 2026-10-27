@@ -385,12 +385,12 @@
   color: #ffffff;
 }
 
+/* Explicación con el estándar .grafico-exp (app.css) */
 .banda__status {
   margin: 16px 0 0;
   min-height: 3em;
 }
 
-.banda__status b { font-family: Consolas, "Courier New", monospace; }
 .banda__status .si { color: var(--true); font-weight: 700; }
 .banda__status .no { color: var(--false); font-weight: 700; }
 

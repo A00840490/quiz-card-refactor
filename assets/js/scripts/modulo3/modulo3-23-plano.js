@@ -53,13 +53,13 @@
 
   /* ---------- Textos de cada valor ---------- */
   var TEXTO = {
-    "2fr 1fr 1fr": "La primera columna recibe <span class=\"nom\">2fr</span>, el doble del espacio libre que las otras dos, que tienen <span class=\"nom\">1fr</span>. La unidad <span class=\"nom\">fr</span> es exclusiva de grid: reparte el espacio libre en partes.",
-    "repeat(3, 1fr)": "La función <span class=\"nom\">repeat</span> repite los valores: el primer número indica cuántas veces y el segundo el tamaño, así que aquí hay tres de <span class=\"nom\">1fr</span>, todas del mismo tamaño.",
-    "200px 1fr 1fr": "La primera mide <span class=\"nom\">200px</span> fijos y las otras dos se reparten lo que sobra: <span class=\"nom\">1fr</span> cada una.",
-    "minmax(150px, 1fr) 2fr 1fr": "La función <span class=\"nom\">minmax</span> da un rango mínimo y máximo: la primera columna nunca mide menos de 150px ni más de 1fr. La de en medio recibe <span class=\"nom\">2fr</span>.",
-    "repeat(3, 1fr)#rows": "La función <span class=\"nom\">repeat</span> repite los valores: el primer número indica cuántas veces y el segundo el tamaño, así que aquí hay tres renglones de <span class=\"nom\">1fr</span>, todos del mismo alto.",
-    "1fr 1fr 120px": "Los primeros dos renglones se reparten el espacio libre con <span class=\"nom\">1fr</span> cada uno y el último mide <span class=\"nom\">120px</span> fijos.",
-    "auto minmax(200px, 1fr) auto": "<span class=\"nom\">auto</span> hace que el renglón mida lo que su contenido necesita, y <span class=\"nom\">minmax(200px, 1fr)</span> hace que el de en medio nunca mida menos de 200px ni más de 1fr."
+    "2fr 1fr 1fr": "La primera columna recibe <span class=\"concepto\">2fr</span>, el doble del espacio libre que las otras dos, que tienen <span class=\"concepto\">1fr</span>. La unidad <span class=\"concepto\">fr</span> es exclusiva de grid: reparte el espacio libre en partes.",
+    "repeat(3, 1fr)": "La función <span class=\"concepto\">repeat</span> repite los valores: el primer número indica cuántas veces y el segundo el tamaño, así que aquí hay tres de <span class=\"concepto\">1fr</span>, todas del mismo tamaño.",
+    "200px 1fr 1fr": "La primera mide <span class=\"concepto\">200px</span> fijos y las otras dos se reparten lo que sobra: <span class=\"concepto\">1fr</span> cada una.",
+    "minmax(150px, 1fr) 2fr 1fr": "La función <span class=\"concepto\">minmax</span> da un rango mínimo y máximo: la primera columna nunca mide menos de 150px ni más de 1fr. La de en medio recibe <span class=\"concepto\">2fr</span>.",
+    "repeat(3, 1fr)#rows": "La función <span class=\"concepto\">repeat</span> repite los valores: el primer número indica cuántas veces y el segundo el tamaño, así que aquí hay tres renglones de <span class=\"concepto\">1fr</span>, todos del mismo alto.",
+    "1fr 1fr 120px": "Los primeros dos renglones se reparten el espacio libre con <span class=\"concepto\">1fr</span> cada uno y el último mide <span class=\"concepto\">120px</span> fijos.",
+    "auto minmax(200px, 1fr) auto": "<span class=\"concepto\">auto</span> hace que el renglón mida lo que su contenido necesita, y <span class=\"concepto\">minmax(200px, 1fr)</span> hace que el de en medio nunca mida menos de 200px ni más de 1fr."
   };
 
   /* ---------- Utilidades ---------- */
@@ -278,7 +278,7 @@
 
   function textoCuarto(id, inicio) {
     var c = porId[id], caja = cajaDe(estado.mapa, id);
-    return inicio + "<span class=\"nom\">." + id + "</span> tiene <span class=\"nom\">grid-area: " + id + "</span>, así que ocupa todas las celdas que dicen <b>" + id + "</b> en el mapa. En las cotas se ve que " + c.con + " va de la línea de columna " + caja.cs + " a la " + caja.ce + " y de la línea de renglón " + caja.rs + " a la " + caja.re + ": sería lo mismo escribir <span class=\"nom\">grid-column-start: " + caja.cs + "; grid-column-end: " + caja.ce + "; grid-row-start: " + caja.rs + "; grid-row-end: " + caja.re + ";</span>";
+    return inicio + "<span class=\"concepto\">." + id + "</span> tiene <span class=\"concepto\">grid-area: " + id + "</span>, así que ocupa todas las celdas que dicen <b>" + id + "</b> en el mapa. En las cotas se ve que " + c.con + " va de la línea de columna " + caja.cs + " a la " + caja.ce + " y de la línea de renglón " + caja.rs + " a la " + caja.re + ": sería lo mismo escribir <span class=\"concepto\">grid-column-start: " + caja.cs + "; grid-column-end: " + caja.ce + "; grid-row-start: " + caja.rs + "; grid-row-end: " + caja.re + ";</span>";
   }
 
   /* ---------- Los cuartos se deslizan a su nuevo lugar ---------- */
@@ -413,14 +413,14 @@
     pintarCodigo();
     marcarPalabra(r, c, true);
     setTimeout(function () { marcarPalabra(r, c, false); }, 1200);
-    var lugar = "En <span class=\"nom\">grid-template-areas</span> cada texto entre comillas es un renglón y cada palabra una celda. La palabra del renglón " + (r + 1) + ", columna " + (c + 1) + " ";
+    var lugar = "En <span class=\"concepto\">grid-template-areas</span> cada texto entre comillas es un renglón y cada palabra una celda. La palabra del renglón " + (r + 1) + ", columna " + (c + 1) + " ";
     var roto = cuartoRoto(estado.mapa);
     if (antes === id) {
-      explicar(id === "." ? lugar + "es un <span class=\"nom\">.</span>, que deja la celda vacía." : textoCuarto(id, lugar + "dice <b>" + id + "</b>. "));
+      explicar(id === "." ? lugar + "es un <span class=\"concepto\">.</span>, que deja la celda vacía." : textoCuarto(id, lugar + "dice <b>" + id + "</b>. "));
     } else if (roto) {
-      explicar("<span class=\"mal\">Cuidado:</span> en <span class=\"nom\">grid-template-areas</span> cada cuarto tiene que formar un rectángulo, y " + porId[roto].con + " ya no lo forma. Cuando eso pasa, el navegador ignora todo el mapa y el departamento se desarma. Elige otro cuarto en alguna celda para arreglarlo.");
+      explicar("<span class=\"mal\">Cuidado:</span> en <span class=\"concepto\">grid-template-areas</span> cada cuarto tiene que formar un rectángulo, y " + porId[roto].con + " ya no lo forma. Cuando eso pasa, el navegador ignora todo el mapa y el departamento se desarma. Elige otro cuarto en alguna celda para arreglarlo.");
     } else if (id === ".") {
-      explicar(lugar + "ahora es un <span class=\"nom\">.</span>, que deja la celda vacía: ese pedazo del terreno se queda sin construir.");
+      explicar(lugar + "ahora es un <span class=\"concepto\">.</span>, que deja la celda vacía: ese pedazo del terreno se queda sin construir.");
     } else {
       explicar(textoCuarto(id, lugar + "ahora dice <b>" + id + "</b>, así que esa celda pasó a ser parte " + porId[id].de + ". "));
     }
@@ -443,9 +443,9 @@
     var b = pre.querySelector("[data-k=\"" + k + "\"]");
     if (b) b.focus({ preventScroll: true });
     var v = OPCIONES[k][i];
-    if (k === "cols") explicar("<span class=\"nom\">grid-template-columns</span> define el tamaño de las columnas. " + TEXTO[v] + " En este plano, las columnas quedaron de " + enPx("cols") + ".");
-    if (k === "rows") explicar("<span class=\"nom\">grid-template-rows</span> define el tamaño de los renglones. " + (TEXTO[v + "#rows"] || TEXTO[v]) + " En este plano, los renglones quedaron de " + enPx("rows") + ".");
-    if (k === "gap") explicar("<span class=\"nom\">grid-gap</span> especifica el espacio entre cada renglón y columna: aquí es el grosor de los muros, " + v + ". Si solo quieres uno de los dos, usa <span class=\"nom\">grid-row-gap</span> para el espacio entre renglones o <span class=\"nom\">grid-column-gap</span> para el espacio entre columnas.");
+    if (k === "cols") explicar("<span class=\"concepto\">grid-template-columns</span> define el tamaño de las columnas. " + TEXTO[v] + " En este plano, las columnas quedaron de " + enPx("cols") + ".");
+    if (k === "rows") explicar("<span class=\"concepto\">grid-template-rows</span> define el tamaño de los renglones. " + (TEXTO[v + "#rows"] || TEXTO[v]) + " En este plano, los renglones quedaron de " + enPx("rows") + ".");
+    if (k === "gap") explicar("<span class=\"concepto\">grid-gap</span> especifica el espacio entre cada renglón y columna: aquí es el grosor de los muros, " + v + ". Si solo quieres uno de los dos, usa <span class=\"concepto\">grid-row-gap</span> para el espacio entre renglones o <span class=\"concepto\">grid-column-gap</span> para el espacio entre columnas.");
   }
 
   // Lo que mide cada pista en pantalla (al tamaño real del plano): "312px, 156px y 156px"
@@ -463,7 +463,7 @@
     cuartos.forEach(function (el) {
       if (!el.classList.contains("is-fuera")) nombres.push(porId[el.getAttribute("data-item")].nombre.toLowerCase());
     });
-    return "El <span class=\"nom\">.departamento</span> es el contenedor <b>grid</b>. Con <span class=\"nom\">grid-template-columns: " + OPCIONES.cols[estado.cols] + "</span> tiene columnas de " + enPx("cols") + ", y con <span class=\"nom\">grid-template-rows: " + OPCIONES.rows[estado.rows] + "</span> renglones de " + enPx("rows") + ". El <span class=\"nom\">grid-gap</span> de " + OPCIONES.gap[estado.gap] + " es el grosor de los muros. Cada cuarto (" + nombres.slice(0, -1).join(", ") + " y " + nombres[nombres.length - 1] + ") ocupa las celdas que tienen su nombre en <span class=\"nom\">grid-template-areas</span>.";
+    return "El <span class=\"concepto\">.departamento</span> es el contenedor <b>grid</b>. Con <span class=\"concepto\">grid-template-columns: " + OPCIONES.cols[estado.cols] + "</span> tiene columnas de " + enPx("cols") + ", y con <span class=\"concepto\">grid-template-rows: " + OPCIONES.rows[estado.rows] + "</span> renglones de " + enPx("rows") + ". El <span class=\"concepto\">grid-gap</span> de " + OPCIONES.gap[estado.gap] + " es el grosor de los muros. Cada cuarto (" + nombres.slice(0, -1).join(", ") + " y " + nombres[nombres.length - 1] + ") ocupa las celdas que tienen su nombre en <span class=\"concepto\">grid-template-areas</span>.";
   }
 
   /* ---------- Inicio ---------- */

@@ -37,12 +37,12 @@
       a: 8,
       b: 5,
       ops: [
-        ["+", "suma", function (a, b) { return a + b; }],
-        ["-", "resta", function (a, b) { return a - b; }],
-        ["*", "multiplicación", function (a, b) { return a * b; }],
-        ["/", "división", function (a, b) { return a / b; }],
-        ["%", "módulo: el residuo de la división", function (a, b) { return a % b; }],
-        ["**", "potencia", function (a, b) { return Math.pow(a, b); }],
+        ["+", "suma los dos números", function (a, b) { return a + b; }],
+        ["-", "resta el segundo número al primero", function (a, b) { return a - b; }],
+        ["*", "multiplica los dos números", function (a, b) { return a * b; }],
+        ["/", "divide el primer número entre el segundo", function (a, b) { return a / b; }],
+        ["%", "es el módulo: el residuo de dividir el primer número entre el segundo", function (a, b) { return a % b; }],
+        ["**", "eleva el primer número a la potencia del segundo", function (a, b) { return Math.pow(a, b); }],
       ],
     },
     assign: {
@@ -271,10 +271,11 @@
     return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  // Cuadro con la información del operador que está en el hueco.
+  // Explicación del operador que está en el hueco (estándar .grafico-exp):
+  // empieza con el operador en <code>.
   function showInfo(op) {
     var sym = op[0];
-    var html = '<span class="op-toys__info-text">' + esc(op[1].charAt(0).toUpperCase() + op[1].slice(1)) + ".";
+    var html = '<span class="op-toys__info-text"><code>' + esc(sym) + "</code> " + esc(op[1]) + ".";
     if (mode === "assign") {
       var b = MODES.assign.b;
       var same = isUnary(sym)

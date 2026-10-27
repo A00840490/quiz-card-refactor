@@ -8637,6 +8637,41 @@ label.success {
   }
 }
 
+/* =====================================================================
+   grafico-exp: explicación de un gráfico interactivo. Mismo estándar que la
+   del tren del 4-6: párrafo normal del curso (Lato negro, 18px/1.9; 16px/1.5
+   en celular) alineado a la izquierda, y el concepto que se enseña en
+   <code> (o .concepto): monoespaciada, en negritas y en el azul del curso.
+   Si va junto a un bloque de código, se centra verticalmente con él.
+   ===================================================================== */
+.grafico-exp {
+  margin: 0;
+  color: #000000;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+}
+
+@media (min-width: 576px) {
+  .grafico-exp {
+    font-size: 18px;
+    line-height: 1.9;
+  }
+}
+
+.grafico-exp code,
+.grafico-exp .concepto {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--theme-color);
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 87.5%;
+  font-weight: 700;
+}
+
 /* card-block se compacta en pantallas pequeñas (mismos cortes que Bootstrap) */
 @media (max-width: 767px) {
   .card-block {
@@ -11787,25 +11822,4 @@ a.modulo-siguiente:visited:hover {
     top: 0%;
     right: 0%;
   }
-}
-
-/* =========================================================================
-   Explicación de los gráficos interactivos (estándar del tren del 4-6).
-   Párrafo con el mismo tamaño que el texto de la página, en negro puro y
-   sin recuadros; el concepto que se enseña va en <code> (o .concepto):
-   monoespaciado, en negritas y en el azul del curso.
-   ========================================================================= */
-.grafico-exp {
-  color: #000000;
-  text-align: left;
-}
-
-.grafico-exp code,
-.grafico-exp .concepto {
-  padding: 0;
-  background: none;
-  color: var(--theme-color, #093b8b);
-  font-family: Consolas, "Courier New", monospace;
-  font-size: .95em;
-  font-weight: 700;
 }

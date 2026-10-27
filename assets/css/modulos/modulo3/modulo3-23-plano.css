@@ -9,8 +9,6 @@
    código miden lo mismo que en pantalla. En celular el plano es más
    cuadrado y el código va debajo. */
 .plano {
-  --plano-ink: #000000;
-  --plano-name: #2786b2;
   --plano-blue: #093b8b;
   --plano-gold: #fac775;
   --plano-wall: #34302c;
@@ -481,14 +479,10 @@
   background: repeating-linear-gradient(45deg, #e9edf1 0 4px, #d6dce3 4px 5px);
 }
 
-/* ---------- Explicación: párrafo sencillo en negro, el nombre de la parte en azul.
-   Va debajo del plano y del código, a todo el ancho. ---------- */
+/* ---------- Explicación: estándar .grafico-exp (app.css), como la del tren
+   del 4-6. Va debajo del plano y del código, a todo el ancho. ---------- */
 .plano__exp {
   grid-column: 1 / -1;
-  margin: 0;
-  color: var(--plano-ink);
-  font-size: 16px;
-  line-height: 1.75;
   transition: opacity 0.2s ease;
 }
 
@@ -498,12 +492,6 @@
 
 .plano__exp.is-fading {
   opacity: 0;
-}
-
-.plano__exp .nom {
-  font-family: var(--plano-mono);
-  font-weight: 600;
-  color: var(--plano-name);
 }
 
 .plano__exp .mal {

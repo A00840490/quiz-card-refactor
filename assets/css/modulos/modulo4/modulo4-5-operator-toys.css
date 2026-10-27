@@ -147,22 +147,14 @@
 }
 
 .op-toys__info {
+  /* Texto con el estándar .grafico-exp (app.css), como la explicación del
+     tren del 4-6: sin recuadro y centrado verticalmente junto al código */
   display: flex;
-  align-items: center;      /* texto centrado vertical */
-  justify-content: center;  /* y horizontalmente */
-  gap: 10px;
-  justify-self: end;
+  align-items: center;
   align-self: stretch;
   width: 100%;
-  max-width: 340px;
+  max-width: 360px;
   min-height: 150px;
-  padding: 20px 22px;
-  border: 0;
-  border-radius: 12px;
-  background: rgba(15, 76, 145, 0.1);
-  color: #0c447c;
-  font-size: 1.25rem;
-  line-height: 1.5;
   visibility: hidden;
   opacity: 0;
 }
@@ -175,12 +167,6 @@
 
 
 .op-toys__info code {
-  padding: 0 4px;
-  border-radius: 4px;
-  background: rgba(15, 76, 145, 0.12);
-  color: #0c447c;
-  font-family: "Courier New", Courier, monospace;
-  font-weight: 700;
   white-space: nowrap;
 }
 
@@ -303,11 +289,9 @@
   }
 
   .op-toys__info {
-    justify-self: stretch;
     max-width: none;
     min-height: 0;
-    height: 118px;
-    padding: 14px 16px;
+    height: 120px; /* alto fijo: los cubos no brincan cuando cambia el texto */
     overflow: hidden;
   }
 }

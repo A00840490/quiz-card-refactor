@@ -552,11 +552,9 @@
   70%, 100% { opacity: 1; }
 }
 
+/* Texto con el estándar .grafico-exp (app.css) */
 .capsulas__dex-desc {
   margin: 0;
-  color: #1c2434;
-  font-size: 16px;
-  line-height: 1.45;
 }
 
 /* Ejemplo: mini editor y vista previa, como en los ejemplos del curso. Va de
@@ -603,10 +601,6 @@
 
   .capsulas__dex-entry {
     gap: 10px;
-  }
-
-  .capsulas__dex-desc {
-    font-size: 14px;
   }
 }
 
