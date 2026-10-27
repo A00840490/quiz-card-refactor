@@ -136,8 +136,8 @@
   /* ---------- Aplicar el código al plano ---------- */
   function aplicar() {
     var cols = OPCIONES.cols[estado.cols], rows = OPCIONES.rows[estado.rows], gap = OPCIONES.gap[estado.gap];
-    grid.style.gridTemplateColumns = celdas.style.gridTemplateColumns = cols;
-    grid.style.gridTemplateRows = celdas.style.gridTemplateRows = rows;
+    grid.style.gridTemplateColumns = cols;
+    grid.style.gridTemplateRows = rows;
     grid.style.gap = celdas.style.gap = gap;
     hoja.style.setProperty("--muro", gap);
 
@@ -181,6 +181,9 @@
   /* ---------- Cotas con el tamaño de cada pista y el número de cada línea ---------- */
   function dibujarCotas() {
     var cs = getComputedStyle(grid);
+    // Las celdas para hacer clic copian las pistas ya calculadas en px (con "auto" quedarían vacías)
+    celdas.style.gridTemplateColumns = cs.gridTemplateColumns;
+    celdas.style.gridTemplateRows = cs.gridTemplateRows;
     var anchos = cs.gridTemplateColumns.split(" ").map(parseFloat);
     var altos = cs.gridTemplateRows.split(" ").map(parseFloat);
     var gap = parseFloat(cs.columnGap) || 0, muro = parseFloat(cs.paddingLeft) || 0;
@@ -304,7 +307,7 @@
     abierto = { origen: origen, alElegir: alElegir };
     origen.classList.add("is-abierta");
     origen.setAttribute("aria-expanded", "true");
-    menu.innerHTML = "<p class=\"plano__menu-titulo\">" + titulo + "</p>" + opciones.map(function (o, i) {
+    menu.innerHTML = (titulo ? "<p class=\"plano__menu-titulo\">" + titulo + "</p>" : "") + opciones.map(function (o, i) {
       return "<button type=\"button\" role=\"menuitem\" class=\"plano__opcion" + (o.actual ? " is-actual" : "") + "\" data-i=\"" + i + "\">" + o.html + "</button>";
     }).join("");
     menu.hidden = false;
@@ -316,6 +319,8 @@
     if (o.bottom + h + 6 > window.innerHeight && o.top - h - 6 > 0) top = o.top - r.top - h - 6;
     menu.style.left = left + "px";
     menu.style.top = top + "px";
+    // El menú crece desde el elemento que se tocó
+    menu.style.setProperty("--origen", Math.max(0, Math.min(w, o.left - r.left - left + 20)) + "px " + (top < o.top - r.top ? h + "px" : "0"));
     requestAnimationFrame(function () { menu.classList.add("is-on"); });
     var actual = menu.querySelector(".is-actual") || menu.querySelector(".plano__opcion");
     actual.focus({ preventScroll: true });
@@ -428,7 +433,7 @@
     if (abierto && abierto.origen === b) { cerrarMenu(); return; }
     var k = b.getAttribute("data-k");
     var ops = OPCIONES[k].map(function (v, i) { return { html: "<code>" + esc(v) + "</code>", actual: i === estado[k] }; });
-    abrirMenu(b, PROPIEDAD[k], ops, function (i) { cambiarValor(k, i); });
+    abrirMenu(b, null, ops, function (i) { cambiarValor(k, i); });
   });
 
   function cambiarValor(k, i) {
@@ -438,15 +443,34 @@
     var b = pre.querySelector("[data-k=\"" + k + "\"]");
     if (b) b.focus({ preventScroll: true });
     var v = OPCIONES[k][i];
-    if (k === "cols") explicar("<span class=\"nom\">grid-template-columns</span> define el tamaño de las columnas. " + TEXTO[v] + " Mira las cotas de arriba.");
-    if (k === "rows") explicar("<span class=\"nom\">grid-template-rows</span> define el tamaño de los renglones. " + (TEXTO[v + "#rows"] || TEXTO[v]) + " Mira las cotas de la izquierda.");
+    if (k === "cols") explicar("<span class=\"nom\">grid-template-columns</span> define el tamaño de las columnas. " + TEXTO[v] + " En este plano, las columnas quedaron de " + enPx("cols") + ".");
+    if (k === "rows") explicar("<span class=\"nom\">grid-template-rows</span> define el tamaño de los renglones. " + (TEXTO[v + "#rows"] || TEXTO[v]) + " En este plano, los renglones quedaron de " + enPx("rows") + ".");
     if (k === "gap") explicar("<span class=\"nom\">grid-gap</span> especifica el espacio entre cada renglón y columna: aquí es el grosor de los muros, " + v + ". Si solo quieres uno de los dos, usa <span class=\"nom\">grid-row-gap</span> para el espacio entre renglones o <span class=\"nom\">grid-column-gap</span> para el espacio entre columnas.");
+  }
+
+  // Lo que mide cada pista en pantalla (al tamaño real del plano): "312px, 156px y 156px"
+  function enPx(k) {
+    var cs = getComputedStyle(grid);
+    var lista = (k === "cols" ? cs.gridTemplateColumns : cs.gridTemplateRows).split(" ").map(function (v) {
+      return Math.round(parseFloat(v)) + "px";
+    });
+    return lista.slice(0, -1).join(", ") + " y " + lista[lista.length - 1];
+  }
+
+  // Explicación inicial: describe el plano como está
+  function resumen() {
+    var nombres = [];
+    cuartos.forEach(function (el) {
+      if (!el.classList.contains("is-fuera")) nombres.push(porId[el.getAttribute("data-item")].nombre.toLowerCase());
+    });
+    return "El <span class=\"nom\">.departamento</span> es el contenedor <b>grid</b>. Con <span class=\"nom\">grid-template-columns: " + OPCIONES.cols[estado.cols] + "</span> tiene columnas de " + enPx("cols") + ", y con <span class=\"nom\">grid-template-rows: " + OPCIONES.rows[estado.rows] + "</span> renglones de " + enPx("rows") + ". El <span class=\"nom\">grid-gap</span> de " + OPCIONES.gap[estado.gap] + " es el grosor de los muros. Cada cuarto (" + nombres.slice(0, -1).join(", ") + " y " + nombres[nombres.length - 1] + ") ocupa las celdas que tienen su nombre en <span class=\"nom\">grid-template-areas</span>.";
   }
 
   /* ---------- Inicio ---------- */
   aplicar();
   pintarCodigo();
   ajustar();
+  exp.innerHTML = resumen();
   if (window.ResizeObserver) {
     new ResizeObserver(ajustar).observe(fitEl);
   } else {
