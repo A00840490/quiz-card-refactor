@@ -64,7 +64,7 @@
       s.push('<circle cx="' + CX + '" cy="' + CY + '" r="' + r.toFixed(1) + '" fill="none" stroke="#000" stroke-opacity=".2" stroke-width=".7"/>');
     }
     // El nombre del género, cuatro veces alrededor del disco
-    s.push('<text font-family="Roboto, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="5" fill="#ffffff" fill-opacity=".9">');
+    s.push('<text font-family="Roboto, Arial, sans-serif" font-size="32" font-weight="800" letter-spacing="6" dominant-baseline="central" fill="#ffffff" fill-opacity=".9">');
     for (var q = 0; q < 4; q++) {
       s.push('<textPath href="#tt-anillo" startOffset="' + (12.5 + 25 * q) + '%" text-anchor="middle">' + it.nombre.toUpperCase() + "</textPath>");
     }

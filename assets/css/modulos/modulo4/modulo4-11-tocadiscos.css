@@ -160,7 +160,13 @@
   white-space: nowrap;
 }
 
+/* Las teclas van centradas en el frente, sin importar lo ancho de la
+   pantallita o de la torreta */
 .tt__keys {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   gap: calc(var(--u) * 10);
 }
