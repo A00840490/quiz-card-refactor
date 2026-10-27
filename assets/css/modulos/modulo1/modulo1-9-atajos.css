@@ -245,8 +245,7 @@
 .kb__k--w2 { flex-grow: 2.2; }
 .kb__k--w6 { flex-grow: 6; }
 
-.kb__k.is-on,
-.kb__mouse.is-on {
+.kb__k.is-on {
   border-color: var(--theme-color);
   background: var(--theme-color);
   color: #ffffff;
@@ -289,19 +288,64 @@
   }
 }
 
+/* Mouse dibujado junto a la explicación: gris en reposo; en los atajos
+   con clic, el botón izquierdo se pinta del color del curso y el mouse
+   se hunde una y otra vez, como si se estuviera haciendo clic */
 .kb__mouse {
   flex: none;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 48px;
-  border: 2px solid #c9d1dd;
-  border-radius: 17px;
-  background: #ffffff;
-  color: #9aa4b2;
-  font-size: 10px;
-  font-weight: 700;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 48px;
+  color: #b3bcc9;
+  transition: color 0.15s ease;
+}
+
+.kb__mouse svg {
+  overflow: visible;
+}
+
+.kb__mouse rect:first-of-type {
+  fill: #ffffff;
+}
+
+.kb__mouse-btn,
+.kb__mouse-wheel {
+  fill: #ffffff;
+  transition: fill 0.15s ease;
+}
+
+.kb__mouse.is-on {
+  color: var(--theme-color);
+}
+
+.kb__mouse.is-on svg {
+  animation: kb-click 1.2s ease-in-out infinite;
+}
+
+.kb__mouse.is-on .kb__mouse-btn {
+  fill: var(--theme-color);
+  animation: kb-click-btn 1.2s ease-in-out infinite;
+}
+
+@keyframes kb-click {
+  0%, 30%, 100% { transform: none; }
+  45%, 55% { transform: translateY(3px) scale(0.96); }
+}
+
+@keyframes kb-click-btn {
+  0%, 30%, 70%, 100% { fill-opacity: 0.35; }
+  45%, 55% { fill-opacity: 1; }
+}
+
+/* Mouse chiquito en la lista ("Alt + Clic") */
+.kb__key svg[viewBox="0 0 40 66"] {
+  stroke-width: 3.5;
+  vertical-align: -2px;
+}
+
+.kb__key svg[viewBox="0 0 40 66"] rect:first-of-type,
+.kb__key .kb__mouse-btn {
+  fill: none;
 }
 
 @media (max-width: 991px) {
@@ -349,6 +393,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .kb__out p {
+    animation: none;
+  }
+
+  .kb__mouse.is-on svg,
+  .kb__mouse.is-on .kb__mouse-btn {
     animation: none;
   }
 

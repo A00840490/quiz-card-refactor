@@ -23,6 +23,22 @@
   }
   var ARROWS = { Up: arrow(0), Right: arrow(90), Down: arrow(180), Left: arrow(270) };
 
+  // Mouse dibujado: cuerpo, botón izquierdo, rueda y cable. Al hacer clic
+  // el botón izquierdo se pinta y el mouse se hunde (ver .kb__mouse en el CSS).
+  function mouse(size) {
+    return (
+      '<svg viewBox="0 0 40 66" width="' + size * 40 / 66 + '" height="' + size + '" fill="none" stroke="currentColor" ' +
+      'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M20 12C20 6 24 4 28 2"/>' +
+      '<rect x="4" y="12" width="32" height="52" rx="16"/>' +
+      '<path class="kb__mouse-btn" d="M20 12A16 16 0 0 0 4 28V32H20Z"/>' +
+      '<path d="M4 32H36M20 12V32"/>' +
+      '<rect class="kb__mouse-wheel" x="17.5" y="17" width="5" height="9" rx="2.5"/>' +
+      "</svg>"
+    );
+  }
+  var MOUSE_ICON = mouse(14);
+
   // Teclado dibujado: [texto, tamaño, id]. El id une la tecla con el atajo.
   var LAYOUT = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "\\"],
@@ -36,8 +52,8 @@
 
   // Texto de cada tecla en la lista, según el sistema.
   var LABELS = {
-    win: { Up: ARROWS.Up, Down: ARROWS.Down, Click: "Clic" },
-    mac: { Cmd: "⌘ Cmd", Option: "⌥ Option", Shift: "⇧ Shift", Up: ARROWS.Up, Down: ARROWS.Down, Click: "Clic" },
+    win: { Up: ARROWS.Up, Down: ARROWS.Down, Click: MOUSE_ICON + " Clic" },
+    mac: { Cmd: "⌘ Cmd", Option: "⌥ Option", Shift: "⇧ Shift", Up: ARROWS.Up, Down: ARROWS.Down, Click: MOUSE_ICON + " Clic" },
   };
 
   var board = root.querySelector("[data-kb-board]");
@@ -46,6 +62,7 @@
   var items = Array.prototype.slice.call(root.querySelectorAll("[data-kb-item]"));
   var state = { os: "win", item: items[0], step: 0 };
   var timer = null;
+  var lastOut = "";
 
   function esc(s) {
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -119,8 +136,8 @@
     // vuelva a animar cada vez que alternan los pasos.
     var html =
       "<p>" + state.item.querySelector(".kb__desc").innerHTML + "</p>" +
-      '<span class="kb__mouse' + (on.Click ? " is-on" : "") + '" aria-hidden="true">Clic</span>';
-    if (out.innerHTML !== html) out.innerHTML = html;
+      '<span class="kb__mouse' + (on.Click ? " is-on" : "") + '" aria-hidden="true">' + mouse(64) + "</span>";
+    if (lastOut !== html) out.innerHTML = lastOut = html;
   }
 
   // Atajos de dos pasos: alterna entre el primero y el segundo.
