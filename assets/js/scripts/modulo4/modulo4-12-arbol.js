@@ -94,6 +94,7 @@
   function visible(n) { return n.s <= st.k; }
   function cuenta(n) { return visible(n) ? 1 + (n.c || []).reduce(function (a, k) { return a + cuenta(k); }, 0) : 0; }
   function idDe(n) { var a = (n.a || []).filter(function (p) { return p[0] === "id"; })[0]; return a ? a[1] : null; }
+  function enOrden(n, lista) { lista = lista || []; lista.push(n); (n.c || []).forEach(function (k) { enOrden(k, lista); }); return lista; }
   function nombre(n) { return n.t === "#document" ? "document" : "&lt;" + esc(n.t) + "&gt;"; }
 
   /* ---------- Referencias ---------- */
@@ -141,14 +142,13 @@
   }
 
   /* ---------- Efecto Matrix en un nodo ---------- */
-  // La gota cae desde arriba del árbol hasta el nodo
-  function gota(nd) {
+  // La gota cae desde arriba del panel hasta donde va a nacer el nodo
+  function gota(x, y) {
     if (reduce) return;
-    var b = treeBox.getBoundingClientRect(), r = nd.getBoundingClientRect();
-    var alto = Math.max(30, r.top - b.top + r.height / 2);
+    var alto = Math.max(30, y);
     var g = document.createElement("span");
     g.className = "dom__gota";
-    g.style.left = (r.left - b.left + 4) + "px";
+    g.style.left = (x - 7) + "px";
     g.style.top = "0px";
     g.style.height = alto + "px";
     var n = Math.ceil(alto / 13.6), s = "";
@@ -169,7 +169,8 @@
       });
     })(nd);
     var largo = partes.reduce(function (a, p) { return a + p.f.length; }, 0);
-    var inicio = performance.now() + (retraso || 0), dura = 380 + largo * 22;
+    var inicio = performance.now() + (retraso || 0), dura = 420 + largo * 22;
+    nd.style.width = nd.offsetWidth + "px";   // los caracteres no cambian el ancho mientras se descifra
     partes.forEach(function (p) { p.n.nodeValue = p.f.replace(/\S/g, glifo); });
     (function paso(t) {
       var avance = Math.max(0, (t - inicio) / dura), corte = Math.floor(avance * largo), pos = 0;
@@ -179,32 +180,139 @@
         p.n.nodeValue = txt;
       });
       if (avance < 1) requestAnimationFrame(paso);
-      else partes.forEach(function (p) { p.n.nodeValue = p.f; });
+      else { partes.forEach(function (p) { p.n.nodeValue = p.f; }); nd.style.width = ""; }
     })(performance.now());
   }
 
-  /* ---------- Pintar ---------- */
-  function ficha(n) {
-    var cls = ["dom__nd"];
-    cls.push(n.x != null ? "dom__nd--tx" : n.t === "#document" ? "dom__nd--doc" : "dom__nd--el");
-    if (st.sel === n.u) cls.push("is-sel");
-    var dentro;
-    if (n.x != null) dentro = '"' + esc(n.x) + '"';
-    else if (n.t === "#document") dentro = "document";
-    else dentro = "<b>&lt;" + esc(n.t) + "&gt;</b>" + (n.a || []).map(function (a) { return '<i class="at">' + esc(a[0]) + '="' + esc(a[1]) + '"</i>'; }).join("");
-    return '<span class="' + cls.join(" ") + '" data-u="' + n.u + '" tabindex="0" role="button">' + dentro + "</span>";
+  /* ---------- Pintar el árbol ----------
+     Árbol de arriba hacia abajo, siempre centrado en el panel: el primer nodo
+     nace en el centro y, conforme llegan más, el árbol se reacomoda y crece
+     hacia los lados y hacia abajo. Cada nodo nuevo sale de su padre y su rama
+     se dibuja sola. Las fichas se quedan en la página entre pasos para que
+     CSS anime su cambio de lugar. */
+  var stage = tree, ramas = $(".dom__ramas");
+  var fichas = {}, lineas = {}, pos = {};
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function hijosVis(n) { return (n.c || []).filter(visible); }
+  function contenido(n) {
+    if (n.x != null) return '"' + esc(n.x) + '"';
+    if (n.t === "#document") return "document";
+    return "<b>&lt;" + esc(n.t) + "&gt;</b>" + (n.a || []).map(function (a) { return '<i class="at">' + esc(a[0]) + '="' + esc(a[1]) + '"</i>'; }).join("");
   }
-  function rama(n) {
-    var hijos = (n.c || []).filter(visible);
-    return "<li" + (st.nuevos.indexOf(n.u) >= 0 ? ' class="is-in"' : "") + ">" + ficha(n) +
-      (hijos.length ? "<ul>" + hijos.map(rama).join("") + "</ul>" : "") + "</li>";
+  function crea(n) {
+    var el = document.createElement("span");
+    el.className = "dom__nd " + (n.x != null ? "dom__nd--tx" : n.t === "#document" ? "dom__nd--doc" : "dom__nd--el");
+    el.setAttribute("data-u", n.u);
+    el.setAttribute("tabindex", "0");
+    el.setAttribute("role", "button");
+    el.innerHTML = contenido(n);
+    stage.appendChild(el);
+    fichas[n.u] = el;
+    if (st.padre[n.u]) {
+      var p = document.createElementNS(SVGNS, "path");
+      p.setAttribute("pathLength", "1");
+      ramas.appendChild(p);
+      lineas[n.u] = p;
+    }
+    return el;
   }
-  function pintaArbol() {
-    tree.innerHTML = '<ul class="dom__tr">' + rama(st.m) + "</ul>";
-    var nuevos = $$(".is-in > .dom__nd", tree);
-    nuevos.forEach(function (nd, i) { gota(nd); descifra(nd, 160 + i * 60); });
-    if (nuevos.length) llueve(1600);
+  function acomodo() {
+    var W = treeBox.clientWidth, H = treeBox.clientHeight, angosto = W < 480;
+    var GAP = angosto ? 8 : 14, ROW = angosto ? 66 : 76, todos = [];
+    (function mide(n, d) {
+      var el = fichas[n.u];
+      n.pw = el.offsetWidth; n.ph = el.offsetHeight; n.pd = d;
+      todos.push(n);
+      hijosVis(n).forEach(function (k) { mide(k, d + 1); });
+    })(st.m, 0);
+    (function ancho(n) {
+      var hs = hijosVis(n), suma = hs.reduce(function (a, k) { return a + ancho(k); }, 0) + GAP * Math.max(0, hs.length - 1);
+      n.psw = Math.max(n.pw, suma);
+      return n.psw;
+    })(st.m);
+    (function coloca(n, x0) {
+      n.px = x0 + n.psw / 2;
+      var hs = hijosVis(n), suma = hs.reduce(function (a, k) { return a + k.psw; }, 0) + GAP * Math.max(0, hs.length - 1), x = n.px - suma / 2;
+      hs.forEach(function (k) { coloca(k, x); x += k.psw + GAP; });
+    })(st.m, 0);
+    var hondo = todos.reduce(function (a, n) { return Math.max(a, n.pd); }, 0);
+    var alto = hondo * ROW + 52;
+    var s = Math.min(1, (W - 24) / st.m.psw, (H - 24) / alto);
+    var ox = (W - st.m.psw * s) / 2, oy = (H - alto * s) / 2;
+    var r = {};
+    todos.forEach(function (n) { r[n.u] = { x: ox + n.px * s, y: oy + (n.pd * ROW + 26) * s, w: n.pw * s, h: n.ph * s, s: s }; });
+    return r;
   }
+  function ponFicha(el, p) {
+    el.style.transform = "translate(" + (p.x - p.w / 2).toFixed(1) + "px," + (p.y - p.h / 2).toFixed(1) + "px) scale(" + p.s.toFixed(3) + ")";
+  }
+  // Las ramas siguen a las fichas mientras se mueven (el acomodo guarda
+  // sus medidas en px/pw/ph/pd/psw para no pisar n.x, el texto del nodo)
+  var siguiendo = 0, sigueHasta = 0;
+  function dibujaRamas() {
+    var b = treeBox.getBoundingClientRect();
+    Object.keys(lineas).forEach(function (u) {
+      var pa = st.padre[u], a = fichas[pa.u], c = fichas[u];
+      if (!a || !c) return;
+      var ra = a.getBoundingClientRect(), rc = c.getBoundingClientRect();
+      var x1 = ra.left + ra.width / 2 - b.left, y1 = ra.bottom - b.top, x2 = rc.left + rc.width / 2 - b.left, y2 = rc.top - b.top, m = (y1 + y2) / 2;
+      lineas[u].setAttribute("d", "M" + x1.toFixed(1) + " " + y1.toFixed(1) + "C" + x1.toFixed(1) + " " + m.toFixed(1) + " " + x2.toFixed(1) + " " + m.toFixed(1) + " " + x2.toFixed(1) + " " + y2.toFixed(1));
+    });
+  }
+  function sigueRamas(ms) {
+    sigueHasta = Math.max(sigueHasta, performance.now() + ms);
+    if (siguiendo) return;
+    (function loop(t) {
+      dibujaRamas();
+      siguiendo = t < sigueHasta ? requestAnimationFrame(loop) : 0;
+    })(performance.now());
+  }
+  function pintaArbol(sinAnimar) {
+    var vivos = {};
+    enOrden(st.m).forEach(function (n) { if (visible(n)) vivos[n.u] = n; });
+    // Los que ya no están regresan a su padre y se desvanecen
+    Object.keys(fichas).forEach(function (u) {
+      if (vivos[u]) return;
+      var el = fichas[u], p = pos[st.padre[u] && st.padre[u].u];
+      if (p && !sinAnimar && !reduce) { el.classList.add("is-gone"); ponFicha(el, { x: p.x, y: p.y, w: 0, h: 0, s: .1 }); }
+      if (lineas[u]) lineas[u].classList.add("is-gone");
+      (function (el, ln) { setTimeout(function () { el.remove(); if (ln) ln.remove(); }, sinAnimar || reduce ? 0 : 600); })(el, lineas[u]);
+      delete fichas[u]; delete lineas[u];
+    });
+    var nuevos = [];
+    Object.keys(vivos).forEach(function (u) { if (!fichas[u]) { crea(vivos[u]); nuevos.push(u); } });
+    var p = acomodo();
+    nuevos.forEach(function (u) {
+      var el = fichas[u], padre = st.padre[u], desde = padre && pos[padre.u] ? pos[padre.u] : p[u];
+      el.classList.add("is-born");
+      if (lineas[u]) lineas[u].classList.add("is-new");
+      ponFicha(el, { x: desde.x, y: desde.y, w: p[u].w * .1, h: p[u].h * .1, s: p[u].s * .1 });
+    });
+    void stage.offsetWidth;
+    Object.keys(vivos).forEach(function (u) {
+      var el = fichas[u];
+      el.classList.remove("is-born");
+      el.classList.toggle("is-sel", st.sel === u);
+      if (sinAnimar) el.classList.add("is-quieto");
+      ponFicha(el, p[u]);
+    });
+    pos = p;
+    nuevos.forEach(function (u, i) {
+      var el = fichas[u];
+      el.classList.add("is-glow");
+      setTimeout(function () { el.classList.remove("is-glow"); }, 1200);
+      if (lineas[u]) requestAnimationFrame(function () { lineas[u] && lineas[u].classList.remove("is-new"); });
+      if (st.k > 0) { gota(p[u].x, p[u].y); descifra(el, 120 + i * 60); }
+    });
+    if (sinAnimar) { void stage.offsetWidth; $$(".is-quieto", stage).forEach(function (el) { el.classList.remove("is-quieto"); }); dibujaRamas(); }
+    else sigueRamas(1000);
+    if (nuevos.length && st.k > 0) llueve(1600);
+  }
+  function marcaSel() {
+    Object.keys(fichas).forEach(function (u) { fichas[u].classList.toggle("is-sel", st.sel === u); });
+  }
+  window.addEventListener("resize", function () { pintaArbol(true); });
+
   function pintaCodigo() {
     codeEl.innerHTML = LINEAS.map(function (l) {
       return '<span class="dom__ln" data-r="' + l.r + '"' + (l.s ? ' data-s="' + l.s + '"' : "") + ">" + l.h + "</span>";
@@ -241,7 +349,6 @@
   /* ---------- Armar el árbol paso a paso ---------- */
   function ir(k, conTexto) {
     st.k = k; st.sel = null;
-    st.nuevos = Object.keys(st.nodo).filter(function (u) { return st.nodo[u].s === k && k > 0; });
     pintaArbol(); resalta(k || null); barra();
     if (conTexto && MSG[k]) say(MSG[k]);
     controles();
@@ -298,8 +405,8 @@
     var n = st.nodo[u];
     if (!n) return;
     para();
-    st.sel = u; st.nuevos = [];
-    pintaArbol();
+    st.sel = u;
+    marcaSel();
     resalta(n.s || null);
     say(explica(n));
   }
