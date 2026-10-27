@@ -91,11 +91,14 @@
   color: var(--b-muted);
 }
 
+/* Toda la corrección va en verde o en rojo; el código que menciona, en el
+   azul del curso (monoespaciada, como en el Ejercicio 4) */
 .builder__feedback code {
-  padding: 1px 6px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.06);
-  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--theme-color, #093b8b);
+  font-size: 87.5%;
   font-weight: 700;
 }
 

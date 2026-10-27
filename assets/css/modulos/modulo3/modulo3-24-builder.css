@@ -33,13 +33,6 @@
   color: var(--b-ink);
 }
 
-.css-builder__summary {
-  display: block;
-  margin-top: 4px;
-  color: var(--b-ink);
-  font-weight: 700;
-}
-
 /* Colores del código CSS */
 .css-builder__sel {
   color: #f1ac29;

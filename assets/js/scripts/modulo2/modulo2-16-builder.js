@@ -15,7 +15,7 @@
         {
           a: "html",
           ask: "Todo documento empieza con la etiqueta que envuelve la página completa. ¿Cuál es?",
-          why: "La etiqueta html envuelve todo el documento; dentro de ella van head y body.",
+          why: "La etiqueta `html` envuelve todo el documento; dentro de ella van `head` y `body`.",
         },
       ],
     },
@@ -26,7 +26,7 @@
         {
           a: "head",
           ask: "¿Qué etiqueta guarda la información de la página que no se muestra, como el título?",
-          why: "En head va la información sobre la página: codificación, título, estilos, etc.",
+          why: "En `head` va la información sobre la página: codificación, título, estilos, etc.",
         },
       ],
     },
@@ -37,7 +37,7 @@
         {
           a: "meta",
           ask: "¿Qué etiqueta indica la codificación de caracteres de la página?",
-          why: "La etiqueta meta con charset=\"UTF-8\" permite mostrar acentos y la ñ correctamente.",
+          why: "La etiqueta `meta` con `charset=\"UTF-8\"` permite mostrar acentos y la ñ correctamente.",
         },
       ],
     },
@@ -51,7 +51,7 @@
         {
           a: "body",
           ask: "¿Qué etiqueta contiene todo lo que se ve en la página?",
-          why: "Todo el contenido visible (textos, imágenes, formularios) va dentro de body.",
+          why: "Todo el contenido visible (textos, imágenes, formularios) va dentro de `body`.",
         },
       ],
     },
@@ -62,7 +62,7 @@
         {
           a: "h1",
           ask: "¿Qué etiqueta usamos para el título principal de la página?",
-          why: "h1 es el encabezado de mayor nivel; se usa para el título principal.",
+          why: "`h1` es el encabezado de mayor nivel; se usa para el título principal.",
         },
       ],
     },
@@ -75,13 +75,13 @@
         {
           a: "p",
           ask: "¿Qué etiqueta crea un párrafo de texto?",
-          why: "La etiqueta p crea un párrafo.",
+          why: "La etiqueta `p` crea un párrafo.",
         },
         {
           a: "b",
           fb: "span",
           ask: "¿Qué etiqueta pone la palabra HTML en negritas?",
-          why: "La etiqueta b muestra el texto en negritas.",
+          why: "La etiqueta `b` muestra el texto en negritas.",
         },
       ],
     },
@@ -92,14 +92,14 @@
         {
           a: "ol",
           ask: "¿Qué etiqueta crea una lista ordenada (con números o letras)?",
-          why: "ol (ordered list) crea una lista ordenada.",
+          why: "`ol` (ordered list) crea una lista ordenada.",
         },
         {
           a: "A",
           fb: "1",
           exact: true,
           ask: "¿Qué valor de type hace que la lista use letras mayúsculas?",
-          why: "Con type=\"A\" la lista se numera A, B, C… (con \"a\" serían minúsculas).",
+          why: "Con `type=\"A\"` la lista se numera A, B, C… (con `\"a\"` serían minúsculas).",
         },
       ],
     },
@@ -110,7 +110,7 @@
         {
           a: "li",
           ask: "¿Qué etiqueta crea cada elemento de una lista?",
-          why: "li (list item) es cada elemento de una lista ol o ul.",
+          why: "`li` (list item) es cada elemento de una lista `ol` o `ul`.",
         },
       ],
     },
@@ -125,7 +125,7 @@
         {
           a: "ul",
           ask: "Dentro de «Formularios» va una lista sin orden (con viñetas). ¿Qué etiqueta la crea?",
-          why: "ul (unordered list) crea una lista con viñetas.",
+          why: "`ul` (unordered list) crea una lista con viñetas.",
         },
       ],
     },
@@ -143,7 +143,7 @@
         {
           a: "br",
           ask: "¿Qué etiqueta agrega un salto de línea?",
-          why: "br hace un salto de línea y no necesita etiqueta de cierre.",
+          why: "`br` hace un salto de línea y no necesita etiqueta de cierre.",
         },
       ],
     },
@@ -154,7 +154,7 @@
         {
           a: "h2",
           ask: "¿Qué etiqueta crea un encabezado de segundo nivel?",
-          why: "h2 es el encabezado que sigue en importancia después de h1.",
+          why: "`h2` es el encabezado que sigue en importancia después de `h1`.",
         },
       ],
     },
@@ -165,13 +165,13 @@
         {
           a: "src",
           ask: "¿Qué atributo indica la ruta de la imagen?",
-          why: "src (source) indica dónde está el archivo de la imagen.",
+          why: "`src` (source) indica dónde está el archivo de la imagen.",
         },
         {
           a: "width",
           fb: "data-ancho",
           ask: "¿Qué atributo define el ancho de la imagen?",
-          why: "width define el ancho; height, el alto.",
+          why: "`width` define el ancho; `height`, el alto.",
         },
       ],
     },
@@ -183,13 +183,13 @@
         {
           a: "a",
           ask: "¿Qué etiqueta crea un enlace?",
-          why: "La etiqueta a (anchor) crea un enlace con el atributo href.",
+          why: "La etiqueta `a` (anchor) crea un enlace con el atributo `href`.",
         },
         {
           a: "_blank",
           fb: "_self",
           ask: "¿Qué valor de target abre el enlace en una nueva ventana?",
-          why: "target=\"_blank\" abre el enlace en una nueva pestaña o ventana.",
+          why: "`target=\"_blank\"` abre el enlace en una nueva pestaña o ventana.",
         },
       ],
     },
@@ -201,7 +201,7 @@
         {
           a: "form",
           ask: "¿Qué etiqueta agrupa los campos de un formulario?",
-          why: "form agrupa los campos y define a dónde se envían con action.",
+          why: "`form` agrupa los campos y define a dónde se envían con `action`.",
         },
       ],
     },
@@ -212,7 +212,7 @@
         {
           a: "label",
           ask: "¿Qué etiqueta pone el texto que describe un campo del formulario?",
-          why: "label describe un campo; su atributo for apunta al id del input.",
+          why: "`label` describe un campo; su atributo `for` apunta al `id` del `input`.",
         },
       ],
     },
@@ -223,7 +223,7 @@
         {
           a: "text",
           ask: "¿Qué tipo de input muestra una caja para escribir texto?",
-          why: "type=\"text\" muestra una caja de texto de una línea.",
+          why: "`type=\"text\"` muestra una caja de texto de una línea.",
         },
       ],
     },
@@ -235,7 +235,7 @@
         {
           a: "submit",
           ask: "¿Qué tipo de input crea el botón que envía el formulario?",
-          why: "type=\"submit\" crea el botón que envía el formulario.",
+          why: "`type=\"submit\"` crea el botón que envía el formulario.",
         },
       ],
     },
@@ -300,6 +300,11 @@
         '&lt;$1<span class="codetag">$2</span>'
       )
       .replace(/&gt;([^&]+?)(?=&lt;)/g, '&gt;<span class="codetext">$1</span>');
+  }
+
+  // Texto con `código` en <code> (va en el azul del curso).
+  function rich(s) {
+    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
   }
 
   function qIndex(li, bi) {
@@ -433,8 +438,9 @@
   function renderHeader() {
     var total = QUESTIONS.length;
     els.bar.style.width = (state.current / total) * 100 + "%";
-    var q = QUESTIONS[state.current];
-    els.ask.textContent = state.done ? "¡Completaste la página!" : q ? q.data.ask : "";
+    // Al terminar se queda la última pregunta con su corrección.
+    var q = QUESTIONS[state.done ? state.current - 1 : state.current];
+    els.ask.textContent = q ? q.data.ask : "";
     // Al terminar, el botón de Revisar se vuelve "Intentar de nuevo".
     els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
     els.check.hidden = state.waiting;
@@ -486,9 +492,9 @@
 
     var isLast = state.current === QUESTIONS.length - 1;
     var fb = ok
-      ? "<strong>¡Correcto!</strong> " + esc(q.data.why)
+      ? "<strong>¡Correcto!</strong> " + rich(q.data.why)
       : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
+        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + rich(q.data.why);
 
     if (isLast) {
       // Última pregunta (bien o mal): no hace falta "Continuar", se va

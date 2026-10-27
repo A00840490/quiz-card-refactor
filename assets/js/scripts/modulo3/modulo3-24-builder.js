@@ -29,7 +29,7 @@
             {
               a: "color",
               ask: "¿Qué propiedad cambia el color del texto?",
-              why: "color define el color del texto; background-color, el del fondo.",
+              why: "`color` define el color del texto; `background-color`, el del fondo.",
             },
           ],
         },
@@ -39,7 +39,7 @@
             {
               a: "underline",
               ask: "¿Qué valor de text-decoration subraya el texto?",
-              why: "underline subraya el texto; line-through lo tacha y none quita la decoración.",
+              why: "`underline` subraya el texto; `line-through` lo tacha y `none` quita la decoración.",
             },
           ],
         },
@@ -49,7 +49,7 @@
             {
               a: "font-family",
               ask: "¿Qué propiedad define la fuente (el tipo de letra) del texto?",
-              why: "font-family indica la fuente; font-size, su tamaño.",
+              why: "`font-family` indica la fuente; `font-size`, su tamaño.",
             },
           ],
         },
@@ -70,7 +70,7 @@
               a: "background-color",
               alt: ["background"],
               ask: "¿Qué propiedad cambia el color de fondo del contenedor?",
-              why: "background-color pinta el fondo del elemento.",
+              why: "`background-color` pinta el fondo del elemento.",
             },
           ],
         },
@@ -80,7 +80,7 @@
             {
               a: "font-size",
               ask: "¿Qué propiedad define el tamaño de la fuente?",
-              why: "font-size define el tamaño del texto, por ejemplo en px.",
+              why: "`font-size` define el tamaño del texto, por ejemplo en `px`.",
             },
           ],
         },
@@ -90,12 +90,12 @@
             {
               a: "text-align",
               ask: "¿Qué propiedad alinea el texto dentro del contenedor?",
-              why: "text-align alinea el texto: left, right, center o justify.",
+              why: "`text-align` alinea el texto: `left`, `right`, `center` o `justify`.",
             },
             {
               a: "center",
               ask: "¿Qué valor de text-align centra el texto?",
-              why: "text-align: center centra el texto horizontalmente.",
+              why: "`text-align: center` centra el texto horizontalmente.",
             },
           ],
         },
@@ -117,7 +117,7 @@
             {
               a: "fixed",
               ask: "¿Qué valor de position fija el elemento a la ventana, aunque se haga scroll?",
-              why: "position: fixed posiciona el elemento respecto a la ventana y lo mantiene ahí al hacer scroll.",
+              why: "`position: fixed` posiciona el elemento respecto a la ventana y lo mantiene ahí al hacer scroll.",
             },
           ],
         },
@@ -127,7 +127,7 @@
             {
               a: "top",
               ask: "¿Qué propiedad pega la barra al borde superior?",
-              why: "top indica la distancia al borde superior; con 0 queda pegada arriba.",
+              why: "`top` indica la distancia al borde superior; con `0` queda pegada arriba.",
             },
           ],
         },
@@ -138,7 +138,7 @@
               a: "0",
               alt: ["0px"],
               ask: "¿Qué valor de left pega la barra al borde izquierdo?",
-              why: "left: 0 deja la barra sin distancia al borde izquierdo.",
+              why: "`left: 0` deja la barra sin distancia al borde izquierdo.",
             },
           ],
         },
@@ -148,7 +148,7 @@
             {
               a: "padding",
               ask: "¿Qué propiedad agrega espacio interno hacia todos los lados?",
-              why: "padding es el espacio interno; con un solo valor se aplica a los cuatro lados.",
+              why: "`padding` es el espacio interno; con un solo valor se aplica a los cuatro lados.",
             },
           ],
         },
@@ -173,7 +173,7 @@
             {
               a: "50%",
               ask: "¿Qué valor de width hace que mida la mitad de su elemento padre?",
-              why: "Los porcentajes se calculan sobre el elemento padre: 50% es la mitad.",
+              why: "Los porcentajes se calculan sobre el elemento padre: `50%` es la mitad.",
             },
           ],
         },
@@ -183,7 +183,7 @@
             {
               a: "min-width",
               ask: "¿Qué propiedad evita que la división sea más angosta de 400px?",
-              why: "min-width fija el ancho mínimo; max-width, el máximo.",
+              why: "`min-width` fija el ancho mínimo; `max-width`, el máximo.",
             },
           ],
         },
@@ -194,7 +194,7 @@
               a: "auto",
               alt: ["0 auto"],
               ask: "¿Qué valor de margin centra la división horizontalmente?",
-              why: "Con margin: auto el navegador reparte el espacio sobrante a ambos lados y la centra.",
+              why: "Con `margin: auto` el navegador reparte el espacio sobrante a ambos lados y la centra.",
             },
           ],
         },
@@ -252,6 +252,11 @@
 
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // Texto con `código` en <code> (va en el azul del curso).
+  function rich(s) {
+    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
   }
 
   function qIndex(ei, li, bi) {
@@ -404,14 +409,10 @@
   function renderHeader() {
     renderProgress();
 
-    var q = QUESTIONS[state.current];
-    if (state.done) {
-      els.ask.textContent = "¡Completaste los ejercicios!";
-    } else if (exerciseComplete()) {
-      els.ask.textContent = "¡Terminaste el ejercicio " + (state.ex + 1) + "!";
-    } else {
-      els.ask.textContent = q ? q.data.ask : "";
-    }
+    // Al terminar un ejercicio se queda la última pregunta con su corrección;
+    // el siguiente sale hasta presionar "Siguiente ejercicio".
+    var q = QUESTIONS[exerciseComplete() ? state.current - 1 : state.current];
+    els.ask.textContent = q ? q.data.ask : "";
 
     // Al terminar todo, el botón de Revisar se vuelve "Intentar de nuevo".
     els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
@@ -431,32 +432,12 @@
     renderPreview();
   }
 
-  // Aciertos del ejercicio ei.
-  function exerciseScore(ei) {
-    var total = 0;
-    var hits = 0;
-    QUESTIONS.forEach(function (q, i) {
-      if (q.ex !== ei) return;
-      total++;
-      if (state.correct[i]) hits++;
-    });
-    return { hits: hits, total: total };
-  }
-
   // Pasa a la siguiente pregunta; si el ejercicio se acabó, se queda en él.
   function advance() {
     state.waiting = false;
     state.current++;
     if (state.current >= QUESTIONS.length) state.done = true;
     else if (QUESTIONS[state.current].ex !== state.ex) state.between = true;
-  }
-
-  function summaryHtml() {
-    var s = exerciseScore(state.ex);
-    return (
-      ' <span class="css-builder__summary">Ejercicio ' + (state.ex + 1) + ": " +
-      s.hits + " de " + s.total + " aciertos.</span>"
-    );
   }
 
   // Recuadro vacío: sacudida de lado a lado (como al fallar una contraseña en macOS).
@@ -496,18 +477,23 @@
     state.answers[state.current] = q.data.a;
 
     var fb = ok
-      ? "<strong>¡Correcto!</strong> " + esc(q.data.why)
+      ? "<strong>¡Correcto!</strong> " + rich(q.data.why)
       : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + esc(q.data.why);
+        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + rich(q.data.why);
     var fbClass = "builder__feedback " + (ok ? "is-right" : "is-wrong");
 
-    if (state.current === QUESTIONS.length - 1) {
-      // Última pregunta: no hace falta "Continuar", se va directo al resultado.
+    var lastOfExercise =
+      state.current === QUESTIONS.length - 1 || QUESTIONS[state.current + 1].ex !== state.ex;
+
+    if (lastOfExercise) {
+      // Última pregunta del ejercicio: no hace falta "Continuar". Se queda la
+      // corrección y el siguiente ejercicio sale hasta presionar su botón.
       advance();
       render();
       els.feedback.className = fbClass;
-      els.feedback.innerHTML = fb + summaryHtml();
-      finish();
+      els.feedback.innerHTML = fb;
+      if (state.done) finish();
+      else els.nextEx.focus();
     } else {
       // Bien o mal, la siguiente pregunta sale hasta presionar "Continuar".
       state.waiting = true;
@@ -521,11 +507,6 @@
   function next() {
     advance();
     render();
-    if (exerciseComplete()) {
-      els.feedback.className = "builder__feedback is-hint";
-      els.feedback.innerHTML = summaryHtml();
-      els.nextEx.focus();
-    }
   }
 
   function nextExercise() {
