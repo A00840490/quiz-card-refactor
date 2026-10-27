@@ -452,18 +452,16 @@
   color: #ffffff;
 }
 
-/* La explicación: párrafo sencillo en negro, del mismo tamaño que el texto de
-   la página, con el nombre de la parte en azul y monoespaciada (como el tren
-   del 4-6). Va debajo del tocadiscos y del código y cambia con desvanecido. */
+/* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6):
+   párrafo normal del curso con el concepto en <code> azul. Va debajo del
+   tocadiscos y del código y cambia con desvanecido. */
 .tt__status {
   margin: 18px 0 0;
-  color: #000000;
   transition: opacity .2s ease;
 }
 
 .tt__status.is-fading { opacity: 0; }
-.tt__status .nom { color: #2786b2; font-family: "Source Code Pro", Consolas, monospace; }
-.tt__status code { padding: 0; background: none; color: #000000; font-family: Consolas, "Courier New", monospace; font-size: .95em; white-space: nowrap; }
+.tt__status code { white-space: nowrap; }
 .tt__status .si { color: var(--true); font-weight: 700; }
 .tt__status .no { color: var(--false); font-weight: 700; }
 

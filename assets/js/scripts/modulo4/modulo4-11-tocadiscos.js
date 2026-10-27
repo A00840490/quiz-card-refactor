@@ -263,9 +263,10 @@
   }
 
   /* ---------- La explicación ----------
-     Como en el tren del 4-6: el nombre de la parte va en azul y monoespaciada,
-     el código que se menciona en monoespaciada y lo demás en texto normal. */
-  function nom(t) { return '<span class="nom">' + t + "</span>"; }
+     Estándar .grafico-exp (como el tren del 4-6): el nombre de la parte y el
+     código que se menciona van en <code> (azul, en negritas); lo demás en
+     texto normal. */
+  function nom(t) { return '<span class="concepto">' + t + "</span>"; }
   function cod(t) { return "<code>" + t + "</code>"; }
 
   function explica(f) {
