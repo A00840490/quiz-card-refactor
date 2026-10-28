@@ -4,7 +4,7 @@
    grid-gap es el grosor de los muros. Arriba y a la izquierda, las cotas
    dicen cuánto mide cada columna y cada renglón, con el número de cada
    línea en los extremos. A la derecha, el código que arma el plano (se
-   aplica tal cual) y la explicación del último cambio.
+   aplica tal cual) y, en una ficha sobre él, la explicación del último cambio.
    El plano se dibuja a un tamaño fijo y se escala para caber, así los px del
    código miden lo mismo que en pantalla. En celular el plano es más
    cuadrado y el código va debajo. */
@@ -24,14 +24,19 @@
   .plano {
     grid-template-columns: minmax(0, 620px) minmax(380px, 1fr);
     column-gap: 32px;
-    align-items: center;
+    align-items: start; /* arriba: así la ficha de la explicación crece hacia abajo sin mover nada */
   }
 }
 
+/* El código con la ficha de la explicación encima (.grafico-ficha-col en app.css) */
 .plano__side {
-  display: grid;
-  gap: 14px;
   min-width: 0;
+}
+
+/* La explicación del plano es larga (menciona varias propiedades), así que
+   aquí la ficha aprovecha más el ancho de la ventana */
+@media (min-width: 576px) {
+  .plano .grafico-ficha { width: min(92%, 600px); }
 }
 
 /* ---------- Escala del plano ---------- */
@@ -540,20 +545,9 @@
   background: repeating-linear-gradient(45deg, #e9edf1 0 4px, #d6dce3 4px 5px);
 }
 
-/* ---------- Explicación: estándar .grafico-exp (app.css), como la del tren
-   del 4-6. Va debajo del plano y del código, a todo el ancho. ---------- */
-.plano__exp {
-  grid-column: 1 / -1;
-  transition: opacity 0.2s ease;
-}
-
-.plano__exp:empty {
-  display: none;
-}
-
-.plano__exp.is-fading {
-  opacity: 0;
-}
+/* ---------- Explicación: estándar .grafico-exp (app.css), en la ficha de
+   renglones montada sobre la ventana de código (.grafico-ficha en app.css).
+   Al cambiar, la ficha completa se desvanece y vuelve a subir. ---------- */
 
 .plano__exp .mal {
   font-weight: 700;
@@ -567,8 +561,7 @@
   }
 
   .plano *,
-  .plano__menu,
-  .plano__exp {
+  .plano__menu {
     transition: none !important;
   }
 }

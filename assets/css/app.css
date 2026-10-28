@@ -8681,8 +8681,9 @@ label.success {
 }
 
 /* =====================================================================
-   grafico-ficha: cuando el gráfico va junto a una ventana de código (banda
-   del 4-10, tocadiscos del 4-11, árbol del 4-12), la explicación va en una
+   grafico-ficha: cuando el gráfico va junto a una ventana de código (plano
+   del 3-23, banda del 4-10, tocadiscos del 4-11, árbol del 4-12; la ventana
+   puede ser .js-term o .lesson-demo-stack), la explicación va en una
    ficha de renglones montada sobre la parte de abajo de la ventana. La
    ventana aparta abajo el espacio que la ficha cubre, así que nunca tapa el
    código ni la salida de la consola. Con cada texto nuevo la ficha se
@@ -8702,7 +8703,8 @@ label.success {
 }
 
 .grafico-ficha-col > .js-term { margin: 0; }
-.grafico-ficha-col > .js-term .js-term__body { padding-bottom: 56px; }
+.grafico-ficha-col > .js-term .js-term__body,
+.grafico-ficha-col > .lesson-demo-stack { padding-bottom: 56px; }
 
 .grafico-ficha {
   --lh: 1.5em; /* el interlineado de .grafico-exp: cada renglón mide una línea de texto */
@@ -8762,7 +8764,8 @@ label.success {
 }
 
 @media (min-width: 576px) {
-  .grafico-ficha-col > .js-term .js-term__body { padding-bottom: 64px; }
+  .grafico-ficha-col > .js-term .js-term__body,
+  .grafico-ficha-col > .lesson-demo-stack { padding-bottom: 64px; }
   .grafico-ficha {
     --lh: 1.9em;
     width: min(90%, 500px);
