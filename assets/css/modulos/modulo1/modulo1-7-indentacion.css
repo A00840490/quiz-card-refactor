@@ -2,8 +2,8 @@
    Usa la ventana estándar del curso (.lesson-demo-stack de lesson-demo.css)
    y numera las líneas con .code--numbered. Cada línea lleva al inicio un
    .indenta__sangria del ancho de su nivel (--nivel × 4 espacios); en el
-   estado .is-mal la sangría mide 0 y el código queda todo pegado a la
-   izquierda. El JS (modulo1-7-indentacion.js) alterna entre los dos. */
+   estado .is-mal la sangría mide 0, el código queda todo pegado a la
+   izquierda y las líneas que deberían ir sangradas se subrayan en rojo. El JS (modulo1-7-indentacion.js) alterna entre los dos. */
 
 .indenta {
   position: relative;
@@ -45,47 +45,30 @@
   width: 0;
 }
 
-/* Estado actual, a la derecha de la barra de la ventana */
-.indenta__estado {
+/* Sin indentación, las líneas que deberían ir sangradas llevan un subrayado
+   rojo ondulado al inicio, como las correcciones de Word. Al sangrar, el
+   subrayado se va con la línea y se desvanece; al regresar, aparece cuando
+   la línea ya llegó a la izquierda. */
+.indenta__sangria--falta {
+  position: relative;
+}
+
+.indenta__sangria--falta::after {
+  content: "";
   position: absolute;
-  top: 0;
-  right: 20px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-}
-
-.indenta__tag {
-  grid-area: 1 / 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font: 700 11px/1.2 Arial, sans-serif;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition: opacity 0.35s ease;
-}
-
-.indenta__estado-in {
-  display: grid;
-  justify-items: end;
-}
-
-.indenta__tag--mal {
-  background: rgba(255, 107, 98, 0.14);
-  color: #ff8a80;
-}
-
-.indenta__tag--bien {
-  background: rgba(56, 200, 120, 0.14);
-  color: #6fdc9a;
-}
-
-.indenta.is-mal .indenta__tag--bien,
-.indenta:not(.is-mal) .indenta__tag--mal {
+  left: 100%;
+  top: 0.18em;
+  width: 2ch;
+  height: 5px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='5'%3E%3Cpath d='M0 4l1.5-3 1.5 3 1.5-3 1.5 3' fill='none' stroke='%23ff3b30' stroke-width='1.4'/%3E%3C/svg%3E") repeat-x 0 0 / 6px 5px;
   opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.indenta.is-mal .indenta__sangria--falta::after {
+  opacity: 1;
+  transition-delay: 0.75s;
 }
 
 @media (max-width: 575px) {
@@ -93,18 +76,11 @@
     padding: 18px 12px 22px 0;
     font-size: min(12px, calc((100cqw - 70px) / 24));
   }
-  .indenta__estado {
-    right: 14px;
-  }
-  .indenta__tag {
-    padding: 3px 8px;
-    font-size: 10px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .indenta__sangria,
-  .indenta__tag {
+  .indenta__sangria--falta::after {
     transition: none;
   }
 }
