@@ -209,20 +209,6 @@
   animation: reto-in 0.3s ease;
 }
 
-/* ===================== Pie de la consola: botones ===================== */
-.reto__foot {
-  display: flex;
-  justify-content: flex-end;
-  padding: 14px 18px;
-  border-top: 1px solid #1d2a21;
-  background: #161b17;
-}
-
-.reto__actions {
-  display: flex;
-  gap: 10px;
-}
-
 /* ===================== Avance: fuera de la consola =====================
    Debajo de la ventana, como en el Ejercicio 3 (modulo3-24): un tramo por
    problema que se llena con sus preguntas y se vuelve verde al terminarlo. */
@@ -250,34 +236,35 @@
 
 .reto__seg.is-done > span { background: var(--bien); }
 
-/* Botones con el contorno verde del botón Correr de las terminales */
-.reto__btn {
-  padding: 7px 18px;
-  border: 1px solid #22a35a;
-  border-radius: 6px;
-  background: rgba(74, 222, 128, 0.08);
-  color: var(--verde);
-  font: 700 14px Consolas, "Courier New", monospace;
-  cursor: pointer;
-  transition: background-color 0.15s ease, box-shadow 0.2s ease;
+/* ===================== Botones: fuera de la consola =====================
+   Abajo a la derecha, como en los ejercicios 2 y 3 (modulo2-16-builder.css):
+   azul del curso; "Siguiente problema" en verde. */
+.reto__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-.reto__btn:hover {
-  background: rgba(74, 222, 128, 0.18);
-  box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+.reto__btn {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: #0f4c91;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
 }
+
+.reto__btn:hover { filter: brightness(1.1); }
 
 .reto__btn:focus-visible {
-  outline: 2px solid var(--verde);
+  outline: 3px solid rgba(15, 76, 145, 0.35);
   outline-offset: 2px;
 }
 
-.reto__btn--go {
-  background: var(--verde);
-  color: #0b0f0c;
-}
-
-.reto__btn--go:hover { background: #6ee7a0; }
+.reto__btn--go { background: var(--bien); }
 
 @keyframes reto-in {
   from {
@@ -308,11 +295,6 @@
 
   .reto__pane--code .js-term__body { height: auto; min-height: 170px; }
   .reto__pane--out .js-term__body { height: 180px; }
-}
-
-@media (max-width: 575px) {
-  .reto__actions { width: 100%; }
-  .reto__btn { flex: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
