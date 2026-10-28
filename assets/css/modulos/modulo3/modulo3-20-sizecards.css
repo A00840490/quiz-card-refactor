@@ -22,7 +22,10 @@
 .size-stack__card {
   position: absolute;
   top: 50%;
-  left: calc(100% - var(--edge));
+  /* El centro del abanico (a medio camino entre la primera y la última
+     tarjeta) queda en el centro de la pila; el 1.56 en vez de 1.5
+     compensa el giro en perspectiva de las tarjetas. */
+  left: calc(50% + 1.56 * var(--step));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -182,6 +185,7 @@
   }
 
   .size-split .size-stack__card {
+    left: calc(100% - var(--edge));
     padding: 4.9cqw 4.5cqw;
   }
 }
