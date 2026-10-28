@@ -154,8 +154,10 @@
 .maq__btn:disabled { color: #9aa1ad; cursor: default; transform: none; }
 .maq__btn:disabled svg { filter: none; }
 
-/* Al terminar, reiniciar es lo que sigue: se marca con un contorno dorado */
-.maq__btn.is-fin { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(0, 0, 0, .18), 0 calc(var(--u) * 2.5) 0 #3a3f49, 0 0 0 3px #fac775; }
+/* Al terminar, reiniciar es lo que sigue: se marca con un contorno dorado.
+   El contorno rodea la tecla y también su canto de abajo (la segunda sombra
+   dorada va desplazada como el canto), para que el dorado se vea parejo */
+.maq__btn.is-fin { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(0, 0, 0, .18), 0 calc(var(--u) * 2.5) 0 #3a3f49, 0 0 0 3px #fac775, 0 calc(var(--u) * 2.5) 0 3px #fac775; }
 
 /* Las mismas teclas, en chico, dentro del texto de instrucciones */
 .maq__ico {
@@ -398,8 +400,9 @@
 .maq__status code { white-space: nowrap; }
 
 /* ===================== Acomodo =====================
-   En pantallas anchas la máquina y la ventana de código van lado a lado
-   (55 / 45), alineadas arriba; en pantallas angostas, en una columna. */
+   En pantallas anchas la ventana de código va a la izquierda y la máquina a
+   la derecha (45 / 55), alineadas arriba (Ale lo pidió para el 4-9); en
+   pantallas angostas, en una columna con la máquina arriba. */
 .maq__main {
   display: grid;
   gap: 18px;
@@ -407,11 +410,12 @@
 
 @media (min-width: 992px) {
   .maq__main {
-    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
     gap: 24px;
     align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
   }
   .maq .maq__code { font-size: 15px; }
+  .maq__scene { order: 2; }
 }
 
 /* en pantallas medianas el código necesita más lugar, así que ahí queda mitad y mitad */
