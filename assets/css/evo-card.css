@@ -341,7 +341,8 @@
   visibility: visible;
   opacity: 1;
   transform: none;
-  transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s, visibility 0s;
+  /* Tardan un par de segundos en aparecer: primero se lee la explicación */
+  transition: opacity 0.5s ease 2s, transform 0.5s ease 2s, visibility 0s linear 2s;
 }
 
 .evo__next.is-on:hover {
@@ -357,9 +358,7 @@
   transform: scale(0.8);
 }
 
-/* La casita tarda un par de segundos en aparecer: primero se lee la explicación */
 .evo__home.is-on {
-  transition: opacity 0.5s ease 2s, transform 0.5s ease 2s, visibility 0s linear 2s;
   animation: evo-ring 1.6s ease 2.6s 2;
 }
 
