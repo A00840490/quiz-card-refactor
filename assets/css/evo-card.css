@@ -5,7 +5,6 @@
 
    <div class="evo" data-evo="nombre" data-kind="q">
      <span class="evo__mark" aria-hidden="true">?</span>  ← columna de ? (la llena el JS)
-     <div class="evo__top"><div class="evo__track" aria-hidden="true"></div></div>
      <div class="evo__grid">
        <div class="evo__text">
          <div class="evo__step is-on" data-k="q">          ← pregunta (azul)
@@ -16,13 +15,16 @@
            <span class="evo__fb" data-fb hidden></span>    ← frase según la respuesta
            ...
          </div>
+         (aquí el JS agrega .evo__nav: flecha y casita)
        </div>
        <div class="evo__scene" aria-hidden="true"></div>  ← la anima cada lección
      </div>
    </div>
 
    - data-go avanza un paso; data-pick="x" avanza y recuerda la respuesta.
-   - En el último paso, la primera esfera de la mini barra vuelve al inicio.
+   - Sin barra de progreso. Debajo del texto, a la izquierda: flecha azul a la
+     siguiente pregunta y, en el último paso, casita amarilla que vuelve al
+     inicio de la trivia.
    - Todos los pasos ocupan la misma celda, así la altura no brinca.
    - La escena de cada lección vive en assets/css/modulos/... y
      assets/js/scripts/...
@@ -145,76 +147,6 @@
   animation-delay: calc(0.15s + var(--k, 0) * 0.28s);
 }
 
-/* ---------- Mini barra de progreso: arriba a la derecha ---------- */
-.evo__top {
-  position: relative;
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px 18px 0;
-}
-
-.evo__track {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.evo__dot {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--e-dot);
-  color: var(--e-dot-ink);
-  transition: background-color 0.5s, color 0.5s, transform 0.4s;
-}
-
-.evo__dot.is-q {
-  width: 15px;
-  height: 15px;
-  font: 700 10px/1 var(--evo-display);
-}
-
-.evo__dot:not(:first-child)::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  width: 7px;
-  height: 1.5px;
-  background: var(--e-line);
-}
-
-.evo__dot.is-done {
-  background: var(--e-line);
-}
-
-.evo__dot.is-on {
-  background: var(--evo-amber);
-  color: var(--evo-amber-ink);
-  transform: scale(1.15);
-}
-
-/* Primera esfera: en el último paso se vuelve botón para regresar al inicio */
-.evo__home {
-  padding: 0;
-  border: 0;
-  cursor: default;
-}
-
-.evo__home:not(:disabled) {
-  cursor: pointer;
-  animation: evo-ring 1.6s ease 2;
-}
-
-.evo__home:not(:disabled):hover {
-  background: var(--evo-amber);
-  color: var(--evo-amber-ink);
-  transform: scale(1.3);
-}
-
 /* ---------- Texto y escena ---------- */
 .evo__grid {
   position: relative;
@@ -222,12 +154,14 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
   gap: 26px;
   align-items: center;
-  padding: 10px 24px 20px;
+  padding: 24px;
 }
 
-/* Todos los pasos en la misma celda: sólo se ve el activo y la altura no cambia */
+/* Todos los pasos en la misma celda: sólo se ve el activo y la altura no cambia.
+   Debajo va el renglón de la navegación (.evo__nav). */
 .evo__text {
   display: grid;
+  row-gap: 18px;
 }
 
 .evo__step {
@@ -240,6 +174,16 @@
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.35s ease, transform 0.45s ease, visibility 0s linear 0.35s;
+}
+
+/* Las explicaciones se apoyan sobre la flecha (así queda justo debajo del
+   texto) y las preguntas, que no la usan, se centran en toda la columna */
+.evo__step[data-k="a"] {
+  align-content: end;
+}
+
+.evo__step[data-k="q"] {
+  grid-row: 1 / 3;
 }
 
 .evo__step.is-on {
@@ -360,12 +304,21 @@
   transform: translateY(-2px);
 }
 
-/* Flecha a la siguiente pregunta: esquina inferior derecha de la tarjeta */
-.evo__next {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  z-index: 3;
+/* Navegación debajo del texto, a la izquierda. La flecha y la casita
+   comparten la misma celda: sólo se ve una (o ninguna en las preguntas) y
+   el lugar queda apartado siempre, así la tarjeta no cambia de altura. */
+.evo__nav {
+  display: grid;
+  justify-items: start;
+}
+
+.evo__nav > button {
+  grid-area: 1 / 1;
+}
+
+/* Flecha a la siguiente pregunta */
+.evo__next,
+.evo__home {
   display: grid;
   place-items: center;
   width: 48px;
@@ -383,7 +336,8 @@
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
 }
 
-.evo__next.is-on {
+.evo__next.is-on,
+.evo__home.is-on {
   visibility: visible;
   opacity: 1;
   transform: none;
@@ -392,6 +346,24 @@
 
 .evo__next.is-on:hover {
   transform: translateX(4px);
+  transition-delay: 0s;
+}
+
+/* Casita amarilla del último paso: regresa al inicio de la trivia */
+.evo__home {
+  background: var(--evo-amber);
+  color: var(--evo-amber-ink);
+  box-shadow: 0 6px 16px rgba(227, 164, 58, 0.35);
+  transform: scale(0.8);
+}
+
+.evo__home.is-on {
+  animation: evo-ring 1.6s ease 1s 2;
+}
+
+.evo__home.is-on:hover {
+  background: var(--evo-amber-2);
+  transform: translateY(-2px);
   transition-delay: 0s;
 }
 
@@ -477,12 +449,9 @@
   outline: none;
 }
 
-/* Debajo de la escena queda el lugar de la flecha de la esquina; así la
-   flecha no le roba altura a la tarjeta cuando el texto es más alto */
 .evo__scene {
   position: relative;
   height: 290px;
-  margin-bottom: 56px;
   overflow: hidden;
   border-radius: 12px;
   background: var(--e-scene);
@@ -597,27 +566,18 @@
     grid-template-columns: 1fr;
     gap: 18px;
     align-items: start;
-    padding: 10px 16px 80px;
+    padding: 16px 16px 20px;
   }
 
-  .evo__next {
-    right: 16px;
-    bottom: 16px;
-  }
-
-  /* Una sola columna: la flecha queda abajo del texto */
+  /* Una sola columna: la escena arriba y el texto con la flecha abajo */
   .evo__scene {
     order: -1;
     height: 260px;
-    margin-bottom: 0;
   }
 
-  .evo__step {
+  .evo__step,
+  .evo__step[data-k="a"] {
     align-content: start;
-  }
-
-  .evo__top {
-    padding: 12px 16px 0;
   }
 }
 

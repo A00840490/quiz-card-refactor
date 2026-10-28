@@ -2,11 +2,10 @@
    - Cada paso es una pregunta (data-k="q", tarjeta azul) o una explicación
      (data-k="a", tarjeta blanca). Al avanzar, la tarjeta cambia de color y
      el texto se reemplaza en la misma celda, sin cambiar de altura.
-   - La mini barra de arriba se arma sola: "?" para las preguntas y un punto
-     sin título para las explicaciones. En el último paso, la primera esfera
-     se vuelve botón y regresa al inicio.
-   - En las explicaciones (menos la última) aparece una flecha en la esquina
-     inferior derecha que lleva a la siguiente pregunta.
+   - Sin barra de progreso. Debajo del texto, a la izquierda, hay un solo
+     lugar para navegar: en las explicaciones (menos la última) una flecha
+     azul lleva a la siguiente pregunta, y en el último paso un botón
+     amarillo con una casita regresa al inicio de la trivia.
    - El ? de fondo se vuelve una columna de signos; aparecen de abajo hacia
      arriba cuando la tarjeta entra en pantalla y cada vez que vuelve a ser
      pregunta.
@@ -69,32 +68,18 @@
 
   function create(root, cfg) {
     var steps = Array.prototype.slice.call(root.querySelectorAll(".evo__step"));
-    var track = root.querySelector(".evo__track");
     var scene = root.querySelector(".evo__scene");
     var timers = [];
     var st = { i: 0, pick: null };
 
     var last = steps.length - 1;
-    track.removeAttribute("aria-hidden");
-    steps.forEach(function (s, k) {
-      // La primera esfera es un botón para volver al inicio (activo sólo en el último paso)
-      var d = document.createElement(k === 0 ? "button" : "span");
-      var q = s.getAttribute("data-k") === "q";
-      d.className = "evo__dot" + (q ? " is-q" : "");
-      if (q) d.textContent = "?";
-      if (k === 0) {
-        d.type = "button";
-        d.className += " evo__home";
-        d.setAttribute("data-go", "restart");
-        d.setAttribute("aria-label", "Volver a empezar");
-      } else {
-        d.setAttribute("aria-hidden", "true");
-      }
-      track.appendChild(d);
+    steps.forEach(function (s) {
       var h = s.querySelector("h4");
       if (h) h.setAttribute("tabindex", "-1");
     });
-    var dots = Array.prototype.slice.call(track.children);
+    // Páginas viejas con la mini barra de progreso: ya no se usa
+    var top = root.querySelector(".evo__top");
+    if (top) top.parentNode.removeChild(top);
 
     // La frase de respuesta guarda su lugar desde el inicio: todas las
     // frases posibles quedan invisibles en la misma celda, así la tarjeta
@@ -135,7 +120,11 @@
       root.classList.add("is-seen");
     }
 
-    // Flecha de la esquina inferior derecha: lleva de una explicación a la siguiente pregunta
+    // Navegación debajo del texto, a la izquierda: la flecha lleva de una
+    // explicación a la siguiente pregunta y, en el último paso, la casita
+    // amarilla regresa al inicio. Los dos comparten lugar, así la tarjeta
+    // no cambia de altura.
+    var nav = mk(root.querySelector(".evo__text"), "evo__nav");
     var next = document.createElement("button");
     next.type = "button";
     next.className = "evo__next";
@@ -143,7 +132,17 @@
     next.setAttribute("aria-label", "Siguiente pregunta");
     next.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
       'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-    root.appendChild(next);
+    nav.appendChild(next);
+    var home = document.createElement("button");
+    home.type = "button";
+    home.className = "evo__home";
+    home.setAttribute("data-go", "restart");
+    home.setAttribute("aria-label", "Volver al inicio de la trivia");
+    home.title = "Volver al inicio";
+    home.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/>' +
+      '<path d="M6 9.5V20h4.5v-5.5h3V20H18V9.5"/></svg>';
+    nav.appendChild(home);
 
     function later(fn, ms) {
       timers.push(setTimeout(fn, reduce ? 0 : ms));
@@ -158,16 +157,11 @@
       root.setAttribute("data-kind", s.getAttribute("data-k"));
       scene.setAttribute("data-s", i);
       steps.forEach(function (x, k) { x.classList.toggle("is-on", k === i); });
-      dots.forEach(function (d, k) {
-        d.classList.toggle("is-on", k === i);
-        d.classList.toggle("is-done", k < i);
-      });
-      dots[0].disabled = i !== last;
       var showNext = s.getAttribute("data-k") === "a" && i !== last;
       next.classList.toggle("is-on", showNext);
       next.disabled = !showNext;
-      if (i === last) dots[0].title = "Volver a empezar";
-      else dots[0].removeAttribute("title");
+      home.classList.toggle("is-on", i === last);
+      home.disabled = i !== last;
       var fb = s.querySelector("[data-fb]");
       if (fb) {
         var f = cfg.fb && cfg.fb[st.pick];
