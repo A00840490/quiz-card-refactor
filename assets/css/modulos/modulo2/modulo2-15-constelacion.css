@@ -177,14 +177,16 @@
 .const__bubble {
   position: absolute;
   z-index: 4;
-  width: 250px;
+  /* Solo el ancho que pide su contenido */
+  width: max-content;
+  max-width: 100%;
   padding: 14px 16px;
   border: 2px solid var(--theme-color);
   border-radius: 14px;
   background: #ffffff;
   box-shadow: 0 10px 24px rgba(23, 32, 51, 0.12);
   color: #263040;
-  text-align: left;
+  text-align: center;
   pointer-events: none;
   animation: const-pop 0.25s ease;
 }
@@ -223,6 +225,7 @@
 .const__bubble-head {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 8px;
 }
@@ -249,7 +252,8 @@
 
 .const__bubble dl {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto;
+  justify-content: center;
   gap: 4px 10px;
   margin: 0;
   font-size: 14px;
@@ -257,11 +261,13 @@
 
 .const__bubble dt {
   color: #6b7686;
+  text-align: right;
   font-weight: 400;
 }
 
 .const__bubble dd {
   margin: 0;
+  text-align: left;
 }
 
 .const__bubble code {
@@ -289,7 +295,6 @@
   }
 
   .const__bubble {
-    width: 220px;
     padding: 12px 14px;
   }
 }
