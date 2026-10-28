@@ -4,7 +4,7 @@
    El árbol es un modelo: cada nodo sabe en qué paso lo crea el navegador (s).
    Los controles eligen hasta qué paso se ha leído el HTML (k) y todo se vuelve
    a pintar desde ahí: el árbol, y las líneas leídas del código. Los nodos nuevos aparecen como los caracteres de Matrix: les cae
-   una gota de caracteres y su nombre se descifra letra por letra. Al tocar
+   unas columnas de caracteres y, al llegar, su nombre se descifra letra por letra. Al tocar
    un nodo se marca su parte del código y la explicación dice qué es. */
 (function () {
   "use strict";
@@ -102,57 +102,35 @@
   btnReset.innerHTML = ICON.reset; btnBack.innerHTML = ICON.back; btnStep.innerHTML = ICON.step;
   $$("[data-ico]", document).forEach(function (el) { el.innerHTML = ICON[el.getAttribute("data-ico")]; });
 
-  /* ---------- Lluvia de fondo (solo mientras algo pasa) ---------- */
-  var canvas = $(".dom__rain"), ctx = canvas.getContext && canvas.getContext("2d");
-  var gotas = [], lluvia = 0, lluviaHasta = 0, ultimo = 0;
-  function llueve(ms) {
-    if (reduce || !ctx) return;
-    lluviaHasta = Math.max(lluviaHasta, performance.now() + ms);
-    treeBox.classList.add("is-lluvia");
-    if (!lluvia) lluvia = requestAnimationFrame(cuadro);
-  }
-  function cuadro(t) {
-    var w = treeBox.clientWidth, h = treeBox.clientHeight, dpr = window.devicePixelRatio || 1;
-    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      gotas = [];
-      for (var c = 0; c < Math.ceil(w / 14); c++) gotas.push(Math.random() * -h / 14);
+  /* ---------- Efecto Matrix en un nodo ----------
+     Sobre cada nodo nuevo caen unas columnas de caracteres, desde arriba del
+     panel hasta su orilla de arriba (a donde llega, no de donde sale). Mientras
+     caen, el texto del nodo sigue cifrado; al llegar la última columna se
+     descifra de izquierda a derecha. CAE dura lo mismo que el viaje del nodo
+     desde su padre (.dom__nd en el CSS), así ambos llegan juntos. */
+  var CAE = 850;
+  // Regresa en cuántos milisegundos cae la última columna
+  function gotas(p) {
+    if (reduce) return 0;
+    var arriba = Math.max(30, p.y - p.h / 2), cols = Math.max(1, Math.min(5, Math.round(p.w / 26)));
+    var n = Math.ceil(arriba / 13.6), ultima = 0;
+    for (var c = 0; c < cols; c++) {
+      var x = cols === 1 ? p.x : p.x - p.w / 2 + 8 + (p.w - 16) * c / (cols - 1);
+      var espera = Math.round(Math.random() * 160), s = "";
+      for (var i = 0; i < n; i++) s += "<i>" + glifo() + "</i>";
+      var g = document.createElement("span");
+      g.className = "dom__gota";
+      g.style.left = (x - 7) + "px";
+      g.style.height = arriba + "px";
+      g.innerHTML = '<span style="animation-duration:' + CAE + "ms;animation-delay:" + espera + 'ms">' + s + "</span>";
+      treeBox.appendChild(g);
+      (function (g, llega) {
+        setTimeout(function () { g.classList.add("is-fin"); }, llega + 60);
+        setTimeout(function () { g.remove(); }, llega + 450);
+      })(g, espera + CAE);
+      ultima = Math.max(ultima, espera + CAE);
     }
-    if (t - ultimo > 55) {
-      ultimo = t;
-      ctx.fillStyle = "rgba(2, 8, 4, .16)";
-      ctx.fillRect(0, 0, w, h);
-      ctx.font = "13px Consolas, monospace";
-      for (var i = 0; i < gotas.length; i++) {
-        var y = gotas[i] * 14;
-        ctx.fillStyle = Math.random() < .08 ? "#d1fae5" : "#22c55e";
-        ctx.fillText(glifo(), i * 14, y);
-        if (y > h && Math.random() > .96) gotas[i] = 0;
-        gotas[i] += 1;
-      }
-    }
-    if (t < lluviaHasta) { lluvia = requestAnimationFrame(cuadro); return; }
-    lluvia = 0;
-    treeBox.classList.remove("is-lluvia");
-  }
-
-  /* ---------- Efecto Matrix en un nodo ---------- */
-  // La gota cae desde arriba del panel hasta donde va a nacer el nodo
-  function gota(x, y) {
-    if (reduce) return;
-    var alto = Math.max(30, y);
-    var g = document.createElement("span");
-    g.className = "dom__gota";
-    g.style.left = (x - 7) + "px";
-    g.style.top = "0px";
-    g.style.height = alto + "px";
-    var n = Math.ceil(alto / 13.6), s = "";
-    for (var i = 0; i < n; i++) s += "<i>" + glifo() + "</i>";
-    g.innerHTML = "<span>" + s + "</span>";
-    treeBox.appendChild(g);
-    setTimeout(function () { g.classList.add("is-fin"); }, 520);
-    setTimeout(function () { g.remove(); }, 950);
+    return ultima;
   }
   // El texto del nodo se descifra de izquierda a derecha
   function descifra(nd, retraso) {
@@ -213,7 +191,8 @@
     return el;
   }
   function acomodo() {
-    var W = treeBox.clientWidth, H = treeBox.clientHeight, angosto = W < 480;
+    // abajo queda libre el lugar de la ficha de la explicación (padding-bottom del panel)
+    var W = treeBox.clientWidth, H = treeBox.clientHeight - (parseFloat(getComputedStyle(treeBox).paddingBottom) || 0), angosto = W < 480;
     var GAP = angosto ? 8 : 14, ROW = angosto ? 66 : 76, todos = [];
     (function mide(n, d) {
       var el = fichas[n.u];
@@ -298,11 +277,10 @@
       el.classList.add("is-glow");
       setTimeout(function () { el.classList.remove("is-glow"); }, 1200);
       if (lineas[u]) requestAnimationFrame(function () { lineas[u] && lineas[u].classList.remove("is-new"); });
-      if (st.k > 0) { gota(p[u].x, p[u].y); descifra(el, 120 + i * 60); }
+      if (st.k > 0) descifra(el, gotas(p[u]));
     });
     if (sinAnimar) { void stage.offsetWidth; $$(".is-quieto", stage).forEach(function (el) { el.classList.remove("is-quieto"); }); dibujaRamas(); }
     else sigueRamas(1000);
-    if (nuevos.length && st.k > 0) llueve(1600);
   }
   function marcaSel() {
     Object.keys(fichas).forEach(function (u) { fichas[u].classList.toggle("is-sel", st.sel === u); });

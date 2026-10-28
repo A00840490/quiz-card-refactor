@@ -75,16 +75,16 @@
 .dom__ico svg { width: 11px; height: 11px; }
 
 /* ===================== El árbol ===================== */
+/* Abajo del panel se aparta el lugar que cubre la ficha de la explicación
+   (padding-bottom): el JavaScript acomoda el árbol en lo que queda */
 .dom__tree {
   position: relative;
-  height: 470px;
+  height: 520px;
+  padding-bottom: 56px;
   overflow: hidden;
   background: radial-gradient(ellipse at 30% 0%, #0b2414, #020804 70%);
 }
 
-/* Lluvia de caracteres de fondo: solo corre mientras algo pasa */
-.dom__rain { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity .8s ease; pointer-events: none; }
-.dom__tree.is-lluvia .dom__rain { opacity: .32; }
 
 /* El escenario ocupa todo el panel: las fichas se colocan con transform
    (el JavaScript calcula el árbol centrado) y las ramas son curvas de SVG */
@@ -138,9 +138,11 @@
 .dom__nd.is-sel { box-shadow: 0 0 0 3px #fac775; }
 
 /* Un nodo nuevo: le cae una gota de caracteres y su nombre se descifra */
+/* Las columnas pasan por detrás de los nodos que ya están y terminan en la
+   orilla de arriba del nodo nuevo */
 .dom__gota {
   position: absolute;
-  z-index: 2;
+  z-index: 0;
   width: 1.2em;
   overflow: hidden;
   color: #4ade80;
@@ -151,10 +153,10 @@
   -webkit-mask-image: linear-gradient(transparent, #000 70%);
   mask-image: linear-gradient(transparent, #000 70%);
 }
-.dom__gota span { display: block; animation: dom-cae .55s cubic-bezier(.4, 0, 1, 1) both; }
+.dom__gota span { display: block; animation: dom-cae .85s cubic-bezier(.4, 0, 1, 1) both; }
 .dom__gota span i { display: block; font-style: normal; }
 .dom__gota span i:last-child { color: #ecfdf5; }
-.dom__gota.is-fin { opacity: 0; transition: opacity .35s ease; }
+.dom__gota.is-fin { opacity: 0; transition: opacity .3s ease; }
 @keyframes dom-cae { from { transform: translateY(-100%); } }
 
 /* ===================== Ventana de código ===================== */
@@ -172,15 +174,16 @@
 .dom__code .dom__ln[data-s] { margin: 0 -6px; padding: 0 6px; transition: opacity .35s ease, background-size var(--hl-t) ease, color var(--hl-t) ease; }
 
 /* ===================== Explicación =====================
-   Va en la ficha de renglones sobre la ventana de código (.grafico-ficha en app.css) */
+   Va en la ficha de renglones (.grafico-ficha en app.css). Por excepción no
+   va sobre la ventana de código sino sobre el árbol, para aprovechar el espacio */
 .dom__status { transition: opacity .2s ease; }
 .dom__status.is-fading { opacity: 0; }
 
 /* ===================== Acomodo =====================
    En pantallas anchas el código va a la izquierda y la escena a la derecha
    (45 / 55), alineados arriba; la explicación va en la ficha montada
-   sobre la ventana de código. En pantallas angostas todo va en una columna y
-   el código (con su ficha), abajo. */
+   sobre el árbol. En pantallas angostas todo va en una columna: el árbol
+   (con su ficha) y abajo el código. */
 .dom__main { display: grid; gap: 18px; }
 .dom__scene {
   display: grid;
@@ -196,13 +199,13 @@
     gap: 24px;
     align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
   }
-  .dom__main > .grafico-ficha-col { order: -1; }
+  .dom__main > .dom__code { order: -1; }
 }
 
 @media (max-width: 575px) {
   .dom__ctl { padding: 10px 12px; }
   .dom__btn { --s: 34px; }
-  .dom__tree { height: 330px; }
+  .dom__tree { height: 380px; padding-bottom: 50px; }
   .dom__nd { padding: 3px 7px; font-size: 12px; }
   .dom__nd--el .at { font-size: 10.5px; }
   .dom__nd--tx { max-width: 96px; }
