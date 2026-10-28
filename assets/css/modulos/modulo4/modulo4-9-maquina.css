@@ -1,0 +1,446 @@
+/* Módulo 4-9: el switch como una máquina expendedora
+   (comportamiento en assets/js/scripts/modulo4/modulo4-9-maquina.js).
+
+   El valor que recibe el switch es el código que se marcó en la máquina.
+   Cada case es un producto de la repisa: el switch revisa las etiquetas una
+   por una (roja si no coincide, verde si sí), el resorte del elegido da
+   vueltas y el producto cae a la charola. break termina la compra (la
+   pantalla dice GRACIAS); sin el break de A2 caen dos productos. Si ningún
+   case coincide, el default regresa la moneda.
+
+   La máquina es un SVG que arma el JavaScript; el panel y las teclas usan la
+   textura de aluminio del 4-11 (m4-11/tocadiscos/texturas/, créditos en
+   m4-11/tocadiscos/fotos/CREDITOS.md). La ventana de código usa el formato
+   de las terminales del módulo 4 (js-terminal.css). */
+
+.maq {
+  --ink: #1c2434;
+  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+
+  position: relative;
+  margin: 16px 0 24px;
+}
+
+/* Sin JavaScript no hay máquina: queda el código */
+.maq:not(.maq--ready) .maq__scene,
+.maq:not(.maq--ready) .maq__console { display: none; }
+
+/* ===================== Escena ===================== */
+.maq__scene {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 470px;
+  margin: 0 auto;
+}
+
+.maq__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.maq__titulo {
+  font: italic 800 22px "Fira Sans", "Segoe UI", Arial, sans-serif;
+  letter-spacing: .12em;
+  text-anchor: middle;
+  fill: #fff3d6;
+}
+
+/* Pantalla de la máquina: el código grande y un renglón chico debajo */
+.maq__codigo {
+  font: 700 24px Consolas, "Courier New", monospace;
+  text-anchor: middle;
+  fill: #6dff9e;
+  transition: opacity .2s ease;
+}
+.maq__codigo.is-gracias { font-size: 14.5px; }
+.maq__codigo.is-cambia { opacity: 0; }
+.maq__msg {
+  font: 700 9px Consolas, "Courier New", monospace;
+  letter-spacing: .05em;
+  text-anchor: middle;
+  fill: #39c26b;
+}
+.maq__pantalla.is-flash .maq__codigo { animation: maq-parpadeo .7s steps(2) 2; }
+
+/* Etiquetas de la repisa: rojas si el case no coincide, verdes si sí y
+   ámbar si su código se ejecutó de largo (sin break arriba) */
+.maq__tag rect { fill: #2a3142; stroke: #556075; transition: fill .3s ease, stroke .3s ease; }
+.maq__tag text { font: 700 11px Consolas, "Courier New", monospace; text-anchor: middle; fill: #d7dce5; transition: fill .3s ease; }
+.maq__tag.is-no rect { fill: #7d2019; stroke: #c4493b; }
+.maq__tag.is-si rect { fill: #1c8a4a; stroke: #8dffbd; filter: drop-shadow(0 0 5px rgba(80, 255, 150, .75)); }
+.maq__tag.is-pasa rect { fill: #b77a12; stroke: #ffd27a; filter: drop-shadow(0 0 4px rgba(255, 190, 80, .6)); }
+.maq__tag.is-no text,
+.maq__tag.is-si text,
+.maq__tag.is-pasa text { fill: #ffffff; }
+.maq__tag { transform-box: fill-box; transform-origin: center; }
+.maq__tag.is-tiembla { animation: maq-tiembla .4s ease; }
+
+/* Onda que sale de la etiqueta elegida */
+.maq__onda { fill: none; stroke: #8dffbd; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.maq__onda.is-on { animation: maq-onda .9s ease-out 2; }
+
+/* Luz que cae sobre el producto elegido */
+.maq__luz { opacity: 0; transition: opacity .45s ease; }
+.maq__luz.is-si { opacity: .55; }
+.maq__luz.is-pasa { opacity: .4; }
+
+/* El producto elegido da un brinquito */
+.maq__prod-in { transform-box: fill-box; transform-origin: 50% 100%; }
+.maq__prod-in.is-elegido { animation: maq-brinco .6s cubic-bezier(.3, 1.4, .5, 1); }
+
+/* El resorte gira sobre su eje (el JavaScript pone su centro en transform-origin) */
+.maq__giro.is-gira { animation: maq-gira 1.1s cubic-bezier(.45, 0, .3, 1); }
+
+/* La moneda regresa al cambio con el default */
+.maq__moneda { opacity: 0; transform: translateY(-34px); transition: opacity .2s ease, transform .2s ease; }
+.maq.is-moneda .maq__moneda { opacity: 1; transform: none; transition: transform .55s cubic-bezier(.3, 1.5, .5, 1) .15s, opacity .2s ease .15s; }
+
+@keyframes maq-parpadeo { 50% { opacity: .2; } }
+@keyframes maq-tiembla { 20% { transform: translateX(-2px); } 40% { transform: translateX(2px); } 60% { transform: translateX(-1.5px); } 80% { transform: translateX(1px); } }
+@keyframes maq-onda { 0% { opacity: .9; transform: scale(1); } 100% { opacity: 0; transform: scale(1.7, 2.1); } }
+@keyframes maq-brinco { 0% { transform: none; } 35% { transform: translateY(-8px) scale(1.03, .98); } 70% { transform: translateY(1px) scale(1.02, .97); } 100% { transform: none; } }
+@keyframes maq-gira { to { transform: rotate(360deg); } }
+
+/* ===================== Teclas =====================
+   Son parte del panel de la máquina: van en el hueco del teclado, debajo de
+   la pantalla, con el mismo aluminio que el panel. Se miden con cqw (ancho
+   de la máquina) para que crezcan y se encojan con el dibujo:
+   1u del SVG = 100cqw / 400. */
+.maq__keys {
+  --u: calc(100cqw / 400);
+  position: absolute;
+  left: calc(var(--u) * 305);
+  top: calc(var(--u) * 139);
+  width: calc(var(--u) * 58);
+  display: grid;
+  gap: calc(var(--u) * 8);
+}
+
+.maq__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--u) * 33);
+  padding: 0;
+  border: 1px solid #6f7886;
+  border-radius: calc(var(--u) * 4);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .05) 45%, rgba(0, 0, 0, .16)),
+    url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/aluminio.jpg") center / 90px;
+  color: #2b313c;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(0, 0, 0, .18), 0 calc(var(--u) * 2.5) 0 #3a3f49, 0 calc(var(--u) * 3) 4px rgba(0, 0, 0, .45);
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .08s ease, color .15s ease;
+}
+
+/* el ícono va grabado en el metal */
+.maq__btn svg {
+  width: 34%;
+  height: 46%;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, .75));
+}
+
+.maq__btn:hover { color: #000000; }
+.maq__btn:active {
+  transform: translateY(calc(var(--u) * 2.5));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -1px 0 rgba(0, 0, 0, .18), 0 0 0 #3a3f49, 0 1px 2px rgba(0, 0, 0, .4);
+}
+.maq__btn:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
+.maq__btn:disabled { color: #9aa1ad; cursor: default; transform: none; }
+.maq__btn:disabled svg { filter: none; }
+
+/* Al terminar, reiniciar es lo que sigue: se marca con un contorno dorado */
+.maq__btn.is-fin { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 0 rgba(0, 0, 0, .18), 0 calc(var(--u) * 2.5) 0 #3a3f49, 0 0 0 3px #fac775; }
+
+/* Las mismas teclas, en chico, dentro del texto de instrucciones */
+.maq__ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 20px;
+  margin: 0 2px;
+  border: 1px solid #6f7886;
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .05) 45%, rgba(0, 0, 0, .16)),
+    url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/aluminio.jpg") center / 90px;
+  color: #2b313c;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 2px 0 #3a3f49;
+  vertical-align: -5px;
+}
+
+.maq__ico svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* ===================== Panel de código ===================== */
+.maq .maq__code {
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.maq__code .js-term__code {
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Valores que se pueden cambiar (el código y el break de A2): un botón con
+   flecha, como una lista desplegable (estándar del 3-23) */
+.maq__valor {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  margin: 0;
+  padding: 0 .3em 0 .45em;
+  border: 1px solid #5b7bd6;
+  border-radius: 3px;
+  background-color: #2b3550;
+  color: #ffffff;
+  font: inherit;
+  line-height: 1.45;
+  white-space: pre;
+  cursor: pointer;
+}
+
+.maq__valor::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: .3em solid transparent;
+  border-right: .3em solid transparent;
+  border-top: .38em solid #a9c0ff;
+}
+
+.maq__valor:hover,
+.maq__valor.is-abierta {
+  border-color: #a9c0ff;
+  background-color: #3a4a78;
+}
+
+.maq__valor:focus { outline: none; }
+.maq__valor:focus-visible { outline: 2px solid #fac775; outline-offset: 1px; }
+
+/* break quitado: queda como comentario */
+.maq__valor.js-term__com { color: #7f9a86; }
+
+/* ---------- Menú de vidrio para elegir el valor (estándar del 3-23) ---------- */
+.maq__menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 200px;
+  max-width: calc(100% - 8px);
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 18px;
+  background-color: rgba(246, 247, 250, .72);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .08) 45%, rgba(255, 255, 255, .2));
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    0 0 0 .5px rgba(0, 0, 0, .14),
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    inset 0 -1px 1px rgba(255, 255, 255, .35),
+    0 2px 6px rgba(0, 0, 0, .1),
+    0 18px 44px rgba(0, 0, 0, .28);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
+  opacity: 0;
+  transform: scale(.9);
+  transform-origin: var(--origen, 24px 0);
+  transition: opacity .18s ease, transform .32s cubic-bezier(.2, 1.25, .4, 1);
+}
+
+.maq__menu.is-on { opacity: 1; transform: none; }
+.maq__menu[hidden] { display: none; }
+
+.maq__opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 14px 9px 34px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #000000;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+
+/* Línea fina entre opciones */
+.maq__opcion + .maq__opcion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  border-top: .5px solid rgba(60, 60, 67, .22);
+}
+
+.maq__opcion:hover,
+.maq__opcion:focus {
+  outline: none;
+  background: rgba(120, 120, 128, .16);
+}
+
+.maq__opcion:hover::before,
+.maq__opcion:focus::before,
+.maq__opcion:hover + .maq__opcion::before,
+.maq__opcion:focus + .maq__opcion::before { border-color: transparent; }
+
+/* La opción actual lleva la palomita a la izquierda */
+.maq__opcion.is-actual { font-weight: 600; }
+
+.maq__opcion.is-actual::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  width: 5px;
+  height: 10px;
+  margin-top: -7px;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  transform: rotate(45deg);
+}
+
+.maq__opcion code {
+  padding: 0;
+  background: none;
+  color: #000000;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14.5px;
+  white-space: nowrap;
+}
+
+.maq__opcion small {
+  color: rgba(60, 60, 67, .65);
+  font-size: 13px;
+}
+
+/* ---------- Consola dentro de la ventana ---------- */
+.maq__console {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: .6em;
+  margin-top: 14px;
+  color: #ffffff;
+}
+
+.maq__console-out {
+  display: grid;
+  align-content: start;
+  min-height: calc(2 * 1.75em);
+}
+
+.maq__console-out span {
+  display: block;
+  white-space: pre;
+}
+
+/* Vacía no es grid, para que el cursor quede en un renglón normal, alineado con "Consola:" */
+.maq__console-out:empty { display: block; }
+.maq__console-out span.is-new { animation: maq-linea .3s ease; }
+
+/* el mismo cursor que .js-term__cursor */
+.maq__console-out:empty::after,
+.maq__console-out span:last-child::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -3px;
+  animation: maq-cursor 1s steps(1) infinite;
+}
+
+@keyframes maq-linea { from { opacity: 0; transform: translateY(3px); } }
+@keyframes maq-cursor { 50% { opacity: 0; } }
+
+/* Cada parte del switch se resalta con el estándar de js-terminal.css.
+   Si la parte es una lista desplegable (el código o el break de A2), la
+   lista misma invierte sus colores (fondo blanco y letra azul) con esquinas
+   rectas, y también entra de izquierda a derecha */
+.maq__code .maq__valor {
+  border-radius: 3px;
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0% 100%;
+  transition: background-size .5s ease, color .5s ease, border-color .25s ease, background-color .2s ease;
+}
+
+.maq__code .maq__valor.is-on {
+  border-color: #ffffff;
+  border-radius: 0;
+  background-size: 100% 100%;
+  color: #2b3550;
+}
+
+.maq__code .maq__valor.is-on::after { border-top-color: #2b3550; }
+
+/* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6) en la
+   ficha de renglones montada sobre la ventana de código (.grafico-ficha) */
+.maq__status code { white-space: nowrap; }
+
+/* ===================== Acomodo =====================
+   En pantallas anchas la máquina y la ventana de código van lado a lado
+   (55 / 45), alineadas arriba; en pantallas angostas, en una columna. */
+.maq__main {
+  display: grid;
+  gap: 18px;
+}
+
+@media (min-width: 992px) {
+  .maq__main {
+    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    gap: 24px;
+    align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
+  }
+  .maq .maq__code { font-size: 15px; }
+}
+
+/* en pantallas medianas el código necesita más lugar, así que ahí queda mitad y mitad */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .maq__main { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .maq .maq__code { font-size: 12.5px; }
+  .maq__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+
+@media (min-width: 1200px) and (max-width: 1365px) {
+  .maq .maq__code { font-size: 14px; }
+}
+
+@media (max-width: 575px) {
+  .maq .maq__code { font-size: 12px; }
+  .maq__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .maq__pantalla.is-flash .maq__codigo,
+  .maq__tag.is-tiembla,
+  .maq__onda.is-on,
+  .maq__prod-in.is-elegido,
+  .maq__giro.is-gira,
+  .maq__console-out span.is-new { animation: none; }
+  .maq__luz,
+  .maq__moneda,
+  .maq__codigo,
+  .maq__code [data-part],
+  .maq__code .maq__valor,
+  .maq__menu { transition: none; }
+}

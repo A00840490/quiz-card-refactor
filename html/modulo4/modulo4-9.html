@@ -23,6 +23,8 @@
     <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
+    <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-9-maquina.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -66,46 +68,70 @@
                                         class="code">case</span> que contienen el código que se ejecuta cuando
                                     el valor que le damos a comparar al switch es igual al que especificamos en
                                     cada case. Observa este ejemplo: </p>
-                                <div class="card">
-                                    <div class="container-fluid">
-                                        <p class="codepen" data-height="500" data-theme-id="dark"
-                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                            data-slug-hash="vYXvgzg"
-                                            style="height: 500; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                            data-pen-title="switch js ejemplo">
-                                            <span>See the Pen <a
-                                                    href="https://codepen.io/luis-yerik-arambula/pen/vYXvgzg"
-                                                    target="_blank">
-                                                    switch js ejemplo</a> by Luis Yerik Arambula (<a
-                                                    href="https://codepen.io/luis-yerik-arambula"
-                                                    target="_blank">@luis-yerik-arambula</a>)
-                                                on <a href="https://codepen.io"
-                                                    target="_blank">CodePen</a>.</span>
-                                        </p>
-                                        <script async
-                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                <!-- El switch como una máquina expendedora (ver modulo4-9-maquina.css / .js) -->
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Haz clic en <span class="maq__ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></span>
+                                    <span class="maq__ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></span>
+                                    <span class="maq__ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></span>
+                                    para recorrer el switch paso a paso.
+                                </p>
+                                <div class="maq" data-maquina>
+                                    <div class="maq__main">
+                                        <div class="maq__scene">
+                                            <div data-maq-svg></div>
+                                            <!-- Las teclas van en el panel de la máquina, debajo de la pantalla -->
+                                            <div class="maq__keys">
+                                                <button type="button" class="maq__btn" data-reset aria-label="Reiniciar" title="Reiniciar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg></button>
+                                                <button type="button" class="maq__btn" data-back aria-label="Paso anterior" title="Paso anterior"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg></button>
+                                                <button type="button" class="maq__btn" data-step aria-label="Paso siguiente" title="Paso siguiente"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 2.5v11l8-5.5z" fill="currentColor"/><path d="M11.5 2.5h2.2v11h-2.2z" fill="currentColor"/></svg></button>
+                                            </div>
+                                        </div>
+                                        <div class="grafico-ficha-col">
+                                            <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
+                                                 .js-term__src: así js-terminal.js no la toca y el código no se escribe letra por letra -->
+                                            <div class="js-term maq__code">
+                                                <div class="js-term__bar" aria-hidden="true"><i></i><i></i><i></i>switch.js</div>
+                                                <div class="js-term__body">
+<pre class="js-term__code" data-code>var codigo = "A2";
+
+switch (codigo) {
+  case "A1":
+    console.log("Papas");
+    break;
+  case "A2":
+    console.log("Galletas");
+    break;
+  case "A3":
+    console.log("Chocolate");
+    break;
+  default:
+    console.log("Código no válido");
+}</pre>
+                                                    <div class="maq__console" aria-live="polite"><span>Consola:</span><span class="maq__console-out" data-console></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="grafico-ficha">
+                                                <p class="maq__status grafico-exp" data-status aria-live="polite"></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                        <!-- Fuente  -->
-                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                      </p>
+                                    <!-- Menú de vidrio para cambiar los valores del código -->
+                                    <div class="maq__menu" data-menu role="menu" hidden></div>
                                 </div>
-                                <p>Analiza el código. Al inicio de la función obtenemos el elemento input que
-                                    recibe la entrada del usuario (la caja de texto) y pasamos su valor actual
-                                    switch utilizando la propiedad value. Después se ejecutará el código en el
-                                    <span class="code">case</span> que coincida con el valor de entrada.
-                                    Por ejemplo, si el valor que ingresamos es 1 entonces se asigna "El valor es
-                                    1" a la variable <span class="code">text</span>. Nota que tenemos un <span
-                                        class="code">break</span> al final de cada caso: esto le indica a
-                                    JavaScript que en ese punto terminan las líneas de código que se correrán
-                                    cuando se cumple el caso.</p>
+                                <p>Analiza el código. Al inicio guardamos en la variable <span class="code">codigo</span> el
+                                    código que se marcó en la máquina y se lo pasamos al <span class="code">switch</span>. Después
+                                    se ejecutará el código en el <span class="code">case</span> que coincida con ese valor.
+                                    Por ejemplo, si el código es "A1", la consola muestra "Papas". Nota que tenemos un <span
+                                        class="code">break</span> al final de cada caso: esto le indica a JavaScript que en ese
+                                    punto terminan las líneas de código que se correrán cuando se cumple el caso. Si lo quitas,
+                                    JavaScript sigue de largo con el código del siguiente <span class="code">case</span>.</p>
                                 <p>También tenemos un caso <span class="code">default</span>, y contiene el
                                     código que se ejecuta <b>por defecto</b> en el switch. Este debe colocarse
                                     al final, y sólo se ejecuta cuando ningún <span class="code">case</span> es
                                     aceptado. Es el equivalente a utilizar una sentencia <span
-                                        class="code">else</span>, y es por eso por lo que si ingresamos un valor
-                                    diferente a 1, 2 o 3, la página de ejemplo nos muestra que no ingresamos una
-                                    entrada válida.</p>
+                                        class="code">else</span>, y es por eso por lo que si el código es diferente a
+                                    A1, A2 o A3, la consola muestra "Código no válido".</p>
                             </div>
                         </div>
 
@@ -173,6 +199,8 @@
 
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/scripts/modulo4/modulo4-9-maquina.js"></script>
+    <script src="../../assets/js/grafico-ficha.js"></script>
 </body>
 
 </html>
