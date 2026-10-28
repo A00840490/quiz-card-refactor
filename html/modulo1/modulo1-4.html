@@ -106,7 +106,7 @@
         .tutorial-slide-card {
             background: linear-gradient(135deg, #6B8CFF 0%, #4F6EF7 100%);
             border-radius: 24px;
-            padding: 12px;
+            padding: 5px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             max-width: 900px;
             margin: 0 auto;
@@ -117,13 +117,13 @@
 
         .tutorial-slide-header {
             background: rgba(255, 255, 255, 0.45);
-            border-radius: 16px 16px 8px 8px;
+            border-radius: 19px 19px 8px 8px;
             padding: 15px 25px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             color: white;
             font-size: 22px;
             font-weight: 600;
-            text-align: left;
+            text-align: center;
             line-height: 1.4;
         }
 
@@ -135,7 +135,7 @@
 
         .tutorial-slide-body {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 8px;
+            border-radius: 8px 8px 19px 19px;
             padding: 20px;
             display: flex;
             justify-content: center;
@@ -156,12 +156,14 @@
 
         @media (max-width: 768px) {
             .tutorial-slide-card {
-                padding: 12px;
+                padding: 4px;
                 border-radius: 18px;
             }
 
             .tutorial-slide-header {
                 padding: 12px 18px;
+                margin-bottom: 4px;
+                border-radius: 14px 14px 6px 6px;
             }
 
             .tutorial-slide-header .tutorial-text {
@@ -170,6 +172,7 @@
 
             .tutorial-slide-body {
                 padding: 12px;
+                border-radius: 6px 6px 14px 14px;
                 min-height: 250px;
             }
 
@@ -283,6 +286,13 @@
                             <div class="text-center">
                                 <div class="demo-carousel mt-0" data-demo-carousel data-demo-autoheight
                                     data-demo-label="Paso">
+                                    <div class="demo-carousel__controls">
+                                        <button class="demo-carousel__btn" type="button" data-demo-prev
+                                            aria-label="Paso anterior">&#8249;</button>
+                                        <div class="demo-carousel__dots" data-demo-dots></div>
+                                        <button class="demo-carousel__btn" type="button" data-demo-next
+                                            aria-label="Paso siguiente">&#8250;</button>
+                                    </div>
                                     <div class="demo-carousel__viewport">
                                         <div class="demo-carousel__track">
                                             <div class="demo-carousel__slide" data-demo-slide>
@@ -456,13 +466,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="demo-carousel__controls">
-                                        <button class="demo-carousel__btn" type="button" data-demo-prev
-                                            aria-label="Paso anterior">&#8249;</button>
-                                        <div class="demo-carousel__dots" data-demo-dots></div>
-                                        <button class="demo-carousel__btn" type="button" data-demo-next
-                                            aria-label="Paso siguiente">&#8250;</button>
                                     </div>
                                 </div>
                             </div>

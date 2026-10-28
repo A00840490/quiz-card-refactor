@@ -1,17 +1,18 @@
 /* Carrusel de demostraciones (modulo2-9, modulo1-4).
    Marcado:
      <div class="demo-carousel" data-demo-carousel [data-demo-autoheight]>
-       <div class="demo-carousel__viewport">
-         <div class="demo-carousel__track">
-           <div class="demo-carousel__slide" data-demo-slide>…</div>
-         </div>
-       </div>
        <div class="demo-carousel__controls">
          <button data-demo-prev>‹</button>
          <div class="demo-carousel__dots" data-demo-dots></div>
          <button data-demo-next>›</button>
        </div>
+       <div class="demo-carousel__viewport">
+         <div class="demo-carousel__track">
+           <div class="demo-carousel__slide" data-demo-slide>…</div>
+         </div>
+       </div>
      </div>
+   Los controles van arriba de las cartas (estándar del curso).
    Con data-demo-autoheight, la altura del carrusel se ajusta a la
    diapositiva actual (útil cuando cada una mide distinto). */
 (function () {

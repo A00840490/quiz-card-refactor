@@ -10,7 +10,7 @@
 .demo-carousel__viewport {
   position: relative;
   overflow: hidden;
-  padding: 26px 0 10px;
+  padding: 16px 0 24px;
   perspective: 1600px;
 }
 
@@ -112,12 +112,12 @@
   text-align: center;
 }
 
+/* Estándar del curso: los controles van arriba de las cartas. */
 .demo-carousel__controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: 14px;
 }
 
 .demo-carousel__btn {

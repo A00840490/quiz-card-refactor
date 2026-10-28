@@ -96,18 +96,38 @@
         type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet"
         type="text/css" />
+    <link href="../../assets/css/modulos/modulo2/modulo2-9-carousel.css" rel="stylesheet">
     <style>
-        .slick-dots li.slick-active button::before {
-            color: #083B8B !important;
+        /* Controles del carrusel arriba de las cartas (estándar del curso),
+           con los mismos botones y puntos que el carrusel del 1-4 y el 2-9. */
+        .slider-controls {
+            margin-bottom: 24px;
         }
 
-        .slick-dots li button::before {
-            color: black !important;
+        .slider-controls .demo-carousel__dots {
+            order: 1;
+            margin: 0;
+            padding: 0;
+            list-style: none;
         }
 
-        .slick-prev::before,
-        .slick-next::before {
-            color: #083B8B !important;
+        .slider-controls .demo-carousel__dots li {
+            display: flex;
+            margin: 0;
+        }
+
+        .slider-controls .slick-active .demo-carousel__dot {
+            background: #0f4c91;
+            border-color: #0f4c91;
+        }
+
+        .slider-controls [data-slider-next] {
+            order: 2;
+        }
+
+        .slider-controls .slick-disabled {
+            opacity: 0.4;
+            pointer-events: none;
         }
     </style>
 
@@ -183,6 +203,7 @@
                                 <p>Este es un pequeño tutorial para publicar una página web de forma gratuita en 000webhost, haz clic <img
                                     src="../../assets/images/clic.svg" class="mrg-right-5"> en las flechas para saber más:</p>
                                 <div class="text-center py-5">
+                        <div class="demo-carousel__controls slider-controls" data-slider-controls></div>
                         <div class="slider" style="width: 80%; margin:auto">
                             <div class="mrg-horizon-50">
                                 <div class="row"><p class="tutorial-text">El primer paso es registrarnos y confirmar nuestro correo electrónico en la página.</p>
@@ -343,9 +364,16 @@
                 dots: true,
                 arrows: true,
                 slidesToShow: 1,
-                adaptiveHeight: true
-             
-,
+                adaptiveHeight: true,
+                // Flechas y puntos van arriba de las cartas
+                appendArrows: $("[data-slider-controls]"),
+                appendDots: $("[data-slider-controls]"),
+                prevArrow: '<button class="demo-carousel__btn" type="button" aria-label="Paso anterior">&#8249;</button>',
+                nextArrow: '<button class="demo-carousel__btn" type="button" data-slider-next aria-label="Paso siguiente">&#8250;</button>',
+                dotsClass: "demo-carousel__dots",
+                customPaging: function (slider, i) {
+                    return '<button class="demo-carousel__dot" type="button" aria-label="Paso ' + (i + 1) + '"></button>';
+                }
             });
         });
     </script>
