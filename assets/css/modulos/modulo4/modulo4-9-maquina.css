@@ -9,8 +9,8 @@
    case coincide, el default regresa la moneda.
 
    La máquina es un SVG que arma el JavaScript; el panel y las teclas usan la
-   textura de aluminio del 4-11 (m4-11/tocadiscos/texturas/, créditos en
-   m4-11/tocadiscos/fotos/CREDITOS.md). La ventana de código usa el formato
+   textura de aluminio del 4-11 (m4-11/tocadiscos/texturas/; los créditos
+   se guardan fuera del repositorio). La ventana de código usa el formato
    de las terminales del módulo 4 (js-terminal.css). */
 
 .maq {
@@ -81,11 +81,6 @@
 /* Onda que sale de la etiqueta elegida */
 .maq__onda { fill: none; stroke: #8dffbd; stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; }
 .maq__onda.is-on { animation: maq-onda .9s ease-out 2; }
-
-/* Luz que cae sobre el producto elegido */
-.maq__luz { opacity: 0; transition: opacity .45s ease; }
-.maq__luz.is-si { opacity: .55; }
-.maq__luz.is-pasa { opacity: .4; }
 
 /* El producto elegido da un brinquito */
 .maq__prod-in { transform-box: fill-box; transform-origin: 50% 100%; }
@@ -441,7 +436,6 @@
   .maq__prod-in.is-elegido,
   .maq__giro.is-gira,
   .maq__console-out span.is-new { animation: none; }
-  .maq__luz,
   .maq__moneda,
   .maq__codigo,
   .maq__code [data-part],

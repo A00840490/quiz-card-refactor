@@ -23,6 +23,7 @@
   if (!root) return;
 
   var TEXTURAS = "../../assets/images/course/modulo4/m4-11/tocadiscos/texturas/";
+  var FOTOS = "../../assets/images/course/modulo4/m4-9/maquina/";
 
   // El ejemplo: cada case es un producto de la repisa
   var VAR = "codigo";
@@ -66,34 +67,42 @@
   var CAIDA = [{ dy: 192, a: -7, s: 1.06 }, { dy: 192, a: 5, s: 1.06 }, { dy: 191, a: -9, s: 1.06 }];
   var QUIETO = { dy: 0, a: 0, s: 1 };
 
+  // Los productos usan fotos reales (papas, galletas y chocolate) dentro de
+  // empaques transparentes, para que se vea lo que hay adentro
   function dibujaProducto(i, cx) {
     var y = PISO;
-    if (i === 0) { // bolsa de papas
-      return '<path d="M' + (cx - 25) + " " + y + " L" + (cx - 27) + " " + (y - 70) + " Q" + cx + " " + (y - 78) + " " + (cx + 27) + " " + (y - 70) + " L" + (cx + 25) + " " + y + ' Z" fill="url(#maqPapas)" stroke="#a87b0c"/>' +
-        '<path d="M' + (cx - 27) + " " + (y - 70) + " Q" + cx + " " + (y - 78) + " " + (cx + 27) + " " + (y - 70) + '" fill="none" stroke="#fff0a8" stroke-width="3" stroke-dasharray="2 2"/>' +
-        '<path d="M' + (cx - 25) + " " + (y - 3) + " L" + (cx + 25) + " " + (y - 3) + '" stroke="#c89512" stroke-width="3" stroke-dasharray="2 2"/>' +
-        '<rect x="' + (cx - 25.5) + '" y="' + (y - 47) + '" width="51" height="18" fill="#d63b2a"/>' +
-        '<text x="' + cx + '" y="' + (y - 34.5) + '" text-anchor="middle" font-family="Fira Sans, Arial, sans-serif" font-weight="800" font-size="10" fill="#ffffff">PAPAS</text>' +
-        '<ellipse cx="' + (cx - 9) + '" cy="' + (y - 16) + '" rx="8" ry="5" fill="#f7dd84" stroke="#c99a1e"/>' +
-        '<ellipse cx="' + (cx + 8) + '" cy="' + (y - 13) + '" rx="7" ry="4.5" fill="#f7dd84" stroke="#c99a1e"/>' +
-        '<path d="M' + (cx - 17) + " " + (y - 64) + " L" + (cx - 15) + " " + (y - 8) + '" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity=".28"/>';
+    if (i === 0) { // bolsa transparente llena de papas
+      var bolsa = "M" + (cx - 25) + " " + y + " L" + (cx - 27) + " " + (y - 70) + " Q" + cx + " " + (y - 76) + " " + (cx + 27) + " " + (y - 70) + " L" + (cx + 25) + " " + y + " Z";
+      return '<clipPath id="maqBolsa"><path d="' + bolsa + '"/></clipPath>' +
+        '<g clip-path="url(#maqBolsa)">' +
+          '<image href="' + FOTOS + 'papas.jpg" x="' + (cx - 34) + '" y="' + (y - 78) + '" width="68" height="80" preserveAspectRatio="xMidYMid slice"/>' +
+          '<rect x="' + (cx - 28) + '" y="' + (y - 78) + '" width="56" height="80" fill="url(#maqPlastico)"/>' +
+          // las orillas selladas de la bolsa, arriba y abajo
+          '<rect x="' + (cx - 28) + '" y="' + (y - 78) + '" width="56" height="13" fill="#ffffff" opacity=".55"/>' +
+          '<rect x="' + (cx - 28) + '" y="' + (y - 8) + '" width="56" height="9" fill="#ffffff" opacity=".55"/>' +
+        "</g>" +
+        '<path d="M' + (cx - 26) + " " + (y - 67) + " H" + (cx + 26) + " M" + (cx - 25) + " " + (y - 4) + " H" + (cx + 25) + '" stroke="#b9c0ca" stroke-width="4" stroke-dasharray="1.5 1.5" opacity=".8"/>' +
+        '<path d="' + bolsa + '" fill="none" stroke="#ffffff" stroke-opacity=".6"/>' +
+        '<rect x="' + (cx - 25.5) + '" y="' + (y - 45) + '" width="51" height="17" fill="#d63b2a"/>' +
+        '<text x="' + cx + '" y="' + (y - 33) + '" text-anchor="middle" font-family="Fira Sans, Arial, sans-serif" font-weight="800" font-size="10" fill="#ffffff">PAPAS</text>';
     }
-    if (i === 1) { // caja de galletas
-      return '<rect x="' + (cx - 25) + '" y="' + (y - 62) + '" width="50" height="62" rx="3" fill="url(#maqGalletas)" stroke="#1a4589"/>' +
-        '<rect x="' + (cx - 25) + '" y="' + (y - 62) + '" width="50" height="14" rx="3" fill="#1a4589"/>' +
-        '<text x="' + cx + '" y="' + (y - 51.5) + '" text-anchor="middle" font-family="Fira Sans, Arial, sans-serif" font-weight="800" font-size="8" fill="#ffffff">GALLETAS</text>' +
-        '<circle cx="' + (cx - 9) + '" cy="' + (y - 28) + '" r="10" fill="#d9a35b" stroke="#a8742e"/>' +
-        '<circle cx="' + (cx + 10) + '" cy="' + (y - 18) + '" r="10" fill="#d9a35b" stroke="#a8742e"/>' +
-        '<circle cx="' + (cx - 12) + '" cy="' + (y - 31) + '" r="1.8" fill="#5a3412"/><circle cx="' + (cx - 5) + '" cy="' + (y - 25) + '" r="1.8" fill="#5a3412"/>' +
-        '<circle cx="' + (cx + 7) + '" cy="' + (y - 20) + '" r="1.8" fill="#5a3412"/><circle cx="' + (cx + 13) + '" cy="' + (y - 15) + '" r="1.8" fill="#5a3412"/>' +
-        '<rect x="' + (cx - 21) + '" y="' + (y - 46) + '" width="4" height="42" rx="2" fill="#ffffff" opacity=".2"/>';
+    if (i === 1) { // paquete transparente de galletas, una encima de otra
+      return '<rect x="' + (cx - 25) + '" y="' + (y - 62) + '" width="50" height="62" rx="4" fill="#f4ead8" fill-opacity=".22" stroke="#ffffff" stroke-opacity=".55"/>' +
+        '<image href="' + FOTOS + 'galleta.png" x="' + (cx - 23) + '" y="' + (y - 30) + '" width="46" height="29"/>' +
+        '<image href="' + FOTOS + 'galleta.png" x="' + (cx - 23) + '" y="' + (y - 45) + '" width="46" height="29"/>' +
+        '<rect x="' + (cx - 25) + '" y="' + (y - 62) + '" width="50" height="62" rx="4" fill="url(#maqPlastico)"/>' +
+        '<rect x="' + (cx - 25) + '" y="' + (y - 62) + '" width="50" height="15" rx="3" fill="#1d56b0"/>' +
+        '<text x="' + cx + '" y="' + (y - 51.5) + '" text-anchor="middle" font-family="Fira Sans, Arial, sans-serif" font-weight="800" font-size="8" fill="#ffffff">GALLETAS</text>';
     }
-    // barra de chocolate
-    return '<rect x="' + (cx - 15) + '" y="' + (y - 78) + '" width="30" height="78" rx="2" fill="#4a2516" stroke="#2c140a"/>' +
-      '<rect x="' + (cx - 15) + '" y="' + (y - 78) + '" width="30" height="9" fill="url(#maqAcero)"/>' +
-      '<rect x="' + (cx - 15) + '" y="' + (y - 55) + '" width="30" height="34" fill="#c8322a"/>' +
-      '<text transform="translate(' + (cx + 4) + " " + (y - 38) + ') rotate(-90)" text-anchor="middle" font-family="Fira Sans, Arial, sans-serif" font-weight="800" font-size="9.5" fill="#ffffff">CHOCO</text>' +
-      '<rect x="' + (cx - 12) + '" y="' + (y - 68) + '" width="3.5" height="64" rx="1.7" fill="#ffffff" opacity=".18"/>';
+    // barra de chocolate con la envoltura abierta arriba
+    return '<clipPath id="maqBarra"><rect x="' + (cx - 15) + '" y="' + (y - 78) + '" width="30" height="78" rx="2"/></clipPath>' +
+      '<g clip-path="url(#maqBarra)">' +
+        '<image href="' + FOTOS + 'chocolate.jpg" x="' + (cx - 20) + '" y="' + (y - 80) + '" width="40" height="40" preserveAspectRatio="xMidYMid slice"/>' +
+        '<path d="M' + (cx - 16) + " " + (y - 50) + " l5 -4 l5 4 l5 -5 l5 5 l5 -4 l5 4 V" + (y + 1) + " H" + (cx - 16) + ' Z" fill="url(#maqAluminioTira)"/>' +
+        '<rect x="' + (cx - 16) + '" y="' + (y - 46) + '" width="32" height="47" fill="#c8322a"/>' +
+      "</g>" +
+      '<text transform="translate(' + (cx + 4) + " " + (y - 23) + ') rotate(-90)" text-anchor="middle" font-family="Fira Sans, Arial, sans-serif" font-weight="800" font-size="9.5" fill="#ffffff">CHOCO</text>' +
+      '<rect x="' + (cx - 15) + '" y="' + (y - 78) + '" width="30" height="78" rx="2" fill="url(#maqPlastico)" stroke="#2c140a" stroke-opacity=".6"/>';
   }
 
   // El resorte visto de frente: anillos que se van haciendo chicos hacia el
@@ -130,9 +139,8 @@
   }
 
   function dibujaMaquina() {
-    var luces = "", casas = "", etiquetas = "";
+    var casas = "", etiquetas = "";
     X.forEach(function (cx, i) {
-      luces += '<polygon class="maq__luz" data-luz="' + i + '" points="' + (cx - 11) + ",65 " + (cx + 11) + ",65 " + (cx + 40) + "," + (PISO + 2) + " " + (cx - 40) + "," + (PISO + 2) + '" fill="url(#maqLuz)"/>';
       var r = dibujaResorte(i, cx);
       casas += r.atras +
         '<g data-casa="' + i + '"><g class="maq__prod" data-prod="' + i + '"><g class="maq__prod-in">' + dibujaProducto(i, cx) + "</g></g></g>" +
@@ -149,16 +157,19 @@
         '<linearGradient id="maqVidrio" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".24"/><stop offset=".3" stop-color="#ffffff" stop-opacity=".05"/><stop offset=".55" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#ffffff" stop-opacity=".1"/></linearGradient>' +
         '<linearGradient id="maqAcero" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1f3f6"/><stop offset="1" stop-color="#8f98a5"/></linearGradient>' +
         '<linearGradient id="maqSombra" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000000" stop-opacity=".28"/><stop offset=".12" stop-color="#000000" stop-opacity="0"/><stop offset=".85" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#ffffff" stop-opacity=".25"/></linearGradient>' +
-        '<linearGradient id="maqLuz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6d6" stop-opacity=".95"/><stop offset="1" stop-color="#fff6d6" stop-opacity=".05"/></linearGradient>' +
-        '<linearGradient id="maqLuzAmbar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd27a" stop-opacity=".95"/><stop offset="1" stop-color="#ffd27a" stop-opacity=".05"/></linearGradient>' +
-        '<linearGradient id="maqPapas" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9a116"/><stop offset=".35" stop-color="#ffd84d"/><stop offset=".7" stop-color="#f2c230"/><stop offset="1" stop-color="#c98f10"/></linearGradient>' +
-        '<linearGradient id="maqGalletas" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a63bf"/><stop offset=".4" stop-color="#3d82e6"/><stop offset="1" stop-color="#1f56ad"/></linearGradient>' +
+        // brillo del plástico de los empaques
+        '<linearGradient id="maqPlastico" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity=".05"/><stop offset=".18" stop-color="#ffffff" stop-opacity=".42"/><stop offset=".3" stop-color="#ffffff" stop-opacity=".06"/><stop offset=".8" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#ffffff" stop-opacity=".18"/></linearGradient>' +
+        '<linearGradient id="maqAluminioTira" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9aa3af"/><stop offset=".3" stop-color="#f3f5f8"/><stop offset=".6" stop-color="#b9c0ca"/><stop offset="1" stop-color="#e6e9ee"/></linearGradient>' +
         '<radialGradient id="maqMonedaG" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#fff1b8"/><stop offset=".6" stop-color="#e2b23c"/><stop offset="1" stop-color="#a57a1c"/></radialGradient>' +
         '<clipPath id="maqClip"><rect x="30" y="56" width="246" height="236" rx="6"/><rect x="40" y="330" width="226" height="80" rx="8"/></clipPath>' +
         '<clipPath id="maqTaza"><rect x="306" y="344" width="56" height="48" rx="7"/></clipPath>' +
       "</defs>" +
       // el cuerpo, con un brillo en la orilla izquierda
-      '<rect x="8" y="8" width="384" height="424" rx="20" fill="url(#maqCuerpo)" stroke="#6d1217" stroke-width="2"/>' +
+      '<rect x="8" y="8" width="384" height="424" rx="20" fill="url(#maqCuerpo)"/>' +
+      // la lámina pintada: la foto del metal cepillado encima del rojo le da su textura
+      '<clipPath id="maqLamina"><rect x="8" y="8" width="384" height="424" rx="20"/></clipPath>' +
+      '<image href="' + TEXTURAS + 'aluminio.jpg" x="8" y="8" width="424" height="424" preserveAspectRatio="xMidYMid slice" clip-path="url(#maqLamina)" opacity=".38" style="mix-blend-mode:multiply"/>' +
+      '<rect x="8" y="8" width="384" height="424" rx="20" fill="none" stroke="#6d1217" stroke-width="2"/>' +
       '<rect x="14" y="14" width="372" height="5" rx="2.5" fill="#ffffff" opacity=".2"/>' +
       '<rect x="14" y="22" width="5" height="402" rx="2.5" fill="#ffffff" opacity=".12"/>' +
       '<text class="maq__titulo" x="200" y="43">SNACKS</text>' +
@@ -166,7 +177,6 @@
       '<rect x="30" y="56" width="246" height="236" rx="6" fill="url(#maqDentro)"/>' +
       '<rect x="36" y="60" width="234" height="5" rx="2.5" fill="#fff6d0" opacity=".7"/>' +
       '<rect x="40" y="330" width="226" height="80" rx="8" fill="#0d1018"/>' +
-      '<g clip-path="url(#maqClip)">' + luces + "</g>" +
       '<rect x="34" y="214" width="238" height="9" rx="2" fill="url(#maqAcero)"/>' +
       etiquetas +
       '<g clip-path="url(#maqClip)">' + casas + '<g data-frente></g></g>' +
@@ -199,7 +209,6 @@
   var frente = root.querySelector("[data-frente]");
   var tags = root.querySelectorAll("[data-tag]");
   var ondas = root.querySelectorAll("[data-onda]");
-  var luces = root.querySelectorAll("[data-luz]");
   var pantalla = root.querySelector("[data-pantalla]");
   var codigoTxt = root.querySelector("[data-codigo]");
   var msgTxt = root.querySelector("[data-msg]");
@@ -426,18 +435,16 @@
     msgTxt.textContent = msg;
     if (dir === 1 && s && s.k === "decl") reinicia(pantalla, "is-flash");
 
-    // Etiquetas y luces: lo que ya se comparó se queda marcado
+    // Etiquetas: lo que ya se comparó se queda marcado
     var caidos = {};
     each(tags, function (t) { t.classList.remove("is-si", "is-no", "is-pasa"); });
-    each(luces, function (l) { l.classList.remove("is-si", "is-pasa"); });
     hechos.forEach(function (p) {
       if (p.k === "cmp") {
         tags[p.i].classList.add(p.ok ? "is-si" : "is-no");
-        if (p.ok) { luces[p.i].classList.add("is-si"); luces[p.i].setAttribute("fill", "url(#maqLuz)"); }
       }
       if (p.k === "body" && p.i !== "d") {
         caidos[p.i] = true;
-        if (p.fall) { tags[p.i].classList.add("is-pasa"); luces[p.i].classList.add("is-pasa"); luces[p.i].setAttribute("fill", "url(#maqLuzAmbar)"); }
+        if (p.fall) tags[p.i].classList.add("is-pasa");
       }
     });
 
