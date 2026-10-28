@@ -1,0 +1,110 @@
+/* Módulo 1-7: el mismo HTML sin indentación y con indentación.
+   Usa la ventana estándar del curso (.lesson-demo-stack de lesson-demo.css)
+   y numera las líneas con .code--numbered. Cada línea lleva al inicio un
+   .indenta__sangria del ancho de su nivel (--nivel × 4 espacios); en el
+   estado .is-mal la sangría mide 0 y el código queda todo pegado a la
+   izquierda. El JS (modulo1-7-indentacion.js) alterna entre los dos. */
+
+.indenta {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+  margin: 1.25rem 0;
+  text-align: left;
+}
+
+.indenta.lesson-demo-stack::before {
+  content: "ejemplo.html";
+}
+
+.indenta .code {
+  margin: 0;
+  padding: 24px 22px 28px 0;
+  overflow: hidden;
+  background: transparent;
+  color: #d7deea;
+  /* La línea más larga tiene 40 caracteres: la letra se achica si no cabe */
+  font: 400 min(14px, calc((100cqw - 80px) / 24)) / 1.75 "Courier New", Consolas, monospace;
+  white-space: pre;
+}
+
+.indenta .code .codetext {
+  color: #ffffff;
+}
+
+/* Sangría: crece de 0 a su nivel, una línea tras otra */
+.indenta__sangria {
+  display: inline-block;
+  width: calc(var(--nivel, 0) * 4ch);
+  transition: width 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+
+.indenta.is-mal .indenta__sangria {
+  width: 0;
+}
+
+/* Estado actual, a la derecha de la barra de la ventana */
+.indenta__estado {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+}
+
+.indenta__tag {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font: 700 11px/1.2 Arial, sans-serif;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity 0.35s ease;
+}
+
+.indenta__estado-in {
+  display: grid;
+  justify-items: end;
+}
+
+.indenta__tag--mal {
+  background: rgba(255, 107, 98, 0.14);
+  color: #ff8a80;
+}
+
+.indenta__tag--bien {
+  background: rgba(56, 200, 120, 0.14);
+  color: #6fdc9a;
+}
+
+.indenta.is-mal .indenta__tag--bien,
+.indenta:not(.is-mal) .indenta__tag--mal {
+  opacity: 0;
+}
+
+@media (max-width: 575px) {
+  .indenta .code {
+    padding: 18px 12px 22px 0;
+    font-size: min(12px, calc((100cqw - 70px) / 24));
+  }
+  .indenta__estado {
+    right: 14px;
+  }
+  .indenta__tag {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indenta__sangria,
+  .indenta__tag {
+    transition: none;
+  }
+}

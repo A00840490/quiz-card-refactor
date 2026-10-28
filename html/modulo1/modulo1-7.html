@@ -25,6 +25,8 @@
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
+    <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo1/modulo1-7-indentacion.css" rel="stylesheet">
 
 </head>
 
@@ -85,16 +87,18 @@
                             <div class="card-block">
                                 <h2 class="card-title">Indentación</h2> 
                                 <p>Podemos llegar a tener código muy extenso y lleno de diferentes elementos dentro de otros elementos. Al tratar de leer el código, puede resultar confuso distinguir qué elementos pertenecen a otros, y es por esto por lo que se utiliza la indentación: la indentación es el uso de espacios o tabuladores para indicar el nivel jerárquico al que pertenece cada sección del código.<br></p>
-                                
-                                <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-                                    <img src="../../assets/images/course/modulo1/m1-7/check-mark.png" alt="ejemplo_espacio1" style="max-width: 10%;">
-                                    <img src="../../assets/images/course/modulo1/m1-6/indent.png" alt="ejemplo_espacio1" style="max-width: 90%;">
+                                <!-- El mismo HTML sin indentación y con indentación: alterna solo
+                                     (modulo1-7-indentacion.js); empieza mal indentado. -->
+                                <div class="indenta lesson-demo-stack is-mal" data-indenta>
+                                    <div class="indenta__estado" aria-hidden="true">
+                                        <div class="indenta__estado-in">
+                                            <span class="indenta__tag indenta__tag--mal">&#10007; Sin indentación</span>
+                                            <span class="indenta__tag indenta__tag--bien">&#10003; Con indentación</span>
+                                        </div>
+                                    </div>
+                                    <pre class="code code--numbered" aria-label="Ejemplo de HTML que alterna entre sin indentación y con indentación"><span class="ld-line" style="--i:0"><span class="indenta__sangria" style="--nivel:0"></span>&lt;<span class="codetag">div</span> class="mrg-top-20"&gt;</span><span class="ld-line" style="--i:1"><span class="indenta__sangria" style="--nivel:1"></span>&lt;<span class="codetag">div</span> class="title"&gt;</span><span class="ld-line" style="--i:2"><span class="indenta__sangria" style="--nivel:2"></span>&lt;<span class="codetag">h1</span> class="bold"&gt;<span class="codetext">Bienvenido</span>&lt;/<span class="codetag">h1</span>&gt;</span><span class="ld-line" style="--i:3"><span class="indenta__sangria" style="--nivel:2"></span>&lt;<span class="codetag">p</span>&gt;<span class="codetext">¡Hola mundo!</span>&lt;/<span class="codetag">p</span>&gt;</span><span class="ld-line" style="--i:4"><span class="indenta__sangria" style="--nivel:1"></span>&lt;/<span class="codetag">div</span>&gt;</span><span class="ld-line" style="--i:5"><span class="indenta__sangria" style="--nivel:0"></span>&lt;/<span class="codetag">div</span>&gt;</span></pre>
                                 </div>
-                                <div style="display: flex; justify-content: center; align-items: center;">
-                                    <img src="../../assets/images/course/modulo1/m1-7/cross-mark.png" alt="ejemplo_espacio1" style="max-width: 10%;">
-                                    <img src="../../assets/images/course/modulo1/m1-6/noindent.png" alt="ejemplo_espacio1" style="max-width: 90%;">
-                                </div>                                                                        
-                                <p>Los 2 códigos de arriba despliegan exactamente el mismo resultado en un navegador, sin embargo, para un desarrollador, el primer ejemplo es más legible que el segundo por el uso de indentación.</p>
+                                <p>Las dos versiones del código despliegan exactamente el mismo resultado en un navegador; sin embargo, para un desarrollador, la versión con indentación es mucho más legible, porque de un vistazo se ve qué elementos están dentro de otros.</p>
                             </div>
                         </div>
                         
@@ -168,6 +172,7 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/scripts/modulo1/modulo1-7-indentacion.js"></script>
 
 </body>
 
