@@ -11862,6 +11862,17 @@ a.modulo-siguiente:visited:hover {
   position: relative;
 }
 
+/* Flechas de Módulo Anterior/Siguiente a 10px de la barra superior */
+.final-modulo .flechas {
+  margin-top: 10px;
+}
+
+@media (min-width: 576px) {
+  .final-modulo .flechas {
+    margin-top: -10px;
+  }
+}
+
 .confetti {
   position: absolute;
   pointer-events: none;
