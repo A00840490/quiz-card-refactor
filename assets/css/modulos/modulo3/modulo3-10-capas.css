@@ -40,7 +40,7 @@
   position: relative;
   display: grid;
   place-items: center;
-  height: 420px;
+  height: 402px;
   perspective: 1100px;
 }
 
@@ -226,7 +226,7 @@
   width: 260px;
   height: 80px;
   transform-style: preserve-3d;
-  transform: translate(calc(var(--t) * -10px), calc(var(--t) * 96px))
+  transform: translate(calc(var(--t) * -10px), calc(var(--t) * 105px))
     rotateX(calc(var(--t) * 58deg)) rotateZ(calc(var(--t) * -32deg));
 }
 
@@ -248,6 +248,11 @@
   border-radius: 19px;
   background: rgba(255, 255, 255, 0.05);
   opacity: var(--t);
+}
+
+/* La sombra se pinta 10px más abajo: su borde la abarca completa */
+.capas__layer--shadow::before {
+  bottom: -17px;
 }
 
 .capas__layer.is-active::before {
@@ -312,7 +317,7 @@
   }
 
   .capas__view {
-    height: 340px;
+    height: 312px;
   }
 
   .capas__control {
@@ -327,7 +332,7 @@
     --gap: 38px;
     width: 200px;
     height: 64px;
-    transform: translate(0, calc(var(--t) * 74px)) rotateX(calc(var(--t) * 58deg))
+    transform: translate(0, calc(var(--t) * 75px)) rotateX(calc(var(--t) * 58deg))
       rotateZ(calc(var(--t) * -32deg));
   }
 
