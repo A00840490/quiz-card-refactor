@@ -357,8 +357,10 @@
   transform: scale(0.8);
 }
 
+/* La casita tarda un par de segundos en aparecer: primero se lee la explicación */
 .evo__home.is-on {
-  animation: evo-ring 1.6s ease 1s 2;
+  transition: opacity 0.5s ease 2s, transform 0.5s ease 2s, visibility 0s linear 2s;
+  animation: evo-ring 1.6s ease 2.6s 2;
 }
 
 .evo__home.is-on:hover {
