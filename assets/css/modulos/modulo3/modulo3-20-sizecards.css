@@ -14,8 +14,8 @@
   --desc-size: 15px;
   position: relative;
   width: min(640px, 100%);
-  height: 440px;
-  margin: 2.5rem auto;
+  height: 410px;
+  margin: 0.75rem auto;
   perspective: 1500px;
 }
 
@@ -124,7 +124,7 @@
     --edge: 100px;
     --name-size: 18px;
     --desc-size: 13px;
-    height: 350px;
+    height: 320px;
   }
 
   .size-stack__card {
@@ -140,7 +140,7 @@
     --depth: 7px;
     --lift: 110px;
     --edge: 76px;
-    height: 310px;
+    height: 280px;
   }
 }
 
