@@ -332,7 +332,7 @@
   cursor: pointer;
   visibility: hidden;
   opacity: 0;
-  transform: scale(0.8);
+  transform: translateX(-8px);
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
 }
 
@@ -345,10 +345,10 @@
   transition: opacity 0.5s ease 2s, transform 0.5s ease 2s, visibility 0s linear 2s;
 }
 
-/* La flecha aparece igual que la casita: crece desde un poco más chica y
-   después da dos destellos alrededor */
+/* La flecha entra desde la izquierda y después da dos destellos azules
+   alrededor (los de la casita son amarillos) */
 .evo__next.is-on {
-  animation: evo-ring 1.6s ease 2.6s 2;
+  animation: evo-ring-blue 1.6s ease 2.6s 2;
 }
 
 .evo__next.is-on:hover {
@@ -361,6 +361,7 @@
   background: var(--evo-amber);
   color: var(--evo-amber-ink);
   box-shadow: 0 6px 16px rgba(227, 164, 58, 0.35);
+  transform: scale(0.8);
 }
 
 .evo__home.is-on {
@@ -488,6 +489,16 @@
   }
   60% {
     box-shadow: 0 0 0 12px rgba(250, 199, 117, 0);
+  }
+}
+
+@keyframes evo-ring-blue {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 111, 182, 0.7);
+  }
+  60% {
+    box-shadow: 0 0 0 12px rgba(59, 111, 182, 0);
   }
 }
 
