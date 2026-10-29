@@ -122,11 +122,11 @@
       g.className = "dom__gota";
       g.style.left = (x - 7) + "px";
       g.style.height = arriba + "px";
-      g.innerHTML = '<span style="animation-duration:' + CAE + "ms;animation-delay:" + espera + 'ms">' + s + "</span>";
+      g.innerHTML = '<span style="animation-duration:' + 2 * CAE + "ms;animation-delay:" + espera + 'ms">' + s + "</span>";
       treeBox.appendChild(g);
       (function (g, llega) {
-        setTimeout(function () { g.classList.add("is-fin"); }, llega + 60);
-        setTimeout(function () { g.remove(); }, llega + 450);
+        // la punta llega al nodo a la mitad; luego el resto de la columna entra en él
+        setTimeout(function () { g.remove(); }, llega + CAE + 50);
       })(g, espera + CAE);
       ultima = Math.max(ultima, espera + CAE);
     }

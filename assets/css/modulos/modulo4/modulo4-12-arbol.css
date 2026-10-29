@@ -153,11 +153,13 @@
   -webkit-mask-image: linear-gradient(transparent, #000 70%);
   mask-image: linear-gradient(transparent, #000 70%);
 }
-.dom__gota span { display: block; animation: dom-cae .85s cubic-bezier(.4, 0, 1, 1) both; }
+/* La columna cae a velocidad constante: a la mitad de la animación su punta
+   toca el nodo y después el resto de la columna sigue cayendo y entra en él
+   (la gota recorta lo que pasa de la orilla del nodo) */
+.dom__gota span { display: block; animation: dom-cae 1.7s linear both; }
 .dom__gota span i { display: block; font-style: normal; }
 .dom__gota span i:last-child { color: #ecfdf5; }
-.dom__gota.is-fin { opacity: 0; transition: opacity .3s ease; }
-@keyframes dom-cae { from { transform: translateY(-100%); } }
+@keyframes dom-cae { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
 
 /* ===================== Ventana de código ===================== */
 .dom .dom__code {
