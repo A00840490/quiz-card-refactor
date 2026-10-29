@@ -41,7 +41,6 @@
   --evo-green: #1f7a45;
   --evo-green-soft: #e3f6eb;
   --evo-red: #b42318;
-  --evo-red-soft: #fdeceb;
   --evo-display: "Fira Sans", "Segoe UI", system-ui, sans-serif;
   --evo-mono: Consolas, "Courier New", monospace;
 
@@ -449,8 +448,7 @@
   font-size: 15px;
   line-height: 1.45;
   text-align: center;
-  padding: 6px 16px;
-  border-radius: 18px;
+  padding: 6px 0;
 }
 
 .evo__fb:not(.evo__fb--ghost) {
@@ -467,13 +465,12 @@
   transition: opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s, visibility 0s;
 }
 
+/* Solo el texto en color, sin recuadro alrededor */
 .evo[data-verdict="ok"] .evo__fb {
-  background: var(--evo-green-soft);
   color: var(--evo-green);
 }
 
 .evo[data-verdict="nope"] .evo__fb {
-  background: var(--evo-red-soft);
   color: var(--evo-red);
 }
 
