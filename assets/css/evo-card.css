@@ -477,12 +477,16 @@
 .evo__glow {
   --glow: 0, 0, 0;
   position: absolute;
-  top: 0;
+  /* Empieza arriba de la tarjeta para que el difuminado no aclare el borde de arriba */
+  top: -30px;
   left: 0;
   right: 0;
-  height: 120px;
+  height: 165px;
   opacity: 0;
   pointer-events: none;
+  /* El difuminado va en el contenedor (después de recortar los picos), así
+     la forma no se nota y queda como una sombra */
+  filter: blur(16px);
   /* Se desvanece hacia los lados: el brillo se concentra al centro, arriba */
   -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
@@ -497,8 +501,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(var(--glow), 0.42);
-  filter: blur(6px);
+  background: rgba(var(--glow), 0.45);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.55' stop-color='%23fff' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0V62C8.3 60.0 16.7 45.0 25.0 48.0C33.3 51.0 41.7 78.8 50.0 80.0C58.3 81.2 66.7 52.3 75.0 55.0C83.3 57.7 91.7 95.5 100.0 96.0C108.3 96.5 116.7 62.0 125.0 58.0C133.3 54.0 141.7 74.3 150.0 72.0C158.3 69.7 166.7 41.0 175.0 44.0C183.3 47.0 191.7 86.3 200.0 90.0C208.3 93.7 216.7 72.3 225.0 66.0C233.3 59.7 241.7 49.0 250.0 52.0C258.3 55.0 266.7 85.0 275.0 84.0C283.3 83.0 291.7 47.7 300.0 46.0C308.3 44.3 316.7 65.0 325.0 74.0C333.3 83.0 341.7 102.3 350.0 100.0C358.3 97.7 366.7 66.3 375.0 60.0C383.3 53.7 391.7 64.0 400.0 62.0V0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 520px 100%;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.55' stop-color='%23fff' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0V62C8.3 60.0 16.7 45.0 25.0 48.0C33.3 51.0 41.7 78.8 50.0 80.0C58.3 81.2 66.7 52.3 75.0 55.0C83.3 57.7 91.7 95.5 100.0 96.0C108.3 96.5 116.7 62.0 125.0 58.0C133.3 54.0 141.7 74.3 150.0 72.0C158.3 69.7 166.7 41.0 175.0 44.0C183.3 47.0 191.7 86.3 200.0 90.0C208.3 93.7 216.7 72.3 225.0 66.0C233.3 59.7 241.7 49.0 250.0 52.0C258.3 55.0 266.7 85.0 275.0 84.0C283.3 83.0 291.7 47.7 300.0 46.0C308.3 44.3 316.7 65.0 325.0 74.0C333.3 83.0 341.7 102.3 350.0 100.0C358.3 97.7 366.7 66.3 375.0 60.0C383.3 53.7 391.7 64.0 400.0 62.0V0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 520px 100%;
   animation: evo-aurora 24s linear infinite;
