@@ -475,46 +475,98 @@
 }
 
 .evo__glow {
-  --glow: transparent;
+  --glow: 0, 0, 0;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 190px;
+  height: 210px;
   opacity: 0;
   pointer-events: none;
+  /* Sombra de color que sale de arriba */
+  background: linear-gradient(to bottom, rgba(var(--glow), 0.3), transparent 85%);
   /* Se desvanece hacia los lados: el brillo se concentra al centro, arriba */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
 }
 
-/* Dos capas de picos de distinto tamaño que se recorren a la izquierda a
-   distinta velocidad: al cruzarse, el brillo fluctúa en vez de ser parejo */
+/* Aurora boreal cortada a la mitad: cortinas suaves de luz que cuelgan de
+   arriba con distinto largo e intensidad. Son dos capas que se recorren a
+   la izquierda a distinta velocidad; al cruzarse, el brillo fluctúa en vez
+   de ser parejo. */
 .evo__glow::before,
 .evo__glow::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--glow);
-  filter: blur(9px);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V34L381 112 363 46 341 152 318 62 300 98 282 40 262 172 240 56 222 122 200 36 180 138 160 52 142 92 122 30 100 162 80 62 60 128 40 42 20 104 0 34Z'/%3E%3C/svg%3E") repeat-x 0 0 / 400px 100%;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V34L381 112 363 46 341 152 318 62 300 98 282 40 262 172 240 56 222 122 200 36 180 138 160 52 142 92 122 30 100 162 80 62 60 128 40 42 20 104 0 34Z'/%3E%3C/svg%3E") repeat-x 0 0 / 400px 100%;
-  animation: evo-peaks 16s linear infinite;
+  background-image: linear-gradient(90deg,
+      transparent 0%,
+      transparent 2%,
+      rgba(var(--glow), 0.7) 7%,
+      transparent 12%,
+      transparent 14%,
+      rgba(var(--glow), 0.45) 18%,
+      transparent 22%,
+      transparent 24%,
+      rgba(var(--glow), 0.8) 30%,
+      transparent 36%,
+      transparent 38%,
+      rgba(var(--glow), 0.5) 42%,
+      transparent 46%,
+      transparent 48%,
+      rgba(var(--glow), 0.75) 55%,
+      transparent 62%,
+      transparent 64%,
+      rgba(var(--glow), 0.4) 67%,
+      transparent 70%,
+      transparent 73%,
+      rgba(var(--glow), 0.8) 79%,
+      transparent 85%,
+      transparent 87%,
+      rgba(var(--glow), 0.55) 92%,
+      transparent 97%,
+      transparent 100%);
+  background-size: 640px 100%;
+  background-repeat: repeat-x;
+  filter: blur(7px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 15%, rgba(0, 0, 0, 0.5) 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 15%, rgba(0, 0, 0, 0.5) 55%, transparent);
+  animation: evo-aurora 26s linear infinite;
 }
 
+/* La segunda capa cuelga menos, así las cortinas tienen distinto largo */
 .evo__glow::after {
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V60L372 96 350 28 326 130 300 70 276 150 250 44 228 104 204 58 178 140 150 32 126 116 100 66 76 156 50 48 26 118 0 60Z'/%3E%3C/svg%3E") repeat-x 0 0 / 300px 80%;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V60L372 96 350 28 326 130 300 70 276 150 250 44 228 104 204 58 178 140 150 32 126 116 100 66 76 156 50 48 26 118 0 60Z'/%3E%3C/svg%3E") repeat-x 0 0 / 300px 80%;
-  opacity: 0.75;
-  animation: evo-peaks-b 10s linear infinite;
+  background-image: linear-gradient(90deg,
+      transparent 0%,
+      transparent 5%,
+      rgba(var(--glow), 0.6) 12%,
+      transparent 19%,
+      transparent 28%,
+      rgba(var(--glow), 0.75) 33%,
+      transparent 38%,
+      transparent 42%,
+      rgba(var(--glow), 0.45) 50%,
+      transparent 58%,
+      transparent 64%,
+      rgba(var(--glow), 0.7) 70%,
+      transparent 76%,
+      transparent 82%,
+      rgba(var(--glow), 0.5) 88%,
+      transparent 94%,
+      transparent 100%);
+  background-size: 460px 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 5%, transparent 70%);
+  mask-image: linear-gradient(to bottom, #000 5%, transparent 70%);
+  opacity: 0.85;
+  animation: evo-aurora-b 17s linear infinite;
 }
 
 .evo[data-verdict="ok"] .evo__glow {
-  --glow: rgba(46, 170, 98, 0.5);
+  --glow: 46, 170, 98;
 }
 
 .evo[data-verdict="nope"] .evo__glow {
-  --glow: rgba(214, 52, 52, 0.42);
+  --glow: 214, 52, 52;
 }
 
 .evo[data-verdict] .evo__glow {
@@ -592,17 +644,15 @@
   }
 }
 
-@keyframes evo-peaks {
+@keyframes evo-aurora {
   to {
-    -webkit-mask-position: -400px 0;
-    mask-position: -400px 0;
+    background-position: -640px 0;
   }
 }
 
-@keyframes evo-peaks-b {
+@keyframes evo-aurora-b {
   to {
-    -webkit-mask-position: -300px 0;
-    mask-position: -300px 0;
+    background-position: -460px 0;
   }
 }
 
