@@ -480,85 +480,34 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 210px;
+  height: 120px;
   opacity: 0;
   pointer-events: none;
-  /* Sombra de color que sale de arriba */
-  background: linear-gradient(to bottom, rgba(var(--glow), 0.3), transparent 85%);
   /* Se desvanece hacia los lados: el brillo se concentra al centro, arriba */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 18%, #000 82%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
 }
 
-/* Aurora boreal cortada a la mitad: cortinas suaves de luz que cuelgan de
-   arriba con distinto largo e intensidad. Son dos capas que se recorren a
-   la izquierda a distinta velocidad; al cruzarse, el brillo fluctúa en vez
-   de ser parejo. */
+/* Aurora boreal cortada a la mitad: un bloque de color que cuelga de arriba,
+   sin huecos, con el borde de abajo en picos suaves de distinta altura. Son
+   dos capas que se recorren a la izquierda a distinta velocidad; al
+   cruzarse, los picos cambian de altura y el brillo fluctúa. */
 .evo__glow::before,
 .evo__glow::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(90deg,
-      transparent 0%,
-      transparent 2%,
-      rgba(var(--glow), 0.7) 7%,
-      transparent 12%,
-      transparent 14%,
-      rgba(var(--glow), 0.45) 18%,
-      transparent 22%,
-      transparent 24%,
-      rgba(var(--glow), 0.8) 30%,
-      transparent 36%,
-      transparent 38%,
-      rgba(var(--glow), 0.5) 42%,
-      transparent 46%,
-      transparent 48%,
-      rgba(var(--glow), 0.75) 55%,
-      transparent 62%,
-      transparent 64%,
-      rgba(var(--glow), 0.4) 67%,
-      transparent 70%,
-      transparent 73%,
-      rgba(var(--glow), 0.8) 79%,
-      transparent 85%,
-      transparent 87%,
-      rgba(var(--glow), 0.55) 92%,
-      transparent 97%,
-      transparent 100%);
-  background-size: 640px 100%;
-  background-repeat: repeat-x;
-  filter: blur(7px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 15%, rgba(0, 0, 0, 0.5) 55%, transparent);
-  mask-image: linear-gradient(to bottom, #000 15%, rgba(0, 0, 0, 0.5) 55%, transparent);
-  animation: evo-aurora 26s linear infinite;
+  background: rgba(var(--glow), 0.42);
+  filter: blur(6px);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.55' stop-color='%23fff' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0V62C8.3 60.0 16.7 45.0 25.0 48.0C33.3 51.0 41.7 78.8 50.0 80.0C58.3 81.2 66.7 52.3 75.0 55.0C83.3 57.7 91.7 95.5 100.0 96.0C108.3 96.5 116.7 62.0 125.0 58.0C133.3 54.0 141.7 74.3 150.0 72.0C158.3 69.7 166.7 41.0 175.0 44.0C183.3 47.0 191.7 86.3 200.0 90.0C208.3 93.7 216.7 72.3 225.0 66.0C233.3 59.7 241.7 49.0 250.0 52.0C258.3 55.0 266.7 85.0 275.0 84.0C283.3 83.0 291.7 47.7 300.0 46.0C308.3 44.3 316.7 65.0 325.0 74.0C333.3 83.0 341.7 102.3 350.0 100.0C358.3 97.7 366.7 66.3 375.0 60.0C383.3 53.7 391.7 64.0 400.0 62.0V0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 520px 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.55' stop-color='%23fff' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0V62C8.3 60.0 16.7 45.0 25.0 48.0C33.3 51.0 41.7 78.8 50.0 80.0C58.3 81.2 66.7 52.3 75.0 55.0C83.3 57.7 91.7 95.5 100.0 96.0C108.3 96.5 116.7 62.0 125.0 58.0C133.3 54.0 141.7 74.3 150.0 72.0C158.3 69.7 166.7 41.0 175.0 44.0C183.3 47.0 191.7 86.3 200.0 90.0C208.3 93.7 216.7 72.3 225.0 66.0C233.3 59.7 241.7 49.0 250.0 52.0C258.3 55.0 266.7 85.0 275.0 84.0C283.3 83.0 291.7 47.7 300.0 46.0C308.3 44.3 316.7 65.0 325.0 74.0C333.3 83.0 341.7 102.3 350.0 100.0C358.3 97.7 366.7 66.3 375.0 60.0C383.3 53.7 391.7 64.0 400.0 62.0V0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 520px 100%;
+  animation: evo-aurora 24s linear infinite;
 }
 
-/* La segunda capa cuelga menos, así las cortinas tienen distinto largo */
 .evo__glow::after {
-  background-image: linear-gradient(90deg,
-      transparent 0%,
-      transparent 5%,
-      rgba(var(--glow), 0.6) 12%,
-      transparent 19%,
-      transparent 28%,
-      rgba(var(--glow), 0.75) 33%,
-      transparent 38%,
-      transparent 42%,
-      rgba(var(--glow), 0.45) 50%,
-      transparent 58%,
-      transparent 64%,
-      rgba(var(--glow), 0.7) 70%,
-      transparent 76%,
-      transparent 82%,
-      rgba(var(--glow), 0.5) 88%,
-      transparent 94%,
-      transparent 100%);
-  background-size: 460px 100%;
-  -webkit-mask-image: linear-gradient(to bottom, #000 5%, transparent 70%);
-  mask-image: linear-gradient(to bottom, #000 5%, transparent 70%);
-  opacity: 0.85;
-  animation: evo-aurora-b 17s linear infinite;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.55' stop-color='%23fff' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0V40C11.1 45.0 22.2 64.7 33.3 64.0C44.4 63.3 55.6 33.7 66.7 36.0C77.8 38.3 88.9 75.7 100.0 78.0C111.1 80.3 122.2 58.0 133.3 50.0C144.4 42.0 155.6 26.7 166.7 30.0C177.8 33.3 188.9 67.3 200.0 70.0C211.1 72.7 222.2 44.0 233.3 46.0C244.4 48.0 255.6 83.3 266.7 82.0C277.8 80.7 288.9 42.0 300.0 38.0C311.1 34.0 322.2 58.7 333.3 58.0C344.4 57.3 355.6 37.0 366.7 34.0C377.8 31.0 388.9 35.0 400.0 40.0V0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 380px 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.55' stop-color='%23fff' stop-opacity='.8'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0V40C11.1 45.0 22.2 64.7 33.3 64.0C44.4 63.3 55.6 33.7 66.7 36.0C77.8 38.3 88.9 75.7 100.0 78.0C111.1 80.3 122.2 58.0 133.3 50.0C144.4 42.0 155.6 26.7 166.7 30.0C177.8 33.3 188.9 67.3 200.0 70.0C211.1 72.7 222.2 44.0 233.3 46.0C244.4 48.0 255.6 83.3 266.7 82.0C277.8 80.7 288.9 42.0 300.0 38.0C311.1 34.0 322.2 58.7 333.3 58.0C344.4 57.3 355.6 37.0 366.7 34.0C377.8 31.0 388.9 35.0 400.0 40.0V0Z'/%3E%3C/svg%3E") repeat-x 0 0 / 380px 100%;
+  animation: evo-aurora-b 15s linear infinite;
 }
 
 .evo[data-verdict="ok"] .evo__glow {
@@ -646,13 +595,15 @@
 
 @keyframes evo-aurora {
   to {
-    background-position: -640px 0;
+    -webkit-mask-position: -520px 0;
+    mask-position: -520px 0;
   }
 }
 
 @keyframes evo-aurora-b {
   to {
-    background-position: -460px 0;
+    -webkit-mask-position: -380px 0;
+    mask-position: -380px 0;
   }
 }
 
