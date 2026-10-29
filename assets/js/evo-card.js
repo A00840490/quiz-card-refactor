@@ -13,8 +13,10 @@
        EvoCard.create(root, { layout: function (i, st, later, scene) {}, fb: {...} })
      layout(i) acomoda los actores para el paso i; st.pick es la última
      respuesta elegida; later(fn, ms) programa algo que se cancela si el
-     alumno cambia de paso. fb[pick] = ["ok" | "nope", "frase"] llena el
-     [data-fb] de la explicación según la respuesta.
+     alumno cambia de paso. fb[pick] = ["ok" | "nope", "frase"] es el
+     mensaje de correcto o incorrecto de la explicación que lleva
+     [data-fb]: sale centrado arriba de la tarjeta, con un brillo que baja
+     desde arriba en verde (acierto) o rojo (error).
    - Las terminales verdes (.js-term) dentro de un paso aparecen con el
      código ya escrito (assets/js/js-terminal.js).
    - Con "reducir movimiento" todo cambia de inmediato. */
@@ -81,24 +83,37 @@
     var top = root.querySelector(".evo__top");
     if (top) top.parentNode.removeChild(top);
 
-    // La frase de respuesta guarda su lugar desde el inicio: todas las
-    // frases posibles quedan invisibles en la misma celda, así la tarjeta
-    // no crece cuando aparece la que toca.
-    root.querySelectorAll("[data-fb]").forEach(function (fb) {
+    // Mensaje de correcto o incorrecto: uno solo, centrado arriba de la
+    // tarjeta. Las explicaciones que lo usan quedan marcadas y el [data-fb]
+    // de su texto se quita. El mensaje guarda su lugar desde el inicio:
+    // todas las frases posibles quedan invisibles en la misma celda, así
+    // la tarjeta no crece cuando aparece la que toca.
+    var fb = null, glow = null;
+    root.querySelectorAll(".evo__step [data-fb]").forEach(function (old) {
+      old.closest(".evo__step").setAttribute("data-fb-step", "");
+      old.parentNode.removeChild(old);
+    });
+    if (cfg.fb && root.querySelector("[data-fb-step]")) {
+      var grid = root.querySelector(".evo__grid");
+      glow = document.createElement("div");
+      glow.className = "evo__glow";
+      glow.setAttribute("aria-hidden", "true");
+      root.insertBefore(glow, grid);
       var box = document.createElement("div");
-      box.className = "evo__fbbox";
-      fb.parentNode.insertBefore(box, fb);
-      Object.keys(cfg.fb || {}).forEach(function (key) {
+      box.className = "evo__verdict";
+      root.insertBefore(box, grid);
+      Object.keys(cfg.fb).forEach(function (key) {
         var g = document.createElement("span");
         g.className = "evo__fb evo__fb--ghost";
         g.setAttribute("aria-hidden", "true");
         g.innerHTML = cfg.fb[key][1];
         box.appendChild(g);
       });
+      fb = document.createElement("span");
+      fb.className = "evo__fb";
+      fb.setAttribute("aria-live", "polite");
       box.appendChild(fb);
-      fb.hidden = false;
-      fb.style.visibility = "hidden";
-    });
+    }
 
     // Columna de ? de fondo. El primero queda escondido abajo para que la
     // columna pueda subir sin que se note dónde vuelve a empezar.
@@ -162,13 +177,16 @@
       next.disabled = !showNext;
       home.classList.toggle("is-on", i === last);
       home.disabled = i !== last;
-      var fb = s.querySelector("[data-fb]");
       if (fb) {
-        var f = cfg.fb && cfg.fb[st.pick];
-        fb.style.visibility = f ? "" : "hidden";
+        var f = s.hasAttribute("data-fb-step") && cfg.fb[st.pick];
+        root.removeAttribute("data-verdict");
+        fb.classList.remove("is-on");
         if (f) {
-          fb.setAttribute("data-tone", f[0]);
           fb.innerHTML = f[1];
+          // Vuelve a arrancar el brillo aunque la respuesta sea la misma
+          void glow.offsetWidth;
+          root.setAttribute("data-verdict", f[0]);
+          fb.classList.add("is-on");
         }
       }
       cfg.layout(i, st, later, scene);

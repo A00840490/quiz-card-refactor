@@ -12,7 +12,8 @@
            <button class="evo__btn" data-go>Siguiente</button>
          </div>
          <div class="evo__step" data-k="a">                ← explicación (blanca)
-           <span class="evo__fb" data-fb hidden></span>    ← frase según la respuesta
+           <span class="evo__fb" data-fb hidden></span>    ← aquí va el mensaje de correcto o incorrecto
+                                                              (sale centrado arriba, con brillo verde o rojo)
            ...
          </div>
          (aquí el JS agrega .evo__nav: flecha y casita)
@@ -39,6 +40,8 @@
   --evo-amber-ink: #412402;
   --evo-green: #1f7a45;
   --evo-green-soft: #e3f6eb;
+  --evo-red: #b42318;
+  --evo-red-soft: #fdeceb;
   --evo-display: "Fira Sans", "Segoe UI", system-ui, sans-serif;
   --evo-mono: Consolas, "Courier New", monospace;
 
@@ -416,13 +419,25 @@
   font-style: normal;
 }
 
-/* Todas las frases posibles ocupan la misma celda (invisibles menos la que toca) */
-.evo__fbbox {
+/* ---------- Mensaje de correcto o incorrecto ----------
+   Centrado arriba de la tarjeta (lo arma evo-card.js). Todas las frases
+   posibles ocupan la misma celda (invisibles menos la que toca), así la
+   tarjeta no cambia de altura. Con la respuesta, un brillo baja desde
+   arriba: verde si acertó y rojo si se equivocó. */
+.evo__verdict {
+  position: relative;
+  z-index: 1;
   display: grid;
+  justify-items: center;
+  padding: 18px 24px 0;
 }
 
-.evo__fbbox > * {
+.evo__verdict > * {
   grid-area: 1 / 1;
+}
+
+.evo__verdict + .evo__grid {
+  padding-top: 14px;
 }
 
 .evo__fb--ghost {
@@ -430,20 +445,83 @@
 }
 
 .evo__fb {
-  justify-self: start;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: 8px;
+  max-width: 100%;
+  font-size: 15px;
+  line-height: 1.45;
+  text-align: center;
+  padding: 6px 16px;
+  border-radius: 18px;
 }
 
-.evo__fb[data-tone="ok"] {
+.evo__fb:not(.evo__fb--ghost) {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+
+.evo__fb.is-on {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s, visibility 0s;
+}
+
+.evo[data-verdict="ok"] .evo__fb {
   background: var(--evo-green-soft);
   color: var(--evo-green);
 }
 
-.evo__fb[data-tone="nope"] {
-  background: var(--evo-amber-soft);
-  color: #6b4a0c;
+.evo[data-verdict="nope"] .evo__fb {
+  background: var(--evo-red-soft);
+  color: var(--evo-red);
+}
+
+.evo__glow {
+  --glow: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 190px;
+  opacity: 0;
+  pointer-events: none;
+  /* Se desvanece hacia los lados: el brillo se concentra al centro, arriba */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+}
+
+/* Dos capas de picos de distinto tamaño que se recorren a la izquierda a
+   distinta velocidad: al cruzarse, el brillo fluctúa en vez de ser parejo */
+.evo__glow::before,
+.evo__glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--glow);
+  filter: blur(9px);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V34L381 112 363 46 341 152 318 62 300 98 282 40 262 172 240 56 222 122 200 36 180 138 160 52 142 92 122 30 100 162 80 62 60 128 40 42 20 104 0 34Z'/%3E%3C/svg%3E") repeat-x 0 0 / 400px 100%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V34L381 112 363 46 341 152 318 62 300 98 282 40 262 172 240 56 222 122 200 36 180 138 160 52 142 92 122 30 100 162 80 62 60 128 40 42 20 104 0 34Z'/%3E%3C/svg%3E") repeat-x 0 0 / 400px 100%;
+  animation: evo-peaks 16s linear infinite;
+}
+
+.evo__glow::after {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V60L372 96 350 28 326 130 300 70 276 150 250 44 228 104 204 58 178 140 150 32 126 116 100 66 76 156 50 48 26 118 0 60Z'/%3E%3C/svg%3E") repeat-x 0 0 / 300px 80%;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='1' stop-color='%23fff' stop-opacity='0'/%3E%3C/linearGradient%3E%3Cpath fill='url%28%23g%29' d='M0 0H400V60L372 96 350 28 326 130 300 70 276 150 250 44 228 104 204 58 178 140 150 32 126 116 100 66 76 156 50 48 26 118 0 60Z'/%3E%3C/svg%3E") repeat-x 0 0 / 300px 80%;
+  opacity: 0.75;
+  animation: evo-peaks-b 10s linear infinite;
+}
+
+.evo[data-verdict="ok"] .evo__glow {
+  --glow: rgba(46, 170, 98, 0.5);
+}
+
+.evo[data-verdict="nope"] .evo__glow {
+  --glow: rgba(214, 52, 52, 0.42);
+}
+
+.evo[data-verdict] .evo__glow {
+  animation: evo-glow 1.8s ease-out 0.3s forwards;
 }
 
 .evo button:focus-visible,
@@ -499,6 +577,35 @@
   }
   60% {
     box-shadow: 0 0 0 12px rgba(59, 111, 182, 0);
+  }
+}
+
+@keyframes evo-glow {
+  0% {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  45% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0.75;
+    transform: none;
+  }
+}
+
+@keyframes evo-peaks {
+  to {
+    -webkit-mask-position: -400px 0;
+    mask-position: -400px 0;
+  }
+}
+
+@keyframes evo-peaks-b {
+  to {
+    -webkit-mask-position: -300px 0;
+    mask-position: -300px 0;
   }
 }
 
