@@ -1,6 +1,7 @@
 /* Menú de vidrio: la forma estándar del curso de cambiar un valor dentro de
    un bloque de código y verlo reflejado en el gráfico. Lo usan los demos
-   (demo.css / demo.js) y el plano del 3-23. Uso: assets/js/menu-vidrio.js
+   (demo.css / demo.js), el plano del 3-23 y la máquina, el tocadiscos y la
+   radio del módulo 4. Uso: assets/js/menu-vidrio.js
 
    - .menu-vidrio__valor  el valor dentro del código: un botón con flecha,
                           como una lista desplegable

@@ -1,6 +1,7 @@
 /* Menú de vidrio (assets/css/menu-vidrio.css): la forma estándar del curso de
-   cambiar un valor dentro de un bloque de código. Lo usan los demos (demo.js)
-   y el plano del 3-23; cualquier ajuste al menú se hace aquí.
+   cambiar un valor dentro de un bloque de código. Lo usan los demos (demo.js),
+   el plano del 3-23 y la máquina, el tocadiscos y la radio del módulo 4;
+   cualquier ajuste al menú se hace aquí.
 
    Se abre debajo de lo que se tocó (arriba si no cabe) y crece desde ahí; se
    cierra al elegir, al hacer clic fuera o con Escape, y se navega con las

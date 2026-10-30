@@ -14,14 +14,14 @@
    data-codigo="css" si el código es una hoja de estilos y data-codigo="js" si
    es JavaScript (los textos entre comillas en .codetext y los comentarios
    // en gris); si no, es HTML, y lo que va dentro de <style> se colorea como
-   CSS. Aquí se colorea y se separa
-   en líneas con <br>; lesson-demo.js le pone después sus números, así que este
-   archivo se carga antes que lesson-demo.js y demo.js.
+   CSS. Aquí se colorea y se separa en líneas con <br>; lesson-demo.js le pone
+   después sus números, así que este archivo se carga antes que lesson-demo.js
+   y demo.js.
 
    Para los gráficos con su propio código:
-     Codigo.limpiar(texto)                   líneas sin la sangría común
-     Codigo.colorear(lineas, "html"|"css")   pedazos de cada línea
-     Codigo.html(pedazos)                    el HTML coloreado, una línea por <br> */
+     Codigo.limpiar(texto)                        líneas sin la sangría común
+     Codigo.colorear(lineas, "html"|"css"|"js")   pedazos de cada línea
+     Codigo.html(pedazos)                         el HTML coloreado, una línea por <br> */
 (function () {
   "use strict";
 
