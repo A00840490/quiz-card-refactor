@@ -21,7 +21,7 @@
 }
 
 .demo-css .lesson-demo > [class*="col-"].demo-css__editor .code {
-  font-size: max(11px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6)));
+  font-size: max(12.5px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6)));
   white-space: pre;
 }
 

@@ -270,6 +270,12 @@
       var win = doc.defaultView;
       if (win.ResizeObserver) new win.ResizeObserver(function () { medir(); pintarAncho(); }).observe(doc.body);
       doc.addEventListener("transitionend", medir);
+      // Los enlaces vacíos y los formularios del ejemplo no sacan de la página a la previsualización
+      doc.addEventListener("click", function (e) {
+        var link = e.target.closest && e.target.closest("a");
+        if (link && /^#?$/.test(link.getAttribute("href") || "")) e.preventDefault();
+      });
+      doc.addEventListener("submit", function (e) { e.preventDefault(); });
       if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(medir);
       if (window.ResizeObserver) {
         new ResizeObserver(function () { pintarAncho(); cerrarMenu(); }).observe(marco);

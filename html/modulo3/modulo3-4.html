@@ -25,6 +25,7 @@
   <link href="../../assets/css/app.css" rel="stylesheet" />
   <link href="../../assets/css/progress.css" rel="stylesheet" />
   <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet" />
   <link href="../../assets/css/lesson-demo.css" rel="stylesheet" />
 </head>
 
@@ -86,43 +87,7 @@
                   <span class="code"><mark>#</mark></span> y
                   <span class="code"><mark>.</mark></span>, respectivamente. Observa el siguiente ejemplo:
                 </p>
-                <div class="row lesson-demo lesson-demo--scroll">
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="card">
-                      <div class="container-fluid" style="background-color: #1a1a1a">
-                        <p class="code">
-                          &lt;<span class="codetag">style</span>&gt;<br />
-                          &nbsp;&nbsp;<span class="codetag">p</span> {<br />
-                          &nbsp;&nbsp;&nbsp;&nbsp;font-family: <span class="codetext">Arial, Helvetica, sans-serif</span>;<br />
-                          &nbsp;&nbsp;&nbsp;&nbsp;font-size: <span class="codetext">32px</span>;<br />
-                          &nbsp;&nbsp;}<br />
-                          &nbsp;&nbsp;<span class="codetag">#rojo</span> {<br />
-                          &nbsp;&nbsp;&nbsp;&nbsp;color: <span class="codetext">red</span>;<br />
-                          &nbsp;&nbsp;}<br />
-                          &nbsp;&nbsp;<span class="codetag">.azul</span> {<br />
-                          &nbsp;&nbsp;&nbsp;&nbsp;color: <span class="codetext">blue</span>;<br />
-                          &nbsp;&nbsp;}<br />
-                          &nbsp;&nbsp;<span class="codetag">.pequeño</span> {<br />
-                          &nbsp;&nbsp;&nbsp;&nbsp;font-size: <span class="codetext">18px</span>;<br />
-                          &nbsp;&nbsp;}<br />
-                          &lt;/<span class="codetag">style</span>&gt;<br />
-                          &lt;<span class="codetag">p</span> id="rojo"&gt;<span class="codetext">Este texto se modificó usando un ID.</span>&lt;/<span class="codetag">p</span>&gt;<br />
-                          &lt;<span class="codetag">p</span> class="azul"&gt;<span class="codetext">Este texto se modificó usando una clase.</span>&lt;/<span class="codetag">p</span>&gt;<br />
-                          &lt;<span class="codetag">p</span> class="azul pequeño"&gt;<span class="codetext">Este texto también se modificó usando clases.</span>&lt;/<span class="codetag">p</span>&gt;
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="example">
-                      <div class="card">
-                        <div class="container-fluid">
-                          <iframe src="ejemplo2.html" frameborder="0" style="width: 100%; height: 320px"></iframe>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <div data-demo-css="id-clase"></div>
                 <p>
                   Utilizamos un
                   <span class="code"><mark>id</mark></span> para modificar
@@ -215,6 +180,8 @@
   <!-- endbuild -->
 
   <!-- Insert your dependencies here -->
+    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
+    <script src="../../assets/js/scripts/modulo3/modulo3-4-demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 
