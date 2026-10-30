@@ -12,112 +12,6 @@
 
     <link href="../../assets/css/curso.css" rel="stylesheet" />
 
-    <style>
-        @keyframes example {
-            0% {font-size: 90px; }
-            50% {font-size: 55px;}
-        }
-        @keyframes example2 {
-            0% {font-size: 18px;}
-            50% {font-size: 25px;}
-        }
-        .carousel-control-prev{
-            padding-right: 40%;
-        }
-        .carousel-control-next{
-            padding-left: 40%;
-        }
-        .carousel-control-prev-icon {
-            width: 40px;
-            height: 40px;
-        }
-         
-        .carousel-control-next-icon {
-            width: 40px;
-            height: 40px;
-        }
-
-        .icon {
-            font-size: 18px;
-            height: 100%;
-            text-align: start;
-            animation-name: example2;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-            
-        }
-        
-        .carousel-control-next-icon-after {
-            content: '>';
-            font-size: 90px;
-            height: 100%;
-            text-align: start;
-            color: #1A36C2;
-            animation-name: example;
-            animation-duration: 2.3s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-            
-        }
-
-        .carousel-control-prev-icon-after {
-            content: '<';
-            height: 100%;
-            font-size: 90px;
-            text-align: start;
-            color: #1A36C2;
-            animation-name: example;
-            animation-duration: 2.3s;
-            animation-iteration-count: infinite;
-            animation-timing-function: ease-in-out;
-        }
-
-        .tutorial-text{
-            margin: 30px;
-            font-size: 23px;
-        }
-        
-    </style>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet"
-        type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet"
-        type="text/css" />
-    <style>
-        /* Controles del carrusel arriba de las cartas (estándar del curso),
-           con los mismos botones y puntos que el carrusel del 1-4 y el 2-9. */
-        .slider-controls {
-            margin-bottom: 24px;
-        }
-
-        .slider-controls .demo-carousel__dots {
-            order: 1;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .slider-controls .demo-carousel__dots li {
-            display: flex;
-            margin: 0;
-        }
-
-        .slider-controls .slick-active .demo-carousel__dot {
-            background: #0f4c91;
-            border-color: #0f4c91;
-        }
-
-        .slider-controls [data-slider-next] {
-            order: 2;
-        }
-
-        .slider-controls .slick-disabled {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-    </style>
-
 </head>
 
 <body class="header-info side-nav-dark">
@@ -185,85 +79,87 @@
                             <div class="card-block">
                                 <h2 class="card-title">Tutorial</h2>
                                 <p>Este es un pequeño tutorial para publicar una página web de forma gratuita en 000webhost, haz clic <span class="ico-clic" aria-hidden="true"></span> en las flechas para saber más:</p>
-                                <div class="text-center py-5">
-                        <div class="demo-carousel__controls slider-controls" data-slider-controls></div>
-                        <div class="slider" style="width: 80%; margin:auto">
-                            <div class="mrg-horizon-50">
-                                <div class="row"><p class="tutorial-text">El primer paso es registrarnos y confirmar nuestro correo electrónico en la página.</p>
-                                    <div class="row w-100">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <img 
-                                        src="../../assets/images/course/modulo5/tutorial/0.JPG"
-                                        alt="First slide"></div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mrg-horizon-50">
-                                                        
-                                <div class="row">
-                                    <p class="tutorial-text">Después de confirmar se nos enviará a una página de bienvenida y al final crearemos un proyecto.</p>
-                                    <div class="row w-100">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <img
-                                            src="../../assets/images/course/modulo5/tutorial/1.JPG"
-                                            alt="First slide">
+                                <div class="text-center">
+                                    <div class="demo-carousel mt-0" data-demo-carousel data-demo-autoheight
+                                        data-demo-label="Paso">
+                                        <div class="demo-carousel__controls">
+                                            <button class="demo-carousel__btn" type="button" data-demo-prev
+                                                aria-label="Paso anterior">&#8249;</button>
+                                            <div class="demo-carousel__dots" data-demo-dots></div>
+                                            <button class="demo-carousel__btn" type="button" data-demo-next
+                                                aria-label="Paso siguiente">&#8250;</button>
+                                        </div>
+                                        <div class="demo-carousel__viewport">
+                                            <div class="demo-carousel__track">
+                                                <div class="demo-carousel__slide" data-demo-slide>
+                                                    <div class="tutorial-slide-card">
+                                                        <div class="tutorial-slide-header">
+                                                            <p class="tutorial-text">El primer paso es registrarnos y confirmar nuestro correo electrónico en la página.</p>
+                                                        </div>
+                                                        <div class="tutorial-slide-body">
+                                                            <img src="../../assets/images/course/modulo5/tutorial/0.JPG" alt="Paso 1">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="demo-carousel__slide" data-demo-slide>
+                                                    <div class="tutorial-slide-card">
+                                                        <div class="tutorial-slide-header">
+                                                            <p class="tutorial-text">Después de confirmar se nos enviará a una página de bienvenida y al final crearemos un proyecto.</p>
+                                                        </div>
+                                                        <div class="tutorial-slide-body">
+                                                            <img src="../../assets/images/course/modulo5/tutorial/1.JPG" alt="Paso 2">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="demo-carousel__slide" data-demo-slide>
+                                                    <div class="tutorial-slide-card">
+                                                        <div class="tutorial-slide-header">
+                                                            <p class="tutorial-text">Enseguida veremos un menú con las opciones para nuestro sitio.<br>Tenemos varias opciones, seleccionamos la última para subir nuestros archivos.</p>
+                                                        </div>
+                                                        <div class="tutorial-slide-body">
+                                                            <img src="../../assets/images/course/modulo5/tutorial/2.JPG" alt="Paso 3">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="demo-carousel__slide" data-demo-slide>
+                                                    <div class="tutorial-slide-card">
+                                                        <div class="tutorial-slide-header">
+                                                            <p class="tutorial-text">Nos llevará a un administrador de archivos en línea, en la carpeta de <b>public_html</b> deberán ir todos nuestros archivos.<br>La página de inicio que subas debe llamarse <b>index.html</b></p>
+                                                        </div>
+                                                        <div class="tutorial-slide-body">
+                                                            <img src="../../assets/images/course/modulo5/tutorial/3.JPG" alt="Paso 4">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="demo-carousel__slide" data-demo-slide>
+                                                    <div class="tutorial-slide-card">
+                                                        <div class="tutorial-slide-header">
+                                                            <p class="tutorial-text">Ya en la carpeta, seleccionamos el ícono para subir archivos.</p>
+                                                        </div>
+                                                        <div class="tutorial-slide-body">
+                                                            <img src="../../assets/images/course/modulo5/tutorial/4.JPG" alt="Paso 5">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="demo-carousel__slide" data-demo-slide>
+                                                    <div class="tutorial-slide-card">
+                                                        <div class="tutorial-slide-header">
+                                                            <p class="tutorial-text">Con todos nuestros archivos ya alojados, podemos visualizar nuestra página en el dominio que se nos dió.</p>
+                                                        </div>
+                                                        <div class="tutorial-slide-body">
+                                                            <img src="../../assets/images/course/modulo5/tutorial/5.JPG" alt="Paso 6">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="mrg-horizon-50">
-                                <div class="row">
-                                    <p class="tutorial-text">Enseguida veremos un menú con las opciones para nuestro sitio. <br> Tenemos varias opciones, seleccionamos la última para subir nuestros archivos.</p>
-                                                        
-                                    <div class="row w-100">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <img 
-                                        src="../../assets/images/course/modulo5/tutorial/2.JPG"
-                                        alt="First slide">
-                                        
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mrg-horizon-50">
-                                <div class="row">
-                                    <p class="tutorial-text">Nos llevará a un administrador de archivos en línea, en la carpeta de <b>public_html</b> deberán ir todos nuestros archivos. <br> La página de inicio que subas debe llamarse <b>index.html</b></p>
-                                    <div class="row w-100">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <img 
-                                        src="../../assets/images/course/modulo5/tutorial/3.JPG"
-                                        alt="First slide"></div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mrg-horizon-50">
-                                <div class="row">
-                                    <p class="tutorial-text">Ya en la carpeta, seleccionamos el ícono para subir archivos.</p>
-                                        <div class="row w-100">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <img 
-                                        src="../../assets/images/course/modulo5/tutorial/4.JPG"
-                                        alt="First slide"></div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mrg-horizon-50">
-                                <div class="row">
-                                    <p class="tutorial-text">Con todos nuestros archivos ya alojados, podemos visualizar nuestra página en el dominio que se nos dió.</p>
-                                                        <div class="row w-100">
-                                        <div class="w-100 d-flex justify-content-center">
-                                            <img 
-                                        src="../../assets/images/course/modulo5/tutorial/5.JPG"
-                                        alt="First slide"></div>
-                                    
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
                     </div>
                 </div>                
                    
@@ -288,53 +184,6 @@
     </div>
 
     <script src="../../assets/js/curso.js"></script>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
-
-    <!-- Código necesario para el carrusel, checar la documentación en: 
-    https://kenwheeler.github.io/slick/ para más información -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $(".slider").slick({
-                centerMode: true,
-                centerPadding: '0px',
-                infinite: false,
-                dots: true,
-                arrows: true,
-                slidesToShow: 1,
-                adaptiveHeight: true,
-                // Flechas y puntos van arriba de las cartas
-                appendArrows: $("[data-slider-controls]"),
-                appendDots: $("[data-slider-controls]"),
-                prevArrow: '<button class="demo-carousel__btn" type="button" aria-label="Paso anterior">&#8249;</button>',
-                nextArrow: '<button class="demo-carousel__btn" type="button" data-slider-next aria-label="Paso siguiente">&#8250;</button>',
-                dotsClass: "demo-carousel__dots",
-                customPaging: function (slider, i) {
-                    return '<button class="demo-carousel__dot" type="button" aria-label="Paso ' + (i + 1) + '"></button>';
-                }
-            });
-        });
-    </script>
-    <script>
-        $(".carousel-control-next").mouseover(function(){
-            $(".carousel-control-prev-icon-after").css("animation","none");
-            $(".carousel-control-next-icon-after").css("animation","none");
-        });
-        $(".carousel-control-next").on("mouseout",function(){
-            $(".carousel-control-prev-icon-after").css("animation","example 2.3s infinite ease-in-out");
-            $(".carousel-control-next-icon-after").css("animation","example 2.3s infinite ease-in-out");
-        });
-        $(".carousel-control-prev").mouseover(function(){
-            $(".carousel-control-prev-icon-after").css("animation","none");
-            $(".carousel-control-next-icon-after").css("animation","none");
-        });
-        $(".carousel-control-prev").on("mouseout",function(){
-            $(".carousel-control-prev-icon-after").css("animation","example 2.3s infinite ease-in-out");
-            $(".carousel-control-next-icon-after").css("animation","example 2.3s infinite ease-in-out");
-        });
-    </script>
 
 </body>
 
