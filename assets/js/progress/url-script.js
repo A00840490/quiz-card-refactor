@@ -303,8 +303,11 @@ $(document).ready(function() {
 
         $(".btn-group").html(getMovementBar());
         setTimeout(function() {
-            document.getElementById(getfilename()).classList.remove("btn-default");
-            document.getElementById(getfilename()).classList.add("btn-actual-page");
+            // Las páginas de cierre de módulo no tienen botones de avance
+            var actual = document.getElementById(getfilename());
+            if (!actual) return;
+            actual.classList.remove("btn-default");
+            actual.classList.add("btn-actual-page");
         }, 250);
 
         show(getTotalPercentage());

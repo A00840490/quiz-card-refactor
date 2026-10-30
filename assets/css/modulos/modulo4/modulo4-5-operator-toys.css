@@ -270,6 +270,11 @@
 
 /* La tabla original queda disponible para lectores de pantalla cuando el
    juego está activo (y visible si JavaScript no carga). */
+/* Una tabla no recorta sus celdas: el contenedor las recorta para que no ensanchen la página */
+.op-toys--ready {
+  position: relative;
+  overflow-x: clip;
+}
 .op-toys--ready .op-toys__table {
   position: absolute;
   width: 1px;

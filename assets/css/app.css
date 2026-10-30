@@ -8520,6 +8520,15 @@ label.success {
   .card .card-horizon .image-container {
     position: static;
   }
+  /* Sin el margen negativo del .row: en celular sacaba la tarjeta 15px de la pantalla */
+  .card .card-horizon > .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .card .card-horizon > .row > [class*="col"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .card .card-horizon .card-body {

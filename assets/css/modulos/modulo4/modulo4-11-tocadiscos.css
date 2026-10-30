@@ -265,6 +265,7 @@
   position: absolute;
   inset: 0;
   clip-path: inset(1.2% 1.15% round 4.23% / 4.4%);
+  overflow: hidden; /* el haz que gira no ensancha la página en celular */
   pointer-events: none;
 }
 .tt__haz::before {
