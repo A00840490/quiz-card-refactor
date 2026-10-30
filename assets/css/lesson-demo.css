@@ -568,3 +568,51 @@
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* ---------- Editor con altura limitada y desplazamiento solo ----------
+   .lesson-demo--scroll (en la fila) corta el código a una altura fija con
+   barra vertical visible; assets/js/lesson-demo.js lo desplaza solo, lento,
+   cuando lleva un rato en pantalla. Se usa en el formulario del 2-11. */
+.lesson-demo--scroll > [class*="col-"]:first-child .code {
+  max-height: 440px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #4b5566 #1f2430;
+}
+
+.lesson-demo--scroll > [class*="col-"]:first-child .code::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.lesson-demo--scroll
+  > [class*="col-"]:first-child
+  .code::-webkit-scrollbar-track {
+  background: #1f2430;
+}
+
+.lesson-demo--scroll
+  > [class*="col-"]:first-child
+  .code::-webkit-scrollbar-thumb {
+  border: 2px solid #1f2430;
+  border-radius: 6px;
+  background: #4b5566;
+}
+
+.lesson-demo--scroll
+  > [class*="col-"]:first-child
+  .code::-webkit-scrollbar-thumb:hover {
+  background: #66728a;
+}
+
+.lesson-demo--scroll
+  > [class*="col-"]:first-child
+  .code::-webkit-scrollbar-corner {
+  background: #1f2430;
+}
+
+@media (max-width: 767px) {
+  .lesson-demo--scroll > [class*="col-"]:first-child .code {
+    max-height: 360px;
+  }
+}

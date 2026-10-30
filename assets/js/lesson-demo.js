@@ -50,3 +50,111 @@
     code.classList.add("code--numbered");
   });
 })();
+
+/* Editor con desplazamiento solo (.lesson-demo--scroll, ver lesson-demo.css).
+   Cuando el código lleva 7.5 s en pantalla baja despacio; al llegar al fondo
+   espera un momento y regresa arriba igual de despacio, y vuelve a empezar.
+   Si el alumno lo mueve (rueda, toque, clic o teclado) se detiene y vuelve a
+   esperar los 7.5 s desde donde lo dejó. */
+(function () {
+  "use strict";
+
+  var ESPERA = 7500; // ms en pantalla antes de empezar a bajar
+  var PAUSA_FONDO = 2500; // ms quieto en el fondo antes de subir
+  var VELOCIDAD = 30; // px por segundo
+
+  var editores = document.querySelectorAll(
+    '.lesson-demo--scroll > [class*="col-"]:first-child .code',
+  );
+  if (!editores.length) return;
+
+  function iniciar(code) {
+    var visible = false;
+    var temporizador = null;
+    var cuadro = null;
+    var pos = 0;
+
+    function limite() {
+      return code.scrollHeight - code.clientHeight;
+    }
+
+    function detener() {
+      clearTimeout(temporizador);
+      cancelAnimationFrame(cuadro);
+      temporizador = cuadro = null;
+    }
+
+    function esperar(ms, siguiente) {
+      detener();
+      temporizador = setTimeout(function () {
+        temporizador = null;
+        if (visible) siguiente();
+      }, ms);
+    }
+
+    function mover(direccion) {
+      var antes = null;
+      pos = code.scrollTop;
+      function paso(ahora) {
+        if (antes !== null) {
+          pos += (direccion * VELOCIDAD * (ahora - antes)) / 1000;
+        }
+        antes = ahora;
+        var max = limite();
+        if (direccion > 0 && pos >= max) {
+          code.scrollTop = max;
+          esperar(PAUSA_FONDO, function () {
+            mover(-1);
+          });
+          return;
+        }
+        if (direccion < 0 && pos <= 0) {
+          code.scrollTop = 0;
+          esperar(ESPERA, function () {
+            mover(1);
+          });
+          return;
+        }
+        code.scrollTop = pos;
+        cuadro = requestAnimationFrame(paso);
+      }
+      cuadro = requestAnimationFrame(paso);
+    }
+
+    function programar() {
+      if (limite() <= 1) return;
+      esperar(ESPERA, function () {
+        mover(code.scrollTop >= limite() - 1 ? -1 : 1);
+      });
+    }
+
+    ["wheel", "touchstart", "pointerdown", "keydown"].forEach(function (tipo) {
+      code.addEventListener(
+        tipo,
+        function () {
+          if (visible) programar();
+        },
+        { passive: true },
+      );
+    });
+
+    if (!("IntersectionObserver" in window)) {
+      visible = true;
+      programar();
+      return;
+    }
+
+    new IntersectionObserver(
+      function (entradas) {
+        var ahora = entradas[entradas.length - 1].intersectionRatio >= 0.6;
+        if (ahora === visible) return;
+        visible = ahora;
+        if (visible) programar();
+        else detener();
+      },
+      { threshold: [0, 0.6, 1] },
+    ).observe(code);
+  }
+
+  Array.prototype.forEach.call(editores, iniciar);
+})();
