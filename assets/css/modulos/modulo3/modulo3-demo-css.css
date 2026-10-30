@@ -1,107 +1,55 @@
-/* Demos de CSS del módulo 3 (antes eran CodePens): a la izquierda la vista
-   previa del navegador, a la derecha el código en la ventana estándar del
-   curso (lesson-demo.css) y, en una ficha sobre él, la explicación del último
-   cambio (.grafico-ficha en app.css). Los valores con flecha abren el menú de
-   vidrio del plano del 3-23 (mismos estilos que .plano__valor, .plano__menu y
-   .plano__opcion) y el código se aplica tal cual a la vista previa.
-   En celular la vista previa va arriba y el código debajo.
-   Uso: assets/js/scripts/modulo3/modulo3-demo-css.js */
+/* Demos de CSS del módulo 3 (antes eran CodePens). Se ven como los demás
+   demos del curso: la fila .lesson-demo de lesson-demo.css, con el código a
+   la izquierda y la previsualización del navegador a la derecha. Lo único
+   que se agrega son los valores con flecha del código, que abren el menú de
+   vidrio del plano del 3-23 (mismos estilos que .plano__valor, .plano__menu
+   y .plano__opcion). Uso: assets/js/scripts/modulo3/modulo3-demo-css.js */
 .demo-css {
-  --demo-css-blue: #093b8b;
   --demo-css-gold: #fac775;
   --demo-css-mono: "Source Code Pro", Consolas, "Courier New", monospace;
-  position: relative;
-  display: grid;
-  gap: 22px;
-  margin: 18px 0 26px;
+  position: relative; /* el menú se coloca aquí, fuera de la tarjeta que corta lo que se sale */
 }
 
-@media (min-width: 992px) {
-  .demo-css {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
-    column-gap: 32px;
-    align-items: start; /* arriba: así la ficha de la explicación crece hacia abajo sin mover nada */
+/* Nombre del archivo en la barra del editor */
+.demo-css .lesson-demo > [class*="col-"].demo-css__editor::before {
+  content: attr(data-archivo);
+}
+
+/* La letra se achica si la línea más larga (--cols caracteres) no cabe */
+.demo-css .lesson-demo > [class*="col-"].demo-css__editor {
+  container-type: inline-size;
+}
+
+.demo-css .lesson-demo > [class*="col-"].demo-css__editor .code {
+  font-size: max(11px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6)));
+  white-space: pre;
+}
+
+@media (max-width: 575px) {
+  .demo-css .lesson-demo > [class*="col-"].demo-css__editor .code {
+    font-size: max(10.5px, min(12px, calc((100cqw - 60px) / var(--cols, 40) / 0.6)));
   }
 }
 
-.demo-css__side {
-  min-width: 0;
-}
-
-/* ---------- Vista previa: una ventana de navegador ---------- */
-.demo-css__vista {
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid #dce3ec;
-  border-radius: 14px;
-  background: #ffffff;
-  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
-}
-
-.demo-css__barra {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 54px;
-  padding: 0 20px;
-  border-bottom: 1px solid #dce3ec;
-  color: #000000;
-  font: 800 0.87rem Arial, sans-serif;
-  text-align: center;
-}
-
-.demo-css__ancho {
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: #eaf3ff;
-  color: var(--demo-css-blue);
-  font: 700 12px/1.4 var(--demo-css-mono);
-}
-
-.demo-css__ancho:empty {
-  display: none;
-}
-
+/* ---------- Previsualización ---------- */
 .demo-css__marco {
   display: block;
   width: 100%;
-  min-height: 96px;
+  min-height: 60px;
   border: 0;
   background: #ffffff;
   transition: height 0.3s ease;
 }
 
-/* ---------- Código: la ventana estándar del curso (lesson-demo.css) ----------
-   .lesson-demo-stack pone la barra con los tres puntos y el nombre del
-   archivo (aquí sale de data-archivo); .code--numbered numera las líneas.
-   La letra se achica si la línea más larga (--cols caracteres) no cabe. */
-.demo-css__code {
-  container-type: inline-size;
-  width: 100%;
-  min-width: 0;
-  text-align: left;
+.demo-css__ancho {
+  margin: 0 0 12px;
+  color: #667085;
+  font: 400 13px/1.4 Arial, sans-serif;
 }
 
-.demo-css__code.lesson-demo-stack::before {
-  content: attr(data-archivo);
-}
-
-.demo-css__code .code {
-  margin: 0;
-  padding: 24px 22px 28px 0;
-  overflow-x: auto;
-  background: transparent;
-  color: #d7deea;
-  font: 400 max(11px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6))) / 1.75 "Courier New", Consolas, monospace;
-  white-space: pre;
-}
-
-@media (max-width: 575px) {
-  .demo-css__code .code {
-    padding: 18px 12px 22px 0;
-    font-size: max(10.5px, min(12px, calc((100cqw - 60px) / var(--cols, 40) / 0.6)));
-  }
+.demo-css__ancho b {
+  color: #0f4c91;
+  font-family: var(--demo-css-mono);
 }
 
 /* Valores que se pueden cambiar: un botón con flecha, como una lista desplegable */
@@ -262,13 +210,6 @@
   height: 18px;
   border-radius: 5px;
   box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.3);
-}
-
-/* ---------- Explicación: estándar .grafico-exp (app.css), en la ficha de
-   renglones montada sobre la ventana de código (.grafico-ficha en app.css) ---------- */
-.demo-css .grafico-exp .mal {
-  font-weight: 700;
-  color: #b4472a;
 }
 
 @media (prefers-reduced-motion: reduce) {

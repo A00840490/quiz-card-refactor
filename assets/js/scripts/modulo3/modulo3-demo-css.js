@@ -1,40 +1,35 @@
-/* Demos de CSS del módulo 3 (antes eran CodePens). Cada página llama
+/* Demos de CSS del módulo 3 (antes eran CodePens). Se ven igual que los
+   demás demos del curso (.lesson-demo de lesson-demo.css): el código a la
+   izquierda y la previsualización del navegador a la derecha, en una sola
+   tarjeta. Cada página llama
      DemoCSS.crear(contenedor, config)
-   y el demo arma la vista previa (un iframe con el HTML del ejemplo), la
-   ventana de código del curso y la ficha de la explicación. El código se
-   aplica tal cual a la vista previa. Los valores con flecha abren el menú de
-   vidrio del plano del 3-23; al elegir, el código se vuelve a pintar, la vista
-   previa cambia en el momento (lo que cambia de lugar se desliza) y la
-   explicación cambia con desvanecido.
+   El código se aplica tal cual a la previsualización (un iframe con el HTML
+   del ejemplo). Los valores con flecha abren el menú de vidrio del plano del
+   3-23; al elegir, el código se vuelve a pintar y la previsualización cambia
+   en el momento (lo que cambia de lugar se desliza).
 
    config:
-     archivo   nombre del archivo en la barra de la ventana ("estilos.css")
+     archivo   nombre del archivo en la barra del editor ("estilos.css")
      tipo      "css" (el código es la hoja de estilos de config.html) o
                "html" (el código es la página completa, con su <style>)
      html      el contenido de <body> cuando tipo es "css"
      codigo    las líneas del código. «x» es un selector o etiqueta (.codetag),
                ‹x› un valor o texto (.codetext) y {{k}} un valor con menú
      valores   { k: { opciones: [...], inicial: 0, nombre: "float" } }
-     alto      alto fijo de la vista previa (con barra para desplazarse); si
-               no se da, la vista previa mide lo que su contenido
-     base      CSS extra para la vista previa que no se muestra en el código
-     ancho     true: la barra de la vista previa dice cuánto mide de ancho
-     inicio(ctx) y explicar(k, valor, ctx) devuelven la explicación en HTML.
-               ctx: { doc, v (valores actuales), el(sel), todos(sel), px(el, prop), ancho } */
+     alto      alto fijo de la previsualización (con barra para desplazarse);
+               si no se da, mide lo que su contenido
+     base      CSS extra para la previsualización que no se muestra en el código
+     ancho     true: arriba de la previsualización se dice cuánto mide de ancho */
 (function () {
   "use strict";
 
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Estilo de la vista previa que no forma parte del ejemplo: la letra del
+  // Estilo de la previsualización que no forma parte del ejemplo: la letra del
   // curso y transiciones para que los cambios se vean pasar
   var BASE = "html{font-family:Lato,Arial,sans-serif;color:#172033;font-size:16px;line-height:1.5}" +
-    "body{margin:16px}h1,h2,h3{line-height:1.25;margin:0 0 .5em}p{margin:0 0 .75em}" +
+    "body{margin:0}h1,h2,h3{line-height:1.25;margin:0 0 .5em}p{margin:0 0 .75em}" +
     (reduce ? "" : "body *{transition:width .4s ease,height .4s ease,min-width .4s ease,max-width .4s ease,margin .4s ease,padding .4s ease,top .4s ease,left .4s ease,right .4s ease,bottom .4s ease,color .4s ease,background-color .4s ease,font-size .4s ease,border-width .4s ease}");
-
-  function valido(prop, valor) {
-    return !window.CSS || !CSS.supports || CSS.supports(prop, valor);
-  }
 
   function esColor(valor) {
     return !/^(inherit|initial|unset|currentcolor)$/i.test(valor) && window.CSS && CSS.supports && CSS.supports("color", valor);
@@ -51,41 +46,38 @@
       v[k] = cfg.valores[k].opciones[cfg.valores[k].inicial || 0];
     });
 
-    /* ---------- Estructura ---------- */
+    /* ---------- Estructura: la misma fila .lesson-demo de los otros demos ---------- */
     root.classList.add("demo-css");
     root.innerHTML =
-      "<div class=\"demo-css__vista\">" +
-        "<div class=\"demo-css__barra\">Previsualización del Navegador<span class=\"demo-css__ancho\" data-ancho></span></div>" +
-        "<iframe class=\"demo-css__marco\" title=\"Previsualización del ejemplo\" loading=\"lazy\"></iframe>" +
-      "</div>" +
-      "<div class=\"demo-css__side grafico-ficha-col\">" +
-        "<div class=\"demo-css__code lesson-demo-stack\"><pre class=\"code code--numbered\" data-code></pre></div>" +
-        "<div class=\"grafico-ficha\"><p class=\"grafico-exp\" data-exp aria-live=\"polite\"></p></div>" +
+      "<div class=\"row lesson-demo\">" +
+        "<div class=\"col-lg-6 col-md-6 col-sm-12 col-xs-12 demo-css__editor\"><pre class=\"code code--numbered\"></pre></div>" +
+        "<div class=\"col-lg-6 col-md-6 col-sm-12 col-xs-12 demo-css__vista\">" +
+          "<p class=\"demo-css__ancho\" hidden></p>" +
+          "<iframe class=\"demo-css__marco\" title=\"Previsualización del ejemplo\" loading=\"lazy\"></iframe>" +
+        "</div>" +
       "</div>" +
       "<div class=\"demo-css__menu\" role=\"menu\" hidden></div>";
 
     var marco = root.querySelector("iframe");
-    var anchoEl = root.querySelector("[data-ancho]");
-    var codeBox = root.querySelector(".demo-css__code");
-    var pre = root.querySelector("[data-code]");
-    var exp = root.querySelector("[data-exp]");
+    var anchoEl = root.querySelector(".demo-css__ancho");
+    var editor = root.querySelector(".demo-css__editor");
+    var pre = root.querySelector("pre");
     var menu = root.querySelector(".demo-css__menu");
-    codeBox.setAttribute("data-archivo", cfg.archivo);
+    editor.setAttribute("data-archivo", cfg.archivo);
 
-    // La línea más larga decide el tamaño de la letra (cada menú ocupa unos 3 caracteres más)
-    var cols = 0;
-    cfg.codigo.forEach(function (l) {
-      var botones = (l.match(/\{\{\w+\}\}/g) || []).length;
-      cols = Math.max(cols, texto(l).length + 3 * botones);
-    });
-    codeBox.style.setProperty("--cols", Math.max(cols, 30));
-
-    /* ---------- Código ---------- */
-    // El código sin marcas, con los valores actuales: lo que se aplica a la vista previa
+    // El código sin marcas, con los valores actuales: lo que se aplica a la previsualización
     function texto(l) {
       return l.replace(/\{\{(\w+)\}\}/g, function (_, k) { return v[k]; }).replace(/[«»‹›]/g, "");
     }
 
+    // La línea más larga decide el tamaño de la letra (cada menú ocupa unos 3 caracteres más)
+    var cols = 0;
+    cfg.codigo.forEach(function (l) {
+      cols = Math.max(cols, texto(l).length + 3 * (l.match(/\{\{\w+\}\}/g) || []).length);
+    });
+    editor.style.setProperty("--cols", Math.max(cols, 30));
+
+    /* ---------- Código ---------- */
     function boton(k) {
       var nombre = cfg.valores[k].nombre || k;
       return "<button type=\"button\" class=\"demo-css__valor\" data-k=\"" + k + "\" aria-haspopup=\"menu\" aria-label=\"" + esc(nombre + ": " + v[k]) + ". Elegir otro valor\">" + esc(v[k]) + "</button>";
@@ -103,8 +95,8 @@
       }).join("");
     }
 
-    /* ---------- Vista previa ---------- */
-    var doc = null, estilo = null;
+    /* ---------- Previsualización ---------- */
+    var doc = null, estilo = null, htmlActual = null;
 
     function partes() {
       var todo = cfg.codigo.map(texto).join("\n");
@@ -113,7 +105,6 @@
       return { css: m ? m[1] : "", html: todo.replace(/<style>[\s\S]*?<\/style>/, "") };
     }
 
-    var htmlActual = null;
     function aplicar() {
       if (!doc) return;
       var p = partes();
@@ -148,7 +139,7 @@
       });
     }
 
-    // La vista previa mide lo que su contenido (salvo que tenga alto fijo)
+    // La previsualización mide lo que su contenido (salvo que tenga alto fijo)
     function medir() {
       if (!doc) return;
       if (cfg.alto) {
@@ -159,48 +150,17 @@
       Array.prototype.forEach.call(doc.body.querySelectorAll("*"), function (el) {
         fondo = Math.max(fondo, el.getBoundingClientRect().bottom);
       });
-      var h = Math.ceil(fondo + (parseFloat(doc.defaultView.getComputedStyle(doc.body).marginBottom) || 0) + (doc.defaultView.scrollY || 0));
+      var h = Math.ceil(fondo + (doc.defaultView.scrollY || 0));
       if (Math.abs(h - (marco._h || 0)) > 1) {
         marco._h = h;
         marco.style.height = h + "px";
       }
     }
 
-    function ctx() {
-      return {
-        doc: doc,
-        v: v,
-        el: function (sel) { return doc.querySelector(sel); },
-        todos: function (sel) { return Array.prototype.slice.call(doc.querySelectorAll(sel)); },
-        px: function (el, prop) {
-          if (typeof el === "string") el = doc.querySelector(el);
-          var r = el.getBoundingClientRect();
-          if (prop === "width") return Math.round(r.width);
-          if (prop === "height") return Math.round(r.height);
-          return Math.round(parseFloat(doc.defaultView.getComputedStyle(el)[prop]) || 0);
-        },
-        ancho: doc ? doc.documentElement.clientWidth : 0
-      };
-    }
-
     function pintarAncho() {
-      if (cfg.ancho && doc) anchoEl.textContent = doc.documentElement.clientWidth + "px";
-    }
-
-    /* ---------- Explicación con desvanecido ---------- */
-    function explicar(html) {
-      exp.classList.add("is-fading");
-      clearTimeout(exp._t);
-      exp._t = setTimeout(function () {
-        exp.innerHTML = html;
-        exp.classList.remove("is-fading");
-      }, reduce || !exp.innerHTML ? 0 : 200);
-    }
-
-    // La explicación usa medidas reales: se escribe cuando las transiciones ya terminaron
-    function explicarDespues(fn) {
-      clearTimeout(root._medida);
-      root._medida = setTimeout(function () { explicar(fn(ctx())); }, reduce ? 0 : 430);
+      if (!cfg.ancho || !doc) return;
+      anchoEl.hidden = false;
+      anchoEl.innerHTML = "Ancho de la ventana: <b>" + doc.documentElement.clientWidth + "px</b>";
     }
 
     /* ---------- Menú ---------- */
@@ -285,7 +245,6 @@
       medir();
       var b = pre.querySelector("[data-k=\"" + k + "\"]");
       if (b) b.focus({ preventScroll: true });
-      explicarDespues(function (c) { return cfg.explicar(k, v[k], c); });
     }
 
     /* ---------- Inicio ---------- */
@@ -300,7 +259,6 @@
       aplicar();
       medir();
       pintarAncho();
-      exp.innerHTML = cfg.inicio(ctx());
       var win = doc.defaultView;
       if (win.ResizeObserver) new win.ResizeObserver(function () { medir(); pintarAncho(); }).observe(doc.body);
       doc.addEventListener("transitionend", medir);
@@ -312,5 +270,5 @@
     marco.srcdoc = "<!DOCTYPE html><html lang=\"es\"><head></head><body></body></html>";
   }
 
-  window.DemoCSS = { crear: crear, valido: valido, esColor: esColor };
+  window.DemoCSS = { crear: crear };
 })();
