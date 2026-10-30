@@ -147,14 +147,19 @@
 }
 
 .op-toys__info {
-  /* Texto con el estándar .grafico-exp (app.css), como la explicación del
-     tren del 4-6: sin recuadro y centrado verticalmente junto al código */
+  /* Texto con el estándar .grafico-exp (app.css), centrado verticalmente
+     junto al código, sobre su recuadro azul claro (Ale lo pidió de vuelta
+     el 30/10) */
   display: flex;
   align-items: center;
+  justify-self: end;
   align-self: stretch;
   width: 100%;
   max-width: 360px;
   min-height: 150px;
+  padding: 20px 22px;
+  border-radius: 12px;
+  background: rgba(15, 76, 145, 0.1);
   visibility: hidden;
   opacity: 0;
 }
@@ -294,8 +299,10 @@
   }
 
   .op-toys__info {
+    justify-self: stretch;
     max-width: none;
     min-height: 0;
+    padding: 14px 16px;
     height: 120px; /* alto fijo: los cubos no brincan cuando cambia el texto */
     overflow: hidden;
   }
