@@ -355,7 +355,7 @@
 
 @keyframes arr-console-in { from { opacity: 0; transform: translateY(10px); } }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .arr-train__console { grid-template-columns: minmax(0, 1fr); gap: 10px; }
 }
 
@@ -364,7 +364,7 @@
   min-height: 24px;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .arr-train { --gap: 4px; --rail-y: 92px; }
   .arr-train__line { left: 8px; }
   .arr-train__loco, .arr-train__loco svg { width: 64px; }

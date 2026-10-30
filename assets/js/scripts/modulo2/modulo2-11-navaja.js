@@ -106,9 +106,7 @@
   var demo = info.querySelector(".navaja__demo");
   var uid = 0;
 
-  function esc(t) {
-    return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var esc = Curso.esc;
 
   // Mismos colores que los ejemplos del curso (.code / .codetag / .codetext)
   function code(type) {

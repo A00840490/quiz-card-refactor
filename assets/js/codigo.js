@@ -25,9 +25,7 @@
 (function () {
   "use strict";
 
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
+  var esc = Curso.esc;
 
   // Quita las líneas vacías del principio y del final y la sangría que todas comparten
   function limpiar(texto) {

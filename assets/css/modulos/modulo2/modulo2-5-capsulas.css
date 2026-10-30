@@ -288,7 +288,7 @@
   to { transform: none; }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   @keyframes capsulas-roll {
     from { opacity: 0; transform: translateY(-80px) rotate(-340deg); }
     30% { opacity: 1; }
@@ -585,7 +585,7 @@
   text-align: center;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .capsulas__dex {
     --sprite: 96px;
     padding: 10px 10px 14px;

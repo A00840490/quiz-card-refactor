@@ -12,7 +12,7 @@
 (function () {
   "use strict";
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   /* La explicación cambia con desvanecido: la ficha baja y se desvanece, y la
      nueva sube desde abajo (.is-fading en app.css). El primer texto entra sin

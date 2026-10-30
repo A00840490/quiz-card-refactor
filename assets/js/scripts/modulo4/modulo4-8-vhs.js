@@ -24,7 +24,7 @@
   var src = document.querySelector("[data-vhs-src]");
   if (!tv || !src) return;
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
   var stage = tv.querySelector(".vhs__stage");
   var vhs = tv.querySelector(".vhs");
   var grid = tv.querySelector(".vhs__grid");
@@ -48,7 +48,7 @@
   var EJECT = 1200; // lo que tarda en salir y volver a quedar acostado
 
   function clean(el) { return el.textContent.replace(/\s+/g, " ").trim(); }
-  function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  var esc = Curso.esc;
   function words(s) { return s.split(" ").length; }
   function read(s, min) { return Math.max(min, words(s) * 330 + 1800); }
   // Resalta el operador dentro de una línea de código

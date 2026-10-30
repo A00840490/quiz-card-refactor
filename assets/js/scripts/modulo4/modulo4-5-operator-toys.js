@@ -16,9 +16,9 @@
   var rhs = root.querySelector("[data-rhs]");
   var preEl = root.querySelector("[data-pre]");
   var resEl = root.querySelector("[data-res]");
-  var infoEl = root.querySelector("[data-info]");
+  var infoEl = root.querySelector("[data-status]");
   var modeBtns = root.querySelectorAll("[data-mode]");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   var G = 0.8;
   var COLORS = [
@@ -267,9 +267,7 @@
     run();
   }
 
-  function esc(t) {
-    return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var esc = Curso.esc;
 
   // Explicación del operador que está en el hueco (estándar .grafico-exp):
   // empieza con el operador en <code>.

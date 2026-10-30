@@ -4098,7 +4098,7 @@ iframe {
 .nav-pills .nav-item a {
   border-style: dashed;
   border-width: 2px;
-  border-color: #093b8b;
+  border-color: var(--theme-color);
 }
 .side-panel .side-panel-wrapper .nav-tabs {
   border-bottom: 1px solid #e6ecf5;

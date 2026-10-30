@@ -278,7 +278,7 @@
   font-weight: 700;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .const {
     --star: 46px;
     --lens: 70px;

@@ -61,7 +61,7 @@
     transform: translateY(0px);
 }
 
-@media(max-width: 991.5px){
+@media(max-width: 991.98px){
     .container:hover .card{
         position: absolute;
         top: 50%;
@@ -79,7 +79,7 @@
     
 }
 
-@media (max-width:576px) {
+@media (max-width: 575.98px) {
     .container{
         width: 300px;
     }

@@ -17,7 +17,7 @@
   overscroll-behavior: contain;
   box-shadow: 0 18px 40px rgba(31, 47, 71, 0.12);
   scrollbar-width: thin;
-  scrollbar-color: var(--theme-color, #093b8b) #e8edf4;
+  scrollbar-color: var(--theme-color) #e8edf4;
 }
 
 .flex-props__scroll::-webkit-scrollbar {
@@ -31,7 +31,7 @@
 .flex-props__scroll::-webkit-scrollbar-thumb {
   border: 2px solid #e8edf4;
   border-radius: 999px;
-  background: var(--theme-color, #093b8b);
+  background: var(--theme-color);
 }
 
 .flex-props__scroll:focus-visible {
@@ -336,7 +336,7 @@
 }
 
 /* ---------- Responsivo ---------- */
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .flex-props__head {
     padding: 0 8px;
     font-size: 14px;

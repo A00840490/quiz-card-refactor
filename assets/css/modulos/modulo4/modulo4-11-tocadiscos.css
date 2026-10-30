@@ -17,7 +17,7 @@
   --ink: #1c2434;
   --true: #1f7a45;
   --false: #b4472a;
-  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+  --tec: var(--theme-color); /* azul Tec del curso */
 
   position: relative;
   margin: 16px 0 24px;
@@ -431,7 +431,7 @@
   .tt .tt__code { font-size: 14px; }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .tt .tt__code { font-size: 12.5px; }
   .tt__code .js-term__body { padding-left: 12px; padding-right: 12px; }
 }

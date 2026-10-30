@@ -26,7 +26,7 @@
   var handle = root.querySelector(".capsulas__handle");
   var prize = root.querySelector(".capsulas__prize");
   var slip = root.querySelector(".capsulas__slip");
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   // Colores pastel de la mitad de arriba de cada cápsula.
   var COLORS = ["#fac775", "#a9c8f0", "#f4a08a", "#8fd3b6", "#c9b6f2", "#7fa6e0", "#ffd9a8", "#b9e3f5", "#f7b6c8", "#cde6a1"];

@@ -12,7 +12,7 @@
   var root = document.querySelector("[data-dom]");
   if (!root) return;
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
   var ICON = {
     reset: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6"/><path d="M13 2.5v3h-3"/></svg>',
     back: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 2.5v11l-8-5.5z" fill="currentColor"/><path d="M2.3 2.5h2.2v11H2.3z" fill="currentColor"/></svg>',
@@ -22,7 +22,7 @@
 
   function $(s, r) { return (r || root).querySelector(s); }
   function $$(s, r) { return Array.prototype.slice.call((r || root).querySelectorAll(s)); }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  var esc = Curso.esc;
   function glifo() { return GLIFOS.charAt(Math.floor(Math.random() * GLIFOS.length)); }
 
   /* ---------- El HTML del ejemplo ----------

@@ -203,13 +203,11 @@
   var root = document.getElementById("reto");
   if (!root) return;
   var out = root.querySelector("[data-out]");
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
   var cursor = '<span class="js-term__cursor" aria-hidden="true"></span>';
   var runTimer = null;
 
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var esc = Curso.esc;
 
   /* ---------------- Consola ----------------
      Mientras el problema no está completo, la consola espera. Al

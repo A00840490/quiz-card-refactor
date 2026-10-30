@@ -9,7 +9,7 @@
    explicación y la navaja vuelve al centro. */
 
 .navaja {
-  --navaja-blue: #093b8b;
+  --navaja-blue: var(--theme-color);
   --navaja-blue-2: #3b6fb6;
   --navaja-ink: #1c2434;
   --navaja-muted: #5b6577;

@@ -291,7 +291,7 @@
   text-align: left;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .pos-scene {
     --slab-w: 150px;
     --slab-h: 96px;

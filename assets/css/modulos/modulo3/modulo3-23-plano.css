@@ -9,7 +9,7 @@
    código miden lo mismo que en pantalla. En celular el plano es más
    cuadrado y el código va debajo. */
 .plano {
-  --plano-blue: #093b8b;
+  --plano-blue: var(--theme-color);
   --plano-gold: #fac775;
   --plano-wall: #34302c;
   --plano-mono: "Source Code Pro", Consolas, "Courier New", monospace;
@@ -355,7 +355,7 @@
   white-space: pre;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .plano__code .code {
     padding: 18px 12px 22px 0;
     font-size: min(12px, calc((100cqw - 60px) / 33));

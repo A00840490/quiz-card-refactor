@@ -36,7 +36,7 @@
   var OPCIONES = ["A1", "A2", "A3", "B7"];
   var CON_MENU = 1; // el break de este case es una lista desplegable
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   var st = { valor: "A2", brk: true, n: -1, pasos: [] };
 
@@ -50,7 +50,7 @@
   };
 
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  var esc = Curso.esc;
   function lit(v) { return '"' + v + '"'; }
   function reinicia(el, clase) { el.classList.remove(clase); void el.getBoundingClientRect(); el.classList.add(clase); }
 

@@ -33,7 +33,7 @@
   padding: var(--spacing-xxl) var(--spacing-l);
 }
 
-@media (max-width: 995px) {
+@media (max-width: 991.98px) {
   .row {
     display: inline-block;
   }
@@ -63,7 +63,7 @@
   }
 }
 
-@media (min-width: 995px) {
+@media (min-width: 992px) {
   .ajuste {
     background-position-y: 45% !important;
     transform: translateX(4%) !important;

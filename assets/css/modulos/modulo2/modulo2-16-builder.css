@@ -97,7 +97,7 @@
   padding: 0;
   border-radius: 0;
   background: none;
-  color: var(--theme-color, #093b8b);
+  color: var(--theme-color);
   font-size: 87.5%;
   font-weight: 700;
 }
@@ -275,7 +275,7 @@
   text-align: center;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
   .builder__panels {
     grid-template-columns: 1fr;
   }

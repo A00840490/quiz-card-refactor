@@ -60,7 +60,7 @@
   background: var(--b-right);
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
   .css-builder .builder__code {
     height: 240px;
   }

@@ -9,7 +9,7 @@
 
 .dom {
   --ink: #000000;
-  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+  --tec: var(--theme-color); /* azul Tec del curso */
   --verde: #4ade80;
 
   position: relative;
@@ -204,7 +204,7 @@
   .dom__main > .dom__code { order: -1; }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .dom__ctl { padding: 10px 12px; }
   .dom__btn { --s: 34px; }
   .dom__tree { height: 380px; padding-bottom: 50px; }

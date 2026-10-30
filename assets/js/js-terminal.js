@@ -9,7 +9,7 @@
 (function () {
   "use strict";
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   document.querySelectorAll(".js-term").forEach(function (term) {
     var src = term.querySelector(".js-term__src");
@@ -38,9 +38,7 @@
 
     var cursor = '<span class="js-term__cursor" aria-hidden="true"></span>';
 
-    function esc(s) {
-      return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
+    var esc = Curso.esc;
 
     // Pinta los comentarios (desde // hasta el final de la línea).
     function paint(s) {

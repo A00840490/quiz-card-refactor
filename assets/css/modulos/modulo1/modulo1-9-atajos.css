@@ -339,7 +339,7 @@
   fill: none;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
   .kb__layout {
     grid-template-columns: 1fr;
   }
@@ -356,7 +356,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .kb__cat {
     padding: 8px 4px;
     font-size: 12px;

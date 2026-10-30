@@ -19,6 +19,10 @@
     "vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js",
     "js/progressbar.js",
 
+    // Utilidades del curso (Curso.esc, Curso.reduce, Curso.ruta), antes de
+    // todo lo que las usa
+    "js/curso-util.js",
+
     // Plantilla del curso: la lista de páginas va antes del menú y del avance
     // (url-script.js), y el avance antes del círculo (progress-circle.js)
     "js/paginas.js",

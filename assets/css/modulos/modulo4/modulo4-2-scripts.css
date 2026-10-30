@@ -42,7 +42,7 @@
 }
 
 .js-files li.is-linked {
-  color: var(--theme-color, #093b8b);
+  color: var(--theme-color);
   font-weight: 700;
 }
 
@@ -112,7 +112,7 @@
   padding: 6px 18px;
   border: 0;
   border-radius: 6px;
-  background: var(--theme-color, #093b8b);
+  background: var(--theme-color);
   color: #ffffff;
   font-weight: 700;
   cursor: pointer;

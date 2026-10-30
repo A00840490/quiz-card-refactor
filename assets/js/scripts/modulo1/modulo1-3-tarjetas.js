@@ -17,7 +17,7 @@
   var nameEl = root.querySelector("[data-cc-name]");
   var panels = Array.prototype.slice.call(root.querySelectorAll("[data-cc-panel]"));
   var closeBtn = root.querySelector("[data-cc-close]");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
   // half: media vuelta de la tarjeta; grow: crecer/encoger; fade: el texto
   var T = reduce ? { half: 0, grow: 0, fade: 0 } : { half: 260, grow: 500, fade: 220 };
   var active = null;

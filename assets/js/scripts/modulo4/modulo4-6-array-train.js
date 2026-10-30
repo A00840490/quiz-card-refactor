@@ -15,17 +15,17 @@
   var buttons = root.querySelector("[data-buttons]");
   var termCode = root.querySelector("[data-term-code]");
   var termOut = root.querySelector("[data-term-out]");
-  var infoEl = root.querySelector("[data-info]");
+  var infoEl = root.querySelector("[data-status]");
   var photo = root.querySelector("[data-photo]");
   var photoRow = root.querySelector("[data-photo-row]");
   var photoCap = root.querySelector("[data-photo-cap]");
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   var uid = 0;
   function item(v) { uid += 1; return { id: "w" + uid, v: v }; }
   function show(v) { return typeof v === "string" ? '"' + v + '"' : String(v); }
   function fmt(r) { return Array.isArray(r) ? "[" + r.map(show).join(", ") + "]" : String(r); }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+  var esc = Curso.esc;
 
   // Colores: strings en azul claro, números en ámbar
   function palette(v) {
@@ -233,8 +233,7 @@
   function paint(text) {
     return text.split("\n").map(function (l) {
       var i = l.indexOf("//");
-      var e = function (t) { return esc(t).replace(/>/g, "&gt;"); };
-      return i === -1 ? e(l) : e(l.slice(0, i)) + '<span class="js-term__com">' + e(l.slice(i)) + "</span>";
+      return i === -1 ? esc(l) : esc(l.slice(0, i)) + '<span class="js-term__com">' + esc(l.slice(i)) + "</span>";
     }).join("\n");
   }
 

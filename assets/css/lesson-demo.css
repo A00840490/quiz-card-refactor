@@ -452,11 +452,11 @@
 
 .format-demo__result:hover .format-demo__badge {
   opacity: 1;
-  color: #093b8b;
+  color: var(--theme-color);
   border-color: #8eb2dc;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
   .format-demo__panels,
   .lesson-demo {
     grid-template-columns: 1fr;
@@ -471,7 +471,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .format-demo {
     margin-top: 1.25rem;
     border-radius: 8px;
@@ -611,7 +611,7 @@
   background: #1f2430;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .lesson-demo--scroll > [class*="col-"]:first-child .code {
     max-height: 360px;
   }

@@ -208,7 +208,7 @@
   from { opacity: 0; transform: translateY(3px); }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .js-term { font-size: 12.5px; }
 }
 

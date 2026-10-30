@@ -15,7 +15,7 @@
 
 .maq {
   --ink: #1c2434;
-  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+  --tec: var(--theme-color); /* azul Tec del curso */
 
   position: relative;
   margin: 16px 0 24px;
@@ -270,7 +270,7 @@
   .maq .maq__code { font-size: 14px; }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .maq .maq__code { font-size: 12px; }
   .maq__code .js-term__body { padding-left: 12px; padding-right: 12px; }
 }

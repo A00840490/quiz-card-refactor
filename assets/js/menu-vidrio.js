@@ -25,9 +25,7 @@
 
   var abierto = null;
 
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
+  var esc = Curso.esc;
 
   function esColor(valor) {
     return !/^(inherit|initial|unset|currentcolor)$/i.test(valor) && window.CSS && CSS.supports && CSS.supports("color", valor);

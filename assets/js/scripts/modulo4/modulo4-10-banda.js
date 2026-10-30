@@ -16,7 +16,7 @@
   if (!root) return;
 
   var IMG = "../../assets/images/course/modulo4/m4-10/banda/";
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   var track = root.querySelector("[data-track]");
   var belt = root.querySelector("[data-belt]");

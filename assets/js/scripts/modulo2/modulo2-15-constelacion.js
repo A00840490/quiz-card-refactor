@@ -37,7 +37,7 @@
   // ---------- Flotación ----------
   // Cada punto flota con su propio ritmo; la línea se recalcula en cada
   // cuadro para seguirlos. El punto elegido se detiene suavemente.
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
   var float = stars.map(function (_, i) {
     return {
       phase: i * 1.9,
@@ -103,9 +103,7 @@
     if (on) requestAnimationFrame(frame);
   }
 
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var esc = Curso.esc;
 
   // Coloca la burbuja arriba del punto sin salirse por los lados.
   function placeBubble(star) {

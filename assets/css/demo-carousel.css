@@ -167,7 +167,7 @@
   border-color: #0f4c91;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
   .demo-carousel__track {
     min-height: 760px;
   }
@@ -239,7 +239,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
   .tutorial-slide-card {
     padding: 4px;
     border-radius: 18px;

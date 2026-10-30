@@ -31,7 +31,7 @@
      assets/js/scripts/...
    ========================================================================= */
 .evo {
-  --evo-blue: var(--theme-color, #093b8b);
+  --evo-blue: var(--theme-color);
   --evo-blue-2: #3b6fb6;
   --evo-blue-soft: #e6f1fb;
   --evo-amber: #fac775;

@@ -13,7 +13,7 @@
   --capas-ink: #ffffff;
   --capas-text: #000000;
   --capas-accent: #7fb8ff;
-  --capas-title: #093b8b;
+  --capas-title: var(--theme-color);
   --capas-code-bg: #1e2430;
   --capas-code-ink: #d7dde8;
   --capas-code-sel: #ffcb6b;

@@ -38,7 +38,7 @@
 (function ($) {
   "use strict";
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
   var VALOR = ""; // marca de cada valor con menú mientras se colorea el código
 
   // Estilo de la previsualización que no forma parte del ejemplo: la letra del
@@ -47,9 +47,7 @@
     "body{margin:0}h1,h2,h3{line-height:1.25;margin:0 0 .5em}p{margin:0 0 .75em}" +
     (reduce ? "" : "body *{transition:width .4s ease,height .4s ease,min-width .4s ease,max-width .4s ease,margin .4s ease,padding .4s ease,top .4s ease,left .4s ease,right .4s ease,bottom .4s ease,color .4s ease,background-color .4s ease,font-size .4s ease,border-width .4s ease}");
 
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
+  var esc = Curso.esc;
 
   /* ---------- Lectura del HTML ---------- */
 

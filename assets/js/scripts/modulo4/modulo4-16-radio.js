@@ -40,7 +40,7 @@
   };
   var SVGNS = "http://www.w3.org/2000/svg";
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   var st = { el: "boton", ev: "onclick" };
 
@@ -58,7 +58,7 @@
   Array.prototype.forEach.call(root.querySelectorAll(".radio-ev__est span"), function (s) { ests[s.getAttribute("data-ev")] = s; });
 
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
-  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  var esc = Curso.esc;
   function cod(t) { return "<code>" + esc(t) + "</code>"; }
   function reinicia(el, clase) { el.classList.remove(clase); void el.getBoundingClientRect(); el.classList.add(clase); }
 

@@ -17,7 +17,7 @@
    módulo 4 (js-terminal.css) y el menú de vidrio del 3-23. */
 
 .radio-ev {
-  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+  --tec: var(--theme-color); /* azul Tec del curso */
   --oye: #1c8a4a;
   --gris: #6e7787;
   --laton: linear-gradient(180deg, #f3d58a, #c49a3e 55%, #8f6a22);
@@ -540,7 +540,7 @@
   .radio-ev .radio-ev__code { font-size: 14px; }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .radio-ev__mueble { padding: 10px; gap: 10px; }
   .radio-ev__fila { gap: 40px 24px; padding: 36px 12px 30px; }
   .radio-ev__radio { grid-template-columns: 1fr; }
@@ -573,6 +573,6 @@
   white-space: pre;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .eventos-html .code { padding: 18px 12px 22px 0; font-size: 12px; }
 }

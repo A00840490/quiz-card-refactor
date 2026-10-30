@@ -20,7 +20,7 @@
   if (!root) return;
 
   var cards = Array.prototype.slice.call(root.querySelectorAll(".baraja__card"));
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   // ---------- Valor de x ----------
   var N = 2; // el valor contra el que se compara en los ejemplos

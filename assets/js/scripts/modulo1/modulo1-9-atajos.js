@@ -63,9 +63,7 @@
   var timer = null;
   var lastOut = "";
 
-  function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var esc = Curso.esc;
 
   function comboOf(item) {
     return item.getAttribute("data-" + state.os) || item.getAttribute("data-win");

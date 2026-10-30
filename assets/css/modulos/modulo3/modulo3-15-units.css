@@ -1,6 +1,5 @@
 :root {
 
-  --theme-color: #093b8b;
   --softer-theme-color: #a4c7ff67;
 
 }
@@ -132,7 +131,7 @@
   font-weight: 700;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .unit-deck__scroll-area {
     height: calc(var(--card-count) * 48vh + 240px);
   }

@@ -21,7 +21,7 @@
   white-space: pre;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .demo .lesson-demo > [class*="col-"].demo__editor .code {
     font-size: max(10.5px, min(12px, calc((100cqw - 60px) / var(--cols, 40) / 0.6)));
   }

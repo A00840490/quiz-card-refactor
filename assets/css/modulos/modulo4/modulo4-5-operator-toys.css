@@ -288,7 +288,7 @@
   display: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
   .op-toys__main {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -301,7 +301,7 @@
   }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 575.98px) {
   .op-toys__code {
     min-height: 130px;
     font-size: 20px;

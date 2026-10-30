@@ -53,7 +53,7 @@
 .reto__feedback code {
   padding: 0;
   background: none;
-  color: var(--theme-color, #093b8b);
+  color: var(--theme-color);
   font-size: 87.5%;
   font-weight: 700;
 }
@@ -230,7 +230,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--theme-color, #093b8b);
+  background: var(--theme-color);
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease 0.3s;
 }
 
@@ -285,7 +285,7 @@
 }
 
 /* ===================== Celular: todo en una columna ===================== */
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
   .reto__panels { grid-template-columns: 1fr; }
 
   .reto__pane + .reto__pane {

@@ -19,9 +19,9 @@
   var celdas = root.querySelector("[data-celdas]");
   var cotas = root.querySelector("[data-cotas]");
   var pre = root.querySelector("[data-code]");
-  var exp = root.querySelector("[data-exp]");
+  var exp = root.querySelector("[data-status]");
   var cuartos = Array.prototype.slice.call(grid.querySelectorAll("[data-item]"));
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   var OPCIONES = {
     cols: ["2fr 1fr 1fr", "repeat(3, 1fr)", "200px 1fr 1fr", "minmax(150px, 1fr) 2fr 1fr"],
@@ -64,9 +64,7 @@
   };
 
   /* ---------- Utilidades ---------- */
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
-  }
+  var esc = Curso.esc;
 
   // "repeat(3, 1fr)" -> ["1fr", "1fr", "1fr"]; "minmax(150px, 1fr) 2fr 1fr" -> ["minmax(150px, 1fr)", "2fr", "1fr"]
   function pistas(valor) {

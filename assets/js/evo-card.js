@@ -23,7 +23,7 @@
 (function () {
   "use strict";
 
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reduce = Curso.reduce;
 
   function mk(parent, cls, html) {
     var d = document.createElement("div");

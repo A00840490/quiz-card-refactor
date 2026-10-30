@@ -210,9 +210,7 @@
   if (!root) return;
   var frame = root.querySelector("[data-frame]");
 
-  function esc(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var esc = Curso.esc;
 
   // CSS del alumno hasta donde va: solo las declaraciones ya completas.
   function studentCss(ej) {
