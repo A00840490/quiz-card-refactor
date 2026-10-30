@@ -423,14 +423,9 @@
     if (w) w.classList.toggle("is-hot", on);
   }
 
-  /* ---------- Explicación con desvanecido ---------- */
+  /* ---------- Explicación con el desvanecido estándar de la ficha (grafico-ficha.js) ---------- */
   function explicar(html) {
-    exp.classList.add("is-fading");
-    clearTimeout(exp._t);
-    exp._t = setTimeout(function () {
-      exp.innerHTML = html;
-      exp.classList.remove("is-fading");
-    }, reduce || !exp.innerHTML ? 0 : 200);
+    GraficoFicha.cambiar(exp, html);
   }
 
   function textoCuarto(id, inicio) {

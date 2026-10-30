@@ -89,15 +89,9 @@
     }
   }
 
-  // La explicación cambia con desvanecido; el texto nuevo sube desde abajo (ver .grafico-ficha en app.css)
+  // La explicación cambia con el desvanecido estándar de la ficha (grafico-ficha.js)
   function explicar(html) {
-    if (html === status._html) return;
-    status._html = html;
-    clearTimeout(status._t);
-    if (reduce || !html) { status.classList.remove("is-fading"); status.innerHTML = html; return; }
-    if (!status.innerHTML) { status.classList.add("is-fading"); void status.offsetWidth; status.innerHTML = html; status.classList.remove("is-fading"); return; }
-    status.classList.add("is-fading");
-    status._t = setTimeout(function () { status.innerHTML = html; status.classList.remove("is-fading"); }, 200);
+    GraficoFicha.cambiar(status, html);
   }
 
   /* ---------- Pintar la escena ---------- */

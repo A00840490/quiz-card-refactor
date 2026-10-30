@@ -146,28 +146,9 @@
   /* ---------- La explicación ----------
      Estándar .grafico-exp (como el tren del 4-6): el concepto y el código que
      se menciona van en <code> (azul, en negritas); lo demás en texto normal. */
+  // La explicación cambia con el desvanecido estándar de la ficha (grafico-ficha.js)
   function explicar(html) {
-    if (html === status._html) return;
-    status._html = html;
-    clearTimeout(status._t);
-    if (reduce || !html) {
-      status.classList.remove("is-fading");
-      status.innerHTML = html;
-      return;
-    }
-    // El primer texto entra sin esperar, pero igual sube desde abajo (ver .grafico-ficha en app.css)
-    if (!status.innerHTML) {
-      status.classList.add("is-fading");
-      void status.offsetWidth;
-      status.innerHTML = html;
-      status.classList.remove("is-fading");
-      return;
-    }
-    status.classList.add("is-fading");
-    status._t = setTimeout(function () {
-      status.innerHTML = html;
-      status.classList.remove("is-fading");
-    }, 200);
+    GraficoFicha.cambiar(status, html);
   }
 
   // Las explicaciones de "la función no corre" esperan un poco por si el evento escuchado llega enseguida

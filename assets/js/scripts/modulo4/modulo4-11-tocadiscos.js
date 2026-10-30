@@ -298,30 +298,10 @@
     return nom("Ciclo infinito") + ": detuviste el tocadiscos después de " + v + " vueltas. En un programa de verdad no hay cómo detenerlo: la página se queda trabada. Cambia " + cod("// i++;") + " en el código para volver a ponerlo.";
   }
 
-  // La explicación cambia con desvanecido (en el ciclo infinito va demasiado rápido para eso)
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // La explicación cambia con el desvanecido estándar de la ficha (grafico-ficha.js);
+  // en el ciclo infinito va demasiado rápido para eso
   function explicar(html) {
-    if (html === status._html) return;
-    status._html = html;
-    clearTimeout(status._t);
-    if (reduce || loco || !html) {
-      status.classList.remove("is-fading");
-      status.innerHTML = html;
-      return;
-    }
-    // El primer texto entra sin esperar, pero igual sube desde abajo (ver .grafico-ficha en app.css)
-    if (!status.innerHTML) {
-      status.classList.add("is-fading");
-      void status.offsetWidth;
-      status.innerHTML = html;
-      status.classList.remove("is-fading");
-      return;
-    }
-    status.classList.add("is-fading");
-    status._t = setTimeout(function () {
-      status.innerHTML = html;
-      status.classList.remove("is-fading");
-    }, 200);
+    GraficoFicha.cambiar(status, html, { inmediato: loco });
   }
 
   /* ---------- Pintar la escena ---------- */

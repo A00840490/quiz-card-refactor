@@ -105,7 +105,6 @@
   var tryEl = info.querySelector(".navaja__try");
   var demo = info.querySelector(".navaja__demo");
   var uid = 0;
-  var swap = 0;
 
   function esc(t) {
     return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -163,22 +162,12 @@
     tryEl.appendChild(sample(it.type));
     // El concepto (el type) va primero, en azul y monoespaciada (.grafico-exp)
     var text = '<code>type="' + it.type + '"</code> ' + esc(it.desc.charAt(0).toLowerCase() + it.desc.slice(1));
-    clearTimeout(swap);
-    if (!root.classList.contains("has-info")) {
-      root.classList.add("has-info");
-      // La ficha sube desde abajo (sin explicación anterior que desvanecer)
-      desc.classList.add("is-fading");
-      desc.innerHTML = text;
-      void desc.offsetWidth;
-      desc.classList.remove("is-fading");
-      return;
-    }
-    // La ficha baja y se desvanece, y la nueva sube desde abajo
-    desc.classList.add("is-fading");
-    swap = setTimeout(function () {
-      desc.innerHTML = text;
-      desc.classList.remove("is-fading");
-    }, 200);
+    // La ficha baja y se desvanece, y la nueva sube desde abajo (grafico-ficha.js).
+    // Si estaba cerrada, solo sube desde abajo
+    var entrar = !root.classList.contains("has-info");
+    root.classList.add("has-info");
+    GraficoFicha.cambiar(desc, text, { entrar: entrar });
+    if (entrar) return;
     demo.classList.remove("is-new");
     void demo.offsetWidth;
     demo.classList.add("is-new");
