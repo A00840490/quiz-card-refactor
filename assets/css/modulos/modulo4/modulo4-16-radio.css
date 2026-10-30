@@ -1,0 +1,626 @@
+/* Módulo 4-16: los eventos como una radio sintonizada
+   (comportamiento en assets/js/scripts/modulo4/modulo4-16-radio.js).
+
+   Arriba hay una página de prueba con el botón "Clic" del ejemplo y un campo
+   de texto. Todo lo que hace el alumno ahí activa eventos, y cada evento
+   viaja como una señal con su nombre hasta la antena de una radio antigua.
+   El cuadrante tiene cinco "estaciones" (click, dblclick, mouseover,
+   mouseout y keydown) y la aguja está en la que escucha el código. La señal
+   escuchada va en azul y hace sonar la bocina; cualquier otra va en gris y
+   solo se oye estática. El elemento que escucha el código lleva un borde
+   fino y la palabra "escuchando" le da vueltas.
+
+   El mueble y la radio usan la textura de nogal del 4-11
+   (m4-11/tocadiscos/texturas/; los créditos se guardan fuera del
+   repositorio). La ventana de código usa el formato de las terminales del
+   módulo 4 (js-terminal.css) y el menú de vidrio del 3-23. */
+
+.radio-ev {
+  --tec: var(--theme-color, #093b8b); /* azul Tec del curso */
+  --oye: #1c8a4a;
+  --gris: #6e7787;
+  --laton: linear-gradient(180deg, #f3d58a, #c49a3e 55%, #8f6a22);
+
+  position: relative;
+  margin: 16px 0 24px;
+}
+
+/* Sin JavaScript no hay radio: queda el código */
+.radio-ev:not(.radio-ev--ready) .radio-ev__scene,
+.radio-ev:not(.radio-ev--ready) .radio-ev__console { display: none; }
+
+/* ===================== Escena ===================== */
+.radio-ev__scene {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.radio-ev__mueble {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background:
+    linear-gradient(160deg, rgba(60, 30, 12, .35), rgba(20, 8, 2, .6)),
+    url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/madera.jpg") center / 420px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 14px 34px rgba(0, 0, 0, .28);
+}
+
+/* ---------- Página de prueba ---------- */
+.radio-ev__pagina {
+  overflow: hidden;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .25), 0 4px 10px rgba(0, 0, 0, .25);
+}
+
+.radio-ev__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  background: #e9edf3;
+  color: #5b6577;
+  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.radio-ev__bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #c3cad5;
+}
+
+.radio-ev__bar i:nth-of-type(3) { margin-right: 8px; }
+
+.radio-ev__fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px 46px;
+  padding: 38px 20px 34px;
+}
+
+/* Cada elemento va dentro de un marco; el que escucha el código lleva un
+   borde fino y "escuchando" dando vueltas por fuera (lo dibuja el JS) */
+.radio-ev__obj {
+  position: relative;
+  padding: 7px;
+  border-radius: 9px;
+  transition: box-shadow .3s ease;
+}
+
+.radio-ev__obj.is-hit { box-shadow: 0 0 0 6px rgba(61, 220, 151, .35); }
+
+.radio-ev__oido {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+.radio-ev__obj.is-oye .radio-ev__oido { opacity: 1; }
+
+.radio-ev__oido rect {
+  fill: none;
+  stroke: var(--oye);
+  stroke-width: 1;
+}
+
+.radio-ev__oido text {
+  fill: var(--oye);
+  font: 700 10.5px Consolas, "Courier New", monospace;
+  letter-spacing: .06em;
+}
+
+.radio-ev__btn {
+  padding: 7px 22px;
+  border: 1px solid #8f98a5;
+  border-radius: 4px;
+  background: linear-gradient(#fbfcfd, #e1e5eb);
+  color: #111111;
+  font: 15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.radio-ev__btn:active { background: linear-gradient(#e1e5eb, #fbfcfd); }
+
+.radio-ev__campo {
+  width: 170px;
+  padding: 7px 9px;
+  border: 1px solid #8f98a5;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #111111;
+  font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.radio-ev__campo:focus { outline: 2px solid #5b7bd6; outline-offset: 0; }
+
+/* ---------- La radio ---------- */
+.radio-ev__radio {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 34fr) minmax(0, 66fr);
+  gap: 12px;
+  margin-top: 44px;
+  padding: 14px;
+  border-radius: 18px 18px 12px 12px;
+  background:
+    linear-gradient(170deg, rgba(190, 110, 50, .45), rgba(70, 30, 8, .45)),
+    url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/madera.jpg") center / 300px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), inset 0 -3px 0 rgba(0, 0, 0, .3), 0 0 0 2px #2a160a;
+}
+
+.radio-ev__antena {
+  position: absolute;
+  right: 12%;
+  bottom: 100%;
+  width: 4px;
+  height: 52px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #8f98a5, #f2f4f7, #8f98a5);
+  transform: rotate(18deg);
+  transform-origin: 50% 100%;
+}
+
+.radio-ev__antena::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff, #8f98a5);
+  transition: box-shadow .2s ease;
+}
+
+.radio-ev__antena.is-capta::before { box-shadow: 0 0 0 6px rgba(255, 214, 120, .45), 0 0 16px #ffd27a; }
+
+/* Bocina: tela tejida detrás de una rejilla */
+.radio-ev__bocina {
+  position: relative;
+  min-height: 110px;
+  overflow: hidden;
+  border-radius: 10px;
+  background:
+    radial-gradient(circle, rgba(0, 0, 0, .35) 1.1px, transparent 1.6px) 0 0 / 6px 6px,
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .06) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, #d9c9a3, #b9a578);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .45), 0 0 0 3px #c49a3e;
+}
+
+.radio-ev__bocina::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0) 30%, rgba(0, 0, 0, .2));
+}
+
+.radio-ev__ondas {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.radio-ev__ondas i {
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1;
+  border: 3px solid var(--oye);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.radio-ev__bocina.is-suena .radio-ev__ondas i { animation: radio-ev-onda .9s ease-out both; }
+.radio-ev__bocina.is-suena .radio-ev__ondas i:nth-child(2) { animation-delay: .15s; }
+.radio-ev__bocina.is-suena .radio-ev__ondas i:nth-child(3) { animation-delay: .3s; }
+.radio-ev__bocina.is-ruido { animation: radio-ev-ruido .5s steps(6) both; }
+
+.radio-ev__panel {
+  display: grid;
+  gap: 10px;
+  align-content: center;
+}
+
+/* Cuadrante: las cinco estaciones y la aguja en la que escucha el código */
+.radio-ev__dial {
+  position: relative;
+  padding: 14px 8px 10px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff3cf, #f2d996);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .45), 0 0 0 3px #c49a3e, 0 0 0 5px #5e4514;
+}
+
+.radio-ev__dial::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 8px;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, #6b4a1a 0 1px, transparent 1px 8px);
+  opacity: .55;
+}
+
+.radio-ev__est {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.radio-ev__est span {
+  padding-top: 6px;
+  color: #5a4220;
+  font: 700 clamp(8.5px, 2.1vw, 11px) Consolas, "Courier New", monospace;
+  text-align: center;
+  white-space: nowrap;
+  transition: color .25s ease, text-shadow .25s ease;
+}
+
+.radio-ev__est span.is-sint { color: #b3261e; }
+.radio-ev__est span.is-flash { color: #000000; text-shadow: 0 0 8px rgba(255, 190, 60, .9); }
+.radio-ev__est span.is-oye { color: #146b39; text-shadow: 0 0 8px rgba(61, 220, 151, .9); }
+
+.radio-ev__aguja {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: #b3261e;
+  box-shadow: 0 0 4px rgba(179, 38, 30, .6);
+  transition: left .5s cubic-bezier(.3, 1.3, .5, 1);
+}
+
+.radio-ev__perillas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px;
+}
+
+.radio-ev__perilla {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #f6dd94, #c49a3e 55%, #7a5a1c);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .6);
+  transition: transform .5s cubic-bezier(.3, 1.3, .5, 1);
+}
+
+.radio-ev__perilla::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: #3b2a12;
+}
+
+.radio-ev__foco {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #5a3a1c;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .5);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.radio-ev__foco.is-on { background: #3ddc97; box-shadow: 0 0 10px #3ddc97; }
+
+/* Señal que viaja del elemento a la antena: azul la que escucha el código,
+   gris cualquier otra */
+.radio-ev__senal {
+  position: absolute;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 10px 2px 8px;
+  border-radius: 999px;
+  background: var(--tec);
+  color: #ffffff;
+  font: 700 12px/1.6 Consolas, "Courier New", monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 3px rgba(9, 59, 139, .25), 0 4px 10px rgba(0, 0, 0, .3);
+}
+
+.radio-ev__senal::before {
+  content: ")))";
+  font-size: 10px;
+  letter-spacing: -2px;
+  opacity: .8;
+}
+
+.radio-ev__senal.is-gris {
+  background: var(--gris);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
+}
+
+@keyframes radio-ev-onda { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(2.6); } }
+@keyframes radio-ev-ruido { 0%, 100% { filter: none; } 20% { filter: contrast(1.6) brightness(.85); } 40% { filter: contrast(1.1) brightness(1.15); } 60% { filter: contrast(1.7) brightness(.8); } }
+
+/* ===================== Panel de código ===================== */
+.radio-ev .radio-ev__code {
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.radio-ev__code .js-term__code {
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* Valores que se pueden cambiar (el elemento y el evento): un botón con
+   flecha, como una lista desplegable (estándar del 3-23) */
+.radio-ev__valor {
+  display: inline-flex;
+  align-items: center;
+  gap: .35em;
+  margin: 0;
+  padding: 0 .3em 0 .45em;
+  border: 1px solid #5b7bd6;
+  border-radius: 3px;
+  background-color: #2b3550;
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0% 100%;
+  color: #ffffff;
+  font: inherit;
+  line-height: 1.45;
+  white-space: pre;
+  cursor: pointer;
+  transition: background-size .5s ease, color .5s ease, border-color .25s ease, background-color .2s ease;
+}
+
+.radio-ev__valor::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: .3em solid transparent;
+  border-right: .3em solid transparent;
+  border-top: .38em solid #a9c0ff;
+}
+
+.radio-ev__valor:hover,
+.radio-ev__valor.is-abierta {
+  border-color: #a9c0ff;
+  background-color: #3a4a78;
+}
+
+.radio-ev__valor:focus { outline: none; }
+.radio-ev__valor:focus-visible { outline: 2px solid #fac775; outline-offset: 1px; }
+
+/* Si su parte del código se ejecuta, la lista misma invierte sus colores
+   (fondo blanco y letra azul) con esquinas rectas */
+.radio-ev__code .radio-ev__valor.is-on {
+  border-color: #ffffff;
+  border-radius: 0;
+  background-size: 100% 100%;
+  color: #2b3550;
+}
+
+.radio-ev__code .radio-ev__valor.is-on::after { border-top-color: #2b3550; }
+
+/* ---------- Menú de vidrio para elegir el valor (estándar del 3-23) ---------- */
+.radio-ev__menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 200px;
+  max-width: calc(100% - 8px);
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 18px;
+  background-color: rgba(246, 247, 250, .72);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .08) 45%, rgba(255, 255, 255, .2));
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    0 0 0 .5px rgba(0, 0, 0, .14),
+    inset 0 1px 0 rgba(255, 255, 255, .9),
+    inset 0 -1px 1px rgba(255, 255, 255, .35),
+    0 2px 6px rgba(0, 0, 0, .1),
+    0 18px 44px rgba(0, 0, 0, .28);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
+  opacity: 0;
+  transform: scale(.9);
+  transform-origin: var(--origen, 24px 0);
+  transition: opacity .18s ease, transform .32s cubic-bezier(.2, 1.25, .4, 1);
+}
+
+.radio-ev__menu.is-on { opacity: 1; transform: none; }
+.radio-ev__menu[hidden] { display: none; }
+
+.radio-ev__opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 14px 9px 34px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #000000;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+
+/* Línea fina entre opciones */
+.radio-ev__opcion + .radio-ev__opcion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  border-top: .5px solid rgba(60, 60, 67, .22);
+}
+
+.radio-ev__opcion:hover,
+.radio-ev__opcion:focus {
+  outline: none;
+  background: rgba(120, 120, 128, .16);
+}
+
+.radio-ev__opcion:hover::before,
+.radio-ev__opcion:focus::before,
+.radio-ev__opcion:hover + .radio-ev__opcion::before,
+.radio-ev__opcion:focus + .radio-ev__opcion::before { border-color: transparent; }
+
+/* La opción actual lleva la palomita a la izquierda */
+.radio-ev__opcion.is-actual { font-weight: 600; }
+
+.radio-ev__opcion.is-actual::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  width: 5px;
+  height: 10px;
+  margin-top: -7px;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  transform: rotate(45deg);
+}
+
+.radio-ev__opcion code {
+  padding: 0;
+  background: none;
+  color: #000000;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14.5px;
+  white-space: nowrap;
+}
+
+/* ---------- Consola dentro de la ventana ---------- */
+.radio-ev__console {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: .6em;
+  margin-top: 14px;
+  color: #ffffff;
+}
+
+.radio-ev__console-out {
+  display: grid;
+  align-content: start;
+  min-height: calc(2 * 1.75em);
+}
+
+.radio-ev__console-out span {
+  display: block;
+  white-space: pre;
+}
+
+/* Vacía no es grid, para que el cursor quede en un renglón normal, alineado con "Consola:" */
+.radio-ev__console-out:empty { display: block; }
+.radio-ev__console-out span.is-new { animation: radio-ev-linea .3s ease; }
+
+/* el mismo cursor que .js-term__cursor */
+.radio-ev__console-out:empty::after,
+.radio-ev__console-out span:last-child::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -3px;
+  animation: radio-ev-cursor 1s steps(1) infinite;
+}
+
+@keyframes radio-ev-linea { from { opacity: 0; transform: translateY(3px); } }
+@keyframes radio-ev-cursor { 50% { opacity: 0; } }
+
+/* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6) en la
+   ficha de renglones montada sobre la ventana de código (.grafico-ficha) */
+.radio-ev__status code { white-space: nowrap; }
+
+/* ===================== Acomodo =====================
+   En pantallas anchas la radio va a la izquierda y la ventana de código a la
+   derecha (55 / 45), alineadas arriba; en pantallas angostas, en una
+   columna con la radio arriba. */
+.radio-ev__main {
+  display: grid;
+  gap: 18px;
+}
+
+@media (min-width: 992px) {
+  .radio-ev__main {
+    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    gap: 24px;
+    align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
+  }
+  .radio-ev .radio-ev__code { font-size: 15px; }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .radio-ev__main { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .radio-ev .radio-ev__code { font-size: 12.5px; }
+  .radio-ev__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+
+@media (min-width: 1200px) and (max-width: 1365px) {
+  .radio-ev .radio-ev__code { font-size: 14px; }
+}
+
+@media (max-width: 575px) {
+  .radio-ev__mueble { padding: 10px; gap: 10px; }
+  .radio-ev__fila { gap: 40px 24px; padding: 36px 12px 30px; }
+  .radio-ev__radio { grid-template-columns: 1fr; }
+  .radio-ev__bocina { min-height: 64px; }
+  .radio-ev .radio-ev__code { font-size: 12px; }
+  .radio-ev__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radio-ev__bocina.is-suena .radio-ev__ondas i,
+  .radio-ev__bocina.is-ruido,
+  .radio-ev__console-out span.is-new { animation: none; }
+  .radio-ev__aguja,
+  .radio-ev__perilla,
+  .radio-ev__valor,
+  .radio-ev__menu { transition: none; }
+}
+
+/* ===================== Bloque de "Eventos en HTML" =====================
+   La ventana estándar del curso (lesson-demo.css) para el código HTML */
+.eventos-html.lesson-demo-stack::before { content: "index.html"; }
+
+.eventos-html .code {
+  margin: 0;
+  padding: 24px 22px 28px 0;
+  overflow-x: auto;
+  background: transparent;
+  color: #d7deea;
+  font: 14px/1.75 "Courier New", Consolas, monospace;
+  text-align: left;
+  white-space: pre;
+}
+
+@media (max-width: 575px) {
+  .eventos-html .code { padding: 18px 12px 22px 0; font-size: 12px; }
+}

@@ -24,6 +24,8 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet">
     <link href="../../assets/css/app.css" rel="stylesheet">
     <link href="../../assets/css/js-terminal.css" rel="stylesheet">
+    <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo4/modulo4-16-radio.css" rel="stylesheet">
     <link href="../../assets/css/progress.css" rel="stylesheet">
     <link href="../../assets/css/progress-circle.css" rel="stylesheet">
 
@@ -91,15 +93,9 @@
                                         class="codetext">"onclick"</span>. También podemos asignar funciones a
                                     estos eventos desde JavaScript. Observa los siguientes ejemplos:</p>
                                 <h3 class="card-title mrg-top-20">Eventos en HTML</h3>
-                                <div class="card">
-                                    <div class="container-fluid" style=" background-color: #1a1a1a">
-                                        <p class="code">
-                                            &lt;<span class="codetag">button</span>
-                                            onclick="miFuncion()"&gt;<span
-                                                class="codetext">Clic</span>&lt;/<span
-                                                class="codetag">button</span>&gt;
-                                        </p>
-                                    </div>
+                                <!-- Ventana estándar del curso para código HTML (lesson-demo.css) -->
+                                <div class="lesson-demo-stack eventos-html">
+                                    <p class="code">&lt;<span class="codetag">button</span> onclick="miFuncion()"&gt;<span class="codetext">Clic</span>&lt;/<span class="codetag">button</span>&gt;</p>
                                 </div>
                                 <h3 class="card-title mrg-top-20">Eventos en JavaScript</h3>
                                 <p>Para usar eventos en JS tenemos que seleccionar al elemento:</p>
@@ -112,6 +108,60 @@ document.getElementById("elemento1").onclick = function () {
 };</pre>
                                 </div>
                                 <h3 class="card-title mrg-top-20">Otros Eventos</h3>
+                                <p>Cada elemento de la página puede escuchar un evento distinto. Todo lo que haces en una
+                                    página activa eventos, pero la función solo corre cuando ocurre el evento que le asignamos.</p>
+                                <!-- Los eventos como una radio sintonizada (ver modulo4-16-radio.css / .js) -->
+                                <p class="card-info" style="width: fit-content;">
+                                    <img src="../../assets/images/clic.svg" class="mrg-right-5">
+                                    Haz clic en el botón o escribe en el campo para ver qué eventos se activan.
+                                </p>
+                                <div class="radio-ev" data-radio-ev>
+                                    <div class="radio-ev__main">
+                                        <div class="radio-ev__scene">
+                                            <div class="radio-ev__mueble">
+                                                <div class="radio-ev__pagina">
+                                                    <div class="radio-ev__bar" aria-hidden="true"><i></i><i></i><i></i>pagina.html</div>
+                                                    <div class="radio-ev__fila">
+                                                        <div class="radio-ev__obj" data-obj="boton"><button type="button" class="radio-ev__btn">Clic</button></div>
+                                                        <div class="radio-ev__obj" data-obj="campo"><input class="radio-ev__campo" type="text" placeholder="Escribe aquí" autocomplete="off" aria-label="Campo de texto de la página de prueba"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="radio-ev__radio">
+                                                    <span class="radio-ev__antena"></span>
+                                                    <div class="radio-ev__bocina"><div class="radio-ev__ondas"><i></i><i></i><i></i></div></div>
+                                                    <div class="radio-ev__panel">
+                                                        <div class="radio-ev__dial">
+                                                            <div class="radio-ev__est">
+                                                                <span data-ev="click">click</span><span data-ev="dblclick">dblclick</span><span data-ev="mouseover">mouseover</span><span data-ev="mouseout">mouseout</span><span data-ev="keydown">keydown</span>
+                                                                <i class="radio-ev__aguja"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="radio-ev__perillas"><span class="radio-ev__perilla"></span><span class="radio-ev__foco"></span><span class="radio-ev__perilla"></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grafico-ficha-col">
+                                            <!-- Mismo formato que las terminales del módulo 4 (js-terminal.css), pero sin
+                                                 .js-term__src: así js-terminal.js no la toca y el código no se escribe letra por letra -->
+                                            <div class="js-term radio-ev__code">
+                                                <div class="js-term__bar" aria-hidden="true"><i></i><i></i><i></i>eventos.js</div>
+                                                <div class="js-term__body">
+<pre class="js-term__code" data-code>var el = document.getElementById("boton");
+el.onclick = function () {
+  console.log("¡Te escuché!");
+};</pre>
+                                                    <div class="radio-ev__console" aria-live="polite"><span>Consola:</span><span class="radio-ev__console-out" data-console></span></div>
+                                                </div>
+                                            </div>
+                                            <div class="grafico-ficha">
+                                                <p class="radio-ev__status grafico-exp" data-status aria-live="polite"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Menú de vidrio para cambiar el elemento y el evento -->
+                                    <div class="radio-ev__menu" data-menu role="menu" hidden></div>
+                                </div>
                                 <p>A continuación te enlistamos algunos de los eventos más utilizados. Puedes
                                     ver la lista completa de eventos haciendo clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> <a
                                         href="https://developer.mozilla.org/es/docs/Web/Events"
@@ -122,7 +172,7 @@ document.getElementById("elemento1").onclick = function () {
                                             sobre el elemento.</p>
                                     </li>
                                     <li>
-                                        <p><span class="code">onmouseout</span>: Ocurre cuando el puntero está
+                                        <p><span class="code">onmouseout</span>: Ocurre cuando el puntero
                                             sale del elemento.</p>
                                     </li>
                                     <li>
@@ -213,6 +263,9 @@ document.getElementById("elemento1").onclick = function () {
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/lesson-demo.js"></script>
+    <script src="../../assets/js/scripts/modulo4/modulo4-16-radio.js"></script>
+    <script src="../../assets/js/grafico-ficha.js"></script>
 </body>
 
 </html>
