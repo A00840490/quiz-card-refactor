@@ -156,5 +156,28 @@
     ).observe(code);
   }
 
+  // Si la vista previa es más alta que el editor (2-6), el código crece hasta
+  // llenar su columna en vez de dejar un hueco oscuro abajo.
+  function igualarAltura() {
+    Array.prototype.forEach.call(editores, function (code) {
+      var fila = code.closest(".lesson-demo");
+      var cols = fila.children;
+      code.style.maxHeight = "";
+      if (cols.length < 2 || cols[0].offsetTop !== cols[1].offsetTop) return;
+      fila.style.alignItems = "start";
+      var hueco = cols[1].offsetHeight - cols[0].offsetHeight;
+      fila.style.alignItems = "";
+      if (hueco > 4) code.style.maxHeight = code.offsetHeight + hueco + "px";
+    });
+  }
+
+  var espera = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(espera);
+    espera = setTimeout(igualarAltura, 150);
+  });
+  window.addEventListener("load", igualarAltura);
+  igualarAltura();
+
   Array.prototype.forEach.call(editores, iniciar);
 })();
