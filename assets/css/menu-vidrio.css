@@ -1,59 +1,16 @@
-/* Demos de CSS del módulo 3 (antes eran CodePens). Se ven como los demás
-   demos del curso: la fila .lesson-demo de lesson-demo.css, con el código a
-   la izquierda y la previsualización del navegador a la derecha. Lo único
-   que se agrega son los valores con flecha del código, que abren el menú de
-   vidrio del plano del 3-23 (mismos estilos que .plano__valor, .plano__menu
-   y .plano__opcion). Uso: assets/js/scripts/modulo3/modulo3-demo-css.js */
-.demo-css {
-  --demo-css-gold: #fac775;
-  --demo-css-mono: "Source Code Pro", Consolas, "Courier New", monospace;
-  position: relative; /* el menú se coloca aquí, fuera de la tarjeta que corta lo que se sale */
-}
+/* Menú de vidrio: la forma estándar del curso de cambiar un valor dentro de
+   un bloque de código y verlo reflejado en el gráfico. Lo usan los demos
+   (demo.css / demo.js) y el plano del 3-23. Uso: assets/js/menu-vidrio.js
 
-/* Nombre del archivo en la barra del editor */
-.demo-css .lesson-demo > [class*="col-"].demo-css__editor::before {
-  content: attr(data-archivo);
-}
-
-/* La letra se achica si la línea más larga (--cols caracteres) no cabe */
-.demo-css .lesson-demo > [class*="col-"].demo-css__editor {
-  container-type: inline-size;
-}
-
-.demo-css .lesson-demo > [class*="col-"].demo-css__editor .code {
-  font-size: max(12.5px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6)));
-  white-space: pre;
-}
-
-@media (max-width: 575px) {
-  .demo-css .lesson-demo > [class*="col-"].demo-css__editor .code {
-    font-size: max(10.5px, min(12px, calc((100cqw - 60px) / var(--cols, 40) / 0.6)));
-  }
-}
-
-/* ---------- Previsualización ---------- */
-.demo-css__marco {
-  display: block;
-  width: 100%;
-  min-height: 60px;
-  border: 0;
-  background: #ffffff;
-  transition: height 0.3s ease;
-}
-
-.demo-css__ancho {
-  margin: 0 0 12px;
-  color: #667085;
-  font: 400 13px/1.4 Arial, sans-serif;
-}
-
-.demo-css__ancho b {
-  color: #0f4c91;
-  font-family: var(--demo-css-mono);
-}
-
-/* Valores que se pueden cambiar: un botón con flecha, como una lista desplegable */
-.demo-css__valor {
+   - .menu-vidrio__valor  el valor dentro del código: un botón con flecha,
+                          como una lista desplegable
+   - .menu-vidrio         el menú: vidrio translúcido como los de iPhone, con
+                          desenfoque detrás, esquinas redondeadas y un brillo
+                          arriba. Crece desde lo que se tocó. Sin título.
+   - .menu-vidrio__opcion cada opción; la actual lleva palomita
+   - .menu-vidrio__muestra la muestra de color junto a los valores que son
+                          colores (una página puede darle otro fondo) */
+.menu-vidrio__valor {
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
@@ -70,7 +27,7 @@
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.demo-css__valor::after {
+.menu-vidrio__valor::after {
   content: "";
   width: 0;
   height: 0;
@@ -79,25 +36,23 @@
   border-top: 0.38em solid #a9c0ff;
 }
 
-.demo-css__valor:hover,
-.demo-css__valor.is-abierta {
+.menu-vidrio__valor:hover,
+.menu-vidrio__valor.is-abierta {
   border-color: #a9c0ff;
   background: #3a4a78;
 }
 
-.demo-css__valor:focus {
+.menu-vidrio__valor:focus {
   outline: none;
 }
 
-.demo-css__valor:focus-visible {
-  outline: 2px solid var(--demo-css-gold);
+.menu-vidrio__valor:focus-visible {
+  outline: 2px solid #fac775;
   outline-offset: 1px;
 }
 
-/* ---------- Menú de vidrio (el mismo del plano del 3-23) ----------
-   Translúcido, con desenfoque detrás, esquinas redondeadas y un brillo
-   arriba. Crece desde el valor que se tocó. Sin título. */
-.demo-css__menu {
+/* ---------- Menú ---------- */
+.menu-vidrio {
   position: absolute;
   z-index: 20;
   min-width: 200px;
@@ -124,16 +79,16 @@
   transition: opacity 0.18s ease, transform 0.32s cubic-bezier(0.2, 1.25, 0.4, 1);
 }
 
-.demo-css__menu.is-on {
+.menu-vidrio.is-on {
   opacity: 1;
   transform: none;
 }
 
-.demo-css__menu[hidden] {
+.menu-vidrio[hidden] {
   display: none;
 }
 
-.demo-css__opcion {
+.menu-vidrio__opcion {
   position: relative;
   display: flex;
   align-items: center;
@@ -154,7 +109,7 @@
 }
 
 /* Línea fina entre opciones */
-.demo-css__opcion + .demo-css__opcion::before {
+.menu-vidrio__opcion + .menu-vidrio__opcion::before {
   content: "";
   position: absolute;
   top: 0;
@@ -163,25 +118,25 @@
   border-top: 0.5px solid rgba(60, 60, 67, 0.22);
 }
 
-.demo-css__opcion:hover,
-.demo-css__opcion:focus {
+.menu-vidrio__opcion:hover,
+.menu-vidrio__opcion:focus {
   outline: none;
   background: rgba(120, 120, 128, 0.16);
 }
 
-.demo-css__opcion:hover::before,
-.demo-css__opcion:focus::before,
-.demo-css__opcion:hover + .demo-css__opcion::before,
-.demo-css__opcion:focus + .demo-css__opcion::before {
+.menu-vidrio__opcion:hover::before,
+.menu-vidrio__opcion:focus::before,
+.menu-vidrio__opcion:hover + .menu-vidrio__opcion::before,
+.menu-vidrio__opcion:focus + .menu-vidrio__opcion::before {
   border-color: transparent;
 }
 
 /* La opción actual lleva la palomita a la izquierda */
-.demo-css__opcion.is-actual {
+.menu-vidrio__opcion.is-actual {
   font-weight: 600;
 }
 
-.demo-css__opcion.is-actual::after {
+.menu-vidrio__opcion.is-actual::after {
   content: "";
   position: absolute;
   left: 15px;
@@ -194,17 +149,16 @@
   transform: rotate(45deg);
 }
 
-.demo-css__opcion code {
+.menu-vidrio__opcion code {
   padding: 0;
   background: none;
   white-space: pre;
-  font-family: var(--demo-css-mono);
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace;
   color: #000000;
   font-size: 14.5px;
 }
 
-/* Muestra de color junto a los valores que son colores */
-.demo-css__muestra {
+.menu-vidrio__muestra {
   flex: none;
   width: 18px;
   height: 18px;
@@ -213,8 +167,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .demo-css *,
-  .demo-css__menu {
+  .menu-vidrio,
+  .menu-vidrio__opcion,
+  .menu-vidrio__valor {
     transition: none !important;
   }
 }

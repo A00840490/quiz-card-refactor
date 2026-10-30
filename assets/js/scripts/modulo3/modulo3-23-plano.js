@@ -3,7 +3,9 @@
    abren una lista con otras opciones; las celdas del plano abren una lista
    de cuartos y cambian la palabra que les toca en grid-template-areas.
    Cada cambio trae una explicación abajo (con desvanecido), y las cotas
-   marcan las líneas donde empieza y termina el último cuarto que se tocó. */
+   marcan las líneas donde empieza y termina el último cuarto que se tocó.
+   Los valores y las listas son el menú de vidrio compartido
+   (assets/js/menu-vidrio.js y assets/css/menu-vidrio.css). */
 (function () {
   "use strict";
 
@@ -18,7 +20,6 @@
   var cotas = root.querySelector("[data-cotas]");
   var pre = root.querySelector("[data-code]");
   var exp = root.querySelector("[data-exp]");
-  var menu = root.querySelector("[data-menu]");
   var cuartos = Array.prototype.slice.call(grid.querySelectorAll("[data-item]"));
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -136,7 +137,7 @@
     fitEl.style.height = h * s + "px";
     fitEl._escala = s;
     dibujarCotas();
-    cerrarMenu();
+    MenuVidrio.cerrar();
   }
 
   /* ---------- Aplicar el código al plano ---------- */
@@ -378,7 +379,7 @@
 
   /* ---------- Código ---------- */
   function valor(k) {
-    return "<button type=\"button\" class=\"plano__valor\" data-k=\"" + k + "\" aria-haspopup=\"menu\" aria-label=\"" + PROPIEDAD[k] + ": " + esc(OPCIONES[k][estado[k]]) + ". Elegir otro valor\">" + esc(OPCIONES[k][estado[k]]) + "</button>";
+    return MenuVidrio.boton(OPCIONES[k][estado[k]], PROPIEDAD[k], " data-k=\"" + k + "\"");
   }
 
   // Mismo formato que los bloques de código del curso (lesson-demo.css): cada línea es
@@ -455,67 +456,10 @@
     });
   }
 
-  /* ---------- Menú ---------- */
-  var abierto = null;
-
-  function abrirMenu(origen, titulo, opciones, alElegir) {
-    cerrarMenu();
-    abierto = { origen: origen, alElegir: alElegir };
-    origen.classList.add("is-abierta");
-    origen.setAttribute("aria-expanded", "true");
-    menu.innerHTML = (titulo ? "<p class=\"plano__menu-titulo\">" + titulo + "</p>" : "") + opciones.map(function (o, i) {
-      return "<button type=\"button\" role=\"menuitem\" class=\"plano__opcion" + (o.actual ? " is-actual" : "") + "\" data-i=\"" + i + "\">" + o.html + "</button>";
-    }).join("");
-    menu.hidden = false;
-    // Debajo del elemento que se tocó; si no cabe, arriba
-    var r = root.getBoundingClientRect(), o = origen.getBoundingClientRect();
-    var w = menu.offsetWidth, h = menu.offsetHeight;
-    var left = Math.max(4, Math.min(o.left - r.left, r.width - w - 4));
-    var top = o.bottom - r.top + 6;
-    if (o.bottom + h + 6 > window.innerHeight && o.top - h - 6 > 0) top = o.top - r.top - h - 6;
-    menu.style.left = left + "px";
-    menu.style.top = top + "px";
-    // El menú crece desde el elemento que se tocó
-    menu.style.setProperty("--origen", Math.max(0, Math.min(w, o.left - r.left - left + 20)) + "px " + (top < o.top - r.top ? h + "px" : "0"));
-    requestAnimationFrame(function () { menu.classList.add("is-on"); });
-    var actual = menu.querySelector(".is-actual") || menu.querySelector(".plano__opcion");
-    actual.focus({ preventScroll: true });
+  /* ---------- Menú: el menú de vidrio compartido (assets/js/menu-vidrio.js) ---------- */
+  function abrirMenu(origen, opciones, alElegir, alCerrar) {
+    MenuVidrio.abrir(origen, { dentro: root, opciones: opciones, alElegir: alElegir, alCerrar: alCerrar });
   }
-
-  function cerrarMenu(devolverFoco) {
-    if (!abierto) return;
-    var origen = abierto.origen;
-    origen.classList.remove("is-abierta");
-    origen.removeAttribute("aria-expanded");
-    if (origen.hasAttribute("data-r") && origen.classList.contains("plano__celda")) {
-      marcarPalabra(origen.getAttribute("data-r"), origen.getAttribute("data-c"), false);
-    }
-    menu.hidden = true;
-    menu.classList.remove("is-on");
-    abierto = null;
-    if (devolverFoco) origen.focus({ preventScroll: true });
-  }
-
-  menu.addEventListener("click", function (e) {
-    var b = e.target.closest(".plano__opcion");
-    if (!b || !abierto) return;
-    var elegir = abierto.alElegir;
-    cerrarMenu(true);
-    elegir(+b.getAttribute("data-i"));
-  });
-
-  menu.addEventListener("keydown", function (e) {
-    var ops = Array.prototype.slice.call(menu.querySelectorAll(".plano__opcion"));
-    var i = ops.indexOf(document.activeElement);
-    if (e.key === "ArrowDown") { e.preventDefault(); ops[(i + 1) % ops.length].focus(); }
-    if (e.key === "ArrowUp") { e.preventDefault(); ops[(i - 1 + ops.length) % ops.length].focus(); }
-    if (e.key === "Escape") { e.preventDefault(); cerrarMenu(true); }
-    if (e.key === "Tab") cerrarMenu();
-  });
-
-  document.addEventListener("pointerdown", function (e) {
-    if (abierto && !menu.contains(e.target) && !abierto.origen.contains(e.target)) cerrarMenu();
-  });
 
   /* ---------- Celdas del plano: elegir qué cuarto va ahí ---------- */
   for (var r = 0; r < 3; r++) {
@@ -540,14 +484,14 @@
   celdas.addEventListener("click", function (e) {
     var celda = e.target.closest(".plano__celda");
     if (!celda) return;
-    if (abierto && abierto.origen === celda) { cerrarMenu(); return; }
+    if (MenuVidrio.abiertoDesde(celda)) { MenuVidrio.cerrar(); return; }
     var r = +celda.getAttribute("data-r"), c = +celda.getAttribute("data-c");
     var actual = estado.mapa[r][c];
     var ops = CUARTOS.map(function (q) {
       return { html: muestra(q.id) + "<span>" + q.nombre + "</span>", actual: q.id === actual, id: q.id };
     });
     ops.push({ html: muestra(".") + "<span>Vacía <code>.</code></span>", actual: actual === ".", id: "." });
-    abrirMenu(celda, null, ops, function (i) { cambiarCelda(r, c, ops[i].id); });
+    abrirMenu(celda, ops, function (i) { cambiarCelda(r, c, ops[i].id); }, function () { marcarPalabra(r, c, false); });
     marcarPalabra(r, c, true);
   });
 
@@ -558,7 +502,7 @@
 
   celdas.addEventListener("pointerout", function (e) {
     var celda = e.target.closest(".plano__celda");
-    if (celda && !(abierto && abierto.origen === celda)) marcarPalabra(celda.getAttribute("data-r"), celda.getAttribute("data-c"), false);
+    if (celda && !MenuVidrio.abiertoDesde(celda)) marcarPalabra(celda.getAttribute("data-r"), celda.getAttribute("data-c"), false);
   });
 
   function cambiarCelda(r, c, id) {
@@ -586,12 +530,10 @@
 
   /* ---------- Valores del código: elegir otro de la lista ---------- */
   pre.addEventListener("click", function (e) {
-    var b = e.target.closest(".plano__valor");
+    var b = e.target.closest(".menu-vidrio__valor");
     if (!b) return;
-    if (abierto && abierto.origen === b) { cerrarMenu(); return; }
     var k = b.getAttribute("data-k");
-    var ops = OPCIONES[k].map(function (v, i) { return { html: "<code>" + esc(v) + "</code>", actual: i === estado[k] }; });
-    abrirMenu(b, null, ops, function (i) { cambiarValor(k, i); });
+    abrirMenu(b, MenuVidrio.valores(OPCIONES[k], OPCIONES[k][estado[k]]), function (i) { cambiarValor(k, i); });
   });
 
   function cambiarValor(k, i) {

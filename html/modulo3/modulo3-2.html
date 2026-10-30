@@ -17,7 +17,8 @@
 
     <!-- page plugins css -->
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
 
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
@@ -80,7 +81,30 @@
                                     podemos aplicar el mismo estilo a diferentes elementos. Para esto solo se necesita colocar los selectores
                                     de todos los elementos que quieres modificar (en lugar de uno solo) separados por comas.</p>
                                 <p>Observa cómo funciona en este ejemplo: el código de la izquierda es la hoja de estilos de la página que ves a la derecha.</p>
-                                <div data-demo-css="formato"></div>
+                                <div data-demo data-archivo="estilos.css">
+                                  <script type="text/x-codigo">
+                                    h1 {
+                                      color: {{ white | yellow | #ffcc00 | rgb(255, 99, 71) | blanco }};
+                                      background-color: {{ navy | teal | #8e44ad | rgb(15, 76, 145) | azul }};
+                                    }
+
+                                    p {
+                                      font-size: {{ 18px | 14px | 24px | 32px | 18 }};
+                                    }
+
+                                    h1, p {
+                                      font-family: {{ Arial, sans-serif | Georgia, serif | "Courier New", monospace | "Comic Sans MS", cursive }};
+                                    }
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="html">
+                                    <h1>Mi página con estilo</h1>
+                                    <p>Este párrafo tiene el tamaño de letra que dice el selector p.</p>
+                                    <p>Este también, porque es otro elemento p.</p>
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="base">
+                                    h1{padding:8px 12px}
+                                  </script>
+                                </div>
                                 <p class="mrg-top-40">Para cada propiedad existe algún dominio de valores
                                     válidos. Para <span class="code">background-color</span> sus valores deben
                                     ser colores o códigos de colores ya sea a partir de un nombre, códigos hexadecimales o usando el código RGB del color. Para <span
@@ -162,8 +186,8 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-2-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 
 </body>

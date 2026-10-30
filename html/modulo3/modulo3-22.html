@@ -18,7 +18,8 @@
   <!-- page plugins css -->
 
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
   <!-- core css -->
   <link href="../../assets/css/ei-icon.css" rel="stylesheet">
   <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -310,7 +311,34 @@
                   <p>Este ejemplo muestra todos los posibles valores para las diferentes
                     propiedades <b>flex</b>: elige las diferentes opciones y observa cómo cambian
                     los elementos.</p>
-                  <div data-demo-css="flex"></div>
+                  <div data-demo data-archivo="estilos.css">
+                    <script type="text/x-codigo">
+                      .contenedor {
+                        display: flex;
+                        flex-direction: {{ row | row-reverse | column | column-reverse }};
+                        flex-wrap: {{ wrap | nowrap | wrap-reverse }};
+                        justify-content: {{ flex-start | flex-end | center | space-between | space-around | space-evenly }};
+                        align-items: {{ stretch | flex-start | flex-end | center | baseline }};
+                        align-content: {{ stretch | flex-start | flex-end | center | space-between | space-around }};
+                        height: 300px;
+                      }
+                      .item {
+                        width: 70px;
+                      }
+                      .item:nth-child(2) {
+                        order: {{ 0 | -1 | 1 | 10 }};
+                      }
+                    </script>
+                    <script type="text/x-codigo" data-parte="html">
+                      <div class="contenedor"><div class="item">1</div><div class="item">2</div><div class="item">3</div><div class="item">4</div><div class="item">5</div><div class="item">6</div><div class="item">7</div></div>
+                    </script>
+                    <script type="text/x-codigo" data-parte="base">
+                      .contenedor{background:#eef3fa;border:2px dashed #9fb6d9}
+                      .item{box-sizing:border-box;margin:4px;padding:6px;border-radius:6px;background:#0f4c91;color:#fff;font-weight:700;text-align:center}
+                      .item:nth-child(3n+2){padding-top:18px;padding-bottom:18px;background:#2e8b57}
+                      .item:nth-child(3n){font-size:22px;background:#8e44ad}
+                    </script>
+                  </div>
                   <h3 class="card-title mrg-top-20">Juego</h3>
                   <p>Con las propiedades que acabas de aprender, trata de terminar este juego
                     llamado <a href="https://flexboxfroggy.com/#es" target="_blank">Flexbox
@@ -389,8 +417,8 @@
 
   <!-- Insert your dependencies here -->
 
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-22-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 

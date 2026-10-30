@@ -18,7 +18,8 @@
     <!-- page plugins css -->
 
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -77,10 +78,63 @@
                             <div class="card-block">
                                 <h2 class="mrg-btm-20 card-title">Ejemplos de Uso</h2>
                                 <p>Podemos separar secciones de contenido usando divisiones, el siguiente ejemplo muestra esto. A la izquierda está el código de la página y a la derecha cómo se ve:</p>
-                                <div data-demo-css="divisiones"></div>
+                                <div data-demo data-archivo="index.html">
+                                  <script type="text/x-codigo">
+                                    <style>
+                                      .primera {
+                                        background-color: {{ #0f4c91 | #8e44ad | #c0392b | #2c3e50 }};
+                                        color: {{ white | yellow | black }};
+                                        text-align: {{ center | left | right }};
+                                        font-family: {{ Georgia, serif | "Courier New", monospace | Verdana, sans-serif }};
+                                        padding: 12px;
+                                      }
+                                      .segunda {
+                                        background-color: {{ #7fc8a9 | #f6bd4f | #9ec5f8 }};
+                                        font-family: Arial, sans-serif;
+                                        padding: 12px;
+                                      }
+                                    </style>
+
+                                    <div class="primera">
+                                      <h2>Primera división</h2>
+                                      <p>Un bloque con su propio estilo.</p>
+                                    </div>
+                                    <div class="segunda">
+                                      <h2>Segunda división</h2>
+                                      <p>Otro bloque, separado del primero.</p>
+                                    </div>
+                                  </script>
+                                </div>
 
                                 <p>También podemos usar divisiones dentro de divisiones:</p>
-                                <div data-demo-css="divisiones-dentro"></div>
+                                <div data-demo data-archivo="index.html">
+                                  <script type="text/x-codigo">
+                                    <style>
+                                      .primera {
+                                        background-color: {{ #0f4c91 | #8e44ad | #c0392b | #2c3e50 }};
+                                        color: {{ white | yellow | black }};
+                                        text-align: {{ center | left | right }};
+                                        font-family: {{ Georgia, serif | "Courier New", monospace | Verdana, sans-serif }};
+                                        padding: 12px;
+                                      }
+                                      .segunda {
+                                        background-color: {{ #7fc8a9 | #f6bd4f | #9ec5f8 }};
+                                        font-family: Arial, sans-serif;
+                                        color: {{ inherit | black | #8e1b1b }};
+                                        padding: 12px;
+                                      }
+                                    </style>
+
+                                    <div class="primera">
+                                      <h2>Primera división</h2>
+                                      <p>Un bloque con su propio estilo.</p>
+                                      <div class="segunda">
+                                        <h2>Segunda división</h2>
+                                        <p>Este bloque está dentro del primero.</p>
+                                      </div>
+                                    </div>
+                                  </script>
+                                </div>
 
                                 <h2 class="card-title">Herencia</h2>
                                 <p>¿Qué cambios puedes observar entre los dos ejemplos? Podemos observar que el color del texto en el segundo contenedor cambia: en el primer ejemplo es negro y en el segundo es blanco. Esto pasa porque en el segundo ejemplo, la segunda división está <b>dentro</b> de la primera, lo cual causa que se <i>hereden</i> las propiedades de la primera división a la segunda. El CSS de la primera división contiene <span class="code"><mark>color: white;</mark></span> y es esta propiedad la que se hereda a la segunda división, cambiando el color del texto. La otra propiedad que se hereda es <span class="code"><mark>text-align: center;</mark></span>, la cual centra al texto en su contenedor.</p>
@@ -156,8 +210,8 @@
 
     <!-- Insert your dependencies here -->
 
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-6-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 

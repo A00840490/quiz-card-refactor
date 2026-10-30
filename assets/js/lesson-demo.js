@@ -55,7 +55,9 @@
    Cuando el código lleva 7.5 s en pantalla baja despacio; al llegar al fondo
    espera un momento y regresa arriba igual de despacio, y vuelve a empezar.
    Si el alumno lo mueve (rueda, toque, clic o teclado) se detiene y vuelve a
-   esperar los 7.5 s desde donde lo dejó. */
+   esperar los 7.5 s desde donde lo dejó.
+   Un demo que se arma después (demo.js) pide el suyo con
+   LessonDemo.desplazar(fila), así no importa en qué orden se carguen. */
 (function () {
   "use strict";
 
@@ -63,10 +65,8 @@
   var PAUSA_FONDO = 2500; // ms quieto en el fondo antes de subir
   var VELOCIDAD = 30; // px por segundo
 
-  var editores = document.querySelectorAll(
-    '.lesson-demo--scroll > [class*="col-"]:first-child .code',
-  );
-  if (!editores.length) return;
+  var SELECTOR = '.lesson-demo--scroll > [class*="col-"]:first-child .code';
+  var editores = [];
 
   function iniciar(code) {
     var visible = false;
@@ -159,7 +159,7 @@
   // Si la vista previa es más alta que el editor (2-6), el código crece hasta
   // llenar su columna en vez de dejar un hueco oscuro abajo.
   function igualarAltura() {
-    Array.prototype.forEach.call(editores, function (code) {
+    editores.forEach(function (code) {
       var fila = code.closest(".lesson-demo");
       var cols = fila.children;
       code.style.maxHeight = "";
@@ -177,7 +177,24 @@
     espera = setTimeout(igualarAltura, 150);
   });
   window.addEventListener("load", igualarAltura);
+
+  function agregar(code) {
+    if (editores.indexOf(code) >= 0) return;
+    editores.push(code);
+    iniciar(code);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(SELECTOR), agregar);
   igualarAltura();
 
-  Array.prototype.forEach.call(editores, iniciar);
+  window.LessonDemo = {
+    // fila: un .lesson-demo; si no trae .lesson-demo--scroll, se le pone
+    desplazar: function (fila) {
+      fila.classList.add("lesson-demo--scroll");
+      Array.prototype.forEach.call(fila.parentNode.querySelectorAll(SELECTOR), function (code) {
+        if (code.closest(".lesson-demo") === fila) agregar(code);
+      });
+      igualarAltura();
+    },
+  };
 })();

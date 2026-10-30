@@ -377,161 +377,9 @@
   color: #ffffff;
 }
 
-/* Valores que se pueden cambiar: un botón con flecha, como una lista desplegable */
-.plano__valor {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  margin: 0;
-  padding: 0 0.3em 0 0.45em;
-  border: 1px solid #5b7bd6;
-  border-radius: 3px;
-  background: #2b3550;
-  color: #ffffff;
-  font: inherit;
-  line-height: 1.45;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.plano__valor::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 0.3em solid transparent;
-  border-right: 0.3em solid transparent;
-  border-top: 0.38em solid #a9c0ff;
-}
-
-.plano__valor:hover,
-.plano__valor.is-abierta {
-  border-color: #a9c0ff;
-  background: #3a4a78;
-}
-
-.plano__valor:focus {
-  outline: none;
-}
-
-.plano__valor:focus-visible {
-  outline: 2px solid var(--plano-gold);
-  outline-offset: 1px;
-}
-
-/* ---------- Menú que se abre al hacer clic en una celda o en un valor ----------
-   Vidrio esmerilado, como los menús de iPhone: translúcido, con desenfoque
-   detrás, esquinas redondeadas y un brillo arriba. Crece desde donde se tocó. */
-.plano__menu {
-  position: absolute;
-  z-index: 20;
-  min-width: 200px;
-  max-width: calc(100% - 8px);
-  padding: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 18px;
-  background-color: rgba(246, 247, 250, 0.72);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.2));
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
-  box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.35),
-    0 2px 6px rgba(0, 0, 0, 0.1),
-    0 18px 44px rgba(0, 0, 0, 0.28);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
-  opacity: 0;
-  transform: scale(0.9);
-  transform-origin: var(--origen, 24px 0);
-  transition: opacity 0.18s ease, transform 0.32s cubic-bezier(0.2, 1.25, 0.4, 1);
-}
-
-.plano__menu.is-on {
-  opacity: 1;
-  transform: none;
-}
-
-.plano__menu[hidden] {
-  display: none;
-}
-
-/* Encabezado pequeño y gris, como en los menús de iPhone (solo en el de las celdas) */
-.plano__menu-titulo {
-  margin: 4px 12px 6px;
-  color: rgba(60, 60, 67, 0.65);
-  font-size: 12.5px;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.plano__opcion {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 9px 14px 9px 34px;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: #000000;
-  font-family: inherit;
-  font-size: 15.5px;
-  font-weight: 400;
-  line-height: 1.25;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-/* Línea fina entre opciones */
-.plano__opcion + .plano__opcion::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 14px;
-  right: 14px;
-  border-top: 0.5px solid rgba(60, 60, 67, 0.22);
-}
-
-.plano__opcion:hover,
-.plano__opcion:focus {
-  outline: none;
-  background: rgba(120, 120, 128, 0.16);
-}
-
-.plano__opcion:hover::before,
-.plano__opcion:focus::before,
-.plano__opcion:hover + .plano__opcion::before,
-.plano__opcion:focus + .plano__opcion::before {
-  border-color: transparent;
-}
-
-/* La opción actual lleva la palomita a la izquierda */
-.plano__opcion.is-actual {
-  font-weight: 600;
-}
-
-.plano__opcion.is-actual::after {
-  content: "";
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  width: 5px;
-  height: 10px;
-  margin-top: -7px;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-  transform: rotate(45deg);
-}
-
-.plano__opcion code {
-  white-space: nowrap;
-  font-family: var(--plano-mono);
-  color: #000000;
-  font-size: 14.5px;
-}
-
+/* Los valores del código y los menús son el menú de vidrio compartido
+   (assets/css/menu-vidrio.css). Aquí solo va la muestra de cada cuarto en
+   el menú de las celdas, con la textura de su piso. */
 .plano__muestra {
   flex: none;
   width: 24px;
@@ -560,8 +408,7 @@
     opacity: 0.45;
   }
 
-  .plano *,
-  .plano__menu {
+  .plano * {
     transition: none !important;
   }
 }

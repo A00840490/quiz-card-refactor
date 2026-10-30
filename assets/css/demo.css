@@ -1,0 +1,55 @@
+/* Demos del curso armados desde el HTML (assets/js/demo.js): la fila
+   .lesson-demo de lesson-demo.css, con el código a la izquierda y la
+   previsualización del navegador a la derecha. Los valores que se pueden
+   cambiar usan el menú de vidrio (menu-vidrio.css). */
+.demo {
+  position: relative; /* el menú se coloca aquí, fuera de la tarjeta que corta lo que se sale */
+}
+
+/* Nombre del archivo en la barra del editor */
+.demo .lesson-demo > [class*="col-"].demo__editor::before {
+  content: attr(data-archivo);
+}
+
+/* La letra se achica si la línea más larga (--cols caracteres) no cabe */
+.demo .lesson-demo > [class*="col-"].demo__editor {
+  container-type: inline-size;
+}
+
+.demo .lesson-demo > [class*="col-"].demo__editor .code {
+  font-size: max(12.5px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6)));
+  white-space: pre;
+}
+
+@media (max-width: 575px) {
+  .demo .lesson-demo > [class*="col-"].demo__editor .code {
+    font-size: max(10.5px, min(12px, calc((100cqw - 60px) / var(--cols, 40) / 0.6)));
+  }
+}
+
+/* ---------- Previsualización ---------- */
+.demo__marco {
+  display: block;
+  width: 100%;
+  min-height: 60px;
+  border: 0;
+  background: #ffffff;
+  transition: height 0.3s ease;
+}
+
+.demo__ancho {
+  margin: 0 0 12px;
+  color: #667085;
+  font: 400 13px/1.4 Arial, sans-serif;
+}
+
+.demo__ancho b {
+  color: #0f4c91;
+  font-family: "Source Code Pro", Consolas, "Courier New", monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo * {
+    transition: none !important;
+  }
+}

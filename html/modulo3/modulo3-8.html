@@ -18,7 +18,8 @@
     <!-- page plugins css -->
 
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -56,7 +57,28 @@
                             <div class="card-block">
                                 <h2 class="mrg-btm-20 card-title"><span class="badge badge-light">Tema 7</span>Estilos en Cascada</h2>
                                 <p>Algo más que debes tener en cuenta es que en CSS los cambios se aplican en orden de <b>cascada</b> (de arriba a abajo). Esto quiere decir que si modificaste una propiedad de una división (o cualquier otro elemento) al principio y la vuelves a modificar al final del CSS, el estilo asignado será el último.</p>
-                                <div data-demo-css="cascada"></div>
+                                <div data-demo data-archivo="index.html">
+                                  <script type="text/x-codigo">
+                                    <style>
+                                      .naranja {
+                                        color: {{ white | green | blue }};
+                                      }
+                                      .rojo {
+                                        color: {{ red | purple | teal }};
+                                      }
+                                      .naranja {
+                                        color: {{ orange | gold | white }};
+                                      }
+                                    </style>
+
+                                    <p class="naranja">Primer texto</p>
+                                    <p class="{{ rojo naranja | naranja rojo | rojo | naranja }}">Segundo texto</p>
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="base">
+                                    body{background:#f4f6f9}
+                                    p{font-size:24px;font-weight:700;margin:0 0 8px}
+                                  </script>
+                                </div>
                                 <p>Este ejemplo nos muestra esto de dos maneras:</p>
                                 <ol>
                                     <li><p>La clase <span class="code">naranja</span> se modifica primero con el color blanco, pero al final con el color naranja y esto es lo que se visualiza.</p></li>
@@ -145,8 +167,8 @@
 
     <!-- Insert your dependencies here -->
 
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-8-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 

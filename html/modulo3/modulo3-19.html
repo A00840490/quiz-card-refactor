@@ -35,7 +35,8 @@
     <link href="../../assets/css/app.css" rel="stylesheet" />
     <link href="../../assets/css/progress.css" rel="stylesheet" />
     <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet" />
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet" />
+    <link href="../../assets/css/demo.css" rel="stylesheet" />
     <link
       href="../../assets/css/lesson-demo.css"
       rel="stylesheet"
@@ -85,7 +86,25 @@
                       texto cuando el usuario pasa el puntero del mouse
                       sobre él. Este ejemplo muestra cómo se utilizan:
                     </p>
-                    <div data-demo-css="enlace"></div>
+                    <div data-demo data-archivo="estilos.css">
+                      <script type="text/x-codigo">
+                        a {
+                          font-size: {{ 30px | 20px | 40px }};
+                          text-decoration: {{ none | underline | overline | line-through }};
+                        }
+
+                        {{ a:hover | a:active | a }} {
+                          color: {{ red | green | orange | #8e44ad }};
+                        }
+                      </script>
+                      <script type="text/x-codigo" data-parte="html">
+                        <p><a href="#">Pasa el puntero sobre este enlace.</a></p>
+                      </script>
+                      <script type="text/x-codigo" data-parte="base">
+                        a{color:#0f4c91}
+                        p{margin:0}
+                      </script>
+                    </div>
                     <p>
                       Puedes aprender más sobre las pseudoclases haciendo
                       clic
@@ -171,8 +190,8 @@
     <!-- endbuild -->
 
     <!-- Insert your dependencies here -->
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-19-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 </html>

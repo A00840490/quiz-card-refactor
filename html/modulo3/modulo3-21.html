@@ -18,7 +18,8 @@
     <!-- page plugins css -->
 
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -65,7 +66,35 @@
                                     regla de CSS <span class="code">@media</span>. Típicamente, se utilizan para
                                     cambiar el estilo cuando una pantalla llega a cierta anchura, por ejemplo:
                                 </p>
-                                <div data-demo-css="media"></div>
+                                <div data-demo data-archivo="estilos.css" data-ancho>
+                                  <script type="text/x-codigo">
+                                    .col {
+                                      float: left;
+                                      width: 33.33%;
+                                      box-sizing: border-box;
+                                      padding: 16px;
+                                      border: 2px solid white;
+                                      background-color: #0f4c91;
+                                      color: white;
+                                    }
+
+                                    @media (max-width: {{ 400px | 300px | 600px | 900px }}) {
+                                      .col {
+                                        width: {{ 100% | 50% }};
+                                        background-color: {{ #2e8b57 | #8e44ad | #e67e22 }};
+                                      }
+                                    }
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="html">
+                                    <div class="col">Columna 1</div>
+                                    <div class="col">Columna 2</div>
+                                    <div class="col">Columna 3</div>
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="base">
+                                    body{display:flow-root}
+                                    .col{font-weight:700;text-align:center}
+                                  </script>
+                                </div>
                                 <p>Cambia el ancho de la condición y analiza el CSS que tenemos después de
                                     <span class="code">@media</span>: arriba de la previsualización puedes ver cuánto mide su
                                     ventana. También puedes cambiar el tamaño de la ventana de tu navegador.
@@ -149,8 +178,8 @@
 
     <!-- Insert your dependencies here -->
 
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-21-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 

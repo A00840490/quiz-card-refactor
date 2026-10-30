@@ -18,7 +18,8 @@
     <!-- page plugins css -->
 
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -82,7 +83,24 @@
                             
                                 <h1 class="card-title"><span class="badge badge-light">Tema 15</span>El Valor Auto</h1>
                                 <p>Los márgenes también aceptan otro valor, denominado <span class="code">auto</span>, el cual permite que el navegador calcule el valor. Un uso común de este valor se da en márgenes para centrar elementos, como en el siguiente ejemplo: </p>
-                                <div data-demo-css="auto"></div>
+                                <div data-demo data-archivo="estilos.css">
+                                  <script type="text/x-codigo">
+                                    .caja {
+                                      width: {{ 200px | 50% | 120px | auto }};
+                                      margin: {{ 0 auto | 0 | 0 0 0 auto | 0 auto 0 0 | 20px auto }};
+                                      padding: 12px;
+                                      background-color: #0f4c91;
+                                      color: white;
+                                    }
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="html">
+                                    <div class="contenedor"><div class="caja">Caja</div></div>
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="base">
+                                    .contenedor{display:flow-root;background:#f9cc9d}
+                                    .caja{box-sizing:border-box;font-weight:700;text-align:center}
+                                  </script>
+                                </div>
                         </div>
                         </div>
 
@@ -152,8 +170,8 @@
 
     <!-- Insert your dependencies here -->
 
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-16-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 

@@ -18,7 +18,8 @@
   <!-- page plugins css -->
 
     <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
-    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
+    <link href="../../assets/css/menu-vidrio.css" rel="stylesheet">
+    <link href="../../assets/css/demo.css" rel="stylesheet">
   <!-- core css -->
   <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
   <link href="../../assets/css/themify-icons.css" rel="stylesheet" />
@@ -169,7 +170,62 @@
                     </div>
                   </section>
                   <h2 class="card-title">Ejemplos</h2>
-                  <div data-demo-css="posiciones"></div>
+                  <div data-demo data-archivo="estilos.css" data-alto="430" data-listas='{"pos": ["static", "relative", "absolute", "fixed", "sticky"]}'>
+                    <script type="text/x-codigo">
+                      div {
+                        padding: 10px;
+                        margin: 10px 0;
+                        color: white;
+                      }
+                      .azul {
+                        background-color: #4a7fd4;
+                      }
+                      .azul-hijo {
+                        position: {{ @pos relative }};
+                        top: 20px;
+                        left: 20px;
+                        background-color: #1f4fa3;
+                      }
+                      .naranja {
+                        position: {{ @pos sticky }};
+                        top: 0;
+                        background-color: #f0a030;
+                      }
+                      .verde {
+                        position: {{ @pos relative }};
+                        background-color: #5cb85c;
+                      }
+                      .verde-hijo {
+                        position: {{ @pos absolute }};
+                        top: 20px;
+                        left: 40px;
+                        background-color: #2e7d32;
+                      }
+                      .rojo {
+                        position: {{ @pos fixed }};
+                        bottom: 10px;
+                        right: 10px;
+                        background-color: #d9534f;
+                      }
+                    </script>
+                    <script type="text/x-codigo" data-parte="html">
+                      <div class="azul">Azul (padre)<div class="azul-hijo">Azul (hijo)</div></div>
+                      <div class="naranja">Naranja</div>
+                      <div class="verde">Verde (padre)<div class="verde-hijo">Verde (hijo)</div></div>
+                      <div class="rojo">Rojo</div>
+                      <p>Desplázate dentro de esta vista previa para ver qué cuadros se quedan a la vista.</p>
+                      <p>Los cuadros con <b>fixed</b> se quedan en el mismo lugar de la ventana. Los cuadros con <b>sticky</b> se quedan pegados solo cuando se van a salir.</p>
+                      <p>Los cuadros con <b>relative</b> y <b>absolute</b> se mueven con la página.</p>
+                      <p>Sigue bajando…</p>
+                      <p>Un poco más…</p>
+                      <p>Aquí termina la página.</p>
+                    </script>
+                    <script type="text/x-codigo" data-parte="base">
+                      div{font-weight:700;z-index:1}
+                      p{color:#172033}
+                      .verde{min-height:22px}
+                    </script>
+                  </div>
                   <p>
                     Observa y analiza el ejemplo de arriba. ¿Cómo se
                     comportan los elementos con diferentes
@@ -286,8 +342,8 @@
   <!-- endbuild -->
 
   <!-- Insert your dependencies here -->
-    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
-    <script src="../../assets/js/scripts/modulo3/modulo3-11-demo.js"></script>
+    <script src="../../assets/js/menu-vidrio.js"></script>
+    <script src="../../assets/js/demo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
 </body>
 
