@@ -43,7 +43,6 @@
   var codeEl = root.querySelector("[data-code]");
   var consola = root.querySelector("[data-console]");
   var status = root.querySelector("[data-status]");
-  var menu = root.querySelector("[data-menu]");
   var b = {
     reset: root.querySelector("[data-reset]"),
     back: root.querySelector("[data-back]"),
@@ -305,7 +304,7 @@
 
   /* ---------- El código ---------- */
   function valor(k, html, nombre, extra, parte) {
-    return '<button type="button" class="maq__valor' + (extra || "") + '" data-k="' + k + '" data-part="' + parte + '" aria-haspopup="menu" aria-label="' + nombre + '. Elegir otro valor">' + html + "</button>";
+    return '<button type="button" class="menu-vidrio__valor' + (extra || "") + '" data-k="' + k + '" data-part="' + parte + '" aria-haspopup="menu" aria-label="' + nombre + '. Elegir otro valor">' + html + "</button>";
   }
 
   function pintaCodigo() {
@@ -504,7 +503,6 @@
   }
 
   /* ---------- Menú de vidrio (estándar del 3-23) ---------- */
-  var abierto = null;
   var MENUS = {
     valor: function () {
       return OPCIONES.map(function (o) { return { html: "<code>" + esc(lit(o)) + "</code>", valor: o, actual: o === st.valor }; });
@@ -517,75 +515,29 @@
     }
   };
 
+  // El menú es el compartido del curso (assets/js/menu-vidrio.js)
   function abrirMenu(origen) {
-    cerrarMenu();
     var que = origen.getAttribute("data-k");
     var opciones = MENUS[que]();
-    abierto = { origen: origen, que: que, opciones: opciones };
-    origen.classList.add("is-abierta");
-    origen.setAttribute("aria-expanded", "true");
-    menu.innerHTML = opciones.map(function (o, n) {
-      return '<button type="button" role="menuitem" class="maq__opcion' + (o.actual ? " is-actual" : "") + '" data-i="' + n + '">' + o.html + "</button>";
-    }).join("");
-    menu.hidden = false;
-    var r = root.getBoundingClientRect(), o = origen.getBoundingClientRect();
-    var w = menu.offsetWidth, h = menu.offsetHeight;
-    var left = Math.max(4, Math.min(o.left - r.left, r.width - w - 4));
-    var top = o.bottom - r.top + 6;
-    if (o.bottom + h + 6 > window.innerHeight && o.top - h - 6 > 0) top = o.top - r.top - h - 6;
-    menu.style.left = left + "px";
-    menu.style.top = top + "px";
-    menu.style.setProperty("--origen", Math.max(0, Math.min(w, o.left - r.left - left + 20)) + "px " + (top < o.top - r.top ? h + "px" : "0"));
-    requestAnimationFrame(function () { menu.classList.add("is-on"); });
-    var actual = menu.querySelector(".is-actual") || menu.querySelector(".maq__opcion");
-    actual.focus({ preventScroll: true });
+    MenuVidrio.abrir(origen, {
+      dentro: root,
+      opciones: opciones,
+      alElegir: function (i) { cambia(que, opciones[i].valor); }
+    });
   }
-
-  function cerrarMenu(devolverFoco) {
-    if (!abierto) return;
-    var origen = abierto.origen;
-    origen.classList.remove("is-abierta");
-    origen.removeAttribute("aria-expanded");
-    menu.hidden = true;
-    menu.classList.remove("is-on");
-    abierto = null;
-    if (devolverFoco) origen.focus({ preventScroll: true });
-  }
-
-  menu.addEventListener("click", function (e) {
-    var op = e.target.closest(".maq__opcion");
-    if (!op || !abierto) return;
-    var que = abierto.que, o = abierto.opciones[+op.getAttribute("data-i")];
-    cerrarMenu(true);
-    cambia(que, o.valor);
-  });
-
-  menu.addEventListener("keydown", function (e) {
-    var ops = [].slice.call(menu.querySelectorAll(".maq__opcion"));
-    var n = ops.indexOf(document.activeElement);
-    if (e.key === "ArrowDown") { e.preventDefault(); ops[(n + 1) % ops.length].focus(); }
-    if (e.key === "ArrowUp") { e.preventDefault(); ops[(n - 1 + ops.length) % ops.length].focus(); }
-    if (e.key === "Escape") { e.preventDefault(); cerrarMenu(true); }
-    if (e.key === "Tab") cerrarMenu();
-  });
-
-  document.addEventListener("pointerdown", function (e) {
-    if (abierto && !menu.contains(e.target) && !abierto.origen.contains(e.target)) cerrarMenu();
-  });
 
   // En celular la barra del navegador cambia el alto al hacer scroll: solo se cierra si cambia el ancho
   var ancho = window.innerWidth;
   window.addEventListener("resize", function () {
     if (window.innerWidth === ancho) return;
     ancho = window.innerWidth;
-    cerrarMenu();
+    MenuVidrio.cerrar();
   });
 
   codeEl.addEventListener("click", function (e) {
     var t = e.target.closest("[data-k]");
     if (!t) return;
-    if (abierto && abierto.origen === t) cerrarMenu();
-    else abrirMenu(t);
+    abrirMenu(t);
   });
 
   /* ---------- Las teclas ---------- */

@@ -189,144 +189,8 @@
   white-space: pre;
 }
 
-/* Valores que se pueden cambiar (el código y el break de A2): un botón con
-   flecha, como una lista desplegable (estándar del 3-23) */
-.maq__valor {
-  display: inline-flex;
-  align-items: center;
-  gap: .35em;
-  margin: 0;
-  padding: 0 .3em 0 .45em;
-  border: 1px solid #5b7bd6;
-  border-radius: 3px;
-  background-color: #2b3550;
-  color: #ffffff;
-  font: inherit;
-  line-height: 1.45;
-  white-space: pre;
-  cursor: pointer;
-}
-
-.maq__valor::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: .3em solid transparent;
-  border-right: .3em solid transparent;
-  border-top: .38em solid #a9c0ff;
-}
-
-.maq__valor:hover,
-.maq__valor.is-abierta {
-  border-color: #a9c0ff;
-  background-color: #3a4a78;
-}
-
-.maq__valor:focus { outline: none; }
-.maq__valor:focus-visible { outline: 2px solid #fac775; outline-offset: 1px; }
-
-/* break quitado: queda como comentario */
-.maq__valor.js-term__com { color: #7f9a86; }
-
-/* ---------- Menú de vidrio para elegir el valor (estándar del 3-23) ---------- */
-.maq__menu {
-  position: absolute;
-  z-index: 20;
-  min-width: 200px;
-  max-width: calc(100% - 8px);
-  padding: 6px;
-  border: 1px solid rgba(255, 255, 255, .6);
-  border-radius: 18px;
-  background-color: rgba(246, 247, 250, .72);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .08) 45%, rgba(255, 255, 255, .2));
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
-  box-shadow:
-    0 0 0 .5px rgba(0, 0, 0, .14),
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    inset 0 -1px 1px rgba(255, 255, 255, .35),
-    0 2px 6px rgba(0, 0, 0, .1),
-    0 18px 44px rgba(0, 0, 0, .28);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
-  opacity: 0;
-  transform: scale(.9);
-  transform-origin: var(--origen, 24px 0);
-  transition: opacity .18s ease, transform .32s cubic-bezier(.2, 1.25, .4, 1);
-}
-
-.maq__menu.is-on { opacity: 1; transform: none; }
-.maq__menu[hidden] { display: none; }
-
-.maq__opcion {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 9px 14px 9px 34px;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: #000000;
-  font-family: inherit;
-  font-size: 15.5px;
-  font-weight: 400;
-  line-height: 1.25;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color .15s ease;
-}
-
-/* Línea fina entre opciones */
-.maq__opcion + .maq__opcion::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 14px;
-  right: 14px;
-  border-top: .5px solid rgba(60, 60, 67, .22);
-}
-
-.maq__opcion:hover,
-.maq__opcion:focus {
-  outline: none;
-  background: rgba(120, 120, 128, .16);
-}
-
-.maq__opcion:hover::before,
-.maq__opcion:focus::before,
-.maq__opcion:hover + .maq__opcion::before,
-.maq__opcion:focus + .maq__opcion::before { border-color: transparent; }
-
-/* La opción actual lleva la palomita a la izquierda */
-.maq__opcion.is-actual { font-weight: 600; }
-
-.maq__opcion.is-actual::after {
-  content: "";
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  width: 5px;
-  height: 10px;
-  margin-top: -7px;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-  transform: rotate(45deg);
-}
-
-.maq__opcion code {
-  padding: 0;
-  background: none;
-  color: #000000;
-  font-family: Consolas, "Courier New", monospace;
-  font-size: 14.5px;
-  white-space: nowrap;
-}
-
-.maq__opcion small {
-  color: rgba(60, 60, 67, .65);
-  font-size: 13px;
-}
+/* Valores que se pueden cambiar: el botón y el menú de vidrio compartidos
+   (.menu-vidrio__valor y .menu-vidrio en assets/css/menu-vidrio.css) */
 
 /* ---------- Consola dentro de la ventana ---------- */
 .maq__console {
@@ -370,25 +234,7 @@
 
 /* Cada parte del switch se resalta con el estándar de js-terminal.css.
    Si la parte es una lista desplegable (el código o el break de A2), la
-   lista misma invierte sus colores (fondo blanco y letra azul) con esquinas
-   rectas, y también entra de izquierda a derecha */
-.maq__code .maq__valor {
-  border-radius: 3px;
-  background-image: linear-gradient(#ffffff, #ffffff);
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 0% 100%;
-  transition: background-size .5s ease, color .5s ease, border-color .25s ease, background-color .2s ease;
-}
-
-.maq__code .maq__valor.is-on {
-  border-color: #ffffff;
-  border-radius: 0;
-  background-size: 100% 100%;
-  color: #2b3550;
-}
-
-.maq__code .maq__valor.is-on::after { border-top-color: #2b3550; }
+   lista misma invierte sus colores: .menu-vidrio__valor.is-on */
 
 /* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6) en la
    ficha de renglones montada sobre la ventana de código (.grafico-ficha) */
@@ -438,7 +284,5 @@
   .maq__console-out span.is-new { animation: none; }
   .maq__moneda,
   .maq__codigo,
-  .maq__code [data-part],
-  .maq__code .maq__valor,
-  .maq__menu { transition: none; }
+  .maq__code [data-part] { transition: none; }
 }

@@ -48,7 +48,6 @@
   var codeEl = root.querySelector("[data-code]");
   var consola = root.querySelector("[data-console]");
   var status = root.querySelector("[data-status]");
-  var menu = root.querySelector("[data-menu]");
   var objs = { boton: root.querySelector('[data-obj="boton"]'), campo: root.querySelector('[data-obj="campo"]') };
   var antena = root.querySelector(".radio-ev__antena");
   var bocina = root.querySelector(".radio-ev__bocina");
@@ -111,7 +110,7 @@
      Cada renglón de una parte lleva su propio data-part, así el resaltado
      cubre solo el texto y no la sangría (estándar de js-terminal.css). */
   function valor(k, texto, nombre) {
-    return '<button type="button" class="radio-ev__valor" data-k="' + k + '" aria-haspopup="menu" aria-label="' + nombre + '. Elegir otro valor">' + esc(texto) + "</button>";
+    return '<button type="button" class="menu-vidrio__valor" data-k="' + k + '" aria-haspopup="menu" aria-label="' + nombre + '. Elegir otro valor">' + esc(texto) + "</button>";
   }
 
   function parte(nombre, html) {
@@ -129,7 +128,7 @@
 
   var hlT;
   function resalta() {
-    each(codeEl.querySelectorAll('[data-part="fn"], [data-part="fn"] .radio-ev__valor'), function (el) { el.classList.add("is-on"); });
+    each(codeEl.querySelectorAll('[data-part="fn"], [data-part="fn"] .menu-vidrio__valor'), function (el) { el.classList.add("is-on"); });
     clearTimeout(hlT);
     hlT = setTimeout(function () {
       each(codeEl.querySelectorAll(".is-on"), function (el) { el.classList.remove("is-on"); });
@@ -442,7 +441,6 @@
   }
 
   /* ---------- Menú de vidrio (estándar del 3-23) ---------- */
-  var abierto = null;
   var MENUS = {
     el: function () {
       return ["boton", "campo"].map(function (o) { return { html: cod('"' + o + '"'), valor: o, actual: o === st.el }; });
@@ -452,75 +450,29 @@
     }
   };
 
+  // El menú es el compartido del curso (assets/js/menu-vidrio.js)
   function abrirMenu(origen) {
-    cerrarMenu();
     var que = origen.getAttribute("data-k");
     var opciones = MENUS[que]();
-    abierto = { origen: origen, que: que, opciones: opciones };
-    origen.classList.add("is-abierta");
-    origen.setAttribute("aria-expanded", "true");
-    menu.innerHTML = opciones.map(function (o, n) {
-      return '<button type="button" role="menuitem" class="radio-ev__opcion' + (o.actual ? " is-actual" : "") + '" data-i="' + n + '">' + o.html + "</button>";
-    }).join("");
-    menu.hidden = false;
-    var r = root.getBoundingClientRect(), o = origen.getBoundingClientRect();
-    var w = menu.offsetWidth, h = menu.offsetHeight;
-    var left = Math.max(4, Math.min(o.left - r.left, r.width - w - 4));
-    var top = o.bottom - r.top + 6;
-    if (o.bottom + h + 6 > window.innerHeight && o.top - h - 6 > 0) top = o.top - r.top - h - 6;
-    menu.style.left = left + "px";
-    menu.style.top = top + "px";
-    menu.style.setProperty("--origen", Math.max(0, Math.min(w, o.left - r.left - left + 20)) + "px " + (top < o.top - r.top ? h + "px" : "0"));
-    requestAnimationFrame(function () { menu.classList.add("is-on"); });
-    var actual = menu.querySelector(".is-actual") || menu.querySelector(".radio-ev__opcion");
-    actual.focus({ preventScroll: true });
+    MenuVidrio.abrir(origen, {
+      dentro: root,
+      opciones: opciones,
+      alElegir: function (i) { cambia(que, opciones[i].valor); }
+    });
   }
-
-  function cerrarMenu(devolverFoco) {
-    if (!abierto) return;
-    var origen = abierto.origen;
-    origen.classList.remove("is-abierta");
-    origen.removeAttribute("aria-expanded");
-    menu.hidden = true;
-    menu.classList.remove("is-on");
-    abierto = null;
-    if (devolverFoco) origen.focus({ preventScroll: true });
-  }
-
-  menu.addEventListener("click", function (e) {
-    var op = e.target.closest(".radio-ev__opcion");
-    if (!op || !abierto) return;
-    var que = abierto.que, o = abierto.opciones[+op.getAttribute("data-i")];
-    cerrarMenu(true);
-    cambia(que, o.valor);
-  });
-
-  menu.addEventListener("keydown", function (e) {
-    var ops = [].slice.call(menu.querySelectorAll(".radio-ev__opcion"));
-    var n = ops.indexOf(document.activeElement);
-    if (e.key === "ArrowDown") { e.preventDefault(); ops[(n + 1) % ops.length].focus(); }
-    if (e.key === "ArrowUp") { e.preventDefault(); ops[(n - 1 + ops.length) % ops.length].focus(); }
-    if (e.key === "Escape") { e.preventDefault(); cerrarMenu(true); }
-    if (e.key === "Tab") cerrarMenu();
-  });
-
-  document.addEventListener("pointerdown", function (e) {
-    if (abierto && !menu.contains(e.target) && !abierto.origen.contains(e.target)) cerrarMenu();
-  });
 
   // En celular la barra del navegador cambia el alto al hacer scroll: solo se cierra si cambia el ancho
   var ancho = window.innerWidth;
   window.addEventListener("resize", function () {
     if (window.innerWidth === ancho) return;
     ancho = window.innerWidth;
-    cerrarMenu();
+    MenuVidrio.cerrar();
   });
 
   codeEl.addEventListener("click", function (e) {
     var t = e.target.closest("[data-k]");
     if (!t) return;
-    if (abierto && abierto.origen === t) cerrarMenu();
-    else abrirMenu(t);
+    abrirMenu(t);
   });
 
   /* ---------- Arranque ---------- */

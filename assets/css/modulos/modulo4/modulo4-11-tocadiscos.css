@@ -326,139 +326,8 @@
   white-space: pre;
 }
 
-/* Valores que se pueden cambiar (la condición e i++): un botón con flecha,
-   como una lista desplegable (estándar del 3-23) */
-.tt__valor {
-  display: inline-flex;
-  align-items: center;
-  gap: .35em;
-  margin: 0;
-  padding: 0 .3em 0 .45em;
-  border: 1px solid #5b7bd6;
-  border-radius: 3px;
-  background: #2b3550;
-  color: #ffffff;
-  font: inherit;
-  line-height: 1.45;
-  white-space: pre;
-  cursor: pointer;
-  transition: background-color .2s ease, border-color .2s ease;
-}
-
-.tt__valor::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: .3em solid transparent;
-  border-right: .3em solid transparent;
-  border-top: .38em solid #a9c0ff;
-}
-
-.tt__valor:hover,
-.tt__valor.is-abierta {
-  border-color: #a9c0ff;
-  background: #3a4a78;
-}
-
-.tt__valor:focus { outline: none; }
-.tt__valor:focus-visible { outline: 2px solid #fac775; outline-offset: 1px; }
-
-/* i++ quitado: queda como comentario */
-.tt__valor.js-term__com { color: #7f9a86; }
-
-/* ---------- Menú de vidrio para elegir el valor (estándar del 3-23) ---------- */
-.tt__menu {
-  position: absolute;
-  z-index: 20;
-  min-width: 200px;
-  max-width: calc(100% - 8px);
-  padding: 6px;
-  border: 1px solid rgba(255, 255, 255, .6);
-  border-radius: 18px;
-  background-color: rgba(246, 247, 250, .72);
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .08) 45%, rgba(255, 255, 255, .2));
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  backdrop-filter: blur(22px) saturate(180%);
-  box-shadow:
-    0 0 0 .5px rgba(0, 0, 0, .14),
-    inset 0 1px 0 rgba(255, 255, 255, .9),
-    inset 0 -1px 1px rgba(255, 255, 255, .35),
-    0 2px 6px rgba(0, 0, 0, .1),
-    0 18px 44px rgba(0, 0, 0, .28);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
-  opacity: 0;
-  transform: scale(.9);
-  transform-origin: var(--origen, 24px 0);
-  transition: opacity .18s ease, transform .32s cubic-bezier(.2, 1.25, .4, 1);
-}
-
-.tt__menu.is-on { opacity: 1; transform: none; }
-.tt__menu[hidden] { display: none; }
-
-.tt__opcion {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 9px 14px 9px 34px;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: #000000;
-  font-family: inherit;
-  font-size: 15.5px;
-  font-weight: 400;
-  line-height: 1.25;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color .15s ease;
-}
-
-/* Línea fina entre opciones */
-.tt__opcion + .tt__opcion::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 14px;
-  right: 14px;
-  border-top: .5px solid rgba(60, 60, 67, .22);
-}
-
-.tt__opcion:hover,
-.tt__opcion:focus {
-  outline: none;
-  background: rgba(120, 120, 128, .16);
-}
-
-.tt__opcion:hover::before,
-.tt__opcion:focus::before,
-.tt__opcion:hover + .tt__opcion::before,
-.tt__opcion:focus + .tt__opcion::before { border-color: transparent; }
-
-/* La opción actual lleva la palomita a la izquierda */
-.tt__opcion.is-actual { font-weight: 600; }
-
-.tt__opcion.is-actual::after {
-  content: "";
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  width: 5px;
-  height: 10px;
-  margin-top: -7px;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
-  transform: rotate(45deg);
-}
-
-.tt__opcion code {
-  padding: 0;
-  background: none;
-  color: #000000;
-  font-family: Consolas, "Courier New", monospace;
-  font-size: 14.5px;
-  white-space: nowrap;
-}
+/* Valores que se pueden cambiar: el botón y el menú de vidrio compartidos
+   (.menu-vidrio__valor y .menu-vidrio en assets/css/menu-vidrio.css) */
 
 .tt__console {
   display: grid;
@@ -512,24 +381,7 @@
    Si la parte es una lista desplegable (la condición o i++), la parte no se
    pinta: la lista misma invierte sus colores (fondo blanco y letra azul) con
    esquinas rectas, y también entra de izquierda a derecha */
-.tt__code [data-part].is-on:has(.tt__valor) { background-size: 0% 100%; color: inherit; }
-
-.tt__code .tt__valor {
-  background-image: linear-gradient(#ffffff, #ffffff);
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 0% 100%;
-  transition: background-size .5s ease, color .5s ease, border-color .25s ease;
-}
-
-.tt__code [data-part].is-on .tt__valor {
-  border-color: #ffffff;
-  border-radius: 0;
-  background-size: 100% 100%;
-  color: #2b3550;
-}
-
-.tt__code [data-part].is-on .tt__valor::after { border-top-color: #2b3550; }
+.tt__code [data-part].is-on:has(.menu-vidrio__valor) { background-size: 0% 100%; color: inherit; }
 
 /* La explicación usa .grafico-exp (app.css, estándar del tren del 4-6):
    párrafo normal del curso con el concepto en <code> azul. Va en la ficha de
@@ -595,6 +447,5 @@
   .tt__brazo,
   .tt__disco,
   .tt__code [data-part],
-  .tt__status,
-  .tt__menu { transition: none; }
+  .tt__status { transition: none; }
 }

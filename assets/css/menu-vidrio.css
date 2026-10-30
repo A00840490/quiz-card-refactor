@@ -9,7 +9,13 @@
                           arriba. Crece desde lo que se tocó. Sin título.
    - .menu-vidrio__opcion cada opción; la actual lleva palomita
    - .menu-vidrio__muestra la muestra de color junto a los valores que son
-                          colores (una página puede darle otro fondo) */
+                          colores (una página puede darle otro fondo)
+
+   En una ventana que ejecuta el código paso a paso (4-9, 4-11, 4-16), el
+   valor de la parte que se ejecuta invierte sus colores con .is-on (en el
+   botón o en la parte que lo contiene), y un valor quitado del código queda
+   como comentario con .js-term__com. Una opción puede llevar una aclaración
+   en <small>. */
 .menu-vidrio__valor {
   display: inline-flex;
   align-items: center;
@@ -18,13 +24,18 @@
   padding: 0 0.3em 0 0.45em;
   border: 1px solid #5b7bd6;
   border-radius: 3px;
-  background: #2b3550;
+  background-color: #2b3550;
+  /* El blanco de .is-on entra de izquierda a derecha */
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 0% 100%;
   color: #ffffff;
   font: inherit;
   line-height: 1.45;
   white-space: pre;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition: background-size 0.5s ease, color 0.5s ease, border-color 0.25s ease, background-color 0.2s ease;
 }
 
 .menu-vidrio__valor::after {
@@ -39,7 +50,7 @@
 .menu-vidrio__valor:hover,
 .menu-vidrio__valor.is-abierta {
   border-color: #a9c0ff;
-  background: #3a4a78;
+  background-color: #3a4a78;
 }
 
 .menu-vidrio__valor:focus {
@@ -49,6 +60,38 @@
 .menu-vidrio__valor:focus-visible {
   outline: 2px solid #fac775;
   outline-offset: 1px;
+}
+
+/* Dentro de una consola (js-terminal.css) el valor no toma el resaltado verde
+   de su parte: invierte sus propios colores. Por eso menu-vidrio.css se carga
+   después de js-terminal.css */
+.js-term .menu-vidrio__valor {
+  border-radius: 3px;
+  background-image: linear-gradient(#ffffff, #ffffff);
+  background-size: 0% 100%;
+  transition: background-size 0.5s ease, color 0.5s ease, border-color 0.25s ease, background-color 0.2s ease;
+}
+
+/* La parte del código que se está ejecutando: fondo blanco, letra azul y
+   esquinas rectas */
+.menu-vidrio__valor.is-on,
+.is-on > .menu-vidrio__valor,
+.js-term .menu-vidrio__valor.is-on,
+.js-term .is-on > .menu-vidrio__valor {
+  border-color: #ffffff;
+  border-radius: 0;
+  background-size: 100% 100%;
+  color: #2b3550;
+}
+
+.menu-vidrio__valor.is-on::after,
+.is-on > .menu-vidrio__valor::after {
+  border-top-color: #2b3550;
+}
+
+/* Un valor quitado del código queda como comentario */
+.menu-vidrio__valor.js-term__com {
+  color: #7f9a86;
 }
 
 /* ---------- Menú ---------- */
@@ -156,6 +199,11 @@
   font-family: "Source Code Pro", Consolas, "Courier New", monospace;
   color: #000000;
   font-size: 14.5px;
+}
+
+.menu-vidrio__opcion small {
+  color: rgba(60, 60, 67, 0.65);
+  font-size: 13px;
 }
 
 .menu-vidrio__muestra {
