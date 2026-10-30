@@ -1,7 +1,9 @@
 // progressbar.js@1.0.0 version is used
 // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
 
-var bar = new ProgressBar.Circle(circlecontainer, {
+// Solo las páginas de módulo traen el círculo (#circlecontainer).
+var circlecontainer = document.getElementById("circlecontainer");
+var bar = circlecontainer && new ProgressBar.Circle(circlecontainer, {
     color: '#aaa',
     // This has to be the same size as the maximum width to
     // prevent clipping
@@ -29,13 +31,15 @@ var bar = new ProgressBar.Circle(circlecontainer, {
   
     }
   });
-  bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-  bar.text.style.fontSize = '30px';
-  bar.text.style.color = '#000';
+  if (bar) {
+    bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
+    bar.text.style.fontSize = '30px';
+    bar.text.style.color = '#000';
+  }
 
   
   // Number from 0.0 to 1.0
   
   function show(x) {
-      bar.animate(x);
+      if (bar) bar.animate(x);
   }

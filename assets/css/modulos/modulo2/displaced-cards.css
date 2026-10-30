@@ -34,15 +34,10 @@
   width: calc(100% - 5 * var(--offset));
 }
 
+/* El tamaño de h1, h2 y p lo pone app.css (curso.css). */
 h2 {
-  font-size: 1.25em;
   text-transform: uppercase;
   margin: 0;
-}
-
-p {
-  font-size: 1.25em;
-  line-height: 1.5;
 }
 
 /*
@@ -88,9 +83,6 @@ If you use SASS you can shorten this one here like this:
   transform: translate(calc((10 - 1) * var(--offset)), calc((10 - 1) * var(--offset)));
 }
 @media screen and (min-width: 37em) {
-  h1 {
-    font-size: 3em;
-  }
   .scroll-cards__item {
     --offset: 1em;
     padding-left: 5em;

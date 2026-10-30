@@ -1,4 +1,4 @@
-/* Carrusel de demostraciones (modulo2-9, modulo1-4).
+/* Carrusel de demostraciones (demo-carousel.css), lo cargan curso.js y curso.css.
    Marcado:
      <div class="demo-carousel" data-demo-carousel [data-demo-autoheight]>
        <div class="demo-carousel__controls">

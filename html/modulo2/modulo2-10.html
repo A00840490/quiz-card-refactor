@@ -11,30 +11,8 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="../../assets/images/logo/favicon.png" />
 
-    <!-- plugins css -->
-    <link
-      rel="stylesheet"
-      href="../../assets/vendors/bootstrap/dist/css/bootstrap.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../assets/vendors/PACE/themes/blue/pace-theme-minimal.css"
-    />
-    <link
-      rel="stylesheet"
-      href="../../assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css"
-    />
+    <link href="../../assets/css/curso.css" rel="stylesheet" />
 
-    <!-- page plugins css -->
-
-    <!-- core css -->
-    <link href="../../assets/css/ei-icon.css" rel="stylesheet" />
-    <link href="../../assets/css/themify-icons.css" rel="stylesheet" />
-    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../assets/css/animate.min.css" rel="stylesheet" />
-    <link href="../../assets/css/app.css" rel="stylesheet" />
-    <link href="../../assets/css/progress.css" rel="stylesheet" />
-    <link href="../../assets/css/progress-circle.css" rel="stylesheet" />
     <link
       href="../../assets/css/modulos/modulo2/modulo2-10-resources.css"
       rel="stylesheet"
@@ -250,40 +228,8 @@
                 </div>
               </div>
 
-              <!--Botones de avance entre páginas-->
-              <div class="mrg-btm-20 text-center">
-                <div class="btn-group"></div>
-              </div>
-
-              <!--Widgets de avance de módulo y general-->
-              <div class="card widget-feed">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <h1 class="feed-title tag tag-info">Módulo 2</h1>
-                    <h3 class="feed-subtitle">Tu Progreso</h3>
-                    <div class="progress" style="height: 20px" id="bar">
-                      <div
-                        class="progress-bar bg-info"
-                        role="progressbar"
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                        style="max-width: 100%"
-                      >
-                        100%
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div id="circlecontainer"></div>
-                    <div class="text-center">
-                      <h3 class="feed-subtitle">
-                        Progreso General del Curso
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!-- Botones de avance y "Tu Progreso": los arma url-script.js -->
+              <div data-avance></div>
             </div>
           </div>
           <!-- Content Wrapper END -->
@@ -296,25 +242,7 @@
       </div>
     </div>
 
-    <!-- build:js assets/js/vendor.js -->
-    <!-- plugins js -->
-    <script src="../../assets/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="../../assets/vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../../assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="../../assets/vendors/PACE/pace.min.js"></script>
-    <script src="../../assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
-
-    <!-- Progress plugins -->
-    <script src="../../assets/js/progressbar.js"></script>
-    <script src="../../assets/js/progress-circle.js"></script>
-
-    <!-- endbuild -->
-
-    <!-- build:js assets/js/app.min.js -->
-    <!-- core js -->
-    <script src="../../assets/js/app.js"></script>
-    <script src="../../assets/js/recycled/navigationbar.js"></script>
-    <script src="../../assets/js/progress/url-script.js"></script>
+    <script src="../../assets/js/curso.js"></script>
 
     <script type="text/javascript">
       function tabSelect1() {
@@ -331,8 +259,5 @@
       }
     </script>
 
-    <!-- endbuild -->
-
-    <!-- Insert your dependencies here -->
   </body>
 </html>

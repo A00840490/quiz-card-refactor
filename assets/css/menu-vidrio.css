@@ -63,8 +63,8 @@
 }
 
 /* Dentro de una consola (js-terminal.css) el valor no toma el resaltado verde
-   de su parte: invierte sus propios colores. Por eso menu-vidrio.css se carga
-   después de js-terminal.css */
+   de su parte: invierte sus propios colores. Por eso curso.css carga
+   menu-vidrio.css después de js-terminal.css */
 .js-term .menu-vidrio__valor {
   border-radius: 3px;
   background-image: linear-gradient(#ffffff, #ffffff);

@@ -1,0 +1,30 @@
+/* Estilos comunes de todas las páginas del curso.
+   Cada página carga solo este archivo en el <head>:
+     <link href="../../assets/css/curso.css" rel="stylesheet" />
+   y después, si los tiene, los estilos de su tema (assets/css/modulos/...),
+   que así pueden ajustar lo de aquí.
+   El orden importa: primero las librerías, luego la plantilla del curso y al
+   final los componentes (menu-vidrio va después de js-terminal porque ajusta
+   sus valores dentro de la consola). */
+
+/* Librerías */
+@import url("../vendors/bootstrap/dist/css/bootstrap.css");
+@import url("../vendors/PACE/themes/blue/pace-theme-minimal.css");
+@import url("../vendors/perfect-scrollbar/css/perfect-scrollbar.min.css");
+
+/* Plantilla del curso: iconos, animaciones, estilos generales y avance */
+@import url("ei-icon.css");
+@import url("themify-icons.css");
+@import url("font-awesome.min.css");
+@import url("animate.min.css");
+@import url("app.css");
+@import url("progress.css");
+@import url("progress-circle.css");
+
+/* Componentes del curso */
+@import url("lesson-demo.css");
+@import url("js-terminal.css");
+@import url("menu-vidrio.css");
+@import url("demo.css");
+@import url("demo-carousel.css");
+@import url("evo-card.css");

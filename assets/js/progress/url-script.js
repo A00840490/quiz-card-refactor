@@ -2,9 +2,10 @@ function getstr(str) {
     return str.substring(str.search("html"));
 }
 
+// Solo las páginas de módulo (html/moduloN/moduloN-M.html) llevan botones de
+// avance y porcentajes; curso.js carga este script en todas las páginas.
 function isValid() {
-    var url = window.location.href;
-    return (url.indexOf("html") != -1);
+    return /\/html\/modulo\d+\/modulo\d+-\d+\.html$/.test(window.location.pathname);
 }
 
 function getfilename() {
@@ -200,103 +201,49 @@ function getMovementBar() {
 
     return html;
 }
-// FUNCION IMPORTANTE PARA MAPEAR LA ESTRUCTURA DE LA PAGINA WEB EN LOS BOTONES DE AVANCE
+// Mapa de los archivos de cada módulo, sacado de la lista de assets/js/paginas.js:
+// { modulo1: { 1: "modulo1-1.html", 2: "modulo1-2.html", … }, … }. Cada módulo
+// cuenta sus temas más la página de cierre.
 function getFiles() {
-    var files = {
-        modulo1: {
-            1: "modulo1-1.html",
-            2: "modulo1-2.html",
-            3: "modulo1-3.html",
-            4: "modulo1-4.html",
-            5: "modulo1-5.html",
-            6: "modulo1-6.html",
-            7: "modulo1-7.html",
-            8: "modulo1-8.html",
-            9: "modulo1-9.html",
-            10: "modulo1-10.html",
-            11: "modulo1-11.html"
-        },
-        modulo2: {
-            1: "modulo2-1.html",
-            2: "modulo2-2.html",
-            3: "modulo2-3.html",
-            4: "modulo2-4.html",
-            5: "modulo2-5.html",
-            6: "modulo2-6.html",
-            7: "modulo2-7.html",
-            8: "modulo2-8.html",
-            9: "modulo2-9.html",
-            10: "modulo2-10.html",
-            11: "modulo2-11.html",
-            12: "modulo2-12.html",
-            13: "modulo2-13.html",
-            14: "modulo2-14.html",
-            15: "modulo2-15.html",
-            16: "modulo2-16.html",
-            17: "modulo2-17.html"
-
-        },
-        modulo3: {
-            1: "modulo3-1.html",
-            2: "modulo3-2.html",
-            3: "modulo3-3.html",
-            4: "modulo3-4.html",
-            5: "modulo3-5.html",
-            6: "modulo3-6.html",
-            7: "modulo3-7.html",
-            8: "modulo3-8.html",
-            9: "modulo3-9.html",
-            10: "modulo3-10.html",
-            11: "modulo3-11.html",
-            12: "modulo3-12.html",
-            13: "modulo3-13.html",
-            14: "modulo3-14.html",
-            15: "modulo3-15.html",
-            16: "modulo3-16.html",
-            17: "modulo3-17.html",
-            18: "modulo3-18.html",
-            19: "modulo3-19.html",
-            20: "modulo3-20.html",
-            21: "modulo3-21.html",
-            22: "modulo3-22.html",
-            23: "modulo3-23.html",
-            24: "modulo3-24.html",
-            25: "modulo3-25.html"
-        },
-        modulo4: {
-            1: "modulo4-1.html",
-            2: "modulo4-2.html",
-            3: "modulo4-3.html",
-            4: "modulo4-4.html",
-            5: "modulo4-5.html",
-            6: "modulo4-6.html",
-            7: "modulo4-7.html",
-            8: "modulo4-8.html",
-            9: "modulo4-9.html",
-            10: "modulo4-10.html",
-            11: "modulo4-11.html",
-            12: "modulo4-12.html",
-            13: "modulo4-13.html",
-            14: "modulo4-14.html",
-            15: "modulo4-15.html",
-            16: "modulo4-16.html",
-            17: "modulo4-17.html",
-            18: "modulo4-18.html"
-        },
-        modulo5: {
-            1: "modulo5-1.html",
-            2: "modulo5-2.html",
-            3: "modulo5-3.html",
-            4: "modulo5-4.html",
-            5: "modulo5-5.html",
-            6: "modulo5-6.html",
-            7: "modulo5-7.html"
+    var files = {};
+    CURSO.forEach(function (modulo, i) {
+        var n = i + 1;
+        var paginas = {};
+        for (var p = 1; p <= modulo.temas.length + 1; p++) {
+            paginas[p] = "modulo" + n + "-" + p + ".html";
         }
-    };
-
+        files["modulo" + n] = paginas;
+    });
     return files;
 }
 
+
+// Final de cada página de módulo: en el lugar de <div data-avance></div> van
+// los botones de avance (menos en la página de cierre del módulo) y el cuadro
+// de "Tu Progreso". Se arma en cuanto carga este script, antes de
+// progress-circle.js, que dibuja el círculo dentro de #circlecontainer.
+function avanceHtml() {
+    var m = window.location.pathname.match(/modulo(\d+)-(\d+)\.html$/);
+    var modulo = parseInt(m[1]);
+    var cierre = parseInt(m[2]) == CURSO[modulo - 1].temas.length + 1;
+    return (cierre ? '' : '<div class="mrg-btm-20 text-center"><div class="btn-group"></div></div>') +
+        '<div class="card widget-feed"><div class="row">' +
+        '<div class="col-lg-8">' +
+        '<h1 class="feed-title tag tag-info">Módulo ' + modulo + '</h1>' +
+        '<h3 class="feed-subtitle">Tu Progreso</h3>' +
+        '<div class="progress" style="height: 20px;" id="bar">' +
+        '<div class="progress-bar bg-info" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>' +
+        '</div></div>' +
+        '<div class="col-lg-4">' +
+        '<div id="circlecontainer"></div>' +
+        '<div class="text-center"><h3 class="feed-subtitle">Progreso General del Curso</h3></div>' +
+        '</div></div></div>';
+}
+
+if (isValid()) {
+    var lugarAvance = document.querySelector("[data-avance]");
+    if (lugarAvance) lugarAvance.outerHTML = avanceHtml();
+}
 
 $(document).ready(function() {
     if (isValid()) {
@@ -313,6 +260,7 @@ $(document).ready(function() {
         show(getTotalPercentage());
         let modulePercentage = getModuloPercentage();
         document.getElementsByClassName("progress-bar")[0].innerHTML = modulePercentage + "%";
+        document.getElementsByClassName("progress-bar")[0].setAttribute("aria-valuenow", modulePercentage);
         document.getElementsByClassName("progress-bar")[0].style.maxWidth = "" + modulePercentage + "%";
         document.getElementsByClassName("progress-bar")[0].style.minWidth = "" + 5 + "%";
 

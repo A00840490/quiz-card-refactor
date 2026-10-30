@@ -1,7 +1,7 @@
 /* Ficha de renglones (.grafico-ficha en app.css).
 
    GraficoFicha.cambiar(el, html) cambia la explicación con el desvanecido
-   estándar (ver abajo). Se carga antes del script del gráfico.
+   estándar (ver abajo). Lo carga curso.js, antes del script del gráfico.
 
    Además, la ficha cambia de alto según el largo de la explicación, y con
    ella la fila del gráfico y la ventana de código. Para que el texto de la
