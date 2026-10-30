@@ -247,8 +247,16 @@
       if (b) b.focus({ preventScroll: true });
     }
 
+    // Al desplazarse el código, el valor se mueve: el menú se cierra
+    pre.addEventListener("scroll", function () { cerrarMenu(); });
+
     /* ---------- Inicio ---------- */
     pintarCodigo();
+    // Si el código es largo, el editor se corta y se desplaza solo, como en los
+    // otros demos (.lesson-demo--scroll; lo mueve lesson-demo.js, que se carga después)
+    if (pre.scrollHeight > (window.matchMedia("(max-width: 767px)").matches ? 360 : 440) + 40) {
+      root.querySelector(".lesson-demo").classList.add("lesson-demo--scroll");
+    }
     marco.addEventListener("load", function () {
       doc = marco.contentDocument;
       if (!doc) return;
