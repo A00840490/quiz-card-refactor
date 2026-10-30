@@ -118,36 +118,38 @@
                             class="container-fluid"
                             style="background-color: #1a1a1a"
                           >
-                            <p class="code smallcode">
-                              &lt;<span class="codetag">form</span> action="/manejarFormulario" method="POST"&gt;<br />
-                                &lt;<span class="codetag">label</span> for="usuario"&gt;<span class="codetext">Usuario:</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">input</span> type="text" id="usuario" name="usuario" placeholder="Tu usuario"&gt;&lt;<span class="codetag">br</span>&gt;<br />
-                                &lt;<span class="codetag">label</span> for="pwd"&gt;<span class="codetext">Contraseña:</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">input</span> type="password" name="pwd" id="pwd"&gt;&lt;<span class="codetag">br</span>&gt;<br />
-                                &lt;<span class="codetag">label</span>&gt;<span class="codetext">Sexo:</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">label</span> for="hombre"&gt;<span class="codetext">Hombre</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">input</span> type="radio" name="sexo" id="hombre" value="hombre"&gt;<br />
-                                &lt;<span class="codetag">label</span> for="mujer"&gt;<span class="codetext">Mujer</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">input</span> type="radio" name="sexo" id="mujer" value="mujer"&gt;&lt;<span class="codetag">br</span>&gt;<br />
-                                &lt;<span class="codetag">label</span> for="pais"&gt;<span class="codetext">País:</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">select</span> name="pais" id="pais"&gt;<br />
-                                  &lt;<span class="codetag">option</span>&gt;<br />
-                                    <span class="codetext">Estados Unidos</span><br />
-                                  &lt;/<span class="codetag">option</span>&gt;<br />
-                                  &lt;<span class="codetag">option</span>&gt;<br />
-                                    <span class="codetext">Canadá</span><br />
-                                  &lt;/<span class="codetag">option</span>&gt;<br />
-                                  &lt;<span class="codetag">option</span> selected&gt;<br />
-                                    <span class="codetext">México</span><br />
-                                  &lt;/<span class="codetag">option</span>&gt;<br />
-                                  &lt;<span class="codetag">option</span>&gt;<br />
-                                    <span class="codetext">Otro</span><br />
-                                  &lt;/<span class="codetag">option</span>&gt;<br />
-                                &lt;/<span class="codetag">select</span>&gt;&lt;<span class="codetag">br</span>&gt;<br />
-                                &lt;<span class="codetag">label</span> for="terminos"&gt;<span class="codetext">Aceptas los términos</span>&lt;/<span class="codetag">label</span>&gt;<br />
-                                &lt;<span class="codetag">input</span> type="checkbox" name="terminos" id="terminos" value="aceptar"&gt;&lt;<span class="codetag">br</span>&gt;<br />
-                                &lt;<span class="codetag">input</span> type="submit" value="Enviar!"&gt;<br />
-                              &lt;/<span class="codetag">form</span>&gt;
+                            <p class="code smallcode" data-codigo>
+                              <script type="text/x-codigo">
+                                <form action="/manejarFormulario" method="POST">
+                                  <label for="usuario">Usuario:</label>
+                                  <input type="text" id="usuario" name="usuario" placeholder="Tu usuario"><br>
+                                  <label for="pwd">Contraseña:</label>
+                                  <input type="password" name="pwd" id="pwd"><br>
+                                  <label>Sexo:</label>
+                                  <label for="hombre">Hombre</label>
+                                  <input type="radio" name="sexo" id="hombre" value="hombre">
+                                  <label for="mujer">Mujer</label>
+                                  <input type="radio" name="sexo" id="mujer" value="mujer"><br>
+                                  <label for="pais">País:</label>
+                                  <select name="pais" id="pais">
+                                    <option>
+                                      Estados Unidos
+                                    </option>
+                                    <option>
+                                      Canadá
+                                    </option>
+                                    <option selected>
+                                      México
+                                    </option>
+                                    <option>
+                                      Otro
+                                    </option>
+                                  </select><br>
+                                  <label for="terminos">Aceptas los términos</label>
+                                  <input type="checkbox" name="terminos" id="terminos" value="aceptar"><br>
+                                  <input type="submit" value="Enviar!">
+                                </form>
+                              </script>
                             </p>
                           </div>
                         </div>
@@ -492,6 +494,7 @@
     <script src="../../assets/js/progress/url-script.js"></script>
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
+    <script src="../../assets/js/codigo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
     <script src="../../assets/js/grafico-ficha.js"></script>
     <script src="../../assets/js/scripts/modulo2/modulo2-11-navaja.js"></script>

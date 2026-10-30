@@ -96,7 +96,11 @@
                                 <h3 class="card-title mrg-top-20">Eventos en HTML</h3>
                                 <!-- Ventana estándar del curso para código HTML (lesson-demo.css) -->
                                 <div class="lesson-demo-stack eventos-html">
-                                    <p class="code">&lt;<span class="codetag">button</span> onclick="miFuncion()"&gt;<span class="codetext">Clic</span>&lt;/<span class="codetag">button</span>&gt;</p>
+                                    <p class="code" data-codigo>
+                                      <script type="text/x-codigo">
+                                        <button onclick="miFuncion()">Clic</button>
+                                      </script>
+                                    </p>
                                 </div>
                                 <h3 class="card-title mrg-top-20">Eventos en JavaScript</h3>
                                 <p>Para usar eventos en JS tenemos que seleccionar al elemento:</p>
@@ -236,6 +240,7 @@ el.onclick = function () {
     <!-- endbuild -->
     <!-- Insert your dependencies here -->
     <script src="../../assets/js/js-terminal.js"></script>
+    <script src="../../assets/js/codigo.js"></script>
     <script src="../../assets/js/lesson-demo.js"></script>
     <script src="../../assets/js/menu-vidrio.js"></script>
     <script src="../../assets/js/grafico-ficha.js"></script>
