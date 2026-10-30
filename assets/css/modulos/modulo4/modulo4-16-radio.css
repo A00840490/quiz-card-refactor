@@ -8,7 +8,8 @@
    mouseout y keydown) y la aguja está en la que escucha el código. La señal
    escuchada va en azul y hace sonar la bocina; cualquier otra va en gris y
    solo se oye estática. El elemento que escucha el código lleva un borde
-   fino y la palabra "escuchando" le da vueltas.
+   fino y la palabra "escuchando", en una pastilla verde sobre la misma
+   línea, le da vueltas.
 
    El mueble y la radio usan la textura de nogal del 4-11
    (m4-11/tocadiscos/texturas/; los créditos se guardan fuera del
@@ -86,7 +87,8 @@
 }
 
 /* Cada elemento va dentro de un marco; el que escucha el código lleva un
-   borde fino y "escuchando" dando vueltas por fuera (lo dibuja el JS) */
+   borde fino con "escuchando" en una pastilla verde sobre la línea, dando
+   vueltas (lo dibuja el JS) */
 .radio-ev__obj {
   position: relative;
   padding: 7px;
@@ -106,16 +108,25 @@
 
 .radio-ev__obj.is-oye .radio-ev__oido { opacity: 1; }
 
-.radio-ev__oido rect {
+.radio-ev__borde {
   fill: none;
   stroke: var(--oye);
   stroke-width: 1;
 }
 
+/* La pastilla verde que lleva la palabra (un trazo grueso sobre el borde) */
+.radio-ev__pastilla {
+  fill: none;
+  stroke: var(--oye);
+  stroke-width: 15; /* igual que GRUESO en el JS */
+  stroke-linecap: round;
+}
+
 .radio-ev__oido text {
-  fill: var(--oye);
+  fill: #fff;
   font: 700 10.5px Consolas, "Courier New", monospace;
   letter-spacing: .06em;
+  dominant-baseline: central; /* centrado sobre la línea del borde */
 }
 
 .radio-ev__btn {

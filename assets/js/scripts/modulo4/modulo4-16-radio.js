@@ -20,9 +20,9 @@
    tiene eventos que no se prueban aquí (load, submit, resize y scroll).
 
    El elemento que escucha el código lleva un borde fino y la palabra
-   "escuchando" le da vueltas por fuera. Dentro de la ventana de código, el
-   elemento y el evento son listas desplegables (el menú de vidrio del
-   3-23). Con "reducir movimiento" no hay animaciones ni vueltas. */
+   "escuchando", montada sobre el mismo borde, le da vueltas. Dentro de la
+   ventana de código, el elemento y el evento son listas desplegables (el
+   menú de vidrio del 3-23). Con "reducir movimiento" no hay animaciones ni vueltas. */
 (function () {
   "use strict";
 
@@ -179,10 +179,13 @@
   }
 
   /* ---------- "escuchando": borde fino y el texto dando vueltas ----------
-     Cada marco lleva un SVG con un rectángulo redondeado (el borde) y, un
-     poco por fuera, una ruta que da dos vueltas al marco. El texto va sobre
-     esa ruta y avanza; como la ruta da dos vueltas, nunca se corta. */
-  var MARGEN = 18, SEP = 3, RADIO = 9, VELOCIDAD = 34;
+     Cada marco lleva un SVG con el borde (un rectángulo redondeado) y la
+     palabra "escuchando" montada sobre la misma línea, en blanco sobre una
+     pastilla verde, así la palabra es parte del contorno. El texto va sobre
+     una ruta que da tres vueltas al marco y avanza por la de en medio, así
+     nunca se corta. La pastilla es la misma ruta con un trazo grueso y un
+     solo tramo (stroke-dasharray) que avanza con el texto. */
+  var MARGEN = 12, RADIO = 9, GRUESO = 15, HOLGURA = 6, VELOCIDAD = 34;
   var oidos = {};
 
   function rutaVuelta(x0, y0, x1, y1, r) {
@@ -197,12 +200,12 @@
     svg.setAttribute("class", "radio-ev__oido");
     svg.setAttribute("aria-hidden", "true");
     var id = "radio-ev-ruta-" + k;
-    svg.innerHTML = '<defs><path id="' + id + '"/></defs><rect/><text><textPath>escuchando</textPath></text>';
+    svg.innerHTML = '<defs><path id="' + id + '"/></defs><path class="radio-ev__borde"/><path class="radio-ev__pastilla"/><text><textPath>escuchando</textPath></text>';
     var tp = svg.querySelector("textPath");
     tp.setAttribute("href", "#" + id);
     tp.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", "#" + id);
     objs[k].appendChild(svg);
-    oidos[k] = { svg: svg, ruta: svg.querySelector("path"), borde: svg.querySelector("rect"), tp: tp, vuelta: 1 };
+    oidos[k] = { svg: svg, ruta: svg.querySelector("defs path"), borde: svg.querySelector(".radio-ev__borde"), pastilla: svg.querySelector(".radio-ev__pastilla"), texto: svg.querySelector("text"), tp: tp, vuelta: 1, largo: 0, off: reduce ? 6 : 0 };
     mideOido(k);
   }
 
@@ -214,22 +217,35 @@
     o.svg.setAttribute("width", w + 2 * MARGEN);
     o.svg.setAttribute("height", h + 2 * MARGEN);
     o.svg.setAttribute("viewBox", -MARGEN + " " + -MARGEN + " " + (w + 2 * MARGEN) + " " + (h + 2 * MARGEN));
-    o.borde.setAttribute("x", 0.5);
-    o.borde.setAttribute("y", 0.5);
-    o.borde.setAttribute("width", w - 1);
-    o.borde.setAttribute("height", h - 1);
-    o.borde.setAttribute("rx", RADIO);
-    var x0 = -SEP, y0 = -SEP, x1 = w + SEP, y1 = h + SEP, r = RADIO + SEP;
-    var vuelta = rutaVuelta(x0, y0, x1, y1, r);
-    o.ruta.setAttribute("d", "M" + (x0 + r) + " " + y0 + vuelta + vuelta);
+    var x0 = 0.5, y0 = 0.5, x1 = w - 0.5, y1 = h - 0.5, r = RADIO;
+    var inicio = "M" + (x0 + r) + " " + y0, vuelta = rutaVuelta(x0, y0, x1, y1, r);
+    o.borde.setAttribute("d", inicio + vuelta);
+    // Tres vueltas: el texto va en la segunda, así la pastilla nunca se corta
+    // en el inicio ni en el final de la ruta
+    o.ruta.setAttribute("d", inicio + vuelta + vuelta + vuelta);
+    o.pastilla.setAttribute("d", inicio + vuelta + vuelta + vuelta);
     o.vuelta = 2 * (x1 - x0 + y1 - y0) - 8 * r + 2 * Math.PI * r;
+    o.largo = o.texto.getComputedTextLength() || 70;
+    // La pastilla es un trazo grueso con puntas redondas sobre el borde: cada
+    // punta suma medio grueso, así que el tramo es más corto que el texto
+    var tramo = Math.max(1, o.largo + 2 * HOLGURA - GRUESO);
+    o.pastilla.setAttribute("stroke-dasharray", tramo.toFixed(1) + " " + (3 * o.vuelta).toFixed(1));
+    pon(o, o.off);
+  }
+
+  // Pone la palabra a "off" del inicio del contorno y mueve la pastilla con ella
+  function pon(o, off) {
+    o.off = off;
+    var t = off + o.vuelta;
+    o.tp.setAttribute("startOffset", t.toFixed(1));
+    o.pastilla.setAttribute("stroke-dashoffset", (-(t - HOLGURA + GRUESO / 2)).toFixed(1));
   }
 
   var visible = true, girando = false, t0 = performance.now();
   function gira(ahora) {
     if (!visible || reduce) { girando = false; return; }
     var o = oidos[st.el];
-    o.tp.setAttribute("startOffset", (((ahora - t0) / 1000 * VELOCIDAD) % o.vuelta).toFixed(1));
+    pon(o, ((ahora - t0) / 1000 * VELOCIDAD) % o.vuelta);
     requestAnimationFrame(gira);
   }
   function arrancaGiro() {
@@ -512,7 +528,6 @@
   pintaCodigo();
   Object.keys(objs).forEach(creaOido);
   marcar();
-  if (reduce) each(root.querySelectorAll(".radio-ev__oido textPath"), function (tp) { tp.setAttribute("startOffset", "6"); });
   if (window.ResizeObserver) {
     var ro = new ResizeObserver(function () { Object.keys(objs).forEach(mideOido); });
     Object.keys(objs).forEach(function (k) { ro.observe(objs[k]); });
