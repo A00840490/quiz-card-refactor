@@ -56,7 +56,7 @@
   min-height: 320px;
 }
 
-.css-builder .builder__actions .builder__btn[data-next-ex] {
+.css-builder .builder__actions .builder__btn[data-next-group] {
   background: var(--b-right);
 }
 

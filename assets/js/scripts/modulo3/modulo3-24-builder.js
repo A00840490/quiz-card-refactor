@@ -6,7 +6,7 @@
    - title:    lo que se pide (referencia; no se muestra).
    - target:   el elemento HTML al que se aplica (referencia; no se muestra).
    - selector: selector de la regla.
-   - decls:    declaraciones; {0}, {1}... son los recuadros (preguntas).
+   - lines:    declaraciones; {0}, {1}... son los recuadros (preguntas).
    - html:     contenido de la vista previa.
    - base:     estilos de apoyo para la vista previa (no forman parte del ejercicio).
 
@@ -22,7 +22,7 @@
       title: "Párrafo con letra roja, subrayada y fuente Arial.",
       target: "<p>",
       selector: "p",
-      decls: [
+      lines: [
         {
           code: "{0}: red;",
           q: [
@@ -62,7 +62,7 @@
       title: "Contenedor con color de fondo amarillo, tamaño de fuente de 18px y texto centrado.",
       target: '<div class="contenedor">',
       selector: ".contenedor",
-      decls: [
+      lines: [
         {
           code: "{0}: yellow;",
           q: [
@@ -110,7 +110,7 @@
         "Una barra de navegación fijada en la esquina superior izquierda de la ventana, con padding hacia todos los lados de 20px.",
       target: "<nav>",
       selector: "nav",
-      decls: [
+      lines: [
         {
           code: "position: {0};",
           q: [
@@ -166,7 +166,7 @@
         "Una división con un ancho de la mitad de su elemento padre, pero que no pueda ser menos de 400px, centrada utilizando márgenes.",
       target: '<div id="division1">',
       selector: "#division1",
-      decls: [
+      lines: [
         {
           code: "width: {0};",
           q: [
@@ -206,187 +206,23 @@
     },
   ];
 
-  // Lista plana de preguntas, en orden.
-  var QUESTIONS = [];
-  EXERCISES.forEach(function (ex, ei) {
-    ex.decls.forEach(function (d, li) {
-      (d.q || []).forEach(function (q, bi) {
-        QUESTIONS.push({ ex: ei, line: li, blank: bi, data: q });
-      });
-    });
-  });
-
   var root = document.getElementById("builder");
   if (!root) return;
-  var els = {
-    actions: root.querySelector("[data-actions]"),
-    progress: root.querySelector("[data-progress]"),
-    ask: root.querySelector("[data-ask]"),
-    feedback: root.querySelector("[data-feedback]"),
-    check: root.querySelector("[data-check]"),
-    next: root.querySelector("[data-next]"),
-    nextEx: root.querySelector("[data-next-ex]"),
-    code: root.querySelector("[data-code]"),
-    frame: root.querySelector("[data-frame]"),
-  };
-
-  var state;
-
-  function reset() {
-    state = {
-      current: 0, // pregunta actual (índice en QUESTIONS)
-      ex: 0, // ejercicio que se muestra
-      answers: [], // valor correcto de cada pregunta ya respondida
-      correct: [], // true/false por pregunta
-      waiting: false, // mostrando corrección, esperando "Continuar"
-      between: false, // ejercicio terminado, esperando "Siguiente ejercicio"
-      done: false, // todos los ejercicios terminados
-    };
-    render();
-  }
-
-  function norm(v, exact) {
-    v = String(v || "").replace(/[;:"'\s]/g, "");
-    return exact ? v : v.toLowerCase();
-  }
+  var frame = root.querySelector("[data-frame]");
 
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  // Texto con `código` en <code> (va en el azul del curso).
-  function rich(s) {
-    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
-  }
-
-  function qIndex(ei, li, bi) {
-    for (var i = 0; i < QUESTIONS.length; i++) {
-      var q = QUESTIONS[i];
-      if (q.ex === ei && q.line === li && q.blank === bi) return i;
-    }
-    return -1;
-  }
-
-  function isDone(qi) {
-    return qi < state.current || (qi === state.current && state.waiting);
-  }
-
-  // ¿El ejercicio que se muestra ya tiene todas sus preguntas respondidas?
-  function exerciseComplete() {
-    return state.between || state.done;
-  }
-
-  // Última declaración visible del ejercicio que se muestra.
-  function lastVisibleDecl() {
-    var ex = EXERCISES[state.ex];
-    if (exerciseComplete()) return ex.decls.length - 1;
-    return QUESTIONS[state.current].line;
-  }
-
-  // Barra de progreso con un segmento por ejercicio; cada uno se llena
-  // según las preguntas respondidas de ese ejercicio. Los segmentos se crean
-  // una sola vez y después solo cambia su ancho, así la transición del CSS
-  // anima el avance (si se recrearan, aparecerían ya llenos, sin animación).
-  var segments = EXERCISES.map(function () {
-    var seg = document.createElement("span");
-    seg.className = "css-builder__seg";
-    var fill = document.createElement("span");
-    fill.style.width = "0%";
-    seg.appendChild(fill);
-    els.progress.appendChild(seg);
-    return { seg: seg, fill: fill };
-  });
-
-  function renderProgress() {
-    var answered = state.done ? QUESTIONS.length : state.current + (state.waiting ? 1 : 0);
-    segments.forEach(function (s, ei) {
-      var total = 0;
-      var done = 0;
-      QUESTIONS.forEach(function (q, i) {
-        if (q.ex !== ei) return;
-        total++;
-        if (i < answered) done++;
-      });
-      s.fill.style.width = (done / total) * 100 + "%";
-      s.seg.classList.toggle("is-done", done === total);
-      s.seg.classList.toggle("is-current", done !== total && ei === state.ex);
-    });
-  }
-
-  function blankHtml(qi) {
-    if (isDone(qi)) {
-      var cls = state.correct[qi] ? "is-right" : "is-fixed";
-      return '<span class="builder__filled ' + cls + '">' + esc(state.answers[qi]) + "</span>";
-    }
-    if (qi === state.current && !state.between && !state.done) {
-      return (
-        '<input class="builder__blank" data-input type="text" autocomplete="off" ' +
-        'autocapitalize="off" spellcheck="false" aria-label="Respuesta" />'
-      );
-    }
-    return '<span class="builder__pending">___</span>';
-  }
-
-  // Declaración con colores: propiedad, dos puntos, valor.
-  function declHtml(ei, li) {
-    var decl = EXERCISES[ei].decls[li];
-    var mark = "\u0000";
-    var raw = esc(decl.code.replace(/\{(\d)\}/g, mark + "$1" + mark));
-    var m = raw.match(/^([^:]*):(.*);$/);
-    var colored = m
-      ? '<span class="css-builder__prop">' + m[1] + "</span>:" +
-        '<span class="css-builder__val">' + m[2] + "</span>;"
-      : raw;
-    return colored.replace(new RegExp(mark + "(\\d)" + mark, "g"), function (_, n) {
-      return blankHtml(qIndex(ei, li, +n));
-    });
-  }
-
-  function renderCode() {
-    var ex = EXERCISES[state.ex];
-    var last = lastVisibleDecl();
-    var html = [
-      '<div class="builder__line" style="--lv:0"><span class="css-builder__sel">' +
-        esc(ex.selector) + "</span> {</div>",
-    ];
-    for (var li = 0; li <= last; li++) {
-      var isCurrent = li === last && !exerciseComplete();
-      html.push(
-        '<div class="builder__line' + (isCurrent ? " is-current" : "") + '" style="--lv:1">' +
-          declHtml(state.ex, li) + "</div>"
-      );
-    }
-    if (exerciseComplete()) html.push('<div class="builder__line" style="--lv:0">}</div>');
-    els.code.innerHTML = html.join("");
-
-    var input = els.code.querySelector("[data-input]");
-    if (input) {
-      input.addEventListener("input", function () {
-        sizeInput(input);
-      });
-      input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          check();
-        }
-      });
-      sizeInput(input);
-      input.focus({ preventScroll: true });
-    }
-  }
-
-  function sizeInput(input) {
-    input.style.width = Math.max(4, input.value.length + 1) + "ch";
-  }
-
   // CSS del alumno hasta donde va: solo las declaraciones ya completas.
-  function studentCss() {
-    var ex = EXERCISES[state.ex];
+  function studentCss(ej) {
+    var ei = ej.grupo();
+    var ex = EXERCISES[ei];
     var decls = [];
-    ex.decls.forEach(function (d, li) {
+    ex.lines.forEach(function (d, li) {
       var values = (d.q || []).map(function (_, bi) {
-        var qi = qIndex(state.ex, li, bi);
-        return isDone(qi) ? state.answers[qi] : null;
+        var qi = ej.indice(ei, li, bi);
+        return ej.respondida(qi) ? ej.respuesta(qi) : null;
       });
       if (values.indexOf(null) !== -1) return;
       decls.push(
@@ -398,150 +234,41 @@
     return ex.selector + " {\n" + decls.join("\n") + "\n}";
   }
 
-  function renderPreview() {
-    var ex = EXERCISES[state.ex];
-    els.frame.srcdoc =
-      '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">' +
-      "<style>body { margin: 16px; }" + (ex.base || "") + "</style>" +
-      "<style>" + studentCss() + "</style></head><body>" + ex.html + "</body></html>";
-  }
-
-  function renderHeader() {
-    renderProgress();
-
-    // Al terminar un ejercicio se queda la última pregunta con su corrección;
-    // el siguiente sale hasta presionar "Siguiente ejercicio".
-    var q = QUESTIONS[exerciseComplete() ? state.current - 1 : state.current];
-    els.ask.textContent = q ? q.data.ask : "";
-
-    // Al terminar todo, el botón de Revisar se vuelve "Intentar de nuevo".
-    els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
-    els.check.hidden = state.waiting || state.between;
-    els.next.hidden = !state.waiting;
-    els.nextEx.hidden = !state.between;
-
-    if (!state.waiting && !exerciseComplete()) {
-      els.feedback.className = "builder__feedback";
-      els.feedback.innerHTML = "";
-    }
-  }
-
-  function render() {
-    renderHeader();
-    renderCode();
-    renderPreview();
-  }
-
-  // Pasa a la siguiente pregunta; si el ejercicio se acabó, se queda en él.
-  function advance() {
-    state.waiting = false;
-    state.current++;
-    if (state.current >= QUESTIONS.length) state.done = true;
-    else if (QUESTIONS[state.current].ex !== state.ex) state.between = true;
-  }
-
-  // Recuadro vacío: sacudida de lado a lado (como al fallar una contraseña en macOS).
-  function shake(input) {
-    if (!input) return;
-    input.classList.remove("is-shaking");
-    void input.offsetWidth; // reinicia la animación si se presiona varias veces
-    input.classList.add("is-shaking");
-    // Se quita al terminar la animación o al escribir (sin animación, por
-    // "reducir movimiento", animationend no llega).
-    ["animationend", "input"].forEach(function (type) {
-      input.addEventListener(
-        type,
-        function () {
-          input.classList.remove("is-shaking");
-        },
-        { once: true }
+  // El motor está en assets/js/ejercicio-final.js.
+  EjercicioFinal.crear(root, {
+    clase: "builder",
+    grupos: EXERCISES,
+    sangria: 1,
+    tramo: "css-builder__seg",
+    normalizar: function (v, exact) {
+      v = String(v || "").replace(/[;:"'\s]/g, "");
+      return exact ? v : v.toLowerCase();
+    },
+    // Declaración con colores: propiedad, dos puntos, valor.
+    colorear: function (raw) {
+      var m = raw.match(/^([^:]*):(.*);$/);
+      return m
+        ? '<span class="css-builder__prop">' + m[1] + "</span>:" +
+            '<span class="css-builder__val">' + m[2] + "</span>;"
+        : raw;
+    },
+    antes: function (ex) {
+      return (
+        '<div class="builder__line" style="--lv:0"><span class="css-builder__sel">' +
+        esc(ex.selector) + "</span> {</div>"
       );
-    });
-    input.focus();
-  }
-
-  function check() {
-    if (state.waiting || exerciseComplete()) return;
-    var input = els.code.querySelector("[data-input]");
-    var q = QUESTIONS[state.current];
-    var given = input ? input.value : "";
-    if (!norm(given)) {
-      shake(input);
-      return;
-    }
-    var accepted = [q.data.a].concat(q.data.alt || []);
-    var ok = accepted.some(function (a) {
-      return norm(given, q.data.exact) === norm(a, q.data.exact);
-    });
-    state.correct[state.current] = ok;
-    state.answers[state.current] = q.data.a;
-
-    var fb = ok
-      ? "<strong>¡Correcto!</strong> " + rich(q.data.why)
-      : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + rich(q.data.why);
-    var fbClass = "builder__feedback " + (ok ? "is-right" : "is-wrong");
-
-    var lastOfExercise =
-      state.current === QUESTIONS.length - 1 || QUESTIONS[state.current + 1].ex !== state.ex;
-
-    if (lastOfExercise) {
-      // Última pregunta del ejercicio: no hace falta "Continuar". Se queda la
-      // corrección y el siguiente ejercicio sale hasta presionar su botón.
-      advance();
-      render();
-      els.feedback.className = fbClass;
-      els.feedback.innerHTML = fb;
-      if (state.done) finish();
-      else els.nextEx.focus();
-    } else {
-      // Bien o mal, la siguiente pregunta sale hasta presionar "Continuar".
-      state.waiting = true;
-      render();
-      els.feedback.className = fbClass;
-      els.feedback.innerHTML = fb;
-      els.next.focus();
-    }
-  }
-
-  function next() {
-    advance();
-    render();
-  }
-
-  function nextExercise() {
-    state.between = false;
-    state.ex++;
-    render();
-  }
-
-  // Al terminar: ventana con los aciertos y si conviene volver a intentarlo.
-  function finish() {
-    var total = QUESTIONS.length;
-    var hits = state.correct.filter(Boolean).length;
-    var passed = hits * 100 >= total * 80;
-    els.check.focus({ preventScroll: true });
-
-    var modal = document.getElementById("modal-fs");
-    if (!modal || !window.jQuery) return;
-    modal.querySelector("#modal-score").textContent = hits + " / " + total + " aciertos";
-    modal.querySelector("#modal-message").textContent = passed
-      ? "¡Excelente! Completaste los ejercicios casi sin errores."
-      : "Te recomendamos repasar los temas que fallaste y volver a intentarlo.";
-    modal.querySelector("#correct-img").style.display = passed ? "block" : "none";
-    modal.querySelector("#incorrect-img").style.display = passed ? "none" : "block";
-    window.jQuery(modal).modal("show");
-  }
-
-  els.check.addEventListener("click", function () {
-    if (state.done) {
-      reset();
-      root.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      check();
-    }
+    },
+    despues: function () {
+      return '<div class="builder__line" style="--lv:0">}</div>';
+    },
+    vista: function (ej, animar, listo) {
+      var ex = EXERCISES[ej.grupo()];
+      frame.srcdoc =
+        '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">' +
+        "<style>body { margin: 16px; }" + (ex.base || "") + "</style>" +
+        "<style>" + studentCss(ej) + "</style></head><body>" + ex.html + "</body></html>";
+      listo();
+    },
+    mensajeBien: "¡Excelente! Completaste los ejercicios casi sin errores.",
   });
-  els.next.addEventListener("click", next);
-  els.nextEx.addEventListener("click", nextExercise);
-  reset();
 })();

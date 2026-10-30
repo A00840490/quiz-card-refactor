@@ -200,199 +200,27 @@
     },
   ];
 
-  // Lista plana de preguntas, en orden.
-  var QUESTIONS = [];
-  PROBLEMS.forEach(function (pr, pi) {
-    pr.lines.forEach(function (line, li) {
-      (line.q || []).forEach(function (q, bi) {
-        QUESTIONS.push({ pr: pi, line: li, blank: bi, data: q });
-      });
-    });
-  });
-
   var root = document.getElementById("reto");
   if (!root) return;
-  var els = {
-    ask: root.querySelector("[data-ask]"),
-    feedback: root.querySelector("[data-feedback]"),
-    code: root.querySelector("[data-code]"),
-    out: root.querySelector("[data-out]"),
-    progress: root.querySelector("[data-progress]"),
-    check: root.querySelector("[data-check]"),
-    next: root.querySelector("[data-next]"),
-    nextPr: root.querySelector("[data-next-pr]"),
-  };
+  var out = root.querySelector("[data-out]");
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var cursor = '<span class="js-term__cursor" aria-hidden="true"></span>';
-
-  var state;
   var runTimer = null;
-
-  function reset() {
-    state = {
-      current: 0, // pregunta actual (índice en QUESTIONS)
-      pr: 0, // problema que se muestra
-      answers: [], // valor correcto de cada pregunta ya respondida
-      correct: [], // true/false por pregunta
-      waiting: false, // mostrando corrección, esperando "Continuar"
-      between: false, // problema terminado, esperando "Siguiente problema"
-      done: false, // todos los problemas terminados
-    };
-    render(false);
-    setText(els.feedback, "", "reto__feedback");
-  }
-
-  // Sin espacios ni punto y coma final. JavaScript distingue mayúsculas y
-  // minúsculas, así que no se cambian.
-  function norm(v) {
-    return String(v || "").replace(/\s+/g, "").replace(/;+$/, "");
-  }
 
   function esc(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  // Texto con `código` en <code>.
-  function rich(s) {
-    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
-  }
-
-  function qIndex(pi, li, bi) {
-    for (var i = 0; i < QUESTIONS.length; i++) {
-      var q = QUESTIONS[i];
-      if (q.pr === pi && q.line === li && q.blank === bi) return i;
-    }
-    return -1;
-  }
-
-  function isDone(qi) {
-    return qi < state.current || (qi === state.current && state.waiting);
-  }
-
-  function complete() {
-    return state.between || state.done;
-  }
-
-  // Cambia un texto con desvanecido (estándar del curso).
-  function setText(el, html, cls) {
-    if (el.innerHTML === html && el.className === cls) return;
-    if (reduce || !el.innerHTML) {
-      el.className = cls;
-      el.innerHTML = html;
-      return;
-    }
-    el.classList.add("is-fading");
-    clearTimeout(el._fade);
-    el._fade = setTimeout(function () {
-      el.className = cls;
-      el.innerHTML = html;
-    }, 180);
-  }
-
-  /* ---------------- Barra de progreso: un tramo por problema ----------------
-     Los tramos se crean una sola vez y después solo cambia su ancho, así la
-     transición del CSS anima el avance. */
-  var segments = PROBLEMS.map(function () {
-    var seg = document.createElement("span");
-    seg.className = "reto__seg";
-    var fill = document.createElement("span");
-    fill.style.width = "0%";
-    seg.appendChild(fill);
-    els.progress.appendChild(seg);
-    return { seg: seg, fill: fill };
-  });
-
-  function renderProgress() {
-    var answered = state.done ? QUESTIONS.length : state.current + (state.waiting ? 1 : 0);
-    segments.forEach(function (s, pi) {
-      var total = 0;
-      var done = 0;
-      QUESTIONS.forEach(function (q, i) {
-        if (q.pr !== pi) return;
-        total++;
-        if (i < answered) done++;
-      });
-      s.fill.style.width = (done / total) * 100 + "%";
-      s.seg.classList.toggle("is-done", done === total);
-      s.seg.classList.toggle("is-current", done !== total && pi === state.pr);
-    });
-  }
-
-  /* ---------------- Código ---------------- */
-  function blankHtml(qi) {
-    if (isDone(qi)) {
-      var cls = state.correct[qi] ? "is-right" : "is-fixed";
-      return '<span class="reto__filled ' + cls + '">' + esc(state.answers[qi]) + "</span>";
-    }
-    if (qi === state.current && !complete()) {
-      return (
-        '<input class="reto__blank" data-input type="text" autocomplete="off" ' +
-        'autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Respuesta" />'
-      );
-    }
-    return '<span class="reto__pending">___</span>';
-  }
-
-  function lineHtml(pi, li) {
-    var mark = "\u0000";
-    var raw = esc(PROBLEMS[pi].lines[li].code.replace(/\{(\d)\}/g, mark + "$1" + mark));
-    return raw.replace(new RegExp(mark + "(\\d)" + mark, "g"), function (_, n) {
-      return blankHtml(qIndex(pi, li, +n));
-    });
-  }
-
-  // Líneas visibles: hasta la de la pregunta actual; todas al terminar.
-  function lastVisibleLine() {
-    var pr = PROBLEMS[state.pr];
-    if (complete()) return pr.lines.length - 1;
-    return QUESTIONS[state.current].line;
-  }
-
-  function renderCode() {
-    var pr = PROBLEMS[state.pr];
-    var last = lastVisibleLine();
-    var html = [
-      '<div class="reto__line"><span class="js-term__com">// ' + esc(pr.title) + "</span></div>",
-    ];
-    for (var li = 0; li <= last; li++) {
-      var isCurrent = li === last && !complete();
-      html.push(
-        '<div class="reto__line' + (isCurrent ? " is-current" : "") + '" style="--lv:' +
-          pr.lines[li].lv + '">' + lineHtml(state.pr, li) + "</div>"
-      );
-    }
-    els.code.innerHTML = html.join("");
-
-    var input = els.code.querySelector("[data-input]");
-    if (input) {
-      input.addEventListener("input", function () {
-        sizeInput(input);
-      });
-      input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          check();
-        }
-      });
-      sizeInput(input);
-      input.focus({ preventScroll: true });
-    }
-  }
-
-  function sizeInput(input) {
-    input.style.width = Math.max(4, input.value.length + 1) + "ch";
   }
 
   /* ---------------- Consola ----------------
      Mientras el problema no está completo, la consola espera. Al
      completarlo, el código corre: gira la rueda de carga y salen las
      líneas en blanco (como el botón Correr de las terminales del módulo). */
-  function pageHtml(pr) {
+  function pageHtml(ej, pr) {
     if (!pr.page) return "";
     // La página cambia con cada respuesta: primero se encuentra el
     // elemento y después se pinta de rojo.
-    var found = isDone(qIndex(state.pr, 0, 0));
-    var red = isDone(qIndex(state.pr, 1, 0));
+    var found = ej.respondida(ej.indice(ej.grupo(), 0, 0));
+    var red = ej.respondida(ej.indice(ej.grupo(), 1, 0));
     return (
       '<div class="reto__page"><div class="reto__page-bar">index.html</div>' +
       '<p class="reto__page-el' + (found ? " is-found" : "") + (red ? " is-red" : "") + '">' +
@@ -401,187 +229,64 @@
     );
   }
 
-  function renderConsole(animate) {
+  function logLine(s) {
+    return '<div class="reto__log-line">' + esc(s) + "</div>";
+  }
+
+  function renderConsole(ej, animate, listo) {
     clearTimeout(runTimer);
-    var pr = PROBLEMS[state.pr];
-    var head = pageHtml(pr);
-    if (!complete()) {
-      els.out.innerHTML =
+    var pr = PROBLEMS[ej.grupo()];
+    var head = pageHtml(ej, pr);
+    if (!ej.completo()) {
+      out.innerHTML =
         head + '<div class="reto__wait">// Completa el código para ver el resultado' + cursor + "</div>";
       return;
     }
     if (!animate || reduce) {
-      els.out.innerHTML =
-        head + '<div class="reto__log">' + pr.out.map(logLine).join("") + "</div>" + cursor;
-      els.out.scrollTop = els.out.scrollHeight;
+      out.innerHTML = head + '<div class="reto__log">' + pr.out.map(logLine).join("") + "</div>" + cursor;
+      out.scrollTop = out.scrollHeight;
+      listo();
       return;
     }
-    els.out.innerHTML =
+    out.innerHTML =
       head +
       '<span class="js-term__loading" role="status" aria-label="Ejecutando"><span class="js-term__spinner"></span></span>';
     runTimer = setTimeout(function () {
-      els.out.innerHTML = head + '<div class="reto__log"></div>';
-      var log = els.out.querySelector(".reto__log");
+      out.innerHTML = head + '<div class="reto__log"></div>';
+      var log = out.querySelector(".reto__log");
       var i = 0;
       // Los resultados largos (el ciclo del 1 al 100) salen más rápido.
       var speed = pr.out.length > 10 ? 18 : 160;
       (function tick() {
         log.insertAdjacentHTML("beforeend", logLine(pr.out[i]));
-        els.out.scrollTop = els.out.scrollHeight;
+        out.scrollTop = out.scrollHeight;
         i++;
         if (i < pr.out.length) runTimer = setTimeout(tick, speed);
         else {
           log.insertAdjacentHTML("afterend", cursor);
-          root.dispatchEvent(new CustomEvent("reto:ran"));
+          listo();
         }
       })();
     }, 900);
   }
 
-  function logLine(s) {
-    return '<div class="reto__log-line">' + esc(s) + "</div>";
-  }
-
-  /* ---------------- Encabezado y botones ---------------- */
-  function renderHeader() {
-    renderProgress();
-    // Al terminar un problema se queda la última pregunta con su corrección;
-    // el siguiente problema sale hasta presionar el botón.
-    var q = QUESTIONS[complete() ? state.current - 1 : state.current];
-    setText(els.ask, esc(q ? q.data.ask : ""), "reto__ask");
-
-    // Al terminar todo, el botón de Revisar se vuelve "Intentar de nuevo".
-    els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
-    els.check.hidden = state.waiting || state.between;
-    els.next.hidden = !state.waiting;
-    els.nextPr.hidden = !state.between;
-  }
-
-  function render(animateConsole) {
-    renderHeader();
-    renderCode();
-    renderConsole(animateConsole);
-  }
-
-  // Recuadro vacío: sacudida de lado a lado (como en los ejercicios 2 y 3).
-  function shake(input) {
-    if (!input) return;
-    input.classList.remove("is-shaking");
-    void input.offsetWidth; // reinicia la animación si se presiona varias veces
-    input.classList.add("is-shaking");
-    ["animationend", "input"].forEach(function (type) {
-      input.addEventListener(
-        type,
-        function () {
-          input.classList.remove("is-shaking");
-        },
-        { once: true }
-      );
-    });
-    input.focus();
-  }
-
-  function check() {
-    if (state.waiting || complete()) return;
-    var input = els.code.querySelector("[data-input]");
-    var q = QUESTIONS[state.current];
-    var given = input ? input.value : "";
-    if (!norm(given)) {
-      shake(input);
-      return;
-    }
-    var accepted = [q.data.a].concat(q.data.alt || []);
-    var ok = accepted.some(function (a) {
-      return norm(given) === norm(a);
-    });
-    // Mismo texto con otras mayúsculas: se explica por qué no cuenta.
-    var caseOnly =
-      !ok &&
-      accepted.some(function (a) {
-        return norm(given).toLowerCase() === norm(a).toLowerCase();
-      });
-    state.correct[state.current] = ok;
-    state.answers[state.current] = q.data.a;
-
-    var fb = ok
-      ? "<strong>¡Correcto!</strong> " + rich(q.data.why)
-      : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " +
-        (caseOnly ? "JavaScript distingue mayúsculas de minúsculas. " : "") + rich(q.data.why);
-    // Toda la corrección va en verde o en rojo; el código, en el azul del curso.
-    var fbClass = "reto__feedback " + (ok ? "is-right" : "is-wrong");
-
-    var lastOfProblem =
-      state.current === QUESTIONS.length - 1 || QUESTIONS[state.current + 1].pr !== state.pr;
-
-    if (lastOfProblem) {
-      // Última pregunta del problema: no hace falta "Continuar", el código
-      // corre de una vez y la consola muestra el resultado.
-      state.current++;
-      if (state.current >= QUESTIONS.length) state.done = true;
-      else state.between = true;
-      render(true);
-      setText(els.feedback, fb, fbClass);
-      if (state.done) {
-        // La ventana de aciertos sale cuando la consola termina de imprimir.
-        root.addEventListener("reto:ran", finish, { once: true });
-        els.check.focus({ preventScroll: true });
-      } else {
-        els.nextPr.focus({ preventScroll: true });
-      }
-    } else {
-      // Bien o mal, la siguiente pregunta sale hasta presionar "Continuar".
-      state.waiting = true;
-      render(false);
-      setText(els.feedback, fb, fbClass);
-      els.next.focus({ preventScroll: true });
-    }
-  }
-
-  function next() {
-    state.waiting = false;
-    state.current++;
-    render(false);
-    setText(els.feedback, "", "reto__feedback");
-  }
-
-  function nextProblem() {
-    state.between = false;
-    state.pr++;
-    render(false);
-    setText(els.feedback, "", "reto__feedback");
-  }
-
-  // Al terminar: ventana con los aciertos y si conviene volver a intentarlo.
-  function finish() {
-    if (!state.done) return;
-    var total = QUESTIONS.length;
-    var hits = state.correct.filter(Boolean).length;
-    var passed = hits * 100 >= total * 80;
-
-    var modal = document.getElementById("modal-fs");
-    if (!modal || !window.jQuery) return;
-    modal.querySelector("#modal-score").textContent = hits + " / " + total + " aciertos";
-    modal.querySelector("#modal-message").textContent = passed
-      ? "¡Excelente! Resolviste los problemas casi sin errores."
-      : "Te recomendamos repasar los temas que fallaste y volver a intentarlo.";
-    modal.querySelector("#correct-img").style.display = passed ? "block" : "none";
-    modal.querySelector("#incorrect-img").style.display = passed ? "none" : "block";
-    setTimeout(function () {
-      window.jQuery(modal).modal("show");
-    }, 700);
-  }
-
-  els.check.addEventListener("click", function () {
-    if (state.done) {
-      reset();
-      root.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      check();
-    }
+  // El motor está en assets/js/ejercicio-final.js.
+  EjercicioFinal.crear(root, {
+    clase: "reto",
+    grupos: PROBLEMS,
+    // Sin espacios ni punto y coma final. JavaScript distingue mayúsculas y
+    // minúsculas, así que no se cambian.
+    normalizar: function (v) {
+      return String(v || "").replace(/\s+/g, "").replace(/;+$/, "");
+    },
+    avisoMayusculas: "JavaScript distingue mayúsculas de minúsculas.",
+    desvanecer: true,
+    antes: function (pr) {
+      return '<div class="reto__line"><span class="js-term__com">// ' + esc(pr.title) + "</span></div>";
+    },
+    vista: renderConsole,
+    // La ventana de aciertos sale un momento después de que la consola termina.
+    esperaVentana: 700,
+    mensajeBien: "¡Excelente! Resolviste los problemas casi sin errores.",
   });
-  els.next.addEventListener("click", next);
-  els.nextPr.addEventListener("click", nextProblem);
-  root.classList.add("reto--ready");
-  reset();
 })();

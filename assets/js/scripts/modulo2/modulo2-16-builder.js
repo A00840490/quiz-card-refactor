@@ -244,53 +244,14 @@
     { lv: 0, code: "</html>" },
   ];
 
-  // Lista plana de preguntas, en orden.
-  var QUESTIONS = [];
-  LINES.forEach(function (line, li) {
-    (line.q || []).forEach(function (q, bi) {
-      QUESTIONS.push({ line: li, blank: bi, data: q });
-    });
-  });
   var PREVIEW_FROM = LINES.findIndex(function (l) {
     return l.preview;
   });
 
   var root = document.getElementById("builder");
   if (!root) return;
-  var els = {
-    actions: root.querySelector("[data-actions]"),
-    bar: root.querySelector("[data-bar]"),
-    ask: root.querySelector("[data-ask]"),
-    feedback: root.querySelector("[data-feedback]"),
-    check: root.querySelector("[data-check]"),
-    next: root.querySelector("[data-next]"),
-    code: root.querySelector("[data-code]"),
-    frame: root.querySelector("[data-frame]"),
-    empty: root.querySelector("[data-empty]"),
-    question: root.querySelector("[data-question]"),
-  };
-
-  var state;
-
-  function reset() {
-    state = {
-      current: 0,
-      answers: [], // valor final (correcto) de cada pregunta
-      correct: [], // true/false por pregunta
-      waiting: false, // mostrando corrección, esperando "Continuar"
-      done: false, // todas las preguntas respondidas
-    };
-    render();
-  }
-
-  function norm(v, exact) {
-    v = String(v || "").replace(/[<>\/"'=\s]/g, "");
-    return exact ? v : v.toLowerCase();
-  }
-
-  function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
+  var frame = root.querySelector("[data-frame]");
+  var empty = root.querySelector("[data-empty]");
 
   // Resalta una línea de código ya escapada.
   function highlight(escaped) {
@@ -302,113 +263,15 @@
       .replace(/&gt;([^&]+?)(?=&lt;)/g, '&gt;<span class="codetext">$1</span>');
   }
 
-  // Texto con `código` en <code> (va en el azul del curso).
-  function rich(s) {
-    return esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
-  }
-
-  function qIndex(li, bi) {
-    for (var i = 0; i < QUESTIONS.length; i++) {
-      if (QUESTIONS[i].line === li && QUESTIONS[i].blank === bi) return i;
-    }
-    return -1;
-  }
-
-  // Estado del recuadro bi de la línea li: "done", "current" o "future".
-  function blankState(li, bi) {
-    var qi = qIndex(li, bi);
-    if (qi < state.current || (qi === state.current && state.waiting)) return "done";
-    if (qi === state.current) return "current";
-    return "future";
-  }
-
-  // Línea visible: todas hasta la línea de la pregunta actual.
-  function lastVisibleLine() {
-    if (state.current >= QUESTIONS.length) return LINES.length - 1;
-    return QUESTIONS[state.current].line;
-  }
-
-  function renderCode() {
-    var html = [];
-    var last = lastVisibleLine();
-    for (var li = 0; li <= last; li++) {
-      var line = LINES[li];
-      var tokens = [];
-      var mark = "\u0000";
-      var raw = line.code.replace(/\{(=?)(\d)\}/g, function (_, eq, n) {
-        tokens.push({ mirror: !!eq, bi: +n });
-        return mark + (tokens.length - 1) + mark;
-      });
-      var out = highlight(esc(raw)).replace(
-        new RegExp(mark + "(\\d+)" + mark, "g"),
-        function (_, t) {
-          var tok = tokens[+t];
-          var st = blankState(li, tok.bi);
-          var qi = qIndex(li, tok.bi);
-          if (tok.mirror) {
-            var val = st === "done" ? state.answers[qi] : "";
-            return (
-              '<span class="builder__mirror' +
-              (val ? "" : " is-empty") +
-              '" data-mirror="' + qi + '">' + esc(val || "") + "</span>"
-            );
-          }
-          if (st === "done") {
-            var cls = state.correct[qi] ? "is-right" : "is-fixed";
-            return '<span class="builder__filled ' + cls + '">' + esc(state.answers[qi]) + "</span>";
-          }
-          if (st === "current") {
-            return (
-              '<input class="builder__blank" data-input type="text" autocomplete="off" ' +
-              'autocapitalize="off" spellcheck="false" aria-label="Respuesta" />'
-            );
-          }
-          return '<span class="builder__pending">___</span>';
-        }
-      );
-      var isCurrent = li === last && state.current < QUESTIONS.length;
-      html.push(
-        '<div class="builder__line' + (isCurrent ? " is-current" : "") + '" style="--lv:' + line.lv + '">' +
-          out + "</div>"
-      );
-    }
-    els.code.innerHTML = html.join("");
-
-    var input = els.code.querySelector("[data-input]");
-    if (input) {
-      input.addEventListener("input", function () {
-        sizeInput(input);
-        var qi = state.current;
-        els.code.querySelectorAll('[data-mirror="' + qi + '"]').forEach(function (m) {
-          m.textContent = input.value;
-          m.classList.toggle("is-empty", !input.value);
-        });
-      });
-      input.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          check();
-        }
-      });
-      sizeInput(input);
-      input.focus({ preventScroll: true });
-    }
-    var cur = els.code.querySelector(".is-current") || els.code.lastElementChild;
-    if (cur) els.code.scrollTop = cur.offsetTop - els.code.clientHeight / 2;
-  }
-
-  function sizeInput(input) {
-    input.style.width = Math.max(3, input.value.length + 1) + "ch";
-  }
-
   // Código real de la página hasta donde va el alumno.
-  function pageSource() {
+  function pageSource(ej) {
     var parts = [];
-    var last = lastVisibleLine();
+    var last = ej.ultimaLinea();
     for (var li = 0; li <= last; li++) {
       var line = LINES[li];
       var blanks = (line.q || []).map(function (q, bi) {
-        return blankState(li, bi) === "done" ? state.answers[qIndex(li, bi)] : null;
+        var qi = ej.indice(0, li, bi);
+        return ej.respondida(qi) ? ej.respuesta(qi) : null;
       });
       if (blanks.length && blanks[0] === null) break; // línea aún sin empezar
       parts.push(
@@ -423,128 +286,24 @@
       .replace('action="/"', 'action="/" onsubmit="return false;"');
   }
 
-  function previewReady() {
-    if (PREVIEW_FROM < 0) return true;
-    return blankState(PREVIEW_FROM, 0) === "done";
-  }
-
-  function renderPreview() {
-    var ready = previewReady();
-    els.empty.hidden = ready;
-    els.frame.hidden = !ready;
-    if (ready) els.frame.srcdoc = pageSource();
-  }
-
-  function renderHeader() {
-    var total = QUESTIONS.length;
-    els.bar.style.width = (state.current / total) * 100 + "%";
-    // Al terminar se queda la última pregunta con su corrección.
-    var q = QUESTIONS[state.done ? state.current - 1 : state.current];
-    els.ask.textContent = q ? q.data.ask : "";
-    // Al terminar, el botón de Revisar se vuelve "Intentar de nuevo".
-    els.check.textContent = state.done ? "Intentar de nuevo" : "Revisar";
-    els.check.hidden = state.waiting;
-    els.next.hidden = !state.waiting;
-    if (!state.waiting && !state.done) {
-      els.feedback.className = "builder__feedback";
-      els.feedback.innerHTML = "";
-    }
-  }
-
-  function render() {
-    renderHeader();
-    renderCode();
-    renderPreview();
-  }
-
-  // Recuadro vacío: sacudida de lado a lado (como al fallar una contraseña en macOS).
-  function shake(input) {
-    if (!input) return;
-    input.classList.remove("is-shaking");
-    void input.offsetWidth; // reinicia la animación si se presiona varias veces
-    input.classList.add("is-shaking");
-    // Se quita al terminar la animación o al escribir (sin animación, por
-    // "reducir movimiento", animationend no llega).
-    ["animationend", "input"].forEach(function (type) {
-      input.addEventListener(
-        type,
-        function () {
-          input.classList.remove("is-shaking");
-        },
-        { once: true }
-      );
-    });
-    input.focus();
-  }
-
-  function check() {
-    if (state.waiting || state.done) return;
-    var input = els.code.querySelector("[data-input]");
-    var q = QUESTIONS[state.current];
-    var given = input ? input.value : "";
-    if (!norm(given)) {
-      shake(input);
-      return;
-    }
-    var ok = norm(given, q.data.exact) === norm(q.data.a, q.data.exact);
-    state.correct[state.current] = ok;
-    state.answers[state.current] = q.data.a;
-
-    var isLast = state.current === QUESTIONS.length - 1;
-    var fb = ok
-      ? "<strong>¡Correcto!</strong> " + rich(q.data.why)
-      : "<strong>No es correcto.</strong> Escribiste <code>" + esc(given.trim()) +
-        "</code>; la respuesta es <code>" + esc(q.data.a) + "</code>. " + rich(q.data.why);
-
-    if (isLast) {
-      // Última pregunta (bien o mal): no hace falta "Continuar", se va
-      // directo al resultado. En las demás, bien o mal, la siguiente pregunta
-      // sale hasta presionar "Continuar".
-      state.current++;
-      state.done = state.current >= QUESTIONS.length;
-      render();
-    } else {
-      state.waiting = true;
-      render();
-    }
-    els.feedback.className = "builder__feedback " + (ok ? "is-right" : "is-wrong");
-    els.feedback.innerHTML = fb;
-    if (state.done) finish();
-    else if (state.waiting) els.next.focus();
-  }
-
-  function next() {
-    state.waiting = false;
-    state.current++;
-    render();
-  }
-
-  // Al terminar: ventana con los aciertos y si conviene volver a intentarlo.
-  function finish() {
-    var total = QUESTIONS.length;
-    var hits = state.correct.filter(Boolean).length;
-    var passed = hits * 100 >= total * 80;
-    els.check.focus({ preventScroll: true });
-
-    var modal = document.getElementById("modal-fs");
-    if (!modal || !window.jQuery) return;
-    modal.querySelector("#modal-score").textContent = hits + " / " + total + " aciertos";
-    modal.querySelector("#modal-message").textContent = passed
-      ? "¡Excelente! Armaste la página casi sin errores."
-      : "Te recomendamos repasar los temas que fallaste y volver a intentarlo.";
-    modal.querySelector("#correct-img").style.display = passed ? "block" : "none";
-    modal.querySelector("#incorrect-img").style.display = passed ? "none" : "block";
-    window.jQuery(modal).modal("show");
-  }
-
-  els.check.addEventListener("click", function () {
-    if (state.done) {
-      reset();
-      root.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      check();
-    }
+  // El motor está en assets/js/ejercicio-final.js.
+  EjercicioFinal.crear(root, {
+    clase: "builder",
+    grupos: [{ lines: LINES }],
+    minimo: 3,
+    colorear: highlight,
+    normalizar: function (v, exact) {
+      v = String(v || "").replace(/[<>\/"'=\s]/g, "");
+      return exact ? v : v.toLowerCase();
+    },
+    // La vista previa sale desde la línea marcada con preview.
+    vista: function (ej, animar, listo) {
+      var ready = PREVIEW_FROM < 0 || ej.respondida(ej.indice(0, PREVIEW_FROM, 0));
+      empty.hidden = ready;
+      frame.hidden = !ready;
+      if (ready) frame.srcdoc = pageSource(ej);
+      listo();
+    },
+    mensajeBien: "¡Excelente! Armaste la página casi sin errores.",
   });
-  els.next.addEventListener("click", next);
-  reset();
 })();

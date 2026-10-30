@@ -37,6 +37,7 @@
     "js/grafico-ficha.js",
     "js/demo-carousel.js",
     "js/evo-card.js",
+    "js/ejercicio-final.js",
   ].forEach(function (src) {
     document.write('<script src="' + base + src + '"><\/script>');
   });
