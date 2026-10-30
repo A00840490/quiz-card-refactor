@@ -113,7 +113,8 @@ document.getElementById("elemento1").onclick = function () {
                                 <!-- Los eventos como una radio sintonizada (ver modulo4-16-radio.css / .js) -->
                                 <p class="card-info" style="width: fit-content;">
                                     <img src="../../assets/images/clic.svg" class="mrg-right-5">
-                                    Haz clic en el botón o escribe en el campo para ver qué eventos se activan.
+                                    Haz clic en el botón o escribe en el campo para ver qué eventos se activan. Pasa el
+                                    mouse por las estaciones de la radio para ver cuándo ocurre cada evento.
                                 </p>
                                 <div class="radio-ev" data-radio-ev>
                                     <div class="radio-ev__main">
@@ -134,6 +135,10 @@ document.getElementById("elemento1").onclick = function () {
                                                             <div class="radio-ev__est">
                                                                 <span data-ev="click">click</span><span data-ev="dblclick">dblclick</span><span data-ev="mouseover">mouseover</span><span data-ev="mouseout">mouseout</span><span data-ev="keydown">keydown</span>
                                                                 <i class="radio-ev__aguja"></i>
+                                                            </div>
+                                                            <!-- Segunda banda: eventos de la ventana y de los formularios -->
+                                                            <div class="radio-ev__est2">
+                                                                <span data-ev="load">load</span><span data-ev="submit">submit</span><span data-ev="resize">resize</span><span data-ev="scroll">scroll</span>
                                                             </div>
                                                         </div>
                                                         <div class="radio-ev__perillas"><span class="radio-ev__perilla"></span><span class="radio-ev__foco"></span><span class="radio-ev__perilla"></span></div>
@@ -162,39 +167,9 @@ el.onclick = function () {
                                     <!-- Menú de vidrio para cambiar el elemento y el evento -->
                                     <div class="radio-ev__menu" data-menu role="menu" hidden></div>
                                 </div>
-                                <p>A continuación te enlistamos algunos de los eventos más utilizados. Puedes
-                                    ver la lista completa de eventos haciendo clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> <a
+                                <p>Puedes ver la lista completa de eventos haciendo clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> <a
                                         href="https://developer.mozilla.org/es/docs/Web/Events"
                                         target="_blank">aquí</a>.</p>
-                                <ul>
-                                    <li>
-                                        <p><span class="code">onmouseover</span>: Ocurre cuando el puntero está
-                                            sobre el elemento.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">onmouseout</span>: Ocurre cuando el puntero
-                                            sale del elemento.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">onkeydown</span>: Ocurre cuando se presiona una
-                                            tecla.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">onload</span>: Cuando carga la página.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">submit</span>: Se sube un formulario.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">resize</span>: Cambia el tamaño de la ventana.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">scroll</span>: La ventana se desplaza.</p>
-                                    </li>
-                                    <li>
-                                        <p><span class="code">dblclick</span>: Se hace un clic doble</p>
-                                    </li>
-                                </ul>
                         </div>
                                 
                         </div>

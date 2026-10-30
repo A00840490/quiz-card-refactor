@@ -15,6 +15,10 @@
      código, llega a la radio y solo se oye estática; si sale del otro
      elemento, se apaga a medio camino.
 
+   Al pasar el mouse por una estación del cuadrante (o tocarla en celular)
+   sale una burbuja debajo con cuándo ocurre ese evento. La segunda banda
+   tiene eventos que no se prueban aquí (load, submit, resize y scroll).
+
    El elemento que escucha el código lleva un borde fino y la palabra
    "escuchando" le da vueltas por fuera. Dentro de la ventana de código, el
    elemento y el evento son listas desplegables (el menú de vidrio del
@@ -296,6 +300,73 @@
       estatica();
     }
   }
+
+  /* ---------- Burbuja con la descripción de cada estación ---------- */
+  var DESC = {
+    click: "Ocurre cuando se hace clic sobre el elemento.",
+    dblclick: "Ocurre cuando se hace doble clic sobre el elemento.",
+    mouseover: "Ocurre cuando el puntero está sobre el elemento.",
+    mouseout: "Ocurre cuando el puntero sale del elemento.",
+    keydown: "Ocurre cuando se presiona una tecla.",
+    load: "Ocurre cuando termina de cargar la página.",
+    submit: "Ocurre cuando se envía un formulario.",
+    resize: "Ocurre cuando cambia el tamaño de la ventana.",
+    scroll: "Ocurre cuando la ventana se desplaza."
+  };
+  var burbuja = document.createElement("div");
+  burbuja.className = "radio-ev__burbuja";
+  burbuja.hidden = true;
+  burbuja.setAttribute("role", "tooltip");
+  burbuja.id = "radio-ev-burbuja";
+  scene.appendChild(burbuja);
+  var tipDe = null;
+
+  function muestraTip(s) {
+    if (tipDe === s) return;
+    escondeTip();
+    tipDe = s;
+    s.classList.add("is-tip");
+    s.setAttribute("aria-describedby", burbuja.id);
+    var ev = s.getAttribute("data-ev");
+    burbuja.innerHTML = '<span class="radio-ev__burbuja-ev">on' + esc(ev) + "</span><p>" + esc(DESC[ev]) + "</p>";
+    burbuja.hidden = false;
+    var sr = scene.getBoundingClientRect(), r = s.getBoundingClientRect();
+    var bw = burbuja.offsetWidth, cx = r.left + r.width / 2 - sr.left;
+    var left = Math.max(0, Math.min(sr.width - bw, cx - bw / 2));
+    burbuja.style.left = left + "px";
+    burbuja.style.top = (r.bottom - sr.top + 12) + "px";
+    burbuja.style.setProperty("--tail", Math.max(18, Math.min(bw - 18, cx - left)) + "px");
+    burbuja.style.animation = "none";
+    void burbuja.offsetWidth;
+    burbuja.style.animation = "";
+  }
+
+  function escondeTip() {
+    if (!tipDe) return;
+    tipDe.classList.remove("is-tip");
+    tipDe.removeAttribute("aria-describedby");
+    tipDe = null;
+    burbuja.hidden = true;
+  }
+
+  each(root.querySelectorAll(".radio-ev__est span, .radio-ev__est2 span"), function (s) {
+    s.setAttribute("tabindex", "0");
+    s.addEventListener("mouseenter", function () { muestraTip(s); });
+    // Si se tocó o se eligió con el teclado, la burbuja se queda hasta salir de la estación
+    s.addEventListener("mouseleave", function () { if (document.activeElement !== s) escondeTip(); });
+    s.addEventListener("focus", function () { muestraTip(s); });
+    s.addEventListener("blur", escondeTip);
+  });
+  document.addEventListener("pointerdown", function (e) {
+    if (tipDe && !tipDe.contains(e.target)) escondeTip();
+  });
+  // En celular tocar una estación la enfoca y abre su burbuja; tocar fuera la cierra
+  var anchoTip = window.innerWidth;
+  window.addEventListener("resize", function () {
+    if (window.innerWidth === anchoTip) return;
+    anchoTip = window.innerWidth;
+    escondeTip();
+  });
 
   /* ---------- Los eventos de la página de prueba ---------- */
   var ultimoAcierto = 0;
