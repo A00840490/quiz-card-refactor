@@ -2,7 +2,8 @@
    El mango dice <input> y cada herramienta es un type. Al tocar la navaja
    las ocho herramientas salen en abanico; la punta de cada una tiene la forma
    del input que crea. La navaja empieza centrada; al elegir una herramienta
-   se corre a la izquierda y a su lado aparece su descripción y, debajo, el
+   se corre a la izquierda y a su lado aparece su descripción en la ficha de
+   renglones (.grafico-ficha de app.css, como en el 3-23) y, debajo, el
    código con el input real para probarlo. Cada herramienta trae un punto
    verde mientras no se ha revisado. Tocar el mango cierra la navaja, se va la
    explicación y la navaja vuelve al centro. */
@@ -184,11 +185,12 @@
 }
 
 /* ---------- Explicación ----------
-   Texto normal de la página y, debajo, el ejemplo: código y vista previa,
-   como en los ejemplos del curso (igual que la ficha del 2-5). */
+   La descripción va en la ficha de renglones del curso (.grafico-ficha) y,
+   debajo, el ejemplo: código y vista previa, como en los ejemplos del curso
+   (igual que la ficha del 2-5). */
 .navaja__info {
   display: grid;
-  gap: 14px;
+  gap: 18px;
   align-content: start;
   visibility: hidden;
   opacity: 0;
@@ -203,7 +205,7 @@
   transition: opacity 0.35s 0.2s, transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.2s, visibility 0s;
 }
 
-.navaja__info.is-new {
+.navaja__demo.is-new {
   animation: navaja-info 0.4s ease-out;
 }
 
@@ -213,6 +215,13 @@
 }
 
 .navaja__desc {
+  margin: 0;
+}
+
+/* La ficha no va montada sobre una ventana de código: ocupa el ancho de la
+   columna, sin el margen negativo que la sube sobre la ventana */
+.navaja__info .grafico-ficha {
+  width: auto;
   margin: 0;
 }
 

@@ -547,7 +547,7 @@
       return { html: muestra(q.id) + "<span>" + q.nombre + "</span>", actual: q.id === actual, id: q.id };
     });
     ops.push({ html: muestra(".") + "<span>Vacía <code>.</code></span>", actual: actual === ".", id: "." });
-    abrirMenu(celda, "¿Qué cuarto va en esta celda?", ops, function (i) { cambiarCelda(r, c, ops[i].id); });
+    abrirMenu(celda, null, ops, function (i) { cambiarCelda(r, c, ops[i].id); });
     marcarPalabra(r, c, true);
   });
 
