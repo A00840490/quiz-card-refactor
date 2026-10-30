@@ -17,6 +17,8 @@
 
     <!-- page plugins css -->
 
+    <link href="../../assets/css/lesson-demo.css" rel="stylesheet">
+    <link href="../../assets/css/modulos/modulo3/modulo3-demo-css.css" rel="stylesheet">
     <!-- core css -->
     <link href="../../assets/css/ei-icon.css" rel="stylesheet">
     <link href="../../assets/css/themify-icons.css" rel="stylesheet">
@@ -74,37 +76,12 @@
                         <div class="card">
                             <div class="card-block">
                                 <h2 class="mrg-btm-20 card-title">Ejemplos de Uso</h2>
-                                <p>Podemos separar secciones de contenido usando divisiones, el siguiente ejemplo muestra esto. Recuerda hacer clic <img src="../../assets/images/clic.svg" class="mrg-right-5"> en las pestañas de <b>HTML</b> y <b>CSS</b> para ver el código correspondiente:</p>
-                                        <div class="card">
-                                            <div class="container-fluid p0">
-                                                <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="html,result" data-user="luis-yerik-arambula" data-slug-hash="LYRWMjP" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ejemplo-div1">
-                                                    <span>See the Pen <a href="https://codepen.io/luis-yerik-arambula/pen/LYRWMjP" target="_blank">
-                                                    ejemplo-div1</a> by Luis Yerik Arambula (<a href="https://codepen.io/luis-yerik-arambula" target="_blank">@luis-yerik-arambula</a>)
-                                                    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
-                                                  </p>
-                                                  <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>                                                          
-                                            </div>
-                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                                <!-- Fuente  -->
-                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                              </p>
-                                        </div>
+                                <p>Podemos separar secciones de contenido usando divisiones, el siguiente ejemplo muestra esto. A la derecha está el código de la página y a la izquierda cómo se ve:</p>
+                                <p class="card-info mb-2" style="width: fit-content;"><img src="../../assets/images/clic.svg" class="mrg-right-5"> Haz clic en los valores del código.</p>
+                                <div data-demo-css="divisiones"></div>
 
                                 <p>También podemos usar divisiones dentro de divisiones:</p>
-                                        <div class="card">
-                                            <div class="container-fluid p0">
-                                                <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="html,result" data-user="luis-yerik-arambula" data-slug-hash="dypvazR" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ejemplo-div2">
-                                                    <span>See the Pen <a href="https://codepen.io/luis-yerik-arambula/pen/dypvazR" target="_blank">
-                                                    ejemplo-div2</a> by Luis Yerik Arambula (<a href="https://codepen.io/luis-yerik-arambula" target="_blank">@luis-yerik-arambula</a>)
-                                                    on <a href="https://codepen.io" target="_blank">CodePen</a>.</span>
-                                                  </p>
-                                                  <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                                            </div>
-                                            <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                                <!-- Fuente  -->
-                                                CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                              </p>
-                                        </div>
+                                <div data-demo-css="divisiones-dentro"></div>
 
                                 <h2 class="card-title">Herencia</h2>
                                 <p>¿Qué cambios puedes observar entre los dos ejemplos? Podemos observar que el color del texto en el segundo contenedor cambia: en el primer ejemplo es negro y en el segundo es blanco. Esto pasa porque en el segundo ejemplo, la segunda división está <b>dentro</b> de la primera, lo cual causa que se <i>hereden</i> las propiedades de la primera división a la segunda. El CSS de la primera división contiene <span class="code"><mark>color: white;</mark></span> y es esta propiedad la que se hereda a la segunda división, cambiando el color del texto. La otra propiedad que se hereda es <span class="code"><mark>text-align: center;</mark></span>, la cual centra al texto en su contenedor.</p>
@@ -180,6 +157,9 @@
 
     <!-- Insert your dependencies here -->
 
+    <script src="../../assets/js/scripts/modulo3/modulo3-demo-css.js"></script>
+    <script src="../../assets/js/scripts/modulo3/modulo3-6-demo.js"></script>
+    <script src="../../assets/js/grafico-ficha.js"></script>
 </body>
 
 </html>

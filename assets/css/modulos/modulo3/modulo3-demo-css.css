@@ -1,0 +1,279 @@
+/* Demos de CSS del módulo 3 (antes eran CodePens): a la izquierda la vista
+   previa del navegador, a la derecha el código en la ventana estándar del
+   curso (lesson-demo.css) y, en una ficha sobre él, la explicación del último
+   cambio (.grafico-ficha en app.css). Los valores con flecha abren el menú de
+   vidrio del plano del 3-23 (mismos estilos que .plano__valor, .plano__menu y
+   .plano__opcion) y el código se aplica tal cual a la vista previa.
+   En celular la vista previa va arriba y el código debajo.
+   Uso: assets/js/scripts/modulo3/modulo3-demo-css.js */
+.demo-css {
+  --demo-css-blue: #093b8b;
+  --demo-css-gold: #fac775;
+  --demo-css-mono: "Source Code Pro", Consolas, "Courier New", monospace;
+  position: relative;
+  display: grid;
+  gap: 22px;
+  margin: 18px 0 26px;
+}
+
+@media (min-width: 992px) {
+  .demo-css {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    column-gap: 32px;
+    align-items: start; /* arriba: así la ficha de la explicación crece hacia abajo sin mover nada */
+  }
+}
+
+.demo-css__side {
+  min-width: 0;
+}
+
+/* ---------- Vista previa: una ventana de navegador ---------- */
+.demo-css__vista {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dce3ec;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.demo-css__barra {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 20px;
+  border-bottom: 1px solid #dce3ec;
+  color: #000000;
+  font: 800 0.87rem Arial, sans-serif;
+  text-align: center;
+}
+
+.demo-css__ancho {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #eaf3ff;
+  color: var(--demo-css-blue);
+  font: 700 12px/1.4 var(--demo-css-mono);
+}
+
+.demo-css__ancho:empty {
+  display: none;
+}
+
+.demo-css__marco {
+  display: block;
+  width: 100%;
+  min-height: 96px;
+  border: 0;
+  background: #ffffff;
+  transition: height 0.3s ease;
+}
+
+/* ---------- Código: la ventana estándar del curso (lesson-demo.css) ----------
+   .lesson-demo-stack pone la barra con los tres puntos y el nombre del
+   archivo (aquí sale de data-archivo); .code--numbered numera las líneas.
+   La letra se achica si la línea más larga (--cols caracteres) no cabe. */
+.demo-css__code {
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.demo-css__code.lesson-demo-stack::before {
+  content: attr(data-archivo);
+}
+
+.demo-css__code .code {
+  margin: 0;
+  padding: 24px 22px 28px 0;
+  overflow-x: auto;
+  background: transparent;
+  color: #d7deea;
+  font: 400 max(11px, min(14px, calc((100cqw - 70px) / var(--cols, 40) / 0.6))) / 1.75 "Courier New", Consolas, monospace;
+  white-space: pre;
+}
+
+@media (max-width: 575px) {
+  .demo-css__code .code {
+    padding: 18px 12px 22px 0;
+    font-size: max(10.5px, min(12px, calc((100cqw - 60px) / var(--cols, 40) / 0.6)));
+  }
+}
+
+/* Valores que se pueden cambiar: un botón con flecha, como una lista desplegable */
+.demo-css__valor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin: 0;
+  padding: 0 0.3em 0 0.45em;
+  border: 1px solid #5b7bd6;
+  border-radius: 3px;
+  background: #2b3550;
+  color: #ffffff;
+  font: inherit;
+  line-height: 1.45;
+  white-space: pre;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.demo-css__valor::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 0.3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-top: 0.38em solid #a9c0ff;
+}
+
+.demo-css__valor:hover,
+.demo-css__valor.is-abierta {
+  border-color: #a9c0ff;
+  background: #3a4a78;
+}
+
+.demo-css__valor:focus {
+  outline: none;
+}
+
+.demo-css__valor:focus-visible {
+  outline: 2px solid var(--demo-css-gold);
+  outline-offset: 1px;
+}
+
+/* ---------- Menú de vidrio (el mismo del plano del 3-23) ----------
+   Translúcido, con desenfoque detrás, esquinas redondeadas y un brillo
+   arriba. Crece desde el valor que se tocó. Sin título. */
+.demo-css__menu {
+  position: absolute;
+  z-index: 20;
+  min-width: 200px;
+  max-width: calc(100% - 8px);
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 18px;
+  background-color: rgba(246, 247, 250, 0.72);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.08) 45%, rgba(255, 255, 255, 0.2));
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    0 18px 44px rgba(0, 0, 0, 0.28);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Segoe UI", Arial, sans-serif;
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: var(--origen, 24px 0);
+  transition: opacity 0.18s ease, transform 0.32s cubic-bezier(0.2, 1.25, 0.4, 1);
+}
+
+.demo-css__menu.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.demo-css__menu[hidden] {
+  display: none;
+}
+
+.demo-css__opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 14px 9px 34px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #000000;
+  font-family: inherit;
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+/* Línea fina entre opciones */
+.demo-css__opcion + .demo-css__opcion::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14px;
+  right: 14px;
+  border-top: 0.5px solid rgba(60, 60, 67, 0.22);
+}
+
+.demo-css__opcion:hover,
+.demo-css__opcion:focus {
+  outline: none;
+  background: rgba(120, 120, 128, 0.16);
+}
+
+.demo-css__opcion:hover::before,
+.demo-css__opcion:focus::before,
+.demo-css__opcion:hover + .demo-css__opcion::before,
+.demo-css__opcion:focus + .demo-css__opcion::before {
+  border-color: transparent;
+}
+
+/* La opción actual lleva la palomita a la izquierda */
+.demo-css__opcion.is-actual {
+  font-weight: 600;
+}
+
+.demo-css__opcion.is-actual::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  width: 5px;
+  height: 10px;
+  margin-top: -7px;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+  transform: rotate(45deg);
+}
+
+.demo-css__opcion code {
+  padding: 0;
+  background: none;
+  white-space: pre;
+  font-family: var(--demo-css-mono);
+  color: #000000;
+  font-size: 14.5px;
+}
+
+/* Muestra de color junto a los valores que son colores */
+.demo-css__muestra {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Explicación: estándar .grafico-exp (app.css), en la ficha de
+   renglones montada sobre la ventana de código (.grafico-ficha en app.css) ---------- */
+.demo-css .grafico-exp .mal {
+  font-weight: 700;
+  color: #b4472a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-css *,
+  .demo-css__menu {
+    transition: none !important;
+  }
+}
