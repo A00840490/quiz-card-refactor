@@ -11,8 +11,10 @@
        </script>
      </p>
 
-   data-codigo="css" si el código es una hoja de estilos (si no, es HTML, y lo
-   que va dentro de <style> se colorea como CSS). Aquí se colorea y se separa
+   data-codigo="css" si el código es una hoja de estilos y data-codigo="js" si
+   es JavaScript (los textos entre comillas en .codetext y los comentarios
+   // en gris); si no, es HTML, y lo que va dentro de <style> se colorea como
+   CSS. Aquí se colorea y se separa
    en líneas con <br>; lesson-demo.js le pone después sus números, así que este
    archivo se carga antes que lesson-demo.js y demo.js.
 
@@ -39,10 +41,10 @@
   }
 
   /* Cada línea queda en pedazos { tipo, t }: "tag" (.codetag), "text"
-     (.codetext), "plain" o "valor" (donde iba la marca; demo.js pone ahí el
-     botón del menú). */
+     (.codetext), "com" (comentario de JavaScript, .js-term__com), "plain" o
+     "valor" (donde iba la marca; demo.js pone ahí el botón del menú). */
   function colorear(lineas, lenguaje, marca) {
-    var modo = lenguaje === "css" ? "css" : "html";
+    var modo = lenguaje === "css" || lenguaje === "js" ? lenguaje : "html";
     var pila = [];           // CSS: "regla" o "arroba" por cada { abierta
     var enEtiqueta = false;  // HTML: una etiqueta que sigue en la siguiente línea
     var etiqueta = "";
@@ -117,6 +119,17 @@
         }
       }
 
+      if (modo === "js") {
+        var re = /\/\/.*$|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'/g, j = 0, m;
+        while ((m = re.exec(l))) {
+          add("plain", l.slice(j, m.index));
+          add(m[0].charAt(0) === "/" ? "com" : "text", m[0]);
+          j = m.index + m[0].length;
+        }
+        add("plain", l.slice(j));
+        return p;
+      }
+
       var i = 0;
       while (i < l.length) {
         var resto = l.slice(i), m, fin;
@@ -183,6 +196,7 @@
         t = esc(t).replace(/\u00a0/g, "&nbsp;");
         if (pd.tipo === "tag") return "<span class=\"codetag\">" + t + "</span>";
         if (pd.tipo === "text") return "<span class=\"codetext\">" + t + "</span>";
+        if (pd.tipo === "com") return "<span class=\"js-term__com\">" + t + "</span>";
         return t;
       }).join("");
     }).join("<br>");
@@ -193,7 +207,7 @@
   Array.prototype.forEach.call(document.querySelectorAll("[data-codigo]"), function (el) {
     var fuente = el.querySelector("script[type=\"text/x-codigo\"]");
     if (!fuente) return;
-    var lenguaje = el.getAttribute("data-codigo") === "css" ? "css" : "html";
+    var lenguaje = el.getAttribute("data-codigo") || "html";
     el.innerHTML = html(colorear(limpiar(fuente.textContent), lenguaje));
   });
 })();

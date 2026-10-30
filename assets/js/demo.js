@@ -24,8 +24,10 @@
      El nombre del menú sale de lo que va antes: "float:" -> float,
      class="..." -> class, un selector -> selector.
    - data-archivo  nombre en la barra del editor. Si termina en .css, el código
-                   es la hoja de estilos del bloque data-parte="html"; si no, el
-                   código es la página completa, con su <style>.
+                   es la hoja de estilos del bloque data-parte="html"; si termina
+                   en .js, es el script de esa página (corre en la
+                   previsualización, que se puede usar: botones, clics…); si no,
+                   el código es la página completa, con su <style>.
      data-alto     alto fijo de la previsualización (con barra para desplazarse);
                    si no se da, mide lo que su contenido
      data-ancho    arriba de la previsualización se dice cuánto mide de ancho
@@ -83,7 +85,7 @@
 
   /* ---------- Colores del código: los de codigo.js ---------- */
   function limpiar(texto) { return Codigo.limpiar(texto); }
-  function colorear(lineas, esCss) { return Codigo.colorear(lineas, esCss ? "css" : "html", VALOR); }
+  function colorear(lineas, lenguaje) { return Codigo.colorear(lineas, lenguaje, VALOR); }
 
   /* ---------- Demo ---------- */
   function crear(root) {
@@ -97,9 +99,10 @@
 
     var archivo = opciones.archivo || "index.html";
     var esCss = /\.css$/i.test(archivo);
+    var esJs = /\.js$/i.test(archivo);
     var leido = leerValores(limpiar($bloques.filter(":not([data-parte])").text()), opciones.listas);
     var valores = leido.valores;
-    var pedazos = colorear(leido.codigo, esCss);
+    var pedazos = colorear(leido.codigo, esCss ? "css" : esJs ? "js" : "html");
     var htmlVista = parte("html");
     var base = parte("base");
     var alto = +opciones.alto || 0;
@@ -151,6 +154,7 @@
           if (pd.tipo === "valor") return MenuVidrio.boton(valores[pd.k].actual, valores[pd.k].nombre, " data-k=\"" + pd.k + "\"");
           if (pd.tipo === "tag") return "<span class=\"codetag\">" + esc(pd.t) + "</span>";
           if (pd.tipo === "text") return "<span class=\"codetext\">" + esc(pd.t) + "</span>";
+          if (pd.tipo === "com") return "<span class=\"js-term__com\">" + esc(pd.t) + "</span>";
           return esc(pd.t);
         }).join("");
         return "<span class=\"ld-line\">" + (h || "&nbsp;") + "</span>";
@@ -163,6 +167,7 @@
     function partes() {
       var todo = pedazos.map(texto).join("\n");
       if (esCss) return { css: todo, html: htmlVista };
+      if (esJs) return { css: "", html: htmlVista, js: todo };
       var m = todo.match(/<style>([\s\S]*?)<\/style>/);
       return { css: m ? m[1] : "", html: todo.replace(/<style>[\s\S]*?<\/style>/, "") };
     }
@@ -174,6 +179,13 @@
       if (p.html !== htmlActual) {
         doc.body.innerHTML = p.html;
         htmlActual = p.html;
+      }
+      // El script corre como en una página: sus funciones quedan globales y
+      // los onclick del HTML las encuentran
+      if (p.js) {
+        var s = doc.createElement("script");
+        s.textContent = p.js;
+        doc.body.appendChild(s);
       }
     }
 
@@ -242,7 +254,10 @@
 
     function cambiarValor(n, i) {
       valores[n].actual = valores[n].opciones[i];
-      mover(aplicar);
+      // Con JavaScript la previsualización vuelve a empezar, para que el script
+      // corra en una página nueva
+      if (esJs) recargar();
+      else mover(aplicar);
       pintarCodigo();
       medir();
       var b = pre.querySelector("[data-k=\"" + n + "\"]");
@@ -260,6 +275,11 @@
     if (largo && opciones.scroll !== "no") {
       fila.classList.add("lesson-demo--scroll");
       if (window.LessonDemo) LessonDemo.desplazar(fila);
+    }
+    function recargar() {
+      doc = null;
+      htmlActual = null;
+      marco.srcdoc = "<!DOCTYPE html><html lang=\"es\"><head></head><body></body></html>";
     }
     marco.addEventListener("load", function () {
       doc = marco.contentDocument;
@@ -281,11 +301,12 @@
       });
       doc.addEventListener("submit", function (e) { e.preventDefault(); });
       if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(medir);
-      if (window.ResizeObserver) {
+      if (window.ResizeObserver && !marco._observado) {
+        marco._observado = true;
         new ResizeObserver(function () { pintarAncho(); cerrarMenu(); }).observe(marco);
       }
     });
-    marco.srcdoc = "<!DOCTYPE html><html lang=\"es\"><head></head><body></body></html>";
+    recargar();
   }
 
   $.fn.demo = function () {

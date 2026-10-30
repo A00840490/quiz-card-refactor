@@ -51,29 +51,25 @@
 <pre class="js-term__src">elemento.atributo = "valor";</pre>
                                 </div>
                                 <p>Observa este ejemplo:</p>
-                                <div class="card">
-                                    <div class="container-fluid">
-                                        <p class="codepen" data-height="500" data-theme-id="dark"
-                                            data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                            data-slug-hash="RwGBwZe"
-                                            style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                            data-pen-title="ejemplo atributos JS">
-                                            <span>See the Pen <a
-                                                    href="https://codepen.io/luis-yerik-arambula/pen/RwGBwZe"
-                                                    target="_blank">
-                                                    ejemplo atributos JS</a> by Luis Yerik Arambula (<a
-                                                    href="https://codepen.io/luis-yerik-arambula"
-                                                    target="_blank">@luis-yerik-arambula</a>)
-                                                on <a href="https://codepen.io"
-                                                    target="_blank">CodePen</a>.</span>
-                                        </p>
-                                        <script async
-                                            src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                                    </div>
-                                    <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                        <!-- Fuente  -->
-                                        CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                      </p>
+                                <div data-demo data-archivo="atributos.js">
+                                  <script type="text/x-codigo">
+                                    var link1 = "../../assets/images/course/modulo2/m2-7/imagenes.jpg";
+                                    var link2 = "../../assets/images/course/modulo2/m2-7/imagelink.jpg";
+
+                                    function cambiarImagen() {
+                                      var imagen = document.getElementById("imagen");
+                                      if (imagen.getAttribute("src") == link1) {
+                                        imagen.src = link2;
+                                      } else {
+                                        imagen.src = link1;
+                                      }
+                                    }
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="html">
+                                    <p><button onclick="cambiarImagen()">Cambiar imagen</button></p>
+                                    <img id="imagen" src="../../assets/images/course/modulo2/m2-7/imagenes.jpg" alt="Imagen de ejemplo">
+                                  </script>
+                                  <script type="text/x-codigo" data-parte="base">img{display:block;max-width:100%;height:220px;object-fit:cover;border-radius:8px}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
                                 </div>
                                 <p>Lee detenidamente el código JavaScript. Nota que primero utilizamos una
                                     sentencia <b>if/else</b> para revisar cuál de los 2 URLs está activo. Si el

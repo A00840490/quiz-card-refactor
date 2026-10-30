@@ -79,29 +79,26 @@
                                         variable con el elemento seleccionado, y en propiedad escribimos el
                                         nombre de la propiedad que queremos modificar. Observa el siguiente
                                         ejemplo, haz clic <span class="ico-clic" aria-hidden="true"></span> en cada botón de lado derecho e izquierdo:</p>
-                                    <div class="card">
-                                        <div class="container-fluid">
-                                            <p class="codepen" data-height="500" data-theme-id="dark"
-                                                data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                                data-slug-hash="vYXbLor"
-                                                style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                                data-pen-title="style js ejemplo">
-                                                <span>See the Pen <a
-                                                        href="https://codepen.io/luis-yerik-arambula/pen/vYXbLor"
-                                                        target="_blank">
-                                                        style js ejemplo</a> by Luis Yerik Arambula (<a
-                                                        href="https://codepen.io/luis-yerik-arambula"
-                                                        target="_blank">@luis-yerik-arambula</a>)
-                                                    on <a href="https://codepen.io"
-                                                        target="_blank">CodePen</a>.</span>
-                                            </p>
-                                            <script async
-                                                src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                    <div data-demo data-archivo="estilos.js">
+                                      <script type="text/x-codigo">
+                                        function negritas() {
+                                          var texto = document.getElementById("texto");
+                                          texto.style.fontWeight = "bold";
+                                        }
+
+                                        function color() {
+                                          var texto = document.getElementById("texto");
+                                          texto.style.color = "{{ *crimson | seagreen | darkorange }}";
+                                        }
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="html">
+                                        <div class="fila">
+                                          <button onclick="negritas()">Negritas</button>
+                                          <p id="texto">Cambia mi estilo con los botones</p>
+                                          <button onclick="color()">Color</button>
                                         </div>
-                                        <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                            <!-- Fuente  -->
-                                            CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                          </p>
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="base">.fila{display:flex;align-items:center;gap:12px}#texto{flex:1;margin:0;padding:12px;border:1px dashed #9aa7b8;border-radius:8px;text-align:center}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
                                     </div>
                                     <p>Nota que el formato para los nombres de las propiedades cambiar
                                         <b>CSS</b> entre CSS y JavaScript. En el ejemplo de arriba utilizamos
@@ -129,29 +126,20 @@
                                         clic <span class="ico-clic" aria-hidden="true"></span> <a
                                             href="https://developer.mozilla.org/es/docs/Web/API/Element/classList"
                                             target="_blank">aquí</a>.</p>
-                                    <div class="card">
-                                        <div class="container-fluid">
-                                            <p class="codepen" data-height="500" data-theme-id="dark"
-                                                data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                                data-slug-hash="RwGvaZv"
-                                                style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                                data-pen-title="style js ejemplo">
-                                                <span>See the Pen <a
-                                                        href="https://codepen.io/luis-yerik-arambula/pen/RwGvaZv"
-                                                        target="_blank">
-                                                        style js ejemplo</a> by Luis Yerik Arambula (<a
-                                                        href="https://codepen.io/luis-yerik-arambula"
-                                                        target="_blank">@luis-yerik-arambula</a>)
-                                                    on <a href="https://codepen.io"
-                                                        target="_blank">CodePen</a>.</span>
-                                            </p>
-                                            <script async
-                                                src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                                        </div>
-                                        <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                            <!-- Fuente  -->
-                                            CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                          </p>
+                                    <div data-demo data-archivo="clases.js">
+                                      <script type="text/x-codigo">
+                                        // En el CSS: .resaltado { background-color: #fff3b0; }
+                                        //            .redondo { border-radius: 999px; }
+                                        function agregarClase() {
+                                          var caja = document.getElementById("caja");
+                                          caja.classList.add("{{ *resaltado | redondo }}");
+                                        }
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="html">
+                                        <div id="caja">Haz clic en el botón para agregarme una clase</div>
+                                        <p><button onclick="agregarClase()">Agregar clase</button></p>
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="base">#caja{padding:16px;margin:0 0 12px;border:2px solid #9aa7b8;border-radius:8px}.resaltado{background-color:#fff3b0}.redondo{border-radius:999px}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
                                     </div>
                             </div>
                         </div>

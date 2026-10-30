@@ -47,29 +47,21 @@
                                         clase. Si queremos obtener elementos de acuerdo a su clase, utilizamos
                                         la
                                         función <span class="code">document.getElementsByClassName()</span>.</p>
-                                    <div class="card">
-                                        <div class="container-fluid">
-                                            <p class="codepen" data-height="500" data-theme-id="dark"
-                                                data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                                data-slug-hash="MWjBWYw"
-                                                style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                                data-pen-title="ejemplo clases jS">
-                                                <span>See the Pen <a
-                                                        href="https://codepen.io/luis-yerik-arambula/pen/MWjBWYw"
-                                                        target="_blank">
-                                                        ejemplo clases jS</a> by Luis Yerik Arambula (<a
-                                                        href="https://codepen.io/luis-yerik-arambula"
-                                                        target="_blank">@luis-yerik-arambula</a>)
-                                                    on <a href="https://codepen.io"
-                                                        target="_blank">CodePen</a>.</span>
-                                            </p>
-                                            <script async
-                                                src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-                                        </div>
-                                        <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                            <!-- Fuente  -->
-                                            CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                          </p>
+                                    <div data-demo data-archivo="clases.js">
+                                      <script type="text/x-codigo">
+                                        function cambiar() {
+                                          var rects = document.getElementsByClassName("rect");
+                                          rects[0].innerHTML = "¡Cambié!";
+                                          rects[1].innerHTML = "¡Yo también!";
+                                        }
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="html">
+                                        <div class="rect">Rectángulo 1</div>
+                                        <div class="rect">Rectángulo 2</div>
+                                        <div class="rect">Rectángulo 3</div>
+                                        <p><button onclick="cambiar()">Cambiar</button></p>
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="base">.rect{display:inline-block;min-width:120px;padding:18px 10px;margin:6px 6px 6px 0;border-radius:8px;background:#0f4c91;color:#fff;text-align:center}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
                                     </div>
                                     <p>Esta función nos regresa un <b>arreglo</b>. Como vimos anteriormente,
                                         para
@@ -87,29 +79,24 @@
                                         las
                                         2 anteriores: <span class="code">document.getElementsByTagName()</span>.
                                     </p>
-                                    <div class="card">
-                                        <div class="container-fluid">
-                                            <p class="codepen" data-height="500" data-theme-id="dark"
-                                                data-default-tab="js,result" data-user="luis-yerik-arambula"
-                                                data-slug-hash="dypjyGJ"
-                                                style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
-                                                data-pen-title="ejemplo tag jS">
-                                                <span>See the Pen <a
-                                                        href="https://codepen.io/luis-yerik-arambula/pen/dypjyGJ"
-                                                        target="_blank">
-                                                        ejemplo tag jS</a> by Luis Yerik Arambula (<a
-                                                        href="https://codepen.io/luis-yerik-arambula"
-                                                        target="_blank">@luis-yerik-arambula</a>)
-                                                    on <a href="https://codepen.io"
-                                                        target="_blank">CodePen</a>.</span>
-                                            </p>
-                                            <script async
-                                                src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+                                    <div data-demo data-archivo="etiquetas.js">
+                                      <script type="text/x-codigo">
+                                        function cambiar() {
+                                          var divs = document.getElementsByTagName("div");
+                                          divs[0].innerHTML = "Primer div";
+                                          divs[1].innerHTML = "Segundo div";
+                                          divs[2].innerHTML = "Tercer div";
+                                        }
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="html">
+                                        <div>Div 1</div>
+                                        <div>Div 2</div>
+                                        <div>Div 3
+                                          <button onclick="cambiar()">Cambiar</button>
                                         </div>
-                                        <p class="col-12 col-lg-8 text-secondary small" style="text-align: left;">
-                                            <!-- Fuente  -->
-                                            CodePen. Software utilizado para el desarrollo de ejercicio dinámico de programación. In CodePen. https://codepen.io
-                                          </p>
+                                        <div>Div 4</div>
+                                      </script>
+                                      <script type="text/x-codigo" data-parte="base">div{padding:10px 12px;margin:0 0 8px;border-radius:8px;background:#e8eef7;border:1px solid #c9d5e6}button{margin-left:10px}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
                                     </div>
                                     <p>Este ejemplo accede a los 3 primeros elementos de tipo <span
                                             class="code">&lt;<span class="codetag">div</span>&gt;</span>. El
