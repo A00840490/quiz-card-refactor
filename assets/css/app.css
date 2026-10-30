@@ -8654,6 +8654,20 @@ label.success {
 }
 
 /* =====================================================================
+   ico-clic: el ícono del mouse que va antes de cualquier texto que invite a
+   hacer clic ("Haz clic aquí", un enlace...), sea o no hipervínculo.
+     <span class="ico-clic" aria-hidden="true"></span><a href="…">aquí</a>
+   ===================================================================== */
+.ico-clic {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  background: url("../images/clic.svg") no-repeat center / contain;
+  vertical-align: middle;
+}
+
+/* =====================================================================
    grafico-exp: explicación de un gráfico interactivo. Mismo estándar que la
    del tren del 4-6: párrafo normal del curso (Lato negro, 18px/1.9; 16px/1.5
    en celular) alineado a la izquierda, y el concepto que se enseña en
