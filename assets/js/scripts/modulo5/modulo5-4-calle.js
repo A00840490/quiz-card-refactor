@@ -64,10 +64,11 @@
     return s + '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="3" fill="#000" opacity=".15"/>';
   }
 
-  /* Cada edificio vive en un lienzo de 120 de ancho; la base queda en y = 200 */
+  /* Cada edificio vive en un lienzo de 120 de ancho; la base queda en y = 200
+     y cima es la y de su punto más alto */
   var EDIFICIOS = [
     {
-      tld: ".com", nombre: "Comercial", alto: 132,
+      tld: ".com", nombre: "Comercial", alto: 132, cima: 68,
       texto: "Es la opción más popular y significa “comercial”. La usan tiendas en línea, empresas y casi cualquier tipo de sitio.",
       ejemplo: ["www.tenisrayo", ".com"],
       dibujo: function () {
@@ -81,7 +82,7 @@
       }
     },
     {
-      tld: ".net", nombre: "Redes y tecnología", alto: 168,
+      tld: ".net", nombre: "Redes y tecnología", alto: 168, cima: 28,
       texto: "Se utiliza para sitios relacionados con las tecnologías de la información, como un proveedor de internet, aunque también funciona como alternativa a .com.",
       ejemplo: ["www.fibraveloz", ".net"],
       dibujo: function () {
@@ -104,7 +105,7 @@
       }
     },
     {
-      tld: ".org", nombre: "Organizaciones", alto: 128,
+      tld: ".org", nombre: "Organizaciones", alto: 128, cima: 67,
       texto: "Es para organizaciones no gubernamentales o sin fines de lucro, como un refugio de animales o una fundación.",
       ejemplo: ["www.refugiopatitas", ".org"],
       dibujo: function () {
@@ -119,7 +120,7 @@
       }
     },
     {
-      tld: ".gob", nombre: "Gobierno", alto: 150,
+      tld: ".gob", nombre: "Gobierno", alto: 150, cima: 27,
       texto: "<b>.gob</b> y <b>.gov</b> sirven para instituciones de gobierno. En México se usa .gob.mx y en Estados Unidos, .gov.",
       ejemplo: ["www.villaaurora", ".gob.mx"],
       dibujo: function () {
@@ -137,7 +138,7 @@
       }
     },
     {
-      tld: ".edu", nombre: "Educación", alto: 150,
+      tld: ".edu", nombre: "Educación", alto: 150, cima: 33,
       texto: "Sirve para instituciones de educación, como escuelas y universidades. En México se escribe .edu.mx.",
       ejemplo: ["www.prepasol", ".edu.mx"],
       dibujo: function () {
@@ -153,7 +154,7 @@
       }
     },
     {
-      tld: ".info", nombre: "Información", alto: 112,
+      tld: ".info", nombre: "Información", alto: 112, cima: 91,
       texto: "Es para sitios de información: artículos, guías y datos sobre algún tema.",
       ejemplo: ["www.cacaopedia", ".info"],
       dibujo: function () {
@@ -167,7 +168,7 @@
       }
     },
     {
-      tld: ".biz", nombre: "Negocios", alto: 190,
+      tld: ".biz", nombre: "Negocios", alto: 190, cima: 9,
       texto: "Viene de <i>business</i> (negocios en inglés) y es para sitios de negocios.",
       ejemplo: ["www.consultorianorte", ".biz"],
       dibujo: function () {
@@ -181,7 +182,7 @@
       }
     },
     {
-      tld: ".mx", nombre: "México", alto: 140,
+      tld: ".mx", nombre: "México", alto: 140, cima: 25,
       texto: "Indica que el sitio es de México. Se puede usar sola o junto con otra terminación, como .com.mx.",
       ejemplo: ["www.tacosdonpepe", ".mx"],
       dibujo: function () {
@@ -223,7 +224,9 @@
   EDIFICIOS.forEach(function (e, i) {
     var lote = document.createElement("div");
     lote.className = "calle-dom__lote";
-    var top = 200 - e.alto - 30;
+    // El dibujo empieza justo en su punto más alto (bandera, antena…), así la
+    // terminación, que va en el espacio de arriba del botón, nunca lo tapa
+    var top = e.cima - 4;
     lote.innerHTML =
       '<button type="button" class="calle-dom__edif" aria-pressed="false" aria-label="' + esc(e.nombre + ": " + e.tld) + '">' +
         '<span class="calle-dom__letrero">' + esc(e.tld) + "</span>" +

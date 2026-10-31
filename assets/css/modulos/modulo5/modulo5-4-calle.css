@@ -47,7 +47,7 @@
   display: block;
   width: 100%;
   margin: 0;
-  padding: 26px 3px 0;
+  padding: 30px 3px 0;
   border: 0;
   background: none;
   cursor: pointer;
@@ -90,7 +90,7 @@
    edificio elegido */
 .calle-dom__letrero {
   position: absolute;
-  top: 20px;
+  top: 0;
   left: 50%;
   z-index: 1;
   color: #000000;
@@ -242,8 +242,8 @@
 }
 
 @media (max-width: 575.98px) {
-  .calle-dom__edif { padding: 24px 1px 0; }
-  .calle-dom__letrero { top: 16px; font-size: 14px; }
+  .calle-dom__edif { padding: 26px 1px 0; }
+  .calle-dom__letrero { font-size: 14px; }
   .calle-dom__carro { width: 58px; }
 }
 
