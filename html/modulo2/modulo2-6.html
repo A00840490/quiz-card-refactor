@@ -10,6 +10,7 @@
   <!-- Favicon -->
   <link href="../../assets/images/logo/favicon.png" rel="shortcut icon" />
   <link href="../../assets/css/curso.css" rel="stylesheet" />
+  <link href="../../assets/css/modulos/modulo2/modulo2-6-rayos.css" rel="stylesheet" />
 </head>
 
 <body class="header-info side-nav-dark">
@@ -35,80 +36,50 @@
                     de un Texto Formateado
                   </h1>
 
-                  <div class="row lesson-demo lesson-demo--scroll">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                      <div class="card">
-                        <div class="container-fluid" style="background-color: #1a1a1a">
-                          <p class="code" data-codigo>
-                            <script type="text/x-codigo">
-                              <h1>
-                                Programación Web
-                              </h1>
-                              <p>
-                                La Programación Web es una disciplina que se ha popularizado mucho en los últimos años. El crecimiento del <b>internet</b> ha permitido la creación de millones de páginas web nuevas, que ofrecen funcionalidades y servicios a una gran cantidad de usuarios.
-                              </p>
-                              <p>
-                                Se utilizan 3 principales lenguajes para ella, los cuales son <i>HTML, CSS y JavaScript</i>. Cada uno cumple una función específica.
-                              </p>
-                              <h3>
-                                HTML
-                              </h3>
-                              <p>
-                                Este lenguaje le da estructura a las páginas.
-                              </p>
-                              <h3>
-                                CSS
-                              </h3>
-                              <p>
-                                Este lenguaje es para decorar páginas.
-                              </p>
-                              <h3>
-                                JavaScript
-                              </h3>
-                              <p>
-                                Este lenguaje es para manipular elementos de las páginas.
-                              </p>
-                            </script>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                  <p>
+                    Este ejemplo junta todo lo que has visto hasta ahora: encabezados,
+                    párrafos y formato de texto en una sola página.
+                  </p>
+                  <p class="card-info" style="width: fit-content;">
+                    <span class="ico-clic" aria-hidden="true"></span>
+                    Haz clic en cualquier parte de la página o arrastra la lupa.
+                  </p>
 
-                      <div class="card">
-                        <div class="container-fluid">
-                          <div class="example">
-                            <h1>Programación Web</h1>
-                            <p>
-                              La Programación Web es una disciplina que se
-                              ha popularizado mucho en los últimos años.
-                              El crecimiento del <b> Internet </b> ha
-                              permitido la creación de millones de páginas
-                              web nuevas, que ofrecen funcionalidades y
-                              servicios a una gran cantidad de usuarios.
-                            </p>
-                            <p>
-                              Se utilizan 3 principales lenguajes para
-                              ella, los cuales son
-                              <i> HTML, CSS y JavaScript</i>. Cada uno
-                              cumple una función específica.
-                            </p>
-                            <h3>HTML</h3>
-                            <p>
-                              Este lenguaje le da estructura a las
-                              páginas.
-                            </p>
-                            <h3>CSS</h3>
-                            <p>Este lenguaje es para decorar páginas.</p>
-                            <h3>JavaScript</h3>
-                            <p>
-                              Este lenguaje es para manipular elementos de
-                              las páginas.
-                            </p>
-                          </div>
+                  <!-- La página con una lupa de rayos X (ver modulo2-6-rayos.css / .js).
+                       El código que se ve dentro de la lupa se arma de este mismo HTML. -->
+                  <div class="rayos" data-rayos>
+                    <div class="rayos__nav">
+                      <div class="rayos__bar">
+                        <div class="rayos__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <div class="rayos__url">ejemplo.html</div>
+                      </div>
+                      <div class="rayos__view" data-rx>
+                        <div class="rayos__doc" data-base>
+                          <h1 data-exp="`h1` es el encabezado más importante de la página: el navegador lo muestra con la letra más grande y en negritas, con espacio arriba y abajo.">Programación Web</h1>
+                          <p data-exp="`p` encierra un párrafo. Aunque en el código el texto vaya en otra línea, el navegador lo acomoda en un solo bloque que se ajusta al ancho de la ventana.">
+                            La Programación Web es una disciplina que se ha popularizado mucho
+                            en los últimos años. El crecimiento del
+                            <b data-exp="`b` está dentro del párrafo y pone en negritas solo la palabra internet; el resto del párrafo sigue igual.">internet</b>
+                            ha permitido la creación de millones de páginas web nuevas, que
+                            ofrecen funcionalidades y servicios a una gran cantidad de usuarios.
+                          </p>
+                          <p data-exp="Otro `p`: cada párrafo empieza en un renglón nuevo y deja un espacio con el anterior, sin necesidad de `br`.">
+                            Se utilizan 3 principales lenguajes para ella, los cuales son
+                            <i data-exp="`i` pone en cursiva HTML, CSS y JavaScript sin sacar esas palabras del párrafo.">HTML, CSS y JavaScript</i>.
+                            Cada uno cumple una función específica.
+                          </p>
+                          <h3 data-exp="`h3` es un encabezado de tercer nivel: más chico que el `h1`, sirve como subtítulo de una sección. Aquí hay tres, uno por lenguaje.">HTML</h3>
+                          <p data-exp="Cada `h3` va seguido de su propio `p`, que es el texto de esa sección.">Este lenguaje le da estructura a las páginas.</p>
+                          <h3 data-exp="Otro `h3`: los tres subtítulos se ven iguales porque usan la misma etiqueta.">CSS</h3>
+                          <p data-exp="Este `p` es el texto de la sección de CSS.">Este lenguaje es para decorar páginas.</p>
+                          <h3 data-exp="El último `h3`. Con `h1` y `h3` la página queda ordenada en un título y tres secciones.">JavaScript</h3>
+                          <p data-exp="El último `p`, el texto de la sección de JavaScript.">Este lenguaje es para manipular elementos de las páginas.</p>
                         </div>
+                        <div class="rayos__xray" aria-hidden="true"><div data-xray></div></div>
+                        <div class="rayos__lente" data-lente tabindex="0" role="slider" aria-label="Lupa de rayos X. Muévela con las flechas"></div>
                       </div>
                     </div>
+                    <p class="grafico-exp rayos__exp" data-status aria-live="polite"></p>
                   </div>
                 </div>
               </div>
@@ -126,6 +97,7 @@
     </div>
   </div>
   <script src="../../assets/js/curso.js"></script>
+  <script src="../../assets/js/scripts/modulo2/modulo2-6-rayos.js"></script>
 </body>
 
 </html>

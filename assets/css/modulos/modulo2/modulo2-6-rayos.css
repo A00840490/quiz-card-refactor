@@ -1,0 +1,262 @@
+/* Módulo 2-6: el ejemplo de una página HTML con una lupa de rayos X.
+   La página se ve normal dentro de un navegador. Donde pasa la lupa se ve el
+   HTML que la forma: cada bloque (h1, p, h3) bordeado y con su código escrito
+   del mismo tamaño que ocupa en la página; <b> e <i> van marcados dentro de
+   su párrafo. Debajo, la explicación de la etiqueta que está bajo la lupa.
+   Ver modulo2-6-rayos.js. */
+.rayos {
+  --rayos-r: 92px;
+  display: grid;
+  gap: 18px;
+  width: 100%;
+  max-width: 900px;
+  margin: 18px auto 10px;
+}
+
+@media (max-width: 575.98px) {
+  .rayos { --rayos-r: 70px; }
+}
+
+/* ---------- Navegador ---------- */
+.rayos__nav {
+  overflow: hidden;
+  border: 1px solid #dce3ec;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(31, 47, 71, 0.14);
+}
+
+.rayos__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #dce3ec;
+  background: #eef1f6;
+}
+
+.rayos__dots {
+  display: flex;
+  flex: none;
+  gap: 6px;
+}
+
+.rayos__dots i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff6b62;
+}
+
+.rayos__dots i:nth-child(2) { background: #f6bd4f; }
+.rayos__dots i:nth-child(3) { background: #38c878; }
+
+.rayos__url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px #dce3ec;
+  color: #1c2434;
+  font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rayos__view {
+  --x: 50%;
+  --y: 70px;
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  cursor: crosshair;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- La página, como la pinta el navegador sin CSS ---------- */
+.rayos__doc {
+  padding: 10px 40px 18px;
+  color: #000000;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 19px;
+  line-height: 1.45;
+  text-align: left;
+}
+
+@media (max-width: 575.98px) {
+  .rayos__doc { padding: 4px 16px 12px; font-size: 16px; }
+}
+
+.rayos__doc h1,
+.rayos__doc h3 {
+  color: #000000;
+  font-family: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.rayos__doc h1 { margin: 0.67em 0; font-size: 2em; }
+.rayos__doc h3 { margin: 1em 0 0.5em; font-size: 1.17em; }
+/* El texto del curso (p con su propia letra y tamaño) no entra a la página
+   del ejemplo: todo toma la letra del navegador */
+.rayos .rayos__doc p {
+  margin: 0 0 1em;
+  color: #000000;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: inherit;
+  letter-spacing: normal;
+}
+
+.rayos .rayos__doc b { font-weight: 700; }
+.rayos .rayos__doc i { font-style: italic; }
+
+/* ---------- Radiografía: solo se ve dentro de la lupa ---------- */
+.rayos__xray {
+  position: absolute;
+  inset: 0;
+  background-color: #061633;
+  background-image:
+    linear-gradient(rgba(125, 211, 252, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.08) 1px, transparent 1px),
+    radial-gradient(circle at 50% 35%, #123a72, #061633 75%);
+  background-size: 22px 22px, 22px 22px, 100% 100%;
+  clip-path: circle(var(--rayos-r) at var(--x) var(--y));
+  pointer-events: none;
+}
+
+/* Cada bloque, en el mismo lugar y del mismo tamaño que en la página */
+.rayos__bloque {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  outline: 1.5px dashed rgba(125, 211, 252, 0.6);
+  outline-offset: 3px;
+  color: rgba(214, 236, 255, 0.8);
+  transition: outline-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.rayos__bloque::before {
+  content: "<" attr(data-tag) ">";
+  position: absolute;
+  top: -17px;
+  left: -4px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: #7dd3fc;
+  color: #061633;
+  font: 700 11px/16px SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+  white-space: nowrap;
+}
+
+.rayos__codigo {
+  width: 100%;
+  font-family: "Courier New", Consolas, monospace;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-align: left;
+  white-space: normal;
+}
+
+.rayos__codigo .codetag {
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.rayos__in {
+  border-radius: 2px;
+  outline: 1.5px dashed rgba(125, 211, 252, 0.6);
+  outline-offset: 1px;
+}
+
+/* Lo que está bajo la lupa */
+.rayos__bloque.is-on,
+.rayos__in.is-on {
+  background-color: rgba(250, 199, 117, 0.12);
+  outline: 2px solid #fac775;
+  color: #ffffff;
+}
+
+.rayos__bloque.is-on .codetag,
+.rayos__in.is-on .codetag { color: #fac775; }
+
+.rayos__bloque.is-on::before {
+  background: #fac775;
+  color: #412402;
+}
+
+/* ---------- Lupa ---------- */
+.rayos__lente {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: calc(var(--rayos-r) * 2);
+  height: calc(var(--rayos-r) * 2);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 5px #2b3550,
+    0 0 0 7px #a9b5d1,
+    0 0 0 8px rgba(0, 0, 0, 0.25),
+    0 16px 32px rgba(6, 20, 50, 0.4),
+    inset 0 0 22px rgba(125, 211, 252, 0.35);
+  transform: translate(calc(var(--x) - var(--rayos-r)), calc(var(--y) - var(--rayos-r)));
+  cursor: grab;
+  touch-action: none;
+}
+
+.rayos__lente:active { cursor: grabbing; }
+
+.rayos__lente:focus { outline: none; }
+
+.rayos__lente:focus-visible {
+  outline: 3px solid #fac775;
+  outline-offset: 10px;
+}
+
+/* Brillo del vidrio */
+.rayos__lente::before {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 38%);
+  pointer-events: none;
+}
+
+/* Mango */
+.rayos__lente::after {
+  content: "";
+  position: absolute;
+  top: calc(50% + var(--rayos-r) * 0.74);
+  left: calc(50% + var(--rayos-r) * 0.74);
+  width: 18px;
+  height: calc(var(--rayos-r) * 0.95);
+  border-radius: 9px;
+  background: linear-gradient(90deg, #1b2131, #56627f 45%, #1b2131);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, 0) rotate(-45deg);
+  transform-origin: 50% 0;
+}
+
+/* Al hacer clic la lupa viaja; al arrastrarla, sigue al cursor sin retraso */
+.rayos__view.is-animando .rayos__xray { transition: clip-path 0.45s cubic-bezier(0.2, 0.8, 0.25, 1); }
+.rayos__view.is-animando .rayos__lente { transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1); }
+
+/* ---------- Explicación (estándar .grafico-exp), con desvanecido ---------- */
+.rayos__exp {
+  min-height: 4.5em;
+  transition: opacity 0.2s ease;
+}
+
+.rayos__exp.is-fading { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rayos__view.is-animando .rayos__xray,
+  .rayos__view.is-animando .rayos__lente,
+  .rayos__exp { transition: none; }
+}
