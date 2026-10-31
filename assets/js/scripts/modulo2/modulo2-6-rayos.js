@@ -4,10 +4,10 @@
      cambia ese HTML. Cada bloque y cada <b>/<i> trae su explicación en
      data-exp; lo que va entre `comillas invertidas` sale como etiqueta
      (`h1` → <h1> en azul y monoespaciada).
-   - La radiografía tiene un recuadro por bloque, en el mismo lugar y del
-     mismo tamaño que el bloque en la página, con su código escrito con la
-     letra más grande que quepa: el título ocupa en código lo mismo que en
-     pantalla.
+   - La radiografía tiene una cápsula por bloque, en el mismo lugar y del
+     mismo tamaño que el bloque en la página: las puntas son su etiqueta de
+     apertura y de cierre, y en medio va su contenido con la letra más grande
+     que quepa (el título ocupa en código lo mismo que en pantalla).
    - Con el mouse, la lupa sigue al cursor dentro de la página; un clic la
      deja fija (el cursor se mueve libre) y otro clic la lleva a donde está el
      cursor y vuelve a seguirlo. Con el dedo se arrastra o va a donde se toca;
@@ -32,19 +32,23 @@
   bloques.concat(inlines).forEach(function (el, i) { el.setAttribute("data-el", "e" + i); });
 
   function etiqueta(nombre, cierra) {
-    return "&lt;" + (cierra ? "/" : "") + "<span class=\"codetag\">" + nombre + "</span>&gt;";
+    return "&lt;" + (cierra ? "/" : "") + nombre + "&gt;";
   }
 
-  // El código de un bloque en una sola tira; <b> e <i> van en su propio recuadro
-  function codigoDe(el) {
-    var tag = el.tagName.toLowerCase();
-    var dentro = [].map.call(el.childNodes, function (n) {
+  // El contenido de un bloque en una sola tira; <b> e <i> van en su cápsula
+  function contenidoDe(el) {
+    return [].map.call(el.childNodes, function (n) {
       if (n.nodeType === 3) return esc(n.textContent.replace(/\s+/g, " "));
       if (n.nodeType !== 1) return "";
       var t = n.tagName.toLowerCase();
-      return "<span class=\"rayos__in\" data-el=\"" + n.getAttribute("data-el") + "\">" + etiqueta(t) + esc(n.textContent.replace(/\s+/g, " ").trim()) + etiqueta(t, true) + "</span>";
+      return "<span class=\"rayos__in\" data-el=\"" + n.getAttribute("data-el") + "\"><span class=\"rayos__mini\">" + etiqueta(t) + "</span>" + esc(n.textContent.replace(/\s+/g, " ").trim()) + "<span class=\"rayos__mini\">" + etiqueta(t, true) + "</span></span>";
     }).join("").trim();
-    return etiqueta(tag) + dentro + etiqueta(tag, true);
+  }
+
+  // La cápsula: apertura en una punta, contenido en medio y cierre en la otra
+  function capsula(el) {
+    var tag = el.tagName.toLowerCase();
+    return "<span class=\"rayos__tapa\">" + etiqueta(tag) + "</span><div class=\"rayos__codigo\">" + contenidoDe(el) + "</div><span class=\"rayos__tapa\">" + etiqueta(tag, true) + "</span>";
   }
 
   function explicacion(el) {
@@ -53,14 +57,19 @@
     });
   }
 
-  // La letra más grande con la que el código cabe en su recuadro
+  // Las puntas toman una letra según el alto del bloque; el contenido, la más
+  // grande con la que cabe en medio
   function ajustar(caja) {
-    var txt = caja.firstChild;
-    var w = caja.clientWidth, h = caja.clientHeight, lo = 4, hi = 160;
+    var h = caja.clientHeight;
+    caja.classList.toggle("is-alto", h > 60);
+    // En una pantalla angosta las puntas no le quitan espacio al contenido
+    caja.style.setProperty("--tapa-f", Math.max(11, Math.min(22, h * 0.42, caja.clientWidth * 0.04)) + "px");
+    var txt = caja.querySelector(".rayos__codigo");
+    var w = txt.clientWidth, lo = 4, hi = 160;
     for (var k = 0; k < 16; k++) {
       var f = (lo + hi) / 2;
       txt.style.fontSize = f + "px";
-      if (txt.scrollHeight <= h && txt.scrollWidth <= w) lo = f; else hi = f;
+      if (txt.scrollHeight <= h - 4 && txt.scrollWidth <= txt.clientWidth) lo = f; else hi = f;
     }
     txt.style.fontSize = lo + "px";
   }
@@ -71,7 +80,7 @@
     var R = view.getBoundingClientRect();
     xray.innerHTML = bloques.map(function (el) {
       var r = el.getBoundingClientRect();
-      return "<div class=\"rayos__bloque\" data-el=\"" + el.getAttribute("data-el") + "\" data-tag=\"" + el.tagName.toLowerCase() + "\" style=\"left:" + (r.left - R.left) + "px;top:" + (r.top - R.top) + "px;width:" + r.width + "px;height:" + r.height + "px\"><div class=\"rayos__codigo\">" + codigoDe(el) + "</div></div>";
+      return "<div class=\"rayos__bloque\" data-el=\"" + el.getAttribute("data-el") + "\" data-tag=\"" + el.tagName.toLowerCase() + "\" style=\"left:" + (r.left - R.left) + "px;top:" + (r.top - R.top) + "px;width:" + r.width + "px;height:" + r.height + "px\">" + capsula(el) + "</div>";
     }).join("");
     [].forEach.call(xray.children, ajustar);
     if (actual) marcar(actual);

@@ -128,66 +128,90 @@
   pointer-events: none;
 }
 
-/* Cada bloque, en el mismo lugar y del mismo tamaño que en la página */
+/* Cada bloque es una cápsula en el mismo lugar y del mismo tamaño que en la
+   página: su etiqueta de apertura y de cierre son las puntas y en medio va
+   su contenido. <b> e <i> son cápsulas chiquitas dentro del texto. */
 .rayos__bloque {
+  --tapa: #3b5bdb;
+  --tapa-tinta: #ffffff;
   position: absolute;
   display: flex;
-  align-items: center;
-  border-radius: 2px;
-  outline: 1.5px dashed rgba(125, 211, 252, 0.6);
-  outline-offset: 3px;
-  color: rgba(214, 236, 255, 0.8);
-  transition: outline-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1.5px solid var(--tapa);
+  border-radius: 999px;
+  background: rgba(6, 22, 51, 0.55);
+  color: rgba(214, 236, 255, 0.85);
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
-.rayos__bloque::before {
-  content: "<" attr(data-tag) ">";
-  position: absolute;
-  top: -17px;
-  left: -4px;
-  padding: 0 6px;
-  border-radius: 4px;
-  background: #7dd3fc;
-  color: #061633;
-  font: 700 11px/16px SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+/* Un bloque de varios renglones no queda como óvalo: sus puntas solo se redondean */
+.rayos__bloque.is-alto { border-radius: 22px; }
+
+.rayos__tapa {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.55em;
+  background: var(--tapa);
+  color: var(--tapa-tinta);
+  font: 700 var(--tapa-f, 14px)/1 "Courier New", Consolas, monospace;
   white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+.rayos__tapa:first-child { padding-left: 0.8em; }
+.rayos__tapa:last-child { padding-right: 0.8em; }
 
 .rayos__codigo {
-  width: 100%;
+  flex: 1 1 0;
+  align-self: center;
+  min-width: 0;
+  padding: 0 0.5em;
   font-family: "Courier New", Consolas, monospace;
-  line-height: 1.2;
+  line-height: 1.25;
   overflow-wrap: anywhere;
   text-align: left;
   white-space: normal;
 }
 
-.rayos__codigo .codetag {
-  color: #7dd3fc;
-  font-weight: 700;
-}
-
 .rayos__in {
-  border-radius: 2px;
-  outline: 1.5px dashed rgba(125, 211, 252, 0.6);
-  outline-offset: 1px;
+  --tapa: #3b5bdb;
+  --tapa-tinta: #ffffff;
+  padding-right: 0.1em;
+  border: 1px solid var(--tapa);
+  border-radius: 999px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-/* Lo que está bajo la lupa */
+.rayos__mini {
+  display: inline-block;
+  padding: 0 0.3em;
+  border-radius: 999px;
+  background: var(--tapa);
+  color: var(--tapa-tinta);
+  font-size: 0.8em;
+  font-weight: 700;
+  line-height: 1.3;
+  vertical-align: 0.05em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.rayos__mini:first-child { margin-right: 0.15em; }
+.rayos__mini:last-child { margin-left: 0.15em; }
+
+/* Lo que está bajo la lupa: las puntas se vuelven doradas */
 .rayos__bloque.is-on,
 .rayos__in.is-on {
-  background-color: rgba(250, 199, 117, 0.12);
-  outline: 2px solid #fac775;
+  --tapa: #fac775;
+  --tapa-tinta: #412402;
   color: #ffffff;
 }
 
-.rayos__bloque.is-on .codetag,
-.rayos__in.is-on .codetag { color: #fac775; }
-
-.rayos__bloque.is-on::before {
-  background: #fac775;
-  color: #412402;
-}
+.rayos__bloque.is-on { background-color: rgba(54, 40, 10, 0.55); }
 
 /* ---------- Lupa ---------- */
 .rayos__lente {
