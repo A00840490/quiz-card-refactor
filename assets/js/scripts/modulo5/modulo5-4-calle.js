@@ -6,8 +6,7 @@
    palacio municipal .gob, la escuela .edu, el kiosco .info, la oficina .biz y
    la casa con bandera .mx. Al tocar un edificio se le prenden las luces, los
    demás se apagan un poco, el carrito maneja hasta su puerta y abajo aparece
-   la ficha con la terminación, para qué sirve y una dirección de ejemplo en
-   una placa de calle.
+   la ficha con la terminación, para qué sirve y una dirección de ejemplo.
 
    Los muros usan texturas de fotos reales (m5-3/calle/ y las de madera y
    aluminio del tocadiscos del 4-11). En celular la calle se parte en dos
@@ -243,9 +242,8 @@
   function ficha(e) {
     return '<div class="calle-dom__tld">' + esc(e.tld) + "</div>" +
       '<div class="calle-dom__texto">' +
-        '<h3 class="calle-dom__nombre">' + esc(e.nombre) + "</h3>" +
         '<p class="calle-dom__desc">' + e.texto + "</p>" +
-        '<div class="calle-dom__placa"><small>Ejemplo</small><span>' + esc(e.ejemplo[0]) + "<b>" + esc(e.ejemplo[1]) + "</b></span></div>" +
+        '<p class="calle-dom__desc calle-dom__ejemplo">Ejemplo: ' + esc(e.ejemplo[0]) + "<b>" + esc(e.ejemplo[1]) + "</b></p>" +
       "</div>";
   }
   var tFicha;

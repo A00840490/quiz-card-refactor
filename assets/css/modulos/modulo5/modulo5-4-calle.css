@@ -4,7 +4,7 @@
    Un gráfico para mostrar información, no para explicar código: no lleva
    ventana de código ni ficha de renglones (Ale, 31/10). Arriba la calle con
    ocho edificios (en celular, dos cuadras de cuatro), sin fondo de cielo y abajo la ficha de la
-   terminación elegida con su placa de ejemplo. */
+   terminación elegida con un ejemplo. */
 
 .calle-dom {
   --cd-azul: var(--theme-color);
@@ -167,7 +167,7 @@
   margin-top: 22px;
   padding: 22px 26px;
   border: 1px solid #e1e7ef;
-  border-radius: 16px;
+  border-radius: 0;
   background: #ffffff;
   box-shadow: 0 8px 24px rgba(6, 43, 102, 0.07);
   transition: opacity 0.22s ease, transform 0.22s ease;
@@ -191,12 +191,6 @@
   letter-spacing: -0.02em;
 }
 
-.calle-dom__nombre {
-  margin: 0 0 4px;
-  color: #1c2434;
-  font: 700 22px/1.25 "Fira Sans", sans-serif;
-}
-
 .calle-dom__desc {
   margin: 0;
   color: #000000;
@@ -205,36 +199,18 @@
   line-height: 1.7;
 }
 
-/* La dirección de ejemplo, como una placa de calle */
-.calle-dom__placa {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 100%;
-  margin-top: 12px;
-  padding: 7px 14px;
-  border: 3px solid #ffffff;
-  border-radius: 8px;
-  background: linear-gradient(#2d5a9e, #1d3f73);
-  box-shadow: 0 0 0 2px #1d3f73, 0 6px 14px rgba(0, 0, 0, 0.18);
-  color: #ffffff;
-}
-
-.calle-dom__placa small {
-  padding-right: 10px;
-  border-right: 1px solid rgba(255, 255, 255, 0.4);
-  color: #c9dbf5;
-  font: 700 11px "Lato", sans-serif;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.calle-dom__placa span {
+/* La dirección de ejemplo: mismo texto que la explicación, en itálicas, con
+   la terminación en amarillo */
+.calle-dom__ejemplo {
+  margin-top: 6px;
+  font-style: italic;
   overflow-wrap: anywhere;
-  font: 700 16px "Courier New", monospace;
 }
 
-.calle-dom__placa b { color: #ffd166; }
+.calle-dom__ejemplo b {
+  color: #ffd166;
+  font-weight: 700;
+}
 
 /* ---------- Tableta y celular ---------- */
 @media (max-width: 991.98px) {
@@ -261,9 +237,7 @@
     padding: 12px 18px;
     font-size: 28px;
   }
-  .calle-dom__nombre { font-size: 19px; }
   .calle-dom__desc { font-size: 16px; line-height: 1.5; }
-  .calle-dom__placa span { font-size: 14px; }
 }
 
 @media (max-width: 575.98px) {
