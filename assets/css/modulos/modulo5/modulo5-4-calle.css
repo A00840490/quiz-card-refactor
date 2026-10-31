@@ -159,17 +159,17 @@
 @keyframes calle-bandera { 0% { transform: skewY(-4deg) scaleX(1); } 100% { transform: skewY(4deg) scaleX(0.92); } }
 
 /* ---------- Ficha de la terminación elegida ---------- */
+/* Sin contorno. El bloque (terminación + texto) va centrado en la tarjeta,
+   pero el texto se alinea a la izquierda */
 .calle-dom__info {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, max-content);
+  justify-content: center;
   gap: 26px;
   align-items: center;
   margin-top: 22px;
-  padding: 22px 26px;
-  border: 1px solid #e1e7ef;
-  border-radius: 0;
-  background: #ffffff;
-  box-shadow: 0 8px 24px rgba(6, 43, 102, 0.07);
+  padding: 22px 0;
+  text-align: left;
   transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
@@ -190,6 +190,8 @@
   font: 700 38px/1 SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   letter-spacing: -0.02em;
 }
+
+.calle-dom__texto { max-width: 780px; }
 
 .calle-dom__desc {
   margin: 0;
@@ -227,9 +229,9 @@
   }
   .calle-dom__asfalto { height: 40px; }
   .calle-dom__info {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, max-content);
     gap: 14px;
-    padding: 18px 16px;
+    padding: 16px 0;
   }
   .calle-dom__tld {
     justify-self: start;
