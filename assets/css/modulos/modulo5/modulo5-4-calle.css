@@ -1,0 +1,344 @@
+/* Módulo 5-4: las terminaciones de dominios como una calle
+   (assets/js/scripts/modulo5/modulo5-4-calle.js).
+
+   Un gráfico para mostrar información, no para explicar código: no lleva
+   ventana de código ni ficha de renglones (Ale, 31/10). Arriba la calle con
+   ocho edificios (en celular, dos cuadras de cuatro) y abajo la ficha de la
+   terminación elegida con su placa de ejemplo. */
+
+.calle-dom {
+  --cd-azul: var(--theme-color);
+  margin-top: 10px;
+}
+
+.calle-dom__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------- Escena: cielo, cerros y la calle ---------- */
+.calle-dom__escena {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #8ec5f2 0%, #cbe6fb 55%, #eef7ff 100%);
+  box-shadow: 0 10px 30px rgba(6, 43, 102, 0.12);
+}
+
+.calle-dom__cielo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.calle-dom__sol {
+  position: absolute;
+  top: 18px;
+  right: 7%;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #fff7d6, #ffd54a 60%, #ffb703);
+  box-shadow: 0 0 40px 14px rgba(255, 214, 90, 0.45);
+}
+
+.calle-dom__cerros {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 70px;
+  width: 100%;
+  height: 46%;
+}
+
+.calle-dom__nube {
+  position: absolute;
+  height: 18px;
+  border-radius: 999px;
+  background: #ffffff;
+  opacity: 0.85;
+  filter: blur(0.5px);
+  animation: calle-nube 70s linear infinite;
+}
+
+.calle-dom__nube::before,
+.calle-dom__nube::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.calle-dom__nube::before { left: 18%; width: 36%; height: 26px; }
+.calle-dom__nube::after { left: 44%; width: 40%; height: 34px; }
+
+.calle-dom__nube--1 { top: 34px; left: 8%; width: 110px; }
+.calle-dom__nube--2 { top: 70px; left: 46%; width: 80px; opacity: 0.7; animation-duration: 95s; animation-delay: -30s; }
+.calle-dom__nube--3 { top: 22px; left: 72%; width: 70px; opacity: 0.6; animation-duration: 110s; animation-delay: -60s; }
+
+@keyframes calle-nube {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(60px); }
+  100% { transform: translateX(0); }
+}
+
+/* Los lotes: edificio, banqueta y asfalto. Sin espacio entre columnas para
+   que la banqueta y la calle sean una sola franja */
+.calle-dom__lotes {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  column-gap: 0;
+  padding-top: 40px;
+}
+
+.calle-dom__lote {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  align-items: end;
+  min-width: 0;
+}
+
+.calle-dom__edif {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 26px 3px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transform-origin: 50% 100%;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
+}
+
+.calle-dom__edif svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.calle-dom__edif:hover { transform: translateY(-4px); }
+
+.calle-dom__edif:focus { outline: none; }
+
+.calle-dom__edif:focus-visible .calle-dom__letrero {
+  outline: 3px solid #fac775;
+  outline-offset: 2px;
+}
+
+.calle-dom.tiene-elegido .calle-dom__edif:not(.is-elegido) {
+  filter: saturate(0.45) brightness(0.9);
+}
+
+.calle-dom.tiene-elegido .calle-dom__edif:not(.is-elegido):hover {
+  filter: none;
+}
+
+.calle-dom__edif.is-elegido { transform: translateY(-6px) scale(1.04); }
+
+/* Con el edificio elegido se le prenden las luces */
+.calle-dom__edif .cd-v { transition: fill 0.4s ease; }
+.calle-dom__edif.is-elegido .cd-v { fill: url(#cd-encendida); }
+
+/* El letrero con la terminación, colgado arriba del edificio */
+.calle-dom__letrero {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  padding: 2px 9px;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  background: #1c2434;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  font: 700 14px/1.4 SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: background-color 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.calle-dom__edif.is-elegido .calle-dom__letrero {
+  background: var(--cd-azul);
+  transform: translateX(-50%) scale(1.12);
+}
+
+.calle-dom__banqueta {
+  height: 16px;
+  border-top: 4px solid #d9dee5;
+  background: #b8bec7 url("../../../images/course/modulo5/m5-3/calle/banqueta.jpg") center / 46px;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.18);
+}
+
+.calle-dom__asfalto {
+  height: 40px;
+  background:
+    linear-gradient(90deg, transparent 0 18%, #f4d35e 18% 52%, transparent 52%) center / 100% 3px no-repeat,
+    #3d434d url("../../../images/course/modulo5/m5-3/calle/asfalto.jpg") center / 120px;
+}
+
+/* ---------- El carrito ---------- */
+.calle-dom__carro {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 64px;
+  pointer-events: none;
+  transition: transform 1s cubic-bezier(0.45, 0, 0.25, 1), opacity 0.3s ease;
+}
+
+.calle-dom__carro svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.25s ease;
+}
+
+.calle-dom__carro.sin-transicion { transition: none; }
+.calle-dom__carro.is-oculto { opacity: 0; }
+
+.calle-dom__carro.is-andando .calle-dom__rueda { animation: calle-rueda 0.35s linear infinite; }
+.calle-dom__carro.is-andando svg { animation: calle-bache 0.3s ease-in-out infinite alternate; }
+
+@keyframes calle-rueda { to { transform: rotate(360deg); } }
+@keyframes calle-bache { to { translate: 0 -1px; } }
+
+/* ---------- Detalles que se mueven ---------- */
+.calle-dom .cd-led { animation: calle-led 1.6s steps(2, jump-none) infinite; }
+.calle-dom .cd-led--b { animation-delay: -0.7s; animation-duration: 2.3s; }
+.calle-dom .cd-parpadeo { animation: calle-led 1.2s ease-in-out infinite alternate; }
+.calle-dom .cd-bandera { transform-box: fill-box; transform-origin: 0 50%; animation: calle-bandera 2.4s ease-in-out infinite alternate; }
+
+@keyframes calle-led { 0% { opacity: 1; } 100% { opacity: 0.25; } }
+@keyframes calle-bandera { 0% { transform: skewY(-4deg) scaleX(1); } 100% { transform: skewY(4deg) scaleX(0.92); } }
+
+/* ---------- Ficha de la terminación elegida ---------- */
+.calle-dom__info {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 26px;
+  align-items: center;
+  margin-top: 22px;
+  padding: 22px 26px;
+  border: 1px solid #e1e7ef;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(6, 43, 102, 0.07);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.calle-dom__info.is-cambiando {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.calle-dom__tld {
+  display: grid;
+  place-items: center;
+  min-width: 150px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #0f4c91, var(--cd-azul));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 8px 18px rgba(9, 59, 139, 0.25);
+  color: #ffffff;
+  font: 700 38px/1 SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  letter-spacing: -0.02em;
+}
+
+.calle-dom__nombre {
+  margin: 0 0 4px;
+  color: #1c2434;
+  font: 700 22px/1.25 "Fira Sans", sans-serif;
+}
+
+.calle-dom__desc {
+  margin: 0;
+  color: #000000;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+/* La dirección de ejemplo, como una placa de calle */
+.calle-dom__placa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  margin-top: 12px;
+  padding: 7px 14px;
+  border: 3px solid #ffffff;
+  border-radius: 8px;
+  background: linear-gradient(#2d5a9e, #1d3f73);
+  box-shadow: 0 0 0 2px #1d3f73, 0 6px 14px rgba(0, 0, 0, 0.18);
+  color: #ffffff;
+}
+
+.calle-dom__placa small {
+  padding-right: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  color: #c9dbf5;
+  font: 700 11px "Lato", sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.calle-dom__placa span {
+  overflow-wrap: anywhere;
+  font: 700 16px "Courier New", monospace;
+}
+
+.calle-dom__placa b { color: #ffd166; }
+
+/* ---------- Tableta y celular ---------- */
+@media (max-width: 991.98px) {
+  .calle-dom__letrero { font-size: 12px; padding: 1px 6px; }
+  .calle-dom__carro { width: 52px; }
+}
+
+@media (max-width: 767.98px) {
+  /* Dos cuadras de cuatro edificios */
+  .calle-dom__lotes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    row-gap: 16px;
+    padding-top: 30px;
+  }
+  .calle-dom__cerros { bottom: auto; top: 40px; height: 22%; }
+  .calle-dom__sol { display: none; }
+  .calle-dom__asfalto { height: 34px; }
+  .calle-dom__info {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 18px 16px;
+  }
+  .calle-dom__tld {
+    justify-self: start;
+    min-width: 0;
+    padding: 12px 18px;
+    font-size: 28px;
+  }
+  .calle-dom__nombre { font-size: 19px; }
+  .calle-dom__desc { font-size: 16px; line-height: 1.5; }
+  .calle-dom__placa span { font-size: 14px; }
+}
+
+@media (max-width: 575.98px) {
+  .calle-dom__edif { padding: 24px 1px 0; }
+  .calle-dom__letrero { font-size: 11px; padding: 1px 5px; border-width: 1.5px; }
+  .calle-dom__carro { width: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calle-dom *,
+  .calle-dom *::before,
+  .calle-dom *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
 
     <link href="../../assets/css/curso.css" rel="stylesheet" />
+    <link href="../../assets/css/modulos/modulo5/modulo5-4-calle.css" rel="stylesheet">
 
 </head>
 
@@ -66,35 +67,30 @@
                         <div class="card">
                             <div class="card-block">
                                 <h2 class="card-title">Terminaciones de Dominios</h2>
-                                <ul>
-                                    <li>
-                                        <p><b>.com</b>: es la opción más popular y significa "comercial".</p>
-                                    </li>
-                                    <li>
-                                        <p><b>.net</b>: se utiliza para sitios relacionados con las tecnologías
-                                            de la información, aunque también funciona como alternativa a
-                                            <b>.com</b>.</p>
-                                    </li>
-                                    <li>
-                                        <p><b>.org</b>: es para organizaciones no gubernamentales o sin fines de
-                                            lucro. </p>
-                                    </li>
-                                    <li>
-                                        <p><b>.gob/.gov</b>: sirven para instituciones de gobierno. </p>
-                                    </li>
-                                    <li>
-                                        <p><b>.edu</b>: sirve para instituciones de educación. </p>
-                                    </li>
-                                    <li>
-                                        <p><b>.info</b>: información. </p>
-                                    </li>
-                                    <li>
-                                        <p><b>.biz</b>: negocios. </p>
-                                    </li>
-                                    <li>
-                                        <p><b>.mx</b>: México. </p>
-                                    </li>
-                                </ul>
+                                <p>El dominio funciona como la dirección de un edificio: su terminación indica qué tipo de
+                                    sitio es.</p>
+                                <!-- Las terminaciones como una calle (ver modulo5-4-calle.css / .js) -->
+                                <p class="card-info" style="width: fit-content;">
+                                    <span class="ico-clic" aria-hidden="true"></span>
+                                    Haz clic en un edificio para conocer su terminación.
+                                </p>
+                                <div class="calle-dom" data-calle-dom>
+                                    <div class="calle-dom__escena" data-escena>
+                                        <div class="calle-dom__cielo" aria-hidden="true">
+                                            <div class="calle-dom__sol"></div>
+                                            <div class="calle-dom__nube calle-dom__nube--1"></div>
+                                            <div class="calle-dom__nube calle-dom__nube--2"></div>
+                                            <div class="calle-dom__nube calle-dom__nube--3"></div>
+                                            <svg class="calle-dom__cerros" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                                                <path d="M0 200V120l90-38 70 26 110-62 90 48 60-20 100 40 70-58 40 30 50-52 60 56 90-36 80 30 90-20v136z" fill="#a9c8e6" />
+                                                <path d="M0 200v-48l120-30 110 30 140-46 120 40 130-34 120 32 110-20 150 34v42z" fill="#8fb3d6" />
+                                            </svg>
+                                        </div>
+                                        <div class="calle-dom__lotes" data-lotes></div>
+                                        <div class="calle-dom__carro" data-carro aria-hidden="true"></div>
+                                    </div>
+                                    <div class="calle-dom__info" data-info aria-live="polite"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -140,6 +136,7 @@
     </div>
 
     <script src="../../assets/js/curso.js"></script>
+    <script src="../../assets/js/scripts/modulo5/modulo5-4-calle.js"></script>
 
 </body>
 
