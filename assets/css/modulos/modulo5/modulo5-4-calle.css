@@ -66,9 +66,10 @@
 
 .calle-dom__edif:focus { outline: none; }
 
-.calle-dom__edif:focus-visible .calle-dom__letrero {
+.calle-dom__edif:focus-visible {
   outline: 3px solid #fac775;
-  outline-offset: 2px;
+  outline-offset: -2px;
+  border-radius: 6px;
 }
 
 .calle-dom.tiene-elegido .calle-dom__edif:not(.is-elegido) {
@@ -85,27 +86,25 @@
 .calle-dom__edif .cd-v { transition: fill 0.4s ease; }
 .calle-dom__edif.is-elegido .cd-v { fill: url(#cd-encendida); }
 
-/* El letrero con la terminación, colgado arriba del edificio */
+/* La terminación, en texto negro arriba del edificio: solo aparece en el
+   edificio elegido */
 .calle-dom__letrero {
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 50%;
   z-index: 1;
-  padding: 2px 9px;
-  border: 2px solid #ffffff;
-  border-radius: 8px;
-  background: #1c2434;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  color: #ffffff;
-  font: 700 14px/1.4 SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  color: #000000;
+  font: 700 17px/1.4 SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   white-space: nowrap;
-  transform: translateX(-50%);
-  transition: background-color 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .calle-dom__edif.is-elegido .calle-dom__letrero {
-  background: var(--cd-azul);
-  transform: translateX(-50%) scale(1.12);
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .calle-dom__banqueta {
@@ -216,7 +215,7 @@
 
 /* ---------- Tableta y celular ---------- */
 @media (max-width: 991.98px) {
-  .calle-dom__letrero { font-size: 12px; padding: 1px 6px; }
+  .calle-dom__letrero { font-size: 15px; }
   .calle-dom__carro { width: 70px; }
 }
 
@@ -244,7 +243,7 @@
 
 @media (max-width: 575.98px) {
   .calle-dom__edif { padding: 24px 1px 0; }
-  .calle-dom__letrero { font-size: 11px; padding: 1px 5px; border-width: 1.5px; }
+  .calle-dom__letrero { top: 16px; font-size: 14px; }
   .calle-dom__carro { width: 58px; }
 }
 
