@@ -8,7 +8,9 @@
      mismo tamaño que el bloque en la página, con su código escrito con la
      letra más grande que quepa: el título ocupa en código lo mismo que en
      pantalla.
-   - La lupa se arrastra (con el mouse o el dedo) o va a donde se hace clic;
+   - Con el mouse, la lupa sigue al cursor dentro de la página; un clic la
+     deja fija (el cursor se mueve libre) y otro clic la lleva a donde está el
+     cursor y vuelve a seguirlo. Con el dedo se arrastra o va a donde se toca;
      con el teclado se mueve con las flechas. Lo que queda bajo su centro se
      ilumina y la explicación de abajo cambia con desvanecido. */
 (function () {
@@ -138,10 +140,39 @@
     return { x: Math.min(q.l + 90, (q.l + q.r) / 2), y: (q.t + q.b) / 2 };
   }
 
-  // ---------- Arrastrar, hacer clic o usar las flechas ----------
+  // ---------- Mouse: la lupa sigue al cursor; un clic la deja fija ----------
+  // Fija, el cursor se mueve libre (aunque salga y vuelva a entrar); con otro
+  // clic la lupa va a donde está el cursor y lo vuelve a seguir.
+  var fija = false;
+
+  function enView(e) {
+    var R = view.getBoundingClientRect();
+    return { x: e.clientX - R.left, y: e.clientY - R.top };
+  }
+
+  view.addEventListener("pointermove", function (e) {
+    if (e.pointerType !== "mouse" || fija) return;
+    var p = enView(e);
+    poner(p.x, p.y, false);
+  });
+
+  view.addEventListener("click", function (e) {
+    var p = enView(e);
+    if (e.pointerType === "mouse" || (!e.pointerType && matchMedia("(hover: hover)").matches)) {
+      fija = !fija;
+      view.classList.toggle("is-fija", fija);
+      if (!fija) poner(p.x, p.y, true);
+      return;
+    }
+    // Con el dedo: tocar la página lleva la lupa ahí
+    if (!lente.contains(e.target)) poner(p.x, p.y, true);
+  });
+
+  // ---------- Dedo: la lupa se arrastra ----------
   var arrastre = null;
 
   lente.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "mouse") return;
     e.preventDefault();
     lente.setPointerCapture(e.pointerId);
     var R = view.getBoundingClientRect();
@@ -158,12 +189,7 @@
   lente.addEventListener("pointerup", soltar);
   lente.addEventListener("pointercancel", soltar);
 
-  view.addEventListener("click", function (e) {
-    if (lente.contains(e.target)) return;
-    var R = view.getBoundingClientRect();
-    poner(e.clientX - R.left, e.clientY - R.top, true);
-  });
-
+  // ---------- Teclado: flechas ----------
   lente.addEventListener("keydown", function (e) {
     var d = { ArrowLeft: [-20, 0], ArrowRight: [20, 0], ArrowUp: [0, -20], ArrowDown: [0, 20] }[e.key];
     if (!d) return;

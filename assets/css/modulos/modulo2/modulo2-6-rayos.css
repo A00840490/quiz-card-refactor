@@ -211,6 +211,30 @@
 
 .rayos__lente:active { cursor: grabbing; }
 
+/* Con mouse la lupa sigue al cursor: no se agarra */
+@media (hover: hover) and (pointer: fine) {
+  .rayos__lente,
+  .rayos__lente:active { cursor: crosshair; }
+}
+
+/* Fija: el aro se pone dorado */
+.rayos__view.is-fija .rayos__lente {
+  box-shadow:
+    0 0 0 5px #2b3550,
+    0 0 0 7px #fac775,
+    0 0 0 8px rgba(0, 0, 0, 0.25),
+    0 16px 32px rgba(6, 20, 50, 0.4),
+    inset 0 0 22px rgba(125, 211, 252, 0.35);
+}
+
+/* La instrucción cambia según se use mouse o dedo */
+.rayos-ins--tactil { display: none; }
+
+@media (hover: none), (pointer: coarse) {
+  .rayos-ins--raton { display: none; }
+  .rayos-ins--tactil { display: inline; }
+}
+
 .rayos__lente:focus { outline: none; }
 
 .rayos__lente:focus-visible {
