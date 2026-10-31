@@ -82,7 +82,7 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 19px;
   line-height: 1.45;
-  text-align: center;
+  text-align: left;
 }
 
 @media (max-width: 575.98px) {
@@ -158,7 +158,7 @@
   font-family: "Courier New", Consolas, monospace;
   line-height: 1.2;
   overflow-wrap: anywhere;
-  text-align: center;
+  text-align: left;
   white-space: normal;
 }
 
@@ -274,6 +274,7 @@
 /* ---------- Explicación (estándar .grafico-exp), con desvanecido ---------- */
 .rayos__exp {
   min-height: 4.5em;
+  text-align: center;
   transition: opacity 0.2s ease;
 }
 

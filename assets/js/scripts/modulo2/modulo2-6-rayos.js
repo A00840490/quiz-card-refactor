@@ -137,7 +137,7 @@
 
   function centroDe(el) {
     var q = rel(el.getBoundingClientRect(), view.getBoundingClientRect());
-    return { x: (q.l + q.r) / 2, y: (q.t + q.b) / 2 };
+    return { x: Math.min(q.l + 90, (q.l + q.r) / 2), y: (q.t + q.b) / 2 };
   }
 
   // ---------- Mouse: la lupa sigue al cursor; un clic la deja fija ----------
