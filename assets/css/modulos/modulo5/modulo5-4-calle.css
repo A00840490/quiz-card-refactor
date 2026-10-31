@@ -3,7 +3,7 @@
 
    Un gráfico para mostrar información, no para explicar código: no lleva
    ventana de código ni ficha de renglones (Ale, 31/10). Arriba la calle con
-   ocho edificios (en celular, dos cuadras de cuatro) y abajo la ficha de la
+   ocho edificios (en celular, dos cuadras de cuatro), sin fondo de cielo y abajo la ficha de la
    terminación elegida con su placa de ejemplo. */
 
 .calle-dom {
@@ -18,71 +18,11 @@
   overflow: hidden;
 }
 
-/* ---------- Escena: cielo, cerros y la calle ---------- */
+/* ---------- Escena: la calle, sin fondo de cielo ---------- */
 .calle-dom__escena {
   position: relative;
   overflow: hidden;
-  border-radius: 16px;
-  background: linear-gradient(180deg, #8ec5f2 0%, #cbe6fb 55%, #eef7ff 100%);
-  box-shadow: 0 10px 30px rgba(6, 43, 102, 0.12);
-}
-
-.calle-dom__cielo {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.calle-dom__sol {
-  position: absolute;
-  top: 18px;
-  right: 7%;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #fff7d6, #ffd54a 60%, #ffb703);
-  box-shadow: 0 0 40px 14px rgba(255, 214, 90, 0.45);
-}
-
-.calle-dom__cerros {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 70px;
-  width: 100%;
-  height: 46%;
-}
-
-.calle-dom__nube {
-  position: absolute;
-  height: 18px;
-  border-radius: 999px;
-  background: #ffffff;
-  opacity: 0.85;
-  filter: blur(0.5px);
-  animation: calle-nube 70s linear infinite;
-}
-
-.calle-dom__nube::before,
-.calle-dom__nube::after {
-  content: "";
-  position: absolute;
-  bottom: 6px;
-  border-radius: 50%;
-  background: inherit;
-}
-
-.calle-dom__nube::before { left: 18%; width: 36%; height: 26px; }
-.calle-dom__nube::after { left: 44%; width: 40%; height: 34px; }
-
-.calle-dom__nube--1 { top: 34px; left: 8%; width: 110px; }
-.calle-dom__nube--2 { top: 70px; left: 46%; width: 80px; opacity: 0.7; animation-duration: 95s; animation-delay: -30s; }
-.calle-dom__nube--3 { top: 22px; left: 72%; width: 70px; opacity: 0.6; animation-duration: 110s; animation-delay: -60s; }
-
-@keyframes calle-nube {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(60px); }
-  100% { transform: translateX(0); }
+  border-radius: 0;
 }
 
 /* Los lotes: edificio, banqueta y asfalto. Sin espacio entre columnas para
@@ -176,7 +116,7 @@
 }
 
 .calle-dom__asfalto {
-  height: 40px;
+  height: 48px;
   background:
     linear-gradient(90deg, transparent 0 18%, #f4d35e 18% 52%, transparent 52%) center / 100% 3px no-repeat,
     #3d434d url("../../../images/course/modulo5/m5-3/calle/asfalto.jpg") center / 120px;
@@ -188,7 +128,7 @@
   top: 0;
   left: 0;
   z-index: 2;
-  width: 64px;
+  width: 86px;
   pointer-events: none;
   transition: transform 1s cubic-bezier(0.45, 0, 0.25, 1), opacity 0.3s ease;
 }
@@ -299,7 +239,7 @@
 /* ---------- Tableta y celular ---------- */
 @media (max-width: 991.98px) {
   .calle-dom__letrero { font-size: 12px; padding: 1px 6px; }
-  .calle-dom__carro { width: 52px; }
+  .calle-dom__carro { width: 70px; }
 }
 
 @media (max-width: 767.98px) {
@@ -309,9 +249,7 @@
     row-gap: 16px;
     padding-top: 30px;
   }
-  .calle-dom__cerros { bottom: auto; top: 40px; height: 22%; }
-  .calle-dom__sol { display: none; }
-  .calle-dom__asfalto { height: 34px; }
+  .calle-dom__asfalto { height: 40px; }
   .calle-dom__info {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -331,7 +269,7 @@
 @media (max-width: 575.98px) {
   .calle-dom__edif { padding: 24px 1px 0; }
   .calle-dom__letrero { font-size: 11px; padding: 1px 5px; border-width: 1.5px; }
-  .calle-dom__carro { width: 44px; }
+  .calle-dom__carro { width: 58px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

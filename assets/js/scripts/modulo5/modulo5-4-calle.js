@@ -115,7 +115,8 @@
           '<circle cx="60" cy="100" r="11" fill="#ffffff" opacity=".9"/><path d="M60 107l-1.4-1.3c-5-4.5-8.2-7.4-8.2-11a5.2 5.2 0 0 1 9.6-2.9 5.2 5.2 0 0 1 9.6 2.9c0 3.6-3.3 6.5-8.2 11z" fill="#d6336c"/>' +
           ventana(24, 128, 22, 24, "#ffffff") + ventana(74, 128, 22, 24, "#ffffff") +
           puerta(48, 152, 24, 48, true) +
-          '<g fill="#8a5a2b"><ellipse cx="90" cy="196" rx="7" ry="4"/><circle cx="96" cy="189" r="4"/><path d="M93 186l1-4 2 3zM98 186l1-4 1 4z"/></g>';
+          // Una huella de patita pintada en el muro
+          '<g fill="#a3264f" opacity=".85" transform="translate(88 176) rotate(-12)"><ellipse cx="0" cy="5" rx="6" ry="5"/><ellipse cx="-6.5" cy="-3.5" rx="2.3" ry="3"/><ellipse cx="-2.2" cy="-7" rx="2.3" ry="3"/><ellipse cx="2.6" cy="-7" rx="2.3" ry="3"/><ellipse cx="6.8" cy="-3.3" rx="2.3" ry="3"/></g>';
       }
     },
     {
