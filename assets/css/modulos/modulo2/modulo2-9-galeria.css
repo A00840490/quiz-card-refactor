@@ -199,9 +199,10 @@
 }
 
 .galeria__cinta--w {
-  top: -26px;
+  top: -28px;
   left: 30px;
-  height: 18px;
+  height: 20px;
+  align-items: flex-end; /* el texto debajo de las marcas */
   background-image:
     repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0 1px, transparent 1px 6px),
     linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.08));
@@ -209,9 +210,10 @@
 }
 
 .galeria__cinta--h {
-  left: -26px;
+  left: -28px;
   top: 30px;
-  width: 18px;
+  width: 20px;
+  justify-content: flex-end; /* el texto a un lado de las marcas */
   background-image:
     repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0 1px, transparent 1px 6px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.08));
@@ -219,13 +221,14 @@
 }
 
 .galeria__cinta span {
-  padding: 1px 3px;
-  background: var(--galeria-tape);
+  padding: 0 3px;
   white-space: nowrap;
 }
 
+/* La cinta va a la izquierda del marco: el texto se lee de abajo hacia arriba */
 .galeria__cinta--h span {
   writing-mode: vertical-rl;
+  transform: rotate(180deg);
 }
 
 /* ---------- Cartela ---------- */
@@ -269,8 +272,8 @@
   .galeria__zoclo { height: 30px; }
   .galeria__marco { padding: 9px; }
   .galeria__pp { padding: 9px; }
-  .galeria__cinta--w { top: -22px; left: 18px; }
-  .galeria__cinta--h { left: -24px; top: 18px; }
+  .galeria__cinta--w { top: -24px; left: 18px; }
+  .galeria__cinta--h { left: -26px; top: 18px; }
 
   .galeria__cartela {
     position: absolute;
