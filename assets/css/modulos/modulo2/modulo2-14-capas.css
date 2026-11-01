@@ -1,0 +1,403 @@
+/* Tema 13 (modulo2-14): el <iframe> como una página en capas.
+   A la izquierda, una maqueta de la página del curso con un hueco del tamaño
+   de width × height; detrás, alineada con el hueco, la otra página (un iframe
+   de verdad con lo que diga src). Con el botón de arriba la vista gira y las
+   dos hojas se separan, unidas por un túnel de luz: se ve que la de atrás es
+   otra página completa, con su propio scroll. En la vista de frente se ve
+   como en el navegador.
+   La escena se dibuja en un lienzo de 900 px (la hoja de enfrente mide 800)
+   y se escala completa para caber; el iframe mide los px reales del código.
+   A la derecha, la ventana de código estándar con los valores en el menú de
+   vidrio y la explicación en la ficha de renglones. En celular la escena va
+   arriba y el código abajo. */
+.capas {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  margin: 18px 0 10px;
+}
+
+@media (min-width: 992px) {
+  .capas {
+    grid-template-columns: minmax(0, 1.2fr) minmax(360px, 1fr);
+    column-gap: 32px;
+    align-items: start; /* arriba: así la ficha crece hacia abajo sin mover nada */
+  }
+}
+
+/* ---------- La escena ---------- */
+.capas__escena {
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  border-radius: 10px;
+  background-color: #0b1630;
+  background-image:
+    radial-gradient(rgba(160, 190, 255, 0.13) 1.2px, transparent 1.6px),
+    radial-gradient(ellipse 70% 60% at 45% 35%, #1d3566, #0b1630 75%);
+  background-size: 22px 22px, 100% 100%;
+  transition: height 0.6s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.capas__lienzo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 900px;
+  transform-origin: 0 0;
+  perspective: 2300px;
+  perspective-origin: 50% 35%;
+}
+
+.capas__mundo {
+  position: absolute;
+  top: 34px;
+  left: 50px;
+  width: 800px;
+  transform-style: preserve-3d;
+  transform-origin: 50% 40%;
+  transition: transform 1.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* En capas: la vista gira y se mueve un poco con el mouse (--px, --py) */
+.capas__escena.is-3d .capas__mundo {
+  transform:
+    translateX(-110px)
+    rotateX(calc(10deg + var(--py, 0) * -5deg))
+    rotateY(calc(-48deg + var(--px, 0) * 8deg))
+    scale(0.72);
+}
+
+/* ---------- La hoja de enfrente: tu página, con el hueco del iframe ---------- */
+.capas__frente {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #1c2434;
+  font-family: "Lato", sans-serif;
+  text-align: left;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  transform: translateZ(0);
+  pointer-events: none; /* es una maqueta: el mouse llega al iframe de atrás */
+}
+
+.capas__escena.is-3d .capas__frente {
+  box-shadow: 0 0 0 1px rgba(160, 200, 255, 0.6), 0 30px 60px rgba(0, 0, 0, 0.25);
+}
+
+.capas__bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 50px;
+  padding: 0 24px;
+  background: var(--theme-color);
+  color: #ffffff;
+  font: 700 22px "Fira Sans", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.capas__bar span {
+  font: 400 15px "Courier New", monospace;
+  opacity: 0.75;
+}
+
+.capas__txt {
+  position: relative;
+  z-index: 1;
+  padding: 26px 44px 0;
+}
+
+.capas__titulo {
+  margin-bottom: 8px;
+  color: var(--theme-color);
+  font: 700 30px/1.2 "Fira Sans", sans-serif;
+}
+
+.capas__txt div:last-child,
+.capas__fin {
+  color: #3d4556;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+/* El hueco: transparente, y su sombra es el blanco de la hoja */
+.capas__hueco {
+  position: relative;
+  z-index: 0;
+  margin: 22px auto 0;
+  box-shadow: 0 0 0 3000px #ffffff;
+  outline: 2px solid rgba(9, 59, 139, 0.18);
+  transition: width 0.6s ease, height 0.6s ease, outline-color 0.6s ease;
+}
+
+.capas__escena.is-3d .capas__hueco {
+  outline: 3px dashed #7fb2ff;
+  outline-offset: 2px;
+}
+
+.capas__etq {
+  position: absolute;
+  top: -34px;
+  left: -2px;
+  padding: 3px 10px;
+  border-radius: 6px 6px 0 0;
+  background: #7fb2ff;
+  color: #0b1630;
+  font: 700 17px "Courier New", monospace;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.capas__escena.is-3d .capas__etq {
+  opacity: 1;
+  transition-delay: 0.4s;
+}
+
+.capas__fin {
+  position: relative;
+  z-index: 1;
+  height: 110px;
+  padding: 24px 44px 0;
+  -webkit-mask-image: linear-gradient(#000000 40%, transparent);
+  mask-image: linear-gradient(#000000 40%, transparent);
+}
+
+.capas__fin strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--theme-color);
+  font: 700 26px "Fira Sans", sans-serif;
+}
+
+/* ---------- La hoja de atrás: el iframe de verdad ---------- */
+.capas__atras {
+  position: absolute;
+  background: #ffffff;
+  transform: translateZ(-3px);
+  transition:
+    transform 1.1s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.6s ease,
+    opacity 0.25s ease,
+    left 0.6s ease,
+    top 0.6s ease,
+    width 0.6s ease,
+    height 0.6s ease;
+}
+
+.capas__escena.is-3d .capas__atras {
+  transform: translateZ(-520px);
+  box-shadow: 0 0 0 3px #7fb2ff, 0 0 40px rgba(127, 178, 255, 0.65);
+}
+
+.capas__atras.is-cargando {
+  opacity: 0;
+}
+
+.capas__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #ffffff;
+}
+
+/* La dirección de la página de atrás, como una pestaña */
+.capas__dir {
+  position: absolute;
+  top: -38px;
+  left: 0;
+  padding: 5px 14px 5px 12px;
+  border-radius: 8px 8px 0 0;
+  background: #ffffff;
+  color: var(--theme-color);
+  font: 700 19px "Courier New", monospace;
+  white-space: nowrap;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.capas__dir::before {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 17px;
+  margin-right: 8px;
+  vertical-align: -2px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #7fb2ff 70%, #3b6fb6 70%);
+}
+
+.capas__escena.is-3d .capas__dir {
+  opacity: 1;
+  transition-delay: 0.5s;
+}
+
+/* ---------- El túnel de luz entre el hueco y la hoja de atrás ---------- */
+.capas__tunel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.capas__escena.is-3d .capas__tunel {
+  opacity: 1;
+  transition-delay: 0.35s;
+}
+
+.capas__lado {
+  position: absolute;
+  border: 1.5px solid rgba(160, 200, 255, 0.7);
+  background: linear-gradient(rgba(127, 178, 255, 0.16), rgba(127, 178, 255, 0.03));
+  transition: left 0.6s ease, top 0.6s ease, width 0.6s ease, height 0.6s ease;
+}
+
+.capas__lado--t,
+.capas__lado--b {
+  height: 520px;
+  transform-origin: 50% 0;
+  transform: rotateX(-90deg);
+}
+
+.capas__lado--l,
+.capas__lado--r {
+  width: 520px;
+  transform-origin: 0 50%;
+  transform: rotateY(90deg);
+  background: linear-gradient(90deg, rgba(127, 178, 255, 0.16), rgba(127, 178, 255, 0.03));
+}
+
+/* ---------- Botón para girar la vista (solo ícono) ---------- */
+.capas__giro {
+  position: absolute;
+  z-index: 5;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.capas__giro:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.capas__giro:focus {
+  outline: none;
+}
+
+.capas__giro:focus-visible {
+  outline: 3px solid #fac775;
+  outline-offset: 2px;
+}
+
+.capas__giro svg {
+  width: 24px;
+  height: 24px;
+}
+
+.capas__giro .capas__ico-cubo,
+.capas__escena.is-3d .capas__giro .capas__ico-plano {
+  display: block;
+}
+
+.capas__giro .capas__ico-plano,
+.capas__escena.is-3d .capas__giro .capas__ico-cubo {
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  .capas__giro {
+    top: 8px;
+    right: 8px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .capas__giro svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* ---------- Código: la ventana estándar del curso (lesson-demo.css) ---------- */
+.capas__side {
+  min-width: 0;
+}
+
+.capas__code {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.capas__code .code {
+  margin: 0;
+  padding: 24px 22px 28px 0;
+  background: transparent;
+  color: #d7deea;
+  font: 400 14px/1.75 "Courier New", Consolas, monospace;
+  white-space: pre-wrap; /* el url de YouTube es largo: se parte en vez de salirse */
+}
+
+@media (max-width: 575.98px) {
+  .capas__code .code {
+    padding: 18px 12px 22px 0;
+    font-size: 12px;
+  }
+}
+
+/* El valor de src es un renglón de texto que se parte, con el mismo aspecto
+   que los demás valores del menú de vidrio */
+.capas__code .capas__largo {
+  display: inline;
+  white-space: normal;
+  word-break: break-all;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.capas__code .capas__largo::after {
+  display: inline-block;
+  margin-left: 0.35em;
+  vertical-align: 0.15em;
+}
+
+.capas .menu-vidrio__opcion code {
+  white-space: normal;
+  word-break: break-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .capas__escena,
+  .capas__mundo,
+  .capas__hueco,
+  .capas__etq,
+  .capas__atras,
+  .capas__dir,
+  .capas__tunel,
+  .capas__lado {
+    transition: none;
+  }
+}

@@ -10,30 +10,7 @@
   <!-- Favicon -->
   <link href="../../assets/images/logo/favicon.png" rel="shortcut icon" />
   <link href="../../assets/css/curso.css" rel="stylesheet" />
-  <style>
-    /* Deberías ajustarlo a el tamaño de pantalla (max-width: px) cuando el menú se mueve hacia arriba y se comienza a ver apretado, justo antes para asegurarte */
-    @media only screen and (max-width: 600px) {
-      .nav-vertical .tab-content {
-        /* Aumentar tamaño de contenido */
-        width: 100%;
-      }
-
-      .nav-vertical .nav-pills {
-        /* Aumentar tamaño de menus si gustas */
-        width: auto;
-        /* width: 80%; */
-        /* Esto es opcional para centrar */
-        display: flex;
-        justify-content: center;
-      }
-
-      .nav-pills .nav-item {
-        /* Esto es opcional */
-        /* Darle margen a botones de menu */
-        margin: 0.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../../assets/css/modulos/modulo2/modulo2-14-capas.css" />
 </head>
 
 <body class="header-info side-nav-dark">
@@ -69,8 +46,8 @@
                     </p>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
+            <div>
+              <div>
                 <div class="card">
                   <div class="card-block">
                     <h2 class="card-title">Iframes</h2>
@@ -88,172 +65,50 @@
                       <span class="code"><mark>width</mark></span> y
                       <span class="code"><mark>height</mark></span> para
                       modificar el tamaño de nuestro contenido como con las
-                      imágenes en HTML. Observa los siguientes ejemplos:
+                      imágenes en HTML. Observa cómo funciona: el hueco de tu página es el iframe y detrás está la página que pide <span class="code"><mark>src</mark></span>.
                     </p>
-                    <div class="d-flex justify-content-center">
-                      <div class="alert alert-secondary mb-10" role="alert">
-                        <span class="ico-clic" aria-hidden="true"></span>
-                        Haz clic en los botones para cambiar de ejemplo.
+                    <p class="card-info mb-2" style="width: fit-content;">
+                      <span class="ico-clic" aria-hidden="true"></span> Haz clic en los valores del código para cambiar el iframe.
+                    </p>
+                    <!-- Página en capas: la hoja de enfrente es tu página con un hueco de
+                         width × height y detrás va un iframe de verdad con lo que diga src.
+                         El botón de la escena gira la vista para separar las dos hojas.
+                         Los valores abren el menú de vidrio y la explicación de cada
+                         cambio aparece en la ficha sobre el código. -->
+                    <div class="capas" data-capas>
+                      <div class="capas__escena is-3d" data-escena>
+                        <button class="capas__giro" type="button" data-giro aria-pressed="true" aria-label="Ver la página de frente">
+                          <svg class="capas__ico-plano" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="1.5"/><rect x="8" y="9" width="8" height="6"/></svg>
+                          <svg class="capas__ico-cubo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>
+                        </button>
+                        <div class="capas__lienzo" data-lienzo>
+                          <div class="capas__mundo" data-mundo>
+                            <div class="capas__atras" data-atras>
+                              <iframe class="capas__iframe" data-iframe src="../../index.html" title="Página que muestra el iframe" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              <div class="capas__dir" data-dir aria-hidden="true"></div>
+                            </div>
+                            <div class="capas__tunel" aria-hidden="true">
+                              <i class="capas__lado capas__lado--t" data-lado></i>
+                              <i class="capas__lado capas__lado--b" data-lado></i>
+                              <i class="capas__lado capas__lado--l" data-lado></i>
+                              <i class="capas__lado capas__lado--r" data-lado></i>
+                            </div>
+                            <div class="capas__frente" data-frente aria-hidden="true">
+                              <div class="capas__bar">CVA <span>modulo2-14.html</span></div>
+                              <div class="capas__txt">
+                                <div class="capas__titulo">Iframes</div>
+                                <div>Podemos ver los iframes como un marco que puede contener otra página web, tanto interna como externa a tu sitio.</div>
+                              </div>
+                              <div class="capas__hueco" data-hueco><span class="capas__etq">&lt;iframe&gt;</span></div>
+                              <div class="capas__fin"><strong>Tablas</strong>Se definen con la etiqueta table. Las tablas nos permiten organizar contenido en columnas y filas.</div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="pill-info nav-horizontal nav-stacked">
-                      <ul class="nav nav-pills text-center justify-content-center" role="tablist">
-                        <li class="nav-item">
-                          <a class="nav-link active" data-toggle="tab" href="#razon-1" role="tab">Página de nuestro
-                            sitio</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" data-toggle="tab" href="#razon-2" role="tab">Página externa</a>
-                        </li>
-                      </ul>
-                      <div class="tab-content mrg-top-30">
-                        <div class="tab-pane fade in active" id="razon-1" role="tabpanel">
-                          <div class="pdd-horizon-10">
-                            <div class="card">
-                              <div class="card-horizon">
-                                <div class="container-fluid">
-                                  <div class="pdd-vertical-30 lesson-demo-stack">
-                                    <div class="card">
-                                      <div class="card-block" style="background-color: #1a1a1a">
-                                        <p class="code" data-codigo>
-                                          <script type="text/x-codigo">
-                                            <iframe src="../../index.html"></iframe>
-                                          </script>
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div class="w-100">
-                                      <div class="alert alert-secondary w-100">
-                                        <iframe frameborder="0" src="../../index.html" style="
-                                              width: 100%;
-                                              height: 500px;
-                                            "></iframe>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="razon-2" role="tabpanel">
-                          <div class="pdd-horizon-10">
-                            <div class="card">
-                              <div class="card-horizon">
-                                <div class="container-fluid">
-                                  <div class="pdd-vertical-30 lesson-demo-stack">
-                                    <div class="card">
-                                      <div class="card-block" style="background-color: #1a1a1a">
-                                        <p class="code" data-codigo>
-                                          <script type="text/x-codigo">
-                                            <iframe src="https://www.youtube.com/embed/yTr_3Q50orM" width="500" height="500" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                          </script>
-                                        </p>
-                                      </div>
-                                    </div>
-                                    <div class="w-100">
-                                      <div class="alert alert-secondary w-100">
-                                        <iframe allow="
-                                              accelerometer;
-                                              autoplay;
-                                              clipboard-write;
-                                              encrypted-media;
-                                              gyroscope;
-                                              picture-in-picture;
-                                            " allowfullscreen="" frameborder="0"
-                                          src="https://www.youtube.com/embed/yTr_3Q50orM" style="
-                                              width: 100%;
-                                              height: 500px;
-                                            "></iframe>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="razon-3" role="tabpanel">
-                          <div class="pdd-horizon-15">
-                            <div class="card">
-                              <div class="card-horizon">
-                                <div class="image-container col-md-4">
-                                  <div class="background-holder has-content" style="
-                                        background-image: url(&quot;../../assets/images/course/modulo1/m1-2/1.1_framework.jpg&quot;);
-                                      "></div>
-                                </div>
-                                <div class="container-fluid">
-                                  <div class="row">
-                                    <div class="col-md-8 ml-auto">
-                                      <div class="pdd-vertical-30">
-                                        <h2 class="card-title mrg-btm-20">
-                                          Framework
-                                        </h2>
-                                        <p>
-                                          Framework quiere decir entorno
-                                          de trabajo, el cual consiste en
-                                          una serie de herramientas y
-                                          prácticas que nos ayudan a
-                                          resolver cierto problema. En el
-                                          contexto del desarrollo web, un
-                                          framework nos da soporte con
-                                          módulos y librerías para
-                                          facilitar nuestro código, o
-                                          utilizar funciones que serían
-                                          más complicadas de implementar
-                                          sin este. Por ejemplo, existen
-                                          frameworks para incorporar
-                                          Python en desarrollo web como
-                                          <a href="https://www.djangoproject.com/" target="_blank">Django
-                                          </a>
-                                          o
-                                          <a href="https://flask.palletsprojects.com/en/1.1.x/"
-                                            target="_blank">Flask</a>.
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="tab-pane fade" id="razon-4" role="tabpanel">
-                          <div class="pdd-horizon-15">
-                            <div class="card">
-                              <div class="card-horizon">
-                                <div class="image-container col-md-4">
-                                  <div class="background-holder has-content" style="
-                                        background-image: url(&quot;../../assets/images/course/modulo1/m1-2/1.1_lenguaje.jpg&quot;);
-                                      "></div>
-                                </div>
-                                <div class="container-fluid">
-                                  <div class="row">
-                                    <div class="col-md-8 ml-auto">
-                                      <div class="pdd-vertical-30">
-                                        <h2 class="card-title mrg-btm-20">
-                                          Lenguaje
-                                        </h2>
-                                        <p>
-                                          Un lenguaje en el contexto de
-                                          programación web es una serie de
-                                          reglas e instrucciones que
-                                          permiten realizar cierto tipo de
-                                          acciones o añadir cierto formato
-                                          a algún elemento. En este curso
-                                          aprenderás las nociones de los 3
-                                          lenguajes pilares de la
-                                          programación web y todas sus
-                                          instrucciones básicas para crear
-                                          páginas web.
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                      <div class="capas__side grafico-ficha-col">
+                        <div class="capas__code lesson-demo-stack"><pre class="code code--numbered" data-code></pre></div>
+                        <div class="grafico-ficha">
+                          <p class="grafico-exp" data-status aria-live="polite"></p>
                         </div>
                       </div>
                     </div>
@@ -389,14 +244,7 @@
     </div>
   </div>
   <script src="../../assets/js/curso.js"></script>
-  <script>
-    function tabSelect1() {
-      $("#collapseTwo").collapse("hide");
-    }
-    function tabSelect2() {
-      $("#collapseOne").collapse("hide");
-    }
-  </script>
+  <script src="../../assets/js/scripts/modulo2/modulo2-14-capas.js"></script>
 </body>
 
 </html>
