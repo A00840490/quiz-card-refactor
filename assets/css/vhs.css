@@ -1,4 +1,6 @@
-/* Módulo 4-8: los operadores booleanos como una cinta VHS de introducción.
+/* Cinta VHS (componente común; script en assets/js/vhs.js). Nació en el
+   4-8 (operadores booleanos) y la usa también el 5-3 (escogiendo
+   alojamiento).
    Una tele clásica de madera con dos perillas cromadas de adorno, focos y
    bocina de tela. Arriba, donde iba la antena, una videocasetera con el
    casete acostado encima: al hacer clic en él entra por la ranura, la tele
@@ -6,8 +8,11 @@
    sale y la tele se apaga. Los botones de la videocasetera regresan, pausan
    o adelantan.
    La pantalla imita la salida de una videocasetera: degradado azul, letra
-   de OSD (VT323 engrosada), grano, banda de tracking y la barra de avance
-   de cuadros blancos. El contenido sale de la tabla oculta (.sr-only). */
+   de OSD (VT323 engrosada; la página carga la fuente de Google), grano,
+   banda de tracking y la barra de avance de cuadros blancos.
+   Colores de la pantalla: --vhs-fondo (el degradado) y --vhs-acento (lo
+   resaltado). Cada página puede cambiarlos por escena con el data-tono que
+   pone vhs.js en .vhs (ver modulo5-3-vhs.css). */
 
 .vhs-wrap {
   container: vhs-wrap / inline-size;
@@ -341,7 +346,9 @@
   letter-spacing: .05em;
   /* letra de OSD: VT323 engrosada a lo ancho, con brillo y corrimiento de color */
   text-shadow: 1px 0 0 currentColor, -1.5px 0 0 rgba(255, 60, 90, .35), 2.5px 0 0 rgba(60, 210, 255, .35), 0 0 7px rgba(200, 215, 255, .45);
-  background: radial-gradient(ellipse at 50% 120%, rgba(60, 80, 255, .55), transparent 60%), linear-gradient(180deg, #03041a 0%, #060a3c 28%, #0d1798 66%, #1a2ce8 100%);
+  background: var(--vhs-fondo);
+  --vhs-fondo: radial-gradient(ellipse at 50% 120%, rgba(60, 80, 255, .55), transparent 60%), linear-gradient(180deg, #03041a 0%, #060a3c 28%, #0d1798 66%, #1a2ce8 100%);
+  --vhs-acento: #ffe14d;
 }
 .vhs__grain {
   position: absolute;
@@ -398,7 +405,7 @@
 /* el curso le pone Lato y negro a todos los p */
 .vhs p { font-family: inherit; color: inherit; }
 .vhs__sub { margin: 0; font-size: 5cqw; line-height: 1.05; }
-.vhs b, .vhs__line .op, .vhs__name em { font-weight: inherit; font-style: normal; color: #ffe14d; }
+.vhs b, .vhs__line .op, .vhs__name em { font-weight: inherit; font-style: normal; color: var(--vhs-acento); }
 .vhs__op { font-size: 34cqw; line-height: .85; animation: vhs-zoom 1s cubic-bezier(.2, 1.3, .4, 1) both; }
 .vhs__name { font-size: 7.2cqw; line-height: 1; text-transform: uppercase; }
 @keyframes vhs-zoom { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }

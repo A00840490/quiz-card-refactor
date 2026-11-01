@@ -1,0 +1,125 @@
+/* Módulo 5-3: "Escogiendo Alojamiento" en la cinta VHS (la tele es el
+   componente común assets/css/vhs.css; las escenas, modulo5-3-vhs.js).
+   Lo propio de esta cinta:
+   - Cada capítulo cambia el color de la pantalla (data-tono en .vhs):
+     morado en la portada, verde azulado en almacenamiento, magenta en
+     ancho de banda, naranja en seguridad, verde en servicio al cliente y
+     azul en el cierre. --vhs-acento es el color de lo resaltado.
+   - La información se dibuja con figuras geométricas de contorno brillante
+     (.vhs__fig) en cuatro colores neón (.f-c1 a .f-c4) más el acento.
+   - De fondo flotan figuras sueltas (.vhs__figs) del color del acento.
+   - La etiqueta del casete lleva franjas de los colores de los capítulos. */
+
+/* ---------- Colores de la pantalla por capítulo ---------- */
+.tv--alojamiento .vhs[data-tono="portada"] {
+  --vhs-fondo: radial-gradient(ellipse at 50% 120%, rgba(255, 70, 160, .5), transparent 60%), linear-gradient(180deg, #0b0018 0%, #22063d 30%, #5a1785 68%, #a3237f 100%);
+  --vhs-acento: #ffd23f;
+}
+.tv--alojamiento .vhs[data-tono="alm"] {
+  --vhs-fondo: radial-gradient(ellipse at 50% 120%, rgba(60, 255, 220, .4), transparent 60%), linear-gradient(180deg, #001218 0%, #00303a 30%, #006370 68%, #00a3a3 100%);
+  --vhs-acento: #ffd23f;
+}
+.tv--alojamiento .vhs[data-tono="ban"] {
+  --vhs-fondo: radial-gradient(ellipse at 50% 120%, rgba(255, 90, 200, .5), transparent 60%), linear-gradient(180deg, #120016 0%, #350843 30%, #7d1670 68%, #d42d8a 100%);
+  --vhs-acento: #3ff5ff;
+}
+.tv--alojamiento .vhs[data-tono="seg"] {
+  --vhs-fondo: radial-gradient(ellipse at 50% 120%, rgba(255, 170, 60, .5), transparent 60%), linear-gradient(180deg, #160500 0%, #401100 30%, #92300a 68%, #e3621a 100%);
+  --vhs-acento: #fff27a;
+}
+.tv--alojamiento .vhs[data-tono="sop"] {
+  --vhs-fondo: radial-gradient(ellipse at 50% 120%, rgba(120, 255, 140, .4), transparent 60%), linear-gradient(180deg, #00140a 0%, #003a1c 30%, #0a6e36 68%, #22a553 100%);
+  --vhs-acento: #ffe14d;
+}
+.tv--alojamiento .vhs[data-tono="extra"] { --vhs-acento: #ff7ad9; }
+
+/* ---------- Figuras de las escenas ---------- */
+.vhs__fig {
+  flex: none;
+  justify-self: center;
+  width: auto;
+  height: 22cqw;
+  max-width: 100%;
+  overflow: visible;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  /* el mismo brillo y corrimiento de color que la letra de la cinta */
+  filter: drop-shadow(-1px 0 0 rgba(255, 60, 90, .45)) drop-shadow(1.5px 0 0 rgba(60, 210, 255, .45)) drop-shadow(0 0 3px rgba(220, 230, 255, .55));
+  animation: vhs-in .5s ease both;
+}
+.vhs__fig :is(path, rect, circle, ellipse, polygon) { stroke: currentColor; }
+.vhs__fig text { fill: currentColor; stroke: none; font-family: "VT323", monospace; letter-spacing: .04em; }
+.vhs__fig .f-lleno { fill: currentColor; fill-opacity: .3; }
+.vhs__fig .f-tenue { opacity: .45; }
+.vhs__fig .f-ac { color: var(--vhs-acento); }
+.vhs__fig .f-c1 { color: #ff5fae; }
+.vhs__fig .f-c2 { color: #45f3ff; }
+.vhs__fig .f-c3 { color: #ffd23f; }
+.vhs__fig .f-c4 { color: #7dff8a; }
+.vhs__fig--icono { height: 27cqw; }
+.vhs__fig--fila { height: 8cqw; margin-top: 2cqw; }
+.vhs__fig--barra { height: 7cqw; }
+.vhs__fig--url { height: 12cqw; }
+
+.tv--alojamiento .vhs__body { gap: 1.6cqw; }
+.vhs__text--chico { font-size: 4.9cqw; line-height: 1.08; }
+.vhs__dato { color: var(--vhs-acento); font-size: 13cqw; line-height: .9; animation: vhs-zoom 1s cubic-bezier(.2, 1.3, .4, 1) both; }
+.tv--alojamiento .vhs__name { font-size: 6cqw; }
+
+/* Movimiento de las figuras */
+.vhs__cae { animation: vhs-cae .6s cubic-bezier(.3, 1.45, .5, 1) both; }
+@keyframes vhs-cae { from { transform: translateY(-70px); opacity: 0; } to { transform: none; opacity: 1; } }
+.vhs__viaja { animation: vhs-viaja 1.6s linear infinite; }
+.vhs__viaja--largo { animation-name: vhs-viaja-largo; animation-duration: 2.2s; }
+@keyframes vhs-viaja { 0% { transform: translateX(0); opacity: 0; } 15%, 80% { opacity: 1; } 100% { transform: translateX(34px); opacity: 0; } }
+@keyframes vhs-viaja-largo { 0% { transform: translateX(0); opacity: 0; } 10%, 85% { opacity: 1; } 100% { transform: translateX(166px); opacity: 0; } }
+.vhs__prende { animation: vhs-prende .5s ease both; }
+@keyframes vhs-prende { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+.vhs__prende, .vhs__f-tarde { transform-box: fill-box; transform-origin: center; }
+.vhs__f-tarde { animation: vhs-prende .5s ease .9s both; }
+.vhs__gira { transform-box: fill-box; transform-origin: center; animation: vhs-gira 4s linear infinite; }
+.vhs__fig g.vhs__gira { transform-box: view-box; transform-origin: 60px 60px; }
+@keyframes vhs-gira { to { transform: rotate(360deg); } }
+
+/* ---------- Figuras sueltas que flotan de fondo ---------- */
+.vhs__figs { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.vhs__figs i {
+  position: absolute;
+  width: 9cqw;
+  height: 9cqw;
+  background: var(--vhs-acento);
+  opacity: .2;
+  -webkit-mask: var(--forma) center / contain no-repeat;
+  mask: var(--forma) center / contain no-repeat;
+  animation: vhs-flota 9s ease-in-out infinite alternate;
+  transition: background-color .4s ease;
+}
+.vhs__figs i:nth-child(1) { left: 5%; top: 22%; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,4 37,35 3,35' fill='none' stroke='%23000' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.vhs__figs i:nth-child(2) { right: 6%; top: 24%; width: 7cqw; height: 7cqw; animation-delay: -3s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='16' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E"); }
+.vhs__figs i:nth-child(3) { left: 7%; bottom: 20%; width: 7cqw; height: 7cqw; animation-delay: -5s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='6' y='6' width='28' height='28' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E"); }
+.vhs__figs i:nth-child(4) { right: 7%; bottom: 19%; width: 10cqw; height: 5cqw; animation-delay: -1.5s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20'%3E%3Cpath d='M2 16l6-12 6 12 6-12 6 12 6-12 6 12' fill='none' stroke='%23000' stroke-width='3.5' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.vhs__figs i:nth-child(5) { left: 47%; top: 15%; width: 5cqw; height: 5cqw; animation-delay: -6.5s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 4v32M4 20h32' stroke='%23000' stroke-width='6'/%3E%3C/svg%3E"); }
+@keyframes vhs-flota { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(1.5cqw, -2cqw) rotate(40deg); } }
+.tv.is-paused .vhs__figs i, .tv.is-paused .vhs__fig, .tv.is-paused .vhs__fig * { animation-play-state: paused; }
+
+/* ---------- Casete: etiqueta con franjas de los colores de los capítulos ---------- */
+.tv--alojamiento .tape__label {
+  background: linear-gradient(90deg, #00a3a3 0 3%, #d42d8a 3% 6%, #fff7ea 6% 94%, #e3621a 94% 97%, #22a553 97%);
+  color: #3a0d55;
+}
+
+/* En celular la pantalla es más alta: las figuras crecen un poco */
+@container vhs-wrap (max-width: 560px) {
+  .vhs__fig { height: 23cqw; }
+  .vhs__fig--icono { height: 30cqw; }
+  .vhs__fig--fila { height: 9cqw; }
+  .vhs__fig--barra { height: 8cqw; }
+  .vhs__fig--url { height: 13cqw; }
+  .vhs__text--chico { font-size: 5.3cqw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vhs__fig, .vhs__fig *, .vhs__figs i, .vhs__dato { animation: none !important; }
+}
