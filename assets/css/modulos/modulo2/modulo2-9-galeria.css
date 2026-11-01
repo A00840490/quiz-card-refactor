@@ -1,7 +1,7 @@
 /* Tema 8 (modulo2-9): la etiqueta <img> como un cuadro colgado en una galería.
    A la izquierda, la pared con el cuadro: el hueco del marco mide lo que
    dicen width y height (escalado para caber), con una cinta métrica arriba y
-   otra a la derecha que dicen los px, y la cartela de al lado dice de dónde
+   otra a la izquierda que dicen los px, y la cartela de al lado dice de dónde
    llegó la foto. Si el archivo de src no existe, el marco se queda vacío y
    adentro solo queda el texto de alt, como lo dibuja el navegador.
    A la derecha, la ventana de código estándar con los valores en el menú de
@@ -31,10 +31,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 500px;
+  height: 560px;
   padding-bottom: 40px;
   overflow: hidden;
-  border-radius: 12px;
   background-color: #f1e7d6;
   background-image: url("../../../images/course/modulo5/m5-3/calle/estuco.jpg");
   background-size: 260px;
@@ -210,7 +209,7 @@
 }
 
 .galeria__cinta--h {
-  right: -26px;
+  left: -26px;
   top: 30px;
   width: 18px;
   background-image:
@@ -234,7 +233,7 @@
   flex: none;
   align-self: center;
   width: 150px;
-  margin: 120px 0 0 36px; /* deja pasar la cinta de la derecha */
+  margin: 120px 0 0 14px;
   padding: 12px 14px;
   background: #fffdf8;
   box-shadow: 0 6px 14px rgba(40, 25, 10, 0.2), 0 1px 2px rgba(40, 25, 10, 0.2);
@@ -263,7 +262,7 @@
 @media (max-width: 575.98px) {
   .galeria__pared {
     flex-direction: column;
-    height: 430px;
+    height: 480px;
     padding-bottom: 116px;
   }
 
@@ -271,7 +270,7 @@
   .galeria__marco { padding: 9px; }
   .galeria__pp { padding: 9px; }
   .galeria__cinta--w { top: -22px; left: 18px; }
-  .galeria__cinta--h { right: -24px; top: 18px; }
+  .galeria__cinta--h { left: -24px; top: 18px; }
 
   .galeria__cartela {
     position: absolute;

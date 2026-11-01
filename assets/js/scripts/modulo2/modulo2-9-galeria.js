@@ -86,10 +86,12 @@
 
   /* ---------- Escena ---------- */
   // Escala de px del código a px de la pared, para que el cuadro más grande quepa
+  // y para que la cinta de arriba no choque con el riel y el foco
   function escala() {
     var ancho = pared.clientWidth;
-    if (celular.matches) return Math.max(0.3, Math.min(0.5, (ancho - 110) / 300));
-    return Math.max(0.35, Math.min(0.78, (ancho - 320) / 300));
+    var alto = pared.clientHeight - parseFloat(getComputedStyle(pared).paddingBottom) - 140;
+    if (celular.matches) return Math.max(0.3, Math.min(0.5, (ancho - 110) / 300, (alto - 36) / 450));
+    return Math.max(0.35, Math.min(0.78, (ancho - 300) / 300, (alto - 60) / 450));
   }
 
   function pintarEscena() {
