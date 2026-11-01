@@ -3,8 +3,8 @@
    las ocho herramientas salen en abanico; la punta de cada una tiene la forma
    del input que crea. La navaja empieza centrada; al elegir una herramienta
    se corre a la izquierda y a su lado aparece su descripción en la ficha de
-   renglones (.grafico-ficha de app.css, como en el 3-23) y, debajo, el
-   código con el input real para probarlo. Cada herramienta trae un punto
+   renglones (.grafico-ficha de app.css, como en el 3-23) y, debajo del texto
+   y dentro de la misma ficha, el código con el input real para probarlo. Cada herramienta trae un punto
    verde mientras no se ha revisado. Tocar el mango cierra la navaja, se va la
    explicación y la navaja vuelve al centro. */
 
@@ -186,8 +186,9 @@
 
 /* ---------- Explicación ----------
    La descripción va en la ficha de renglones del curso (.grafico-ficha) y,
-   debajo, el ejemplo: código y vista previa, como en los ejemplos del curso
-   (igual que la ficha del 2-5). */
+   debajo del texto, dentro de la misma ficha, el ejemplo: código y vista
+   previa, como en los ejemplos del curso. Como es parte de la ficha, cambia
+   y se mueve con ella. */
 .navaja__info {
   display: grid;
   gap: 18px;
@@ -205,30 +206,26 @@
   transition: opacity 0.35s 0.2s, transform 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) 0.2s, visibility 0s;
 }
 
-.navaja__demo.is-new {
-  animation: navaja-info 0.4s ease-out;
-}
-
-@keyframes navaja-info {
-  from { transform: translateY(8px); opacity: 0.3; }
-  to { transform: none; opacity: 1; }
-}
-
 .navaja__desc {
   margin: 0;
 }
 
 /* La ficha no va montada sobre una ventana de código: ocupa el ancho de la
-   columna, sin el margen negativo que la sube sobre la ventana */
+   columna, sin el margen negativo que la sube sobre la ventana. Abajo deja
+   un margen de hoja para el ejemplo. */
 .navaja__info .grafico-ficha {
   width: auto;
   margin: 0;
+  padding-bottom: 18px;
 }
 
+/* El ejemplo, pegado en la ficha debajo del texto */
 .navaja__demo {
+  margin-top: 4px;
   overflow: hidden;
   border: 1px solid #c8d3e3;
   border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
 }
 
 .navaja__src {

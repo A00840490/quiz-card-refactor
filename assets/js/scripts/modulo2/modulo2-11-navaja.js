@@ -5,9 +5,9 @@
      navaja salen en abanico; la punta de cada una dibuja el input que crea.
    - La navaja empieza centrada. Al tocar una herramienta se corre a la
      izquierda y a su lado aparece su descripción en la ficha de renglones
-     (.grafico-ficha, como en el 3-23) y, debajo, el código y el input real
-     para probarlo, como los ejemplos del curso. También se quita su punto
-     verde.
+     (.grafico-ficha, como en el 3-23) y, debajo del texto y dentro de la
+     misma ficha, el código y el input real para probarlo, como los ejemplos
+     del curso. También se quita su punto verde.
    - Tocar el mango cierra la navaja, se va la explicación y la navaja vuelve
      al centro. */
 (function () {
@@ -84,11 +84,11 @@
   info.className = "navaja__info";
   info.setAttribute("aria-live", "polite");
   info.innerHTML =
-    '<div class="grafico-ficha"><p class="navaja__desc grafico-exp"></p></div>' +
+    '<div class="grafico-ficha"><p class="navaja__desc grafico-exp"></p>' +
     '<div class="navaja__demo">' +
     '<div class="navaja__src code"></div>' +
     '<div class="navaja__try"></div>' +
-    '</div>';
+    '</div></div>';
 
   // La navaja va dentro de un escenario que se corre a la izquierda cuando
   // aparece la explicación; así no choca con su meneo de "tócame".
@@ -103,8 +103,8 @@
   var codeEl = info.querySelector(".navaja__src");
   var desc = info.querySelector(".navaja__desc");
   var tryEl = info.querySelector(".navaja__try");
-  var demo = info.querySelector(".navaja__demo");
   var uid = 0;
+  var demoT;
 
   var esc = Curso.esc;
 
@@ -155,9 +155,6 @@
     var it = byType[el.getAttribute("data-type")];
     toolEls.forEach(function (o) { o.classList.toggle("is-on", o === el); });
     el.classList.add("is-seen");
-    codeEl.innerHTML = code(it.type);
-    tryEl.innerHTML = "";
-    tryEl.appendChild(sample(it.type));
     // El concepto (el type) va primero, en azul y monoespaciada (.grafico-exp)
     var text = '<code>type="' + it.type + '"</code> ' + esc(it.desc.charAt(0).toLowerCase() + it.desc.slice(1));
     // La ficha baja y se desvanece, y la nueva sube desde abajo (grafico-ficha.js).
@@ -165,10 +162,16 @@
     var entrar = !root.classList.contains("has-info");
     root.classList.add("has-info");
     GraficoFicha.cambiar(desc, text, { entrar: entrar });
-    if (entrar) return;
-    demo.classList.remove("is-new");
-    void demo.offsetWidth;
-    demo.classList.add("is-new");
+    // El ejemplo va dentro de la ficha: cambia junto con el texto, cuando la
+    // ficha anterior ya se desvaneció (los mismos .2 s de grafico-ficha.js)
+    clearTimeout(demoT);
+    function ponerDemo() {
+      codeEl.innerHTML = code(it.type);
+      tryEl.innerHTML = "";
+      tryEl.appendChild(sample(it.type));
+    }
+    if (entrar || Curso.reduce) ponerDemo();
+    else demoT = setTimeout(ponerDemo, 200);
   }
 
   svg.addEventListener("click", function (e) {
