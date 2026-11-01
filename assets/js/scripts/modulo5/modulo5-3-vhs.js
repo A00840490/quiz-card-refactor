@@ -53,10 +53,10 @@
       [0, 1, 2].map(function (c) { return [0, 1].map(function (r) { return '<rect class="f-c' + (c + 2) + ' f-lleno" x="' + (82 + c * 30) + '" y="' + (56 + r * 22) + '" width="16" height="14"/>'; }).join(""); }).join("") +
       '<rect class="f-ac" x="108" y="100" width="24" height="24"/>' + texto(120, 40, "HOTEL", "f-ac", 18) +
       '<circle class="f-c2 f-tenue" cx="30" cy="30" r="10"/><polygon class="f-c3 f-tenue" points="206,40 218,18 230,40"/>'),
-    tres: fig("0 0 300 96",
-      '<circle class="f-c2" cx="50" cy="34" r="26"/><polygon class="f-c1" points="150,8 178,60 122,60"/><rect class="f-c3" x="224" y="8" width="52" height="52"/>' +
-      texto(50, 40, "✓", "f-c2", 22) + texto(150, 50, "$", "f-c1", 24) + texto(250, 42, "GB", "f-c3", 18) +
-      texto(50, 88, "ACCESIBLE", "", 17) + texto(150, 88, "BUEN PRECIO", "", 17) + texto(250, 88, "RECURSOS", "", 17)),
+    tres: fig("0 0 360 96",
+      '<circle class="f-c2" cx="60" cy="34" r="24"/><polygon class="f-c1" points="180,10 206,58 154,58"/><rect class="f-c3" x="276" y="10" width="48" height="48"/>' +
+      texto(60, 40, "✓", "f-c2", 22) + texto(180, 50, "$", "f-c1", 22) + texto(300, 41, "GB", "f-c3", 17) +
+      texto(60, 88, "ACCESIBLE", "", 16) + texto(180, 88, "BUEN PRECIO", "", 16) + texto(300, 88, "RECURSOS", "", 16)),
 
     // Almacenamiento
     almIcono: fig("0 0 120 110", disco(60, 22, 76, 70) + '<rect class="f-ac f-lleno vhs__gira" x="14" y="76" width="16" height="16" transform="rotate(20 22 84)"/>' + '<polygon class="f-c2 f-tenue" points="96,10 108,32 84,32"/>', "vhs__fig--icono"),
@@ -145,46 +145,46 @@
 
   beats.push({ how: "fade", tono: "portada", dur: 3800, html: scene("",
     '<h3 class="vhs__title vhs__title--cover">Escogiendo<br>Alojamiento</h3>' + F.portada) });
-  var bienvenida = "Bienvenido a la cinta de Escogiendo Alojamiento. Hay miles de opciones para publicar tu página; en los próximos {min} minutos conocerás los <b>4 recursos</b> que debes revisar para decidir.";
+  var bienvenida = "Bienvenido a la cinta de Escogiendo Alojamiento. En los próximos {min} minutos conocerás los <b>4 recursos</b> que debes revisar para elegir dónde publicar tu página.";
   beats.push({ how: "fade", tono: "portada", dur: read(plano(bienvenida), 4500), html: scene("", txt(bienvenida)) });
   var hotel = "Busca alojamiento como si buscaras un <b>hotel</b> para quedarte.";
   beats.push({ how: "fade", tono: "portada", dur: 4200, html: scene("Como un hotel", F.hotel + txt(hotel, "", "vhs__text--chico")) });
-  var tres = "Que sea accesible, que no cueste demasiado y que tenga suficientes <b>recursos</b>.";
+  var tres = "Que sea accesible, que no cueste mucho y que tenga <b>recursos</b>.";
   beats.push({ how: "fade", tono: "portada", dur: read(plano(tres), 4500), html: scene("Como un hotel", F.tres + txt(tres, "", "vhs__text--chico")) });
 
   // Recurso 1: almacenamiento
   beats.push({ how: "zap", tono: "alm", chapter: 0, dur: 3600, html: portada(0, F.almIcono, "Almacenamiento") });
-  var alm1 = "Es el espacio para guardar <b>todos los archivos</b> de tu proyecto.";
+  var alm1 = "Es el espacio para guardar los <b>archivos</b> de tu proyecto.";
   beats.push({ how: "fade", tono: "alm", chapter: 0, dur: read(plano(alm1), 5200), html: scene("¿Qué es?", F.almCaja + txt(alm1, "", "vhs__text--chico")) });
   beats.push({ how: "fade", tono: "alm", chapter: 0, dur: 4800, html: scene("¿Cuánto?",
     '<span class="vhs__dato">10 a 20 GB</span>' + F.almDato + txt("son suficientes para páginas pequeñas.", "", "vhs__text--chico")) });
 
   // Recurso 2: ancho de banda
   beats.push({ how: "zap", tono: "ban", chapter: 1, dur: 3600, html: portada(1, F.banIcono, "Ancho de banda") });
-  var ban1 = "Determina qué tan <b>rápido</b> se intercambian datos entre el servidor y tu página.";
+  var ban1 = "Es qué tan <b>rápido</b> viajan los datos entre el servidor y tu página.";
   beats.push({ how: "fade", tono: "ban", chapter: 1, dur: read(plano(ban1), 5000), html: scene("¿Qué es?", F.banFlujo + txt(ban1, "", "vhs__text--chico")) });
-  var ban2 = "Entre más <b>visitantes</b> tengas, más ancho de banda necesitarás.";
+  var ban2 = "Más <b>visitantes</b> necesitan más ancho de banda.";
   beats.push({ how: "fade", tono: "ban", chapter: 1, dur: 3000, html: scene("¿Cuánto?", F.banVisitas(false) + txt(ban2, "", "vhs__text--chico")) });
   beats.push({ how: "none", tono: "ban", chapter: 1, dur: 3600, html: scene("¿Cuánto?", F.banVisitas(true) + txt(ban2, "", "vhs__text--chico")) });
 
   // Recurso 3: seguridad
   beats.push({ how: "zap", tono: "seg", chapter: 2, dur: 3600, html: portada(2, F.segIcono, "Seguridad") });
-  var seg1 = "Busca un certificado <b>SSL</b>: encripta la información y protege a tus usuarios.";
+  var seg1 = "Un certificado <b>SSL</b> encripta los datos de tus usuarios.";
   beats.push({ how: "fade", tono: "seg", chapter: 2, dur: read(plano(seg1), 5000), html: scene("¿Qué es?", F.segCifra + txt(seg1, "", "vhs__text--chico")) });
-  var seg2 = "Se nota por el <b>candado</b>. No todos los planes de alojamiento lo ofrecen.";
+  var seg2 = "Se nota por el <b>candado</b>. No todos los planes lo tienen.";
   beats.push({ how: "fade", tono: "seg", chapter: 2, dur: read(plano(seg2), 4500), html: scene("¿Cómo lo reconozco?", F.segUrl + txt(seg2, "", "vhs__text--chico")) });
 
   // Recurso 4: servicio al cliente
   beats.push({ how: "zap", tono: "sop", chapter: 3, dur: 3600, html: portada(3, F.sopIcono, "Servicio al cliente") });
-  var sop1 = "Si ocurre un error en el servidor, no tendrás que averiguar <b>por tu cuenta</b> lo que pasa.";
+  var sop1 = "Si algo falla en el servidor, <b>alguien te ayuda</b> a resolverlo.";
   beats.push({ how: "fade", tono: "sop", chapter: 3, dur: read(plano(sop1), 5000), html: scene("¿Qué es?", F.sopError + txt(sop1, "", "vhs__text--chico")) });
-  var sop2 = "El <b>soporte técnico</b> asegura que tu página siga funcionando.";
+  var sop2 = "El <b>soporte técnico</b> mantiene tu página funcionando.";
   beats.push({ how: "fade", tono: "sop", chapter: 3, dur: read(plano(sop2), 4500), html: scene("¿Por qué importa?", F.sopReloj + txt(sop2, "", "vhs__text--chico")) });
 
   // Cierre: los cuatro juntos y los servicios adicionales
-  var res = "Con estos <b>4 recursos</b> tendrás un sitio web rápido y seguro.";
+  var res = "Con estos <b>4 recursos</b> tu sitio será rápido y seguro.";
   beats.push({ how: "zap", tono: "extra", chapter: 4, dur: read(plano(res), 4800), html: scene("En resumen", F.resumen + txt(res, "", "vhs__text--chico")) });
-  var ext = "Muchos alojamientos ofrecen además <b>servicios adicionales</b>.";
+  var ext = "Muchos planes incluyen <b>servicios adicionales</b>.";
   beats.push({ how: "fade", tono: "extra", chapter: 4, dur: read(plano(ext), 5000), html: scene("Y además", F.extras + txt(ext, "", "vhs__text--chico")) });
   beats.push({ how: "zap", tono: "portada", dur: 4500, end: true, html: scene("Fin de la cinta",
     '<h3 class="vhs__title">¡Listo para escoger!</h3>' +
