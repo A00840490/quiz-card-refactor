@@ -158,6 +158,27 @@
   .tv__tag { font-size: 2.4cqw; }
   .tv__key { padding-top: 1.5cqw; box-shadow: 0 0 0 .5cqw #0f0f11, inset 0 1px 0 rgba(255, 255, 255, .5), inset 1px 0 0 rgba(255, 255, 255, .15); }
   .tv__key svg { width: 5cqw; height: 5cqw; }
+  /* la ranura queda centrada sobre las teclas (el foco, a su derecha) y el
+     casete baja derecho hasta ella */
+  .tv__slot { left: 26.75cqw; }
+  .tv__vcr-led { left: 76cqw; top: 5.8cqw; }
+  .tv.is-loading .tv__vcr .tape { animation-name: tape-in-centro; }
+  .tv.is-ejecting .tv__vcr .tape { animation-name: tape-out-centro; }
+  .tv.has-tape .tv__vcr .tape { left: 28.25cqw; }
+}
+@keyframes tape-in-centro {
+  0% { top: -5cqw; transform: none; }
+  24% { top: -10cqw; transform: scale(1.04) rotate(-2deg); }
+  46% { top: 6cqw; transform: scale(1.07); filter: none; opacity: 1; }
+  58%, 64% { top: 6cqw; transform: none; filter: none; opacity: 1; }
+  86%, 100% { top: 6cqw; transform: scale(.88); filter: brightness(.15); opacity: 0; }
+}
+@keyframes tape-out-centro {
+  0%, 12% { top: 6cqw; transform: scale(.88); filter: brightness(.15); opacity: 0; }
+  36% { top: 6cqw; transform: none; filter: none; opacity: 1; }
+  46% { top: 6cqw; transform: scale(1.07); }
+  72% { top: -10cqw; transform: scale(1.04) rotate(-2deg); }
+  100% { top: -5cqw; transform: none; }
 }
 .tv.is-clunk .tv__cab, .tv.is-clunk .tv__vcr { animation: tv-clunk .28s ease-out; }
 @keyframes tv-clunk { 40% { transform: translateY(3px); } }
