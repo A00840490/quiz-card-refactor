@@ -143,7 +143,7 @@
 /* El aviso del hueco: unos segundos después de separar las hojas, un
    recuadro cubre el hueco y parpadea con "iframe" calado (las letras dejan ver
    lo de atrás). Lo dibuja un SVG con máscara; parpadea 2.7 s (tres pulsos que
-   aparecen y se desvanecen suave) y se va. */
+   aparecen hasta 0.84 y se desvanecen suave) y vuelve a salir cada 5.6 s. */
 .capas__aviso {
   position: absolute;
   inset: 0;
@@ -165,7 +165,7 @@
 
 @keyframes capas-parpadeo {
   0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+  50% { opacity: 0.84; }
 }
 
 .capas__fin {

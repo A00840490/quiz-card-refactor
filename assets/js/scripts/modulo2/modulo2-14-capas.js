@@ -7,8 +7,10 @@
      lo que diga src: la página de inicio del curso, el video de YouTube o
      Google, que no se deja mostrar y el navegador pone su aviso.
    - El botón de arriba gira la vista: las dos hojas se separan y un túnel de
-     luz las une. 8 s después de separarlas, un recuadro cubre el hueco y
-     parpadea 2.7 s con "<iframe>" calado, para decir qué es ese hueco. La escena se dibuja en un lienzo de 900 px y se escala.
+     luz las une. Mientras están separadas, en ciclos: 5.6 s sin nada y 2.7 s
+     en los que un recuadro cubre el hueco y parpadea con "<iframe>" calado,
+     para decir qué es ese hueco. La escena se dibuja en un lienzo de 900 px
+     y se escala.
    - La explicación va en la ficha de renglones (GraficoFicha.cambiar). */
 (function () {
   "use strict";
@@ -158,9 +160,10 @@
       if (!escena.classList.contains("is-3d")) return;
       void aviso.getBoundingClientRect();
       aviso.classList.add("is-on");
-    }, 8000);
+    }, 5600);
   }
-  aviso.addEventListener("animationend", function () { aviso.classList.remove("is-on"); });
+  // Al terminar de parpadear empieza otro ciclo (si siguen separadas)
+  aviso.addEventListener("animationend", programarAviso);
 
   /* ---------- Girar la vista ---------- */
   giro.addEventListener("click", function () {
