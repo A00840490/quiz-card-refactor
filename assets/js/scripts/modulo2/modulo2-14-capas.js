@@ -7,7 +7,8 @@
      lo que diga src: la página de inicio del curso, el video de YouTube o
      Google, que no se deja mostrar y el navegador pone su aviso.
    - El botón de arriba gira la vista: las dos hojas se separan y un túnel de
-     luz las une. La escena se dibuja en un lienzo de 900 px y se escala.
+     luz las une. 8 s después de separarlas, un recuadro cubre el hueco y
+     parpadea 2.7 s con "iframe" calado, para decir qué es ese hueco. La escena se dibuja en un lienzo de 900 px y se escala.
    - La explicación va en la ficha de renglones (GraficoFicha.cambiar). */
 (function () {
   "use strict";
@@ -28,6 +29,8 @@
   var dir = root.querySelector("[data-dir]");
   var lados = root.querySelectorAll("[data-lado]");
   var giro = root.querySelector("[data-giro]");
+  var aviso = root.querySelector("[data-aviso]");
+  var avisoTxt = root.querySelector("[data-aviso-txt]");
   var pre = root.querySelector("[data-code]");
   var exp = root.querySelector("[data-status]");
 
@@ -103,6 +106,7 @@
     lienzo.style.transform = "scale(" + k + ")";
     hueco.style.width = w + "px";
     hueco.style.height = h + "px";
+    avisoTxt.setAttribute("font-size", Math.round(Math.min(w * 0.24, h * 0.55)));
 
     // El hueco no cambia de altura en la hoja: lo de arriba siempre mide lo mismo
     var top = hueco.offsetTop, left = (HOJA - w) / 2;
@@ -144,12 +148,27 @@
     }, 260);
   }
 
+  /* ---------- El aviso del hueco ---------- */
+  var tAviso;
+  function programarAviso() {
+    clearTimeout(tAviso);
+    aviso.classList.remove("is-on");
+    if (reduce || !escena.classList.contains("is-3d")) return;
+    tAviso = setTimeout(function () {
+      if (!escena.classList.contains("is-3d")) return;
+      void aviso.getBoundingClientRect();
+      aviso.classList.add("is-on");
+    }, 8000);
+  }
+  aviso.addEventListener("animationend", function () { aviso.classList.remove("is-on"); });
+
   /* ---------- Girar la vista ---------- */
   giro.addEventListener("click", function () {
     var en3d = !escena.classList.contains("is-3d");
     escena.classList.toggle("is-3d", en3d);
     giro.setAttribute("aria-pressed", String(en3d));
     giro.setAttribute("aria-label", en3d ? "Ver la página de frente" : "Ver la página en capas");
+    programarAviso();
   });
 
   // En capas, la vista se mueve un poco con el mouse
@@ -204,5 +223,6 @@
   pintarCodigo();
   pintarEscena();
   dir.textContent = "index.html";
+  programarAviso();
   GraficoFicha.cambiar(exp, explicacion("src"));
 })();

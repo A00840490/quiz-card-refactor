@@ -140,6 +140,55 @@
   outline-offset: 2px;
 }
 
+/* El aviso del hueco: unos segundos después de separar las hojas, un
+   recuadro cubre el hueco y parpadea con "iframe" calado (las letras dejan ver
+   lo de atrás). Lo dibuja un SVG con máscara; parpadea 2.7 s y se va. */
+.capas__aviso {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.capas__aviso text {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.capas__aviso.is-on {
+  animation: capas-parpadeo 0.45s steps(1, end) 6;
+}
+
+@keyframes capas-parpadeo {
+  0% { opacity: 1; }
+  60% { opacity: 0; }
+}
+
+.capas__fin {
+  color: #3d4556;
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+/* El hueco: transparente, y su sombra es el blanco de la hoja */
+.capas__hueco {
+  position: relative;
+  z-index: 0;
+  margin: 22px auto 0;
+  box-shadow: 0 0 0 3000px #ffffff;
+  outline: 2px solid rgba(9, 59, 139, 0.18);
+  transition: width 0.6s ease, height 0.6s ease, outline-color 0.6s ease;
+}
+
+.capas__escena.is-3d .capas__hueco {
+  outline: 3px dashed #7fb2ff;
+  outline-offset: 2px;
+}
+
 .capas__etq {
   position: absolute;
   top: -34px;
@@ -393,11 +442,12 @@
   .capas__escena,
   .capas__mundo,
   .capas__hueco,
-  .capas__etq,
   .capas__atras,
   .capas__dir,
   .capas__tunel,
   .capas__lado {
     transition: none;
   }
+
+  .capas__aviso.is-on { animation: none; }
 }
