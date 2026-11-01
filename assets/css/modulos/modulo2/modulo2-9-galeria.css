@@ -1,0 +1,344 @@
+/* Tema 8 (modulo2-9): la etiqueta <img> como un cuadro colgado en una galería.
+   A la izquierda, la pared con el cuadro: el hueco del marco mide lo que
+   dicen width y height (escalado para caber), con una cinta métrica arriba y
+   otra a la derecha que dicen los px, y la cartela de al lado dice de dónde
+   llegó la foto. Si el archivo de src no existe, el marco se queda vacío y
+   adentro solo queda el texto de alt, como lo dibuja el navegador.
+   A la derecha, la ventana de código estándar con los valores en el menú de
+   vidrio y, en la ficha de renglones, la explicación. En celular la pared va
+   arriba (con la cartela debajo del cuadro) y el código abajo.
+   Texturas: el estuco del 5-3 y el nogal del 4-11 (créditos en los archivos
+   del proyecto). */
+.galeria {
+  --galeria-tape: #f4c430;
+  position: relative;
+  display: grid;
+  gap: 22px;
+  margin: 18px 0 10px;
+}
+
+@media (min-width: 992px) {
+  .galeria {
+    grid-template-columns: minmax(0, 1.2fr) minmax(360px, 1fr);
+    column-gap: 32px;
+    align-items: start; /* arriba: así la ficha crece hacia abajo sin mover nada */
+  }
+}
+
+/* ---------- La pared ---------- */
+.galeria__pared {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  padding-bottom: 40px;
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f1e7d6;
+  background-image: url("../../../images/course/modulo5/m5-3/calle/estuco.jpg");
+  background-size: 260px;
+  background-blend-mode: multiply;
+  isolation: isolate;
+}
+
+/* La luz del foco sobre la pared */
+.galeria__pared::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 46% 64% at 50% 34%, rgba(255, 246, 222, 0.85), rgba(255, 246, 222, 0) 70%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.1));
+}
+
+.galeria__riel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: linear-gradient(#3a3a3e, #1f1f22);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.galeria__foco {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 46px;
+  height: 30px;
+  margin-left: -23px;
+  border-radius: 4px 4px 14px 14px;
+  background: linear-gradient(90deg, #1b1b1d, #4a4a50 45%, #1b1b1d);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+.galeria__foco::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -3px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff6d8;
+  box-shadow: 0 0 18px 6px rgba(255, 240, 200, 0.9);
+}
+
+.galeria__zoclo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  background-color: #6b4a2f;
+  background-image: url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/madera.jpg");
+  background-size: 220px;
+  background-blend-mode: multiply;
+  box-shadow: 0 -2px 0 rgba(255, 255, 255, 0.25), inset 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- El cuadro ---------- */
+.galeria__obra {
+  position: relative;
+  flex: none;
+  transform-origin: 50% -30px;
+}
+
+/* Al cambiar src el cuadro se vuelve a colgar con un vaivén */
+.galeria__obra.is-colgando {
+  animation: galeria-colgar 0.9s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes galeria-colgar {
+  0% { transform: rotate(-4deg) translateY(-8px); }
+  50% { transform: rotate(2deg); }
+  100% { transform: none; }
+}
+
+.galeria__marco {
+  padding: 14px;
+  background-color: #3b2616;
+  background-image: url("../../../images/course/modulo4/m4-11/tocadiscos/texturas/madera.jpg");
+  background-size: 180px;
+  background-blend-mode: multiply;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 0 rgba(255, 255, 255, 0.18),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.45),
+    0 18px 28px rgba(40, 25, 10, 0.35),
+    0 3px 6px rgba(40, 25, 10, 0.3);
+}
+
+.galeria__pp {
+  padding: 16px;
+  background: #fbf8f2;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.28);
+}
+
+/* El hueco mide lo que dicen width y height; la foto se estira a esa medida
+   igual que en el navegador */
+.galeria__hueco {
+  position: relative;
+  overflow: hidden;
+  background: #f2eee6;
+  transition: width 0.55s cubic-bezier(0.3, 0.9, 0.3, 1), height 0.55s cubic-bezier(0.3, 0.9, 0.3, 1);
+}
+
+.galeria__hueco img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.4s ease;
+}
+
+.galeria__hueco.is-roto img {
+  opacity: 0;
+}
+
+/* Imagen rota: el ícono y el texto de alt, como los dibuja el navegador */
+.galeria__roto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 6px;
+  overflow: hidden;
+  color: #3a3f4a;
+  font: 15px/1.3 "Times New Roman", Times, serif;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.galeria__roto svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+}
+
+.galeria__hueco.is-roto .galeria__roto {
+  opacity: 1;
+}
+
+/* ---------- Cintas métricas ---------- */
+.galeria__cinta {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background-color: var(--galeria-tape);
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  color: #2a2100;
+  font: 700 11px/1 "Source Code Pro", Consolas, "Courier New", monospace;
+  transition: width 0.55s cubic-bezier(0.3, 0.9, 0.3, 1), height 0.55s cubic-bezier(0.3, 0.9, 0.3, 1);
+}
+
+.galeria__cinta--w {
+  top: -26px;
+  left: 30px;
+  height: 18px;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0 1px, transparent 1px 6px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.08));
+  background-size: 100% 5px, 100% 100%;
+}
+
+.galeria__cinta--h {
+  right: -26px;
+  top: 30px;
+  width: 18px;
+  background-image:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0 1px, transparent 1px 6px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.08));
+  background-size: 5px 100%, 100% 100%;
+}
+
+.galeria__cinta span {
+  padding: 1px 3px;
+  background: var(--galeria-tape);
+  white-space: nowrap;
+}
+
+.galeria__cinta--h span {
+  writing-mode: vertical-rl;
+}
+
+/* ---------- Cartela ---------- */
+.galeria__cartela {
+  flex: none;
+  align-self: center;
+  width: 150px;
+  margin: 120px 0 0 36px; /* deja pasar la cinta de la derecha */
+  padding: 12px 14px;
+  background: #fffdf8;
+  box-shadow: 0 6px 14px rgba(40, 25, 10, 0.2), 0 1px 2px rgba(40, 25, 10, 0.2);
+  color: #3a3326;
+  font: 12px/1.45 "Lato", sans-serif;
+}
+
+.galeria__cartela strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #1c1710;
+  font: 700 15px/1.2 "Times New Roman", Times, serif;
+}
+
+.galeria__cartela code {
+  padding: 0;
+  background: none;
+  color: var(--theme-color);
+  font: 700 11px "Source Code Pro", Consolas, "Courier New", monospace;
+}
+
+.galeria__cartela .galeria__falta {
+  color: #b3261e;
+}
+
+@media (max-width: 575.98px) {
+  .galeria__pared {
+    flex-direction: column;
+    height: 430px;
+    padding-bottom: 116px;
+  }
+
+  .galeria__zoclo { height: 30px; }
+  .galeria__marco { padding: 9px; }
+  .galeria__pp { padding: 9px; }
+  .galeria__cinta--w { top: -22px; left: 18px; }
+  .galeria__cinta--h { right: -24px; top: 18px; }
+
+  .galeria__cartela {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    width: 230px;
+    margin: 0;
+    padding: 8px 10px;
+    transform: translateX(-50%);
+    font-size: 11px;
+  }
+
+  .galeria__cartela strong { font-size: 13px; }
+}
+
+/* ---------- Código: la ventana estándar del curso (lesson-demo.css) ---------- */
+.galeria__side {
+  min-width: 0;
+}
+
+.galeria__code {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.galeria__code .code {
+  margin: 0;
+  padding: 24px 22px 28px 0;
+  background: transparent;
+  color: #d7deea;
+  font: 400 14px/1.75 "Courier New", Consolas, monospace;
+  white-space: pre-wrap; /* el url de src es largo: se parte en vez de salirse */
+}
+
+@media (max-width: 575.98px) {
+  .galeria__code .code {
+    padding: 18px 12px 22px 0;
+    font-size: 12px;
+  }
+}
+
+/* El valor largo (el url) es un renglón de texto que se parte, con el mismo
+   aspecto que los demás valores del menú de vidrio */
+.galeria__code .galeria__largo {
+  display: inline;
+  white-space: normal;
+  word-break: break-all;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.galeria__code .galeria__largo::after {
+  display: inline-block;
+  margin-left: 0.35em;
+  vertical-align: 0.15em;
+}
+
+.galeria .menu-vidrio__opcion code {
+  white-space: normal;
+  word-break: break-all;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .galeria__obra.is-colgando { animation: none; }
+  .galeria__hueco,
+  .galeria__cinta,
+  .galeria__hueco img,
+  .galeria__roto { transition: none; }
+}
