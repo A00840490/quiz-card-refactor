@@ -8,7 +8,7 @@
      Google, que no se deja mostrar y el navegador pone su aviso.
    - El botón de arriba gira la vista: las dos hojas se separan y un túnel de
      luz las une. 8 s después de separarlas, un recuadro cubre el hueco y
-     parpadea 2.7 s con "iframe" calado, para decir qué es ese hueco. La escena se dibuja en un lienzo de 900 px y se escala.
+     parpadea 2.7 s con "<iframe>" calado, para decir qué es ese hueco. La escena se dibuja en un lienzo de 900 px y se escala.
    - La explicación va en la ficha de renglones (GraficoFicha.cambiar). */
 (function () {
   "use strict";
@@ -106,7 +106,7 @@
     lienzo.style.transform = "scale(" + k + ")";
     hueco.style.width = w + "px";
     hueco.style.height = h + "px";
-    avisoTxt.setAttribute("font-size", Math.round(Math.min(w * 0.24, h * 0.55)));
+    avisoTxt.setAttribute("font-size", Math.round(Math.min(w * 0.11, h * 0.24)));
 
     // El hueco no cambia de altura en la hoja: lo de arriba siempre mide lo mismo
     var top = hueco.offsetTop, left = (HOJA - w) / 2;

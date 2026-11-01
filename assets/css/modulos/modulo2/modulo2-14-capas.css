@@ -142,7 +142,8 @@
 
 /* El aviso del hueco: unos segundos después de separar las hojas, un
    recuadro cubre el hueco y parpadea con "iframe" calado (las letras dejan ver
-   lo de atrás). Lo dibuja un SVG con máscara; parpadea 2.7 s y se va. */
+   lo de atrás). Lo dibuja un SVG con máscara; parpadea 2.7 s (tres pulsos que
+   aparecen y se desvanecen suave) y se va. */
 .capas__aviso {
   position: absolute;
   inset: 0;
@@ -154,18 +155,17 @@
 }
 
 .capas__aviso text {
-  font-family: "Fira Sans", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-family: "Lato", sans-serif; /* la letra de la página */
+  font-weight: 700;
 }
 
 .capas__aviso.is-on {
-  animation: capas-parpadeo 0.45s steps(1, end) 6;
+  animation: capas-parpadeo 0.9s ease-in-out 3;
 }
 
 @keyframes capas-parpadeo {
-  0% { opacity: 1; }
-  60% { opacity: 0; }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 .capas__fin {
