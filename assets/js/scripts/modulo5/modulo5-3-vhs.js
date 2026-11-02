@@ -45,11 +45,10 @@
   }
 
   var F = {
-    hotel: fig("0 0 240 130",
-      '<polygon class="f-ac" points="60,46 120,10 180,46"/><rect x="70" y="46" width="100" height="78"/>' +
-      [0, 1, 2].map(function (c) { return [0, 1].map(function (r) { return '<rect class="f-c' + (c + 2) + ' f-lleno" x="' + (82 + c * 30) + '" y="' + (56 + r * 22) + '" width="16" height="14"/>'; }).join(""); }).join("") +
-      '<rect class="f-ac" x="108" y="100" width="24" height="24"/>' + texto(120, 40, "HOTEL", "f-ac", 18) +
-      '<circle class="f-c2 f-tenue" cx="30" cy="30" r="10"/><polygon class="f-c3 f-tenue" points="206,40 218,18 230,40"/>'),
+    plaza: fig("0 0 300 140",
+      '<rect x="18" y="8" width="264" height="20"/><rect x="18" y="28" width="264" height="94"/>' + texto(150, 24, "PLAZA", "", 19) +
+      '<rect class="f-c2 f-lleno" x="28" y="34" width="80" height="10"/><path class="f-c2" d="M28 44l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6"/><rect class="f-c2" x="36" y="60" width="36" height="28"/><rect class="f-c2" x="80" y="60" width="20" height="62"/><rect class="f-ac f-lleno" x="110" y="34" width="80" height="10"/><path class="f-ac" d="M110 44l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6"/><rect class="f-ac f-lleno" x="118" y="60" width="36" height="28"/><rect class="f-ac" x="162" y="60" width="20" height="62"/><rect class="f-c1 f-lleno" x="192" y="34" width="80" height="10"/><path class="f-c1" d="M192 44l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6l5 6l5-6"/><rect class="f-c1" x="200" y="60" width="36" height="28"/><rect class="f-c1" x="244" y="60" width="20" height="62"/>' +
+      texto(150, 139, "TU LOCAL", "f-ac", 19), "vhs__fig--icono"),
     tres: fig("0 0 360 96",
       '<circle class="f-c2" cx="60" cy="34" r="24"/><polygon class="f-c1" points="180,10 206,58 154,58"/><rect class="f-c3" x="276" y="10" width="48" height="48"/>' +
       texto(60, 40, "✓", "f-c2", 22) + texto(180, 50, "$", "f-c1", 22) + texto(300, 41, "GB", "f-c3", 17) +
@@ -136,28 +135,32 @@
   function txt(t, extra, cls) { return '<p class="vhs__text' + (cls ? " " + cls : "") + '">' + t + "</p>" + (extra || ""); }
   function plano(t) { return t.replace(/<[^>]+>/g, ""); }
   // Portada de cada recurso: su figura grande, el número y el nombre
+  // Portada de cada recurso: su figura grande, el número, el nombre y su
+  // lugar en la analogía del local en la plaza comercial
+  var PLAZA = ["el tamaño de tu local", "los pasillos y las entradas", "los guardias y las cámaras", "la administración"];
   function portada(k, icono, nombre) {
-    return scene("", icono + '<span class="vhs__name">Recurso ' + (k + 1) + " · <em>" + nombre + "</em></span>");
+    return scene("", icono + '<span class="vhs__name">Recurso ' + (k + 1) + " · <em>" + nombre + "</em></span>" +
+      '<span class="vhs__plaza">En la plaza: ' + PLAZA[k] + "</span>");
   }
 
   beats.push({ how: "fade", tono: "portada", dur: 3800, html: scene("",
     '<h3 class="vhs__title vhs__title--cover">Escogiendo<br>Alojamiento</h3>') });
   var bienvenida = "Bienvenido a la cinta de Escogiendo Alojamiento. En los próximos {min} minutos conocerás los <b>4 recursos</b> que debes revisar para elegir dónde publicar tu página.";
   beats.push({ how: "fade", tono: "portada", dur: read(plano(bienvenida), 4500), html: scene("", txt(bienvenida)) });
-  var hotel = "Busca alojamiento como si buscaras un <b>hotel</b> para quedarte.";
-  beats.push({ how: "fade", tono: "portada", dur: 4200, html: scene("Como un hotel", F.hotel + txt(hotel, "", "vhs__text--chico")) });
+  var local = "Escoger alojamiento es como <b>rentar un local</b> para tu negocio.";
+  beats.push({ how: "fade", tono: "portada", dur: read(local, 4500), html: scene("Como rentar un local", F.plaza + txt(local, "", "vhs__text--chico")) });
   var tres = "Que sea accesible, que no cueste mucho y que tenga <b>recursos</b>.";
-  beats.push({ how: "fade", tono: "portada", dur: read(plano(tres), 4500), html: scene("Como un hotel", F.tres + txt(tres, "", "vhs__text--chico")) });
+  beats.push({ how: "fade", tono: "portada", dur: read(plano(tres), 4500), html: scene("Como rentar un local", F.tres + txt(tres, "", "vhs__text--chico")) });
 
   // Recurso 1: almacenamiento
-  beats.push({ how: "zap", tono: "alm", chapter: 0, dur: 3600, html: portada(0, F.almIcono, "Almacenamiento") });
+  beats.push({ how: "zap", tono: "alm", chapter: 0, dur: 4400, html: portada(0, F.almIcono, "Almacenamiento") });
   var alm1 = "Es el espacio para guardar los <b>archivos</b> de tu proyecto.";
   beats.push({ how: "fade", tono: "alm", chapter: 0, dur: read(plano(alm1), 5200), html: scene("¿Qué es?", F.almCaja + txt(alm1, "", "vhs__text--chico")) });
   beats.push({ how: "fade", tono: "alm", chapter: 0, dur: 4800, html: scene("¿Cuánto?",
     '<span class="vhs__dato">10 a 20 GB</span>' + F.almDato + txt("son suficientes para páginas pequeñas.", "", "vhs__text--chico")) });
 
   // Recurso 2: ancho de banda
-  beats.push({ how: "zap", tono: "ban", chapter: 1, dur: 3600, html: portada(1, F.banIcono, "Ancho de banda") });
+  beats.push({ how: "zap", tono: "ban", chapter: 1, dur: 4400, html: portada(1, F.banIcono, "Ancho de banda") });
   var ban1 = "Es qué tan <b>rápido</b> viajan los datos entre el servidor y tu página.";
   beats.push({ how: "fade", tono: "ban", chapter: 1, dur: read(plano(ban1), 5000), html: scene("¿Qué es?", F.banFlujo + txt(ban1, "", "vhs__text--chico")) });
   var ban2 = "Más <b>visitantes</b> necesitan más ancho de banda.";
@@ -165,14 +168,14 @@
   beats.push({ how: "none", tono: "ban", chapter: 1, dur: 3600, html: scene("¿Cuánto?", F.banVisitas(true) + txt(ban2, "", "vhs__text--chico")) });
 
   // Recurso 3: seguridad
-  beats.push({ how: "zap", tono: "seg", chapter: 2, dur: 3600, html: portada(2, F.segIcono, "Seguridad") });
+  beats.push({ how: "zap", tono: "seg", chapter: 2, dur: 4400, html: portada(2, F.segIcono, "Seguridad") });
   var seg1 = "Un certificado <b>SSL</b> encripta los datos de tus usuarios.";
   beats.push({ how: "fade", tono: "seg", chapter: 2, dur: read(plano(seg1), 5000), html: scene("¿Qué es?", F.segCifra + txt(seg1, "", "vhs__text--chico")) });
   var seg2 = "Se nota por el <b>candado</b>. No todos los planes lo tienen.";
   beats.push({ how: "fade", tono: "seg", chapter: 2, dur: read(plano(seg2), 4500), html: scene("¿Cómo lo reconozco?", F.segUrl + txt(seg2, "", "vhs__text--chico")) });
 
   // Recurso 4: servicio al cliente
-  beats.push({ how: "zap", tono: "sop", chapter: 3, dur: 3600, html: portada(3, F.sopIcono, "Servicio al cliente") });
+  beats.push({ how: "zap", tono: "sop", chapter: 3, dur: 4400, html: portada(3, F.sopIcono, "Servicio al cliente") });
   var sop1 = "Si algo falla en el servidor, <b>alguien te ayuda</b> a resolverlo.";
   beats.push({ how: "fade", tono: "sop", chapter: 3, dur: read(plano(sop1), 5000), html: scene("¿Qué es?", F.sopError + txt(sop1, "", "vhs__text--chico")) });
   var sop2 = "El <b>soporte técnico</b> mantiene tu página funcionando.";
