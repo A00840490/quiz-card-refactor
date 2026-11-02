@@ -12,7 +12,9 @@
    banda de tracking y la barra de avance de cuadros blancos.
    Colores de la pantalla: --vhs-fondo (el degradado) y --vhs-acento (lo
    resaltado). Cada página puede cambiarlos por escena con el data-tono que
-   pone vhs.js en .vhs (ver modulo5-3-vhs.css). */
+   pone vhs.js en .vhs (ver modulo5-3-vhs.css).
+   Variante .tv--frente: el casete se ve de frente (foto con etiqueta) y
+   espera recargado en la esquina de la tele (ver más abajo; la usa el 5-3). */
 
 .vhs-wrap {
   container: vhs-wrap / inline-size;
@@ -262,6 +264,93 @@
   100% { left: 28.25cqw; top: -5cqw; transform: none; }
 }
 
+/* ---------- Variante: casete de frente, recargado en la esquina de la tele ----------
+   Con .tv--frente el casete no va acostado sobre la videocasetera: es una
+   foto del casete visto de frente, con su etiqueta, recargado en la esquina
+   inferior derecha de la tele. El botón .tape.tape--frente va directo dentro
+   de .tv (después de .tv__cab) y lleva la foto y la etiqueta (.tape__nota).
+   Para indicar que se puede presionar le sale de vez en cuando una sombra
+   dorada que sigue la forma del casete. Al hacerle clic se levanta, viaja
+   hasta la ranura, se acuesta y entra; con EJECT hace el camino de regreso
+   (mismas duraciones que tape-in y tape-out).
+   Medidas en fracciones del ancho de la tele (--tvw). Para cada tamaño:
+   --cx centro de la ranura, --sy dónde termina la ranura (desde arriba),
+   --sc escala del casete para que quepa en la ranura. */
+.tv--frente {
+  --tvw: min(660px, 100cqw);
+  --cw: calc(var(--tvw) * .38);
+  --cx: 34.34%;
+  --sy: .1296;
+  --sc: .824;
+  margin-bottom: calc(var(--cw) * .544 * .42);
+}
+.tv--frente .tv__vcr { margin-top: calc(var(--vcr-w) * .05); }
+/* celular: la videocasetera ocupa el 92% de la tele */
+@container vhs-wrap (max-width: 560px) { .tv--frente { --cw: calc(var(--tvw) * .44); --cx: 30%; --sy: .1656; --sc: .909; } }
+/* videocasetera angosta: la ranura está centrada */
+@container vhs-wrap (max-width: 412.98px) { .tv--frente { --cx: 50%; } }
+.tape.tape--frente {
+  --ch: calc(var(--cw) * .544);
+  --sombra: drop-shadow(0 3px 4px rgba(30, 15, 5, .5));
+  z-index: 6;
+  container-type: normal;
+  display: block;
+  left: calc(100% - var(--cw) - var(--tvw) * .015);
+  top: calc(100% - var(--ch) * .58);
+  width: var(--cw);
+  height: var(--ch);
+  transform-origin: 50% 100%;
+  transform: perspective(var(--tvw)) rotateX(0deg) rotate(-4deg) scale(1);
+  filter: var(--sombra) drop-shadow(0 0 0 rgba(247, 201, 72, 0)) drop-shadow(0 0 0 rgba(247, 201, 72, 0));
+  transition: transform .25s ease;
+}
+.tape--frente::after { display: none; }
+.tape--frente img { display: block; width: 100%; height: 100%; }
+/* la etiqueta de papel escrita a mano, en el hueco de en medio del casete */
+.tape__nota {
+  position: absolute;
+  left: 29.5%;
+  top: 31%;
+  width: 40.5%;
+  height: 42%;
+  display: grid;
+  place-content: center;
+  border-radius: 2px;
+  background: repeating-linear-gradient(180deg, transparent 0 calc(var(--cw) * .052), rgba(80, 120, 200, .28) calc(var(--cw) * .052) calc(var(--cw) * .055)), #fbf7ea;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .45);
+  transform: rotate(-2deg);
+  color: #1d3d9a;
+  font: calc(var(--cw) * .049)/1.1 "Permanent Marker", "Comic Sans MS", cursive;
+  text-align: center;
+  white-space: nowrap;
+}
+.tape__nota span + span { margin-left: .6em; }
+.tape.tape--frente:focus-visible { outline: none; filter: var(--sombra) drop-shadow(0 0 2px #f7c948) drop-shadow(0 0 3px #f7c948); }
+.tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape--frente { animation: frente-brilla 2.6s ease-in-out infinite; }
+.tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape--frente:hover {
+  animation: none;
+  transform: perspective(var(--tvw)) rotateX(0deg) rotate(-2deg) scale(1.03);
+  filter: var(--sombra) drop-shadow(0 0 3px #f7c948) drop-shadow(0 0 10px rgba(247, 201, 72, .85));
+}
+@keyframes frente-brilla {
+  0%, 45%, 92%, 100% { filter: var(--sombra) drop-shadow(0 0 0 rgba(247, 201, 72, 0)) drop-shadow(0 0 0 rgba(247, 201, 72, 0)); }
+  65%, 72% { filter: var(--sombra) drop-shadow(0 0 3px #f7c948) drop-shadow(0 0 10px rgba(247, 201, 72, .85)); }
+}
+.tv.is-loading .tape.tape--frente { animation: frente-entra 1.4s ease-in-out forwards; }
+.tv.is-ejecting .tape.tape--frente { animation: frente-sale 1.2s ease-in-out forwards; }
+@keyframes frente-entra {
+  0% { left: calc(100% - var(--cw) - var(--tvw) * .015); top: calc(100% - var(--ch) * .58); transform: perspective(var(--tvw)) rotateX(0deg) rotate(-4deg) scale(1); }
+  20% { left: calc(100% - var(--cw) - var(--tvw) * .015); top: calc(100% - var(--ch) * .58 - var(--tvw) * .05); transform: perspective(var(--tvw)) rotateX(0deg) rotate(0deg) scale(1.05); }
+  48%, 64% { left: calc(var(--cx) - var(--cw) / 2); top: calc(var(--tvw) * var(--sy) - var(--ch)); transform: perspective(var(--tvw)) rotateX(74deg) rotate(0deg) scale(var(--sc)); opacity: 1; }
+  86%, 100% { left: calc(var(--cx) - var(--cw) / 2); top: calc(var(--tvw) * var(--sy) - var(--ch) + var(--tvw) * .006); transform: perspective(var(--tvw)) rotateX(74deg) rotate(0deg) scale(calc(var(--sc) * .9)); filter: var(--sombra) brightness(.15); opacity: 0; }
+}
+@keyframes frente-sale {
+  0%, 12% { left: calc(var(--cx) - var(--cw) / 2); top: calc(var(--tvw) * var(--sy) - var(--ch) + var(--tvw) * .006); transform: perspective(var(--tvw)) rotateX(74deg) rotate(0deg) scale(calc(var(--sc) * .9)); filter: var(--sombra) brightness(.15); opacity: 0; }
+  36%, 46% { left: calc(var(--cx) - var(--cw) / 2); top: calc(var(--tvw) * var(--sy) - var(--ch)); transform: perspective(var(--tvw)) rotateX(74deg) rotate(0deg) scale(var(--sc)); filter: var(--sombra); opacity: 1; }
+  80% { left: calc(100% - var(--cw) - var(--tvw) * .015); top: calc(100% - var(--ch) * .58 - var(--tvw) * .05); transform: perspective(var(--tvw)) rotateX(0deg) rotate(0deg) scale(1.05); }
+  100% { left: calc(100% - var(--cw) - var(--tvw) * .015); top: calc(100% - var(--ch) * .58); transform: perspective(var(--tvw)) rotateX(0deg) rotate(-4deg) scale(1); }
+}
+
 /* ---------- Gabinete de madera ---------- */
 .tv__cab {
   position: relative;
@@ -468,4 +557,6 @@
   .vhs::after, .vhs__grain, .vhs__op, .vhs__title--cover, .vhs__grid, .vhs__line, .vhs__arrow, .vhs__result, .vhs__cap, .vhs__mode.blink, .tape::after, .tv.is-paused .tv__vcr-led, .tv__slot::before { animation: none !important; }
   .vhs__stage { transition: none; }
   .tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape::after { opacity: 1; }
+  .tv.is-off:not(.has-tape):not(.is-loading):not(.is-ejecting) .tape--frente { animation: none; filter: var(--sombra) drop-shadow(0 0 3px #f7c948) drop-shadow(0 0 10px rgba(247, 201, 72, .85)); }
+  .tape--frente { transition: none; }
 }

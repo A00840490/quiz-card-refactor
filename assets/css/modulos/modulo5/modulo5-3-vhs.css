@@ -11,7 +11,9 @@
      y giran sobre su propio eje, cada una a su ritmo.
    - En las escenas de preguntas el fondo es la cuadrícula (en blanco) y
      no hay figuras de fondo.
-   - La etiqueta del casete lleva franjas de los colores de los capítulos. */
+   - El casete es la variante de frente (.tv--frente en vhs.css): una foto
+     de un casete con etiqueta escrita a mano, recargado en la esquina de la
+     tele. */
 
 /* ---------- Colores de la pantalla por capítulo ---------- */
 .tv--alojamiento .vhs[data-tono="portada"] {
@@ -121,12 +123,6 @@
 /* la cuadrícula de las preguntas, en blanco para que se vea sobre cualquier color */
 .tv--alojamiento .vhs__grid { background-image: linear-gradient(rgba(255, 255, 255, .22) max(1px, .25cqw), transparent 0), linear-gradient(90deg, rgba(255, 255, 255, .22) max(1px, .25cqw), transparent 0); }
 .tv.is-paused .vhs__figs i, .tv.is-paused .vhs__fig, .tv.is-paused .vhs__fig * { animation-play-state: paused; }
-
-/* ---------- Casete: etiqueta con franjas de los colores de los capítulos ---------- */
-.tv--alojamiento .tape__label {
-  background: linear-gradient(90deg, #00a3a3 0 3%, #d42d8a 3% 6%, #fff7ea 6% 94%, #e3621a 94% 97%, #22a553 97%);
-  color: #3a0d55;
-}
 
 /* En celular la pantalla es más alta: las figuras crecen un poco */
 @container vhs-wrap (max-width: 560px) {
