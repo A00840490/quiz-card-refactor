@@ -14,7 +14,7 @@
    resaltado). Cada página puede cambiarlos por escena con el data-tono que
    pone vhs.js en .vhs (ver modulo5-3-vhs.css).
    Variante .tv--frente: el casete se ve de frente (foto con etiqueta) y
-   espera recargado en la esquina de la tele (ver más abajo; la usa el 5-3). */
+   espera recargado en la esquina de la tele (ver más abajo; la usan el 4-8 y el 5-3). */
 
 .vhs-wrap {
   container: vhs-wrap / inline-size;
