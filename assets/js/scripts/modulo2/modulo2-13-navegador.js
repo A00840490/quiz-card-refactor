@@ -12,7 +12,7 @@
          parte (../ regresa una columna, modulo3/ entra a otra) y el
          navegador abre la página nueva.
      El enlace de la página y la flecha de regresar también funcionan.
-   - La escena se dibuja en un lienzo de 640 × 600 px y se escala.
+   - La escena se dibuja en un lienzo de 640 × 569 px y se escala.
    - La explicación va en la ficha de renglones (GraficoFicha.cambiar). */
 (function () {
   "use strict";
@@ -29,7 +29,7 @@
   var pre = root.querySelector("[data-code]");
   var exp = root.querySelector("[data-status]");
 
-  var ANCHO = 640, ALTO = 600;
+  var ANCHO = 640, ALTO = 569;
 
   var OPCIONES = {
     href: ["#inicio", "#ejemplos", "modulo2-12.html", "../modulo3/modulo3-1.html"],
@@ -165,8 +165,7 @@
         "<div class=\"enl__aviso\" data-aviso></div><div class=\"enl__cursor\" data-cursor>" + ICO.mano + "</div></div>" +
     "</div>" +
     "<div class=\"enl__finder\">" +
-      "<div class=\"enl__ftit\"><span class=\"enl__luces\"><i></i><i></i><i></i></span><span>Mi sitio</span></div>" +
-      "<div class=\"enl__ruta\" data-ruta></div>" +
+      "<div class=\"enl__ftit\"><span class=\"enl__luces\"><i></i><i></i><i></i></span><span>programacion_web</span></div>" +
       "<div class=\"enl__cols\"><div class=\"enl__col\"></div><div class=\"enl__col\"></div><div class=\"enl__col\"></div></div>" +
       "<div class=\"enl__path\" data-path></div>" +
     "</div>";
@@ -174,7 +173,7 @@
   var q = function (s) { return lienzo.querySelector(s); };
   var pag = q("[data-pag]"), vista = q("[data-vista]"), url = q("[data-url]"), tit = q("[data-tit]"), carga = q("[data-carga]");
   var marca = q("[data-marca]"), aviso = q("[data-aviso]"), cursor = q("[data-cursor]"), atras = q("[data-atras]");
-  var ruta = q("[data-ruta]"), cols = lienzo.querySelectorAll(".enl__col"), path = q("[data-path]");
+  var cols = lienzo.querySelectorAll(".enl__col"), path = q("[data-path]");
 
   var vuelta = 0;          // cada viaje nuevo cancela el anterior
   var pagina = null;       // la página que muestra el navegador
@@ -207,7 +206,7 @@
     cursor.style.top = (a.offsetTop - y + a.offsetHeight * 0.55) + "px";
   }
   function ponerUrl(clave, hash, nuevo) {
-    url.innerHTML = "<span class=\"enl__gris\">mi-sitio.com/html/" + PAG[clave].carpeta + "/</span>" +
+    url.innerHTML = "<span class=\"enl__gris\">programacion_web/html/" + PAG[clave].carpeta + "/</span>" +
       "<span" + (nuevo && !hash ? " class=\"is-nuevo\"" : "") + ">" + clave + "</span>" +
       (hash ? "<span class=\"enl__hash" + (nuevo ? " is-nuevo" : "") + "\">" + esc(hash) + "</span>" : "");
   }
@@ -226,15 +225,10 @@
       cols[2].classList.add("is-cambia");
       setTimeout(function () { cols[2].innerHTML = tercera; cols[2].classList.remove("is-cambia"); }, 220);
     } else cols[2].innerHTML = tercera;
-    var partes = [[ICO.disco, "Mi sitio"], [ICO.carpeta, "html"]];
+    var partes = [[ICO.disco, "programacion_web"], [ICO.carpeta, "html"]];
     if (sel.c2) partes.push([ICO.carpeta, sel.c2]);
     if (sel.c3) partes.push([ICO.html, sel.c3]);
     path.innerHTML = partes.map(function (p) { return "<span>" + p[0] + p[1] + "</span>"; }).join("<i class=\"enl__sep\">›</i>");
-  }
-  function pintarRuta(on) {
-    ruta.innerHTML = "<b>href</b>" + pasos().map(function (p, i) {
-      return "<span class=\"enl__chip" + (i === on ? " is-on" : (i < on ? " is-hecho" : "")) + "\">" + esc(p) + "</span>";
-    }).join("") + (val("href").charAt(0) === "#" ? "<small>misma página: no cambia de archivo</small>" : "");
   }
   function marcar(el, nombre) {
     marca.style.left = (el.offsetLeft - 3) + "px";
@@ -270,7 +264,6 @@
     ponerUrl("modulo2-13.html", "");
     sel = { c2: "modulo2", c3: "modulo2-13.html", activa: 3 };
     pintarCarpeta(false);
-    pintarRuta(-1);
     ponerCursor();
     cursor.classList.remove("is-oculto");
     atras.disabled = true;
@@ -288,7 +281,6 @@
     if (n !== vuelta) return;
 
     if (d.tipo === "id") {
-      pintarRuta(0);
       ponerUrl("modulo2-13.html", val("href"), true);
       await espera(350);
       if (n !== vuelta) return;
@@ -310,14 +302,12 @@
     // La selección pasa por cada parte de la ruta
     var p = pasos();
     for (var i = 0; i < p.length; i++) {
-      pintarRuta(i);
       if (p[i] === "../") { sel = { c2: null, c3: null, activa: 1 }; pintarCarpeta(true); }
       else if (p[i].slice(-1) === "/") { sel = { c2: p[i].slice(0, -1), c3: null, activa: 2 }; pintarCarpeta(true); }
       else { sel.c3 = p[i]; sel.activa = 3; pintarCarpeta(false); }
       await espera(i === p.length - 1 ? 650 : 900);
       if (n !== vuelta) return;
     }
-    pintarRuta(p.length);
 
     // El navegador abre la página nueva
     cursor.classList.add("is-oculto");
