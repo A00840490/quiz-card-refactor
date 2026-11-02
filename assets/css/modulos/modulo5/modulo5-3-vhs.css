@@ -7,10 +7,10 @@
      azul en el cierre. --vhs-acento es el color de lo resaltado.
    - La información se dibuja con figuras geométricas de contorno brillante
      (.vhs__fig) en cuatro colores neón (.f-c1 a .f-c4) más el acento.
-   - De fondo se mueven figuras sueltas (.vhs__figs) del color del acento:
-     el triángulo flota, el círculo rebota, el cuadro gira, el zigzag se
-     mece y la cruz gira y late.
-   - En las escenas de preguntas el fondo es la cuadrícula (en blanco).
+   - De fondo, figuras sueltas (.vhs__figs) del color del acento que flotan
+     y giran sobre su propio eje, cada una a su ritmo.
+   - En las escenas de preguntas el fondo es la cuadrícula (en blanco) y
+     no hay figuras de fondo.
    - La etiqueta del casete lleva franjas de los colores de los capítulos. */
 
 /* ---------- Colores de la pantalla por capítulo ---------- */
@@ -97,23 +97,27 @@
   opacity: .3;
   -webkit-mask: var(--forma) center / contain no-repeat;
   mask: var(--forma) center / contain no-repeat;
-  animation: vhs-flota 3.6s ease-in-out infinite;
-  transition: background-color .4s ease;
+  animation: vhs-flota 3.6s ease-in-out infinite, vhs-gira-fig 9s linear infinite;
+  transition: background-color .4s ease, opacity .5s ease;
 }
 .vhs__figs i:nth-child(1) { left: 4%; top: 17%; width: 7cqw; height: 7cqw; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,4 37,35 3,35' fill='none' stroke='%23000' stroke-width='4' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .vhs__figs i:nth-child(2) { right: 4%; top: 18%; width: 6cqw; height: 6cqw; animation-delay: -3s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='16' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E"); }
 .vhs__figs i:nth-child(3) { left: 9%; bottom: 5%; width: 6cqw; height: 6cqw; animation-delay: -5s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='6' y='6' width='28' height='28' fill='none' stroke='%23000' stroke-width='4'/%3E%3C/svg%3E"); }
 .vhs__figs i:nth-child(4) { right: 8%; bottom: 6%; width: 9cqw; height: 4.5cqw; animation-delay: -1.5s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20'%3E%3Cpath d='M2 16l6-12 6 12 6-12 6 12 6-12 6 12' fill='none' stroke='%23000' stroke-width='3.5' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .vhs__figs i:nth-child(5) { left: 3%; top: 50%; width: 4cqw; height: 4cqw; animation-delay: -6.5s; --forma: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 4v32M4 20h32' stroke='%23000' stroke-width='6'/%3E%3C/svg%3E"); }
-.vhs__figs i:nth-child(2) { animation: vhs-rebota 1.5s cubic-bezier(.45, 0, .55, 1) infinite; }
-.vhs__figs i:nth-child(3) { animation: vhs-gira-fig 7s linear infinite; }
-.vhs__figs i:nth-child(4) { animation: vhs-mece 2.8s ease-in-out infinite; }
-.vhs__figs i:nth-child(5) { animation: vhs-late 3.2s ease-in-out infinite; }
-@keyframes vhs-flota { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-2.4cqw) rotate(8deg); } }
-@keyframes vhs-rebota { 0%, 100% { transform: translateY(0) scale(1.12, .86); } 12% { transform: translateY(-.6cqw) scale(.95, 1.06); } 50% { transform: translateY(-4cqw) scale(1); } 88% { transform: translateY(-.6cqw) scale(.95, 1.06); } }
-@keyframes vhs-gira-fig { to { transform: rotate(360deg); } }
-@keyframes vhs-mece { 0%, 100% { transform: translateX(0) rotate(-6deg); } 50% { transform: translateX(-2cqw) rotate(6deg); } }
-@keyframes vhs-late { 0%, 100% { transform: rotate(0) scale(1); } 50% { transform: rotate(90deg) scale(1.35); } }
+/* todas flotan (suben y bajan) y giran sobre su propio eje, cada una a su
+   ritmo; las dos animaciones usan translate y rotate por separado para
+   poder sumarse */
+.vhs__figs i:nth-child(1) { animation-duration: 3.6s, 9s; }
+.vhs__figs i:nth-child(2) { animation-duration: 4.2s, 11s; animation-direction: normal, reverse; }
+.vhs__figs i:nth-child(3) { animation-duration: 3.2s, 8s; }
+.vhs__figs i:nth-child(4) { animation-duration: 4.6s, 13s; animation-direction: normal, reverse; }
+.vhs__figs i:nth-child(5) { animation-duration: 3.9s, 7s; }
+@keyframes vhs-flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -2.4cqw; } }
+@keyframes vhs-gira-fig { from { rotate: 0deg; } to { rotate: 360deg; } }
+/* en las escenas con cuadrícula no hay figuras de fondo */
+.vhs__figs { transition: opacity .5s ease; }
+.vhs.is-grid .vhs__figs { opacity: 0; }
 /* la cuadrícula de las preguntas, en blanco para que se vea sobre cualquier color */
 .tv--alojamiento .vhs__grid { background-image: linear-gradient(rgba(255, 255, 255, .22) max(1px, .25cqw), transparent 0), linear-gradient(90deg, rgba(255, 255, 255, .22) max(1px, .25cqw), transparent 0); }
 .tv.is-paused .vhs__figs i, .tv.is-paused .vhs__fig, .tv.is-paused .vhs__fig * { animation-play-state: paused; }
