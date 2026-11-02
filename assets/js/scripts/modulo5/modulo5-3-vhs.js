@@ -6,6 +6,7 @@
    muestra con figuras geométricas de contorno brillante: cuadros que caen
    en el disco, figuras que viajan por la banda, el hexágono con candado,
    los globos de diálogo… Al final, los servicios adicionales.
+   En las escenas de preguntas el fondo es la cuadrícula que avanza.
    El texto completo queda en la lista oculta [data-vhs-src] para lectores
    de pantalla. */
 (function () {
@@ -44,10 +45,6 @@
   }
 
   var F = {
-    portada: fig("0 0 240 40",
-      '<polygon class="f-c1" points="20,34 38,4 56,34"/><circle class="f-c2" cx="86" cy="19" r="15"/>' +
-      '<rect class="f-c3" x="122" y="5" width="28" height="28" transform="rotate(12 136 19)"/>' + hexagono(184, 19, 22).replace("<polygon", '<polygon class="f-c4"') +
-      '<path class="f-c1" d="M210 28l6-14 6 14 6-14 6 14"/>', "vhs__fig--fila"),
     hotel: fig("0 0 240 130",
       '<polygon class="f-ac" points="60,46 120,10 180,46"/><rect x="70" y="46" width="100" height="78"/>' +
       [0, 1, 2].map(function (c) { return [0, 1].map(function (r) { return '<rect class="f-c' + (c + 2) + ' f-lleno" x="' + (82 + c * 30) + '" y="' + (56 + r * 22) + '" width="16" height="14"/>'; }).join(""); }).join("") +
@@ -144,7 +141,7 @@
   }
 
   beats.push({ how: "fade", tono: "portada", dur: 3800, html: scene("",
-    '<h3 class="vhs__title vhs__title--cover">Escogiendo<br>Alojamiento</h3>' + F.portada) });
+    '<h3 class="vhs__title vhs__title--cover">Escogiendo<br>Alojamiento</h3>') });
   var bienvenida = "Bienvenido a la cinta de Escogiendo Alojamiento. En los próximos {min} minutos conocerás los <b>4 recursos</b> que debes revisar para elegir dónde publicar tu página.";
   beats.push({ how: "fade", tono: "portada", dur: read(plano(bienvenida), 4500), html: scene("", txt(bienvenida)) });
   var hotel = "Busca alojamiento como si buscaras un <b>hotel</b> para quedarte.";
@@ -189,6 +186,10 @@
   beats.push({ how: "zap", tono: "portada", dur: 4500, end: true, html: scene("Fin de la cinta",
     '<h3 class="vhs__title">¡Listo para escoger!</h3>' +
     '<p class="vhs__sub">Revisa <b>almacenamiento</b>, <b>ancho de banda</b>, <b>seguridad</b> y <b>soporte</b>.</p>') });
+
+  // La cuadrícula de fondo sale solo en las escenas de preguntas
+  // ("¿Qué es?", "¿Cuánto?"…)
+  beats.forEach(function (b) { if (b.html.indexOf('vhs__kicker">¿') >= 0) b.grid = true; });
 
   Vhs.crear(tv, beats);
 })();
