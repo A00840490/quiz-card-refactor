@@ -1,0 +1,189 @@
+/* =====================================================================
+   2-10 Recursos de imágenes gratuitas: tarjetas en abanico.
+   La tarjeta del frente (centro, abajo) está enfocada; las demás quedan
+   detrás, a los lados y más arriba, más chicas y difuminadas. Al hacer
+   clic en una, el abanico gira hasta traerla al frente.
+   modulo2-10-abanico.js acomoda las tarjetas (--w, --h, --top y el
+   transform de cada una) según el ancho disponible.
+   ===================================================================== */
+
+.abanico {
+  --abanico-ink: #172033;
+  --abanico-muted: #4f5d73;
+  --abanico-line: #dce5ef;
+  margin: 8px 0 12px;
+}
+
+.abanico__mesa {
+  position: relative;
+  height: 520px; /* el script lo ajusta al alto real del abanico */
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.abanico__carta {
+  position: absolute;
+  top: var(--top, 0px);
+  left: 50%;
+  width: var(--w, 260px);
+  height: var(--h, auto);
+  margin-left: calc(var(--w, 260px) / -2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--abanico-line);
+  border-radius: 18px;
+  background: #ffffff;
+  color: var(--abanico-ink);
+  box-shadow: 0 10px 24px rgba(15, 35, 70, 0.14);
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.8, 0.3, 1),
+    filter 0.55s ease,
+    box-shadow 0.55s ease,
+    opacity 0.55s ease;
+  will-change: transform, filter;
+}
+
+.abanico__carta.is-activa {
+  cursor: default;
+  box-shadow:
+    0 22px 44px rgba(15, 35, 70, 0.24),
+    0 4px 10px rgba(15, 35, 70, 0.1);
+}
+
+.abanico__carta:focus-visible {
+  outline: 3px solid rgba(15, 76, 145, 0.45);
+  outline-offset: 3px;
+}
+
+.abanico.sin-animar .abanico__carta {
+  transition: none;
+}
+
+/* Franja de arriba con el color de marca y el logo de cada sitio. */
+.abanico__marca {
+  flex: 0 0 auto;
+  display: flex;
+  height: 132px;
+  align-items: center;
+  justify-content: center;
+  background: #0f4c91;
+  background-image: radial-gradient(
+    circle at 28% 18%,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0) 62%
+  );
+}
+
+.abanico__marca img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.abanico__carta--unsplash .abanico__marca {
+  background-color: #111111;
+}
+
+.abanico__carta--iconmonstr .abanico__marca {
+  background-color: #000000;
+}
+
+.abanico__carta--pexels .abanico__marca {
+  background-color: #05a081;
+}
+
+.abanico__carta--undraw .abanico__marca {
+  background-color: #6c63ff;
+}
+
+.abanico__carta--stable-diffusion .abanico__marca {
+  background-color: #9d39ff;
+  background-image:
+    radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 62%),
+    linear-gradient(180deg, #9d39ff 0%, #a380ff 100%);
+}
+
+.abanico__carta--dall-e .abanico__marca {
+  background-color: #202123;
+}
+
+.abanico__carta--dall-e .abanico__marca img {
+  width: 84px;
+  height: 84px;
+}
+
+.abanico__cuerpo {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 16px;
+  text-align: left;
+}
+
+.abanico .abanico__nombre {
+  margin: 0 0 8px;
+  color: var(--abanico-ink);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.abanico .abanico__desc {
+  margin: 0 0 14px;
+  color: var(--abanico-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.abanico .abanico__ir {
+  margin: auto 0 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.abanico__ir a {
+  color: #0f4c91;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+/* Solo el enlace de la tarjeta del frente se puede presionar: un clic en
+   cualquier parte de otra tarjeta la trae al frente. */
+.abanico__carta:not(.is-activa) .abanico__ir a {
+  pointer-events: none;
+}
+
+@media (max-width: 575.98px) {
+  .abanico__marca {
+    height: 104px;
+  }
+
+  .abanico__marca img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .abanico__carta--dall-e .abanico__marca img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .abanico__cuerpo {
+    padding: 14px 16px 14px;
+  }
+
+  .abanico .abanico__nombre {
+    font-size: 18px;
+  }
+
+  .abanico .abanico__desc {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
