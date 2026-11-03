@@ -166,6 +166,13 @@
 /* El estambre de la hoja nueva va encima de ella */
 .corcho__hilo.corcho__hilo--dest { z-index: 11; }
 
+/* Copia de la tachuela verde: queda encima del estambre nuevo que sale de ella */
+.corcho__tach.corcho__tach--encima { z-index: 12; transition: opacity 0.3s ease; }
+
+/* Copia de la tachuela amarilla donde llega el estambre del sitio: encima del
+   estambre, pero debajo de la hoja nueva que se clave encima de la foto */
+.corcho__tach.corcho__tach--fin { z-index: 9; transition: opacity 0.3s ease; }
+
 /* ---------- El enlace (colores de fábrica del navegador) ---------- */
 .corcho__lk {
   padding: 0.05em 0.15em;

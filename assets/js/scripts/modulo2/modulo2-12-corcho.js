@@ -166,11 +166,16 @@
     "<svg class=\"corcho__hilo corcho__hilo--dest\" data-hilo-dest style=\"opacity:0\" viewBox=\"0 0 640 520\" aria-hidden=\"true\">" +
       "<path data-d1 fill=\"none\" stroke=\"#a3221a\" stroke-width=\"3.4\" stroke-linecap=\"round\"/>" +
       "<path data-d2 fill=\"none\" stroke=\"#e0503e\" stroke-width=\"1.3\" stroke-dasharray=\"3 4\" stroke-linecap=\"round\"/></svg>" +
-    "<span class=\"corcho__tach corcho__tach--lk is-azul\" data-tlk aria-hidden=\"true\"></span>";
+    "<span class=\"corcho__tach corcho__tach--lk is-azul\" data-tlk aria-hidden=\"true\"></span>" +
+    // Copia de la tachuela verde de la hoja del curso, encima del estambre nuevo que sale de ella
+    "<span class=\"corcho__tach corcho__tach--hoja corcho__tach--encima\" data-tverde style=\"opacity:0\" aria-hidden=\"true\"></span>" +
+    // Copias de las tachuelas amarillas: el estambre llega por debajo de ellas
+    "<span class=\"corcho__tach corcho__tach--foto corcho__tach--fin\" data-tfin aria-hidden=\"true\"></span>" +
+    "<span class=\"corcho__tach corcho__tach--dest corcho__tach--encima\" data-tdest style=\"opacity:0\" aria-hidden=\"true\"></span>";
 
   var q = function (s) { return lienzo.querySelector(s); };
   var svgHilo = q("[data-hilo]"), h1 = q("[data-h1]"), h2 = q("[data-h2]"), tlk = q("[data-tlk]");
-  var svgDest = q("[data-hilo-dest]"), d1 = q("[data-d1]"), d2 = q("[data-d2]");
+  var svgDest = q("[data-hilo-dest]"), d1 = q("[data-d1]"), d2 = q("[data-d2]"), tverde = q("[data-tverde]"), tfin = q("[data-tfin]"), tdest = q("[data-tdest]");
 
   var vuelta = 0;       // cada cambio cancela lo que estaba pasando
   var ocupado = false;  // mientras se sigue el enlace
@@ -204,14 +209,24 @@
     var d = curva(A, B, extra);
     h1.setAttribute("d", d);
     h2.setAttribute("d", d);
+    tfin.style.left = B.x + "px";
+    tfin.style.top = B.y + "px";
     tlk.style.left = A.x + "px";
     tlk.style.top = A.y + "px";
   }
   function redibujar() { fin = finHilo(); trazar(inicioHilo(), fin); if (hoja && hojaAlLado) hiloDest(false); }
-  /* Estambre nuevo: de la tachuela del enlace a la de la hoja que se clavó al lado */
+  /* Estambre nuevo: de la tachuela verde de la hoja del curso a la de la hoja que se clavó al lado */
   function hiloDest(animado) {
-    var d = curva(inicioHilo(), punto(hoja.querySelector(".corcho__tach"), 0.5, 0.5), -10);
+    var A = punto(q(".corcho__curso > .corcho__tach"), 0.5, 0.5);
+    var B = punto(hoja.querySelector(".corcho__tach"), 0.5, 0.5);
+    var d = curva(A, B, -10);
     [d1, d2].forEach(function (p) { p.setAttribute("d", d); });
+    tdest.style.left = B.x + "px";
+    tdest.style.top = B.y + "px";
+    tdest.style.opacity = "1";
+    tverde.style.left = A.x + "px";
+    tverde.style.top = A.y + "px";
+    tverde.style.opacity = "1";
     svgDest.style.opacity = "1";
     if (!animado || reduce) { d1.style.strokeDasharray = ""; d1.style.strokeDashoffset = ""; return; }
     var len = d1.getTotalLength();
@@ -240,10 +255,13 @@
   }
   function ocultarHilo(si) {
     svgHilo.style.opacity = si ? "0" : "";
+    tfin.style.opacity = si ? "0" : "";
     tlk.style.opacity = si ? "0" : "";
   }
   function quitarHoja() {
     svgDest.style.opacity = "0";
+    tverde.style.opacity = "0";
+    tdest.style.opacity = "0";
     if (!hoja) return;
     var h = hoja;
     hoja = null;
