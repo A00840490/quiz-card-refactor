@@ -25,10 +25,10 @@
 .opc.opc--ready .opc__lista { display: none; }
 .opc:not(.opc--ready) .opc__juego { display: none; }
 
-/* ===================== Corrección (debajo de la escena) ===================== */
+/* ===================== Corrección (arriba de la pizarra) ===================== */
 .opc__feedback {
   min-height: 1.5em;
-  margin: 18px 0 0;
+  margin: 0 0 16px;
   transition: opacity 0.2s ease;
 }
 
