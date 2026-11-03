@@ -8,6 +8,8 @@
 <!-- Favicon -->
 <link href="../../assets/images/logo/favicon.png" rel="shortcut icon"/>
 <link href="../../assets/css/curso.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet" />
+<link href="../../assets/css/modulos/modulo2/modulo2-12-corcho.css" rel="stylesheet" />
 </link></head>
 <body class="header-info side-nav-dark">
 <div class="app" id="inicio">
@@ -38,135 +40,27 @@
 <li><p>Un enlace <b>visitado</b> se encuentra subrayado y morado.</p></li>
 <li><p>Un enlace <b>activo</b> se encuentra subrayado y rojo.</p></li>
 </ul>
-<p>Los siguientes ejemplos te ayudarán a entender como utilizar los enlaces en todas sus diferentes formas.</p>
 <h2 class="card-title">Enlaces a Páginas Externas</h2>
-<div class="row lesson-demo">
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="card">
-<div class="container-fluid" style=" background-color: #1a1a1a">
-<p class="code" data-codigo>
-  <script type="text/x-codigo">
-    <a href="https://www.google.com.mx">¡Este enlace te lleva a Google!</a>
-  </script>
+<p>El atributo <span class="code"><mark>target</mark></span> nos permite manejar cómo se abre nuestro enlace: si le asignamos el valor <span class="code"><mark>target="_blank"</mark></span> el enlace se abrirá en una pestaña nueva; con <span class="code"><mark>target="_self"</mark></span> (o sin <span class="code"><mark>target</mark></span>) se abre en la misma pestaña.</p>
+<p>Pruébalo en el siguiente tablero: la hoja de la izquierda es la página del código y el estambre une su enlace con el sitio al que lleva. El plumón marca la parte en la que se puede hacer clic y la tachuela del enlace toma su color: azul, rojo o morado.</p>
+<p class="card-info mb-2" style="width: fit-content;">
+  <span class="ico-clic" aria-hidden="true"></span> Haz clic en el enlace para seguirlo, o en los valores del código para cambiarlo.
 </p>
-</div>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="example">
-<div class="card">
-<div class="container-fluid mrg-vertical-20" style="text-align: center;">
-<a href="https://www.google.com.mx" target="_blank">¡Este enlace te lleva a Google!</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>Si usamos texto, es mejor colocar el enlace dentro de un párrafo para modificarlo:</p>
-<div class="row lesson-demo">
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="card">
-<div class="container-fluid" style=" background-color: #1a1a1a">
-<p class="code" data-codigo>
-  <script type="text/x-codigo">
-    <p style="font-size: 20px;">
-      <a href="https://www.google.com.mx">¡Este enlace te lleva a Google!</a>
-    </p>
-  </script>
-</p>
-</div>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="example">
-<div class="card">
-<div class="container-fluid mrg-vertical-20">
-<p style="font-size: 20px; text-align: center;">
-<a href="https://www.google.com.mx" target="_blank">¡Este enlace te lleva a Google!</a>
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>O también dentro del enlace:</p>
-<div class="row lesson-demo">
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="card">
-<div class="container-fluid" style=" background-color: #1a1a1a">
-<p class="code" data-codigo>
-  <script type="text/x-codigo">
-    <a href="https://www.google.com.mx">
-      <p style="font-size: 20px;">
-        ¡Este enlace te lleva a Google!
-      </p>
-    </a>
-  </script>
-</p>
-</div>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="example">
-<div class="card">
-<div class="container-fluid mrg-vertical-20">
-<p style="font-size: 20px; text-align: center;">
-<a href="https://www.google.com.mx" target="_blank">¡Este enlace te lleva a Google!</a>
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>El atributo <span class="code"><mark>target</mark></span> nos permite manejar cómo se abre nuestro enlace, si le asignamos el valor <span class="code"><mark>target="_blank"</mark></span> el enlace será abierto en una pestaña nueva.</p>
-<div class="row lesson-demo">
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="card">
-<div class="container-fluid" style=" background-color: #1a1a1a">
-<p class="code" data-codigo>
-  <script type="text/x-codigo">
-    <p>
-      <a href="https://www.google.com.mx" target="_blank">¡Este enlace te lleva a Google!</a>
-    </p>
-  </script>
-</p>
-</div>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="example">
-<div class="card">
-<div class="container-fluid mrg-vertical-20" style="text-align: center;">
-<p>
-<a href="https://www.google.com.mx" target="_blank">¡Este enlace te lleva a Google!</a>
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>También podemos utilizar imágenes con enlaces:</p>
-<div class="row lesson-demo">
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="card">
-<div class="container-fluid" style=" background-color: #1a1a1a; height: 360px; text-align: left;">
-<p class="code" data-codigo>
-  <script type="text/x-codigo">
-    <a href="https://es.wikipedia.org/wiki/Paisaje" target="_blank"><img source="edificio.jpg" alt="edificio"></a>
-  </script>
-</p>
-</div>
-</div>
-</div>
-<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-<div class="example">
-<div class="card">
-<div class="container-fluid mrg-vertical-20" style="text-align: center;">
-<a href="https://es.wikipedia.org/wiki/Paisaje" target="_blank"><img alt="edificio" src="../..//assets/images/course/modulo2/m2-7/imagelink.jpg" width="400"/></a>
-</div>
-</div>
-</div>
-</div>
+<!-- Tablero de corcho: el código de la derecha es el enlace de la hoja del
+     curso. Los valores abren el menú de vidrio; el estambre va del enlace al
+     sitio de href, y al hacer clic se clava la página del sitio (al lado con
+     _blank, encima con _self). La explicación aparece en la ficha sobre el
+     código. -->
+<div class="corcho" data-corcho>
+  <div class="corcho__escena" data-escena>
+    <div class="corcho__lienzo" data-lienzo></div>
+  </div>
+  <div class="corcho__side grafico-ficha-col">
+    <div class="corcho__code lesson-demo-stack"><pre class="code code--numbered" data-code></pre></div>
+    <div class="grafico-ficha">
+      <p class="grafico-exp" data-status aria-live="polite"></p>
+    </div>
+  </div>
 </div>
 </div>
 </div>
@@ -184,5 +78,6 @@
 </div>
 </div>
 <script src="../../assets/js/curso.js"></script>
+<script src="../../assets/js/scripts/modulo2/modulo2-12-corcho.js"></script>
 </body>
 </html>
