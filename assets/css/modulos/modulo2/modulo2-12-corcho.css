@@ -77,7 +77,7 @@
 }
 
 .corcho__curso { left: 34px; top: 92px; transform: rotate(-1.6deg); }
-.corcho__dest { left: 300px; top: 130px; z-index: 6; transform: rotate(2.2deg); }
+.corcho__dest { left: 300px; top: 130px; z-index: 10; /* encima del estambre del sitio */ transform: rotate(2.2deg); }
 .corcho__dest.is-encima { left: 34px; top: 92px; transform: rotate(-0.6deg); }
 .corcho__dest.is-cae { animation: corcho-llega 0.55s cubic-bezier(0.2, 0.8, 0.3, 1.1) both; }
 
@@ -113,6 +113,7 @@
 
 /* La del enlace es del color de su estado */
 .corcho__tach--lk {
+  z-index: 12;
   width: 16px;
   height: 16px;
   margin: -8px 0 0 -8px;
@@ -161,6 +162,9 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
+
+/* El estambre de la hoja nueva va encima de ella */
+.corcho__hilo.corcho__hilo--dest { z-index: 11; }
 
 /* ---------- El enlace (colores de fábrica del navegador) ---------- */
 .corcho__lk {

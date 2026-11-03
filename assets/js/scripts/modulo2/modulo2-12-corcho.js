@@ -163,15 +163,20 @@
     "<svg class=\"corcho__hilo\" data-hilo viewBox=\"0 0 640 520\" aria-hidden=\"true\">" +
       "<path data-h1 fill=\"none\" stroke=\"#a3221a\" stroke-width=\"3.4\" stroke-linecap=\"round\"/>" +
       "<path data-h2 fill=\"none\" stroke=\"#e0503e\" stroke-width=\"1.3\" stroke-dasharray=\"3 4\" stroke-linecap=\"round\"/></svg>" +
+    "<svg class=\"corcho__hilo corcho__hilo--dest\" data-hilo-dest style=\"opacity:0\" viewBox=\"0 0 640 520\" aria-hidden=\"true\">" +
+      "<path data-d1 fill=\"none\" stroke=\"#a3221a\" stroke-width=\"3.4\" stroke-linecap=\"round\"/>" +
+      "<path data-d2 fill=\"none\" stroke=\"#e0503e\" stroke-width=\"1.3\" stroke-dasharray=\"3 4\" stroke-linecap=\"round\"/></svg>" +
     "<span class=\"corcho__tach corcho__tach--lk is-azul\" data-tlk aria-hidden=\"true\"></span>";
 
   var q = function (s) { return lienzo.querySelector(s); };
   var svgHilo = q("[data-hilo]"), h1 = q("[data-h1]"), h2 = q("[data-h2]"), tlk = q("[data-tlk]");
+  var svgDest = q("[data-hilo-dest]"), d1 = q("[data-d1]"), d2 = q("[data-d2]");
 
   var vuelta = 0;       // cada cambio cancela lo que estaba pasando
   var ocupado = false;  // mientras se sigue el enlace
   var fin = null;       // dónde está clavado el estambre
   var hoja = null;      // la hoja nueva que se clavó
+  var hojaAlLado = false; // con _blank la hoja queda al lado y lleva su propio estambre
 
   function escalar() {
     k = escena.clientWidth / ANCHO;
@@ -190,16 +195,35 @@
     return { x: p.x + (img ? -2 : 11), y: p.y + (img ? 4 : 0) };
   }
   function finHilo() { return punto(q("[data-foto=\"" + estado.href + "\"] .corcho__tach"), 0.5, 0.5); }
-  function trazar(A, B, extra) {
+  function curva(A, B, extra) {
     var dx = B.x - A.x, dy = B.y - A.y, dist = Math.sqrt(dx * dx + dy * dy);
     var cx = (A.x + B.x) / 2, cy = (A.y + B.y) / 2 + 28 + dist * 0.12 + (extra || 0);
-    var d = "M" + A.x.toFixed(1) + " " + A.y.toFixed(1) + " Q" + cx.toFixed(1) + " " + cy.toFixed(1) + " " + B.x.toFixed(1) + " " + B.y.toFixed(1);
+    return "M" + A.x.toFixed(1) + " " + A.y.toFixed(1) + " Q" + cx.toFixed(1) + " " + cy.toFixed(1) + " " + B.x.toFixed(1) + " " + B.y.toFixed(1);
+  }
+  function trazar(A, B, extra) {
+    var d = curva(A, B, extra);
     h1.setAttribute("d", d);
     h2.setAttribute("d", d);
     tlk.style.left = A.x + "px";
     tlk.style.top = A.y + "px";
   }
-  function redibujar() { fin = finHilo(); trazar(inicioHilo(), fin); }
+  function redibujar() { fin = finHilo(); trazar(inicioHilo(), fin); if (hoja && hojaAlLado) hiloDest(false); }
+  /* Estambre nuevo: de la tachuela del enlace a la de la hoja que se clavó al lado */
+  function hiloDest(animado) {
+    var d = curva(inicioHilo(), punto(hoja.querySelector(".corcho__tach"), 0.5, 0.5), -10);
+    [d1, d2].forEach(function (p) { p.setAttribute("d", d); });
+    svgDest.style.opacity = "1";
+    if (!animado || reduce) { d1.style.strokeDasharray = ""; d1.style.strokeDashoffset = ""; return; }
+    var len = d1.getTotalLength();
+    d2.style.opacity = "0";
+    d1.style.transition = "none";
+    d1.style.strokeDasharray = len;
+    d1.style.strokeDashoffset = len;
+    void d1.getBoundingClientRect();
+    d1.style.transition = "stroke-dashoffset .55s ease";
+    d1.style.strokeDashoffset = "0";
+    setTimeout(function () { d1.style.strokeDasharray = ""; d1.style.strokeDashoffset = ""; d2.style.opacity = ""; }, 600);
+  }
   function colorTach(c) { tlk.className = "corcho__tach corcho__tach--lk is-" + c; }
   function estadoTach() { colorTach(visitados[sitio().href] ? "morado" : "azul"); }
   function marcar(animado) {
@@ -219,9 +243,11 @@
     tlk.style.opacity = si ? "0" : "";
   }
   function quitarHoja() {
+    svgDest.style.opacity = "0";
     if (!hoja) return;
     var h = hoja;
     hoja = null;
+    hojaAlLado = false;
     h.classList.remove("is-cae");
     h.classList.add("is-sale");
     setTimeout(function () { h.remove(); }, 650);
@@ -259,6 +285,7 @@
       if (mismo) ocultarHilo(true);
       colorTach("morado");
       await espera(600); if (n !== vuelta) return false;
+      if (!mismo) { hojaAlLado = true; hiloDest(true); }
       if (mismo) {
         // Atrás: la hoja del sitio se quita y vuelve a verse la del curso
         await espera(1800); if (n !== vuelta) return false;
