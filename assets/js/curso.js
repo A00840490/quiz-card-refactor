@@ -42,6 +42,7 @@
     "js/demo-carousel.js",
     "js/evo-card.js",
     "js/ejercicio-final.js",
+    "js/ejercicio-opciones.js",
     "js/vhs.js",
   ].forEach(function (src) {
     document.write('<script src="' + base + src + '"><\/script>');

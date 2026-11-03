@@ -11,6 +11,10 @@
     <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
 
     <link href="../../assets/css/curso.css" rel="stylesheet" />
+    <!-- Letra a mano de las notas adhesivas (ejercicio-opciones.css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 
 </head>
 
@@ -48,8 +52,7 @@
                                         <div class="card-block">
                                             <h1 class="mrg-btm-20 card-title">Ejercicio 1</h1>
 
-                                            <p>Lee con atención cada enunciado y selecciona la opción correcta.
-                                            </p>
+                                            <p>Antes de pasar a HTML, repasa lo que aprendiste en este módulo. Verás una pregunta a la vez en una pizarra de corcho: elige tu respuesta entre las notas y revísala. Si te equivocas, te mostraremos la respuesta correcta y por qué, para que sigas adelante. Al terminar verás cuántos aciertos tuviste.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -58,9 +61,82 @@
 
                         <div class="card">
                             <div class="card-block">
-
-                                <div id="cardQuiz">
-                                </div>
+                                <h2 class="card-title">Responde las preguntas</h2>
+                                <p><span class="ico-clic" aria-hidden="true"></span>Haz clic en tu respuesta y presiona Revisar.</p>
+                                <!-- Preguntas una tras otra (ver ejercicio-opciones.css / .js) -->
+                                <section class="opc" data-opciones="corcho" data-mensaje="¡Excelente! Contestaste casi todas las preguntas del módulo sin errores." aria-live="polite">
+                                    <ol class="opc__lista" data-preguntas>
+                                        <li>
+                                            <p>Es el lenguaje que le da estructura a las páginas web.</p>
+                                            <ul>
+                                                <li>Python</li>
+                                                <li data-ok>HTML</li>
+                                                <li>JavaScript</li>
+                                                <li>PHP</li>
+                                            </ul>
+                                            <p data-porque><code>HTML</code> organiza el contenido de la página: encabezados, párrafos, imágenes y enlaces.</p>
+                                        </li>
+                                        <li>
+                                            <p>Selecciona el lenguaje que sea de programación.</p>
+                                            <ul>
+                                                <li data-ok>JavaScript</li>
+                                                <li>CSS</li>
+                                                <li>HTML</li>
+                                                <li>XML</li>
+                                            </ul>
+                                            <p data-porque><code>JavaScript</code> toma decisiones y repite tareas; <code>HTML</code>, <code>CSS</code> y <code>XML</code> solo describen contenido o estilo.</p>
+                                        </li>
+                                        <li>
+                                            <p>¿Qué es el Frontend?</p>
+                                            <ul>
+                                                <li>El usuario</li>
+                                                <li>Los datos que maneja la página web</li>
+                                                <li>El servidor donde se encuentra la página y sus bases de datos</li>
+                                                <li data-ok>Todo lo que podemos visualizar o interactuar en una página</li>
+                                            </ul>
+                                            <p data-porque>El Frontend es lo que vemos y usamos en la página; los datos y el servidor son parte del Backend.</p>
+                                        </li>
+                                        <li>
+                                            <p>Estos 3 lenguajes son la base del Frontend y la programación web en general.</p>
+                                            <ul>
+                                                <li>HTML, C++ y JavaScript</li>
+                                                <li>XML, CSS y Java</li>
+                                                <li data-ok>HTML, CSS y JavaScript</li>
+                                                <li>HTML, CSS y Java</li>
+                                            </ul>
+                                            <p data-porque>Estructura con <code>HTML</code>, estilo con <code>CSS</code> y comportamiento con <code>JavaScript</code>. Java es otro lenguaje, aunque su nombre se parezca.</p>
+                                        </li>
+                                        <li>
+                                            <p>Para poder tener una página accesible por internet es necesario contar con:</p>
+                                            <ul>
+                                                <li>Una computadora potente</li>
+                                                <li data-ok>Un servidor web</li>
+                                                <li>Un buen framework</li>
+                                                <li>Un celular</li>
+                                            </ul>
+                                            <p data-porque>Un servidor web guarda los archivos de la página y se los entrega a quien la visita, a cualquier hora.</p>
+                                        </li>
+                                        <li>
+                                            <p>Selecciona 3 ejemplos de navegadores modernos.</p>
+                                            <ul>
+                                                <li>Internet Explorer</li>
+                                                <li data-ok>Firefox</li>
+                                                <li data-ok>Safari</li>
+                                                <li data-ok>Chrome</li>
+                                            </ul>
+                                            <p data-porque>Firefox, Safari y Chrome se actualizan seguido; Internet Explorer ya no recibe soporte.</p>
+                                        </li>
+                                    </ol>
+                                    <div class="opc__juego">
+                                        <div data-escena></div>
+                                        <p class="opc__feedback grafico-exp" data-feedback></p>
+                                        <div class="opc__progress" data-progress aria-hidden="true"></div>
+                                        <div class="opc__actions">
+                                            <button class="opc__btn" data-check type="button">Revisar</button>
+                                            <button class="opc__btn opc__btn--go" data-next type="button" hidden>Siguiente pregunta</button>
+                                        </div>
+                                    </div>
+                                </section>
 
                             </div>
                         </div>
@@ -118,71 +194,6 @@
         </div>
 
         <script src="../../assets/js/curso.js"></script>
-
-        <script src="../../assets/js/recycled/card-quiz.js"></script>
-
-        <script>
-
-            const questions = [
-                {
-                    question: "Es el lenguaje que le da estructura a las páginas web",
-                    optionA: "Python",
-                    optionB: "HTML",
-                    optionC: "Javascript",
-                    optionD: "PHP",
-                    correctOption: "optionB"
-                },
-
-                {
-                    question: "Selecciona el lenguaje que sea de programación",
-                    optionA: "JavaScript",
-                    optionB: "CSS",
-                    optionC: "HTML",
-                    optionD: "XML",
-                    correctOption: "optionA"
-                },
-
-                {
-                    question: "¿Qué es el Frontend?",
-                    optionA: "El usuario",
-                    optionB: "Los datos que maneja la página web",
-                    optionC: "El servidor donde se encuentra la página y sus bases de datos",
-                    optionD: "Todo lo que podemos visualizar o interactuar en una página",
-                    correctOption: "optionD"
-                },
-
-                {
-                    question: "Estos 3 lenguajes son la base del Frontend y la programación web en general",
-                    optionA: "HTML, C++ y JavaScript",
-                    optionB: "XML, CSS y Java",
-                    optionC: "HTML, CSS y JavaScript",
-                    optionD: "HTML, CSS y Java",
-                    correctOption: "optionC"
-                },
-
-                {
-                    question: "Para poder tener una página accesible por internet es necesario contar con:",
-                    optionA: "Una computadora potente",
-                    optionB: "Un servidor web",
-                    optionC: "Un buen framework",
-                    optionD: "Un celular",
-                    correctOption: "optionB"
-                },
-
-                {
-                    question: "Selecciona 3 ejemplos de navegadores modernos",
-                    optionA: "Internet Explorer",
-                    optionB: "Firefox",
-                    optionC: "Safari",
-                    optionD: "Chrome",
-                    correctOption: "optionB",
-                    multiple: true,
-                    correctOptions: ["optionB", "optionC", "optionD"]
-                }
-
-            ]
-
-        </script>
 
 </body>
 

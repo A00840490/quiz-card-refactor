@@ -1,0 +1,377 @@
+/* =========================================================================
+   Ejercicios finales de opción múltiple (Ejercicio 1 y Ejercicio 5).
+   Comportamiento en assets/js/ejercicio-opciones.js.
+
+   Mismas reglas que los ejercicios 2, 3 y 4: una pregunta a la vez, la
+   corrección toda en verde o toda en rojo (el código en azul), la barra con
+   un tramo por pregunta y los botones abajo a la derecha, fuera de la
+   escena, y al final la ventana de aciertos (#modal-fs).
+
+   Escena: pizarra de corcho con marco de madera (Ale la eligió el 3/11). La
+   pregunta va en una ficha de renglones clavada arriba y las opciones son
+   notas adhesivas escritas a mano (fuente Caveat de Google, la carga la
+   página). Al elegir una nota le cae una chincheta; al revisar, un plumón
+   verde la palomea o encierra la que faltó y uno rojo tacha la equivocada.
+   Marco y chincheta en assets/images/course/corcho/; el corcho es la foto
+   del 2-12 (créditos fuera del repo).
+   ========================================================================= */
+.opc {
+  --bien: #1f9d63;
+  --mal: #d64541;
+  margin: 1.5rem 0;
+}
+
+/* Sin JavaScript se ven las preguntas como lista; con él, la escena */
+.opc.opc--ready .opc__lista { display: none; }
+.opc:not(.opc--ready) .opc__juego { display: none; }
+
+/* ===================== Corrección (debajo de la escena) ===================== */
+.opc__feedback {
+  min-height: 1.5em;
+  margin: 18px 0 0;
+  transition: opacity 0.2s ease;
+}
+
+.opc__feedback.is-fading { opacity: 0; }
+.opc__feedback.is-right { color: var(--bien); }
+.opc__feedback.is-wrong { color: var(--mal); }
+
+/* ===================== Avance: fuera de la escena ===================== */
+.opc__progress {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.opc__seg {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #e8edf4;
+  overflow: hidden;
+}
+
+.opc__seg > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--theme-color);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease 0.3s;
+}
+
+.opc__seg.is-on > span { width: 50%; }
+.opc__seg.is-done > span { width: 100%; background: var(--bien); }
+
+/* ===================== Botones: fuera de la escena ===================== */
+.opc__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.opc__btn {
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: #0f4c91;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.opc__btn:hover { filter: brightness(1.1); }
+
+.opc__btn:focus-visible {
+  outline: 3px solid rgba(15, 76, 145, 0.35);
+  outline-offset: 2px;
+}
+
+.opc__btn--go { background: var(--bien); }
+
+/* Revisar sin elegir nada: la pizarra se sacude */
+.opc__juego [data-escena].is-shaking { animation: opc-shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+
+/* =================================================================
+   Pizarra de corcho
+   ================================================================= */
+.opc-c {
+  --marco: 24px;
+  position: relative;
+  padding: var(--marco);
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(40, 22, 8, 0.35), 0 18px 34px rgba(40, 22, 8, 0.28);
+}
+
+/* Marco: cuatro listones cortados a 45° en las esquinas. La veta corre a lo
+   largo de cada listón (horizontal arriba y abajo, vertical a los lados) y
+   un degradado le da el canto redondeado: claro por fuera y más oscuro donde
+   baja hacia el corcho. */
+.opc-c__riel {
+  position: absolute;
+  background-color: #9a6a40;
+  background-blend-mode: soft-light, multiply;
+}
+
+.opc-c__riel--arriba,
+.opc-c__riel--abajo {
+  left: 0;
+  right: 0;
+  height: var(--marco);
+  background-image: var(--opc-luz), url("../images/course/corcho/marco-h.jpg");
+  background-size: 100% 100%, 420px auto;
+}
+
+.opc-c__riel--izq,
+.opc-c__riel--der {
+  top: 0;
+  bottom: 0;
+  width: var(--marco);
+  background-image: var(--opc-luz), url("../images/course/corcho/marco-v.jpg");
+  background-size: 100% 100%, auto 420px;
+}
+
+.opc-c__riel--arriba {
+  top: 0;
+  --opc-luz: linear-gradient(180deg, rgba(255, 236, 205, 0.75), rgba(255, 236, 205, 0.15) 30%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55));
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--marco)) 100%, var(--marco) 100%);
+}
+
+.opc-c__riel--abajo {
+  bottom: 0;
+  background-position: 0 0, 37% 0;
+  --opc-luz: linear-gradient(0deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.1) 35%, rgba(255, 236, 205, 0.2) 70%, rgba(0, 0, 0, 0.5));
+  clip-path: polygon(var(--marco) 0, calc(100% - var(--marco)) 0, 100% 100%, 0 100%);
+}
+
+.opc-c__riel--izq {
+  left: 0;
+  --opc-luz: linear-gradient(90deg, rgba(255, 236, 205, 0.6), rgba(255, 236, 205, 0.12) 30%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55));
+  clip-path: polygon(0 0, 100% var(--marco), 100% calc(100% - var(--marco)), 0 100%);
+}
+
+.opc-c__riel--der {
+  right: 0;
+  background-position: 0 0, 0 61%;
+  --opc-luz: linear-gradient(270deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.1) 35%, rgba(255, 236, 205, 0.2) 70%, rgba(0, 0, 0, 0.5));
+  clip-path: polygon(0 var(--marco), 100% 0, 100% 100%, 0 calc(100% - var(--marco)));
+}
+
+/* Corcho */
+.opc-c__tabla {
+  position: relative;
+  min-height: 460px;
+  padding: 26px 26px 34px;
+  overflow: hidden;
+  background-color: #b98552;
+  /* La misma foto de corcho del tablero del 2-12 */
+  background-image: url("../images/course/modulo2/m2-12/corcho.jpg");
+  background-position: center;
+  background-size: cover;
+  /* Sombra del marco sobre el corcho */
+  box-shadow: inset 0 3px 8px rgba(30, 15, 5, 0.55), inset 0 0 2px rgba(30, 15, 5, 0.6);
+  isolation: isolate;
+}
+
+/* Ficha de renglones con la pregunta (como .grafico-ficha) */
+.opc-c__ficha {
+  --lh: 1.9em;
+  position: relative;
+  width: min(600px, 100%);
+  margin: 0 auto 30px;
+  padding: 28px 24px 10px;
+  background-color: #fffffb;
+  background-image: linear-gradient(#e2574c, #e2574c), repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), #bcd4ee calc(var(--lh) - 1px) var(--lh));
+  background-repeat: no-repeat;
+  background-size: 100% 2px, 100% calc(100% - 24px);
+  background-position: 0 22px, 0 24px;
+  box-shadow: 0 10px 22px rgba(40, 20, 5, 0.35), 0 1px 2px rgba(40, 20, 5, 0.3);
+  color: #000000;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  line-height: 1.9;
+  text-align: center;
+  transform: rotate(-0.6deg);
+}
+
+.opc-c__ficha p {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Solo en las preguntas de varias respuestas */
+.opc-c__varias {
+  display: block;
+  color: #4a5263;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.opc-c__ficha .opc-c__chin {
+  top: -14px;
+  opacity: 1;
+  transform: none;
+}
+
+.opc-c__ficha.is-in { animation: opc-pegar 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); }
+
+/* Notas adhesivas */
+.opc-c__notas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px 34px;
+  width: min(640px, 100%);
+  margin: 0 auto;
+}
+
+.opc-c__nota {
+  --rot: -2deg;
+  position: relative;
+  min-height: 118px;
+  padding: 28px 18px 18px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--c, #fde68a);
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0) 22%, rgba(255, 255, 255, 0.18) 70%, rgba(0, 0, 0, 0.06));
+  /* La esquina de abajo se levanta un poco: la sombra es más larga ahí */
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 14px -8px rgba(40, 20, 5, 0.6), 6px 14px 14px -10px rgba(40, 20, 5, 0.45);
+  color: #1d1a12;
+  font-family: "Caveat", cursive;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.12;
+  text-align: center;
+  cursor: pointer;
+  transform: rotate(var(--rot));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.opc-c__nota:nth-child(1) { --c: #fde68a; --rot: -3deg; }
+.opc-c__nota:nth-child(2) { --c: #fbcfe8; --rot: 2.4deg; }
+.opc-c__nota:nth-child(3) { --c: #bfdbfe; --rot: 1.6deg; }
+.opc-c__nota:nth-child(4) { --c: #bbf7d0; --rot: -2.2deg; }
+
+.opc-c__nota:hover:not(:disabled) {
+  transform: rotate(0) translateY(-3px) scale(1.02);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 18px 20px -10px rgba(40, 20, 5, 0.6), 6px 18px 16px -10px rgba(40, 20, 5, 0.45);
+}
+
+.opc-c__nota:focus { outline: none; }
+
+.opc-c__nota:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.opc-c__nota[aria-checked="true"] { transform: rotate(0); }
+.opc-c__nota:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.opc-c__nota code {
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+}
+
+.opc-c__nota.is-in { animation: opc-pegar 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.opc-c__nota.is-out { animation: opc-caer 0.55s ease-in both; }
+
+/* Chincheta: cae al elegir la nota */
+.opc-c__chin {
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  width: 34px;
+  height: 34px;
+  margin-left: -17px;
+  background: url("../images/course/corcho/chincheta.svg") no-repeat center / contain;
+  filter: drop-shadow(3px 5px 2px rgba(40, 20, 5, 0.45));
+  opacity: 0;
+  transform: translateY(-26px) scale(1.4);
+  transition: opacity 0.15s ease, transform 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+  pointer-events: none;
+}
+
+.opc-c__nota[aria-checked="true"] .opc-c__chin {
+  opacity: 1;
+  transform: none;
+}
+
+/* Marcas de plumón al revisar */
+.opc-c__marca {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  width: calc(100% + 28px);
+  height: calc(100% + 28px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.opc-c__marca path {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.85;
+}
+
+.opc-c__marca.is-on path { animation: opc-trazo 0.6s ease forwards; }
+.opc-c__marca.is-on path + path { animation-delay: 0.3s; }
+
+@media (max-width: 575.98px) {
+  .opc-c { --marco: 16px; }
+  .opc-c__tabla { min-height: 0; padding: 20px 12px 26px; }
+  .opc-c__ficha { padding: 24px 14px 8px; font-size: 16px; }
+  .opc-c__varias { font-size: 14px; }
+  .opc-c__notas { gap: 24px 16px; }
+  .opc-c__nota { min-height: 100px; padding: 24px 10px 12px; font-size: 21px; }
+}
+
+@keyframes opc-pegar {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(1.12) rotate(var(--rot, 0deg));
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--rot, 0deg));
+  }
+}
+
+@keyframes opc-caer {
+  to {
+    opacity: 0;
+    transform: translateY(60px) rotate(18deg);
+  }
+}
+
+@keyframes opc-trazo { to { stroke-dashoffset: 0; } }
+
+@keyframes opc-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-9px); }
+  30% { transform: translateX(9px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  75% { transform: translateX(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opc-c__ficha.is-in,
+  .opc-c__nota.is-in,
+  .opc-c__nota.is-out,
+  .opc__juego [data-escena].is-shaking { animation: none; }
+  .opc-c__marca.is-on path { animation: none; stroke-dashoffset: 0; }
+  .opc-c__nota,
+  .opc-c__chin,
+  .opc__seg > span,
+  .opc__feedback { transition: none; }
+}

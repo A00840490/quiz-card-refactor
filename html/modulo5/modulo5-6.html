@@ -11,8 +11,11 @@
     <link rel="shortcut icon" href="../../assets/images/logo/favicon.png">
 
     <link href="../../assets/css/curso.css" rel="stylesheet" />
+    <!-- Letra a mano de las notas adhesivas (ejercicio-opciones.css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 
-    <link href="../../assets/css/card-quiz.css" rel="stylesheet">
 
 </head>
 
@@ -49,8 +52,7 @@
                                         <div class="card-block">
                                             <h1 class="mrg-btm-20 card-title">Ejercicio 5</h1>
 
-                                            <p>Lee con atención cada enunciado y selecciona la opción correcta.
-                                            </p>
+                                            <p>Llegaste al final del curso. Repasa lo que aprendiste sobre publicar a la web: verás una pregunta a la vez en una pizarra de corcho; elige tu respuesta entre las notas y revísala. Si te equivocas, te mostraremos la respuesta correcta y por qué, para que sigas adelante. Al terminar verás cuántos aciertos tuviste.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -59,9 +61,82 @@
 
                         <div class="card">
                             <div class="card-block">
-
-                                <div id="cardQuiz">
-                                </div>
+                                <h2 class="card-title">Responde las preguntas</h2>
+                                <p><span class="ico-clic" aria-hidden="true"></span>Haz clic en tu respuesta y presiona Revisar.</p>
+                                <!-- Preguntas una tras otra (ver ejercicio-opciones.css / .js) -->
+                                <section class="opc" data-opciones="corcho" data-mensaje="¡Excelente! Contestaste casi todas las preguntas del módulo sin errores." aria-live="polite">
+                                    <ol class="opc__lista" data-preguntas>
+                                        <li>
+                                            <p>Son conceptos y protocolos que permiten el funcionamiento del internet.</p>
+                                            <ul>
+                                                <li data-ok>TCP/IP</li>
+                                                <li>CSS</li>
+                                                <li data-ok>DNS</li>
+                                                <li data-ok>HTTP</li>
+                                            </ul>
+                                            <p data-porque><code>TCP/IP</code> mueve los datos, <code>DNS</code> traduce nombres a direcciones y <code>HTTP</code> pide y entrega las páginas. <code>CSS</code> solo da estilo.</p>
+                                        </li>
+                                        <li>
+                                            <p>¿Qué necesitamos para publicar una página web?</p>
+                                            <ul>
+                                                <li>Antivirus</li>
+                                                <li data-ok>Servidor de alojamiento</li>
+                                                <li>Bases de datos</li>
+                                                <li data-ok>Dominio</li>
+                                            </ul>
+                                            <p data-porque>El alojamiento guarda los archivos del sitio y el dominio es el nombre con el que se llega a ellos.</p>
+                                        </li>
+                                        <li>
+                                            <p>Entre más visitantes tengamos en nuestra página, necesitaremos más:</p>
+                                            <ul>
+                                                <li>Dinero</li>
+                                                <li>Memoria RAM</li>
+                                                <li>Espacio de almacenamiento</li>
+                                                <li data-ok>Ancho de banda</li>
+                                            </ul>
+                                            <p data-porque>El ancho de banda es la cantidad de datos que el servidor envía; cada visita descarga la página otra vez.</p>
+                                        </li>
+                                        <li>
+                                            <p>Es el nombre de un sitio web.</p>
+                                            <ul>
+                                                <li>Alojamiento</li>
+                                                <li data-ok>Dominio</li>
+                                                <li>DNS</li>
+                                                <li>Servidor</li>
+                                            </ul>
+                                            <p data-porque>El dominio, como <code>tec.mx</code>, es el nombre que escribimos para llegar al sitio.</p>
+                                        </li>
+                                        <li>
+                                            <p>Son terminaciones de dominios exclusivas para sitios de instituciones gubernamentales y educativas.</p>
+                                            <ul>
+                                                <li><code>.com</code></li>
+                                                <li data-ok><code>.edu</code></li>
+                                                <li data-ok><code>.gob</code></li>
+                                                <li><code>.net</code></li>
+                                            </ul>
+                                            <p data-porque><code>.edu</code> es para instituciones educativas y <code>.gob</code> para el gobierno; <code>.com</code> y <code>.net</code> los puede registrar cualquiera.</p>
+                                        </li>
+                                        <li>
+                                            <p>Selecciona 2 ejemplos de frameworks de JavaScript.</p>
+                                            <ul>
+                                                <li data-ok>React</li>
+                                                <li>Sass</li>
+                                                <li>Bootstrap</li>
+                                                <li data-ok>jQuery</li>
+                                            </ul>
+                                            <p data-porque><code>React</code> y <code>jQuery</code> son de JavaScript; <code>Bootstrap</code> es un framework de CSS y <code>Sass</code> es un preprocesador de CSS.</p>
+                                        </li>
+                                    </ol>
+                                    <div class="opc__juego">
+                                        <div data-escena></div>
+                                        <p class="opc__feedback grafico-exp" data-feedback></p>
+                                        <div class="opc__progress" data-progress aria-hidden="true"></div>
+                                        <div class="opc__actions">
+                                            <button class="opc__btn" data-check type="button">Revisar</button>
+                                            <button class="opc__btn opc__btn--go" data-next type="button" hidden>Siguiente pregunta</button>
+                                        </div>
+                                    </div>
+                                </section>
 
                             </div>
                         </div>
@@ -79,72 +154,47 @@
                 </footer>
                 <!-- Footer END -->
 
+                <div class="modal fade" id="modal-fs">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <a class="modal-close" href="" data-dismiss="modal"
+                                    style="display: flex; justify-content: right;">
+                                    <i class="ti-close" style="color: red; font-weight: bolder; font-size: 22px;"></i>
+                                </a>
+                                <div class="vertical-align text-center">
+                                    <div class="table-cell">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-9 col-md-10 col-sm-12 mr-auto ml-auto">
+                                                    <div class="pdd-horizon-30 pdd-btm-50">
+                                                        <h1 class="mrg-btm-15 text-info" id="modal-score">
+                                                            0 / 100
+                                                        </h1>
+                                                        <h3 class="mrg-top-20" id="modal-message">...</h3>
+                                                        <img id="correct-img" class="img-responsive mrg-horizon-auto"
+                                                            src="../../assets/images/course/quiz/party.png"
+                                                            alt="Party img" />
+                                                        <img id="incorrect-img" class="img-responsive mrg-horizon-auto"
+                                                            src="../../assets/images/course/quiz/bored.png"
+                                                            alt="Problem solving img" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- Page Container END -->
         </div>
     </div>
 
     <script src="../../assets/js/curso.js"></script>
-
-    <script src="../../assets/js/recycled/card-quiz.js"></script>
-
-    <script>
-        const questions = [
-            {
-                question: "Son conceptos y protocolos que permiten el funcionamiento del internet.",
-                optionA: "TCP/IP",
-                optionB: "CSS",
-                optionC: "DNS",
-                optionD: "HTTP",
-                    multiple: true,
-                correctOptions: ["optionA", "optionC", "optionD"]
-            },
-            {
-                question: "¿Qué necesitamos para publicar una página web?",
-                optionA: "Antivirus",
-                optionB: "Servidor de alojamiento",
-                optionC: "Bases de datos",
-                optionD: "Dominio",
-                    multiple: true,
-                correctOptions: ["optionB", "optionD"]
-            },
-            {
-                question: "Entre más visitantes tengamos en nuestra página, necesitaremos más:",
-                optionA: "Dinero",
-                optionB: "Memoria RAM",
-                optionC: "Espacio de almacenamiento",
-                optionD: "Ancho de banda",
-                correctOption: "optionD"
-            },
-            {
-                question: "Es el nombre de un sitio web.",
-                optionA: "Alojamiento",
-                optionB: "Dominio",
-                optionC: "DNS",
-                optionD: "Servidor",
-                correctOption: "optionB"
-            },
-            {
-                question: "Son terminaciones de dominios exclusivas para sitios de instituciones gubernamentales y educativas.",
-                optionA: ".com",
-                optionB: ".edu",
-                optionC: ".gob",
-                optionD: ".net",
-                    multiple: true,
-                correctOptions: ["optionB", "optionC"]
-            },
-            {
-                question: "Selecciona 2 ejemplos de frameworks de JavaScript.",
-                optionA: "React",
-                optionB: "Sass",
-                optionC: "Bootstrap",
-                optionD: "jQuery",
-                    multiple: true,
-                correctOptions: ["optionA", "optionD"]
-            }
-        ];
-
-    </script>
 
 </body>
 

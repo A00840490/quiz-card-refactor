@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40">
+  <defs>
+    <radialGradient id="cabeza" cx=".36" cy=".3" r=".75">
+      <stop offset="0" stop-color="#ff9a8f"/>
+      <stop offset=".35" stop-color="#e53935"/>
+      <stop offset=".8" stop-color="#a51515"/>
+      <stop offset="1" stop-color="#6d0b0b"/>
+    </radialGradient>
+    <linearGradient id="cuello" x1="0" x2="1">
+      <stop offset="0" stop-color="#8f1111"/>
+      <stop offset=".35" stop-color="#e2453f"/>
+      <stop offset=".6" stop-color="#c62828"/>
+      <stop offset="1" stop-color="#6d0b0b"/>
+    </linearGradient>
+    <radialGradient id="base" cx=".4" cy=".35" r=".7">
+      <stop offset="0" stop-color="#f05a50"/>
+      <stop offset="1" stop-color="#8c1010"/>
+    </radialGradient>
+  </defs>
+  <!-- Base que toca el corcho -->
+  <ellipse cx="20" cy="27" rx="11" ry="5" fill="url(#base)"/>
+  <!-- Cuello -->
+  <path d="M14 26.5 C14 22 15.5 19 15.5 15 L24.5 15 C24.5 19 26 22 26 26.5 Z" fill="url(#cuello)"/>
+  <ellipse cx="20" cy="26.4" rx="6" ry="2" fill="#7a0d0d" opacity=".45"/>
+  <!-- Cabeza -->
+  <ellipse cx="20" cy="13" rx="12" ry="8.5" fill="url(#cabeza)"/>
+  <ellipse cx="20" cy="15.5" rx="11" ry="5" fill="#000" opacity=".12"/>
+  <ellipse cx="20" cy="12" rx="11.4" ry="7.4" fill="url(#cabeza)"/>
+  <ellipse cx="15.5" cy="9" rx="4.2" ry="2.2" fill="#fff" opacity=".6" transform="rotate(-12 15.5 9)"/>
+  <ellipse cx="25" cy="15" rx="2" ry=".9" fill="#fff" opacity=".25"/>
+</svg>
