@@ -78,7 +78,40 @@
 
 .corcho__curso { left: 34px; top: 92px; transform: rotate(-1.6deg); }
 .corcho__dest { left: 300px; top: 130px; z-index: 10; /* encima del estambre del sitio */ transform: rotate(2.2deg); }
-.corcho__dest.is-encima { left: 34px; top: 92px; transform: rotate(-0.6deg); }
+.corcho__curso { z-index: 6; }
+
+/* _self: la hoja del sitio estaba debajo de la del curso, en la misma tachuela */
+.corcho__dest.is-debajo { left: 34px; top: 92px; z-index: 5; transform: rotate(-1.6deg); }
+
+/* La hoja del curso se arranca y cae; su pedazo de arriba se queda en la tachuela */
+.corcho__curso.is-arrancada { animation: corcho-arranca 1s cubic-bezier(0.45, 0, 0.75, 0.45) forwards; }
+.corcho__curso.is-arrancada > .corcho__tach { opacity: 0; }
+.corcho__curso.is-vuelve { animation: corcho-vuelve 0.6s cubic-bezier(0.2, 0.8, 0.3, 1.05) both; }
+
+@keyframes corcho-arranca {
+  0% { transform: rotate(-1.6deg); }
+  16% { transform: translate(5px, 9px) rotate(-3.5deg); }
+  100% { transform: translate(-70px, 600px) rotate(-26deg); }
+}
+
+@keyframes corcho-vuelve {
+  from { transform: translate(-40px, 420px) rotate(-18deg); }
+  to { transform: rotate(-1.6deg); }
+}
+
+.corcho__resto {
+  position: absolute;
+  left: 34px;
+  top: 92px;
+  z-index: 7;
+  width: 286px;
+  height: 330px;
+  transform: rotate(-1.6deg);
+  pointer-events: none;
+  filter: drop-shadow(0 2px 1.5px rgba(40, 20, 0, 0.35));
+}
+
+.corcho__resto-hoja { left: 0; top: 0; box-shadow: none; }
 .corcho__dest.is-cae { animation: corcho-llega 0.55s cubic-bezier(0.2, 0.8, 0.3, 1.1) both; }
 
 @keyframes corcho-llega {
@@ -324,5 +357,8 @@
   .corcho__lk,
   .corcho__hilo,
   .corcho__tach--lk { transition: none; }
-  .corcho__dest.is-cae { animation: none; }
+  .corcho__dest.is-cae,
+  .corcho__curso.is-arrancada,
+  .corcho__curso.is-vuelve { animation: none; }
+  .corcho__curso.is-arrancada { opacity: 0; }
 }

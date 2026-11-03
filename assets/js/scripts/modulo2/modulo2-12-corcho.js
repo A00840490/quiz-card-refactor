@@ -12,8 +12,9 @@
      color de su estado: azul sin visitar, roja mientras se presiona (activo)
      y morada si ya se visitó esa dirección.
    - Clic en el enlace: con _blank se clava una hoja nueva con el sitio al
-     lado de la del curso; con _self la hoja nueva tapa la del curso y
-     después se quita (Atrás). Al cambiar target se ve solo.
+     lado de la del curso; con _self la hoja del curso se arranca (queda un
+     pedazo roto en la tachuela verde), debajo estaba la del sitio, y después
+     la del curso regresa (Atrás). Al cambiar target se ve solo.
    - La escena se dibuja en un lienzo de 640 × 520 px y se escala.
    - La explicación va en la ficha de renglones (GraficoFicha.cambiar). */
 (function () {
@@ -263,6 +264,7 @@
     tverde.style.opacity = "0";
     tdest.style.opacity = "0";
     if (!hoja) return;
+    if (hoja.classList.contains("is-debajo")) { restaurarCurso(); return; }
     var h = hoja;
     hoja = null;
     hojaAlLado = false;
@@ -280,6 +282,43 @@
     if (n === vuelta) { fin = B1; trazar(A, fin); }
   }
 
+  /* ---------- Arrancar la hoja del curso (con target="_self") ---------- */
+  var curso = q(".corcho__curso");
+  var resto = null; // el pedazo que se queda en la tachuela verde
+  function corte() {
+    // Orilla rota: más alta junto a la tachuela (al centro) y casi nada en las orillas
+    var pts = [], x = 0, W = 286;
+    while (x < W) {
+      var y = 4 + 30 * Math.exp(-Math.pow((x - W / 2) / 52, 2)) + Math.random() * 5;
+      pts.push([x, y]);
+      x += 4 + Math.random() * 6;
+    }
+    pts.push([W, 3 + Math.random() * 4]);
+    return pts;
+  }
+  function arrancar() {
+    var pts = corte(), linea = pts.map(function (p) { return p[0].toFixed(1) + "px " + p[1].toFixed(1) + "px"; });
+    resto = document.createElement("div");
+    resto.className = "corcho__resto";
+    var copia = curso.cloneNode(true);
+    copia.className = "corcho__hoja corcho__resto-hoja";
+    Array.prototype.forEach.call(copia.querySelectorAll("[data-lk], [data-ej]"), function (el) {
+      el.removeAttribute("data-lk"); el.removeAttribute("data-ej"); el.removeAttribute("tabindex"); el.removeAttribute("role");
+    });
+    copia.style.clipPath = "polygon(0 -24px, 286px -24px, " + linea.slice().reverse().join(", ") + ")";
+    resto.appendChild(copia);
+    lienzo.insertBefore(resto, curso.nextSibling);
+    curso.style.clipPath = "polygon(" + linea.join(", ") + ", 286px 330px, 0 330px)";
+    curso.classList.remove("is-vuelve");
+    curso.classList.add("is-arrancada");
+  }
+  function restaurarCurso() {
+    curso.style.clipPath = "";
+    curso.classList.remove("is-arrancada", "is-vuelve");
+    if (resto) { resto.remove(); resto = null; }
+    if (hoja && hoja.classList.contains("is-debajo")) { hoja.remove(); hoja = null; }
+  }
+
   /* Seguir el enlace: activo (rojo), la hoja nueva se clava y queda visitado */
   async function seguir(porUsuario) {
     if (ocupado) return;
@@ -295,22 +334,36 @@
       lk.classList.remove("is-activo");
       visitados[s.href] = true;
       lk.classList.add("is-visit");
+      if (mismo) {
+        // _self: la hoja del curso se arranca (queda un pedazo en la tachuela verde)
+        // y debajo estaba clavada la página del sitio
+        ocultarHilo(true);
+        var d = document.createElement("div");
+        d.className = "corcho__hoja corcho__dest is-debajo";
+        d.innerHTML = paginaSitio(estado.href);
+        lienzo.insertBefore(d, curso);
+        hoja = d;
+        colorTach("morado");
+        arrancar();
+        await espera(2900); if (n !== vuelta) return false;
+        // Atrás: la hoja del curso regresa a su lugar
+        curso.style.clipPath = "";
+        curso.classList.remove("is-arrancada");
+        curso.classList.add("is-vuelve");
+        await espera(650); if (n !== vuelta) return false;
+        restaurarCurso();
+        ocultarHilo(false);
+        return true;
+      }
       var h = document.createElement("div");
-      h.className = "corcho__hoja corcho__dest is-cae" + (mismo ? " is-encima" : "");
+      h.className = "corcho__hoja corcho__dest is-cae";
       h.innerHTML = "<span class=\"corcho__tach corcho__tach--dest\"></span>" + paginaSitio(estado.href);
       lienzo.insertBefore(h, svgHilo);
       hoja = h;
-      if (mismo) ocultarHilo(true);
       colorTach("morado");
       await espera(600); if (n !== vuelta) return false;
-      if (!mismo) { hojaAlLado = true; hiloDest(true); }
-      if (mismo) {
-        // Atrás: la hoja del sitio se quita y vuelve a verse la del curso
-        await espera(1800); if (n !== vuelta) return false;
-        quitarHoja();
-        await espera(450);
-        if (n === vuelta) ocultarHilo(false);
-      }
+      hojaAlLado = true;
+      hiloDest(true);
       return true;
     })();
     ocupado = false;
