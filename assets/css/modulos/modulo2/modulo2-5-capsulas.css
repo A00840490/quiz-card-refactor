@@ -6,8 +6,9 @@
    Donde no caben la máquina y la ficha lado a lado (el JS pone .is-compact),
    solo se ve la máquina y la ficha sale centrada en una ventana encima de la
    página; se cierra al tocar fuera de ella.
-   Cada cápsula que sale cae también en la repisa, y desde ahí se arrastra al
-   ejemplo de abajo, que se va armando con un párrafo por cápsula. */
+   Al sacar otra, la anterior sale rodando por la derecha y pasa a la repisa
+   de madera de arriba del ejemplo; desde ahí se arrastra al ejemplo, que se
+   va armando con un párrafo por cápsula. */
 
 .capsulas {
   --paper: #fffdf7;
@@ -295,6 +296,29 @@
     30% { opacity: 1; }
     to { transform: none; }
   }
+}
+
+/* Al sacar otra: la ficha se desvanece, la cápsula se cierra y sale rodando
+   por la derecha (al revés de como entró). Luego queda vacío hasta que
+   llega la nueva. */
+.capsulas__prize.is-closing .capsulas__slip {
+  visibility: visible;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.capsulas__prize.is-leaving .capsulas__shell {
+  animation: capsulas-roll-out 0.75s cubic-bezier(0.6, 0, 0.8, 0.4) both;
+}
+
+@keyframes capsulas-roll-out {
+  from { transform: none; }
+  70% { opacity: 1; }
+  to { opacity: 0; transform: translateX(170px) rotate(340deg); }
+}
+
+.capsulas__prize.is-empty .capsulas__shell {
+  visibility: hidden;
 }
 
 /* ---------- Ventana para pantallas angostas ----------
@@ -605,54 +629,76 @@
   }
 }
 
-/* ---------- Repisa: las cápsulas que vas sacando ----------
-   Cada cápsula que sale de la máquina cae también aquí, cerrada. Desde la
-   repisa se arrastra (mouse o dedo) al ejemplo de abajo. La repisa es hija
-   de .card-horizon y se queda pegada debajo del encabezado del curso
-   mientras bajas hasta el ejemplo, así en celular no hay que arrastrar de una
-   punta a otra de la página. */
+/* ---------- Repisa de madera arriba del ejemplo ----------
+   Al sacar una cápsula nueva, la anterior sale rodando por la derecha de la
+   ficha y aparece a la izquierda de esta repisa; desde aquí se arrastra
+   (mouse o dedo) al ejemplo. Es una tabla de nogal (la madera del 3-23 y del
+   corcho) que flota sin soportes, con su sombra en la pared. Si no caben
+   todas las cápsulas, el JS pone otra tabla debajo. Sin título. */
 .capsulas__repisa {
-  position: sticky;
-  top: 75px; /* debajo del encabezado fijo (65px) */
-  z-index: 50;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 6px 14px;
+  justify-items: center;
+  gap: 26px;
   max-width: 1080px;
-  margin: 0 auto 28px;
-  padding: 10px 14px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  -webkit-backdrop-filter: blur(16px) saturate(170%);
-  backdrop-filter: blur(16px) saturate(170%);
-  box-shadow: 0 8px 22px rgba(20, 33, 61, 0.12);
+  margin: 8px auto 34px;
 }
 
-/* Sin cápsulas no hace falta que te siga */
-.capsulas__repisa.is-vacia {
+.capsulas__nivel {
   position: relative;
-  top: 0;
+  width: min(100%, 720px);
+  isolation: isolate; /* la sombra queda detrás de la tabla, no de la página */
 }
 
-.capsulas__repisa-titulo {
-  color: #56627a;
-  font: 700 13px/1.2 Lato, sans-serif;
-}
-
-.capsulas__repisa-fila {
+.capsulas__nivel-caps {
+  position: relative;
+  z-index: 1;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  min-height: 52px;
+  align-items: flex-end;
+  gap: 10px;
+  min-height: 50px;
+  margin-bottom: -5px; /* las cápsulas se apoyan sobre la cara de arriba */
+  padding: 0 16px;
 }
 
-.capsulas__repisa-vacia {
-  color: #6b7a92;
-  font-size: 15px;
-  line-height: 1.3;
+/* La tabla: cara de arriba (vista un poco desde arriba, más clara) y canto
+   de enfrente con la veta, sombreado hacia abajo */
+.capsulas__tabla {
+  position: relative;
+  display: block;
+  height: 24px;
+  border-radius: 2px 2px 4px 4px;
+  background:
+    linear-gradient(rgba(255, 236, 210, 0.38) 0 9px, rgba(60, 30, 8, 0) 9px, rgba(60, 30, 8, 0.12) 12px, rgba(40, 18, 4, 0.42)),
+    url("../../../images/course/corcho/marco-h.jpg") center / 420px auto;
+  box-shadow:
+    inset 0 9px 0 -8px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 2px rgba(30, 14, 2, 0.35),
+    0 1px 0 rgba(30, 14, 2, 0.4);
+}
+
+/* Orilla entre la cara de arriba y el canto */
+.capsulas__tabla::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 9px;
+  height: 1px;
+  background: rgba(255, 244, 228, 0.55);
+}
+
+/* Sombra en la pared: la tabla flota */
+.capsulas__tabla::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 4%;
+  right: 4%;
+  top: 14px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(20, 33, 61, 0.28), rgba(20, 33, 61, 0));
+  filter: blur(3px);
 }
 
 /* Cápsula cerrada en la repisa (misma cara que las del domo) */
@@ -675,6 +721,12 @@
   user-select: none;
   -webkit-touch-callout: none;
   transition: transform 0.2s ease, opacity 0.25s ease, box-shadow 0.2s ease;
+}
+
+/* La repisa y la que se arrastra quedan fuera de .capsulas: su letra va aquí */
+.capsulas__suelta .capsulas__sticker {
+  font-family: "Source Code Pro", "Roboto Mono", Consolas, "Courier New", monospace;
+  line-height: 1;
 }
 
 .capsulas__suelta:focus {
@@ -703,9 +755,11 @@
   animation: capsulas-cae 0.6s cubic-bezier(0.2, 0.8, 0.3, 1.2) both;
 }
 
+/* Entra rodando por la izquierda de la repisa */
 @keyframes capsulas-cae {
-  from { opacity: 0; transform: translate(-40px, -30px) rotate(-200deg) scale(0.6); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; transform: translateX(-90px) rotate(-340deg); }
+  40% { opacity: 1; }
+  to { transform: none; }
 }
 
 /* La que sigue al puntero mientras se arrastra */
@@ -834,16 +888,6 @@ body.capsulas-picking .lesson-demo[data-capsulas-demo] {
   to { opacity: 1; transform: none; }
 }
 
-@media (max-width: 575.98px) {
-  .capsulas__repisa {
-    grid-template-columns: 1fr;
-    padding: 8px 10px 10px;
-  }
-
-  .capsulas__repisa-fila {
-    min-height: 50px;
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .capsulas__cap,
@@ -853,6 +897,7 @@ body.capsulas-picking .lesson-demo[data-capsulas-demo] {
   }
 
   .capsulas__prize.is-rolling .capsulas__shell,
+  .capsulas__prize.is-leaving .capsulas__shell,
   .capsulas__prize.is-open .capsulas__dex,
   .capsulas__prize.is-open .capsulas__roll,
   .capsulas__dex-tag,

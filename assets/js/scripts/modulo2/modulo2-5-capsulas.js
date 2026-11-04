@@ -12,15 +12,16 @@
    - Donde no caben la máquina y la ficha lado a lado, solo se ve la máquina
      y la ficha sale centrada en una ventana encima de la página. Tocar fuera
      de la ficha (o Esc) la cierra.
-   - Cada cápsula que sale cae también, cerrada, en una repisa debajo de la
-     máquina (se queda pegada arriba de la pantalla mientras bajas). Desde ahí
-     se arrastra con el mouse o el dedo al ejemplo de abajo ([data-capsulas-demo]),
+   - Al sacar una nueva, la cápsula anterior se cierra, sale rodando por la
+     derecha y aparece a la izquierda de una repisa de madera que flota arriba
+     del ejemplo ([data-capsulas-demo]). Desde ahí se arrastra con el mouse o
+     el dedo al ejemplo,
      que empieza vacío y se arma con un párrafo por cápsula, en el lugar donde
      se suelta. También se puede tocar la cápsula y luego el ejemplo (o Enter
      en los dos con el teclado).
    - Cuando se acaban, la perilla vuelve a llenar la máquina y el ejemplo
      vuelve a empezar.
-   - Empieza con la cápsula de <li data-start> ya abierta y en la repisa. */
+   - Empieza con la cápsula de <li data-start> ya abierta. */
 (function () {
   "use strict";
 
@@ -232,7 +233,7 @@
   }
 
   function updateKnob() {
-    knob.setAttribute("aria-label", left().length ? "Girar la perilla" : "Rellenar la máquina");
+    knob.setAttribute("aria-label", left().length || current !== null ? "Girar la perilla" : "Rellenar la máquina");
   }
 
   function spin() {
@@ -342,7 +343,7 @@
       "</div>" +
       '<span class="capsulas__roll" aria-hidden="true"></span>';
     startGrid(slip.querySelector(".capsulas__dex-grid"), rgb(item.color));
-    prize.classList.remove("is-open", "is-rolling");
+    prize.classList.remove("is-open", "is-rolling", "is-closing", "is-leaving", "is-empty");
     if (!animate || reduce) {
       prize.classList.add("is-open");
       return;
@@ -413,16 +414,43 @@
     window.addEventListener("resize", layout);
   }
 
+  // La cápsula que está abierta en la ficha (todavía no va a la repisa).
+  var current = null;
+
+  // La cápsula de la ficha se cierra, sale rodando por la derecha (como entró
+  // por la izquierda) y pasa a la repisa.
+  function retire() {
+    if (current === null) return;
+    var i = current;
+    current = null;
+    prize.classList.remove("is-open", "is-rolling");
+    if (reduce || compact) {
+      prize.classList.add("is-empty");
+      toShelf(i, !reduce);
+      return;
+    }
+    prize.classList.add("is-closing");
+    setTimeout(function () {
+      prize.classList.add("is-leaving");
+      setTimeout(function () {
+        prize.classList.remove("is-closing", "is-leaving");
+        if (current === null) prize.classList.add("is-empty");
+        toShelf(i, true);
+      }, 750);
+    }, 420);
+  }
+
   // Revuelve, deja caer la cápsula i por el fondo y la abre.
   function pick(i) {
     if (busy || caps[i].classList.contains("is-gone")) return;
     busy = true;
     spin();
+    retire();
     if (reduce) {
       setGone(caps[i], true);
+      current = i;
       updateKnob();
       showPrize(i, false);
-      toShelf(i, false);
       openModal();
       busy = false;
       return;
@@ -437,12 +465,10 @@
       setTimeout(function () {
         setGone(caps[i], true);
         b.falling = false;
+        current = i;
         updateKnob();
         showPrize(i, true);
         openModal();
-        setTimeout(function () {
-          toShelf(i, true);
-        }, 700);
         setTimeout(function () {
           busy = false;
         }, 900);
@@ -482,7 +508,14 @@
     if (busy) return;
     var l = left();
     if (!l.length) {
-      refill();
+      // Primero la última cápsula se va a la repisa; la siguiente vuelta rellena.
+      if (current !== null) {
+        spin();
+        retire();
+        updateKnob();
+      } else {
+        refill();
+      }
       return;
     }
     pick(caps.indexOf(l[Math.floor(Math.random() * l.length)]));
@@ -490,7 +523,6 @@
 
   // ---------- Repisa y ejemplo que se arma ----------
   var demo = document.querySelector("[data-capsulas-demo]");
-  var shelfRow = null;
   var resetDemo = function () {};
   var toShelf = function () {};
 
@@ -499,13 +531,67 @@
     var view = demo.querySelector(".example .container-fluid") || demo.querySelector('[class*="col-"]:last-child');
     if (!code || !view) return;
 
+    // Repisa de madera flotando arriba del ejemplo. Si no caben todas las
+    // cápsulas en una tabla, se ponen más tablas debajo.
     var shelf = document.createElement("div");
     shelf.className = "capsulas__repisa";
-    shelf.innerHTML =
-      '<span class="capsulas__repisa-titulo">Tus cápsulas</span>' +
-      '<div class="capsulas__repisa-fila" aria-live="polite"></div>';
-    root.parentNode.insertBefore(shelf, root.nextSibling);
-    shelfRow = shelf.querySelector(".capsulas__repisa-fila");
+    shelf.setAttribute("role", "group");
+    shelf.setAttribute("aria-label", "Repisa con tus cápsulas");
+    demo.parentNode.insertBefore(shelf, demo);
+    var shelfCaps = []; // de izquierda a derecha
+    var perRow = 0;
+    var CAP = 50, GAP = 10, PAD = 16;
+
+    function capacity() {
+      var w = Math.min(shelf.clientWidth, 720);
+      return Math.max(1, Math.floor((w - PAD * 2 + GAP) / (CAP + GAP)));
+    }
+
+    function buildShelf() {
+      perRow = capacity();
+      var rows = Math.max(1, Math.ceil(shelfCaps.length / perRow));
+      var levels = shelf.children;
+      while (levels.length < rows) {
+        var lv = document.createElement("div");
+        lv.className = "capsulas__nivel";
+        lv.innerHTML = '<div class="capsulas__nivel-caps"></div><span class="capsulas__tabla" aria-hidden="true"></span>';
+        shelf.appendChild(lv);
+      }
+      while (levels.length > rows) shelf.removeChild(shelf.lastChild);
+      shelfCaps.forEach(function (c, k) {
+        var row = levels[Math.floor(k / perRow)].firstChild;
+        var at = row.children[k % perRow];
+        if (at !== c) row.insertBefore(c, at || null);
+      });
+    }
+
+    // Reacomoda las tablas; las cápsulas que ya estaban se deslizan a su nuevo lugar.
+    function relayout(animate) {
+      var before = shelfCaps.map(function (c) {
+        return c.isConnected ? c.getBoundingClientRect() : null;
+      });
+      buildShelf();
+      if (!animate || reduce) return;
+      shelfCaps.forEach(function (c, k) {
+        var a = before[k];
+        if (!a || !c.animate) return;
+        var b = c.getBoundingClientRect();
+        var dx = a.left - b.left, dy = a.top - b.top;
+        if (dx || dy) {
+          c.animate([{ transform: "translate(" + dx + "px, " + dy + "px)" }, { transform: "none" }], {
+            duration: 450,
+            easing: "cubic-bezier(0.3, 1.2, 0.5, 1)",
+          });
+        }
+      });
+    }
+
+    if (typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(function () {
+        if (capacity() !== perRow) buildShelf();
+      }).observe(shelf);
+    }
+
     demo.setAttribute("aria-label", "Ejemplo: suelta aquí tus cápsulas");
 
     var lines = []; // índices de items, en el orden del ejemplo
@@ -609,17 +695,10 @@
     }
 
     function used(el) {
+      var k = shelfCaps.indexOf(el);
+      if (k >= 0) shelfCaps.splice(k, 1);
       el.remove();
-      emptyShelf();
-    }
-
-    function emptyShelf() {
-      var some = !!shelfRow.querySelector(".capsulas__suelta");
-      shelf.classList.toggle("is-vacia", !some);
-      if (some) return;
-      shelfRow.innerHTML = '<span class="capsulas__repisa-vacia">' +
-        (left().length ? "Gira la perilla para sacar otra cápsula." : "Ya están todas en el ejemplo. Gira la perilla para volver a empezar.") +
-        "</span>";
+      relayout(true);
     }
 
     // Si el puntero llega a la orilla de la pantalla, la página se desplaza sola.
@@ -751,24 +830,24 @@
         drop(p.i, lines.length);
         used(p.el);
         p.el = null;
-        var next = shelfRow.querySelector(".capsulas__suelta");
+        var next = shelf.querySelector(".capsulas__suelta");
         (next || knob).focus({ preventScroll: true });
       }
     });
 
+    // Entra rodando por la izquierda y las demás se recorren a la derecha.
     toShelf = function (i, animate) {
-      var msg = shelfRow.querySelector(".capsulas__repisa-vacia");
-      if (msg) msg.remove();
-      shelfRow.appendChild(makeCap(i, animate));
-      shelf.classList.remove("is-vacia");
+      shelfCaps.unshift(makeCap(i, animate));
+      relayout(animate);
     };
 
     resetDemo = function () {
       setPicked(null);
       lines = [];
-      shelfRow.innerHTML = "";
+      shelfCaps.forEach(function (c) { c.remove(); });
+      shelfCaps = [];
+      buildShelf();
       render();
-      emptyShelf();
     };
 
     resetDemo();
@@ -779,7 +858,7 @@
     if (item.start) first = i;
   });
   setGone(caps[first], true);
+  current = first;
   showPrize(first, false);
-  toShelf(first, false);
   updateKnob();
 })();
