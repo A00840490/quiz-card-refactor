@@ -219,13 +219,18 @@
   padding-bottom: 18px;
 }
 
-/* El ejemplo, pegado en la ficha debajo del texto */
+/* El ejemplo, pegado en la ficha debajo del texto. Va de orilla a orilla de
+   la ficha (cancela su padding de los lados), como el ejemplo del 2-5. */
 .navaja__demo {
-  margin-top: 4px;
+  margin: 4px -16px 0;
   overflow: hidden;
-  border: 1px solid #c8d3e3;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+  border-block: 1px solid #c8d3e3;
+}
+
+@media (min-width: 576px) {
+  .navaja__demo {
+    margin-inline: -24px;
+  }
 }
 
 .navaja__src {
