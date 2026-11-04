@@ -26,9 +26,10 @@
 .opc:not(.opc--ready) .opc__juego { display: none; }
 
 /* ===================== Corrección (arriba de la pizarra) ===================== */
-.opc__feedback {
+.opc .opc__feedback {
   min-height: 1.5em;
   margin: 0 0 16px;
+  text-align: center;
   transition: opacity 0.2s ease;
 }
 
