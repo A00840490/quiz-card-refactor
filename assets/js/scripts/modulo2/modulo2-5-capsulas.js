@@ -12,8 +12,15 @@
    - Donde no caben la máquina y la ficha lado a lado, solo se ve la máquina
      y la ficha sale centrada en una ventana encima de la página. Tocar fuera
      de la ficha (o Esc) la cierra.
-   - Cuando se acaban, la perilla vuelve a llenar la máquina.
-   - Empieza con la cápsula de <li data-start> ya abierta. */
+   - Cada cápsula que sale cae también, cerrada, en una repisa debajo de la
+     máquina (se queda pegada arriba de la pantalla mientras bajas). Desde ahí
+     se arrastra con el mouse o el dedo al ejemplo de abajo ([data-capsulas-demo]),
+     que empieza vacío y se arma con un párrafo por cápsula, en el lugar donde
+     se suelta. También se puede tocar la cápsula y luego el ejemplo (o Enter
+     en los dos con el teclado).
+   - Cuando se acaban, la perilla vuelve a llenar la máquina y el ejemplo
+     vuelve a empezar.
+   - Empieza con la cápsula de <li data-start> ya abierta y en la repisa. */
 (function () {
   "use strict";
 
@@ -415,6 +422,7 @@
       setGone(caps[i], true);
       updateKnob();
       showPrize(i, false);
+      toShelf(i, false);
       openModal();
       busy = false;
       return;
@@ -433,6 +441,9 @@
         showPrize(i, true);
         openModal();
         setTimeout(function () {
+          toShelf(i, true);
+        }, 700);
+        setTimeout(function () {
           busy = false;
         }, 900);
       }, 350);
@@ -443,6 +454,7 @@
   function refill() {
     busy = true;
     spin();
+    resetDemo();
     var c = dome.clientWidth / 2;
     bodies.forEach(function (b, k) {
       b.x = c + (Math.random() - 0.5) * 110;
@@ -476,11 +488,298 @@
     pick(caps.indexOf(l[Math.floor(Math.random() * l.length)]));
   });
 
+  // ---------- Repisa y ejemplo que se arma ----------
+  var demo = document.querySelector("[data-capsulas-demo]");
+  var shelfRow = null;
+  var resetDemo = function () {};
+  var toShelf = function () {};
+
+  if (demo) (function () {
+    var code = demo.querySelector('[class*="col-"]:first-child .code');
+    var view = demo.querySelector(".example .container-fluid") || demo.querySelector('[class*="col-"]:last-child');
+    if (!code || !view) return;
+
+    var shelf = document.createElement("div");
+    shelf.className = "capsulas__repisa";
+    shelf.innerHTML =
+      '<span class="capsulas__repisa-titulo">Tus cápsulas</span>' +
+      '<div class="capsulas__repisa-fila" aria-live="polite"></div>';
+    root.parentNode.insertBefore(shelf, root.nextSibling);
+    shelfRow = shelf.querySelector(".capsulas__repisa-fila");
+    demo.setAttribute("aria-label", "Ejemplo: suelta aquí tus cápsulas");
+
+    var lines = []; // índices de items, en el orden del ejemplo
+    var drag = null, picked = null, marks = null, scrollRaf = 0;
+
+    function lineCode(i) {
+      return ["<p>", "  " + items[i].example, "</p>"];
+    }
+
+    function render(nuevo) {
+      // lesson-demo.js iguala el alto del código con la vista al cargar; como
+      // el ejemplo crece, se quita ese alto y vuelve el de .lesson-demo--scroll.
+      code.style.maxHeight = "";
+      if (!lines.length) {
+        code.innerHTML = '<span class="capsulas__vacio">Suelta aquí tus cápsulas</span>';
+        view.innerHTML = '<div class="capsulas__vacio">Aquí se verá tu página</div>';
+        return;
+      }
+      var c = "", h = "";
+      lines.forEach(function (i, k) {
+        var cls = k === nuevo ? " is-new" : "";
+        Codigo.colorear(lineCode(i), "html").forEach(function (pedazos) {
+          c += '<span class="ld-line' + cls + '" data-k="' + k + '">' + Codigo.html([pedazos]) + "</span>";
+        });
+        h += '<p data-k="' + k + '"' + (cls ? ' class="is-new"' : "") + ">" + items[i].example + "</p>";
+      });
+      code.innerHTML = c;
+      view.innerHTML = h;
+      // Que lesson-demo.js vuelva a igualar el alto con la vista ya crecida.
+      window.dispatchEvent(new Event("resize"));
+      if (nuevo == null) return;
+      // Que el párrafo nuevo se vea dentro del código (que tiene su propio scroll).
+      var first = code.querySelector('.ld-line[data-k="' + nuevo + '"]');
+      if (first && code.scrollHeight > code.clientHeight) {
+        var top = first.offsetTop - code.offsetTop;
+        if (top < code.scrollTop || top + first.offsetHeight * 3 > code.scrollTop + code.clientHeight) {
+          code.scrollTo({ top: Math.max(0, top - 24), behavior: reduce ? "auto" : "smooth" });
+        }
+      }
+    }
+
+    // Lugar donde entra: antes del primer párrafo cuyo centro queda debajo del puntero.
+    function slot(x, y) {
+      var el = document.elementFromPoint(x, y);
+      var pane = el && (code.contains(el) ? code : view.contains(el) ? view : null);
+      if (!pane) return lines.length;
+      for (var k = 0; k < lines.length; k++) {
+        var rows = pane.querySelectorAll('[data-k="' + k + '"]');
+        if (!rows.length) continue;
+        var a = rows[0].getBoundingClientRect(), b = rows[rows.length - 1].getBoundingClientRect();
+        if (y < (a.top + b.bottom) / 2) return k;
+      }
+      return lines.length;
+    }
+
+    function clearMarks() {
+      if (marks) marks.forEach(function (m) { m.remove(); });
+      marks = null;
+    }
+
+    function showMarks(x, y) {
+      clearMarks();
+      if (!lines.length) return;
+      var k = slot(x, y);
+      marks = [code, view].map(function (pane) {
+        var m = document.createElement("span");
+        m.className = "capsulas__raya";
+        pane.insertBefore(m, pane.querySelector('[data-k="' + k + '"]'));
+        return m;
+      });
+    }
+
+    function over(x, y) {
+      var el = document.elementFromPoint(x, y);
+      return !!el && demo.contains(el);
+    }
+
+    function hover(on, x, y) {
+      demo.classList.toggle("is-over", on);
+      if (on) showMarks(x, y);
+      else clearMarks();
+    }
+
+    function drop(i, k) {
+      clearMarks();
+      demo.classList.remove("is-over");
+      lines.splice(k, 0, i);
+      render(k);
+    }
+
+    function pop(x, y, color) {
+      if (reduce) return;
+      var p = document.createElement("div");
+      p.className = "capsulas__pop";
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+      p.style.setProperty("--c", color);
+      p.innerHTML = "<span></span><span></span>";
+      document.body.appendChild(p);
+      setTimeout(function () { p.remove(); }, 600);
+    }
+
+    function used(el) {
+      el.remove();
+      emptyShelf();
+    }
+
+    function emptyShelf() {
+      var some = !!shelfRow.querySelector(".capsulas__suelta");
+      shelf.classList.toggle("is-vacia", !some);
+      if (some) return;
+      shelfRow.innerHTML = '<span class="capsulas__repisa-vacia">' +
+        (left().length ? "Gira la perilla para sacar otra cápsula." : "Ya están todas en el ejemplo. Gira la perilla para volver a empezar.") +
+        "</span>";
+    }
+
+    // Si el puntero llega a la orilla de la pantalla, la página se desplaza sola.
+    function autoScroll() {
+      if (!drag) { scrollRaf = 0; return; }
+      var edge = 70, v = 0;
+      if (drag.y < edge + 65) v = -(edge + 65 - drag.y) / 4; // 65: encabezado fijo
+      else if (drag.y > innerHeight - edge) v = (drag.y - (innerHeight - edge)) / 4;
+      if (v) {
+        window.scrollBy(0, v);
+        hover(over(drag.x, drag.y), drag.x, drag.y);
+      }
+      scrollRaf = requestAnimationFrame(autoScroll);
+    }
+
+    function setPicked(p) {
+      if (picked) picked.el.classList.remove("is-picked");
+      picked = p;
+      if (p) p.el.classList.add("is-picked");
+      document.body.classList.toggle("capsulas-picking", !!p);
+      if (p) demo.setAttribute("tabindex", "0");
+      else demo.removeAttribute("tabindex");
+    }
+
+    function makeCap(i, animate) {
+      var item = items[i];
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "capsulas__suelta" + (animate && !reduce ? " is-new" : "");
+      b.style.setProperty("--c", item.color);
+      b.setAttribute("aria-label", "Cápsula de la etiqueta " + item.tag + ": arrástrala al ejemplo");
+      var sticker = document.createElement("span");
+      sticker.className = "capsulas__sticker" + (item.tag.length > 4 ? " is-long" : "");
+      sticker.textContent = "<" + item.tag + ">";
+      b.appendChild(sticker);
+
+      b.addEventListener("pointerdown", function (e) {
+        if (e.button !== 0) return;
+        var sx = e.clientX, sy = e.clientY, started = false, ghost = null;
+        try { b.setPointerCapture(e.pointerId); } catch (err) {}
+        function move(ev) {
+          var x = ev.clientX, y = ev.clientY;
+          if (!started) {
+            if (Math.abs(x - sx) + Math.abs(y - sy) < 6) return;
+            started = true;
+            setPicked(null);
+            ghost = b.cloneNode(true);
+            ghost.classList.remove("is-new", "is-picked");
+            ghost.classList.add("is-ghost");
+            ghost.removeAttribute("aria-label");
+            ghost.setAttribute("aria-hidden", "true");
+            document.body.appendChild(ghost);
+            b.classList.add("is-held");
+            drag = { x: x, y: y };
+            if (!scrollRaf) scrollRaf = requestAnimationFrame(autoScroll);
+          }
+          drag.x = x;
+          drag.y = y;
+          ghost.style.left = x + "px";
+          ghost.style.top = y + "px";
+          ghost.style.setProperty("--r", Math.max(-20, Math.min(20, (x - sx) / 12)) + "deg");
+          hover(over(x, y), x, y);
+        }
+        function up(ev) {
+          b.removeEventListener("pointermove", move);
+          b.removeEventListener("pointerup", up);
+          b.removeEventListener("pointercancel", up);
+          if (!started) {
+            if (ev.type === "pointerup") setPicked(picked && picked.el === b ? null : { el: b, i: i });
+            return;
+          }
+          var x = ev.clientX, y = ev.clientY;
+          var ok = ev.type === "pointerup" && over(x, y);
+          var k = ok ? slot(x, y) : 0;
+          hover(false);
+          drag = null;
+          if (ok) {
+            ghost.remove();
+            pop(x, y, item.color);
+            drop(i, k);
+            used(b);
+            return;
+          }
+          // Fuera del ejemplo: regresa a su lugar en la repisa.
+          var r = b.getBoundingClientRect();
+          ghost.classList.add("is-back");
+          ghost.style.left = r.left + r.width / 2 + "px";
+          ghost.style.top = r.top + r.height / 2 + "px";
+          setTimeout(function () {
+            ghost.remove();
+            b.classList.remove("is-held");
+          }, reduce ? 0 : 360);
+        }
+        b.addEventListener("pointermove", move);
+        b.addEventListener("pointerup", up);
+        b.addEventListener("pointercancel", up);
+      });
+      // El clic ya lo maneja pointerup; con el teclado, Enter o Espacio la elige.
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+      b.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        e.preventDefault();
+        setPicked(picked && picked.el === b ? null : { el: b, i: i });
+      });
+      return b;
+    }
+
+    // Con una cápsula elegida, tocar el ejemplo la suelta ahí.
+    document.addEventListener("click", function (e) {
+      if (!picked || e.target.closest(".capsulas__suelta")) return;
+      if (!demo.contains(e.target)) { setPicked(null); return; }
+      var p = picked;
+      setPicked(null);
+      var k = e.detail === 0 ? lines.length : slot(e.clientX, e.clientY);
+      pop(e.clientX, e.clientY, items[p.i].color);
+      drop(p.i, k);
+      used(p.el);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (!picked) return;
+      if (e.key === "Escape") setPicked(null);
+      if ((e.key === "Enter" || e.key === " ") && e.target === demo) {
+        e.preventDefault();
+        var p = picked;
+        setPicked(null);
+        drop(p.i, lines.length);
+        used(p.el);
+        p.el = null;
+        var next = shelfRow.querySelector(".capsulas__suelta");
+        (next || knob).focus({ preventScroll: true });
+      }
+    });
+
+    toShelf = function (i, animate) {
+      var msg = shelfRow.querySelector(".capsulas__repisa-vacia");
+      if (msg) msg.remove();
+      shelfRow.appendChild(makeCap(i, animate));
+      shelf.classList.remove("is-vacia");
+    };
+
+    resetDemo = function () {
+      setPicked(null);
+      lines = [];
+      shelfRow.innerHTML = "";
+      render();
+      emptyShelf();
+    };
+
+    resetDemo();
+  })();
+
   var first = 0;
   items.forEach(function (item, i) {
     if (item.start) first = i;
   });
   setGone(caps[first], true);
   showPrize(first, false);
+  toShelf(first, false);
   updateKnob();
 })();

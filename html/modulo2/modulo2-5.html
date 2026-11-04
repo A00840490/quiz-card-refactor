@@ -45,7 +45,7 @@
                   </p>
                   <p class="card-info" style="width: fit-content;">
                     <span class="ico-clic" aria-hidden="true"></span>
-                    Gira la perilla o toca una cápsula para ver qué hace cada etiqueta.
+                    Gira la perilla o toca una cápsula para ver qué hace cada etiqueta, y arrástrala al ejemplo de abajo.
                   </p>
                   <!-- Etiquetas como máquina de cápsulas (ver modulo2-5-capsulas.css / .js).
                        La lista es la fuente de datos; el JS la oculta al armar la máquina. -->
@@ -128,12 +128,15 @@
                   </div>
                   <br />
                   <p>
-                    El siguiente ejemplo utiliza todos los elementos
-                    anteriores en un párrafo. Compara cada línea de código
-                    con el resultado que genera:
+                    El siguiente ejemplo se arma con las cápsulas que vas
+                    sacando: cada una que sueltas en él agrega un párrafo con
+                    su etiqueta. Compara cada línea de código con el resultado
+                    que genera:
                   </p>
 
-                  <div class="row mrg-top-20 lesson-demo lesson-demo--scroll">
+                  <!-- El JS de las cápsulas lo vacía y lo arma con las cápsulas que se sueltan
+                       en él; sin JavaScript se ve completo. -->
+                  <div class="row mrg-top-20 lesson-demo lesson-demo--scroll" data-capsulas-demo>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                       <div class="card" style="background-color: #1a1a1a">
                         <div class="container-fluid">

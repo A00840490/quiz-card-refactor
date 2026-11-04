@@ -5,7 +5,9 @@
    a su lado lo que hace y debajo un ejemplo de código con su resultado.
    Donde no caben la máquina y la ficha lado a lado (el JS pone .is-compact),
    solo se ve la máquina y la ficha sale centrada en una ventana encima de la
-   página; se cierra al tocar fuera de ella. */
+   página; se cierra al tocar fuera de ella.
+   Cada cápsula que sale cae también en la repisa, y desde ahí se arrastra al
+   ejemplo de abajo, que se va armando con un párrafo por cápsula. */
 
 .capsulas {
   --paper: #fffdf7;
@@ -603,6 +605,246 @@
   }
 }
 
+/* ---------- Repisa: las cápsulas que vas sacando ----------
+   Cada cápsula que sale de la máquina cae también aquí, cerrada. Desde la
+   repisa se arrastra (mouse o dedo) al ejemplo de abajo. La repisa es hija
+   de .card-horizon y se queda pegada debajo del encabezado del curso
+   mientras bajas hasta el ejemplo, así en celular no hay que arrastrar de una
+   punta a otra de la página. */
+.capsulas__repisa {
+  position: sticky;
+  top: 75px; /* debajo del encabezado fijo (65px) */
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 6px 14px;
+  max-width: 1080px;
+  margin: 0 auto 28px;
+  padding: 10px 14px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  backdrop-filter: blur(16px) saturate(170%);
+  box-shadow: 0 8px 22px rgba(20, 33, 61, 0.12);
+}
+
+/* Sin cápsulas no hace falta que te siga */
+.capsulas__repisa.is-vacia {
+  position: relative;
+  top: 0;
+}
+
+.capsulas__repisa-titulo {
+  color: #56627a;
+  font: 700 13px/1.2 Lato, sans-serif;
+}
+
+.capsulas__repisa-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+}
+
+.capsulas__repisa-vacia {
+  color: #6b7a92;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+/* Cápsula cerrada en la repisa (misma cara que las del domo) */
+.capsulas__suelta {
+  position: relative;
+  flex: none;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 1.5px solid rgba(6, 43, 102, 0.22);
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--c) 0 50%, #ffffff 50% 100%);
+  box-shadow:
+    inset 0 -5px 8px rgba(6, 43, 102, 0.08),
+    inset 0 5px 8px rgba(255, 255, 255, 0.5),
+    0 3px 8px rgba(6, 43, 102, 0.18);
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  transition: transform 0.2s ease, opacity 0.25s ease, box-shadow 0.2s ease;
+}
+
+.capsulas__suelta:focus {
+  outline: none;
+}
+
+.capsulas__suelta:hover {
+  transform: translateY(-2px) rotate(-6deg);
+}
+
+/* Elegida con un toque (o Enter): se suelta tocando el ejemplo */
+.capsulas__suelta.is-picked,
+.capsulas__suelta:focus-visible {
+  box-shadow: 0 0 0 3px #fac775, 0 6px 14px rgba(6, 43, 102, 0.25);
+}
+
+.capsulas__suelta.is-picked {
+  transform: translateY(-3px);
+}
+
+.capsulas__suelta.is-held {
+  opacity: 0.25;
+}
+
+.capsulas__suelta.is-new {
+  animation: capsulas-cae 0.6s cubic-bezier(0.2, 0.8, 0.3, 1.2) both;
+}
+
+@keyframes capsulas-cae {
+  from { opacity: 0; transform: translate(-40px, -30px) rotate(-200deg) scale(0.6); }
+  to { opacity: 1; transform: none; }
+}
+
+/* La que sigue al puntero mientras se arrastra */
+.capsulas__suelta.is-ghost {
+  position: fixed;
+  z-index: 3000;
+  left: 0;
+  top: 0;
+  margin: -25px 0 0 -25px;
+  pointer-events: none;
+  box-shadow: 0 14px 26px rgba(6, 43, 102, 0.3);
+  transform: rotate(var(--r, 0deg)) scale(1.12);
+  transition: none;
+}
+
+.capsulas__suelta.is-ghost.is-back {
+  transform: none;
+  transition: left 0.35s cubic-bezier(0.3, 1.2, 0.5, 1), top 0.35s cubic-bezier(0.3, 1.2, 0.5, 1), transform 0.35s ease;
+}
+
+/* Al soltarla se abre: las dos mitades se separan y se desvanecen */
+.capsulas__pop {
+  position: fixed;
+  z-index: 3000;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
+  pointer-events: none;
+}
+
+.capsulas__pop span {
+  position: absolute;
+  left: 0;
+  width: 50px;
+  height: 25px;
+  border: 1.5px solid rgba(6, 43, 102, 0.22);
+  animation: capsulas-pop-arriba 0.55s cubic-bezier(0.3, 1.2, 0.5, 1) forwards;
+}
+
+.capsulas__pop span:first-child {
+  top: 0;
+  border-radius: 25px 25px 0 0;
+  background: var(--c);
+}
+
+.capsulas__pop span:last-child {
+  bottom: 0;
+  border-radius: 0 0 25px 25px;
+  background: #ffffff;
+  animation-name: capsulas-pop-abajo;
+}
+
+@keyframes capsulas-pop-arriba {
+  to { opacity: 0; transform: translate(-22px, -18px) rotate(-40deg); }
+}
+
+@keyframes capsulas-pop-abajo {
+  to { opacity: 0; transform: translate(18px, 12px) rotate(18deg); }
+}
+
+/* ---------- Ejemplo que se arma ---------- */
+.lesson-demo[data-capsulas-demo] {
+  transition: box-shadow 0.2s ease;
+}
+
+.lesson-demo[data-capsulas-demo].is-over,
+.lesson-demo[data-capsulas-demo]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px #fac775, 0 18px 45px rgba(31, 47, 71, 0.18);
+}
+
+body.capsulas-picking .lesson-demo[data-capsulas-demo] {
+  cursor: copy;
+}
+
+/* Mientras está vacío: un recuadro punteado en el código y otro en la vista */
+.capsulas__vacio {
+  display: grid;
+  place-items: center;
+  min-height: 116px;
+  padding: 10px;
+  border: 2px dashed #c9d9ec;
+  border-radius: 10px;
+  color: #6b7a92;
+  font: 16px/1.4 Lato, sans-serif;
+  text-align: center;
+}
+
+.code .capsulas__vacio {
+  margin-left: 22px;
+  border-color: #3a4357;
+  color: #8792a6;
+}
+
+/* Rayita amarilla: dónde entra el párrafo si sueltas ahí */
+.capsulas__raya {
+  display: block;
+  height: 3px;
+  margin: -1.5px 0;
+  border-radius: 2px;
+  background: #fac775;
+  box-shadow: 0 0 8px rgba(250, 199, 117, 0.8);
+}
+
+.code .capsulas__raya {
+  margin-left: 46px;
+}
+
+/* Lo nuevo se ilumina un momento */
+.code .ld-line.is-new {
+  border-radius: 4px;
+  animation: capsulas-brilla 1.4s ease;
+}
+
+@keyframes capsulas-brilla {
+  from { background: rgba(250, 199, 117, 0.35); }
+  to { background: transparent; }
+}
+
+[data-capsulas-demo] .example p.is-new {
+  animation: capsulas-aparece 0.6s ease both;
+}
+
+@keyframes capsulas-aparece {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 575.98px) {
+  .capsulas__repisa {
+    grid-template-columns: 1fr;
+    padding: 8px 10px 10px;
+  }
+
+  .capsulas__repisa-fila {
+    min-height: 50px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .capsulas__cap,
   .capsulas__handle,
@@ -614,7 +856,16 @@
   .capsulas__prize.is-open .capsulas__dex,
   .capsulas__prize.is-open .capsulas__roll,
   .capsulas__dex-tag,
-  .capsulas__prize.is-open .capsulas__dex-tag {
+  .capsulas__prize.is-open .capsulas__dex-tag,
+  .capsulas__suelta,
+  .capsulas__pop span,
+  .code .ld-line.is-new,
+  [data-capsulas-demo] .example p.is-new {
     animation: none;
+  }
+
+  .capsulas__suelta,
+  .capsulas__suelta.is-ghost.is-back {
+    transition: none;
   }
 }
