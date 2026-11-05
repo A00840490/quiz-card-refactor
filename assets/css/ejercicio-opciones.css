@@ -12,7 +12,7 @@
    notas adhesivas escritas a mano (fuente Caveat de Google, la carga la
    página). Al elegir una nota le cae una chincheta; al revisar, un plumón
    verde la palomea o encierra la que faltó y uno rojo tacha la equivocada.
-   Marco y chincheta en assets/images/course/corcho/; el corcho es la foto
+   Marco y chincheta (foto) en assets/images/course/corcho/; el corcho es la foto
    del 2-12 (créditos fuera del repo).
    ========================================================================= */
 .opc {
@@ -211,7 +211,7 @@
 }
 
 .opc-c__ficha .opc-c__chin {
-  top: -14px;
+  top: -22px;
   opacity: 1;
   transform: none;
 }
@@ -283,14 +283,15 @@
 .opc-c__nota.is-out { animation: opc-caer 0.55s ease-in both; }
 
 /* Chincheta: cae al elegir la nota */
+/* Chincheta: foto real recortada; la base queda sobre el borde de la nota */
 .opc-c__chin {
   position: absolute;
   left: 50%;
-  top: -16px;
-  width: 34px;
-  height: 34px;
-  margin-left: -17px;
-  background: url("../images/course/corcho/chincheta.svg") no-repeat center / contain;
+  top: -24px;
+  width: 30px;
+  height: 39px;
+  margin-left: -15px;
+  background: url("../images/course/corcho/chincheta.png") no-repeat center / contain;
   filter: drop-shadow(3px 5px 2px rgba(40, 20, 5, 0.45));
   opacity: 0;
   transform: translateY(-26px) scale(1.4);
