@@ -180,13 +180,16 @@
       if (fb) {
         var f = s.hasAttribute("data-fb-step") && cfg.fb[st.pick];
         root.removeAttribute("data-verdict");
-        fb.classList.remove("is-on");
+        fb.classList.remove("is-on", "is-out");
         if (f) {
           fb.innerHTML = f[1];
           // Vuelve a arrancar el brillo aunque la respuesta sea la misma
           void glow.offsetWidth;
           root.setAttribute("data-verdict", f[0]);
+          fb.classList.remove("is-out");
           fb.classList.add("is-on");
+          // A los 30 segundos el mensaje se desliza hacia arriba y desaparece
+          timers.push(setTimeout(function () { fb.classList.add("is-out"); }, 30000));
         }
       }
       cfg.layout(i, st, later, scene);

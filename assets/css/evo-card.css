@@ -445,8 +445,9 @@
 
 .evo__fb {
   max-width: 100%;
-  font-size: 15px;
-  line-height: 1.45;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
   text-align: center;
   padding: 6px 0;
 }
@@ -465,13 +466,23 @@
   transition: opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s, visibility 0s;
 }
 
-/* Solo el texto en color, sin recuadro alrededor */
+/* A los 30 segundos el mensaje se va deslizándose hacia arriba (evo-card.js
+   le pone .is-out). Su celda sigue ocupada, así la tarjeta no cambia de altura. */
+.evo__fb.is-on.is-out {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-22px);
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s linear 0.6s;
+}
+
+/* Solo el texto en color, sin recuadro alrededor. Va en un tono bastante más
+   oscuro que el de la aurora de atrás para que resalte sobre ella. */
 .evo[data-verdict="ok"] .evo__fb {
-  color: var(--evo-green);
+  color: #0f4d2a;
 }
 
 .evo[data-verdict="nope"] .evo__fb {
-  color: var(--evo-red);
+  color: #7a140c;
 }
 
 .evo__glow {
