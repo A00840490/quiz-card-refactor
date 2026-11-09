@@ -1,0 +1,390 @@
+/* Tema 20 (modulo3-21): ventana elástica para las media queries.
+   A la izquierda, una ventana de navegador con una agarradera en la orilla
+   derecha: se estira y se encoge para cambiar su ancho. Arriba, una cinta
+   métrica en px y, encima de ella, dos tramos que dicen con palabras dónde se
+   aplica @media (de 0 al corte) y dónde no (más del corte); se ilumina el
+   tramo donde cae la orilla de la ventana. Una línea punteada baja del corte
+   para que se vea cuándo la orilla lo cruza. A la derecha, el código con el
+   menú de vidrio y la explicación en la ficha de renglones
+   (assets/js/scripts/modulo3/modulo3-21-elastica.js). */
+.elastica {
+  --el-si: #1b7a3a;
+  --el-no: #b42323;
+  --el-corte: #d9480f;
+  --el-tape: #f4c430;
+  --el-mono: "Source Code Pro", Consolas, "Courier New", monospace;
+  position: relative;
+  display: grid;
+  gap: 24px;
+  margin: 18px 0 10px;
+}
+
+@media (min-width: 992px) {
+  .elastica {
+    grid-template-columns: minmax(0, 1.1fr) minmax(360px, 1fr);
+    column-gap: 32px;
+    align-items: start; /* arriba: así la ficha crece hacia abajo sin mover nada */
+  }
+}
+
+@media (min-width: 576px) {
+  .elastica .grafico-ficha { width: min(92%, 560px); }
+}
+
+/* ---------- Escena: tramos, cinta y ventana ---------- */
+.elastica__area {
+  position: relative;
+  padding-right: 18px; /* lugar para la agarradera */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.elastica__medida {
+  position: relative;
+  height: 112px;
+}
+
+/* Los dos tramos de arriba: "Se aplica" y "No se aplica" */
+.elastica__zona {
+  position: absolute;
+  top: 0;
+  height: 50px;
+  color: #8a94a6;
+  transition: left 0.45s cubic-bezier(0.3, 0.7, 0.3, 1), width 0.45s cubic-bezier(0.3, 0.7, 0.3, 1), color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.55;
+}
+
+/* El corchete: una línea con sus dos puntas, debajo del letrero */
+.elastica__zona::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: 0;
+  height: 9px;
+  border: 2px solid currentColor;
+  border-bottom: 0;
+}
+
+.elastica__zona.is-activa {
+  opacity: 1;
+}
+
+.elastica__zona--si.is-activa { color: var(--el-si); }
+.elastica__zona--no.is-activa { color: var(--el-no); }
+
+.elastica__letrero {
+  position: absolute;
+  left: 50%;
+  bottom: 13px;
+  display: grid;
+  justify-items: center;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.elastica__letrero b {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: 800 14px/1.15 Lato, Arial, sans-serif;
+}
+
+.elastica__letrero b::before {
+  content: "";
+  display: grid;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: currentColor;
+  -webkit-mask: var(--el-ico) center / 16px no-repeat;
+  mask: var(--el-ico) center / 16px no-repeat;
+}
+
+.elastica__zona--si { --el-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm-1.2 11.6L3.4 8.2l1.4-1.4 2 2 4.4-4.4 1.4 1.4z'/%3E%3C/svg%3E"); }
+.elastica__zona--no { --el-ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 10.1-1.4 1.4L8 9.4l-2.1 2.1-1.4-1.4L6.6 8 4.5 5.9l1.4-1.4L8 6.6l2.1-2.1 1.4 1.4L9.4 8z'/%3E%3C/svg%3E"); }
+
+.elastica__letrero small {
+  font: 600 12px/1.2 var(--el-mono);
+}
+
+/* Si el tramo es más angosto que su letrero, el letrero se recarga hacia afuera */
+.elastica__zona--si.is-angosta .elastica__letrero { left: 0; justify-items: start; transform: none; }
+.elastica__zona--no.is-angosta .elastica__letrero { left: auto; right: 0; justify-items: end; transform: none; }
+
+.elastica__zona.is-pulso .elastica__letrero { animation: elastica-pulso 0.6s ease; }
+
+@keyframes elastica-pulso {
+  40% { transform: translateX(-50%) scale(1.12); }
+}
+
+.elastica__zona.is-angosta.is-pulso .elastica__letrero { animation: none; }
+
+/* La cinta métrica (amarilla, como las de la galería del 2-9) */
+.elastica__cinta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: var(--el-tape);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.08));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  color: #2a2100;
+  font: 700 11px/1 var(--el-mono);
+  overflow: hidden;
+}
+
+.elastica__marca {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 7px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.elastica__marca.is-media { height: 10px; }
+.elastica__marca.is-grande { height: 13px; }
+
+.elastica__marca b {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  transform: translateX(-50%);
+  font-weight: 700;
+}
+
+.elastica__marca:first-child b { transform: translateX(2px); }
+
+/* Lo que mide la ventana: la cinta se pinta de azul hasta su orilla */
+.elastica__lectura {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(9, 59, 139, 0.16);
+  border-right: 3px solid var(--theme-color);
+}
+
+/* El corte: una pestaña con el valor de max-width y una línea punteada que baja hasta la ventana */
+.elastica__corte {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  z-index: 3;
+  width: 0;
+  border-left: 2px dashed var(--el-corte);
+  pointer-events: none;
+  transition: left 0.45s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+.elastica__corte b {
+  position: absolute;
+  top: 38px;
+  left: 4px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--el-corte);
+  color: #ffffff;
+  font: 700 11px/1.5 var(--el-mono);
+  white-space: nowrap;
+}
+
+/* La pestaña del corte se recarga a la izquierda cuando está cerca de la orilla */
+.elastica__corte.is-izq b { left: auto; right: 6px; }
+
+/* ---------- La ventana ---------- */
+.elastica__nav {
+  position: relative;
+  width: 300px;
+  max-width: 100%;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #d6dde8, 0 14px 30px rgba(6, 20, 50, 0.16);
+}
+
+.elastica__barra {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 10px;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  background: #e9edf3;
+}
+
+.elastica__puntos { display: flex; flex: none; gap: 5px; }
+.elastica__puntos i { width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; }
+.elastica__puntos i:nth-child(2) { background: #febc2e; }
+.elastica__puntos i:nth-child(3) { background: #28c840; }
+
+.elastica__ancho {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1c2434;
+  font: 700 12px var(--el-mono);
+  white-space: nowrap;
+}
+
+.elastica__vista { padding: 10px; }
+
+.elastica__cols {
+  position: relative;
+  transition: height 0.45s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+.elastica__col {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 2px #ffffff;
+  color: #ffffff;
+  font: 700 13px/1.1 Lato, Arial, sans-serif;
+  white-space: nowrap;
+  transition:
+    left 0.45s cubic-bezier(0.3, 0.7, 0.3, 1),
+    top 0.45s cubic-bezier(0.3, 0.7, 0.3, 1),
+    width 0.45s cubic-bezier(0.3, 0.7, 0.3, 1),
+    background-color 0.45s ease;
+}
+
+/* La agarradera de la orilla derecha */
+.elastica__asa {
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 64px;
+  margin-top: -32px;
+  padding: 0;
+  border: 0;
+  border-radius: 0 8px 8px 0;
+  background: var(--theme-color);
+  box-shadow: 0 4px 10px rgba(9, 59, 139, 0.35);
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.elastica__asa::before {
+  content: "";
+  width: 4px;
+  height: 26px;
+  border-left: 2px solid rgba(255, 255, 255, 0.8);
+  border-right: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.elastica__asa:hover,
+.elastica__asa.is-arrastrando { background: #0f4c91; }
+
+.elastica__asa:focus-visible { outline: 3px solid #fac775; outline-offset: 2px; }
+
+/* Al principio la agarradera se asoma dos veces para que se note */
+.elastica__asa.is-pista { animation: elastica-asa 1.6s ease-in-out 1s 2; }
+
+@keyframes elastica-asa {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+/* Botones para llevar la ventana a un ancho típico */
+.elastica__atajos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.elastica__atajo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 9px;
+  border: 1px solid #c9d9ec;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0f4c91;
+  font: 700 13px Lato, Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.elastica__atajo svg { width: 16px; height: 16px; fill: currentColor; }
+.elastica__atajo:hover { border-color: #0f4c91; }
+.elastica__atajo.is-actual { border-color: #0f4c91; background: #0f4c91; color: #ffffff; }
+
+/* ---------- Código: la ventana estándar del curso (lesson-demo.css) ---------- */
+.elastica__code {
+  container-type: inline-size;
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.elastica__code.lesson-demo-stack::before { content: "estilos.css"; }
+
+.elastica__code .code {
+  margin: 0;
+  padding: 24px 22px 28px 0;
+  overflow-x: auto;
+  background: transparent;
+  color: #d7deea;
+  font: 400 min(14px, calc((100cqw - 70px) / 29)) / 1.75 "Courier New", Consolas, monospace;
+  white-space: pre;
+}
+
+@media (max-width: 575.98px) {
+  .elastica__code .code {
+    padding: 18px 12px 22px 0;
+    font-size: max(10.5px, min(12px, calc((100cqw - 60px) / 29)));
+  }
+}
+
+.elastica__code .ld-line { transition: opacity 0.35s ease; }
+
+/* Las reglas de una condición que no se cumple se ven apagadas: el navegador se las salta */
+.elastica__code .ld-line.is-off { opacity: 0.38; }
+
+/* La condición que se cumple invierte sus colores, entrando de izquierda a derecha */
+.elastica__cond {
+  background-image: linear-gradient(#fac775, #fac775);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size 0.45s ease, color 0.45s ease;
+}
+
+.elastica__cond.is-on {
+  background-size: 100% 100%;
+  color: #171b24;
+}
+
+.elastica__cond.is-on .codetag { color: inherit; }
+
+.elastica__cond.is-on .menu-vidrio__valor {
+  border-color: var(--theme-color);
+  background: #ffffff;
+  color: var(--theme-color);
+}
+
+.elastica__cond.is-on .menu-vidrio__valor::after { border-top-color: var(--theme-color); }
+
+@media (max-width: 575.98px) {
+  .elastica__letrero b { font-size: 13px; }
+  .elastica__letrero small { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .elastica *,
+  .elastica *::before,
+  .elastica *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
