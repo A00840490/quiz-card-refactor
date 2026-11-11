@@ -4,7 +4,7 @@
    Las cartas forman un cilindro a la altura de los ojos y miran hacia
    afuera; al avanzar gira el cilindro. Las de los lados se van de perfil y
    se difuminan, y las de atrás se ven por detrás, esmeriladas. Detrás hay
-   unas auroras azules que se pierden en el blanco de la página.
+   unas auroras del azul del curso que se pierden en el blanco de la página.
    El acomodo de cada carta lo calcula demo-carousel.js.
    ===================================================================== */
 .demo-carousel {
@@ -50,15 +50,17 @@
 .demo-carousel__aurora i {
   position: absolute;
   border-radius: 50%;
+  /* un solo color: el azul del curso (Ale, 11/11) */
+  background: var(--theme-color);
   filter: blur(46px);
-  opacity: 0.75;
+  opacity: 0.5;
   animation: demo-carousel-aurora 18s ease-in-out infinite alternate;
 }
 
-.demo-carousel__aurora i:nth-child(1) { left: 10%; top: 12%; width: 46%; height: 70%; background: #6b8cff; }
-.demo-carousel__aurora i:nth-child(2) { right: 8%; top: 22%; width: 40%; height: 64%; background: #7fd4ff; animation-duration: 22s; animation-delay: -6s; }
-.demo-carousel__aurora i:nth-child(3) { left: 44%; top: 4%; width: 26%; height: 36%; background: #fac775; opacity: 0.6; animation-duration: 26s; animation-delay: -12s; }
-.demo-carousel__aurora i:nth-child(4) { left: 34%; bottom: 0; width: 30%; height: 44%; background: #4f6ef7; opacity: 0.55; animation-duration: 20s; animation-delay: -3s; }
+.demo-carousel__aurora i:nth-child(1) { left: 10%; top: 12%; width: 46%; height: 70%; }
+.demo-carousel__aurora i:nth-child(2) { right: 8%; top: 22%; width: 40%; height: 64%; animation-duration: 22s; animation-delay: -6s; }
+.demo-carousel__aurora i:nth-child(3) { left: 44%; top: 4%; width: 26%; height: 36%; animation-duration: 26s; animation-delay: -12s; }
+.demo-carousel__aurora i:nth-child(4) { left: 34%; bottom: 0; width: 30%; height: 44%; animation-duration: 20s; animation-delay: -3s; }
 
 @keyframes demo-carousel-aurora {
   0% { transform: translate(0, 0) scale(1); }
