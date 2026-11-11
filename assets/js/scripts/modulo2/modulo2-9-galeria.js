@@ -8,7 +8,7 @@
      foto, la foto se deforma, como en el navegador.
    - src puede ser el url de la foto en Internet, el archivo edificio.jpg o
      edificio.jp (mal escrito): con este el marco se queda vacío y adentro solo
-     queda el texto de alt. La cartela dice de dónde llegó la foto.
+     queda el texto de alt.
    - La explicación va en la ficha de renglones (GraficoFicha.cambiar). */
 (function () {
   "use strict";
@@ -25,7 +25,6 @@
   var hueco = root.querySelector("[data-hueco]");
   var cintaW = root.querySelector("[data-cinta-w]");
   var cintaH = root.querySelector("[data-cinta-h]");
-  var cartela = root.querySelector("[data-cartela]");
   var altTxt = root.querySelector("[data-alt]");
   var pre = root.querySelector("[data-code]");
   var exp = root.querySelector("[data-status]");
@@ -91,7 +90,7 @@
     var ancho = pared.clientWidth;
     var alto = pared.clientHeight - parseFloat(getComputedStyle(pared).paddingBottom) - 140;
     if (celular.matches) return Math.max(0.3, Math.min(0.5, (ancho - 110) / 300, (alto - 36) / 450));
-    return Math.max(0.35, Math.min(0.78, (ancho - 300) / 300, (alto - 60) / 450));
+    return Math.max(0.35, Math.min(0.78, (ancho - 140) / 300, (alto - 60) / 450));
   }
 
   function pintarEscena() {
@@ -106,10 +105,6 @@
     cintaH.firstElementChild.textContent = val("height") + " px";
     hueco.classList.toggle("is-roto", t === "roto");
     altTxt.textContent = val("alt");
-    cartela.innerHTML = t === "roto"
-      ? "<strong>Obra no encontrada</strong>Se buscó <code>edificio.jp</code><br><span class=\"galeria__falta\">No hay ningún archivo con ese nombre.</span>"
-      : "<strong>Edificio</strong>Fotografía, " + val("width") + " × " + val("height") + " px<br>" +
-        (t === "url" ? "Llegó de Internet:<br><code>unsplash.com</code>" : "Llegó de la carpeta:<br><code>edificio.jpg</code>");
   }
 
   function colgar() {

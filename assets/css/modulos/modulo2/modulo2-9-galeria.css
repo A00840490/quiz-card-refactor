@@ -1,12 +1,11 @@
 /* Tema 8 (modulo2-9): la etiqueta <img> como un cuadro colgado en una galería.
    A la izquierda, la pared con el cuadro: el hueco del marco mide lo que
    dicen width y height (escalado para caber), con una cinta métrica arriba y
-   otra a la izquierda que dicen los px, y la cartela de al lado dice de dónde
-   llegó la foto. Si el archivo de src no existe, el marco se queda vacío y
+   otra a la izquierda que dicen los px. Si el archivo de src no existe, el marco se queda vacío y
    adentro solo queda el texto de alt, como lo dibuja el navegador.
    A la derecha, la ventana de código estándar con los valores en el menú de
    vidrio y, en la ficha de renglones, la explicación. En celular la pared va
-   arriba (con la cartela debajo del cuadro) y el código abajo.
+   arriba y el código abajo.
    Texturas: el estuco del 5-3 y el nogal del 4-11 (créditos en los archivos
    del proyecto). */
 .galeria {
@@ -231,42 +230,11 @@
   transform: rotate(180deg);
 }
 
-/* ---------- Cartela ---------- */
-.galeria__cartela {
-  flex: none;
-  align-self: center;
-  width: 150px;
-  margin: 120px 0 0 14px;
-  padding: 12px 14px;
-  background: #fffdf8;
-  box-shadow: 0 6px 14px rgba(40, 25, 10, 0.2), 0 1px 2px rgba(40, 25, 10, 0.2);
-  color: #3a3326;
-  font: 12px/1.45 "Lato", sans-serif;
-}
-
-.galeria__cartela strong {
-  display: block;
-  margin-bottom: 4px;
-  color: #1c1710;
-  font: 700 15px/1.2 "Times New Roman", Times, serif;
-}
-
-.galeria__cartela code {
-  padding: 0;
-  background: none;
-  color: var(--theme-color);
-  font: 700 11px "Source Code Pro", Consolas, "Courier New", monospace;
-}
-
-.galeria__cartela .galeria__falta {
-  color: #b3261e;
-}
-
 @media (max-width: 575.98px) {
   .galeria__pared {
     flex-direction: column;
-    height: 480px;
-    padding-bottom: 116px;
+    height: 420px;
+    padding-bottom: 30px;
   }
 
   .galeria__zoclo { height: 30px; }
@@ -274,19 +242,6 @@
   .galeria__pp { padding: 9px; }
   .galeria__cinta--w { top: -24px; left: 18px; }
   .galeria__cinta--h { left: -26px; top: 18px; }
-
-  .galeria__cartela {
-    position: absolute;
-    left: 50%;
-    bottom: 40px;
-    width: 230px;
-    margin: 0;
-    padding: 8px 10px;
-    transform: translateX(-50%);
-    font-size: 11px;
-  }
-
-  .galeria__cartela strong { font-size: 13px; }
 }
 
 /* ---------- Código: la ventana estándar del curso (lesson-demo.css) ---------- */
