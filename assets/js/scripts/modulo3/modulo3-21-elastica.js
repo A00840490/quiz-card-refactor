@@ -1,7 +1,6 @@
 /* Tema 20 (modulo3-21): ventana elástica para las media queries.
    La ventana se estira con la agarradera de su orilla derecha (con el mouse,
-   el dedo o las flechas del teclado) o con los botones de celular, tableta y
-   laptop. La cinta métrica de arriba mide la ventana y, encima, dos tramos
+   el dedo o las flechas del teclado). La cinta métrica de arriba mide la ventana y, encima, dos tramos
    dicen dónde se aplica @media (de 0 al corte de max-width) y dónde no;
    se ilumina el tramo donde cae la orilla. Cuando la condición se cumple,
    se ilumina en el código, sus reglas se encienden y las columnas se
@@ -21,7 +20,6 @@
   var asa = root.querySelector("[data-asa]");
   var pre = root.querySelector("[data-code]");
   var exp = root.querySelector("[data-status]");
-  var atajos = Array.prototype.slice.call(root.querySelectorAll("[data-w]"));
   var reduce = Curso.reduce;
 
   var MIN = 240, MAX = 1000, ALTO = 56;
@@ -41,8 +39,8 @@
 
   /* ---------- Cinta métrica y tramos ---------- */
   medida.innerHTML =
-    "<div class=\"elastica__zona elastica__zona--si\" data-zona=\"si\"><span class=\"elastica__letrero\"><b>Se aplica</b><small data-txt></small></span></div>" +
-    "<div class=\"elastica__zona elastica__zona--no\" data-zona=\"no\"><span class=\"elastica__letrero\"><b>No se aplica</b><small data-txt></small></span></div>" +
+    "<div class=\"elastica__zona elastica__zona--si\" data-zona=\"si\"><span class=\"elastica__letrero\"><b>Se aplica</b></span></div>" +
+    "<div class=\"elastica__zona elastica__zona--no\" data-zona=\"no\"><span class=\"elastica__letrero\"><b>No se aplica</b></span></div>" +
     "<div class=\"elastica__cinta\" data-cinta></div>";
   var zonaSi = medida.querySelector("[data-zona=\"si\"]");
   var zonaNo = medida.querySelector("[data-zona=\"no\"]");
@@ -69,8 +67,6 @@
     zonaSi.style.width = x + "px";
     zonaNo.style.left = x + "px";
     zonaNo.style.width = (total - x) + "px";
-    zonaSi.querySelector("[data-txt]").textContent = "hasta " + bp + " px";
-    zonaNo.querySelector("[data-txt]").textContent = "más de " + bp + " px";
     [zonaSi, zonaNo].forEach(function (z) {
       var letrero = z.querySelector(".elastica__letrero");
       z.classList.toggle("is-angosta", letrero.offsetWidth > parseFloat(z.style.width) - 4);
@@ -111,7 +107,6 @@
     ancho.textContent = estado.w + " px";
     asa.setAttribute("aria-valuenow", estado.w);
     asa.setAttribute("aria-valuetext", estado.w + " px");
-    atajos.forEach(function (b) { b.classList.toggle("is-actual", +b.getAttribute("data-w") === estado.w); });
   }
 
   /* ---------- Código ---------- */
@@ -219,9 +214,6 @@
     else if (d) { e.preventDefault(); sinPista(); fijar(estado.w + d, true); }
   });
 
-  atajos.forEach(function (b) {
-    b.addEventListener("click", function () { sinPista(); fijar(+b.getAttribute("data-w"), true); });
-  });
 
   /* ---------- Valores del código: el menú de vidrio ---------- */
   pre.addEventListener("click", function (e) {
