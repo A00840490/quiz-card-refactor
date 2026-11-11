@@ -16,7 +16,6 @@
   var medida = root.querySelector("[data-medida]");
   var nav = root.querySelector("[data-nav]");
   var cols = root.querySelector("[data-cols]");
-  var ancho = root.querySelector("[data-ancho]");
   var asa = root.querySelector("[data-asa]");
   var pre = root.querySelector("[data-code]");
   var exp = root.querySelector("[data-status]");
@@ -41,13 +40,16 @@
   medida.innerHTML =
     "<div class=\"elastica__zona elastica__zona--si\" data-zona=\"si\"><span class=\"elastica__letrero\"><b>Se aplica</b></span></div>" +
     "<div class=\"elastica__zona elastica__zona--no\" data-zona=\"no\"><span class=\"elastica__letrero\"><b>No se aplica</b></span></div>" +
-    "<div class=\"elastica__cinta\" data-cinta></div>";
+    "<div class=\"elastica__franja\" data-franja></div>" +
+    "<div class=\"elastica__cinta\" data-cinta></div>" +
+    "<div class=\"elastica__medidor\" data-medidor></div>";
   var zonaSi = medida.querySelector("[data-zona=\"si\"]");
   var zonaNo = medida.querySelector("[data-zona=\"no\"]");
   var cinta = medida.querySelector("[data-cinta]");
+  var franja = medida.querySelector("[data-franja]");
+  var medidor = medida.querySelector("[data-medidor]");
   var linea = document.createElement("div");
   linea.className = "elastica__corte";
-  linea.innerHTML = "<b></b>";
   area.appendChild(linea);
 
   function armarCinta() {
@@ -72,8 +74,13 @@
       z.classList.toggle("is-angosta", letrero.offsetWidth > parseFloat(z.style.width) - 4);
     });
     linea.style.left = x + "px";
-    linea.querySelector("b").textContent = "max-width: " + bp + "px";
-    linea.classList.toggle("is-izq", x + 130 > total + 18);
+    franja.style.width = x + "px";
+    // Si no cabe "max-width: 400px", la franja solo dice el valor
+    franja.innerHTML = "<span>max-width: " + bp + "px</span>";
+    if (franja.firstChild.offsetWidth > x - 8) franja.firstChild.textContent = bp + "px";
+    medidor.textContent = estado.w + " px";
+    var mx = estado.w * s, mw = medidor.offsetWidth / 2;
+    medidor.style.left = Math.max(mw, Math.min(total + 18 - mw, mx)) + "px";
     cinta.querySelector("[data-lectura]").style.width = estado.w * s + "px";
     var on = seAplica();
     zonaSi.classList.toggle("is-activa", on);
@@ -104,7 +111,6 @@
       col.textContent = w > 84 ? "Columna " + (i + 1) : String(i + 1);
     });
     cols.style.height = Math.ceil(3 / n) * ALTO + "px";
-    ancho.textContent = estado.w + " px";
     asa.setAttribute("aria-valuenow", estado.w);
     asa.setAttribute("aria-valuetext", estado.w + " px");
   }
