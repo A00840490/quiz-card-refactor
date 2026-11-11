@@ -82,7 +82,7 @@
     function measure() {
       sw = viewport.clientWidth || 800;
       var m = sw < 576;
-      w = vertical() ? Math.min(300, sw * (m ? 0.68 : 0.6)) : Math.min(460, sw * (m ? 0.76 : 0.68));
+      w = vertical() ? Math.min(360, sw * (m ? 0.7 : 0.5)) : Math.min(460, sw * (m ? 0.76 : 0.68));
       w = Math.round(w / 2) * 2;
       var heads = [], bodies = [];
       slides.forEach(function (s) {
@@ -112,11 +112,14 @@
       var step = Math.max((2 * Math.PI) / n, (50 * Math.PI) / 180);
       var th = d * step;
       var cos = Math.cos(th), sin = Math.sin(th);
-      var rx = Math.min(sw * 0.4, w * 1.25);
-      var rz = Math.max(rx * 0.95, w * 0.9);
+      var completo = n * step >= 2 * Math.PI - 0.01;
+      // vuelta completa (5-3): un prisma cuyas cartas se tocan en las orillas;
+      // muchas cartas (1-4): radio limitado al ancho y se enciman un poco
+      var rx = completo ? w / 2 / Math.tan(step / 2) : Math.min(sw * 0.4, w * 1.25);
+      var rz = completo ? rx : Math.max(rx * 0.95, w * 0.9);
       var k = (1 - cos) / 2; // 0 al frente, 1 atrás
       var op = 1 - k * 0.42;
-      if (n * step < 2 * Math.PI - 0.01) op *= clamp((Math.PI - Math.abs(th)) / (Math.PI * 0.18), 0, 1);
+      if (!completo) op *= clamp((Math.PI - Math.abs(th)) / (Math.PI * 0.18), 0, 1);
       return {
         x: sin * rx, y: -k * h * 0.05, z: (cos - 1) * rz, ry: (th * 180) / Math.PI,
         blur: k * 9, sat: 1 - k * 0.45, op: op, zi: Math.round(1000 + cos * 500)
