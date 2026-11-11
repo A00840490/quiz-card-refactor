@@ -4,8 +4,8 @@
    métrica en px y, encima de ella, dos tramos que dicen con palabras dónde se
    aplica @media (de 0 al corte) y dónde no (más del corte); se ilumina el
    tramo donde cae la orilla de la ventana. Una línea punteada baja del corte
-   para que se vea cuándo la orilla lo cruza. A la derecha, el código con el
-   menú de vidrio y la explicación en la ficha de renglones
+   para que se vea cuándo la orilla lo cruza. Debajo de la ventana, la explicación en la ficha
+   de renglones; a la derecha, el código con el menú de vidrio
    (assets/js/scripts/modulo3/modulo3-21-elastica.js). */
 .elastica {
   --el-si: #1b7a3a;
@@ -27,8 +27,12 @@
   }
 }
 
-@media (min-width: 576px) {
-  .elastica .grafico-ficha { width: min(92%, 560px); }
+/* La ficha de la explicación va debajo del gráfico (Ale, 11/11), no montada
+   sobre la ventana de código: ocupa el ancho de la columna, sin el margen
+   negativo que la sube sobre la ventana. */
+.elastica__grafico .grafico-ficha {
+  width: auto;
+  margin: 28px 0 0;
 }
 
 /* ---------- Escena: tramos, cinta y ventana ---------- */

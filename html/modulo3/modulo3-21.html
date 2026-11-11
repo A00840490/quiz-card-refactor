@@ -58,9 +58,9 @@
                                 </p>
                                 <!-- Ventana elástica: la agarradera azul cambia el ancho de la ventana.
                                      La cinta métrica de arriba dice dónde se aplica @media y la ficha
-                                     sobre el código explica qué pasa con las columnas. -->
+                                     debajo de la ventana explica qué pasa con las columnas. -->
                                 <div class="elastica" data-elastica>
-                                    <div>
+                                    <div class="elastica__grafico grafico-ficha-col">
                                         <div class="elastica__area" data-area>
                                             <div class="elastica__medida" data-medida aria-hidden="true"></div>
                                             <div class="elastica__nav" data-nav>
@@ -69,13 +69,11 @@
                                                 <button type="button" class="elastica__asa is-pista" data-asa role="slider" aria-label="Ancho de la ventana" aria-valuemin="240" aria-valuemax="1000"></button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="grafico-ficha-col">
-                                        <div class="elastica__code lesson-demo-stack"><pre class="code code--numbered" data-code></pre></div>
                                         <div class="grafico-ficha">
                                             <p class="grafico-exp" data-status aria-live="polite"></p>
                                         </div>
                                     </div>
+                                    <div class="elastica__code lesson-demo-stack"><pre class="code code--numbered" data-code></pre></div>
                                 </div>
                                 <p>El uso de las media queries resulta muy práctico, pues podemos cambiar
                                     nuestro contenido de acuerdo con diferentes tamaños de dispositivos. Puedes
