@@ -1,102 +1,98 @@
+/* =====================================================================
+   Carrusel de cartas: cilindro de vidrio (desde el 11/11; Ale eligió la
+   idea 1 de las propuestas de carrusel 3D). Lo usan el 1-4 y el 5-3.
+   Las cartas forman un cilindro a la altura de los ojos y miran hacia
+   afuera; al avanzar gira el cilindro. Las de los lados se van de perfil y
+   se difuminan, y las de atrás se ven por detrás, esmeriladas. Detrás hay
+   unas auroras azules que se pierden en el blanco de la página.
+   El acomodo de cada carta lo calcula demo-carousel.js.
+   ===================================================================== */
 .demo-carousel {
-  --demo-line: #dce3ec;
   position: relative;
   width: 100%;
   max-width: 1180px;
   margin: 1.75rem auto 0;
   padding: 0 12px 8px;
+  /* las cartas de los lados no deben causar scroll horizontal */
+  overflow-x: clip;
 }
 
 .demo-carousel__viewport {
   position: relative;
+  padding: 0;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  outline: none;
+}
+
+.demo-carousel__viewport:active {
+  cursor: grabbing;
+}
+
+.demo-carousel__viewport:focus-visible {
+  border-radius: 24px;
+  box-shadow: 0 0 0 3px rgba(15, 76, 145, 0.35);
+}
+
+/* Auroras de fondo (las pone el script): manchas de color difuminadas que
+   se desvanecen hacia las orillas, sin caja. */
+.demo-carousel__aurora {
+  position: absolute;
+  inset: -40px -10px;
   overflow: hidden;
-  padding: 16px 0 24px;
-  perspective: 1600px;
+  pointer-events: none;
+  -webkit-mask: radial-gradient(closest-side, #000 55%, transparent 100%);
+  mask: radial-gradient(closest-side, #000 55%, transparent 100%);
+}
+
+.demo-carousel__aurora i {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(46px);
+  opacity: 0.75;
+  animation: demo-carousel-aurora 18s ease-in-out infinite alternate;
+}
+
+.demo-carousel__aurora i:nth-child(1) { left: 10%; top: 12%; width: 46%; height: 70%; background: #6b8cff; }
+.demo-carousel__aurora i:nth-child(2) { right: 8%; top: 22%; width: 40%; height: 64%; background: #7fd4ff; animation-duration: 22s; animation-delay: -6s; }
+.demo-carousel__aurora i:nth-child(3) { left: 44%; top: 4%; width: 26%; height: 36%; background: #fac775; opacity: 0.6; animation-duration: 26s; animation-delay: -12s; }
+.demo-carousel__aurora i:nth-child(4) { left: 34%; bottom: 0; width: 30%; height: 44%; background: #4f6ef7; opacity: 0.55; animation-duration: 20s; animation-delay: -3s; }
+
+@keyframes demo-carousel-aurora {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6%, -5%) scale(1.08); }
+  100% { transform: translate(-5%, 6%) scale(0.94); }
 }
 
 .demo-carousel__track {
   position: relative;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
   min-height: 520px;
-  transform-style: preserve-3d;
+  perspective: 1500px;
+  perspective-origin: 50% 42%;
 }
 
-/* Con data-demo-autoheight todas las diapositivas miden lo que la más alta,
-   así no queda espacio vacío debajo de las más cortas. */
-.demo-carousel[data-demo-autoheight] .demo-carousel__slide {
-  bottom: 0;
-  display: flex;
-}
-
-.demo-carousel[data-demo-autoheight] .demo-carousel__slide > * {
-  flex: 1;
-}
-
-.demo-carousel[data-demo-autoheight] .is-measuring .demo-carousel__slide {
-  bottom: auto;
-}
-
+/* Cada diapositiva es una carta del cilindro: el script le pone ancho,
+   alto, transform, blur, opacidad y z-index. */
 .demo-carousel__slide {
-  --enter: 55%;
-  --back: -16%;
-  --exit: -70%;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  width: min(100%, 1020px);
-  transform: translateX(-50%) translateX(var(--enter)) scale(0.97);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    transform 560ms cubic-bezier(0.22, 0.8, 0.3, 1),
-    opacity 150ms ease,
-    filter 150ms ease;
+  display: flex;
+  width: min(100%, 460px);
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  cursor: pointer;
 }
 
+.demo-carousel__slide > * {
+  flex: 1;
+  min-width: 0;
+}
 
-/* la nueva diapositiva se sobrepone a la anterior; empieza a verse
-   cuando la que sale ya desapareció, así nunca hay más de dos */
 .demo-carousel__slide.is-current {
-  z-index: 3;
-  transition:
-    transform 560ms cubic-bezier(0.22, 0.8, 0.3, 1),
-    opacity 380ms ease 170ms,
-    filter 480ms ease;
-  opacity: 1;
-  filter: none;
-  transform: translateX(-50%);
-  pointer-events: auto;
-}
-
-
-/* la anterior pasa a segundo plano, difuminada detrás */
-.demo-carousel__slide.is-behind {
-  z-index: 2;
-  opacity: 0.5;
-  filter: blur(4px) grayscale(0.7);
-  transition:
-    transform 560ms cubic-bezier(0.22, 0.8, 0.3, 1),
-    opacity 330ms ease 170ms,
-    filter 480ms ease;
-  transform: translateX(-50%) translateX(var(--back)) scale(0.86);
-}
-
-/* la que estaba en segundo plano sale por completo */
-.demo-carousel__slide.is-gone {
-  z-index: 1;
-  transition:
-    transform 560ms cubic-bezier(0.22, 0.8, 0.3, 1),
-    opacity 150ms ease,
-    filter 150ms ease;
-  opacity: 0;
-  filter: blur(6px) grayscale(1);
-  transform: translateX(-50%) translateX(var(--exit)) scale(0.78);
-}
-
-.demo-carousel__slide.no-anim {
-  transition: none !important;
+  cursor: default;
 }
 
 .demo-carousel__slide .lesson-demo {
@@ -114,10 +110,13 @@
 
 /* Estándar del curso: los controles van arriba de las cartas. */
 .demo-carousel__controls {
+  position: relative;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
+  margin-bottom: 6px;
 }
 
 .demo-carousel__btn {
@@ -148,6 +147,8 @@
 
 .demo-carousel__dots {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 9px;
 }
 
@@ -167,101 +168,131 @@
   border-color: #0f4c91;
 }
 
-@media (max-width: 991.98px) {
-  .demo-carousel__track {
-    min-height: 760px;
-  }
-  .demo-carousel__slide {
-    --back: -8%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .demo-carousel__slide {
-    transition: none;
+  .demo-carousel__aurora i {
+    animation: none;
   }
 }
 
-/* Diapositiva de tutorial (1-4 y 5-3): el paso arriba, en blanco sobre la
-   franja azul, y la captura abajo.
+/* Carta de tutorial (1-4 y 5-3): cápsula de vidrio con el paso arriba y la
+   captura abajo sobre un panel blanco.
    <div class="tutorial-slide-card">
      <div class="tutorial-slide-header"><p class="tutorial-text">…</p></div>
      <div class="tutorial-slide-body"><img src="…" alt="Paso 1"></div>
-   </div> */
+   </div>
+   Sin backdrop-filter a propósito: sobre cartas que giran en 3D hacía
+   parpadear la pantalla. El vidrio es un degradado translúcido con brillo. */
 .tutorial-slide-card {
-  background: linear-gradient(135deg, #6B8CFF 0%, #4F6EF7 100%);
-  border-radius: 24px;
-  padding: 5px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  max-width: 900px;
-  margin: 0 auto;
-  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+  border-radius: 28px;
+  /* casi opaco: así las cartas de atrás no se leen a través del texto */
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.91) 48%, rgba(255, 255, 255, 0.94) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.75),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 26px 50px -14px rgba(9, 40, 100, 0.38),
+    0 2px 6px rgba(9, 40, 100, 0.12);
+}
+
+/* brillo arriba a la izquierda y canto de luz abajo, detrás del contenido */
+.tutorial-slide-card::before,
+.tutorial-slide-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.tutorial-slide-card::before {
+  background: radial-gradient(120% 55% at 12% -6%, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0) 58%);
+}
+
+.tutorial-slide-card::after {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 18%);
+  opacity: 0.7;
+}
+
+.tutorial-slide-header,
+.tutorial-slide-body {
+  position: relative;
+  z-index: 1;
 }
 
 .tutorial-slide-header {
-  background: rgba(255, 255, 255, 0.45);
-  border-radius: 19px 19px 8px 8px;
-  padding: 15px 25px;
-  margin-bottom: 5px;
-  color: white;
-  font-size: 22px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px 6px;
   text-align: center;
-  line-height: 1.4;
 }
 
 .tutorial-slide-header .tutorial-text {
-  color: white;
-  font-size: 20px;
   margin: 0;
+  color: #0d1b33;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.tutorial-slide-header .ico-clic {
+  width: 22px;
+  height: 22px;
 }
 
 .tutorial-slide-body {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 8px 8px 19px 19px;
-  padding: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
   flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: inset 0 0 0 1px rgba(9, 40, 100, 0.06);
 }
 
 .tutorial-slide-body img {
+  display: block;
   max-width: 100%;
-  max-height: 450px;
+  max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 575.98px) {
+  .demo-carousel {
+    padding: 0 0 8px;
+  }
+
   .tutorial-slide-card {
-    padding: 4px;
-    border-radius: 18px;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 22px;
   }
 
   .tutorial-slide-header {
-    padding: 12px 18px;
-    margin-bottom: 4px;
-    border-radius: 14px 14px 6px 6px;
+    padding: 8px 10px 4px;
   }
 
   .tutorial-slide-header .tutorial-text {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1.45;
   }
 
   .tutorial-slide-body {
-    padding: 12px;
-    border-radius: 6px 6px 14px 14px;
-    min-height: 250px;
-  }
-
-  .tutorial-slide-body img {
-    max-height: 280px;
+    padding: 7px;
+    border-radius: 16px;
   }
 }
