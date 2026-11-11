@@ -202,9 +202,6 @@
   position: absolute;
   top: 97px;
   z-index: 4;
-  padding: 1px 4px;
-  border-radius: 3px;
-  background: #ffffff;
   transform: translateX(-50%);
   color: var(--theme-color);
   font: 700 12px/1.2 var(--el-mono);
