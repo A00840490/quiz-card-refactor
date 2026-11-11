@@ -466,23 +466,24 @@
   transition: opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s, visibility 0s;
 }
 
-/* A los 30 segundos el mensaje se va deslizándose hacia arriba (evo-card.js
-   le pone .is-out). Su celda sigue ocupada, así la tarjeta no cambia de altura. */
-.evo__fb.is-on.is-out {
+/* A los 20 segundos el mensaje y la aurora de atrás se van juntos
+   deslizándose hacia arriba (evo-card.js le pone .is-fb-out a la tarjeta).
+   La celda del mensaje sigue ocupada, así la tarjeta no cambia de altura. */
+.evo.is-fb-out .evo__fb.is-on {
   visibility: hidden;
   opacity: 0;
   transform: translateY(-22px);
   transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s linear 0.6s;
 }
 
-/* Solo el texto en color, sin recuadro alrededor. Va en un tono bastante más
+/* Solo el texto en color, sin recuadro alrededor. Va en un tono más
    oscuro que el de la aurora de atrás para que resalte sobre ella. */
 .evo[data-verdict="ok"] .evo__fb {
-  color: #0f4d2a;
+  color: #155c34;
 }
 
 .evo[data-verdict="nope"] .evo__fb {
-  color: #7a140c;
+  color: #8f1a10;
 }
 
 .evo__glow {
@@ -535,6 +536,10 @@
 
 .evo[data-verdict] .evo__glow {
   animation: evo-glow 1.8s ease-out 0.3s forwards;
+}
+
+.evo[data-verdict].is-fb-out .evo__glow {
+  animation: evo-glow-out 0.6s ease forwards;
 }
 
 .evo button:focus-visible,
@@ -605,6 +610,17 @@
   100% {
     opacity: 0.75;
     transform: none;
+  }
+}
+
+@keyframes evo-glow-out {
+  from {
+    opacity: 0.75;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-70px);
   }
 }
 
