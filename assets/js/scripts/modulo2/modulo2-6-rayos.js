@@ -12,7 +12,7 @@
      deja fija (el cursor se mueve libre) y otro clic la lleva a donde está el
      cursor y vuelve a seguirlo. Con el dedo se arrastra o va a donde se toca;
      con el teclado se mueve con las flechas. Lo que queda bajo su centro se
-     ilumina y la explicación de abajo cambia con desvanecido. */
+     ilumina y la explicación de arriba cambia con desvanecido. */
 (function () {
   "use strict";
 
@@ -51,10 +51,11 @@
     return "<span class=\"rayos__tapa\">" + etiqueta(tag) + "</span><div class=\"rayos__codigo\">" + contenidoDe(el) + "</div><span class=\"rayos__tapa\">" + etiqueta(tag, true) + "</span>";
   }
 
+  // Va dentro de un <span> para que quede centrada en el alto que se le aparta
   function explicacion(el) {
-    return esc(el.getAttribute("data-exp") || "").replace(/`([^`]+)`/g, function (m, t) {
+    return "<span>" + esc(el.getAttribute("data-exp") || "").replace(/`([^`]+)`/g, function (m, t) {
       return "<code>&lt;" + t + "&gt;</code>";
-    });
+    }) + "</span>";
   }
 
   // Las puntas toman una letra según el alto del bloque; el contenido, la más
@@ -82,8 +83,22 @@
       var r = el.getBoundingClientRect();
       return "<div class=\"rayos__bloque\" data-el=\"" + el.getAttribute("data-el") + "\" data-tag=\"" + el.tagName.toLowerCase() + "\" style=\"left:" + (r.left - R.left) + "px;top:" + (r.top - R.top) + "px;width:" + r.width + "px;height:" + r.height + "px\">" + capsula(el) + "</div>";
     }).join("");
+    medirExplicacion();
     [].forEach.call(xray.children, ajustar);
     if (actual) marcar(actual);
+  }
+
+  // La explicación va arriba de la página: toma el alto de la más larga para
+  // que la página no se mueva cuando cambia el texto
+  function medirExplicacion() {
+    var antes = status.innerHTML, alto = 0;
+    status.style.minHeight = "0px";
+    bloques.concat(inlines).forEach(function (el) {
+      status.innerHTML = explicacion(el);
+      alto = Math.max(alto, status.offsetHeight);
+    });
+    status.innerHTML = antes;
+    status.style.minHeight = alto + "px";
   }
 
   function marcar(id) {

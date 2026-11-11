@@ -2,7 +2,8 @@
    La página se ve normal dentro de un navegador. Donde pasa la lupa se ve el
    HTML que la forma: cada bloque (h1, p, h3) bordeado y con su código escrito
    del mismo tamaño que ocupa en la página; <b> e <i> van marcados dentro de
-   su párrafo. Debajo, la explicación de la etiqueta que está bajo la lupa.
+   su párrafo. Arriba de la página, la explicación de la etiqueta que está
+   bajo la lupa.
    Ver modulo2-6-rayos.js. */
 .rayos {
   --rayos-r: 92px;
@@ -296,8 +297,13 @@
 .rayos__view.is-animando .rayos__lente { transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1); }
 
 /* ---------- Explicación (estándar .grafico-exp), con desvanecido ---------- */
+/* Va entre la instrucción y la página; su alto es el de la explicación más
+   larga (lo mide el JS), así la página no se mueve bajo la lupa */
 .rayos__exp {
-  min-height: 4.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.8em;
   text-align: center;
   transition: opacity 0.2s ease;
 }
