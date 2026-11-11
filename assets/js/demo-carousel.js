@@ -41,6 +41,11 @@
     var pos = 0, target = 0, vel = 0, frame = 0, last = 0;
     var dragging = false, visible = true, shown = -1;
     var w = 460, h = 400, sw = 800;
+    // Vuelta completa si cada carta ocupa al menos 50° (7 cartas o menos,
+    // como el 5-3); si son más (12 en el 1-4), 50° por carta y las que
+    // quedarían detrás de la media vuelta se ocultan.
+    var completo = (2 * Math.PI) / n >= (50 * Math.PI) / 180 - 1e-6;
+    var step = completo ? (2 * Math.PI) / n : (50 * Math.PI) / 180;
 
     // auroras de fondo
     var aurora = document.createElement("div");
@@ -73,17 +78,31 @@
 
     /* ---------- medidas ---------- */
 
-    // Captura vertical (5-3) → carta angosta; horizontal (1-4) → más ancha.
+    // Si la mayoría de las capturas son paradas, carta angosta; si son
+    // acostadas (1-4 y 5-3), carta ancha.
     function vertical() {
-      var img = slides[0].querySelector("img");
-      return !!(img && img.naturalWidth && img.naturalHeight > img.naturalWidth);
+      var paradas = 0, total = 0;
+      slides.forEach(function (s) {
+        var img = s.querySelector("img");
+        if (!img || !img.naturalWidth) return;
+        total++;
+        if (img.naturalHeight > img.naturalWidth) paradas++;
+      });
+      return total > 0 && paradas * 2 > total;
     }
 
     function measure() {
       sw = viewport.clientWidth || 800;
       var m = sw < 576;
-      w = vertical() ? Math.min(360, sw * (m ? 0.7 : 0.5)) : Math.min(640, sw * (m ? 0.86 : 0.64));
+      // con la vuelta completa (6 cartas o menos) la carta ancha es un poco
+      // menor para que las de los lados quepan
+      w = vertical() ? Math.min(360, sw * (m ? 0.7 : 0.5)) : Math.min(completo ? 560 : 640, sw * (m ? 0.86 : completo ? 0.56 : 0.64));
       w = Math.round(w / 2) * 2;
+      // una captura parada en carta ancha no debe estirar todas las cartas
+      var tope = vertical() ? "" : Math.round(w * 0.62) + "px";
+      slides.forEach(function (s) {
+        s.querySelectorAll(".tutorial-slide-body img").forEach(function (img) { img.style.maxHeight = tope; });
+      });
       var heads = [], bodies = [];
       slides.forEach(function (s) {
         s.style.width = w + "px";
@@ -107,16 +126,11 @@
     /* ---------- acomodo en el cilindro ---------- */
 
     function layout(d) {
-      // ángulo entre cartas: la vuelta completa si caben; si son muchas
-      // (12 en el 1-4), 50° y las que quedan atrás se ocultan
-      var step = Math.max((2 * Math.PI) / n, (50 * Math.PI) / 180);
       var th = d * step;
       var cos = Math.cos(th), sin = Math.sin(th);
-      var completo = n * step >= 2 * Math.PI - 0.01;
-      // vuelta completa (5-3): un prisma cuyas cartas se tocan en las orillas;
-      // muchas cartas (1-4): radio limitado al ancho y se enciman un poco
-      var rx = completo ? w / 2 / Math.tan(step / 2) : Math.min(sw * 0.44, w * 1.25);
-      var rz = completo ? rx : Math.max(rx * 0.95, w * 0.9);
+      // radio de un prisma: las cartas vecinas se tocan en las orillas
+      var rx = w / 2 / Math.tan(step / 2);
+      var rz = rx;
       var k = (1 - cos) / 2; // 0 al frente, 1 atrás
       var op = 1 - k * 0.42;
       if (!completo) op *= clamp((Math.PI - Math.abs(th)) / (Math.PI * 0.18), 0, 1);
