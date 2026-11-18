@@ -1,0 +1,293 @@
+/* =====================================================================
+   Competencias del módulo (primera página de cada módulo).
+   Cada competencia es una meta por descubrir: está borrosa, con un emblema
+   con "?"; al hacer clic el emblema gira y muestra el ícono de esa
+   competencia, el texto se aclara y queda "Por conquistar". Sin instrucción
+   de "Haz clic" (Ale, 18/11): las filas se ven presionables por sí solas.
+   Todos los colores salen del azul del curso (var(--theme-color)): tonos
+   más claros, blanquecinos y más oscuros; nada de amarillo (Ale, 18/11).
+   Marcado (se lee sin JavaScript):
+     <div class="competencias" data-competencias>
+       <h1 class="mrg-btm-20 card-title">Competencias</h1>
+       <ol class="competencias__lista">
+         <li data-icono="foco">…</li>
+       </ol>
+     </div>
+   competencias.js arma cada fila; los íconos disponibles están ahí.
+   ===================================================================== */
+
+.competencias {
+  --cp-azul: var(--theme-color);
+  --cp-oscuro: color-mix(in srgb, var(--theme-color) 70%, #000);
+  --cp-medio: color-mix(in srgb, var(--theme-color) 72%, #fff);
+  --cp-suave: color-mix(in srgb, var(--theme-color) 42%, #fff);
+  --cp-claro: color-mix(in srgb, var(--theme-color) 20%, #fff);
+  --cp-bruma: color-mix(in srgb, var(--theme-color) 9%, #fff);
+  --cp-nieve: color-mix(in srgb, var(--theme-color) 3%, #fff);
+}
+
+/* Sin JavaScript: lista normal */
+.competencias__lista {
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.competencias__lista li {
+  color: #000;
+}
+
+/* Con JavaScript */
+.competencias.is-lista .competencias__lista {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.competencias.is-lista .competencias__lista > li {
+  margin: 0;
+}
+
+.comp {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 20px 12px 12px;
+  border: 1px solid var(--cp-claro);
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--cp-nieve), var(--cp-bruma));
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color .4s ease, background-color .4s ease, box-shadow .3s ease, transform .2s ease;
+}
+
+.comp:hover:not(.is-abierta) {
+  transform: translateY(-2px);
+  border-color: var(--cp-suave);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--theme-color) 14%, transparent);
+}
+
+.comp:focus {
+  outline: none;
+}
+
+.comp:focus-visible {
+  outline: 3px solid var(--cp-suave);
+  outline-offset: 3px;
+}
+
+.comp.is-abierta {
+  cursor: default;
+  background: #fff;
+  border-color: var(--cp-suave);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--theme-color) 12%, transparent);
+}
+
+/* Emblema: dos caras, "?" al frente y el ícono atrás */
+.comp__emblema {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  perspective: 400px;
+}
+
+.comp__giro {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.3, 1.4, .45, 1);
+}
+
+.comp.is-abierta .comp__giro {
+  transform: rotateY(180deg);
+}
+
+.comp__cara {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.comp__cara--pregunta {
+  background: radial-gradient(circle at 35% 30%, #fff, var(--cp-claro) 75%);
+  box-shadow: inset 0 0 0 2px var(--cp-suave), inset 0 0 0 6px rgba(255, 255, 255, .65), 0 2px 4px color-mix(in srgb, var(--theme-color) 15%, transparent);
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1;
+  color: var(--cp-medio);
+  transition: color .2s ease;
+}
+
+/* Un pulso suave alrededor del "?" invita a presionarlo */
+.comp__cara--pregunta::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--cp-suave);
+  animation: comp-pulso 2.6s ease-out infinite;
+  animation-delay: var(--cp-retraso, 0s);
+}
+
+@keyframes comp-pulso {
+  0% { transform: scale(1); opacity: .9; }
+  70%, 100% { transform: scale(1.32); opacity: 0; }
+}
+
+.comp:hover .comp__cara--pregunta {
+  color: var(--cp-azul);
+}
+
+.comp__cara--icono {
+  transform: rotateY(180deg);
+  background: radial-gradient(circle at 35% 30%, var(--cp-medio), var(--cp-azul) 62%, var(--cp-oscuro));
+  box-shadow: inset 0 0 0 3px var(--cp-claro), inset 0 0 0 5px var(--cp-suave), 0 3px 8px color-mix(in srgb, var(--theme-color) 30%, transparent);
+  color: #fff;
+}
+
+.comp__cara--icono svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+/* Texto */
+.comp__texto {
+  display: block;
+  min-width: 0;
+  color: #000;
+  font-size: 18px;
+  line-height: 1.5;
+  filter: blur(6px);
+  opacity: .45;
+  user-select: none;
+  transition: filter .6s ease .25s, opacity .6s ease .25s;
+}
+
+.comp.is-abierta .comp__texto {
+  filter: none;
+  opacity: 1;
+  user-select: auto;
+}
+
+/* Estado a la derecha */
+.comp__estado {
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--cp-medio);
+  border: 1px solid var(--cp-claro);
+  border-radius: 999px;
+  padding: 4px 12px;
+  transition: color .3s ease, border-color .3s ease, background-color .3s ease;
+}
+
+.comp.is-abierta .comp__estado {
+  color: var(--cp-azul);
+  border-color: var(--cp-suave);
+  background: var(--cp-bruma);
+}
+
+/* Brillo que cruza la fila al abrirla */
+.comp::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40%;
+  width: 30%;
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--theme-color) 16%, transparent), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.comp.is-brilla::after {
+  animation: comp-barrido .9s ease .2s;
+}
+
+@keyframes comp-barrido {
+  0% { left: -40%; opacity: 1; }
+  100% { left: 120%; opacity: 1; }
+}
+
+.comp__chispa {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cp-suave);
+  pointer-events: none;
+  animation: comp-chispa .7s ease-out forwards;
+}
+
+.comp__chispa:nth-child(odd) {
+  background: var(--cp-medio);
+}
+
+@keyframes comp-chispa {
+  from { transform: translate(0, 0) scale(1); opacity: 1; }
+  to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; }
+}
+
+@media (max-width: 767.98px) {
+  .comp {
+    grid-template-columns: 48px 1fr;
+    gap: 6px 12px;
+    padding: 10px 12px 10px 10px;
+  }
+
+  .comp__emblema {
+    width: 46px;
+    height: 46px;
+    grid-row: span 2;
+  }
+
+  .comp__cara--pregunta {
+    font-size: 25px;
+  }
+
+  .comp__cara--icono svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .comp__texto {
+    font-size: 16px;
+  }
+
+  .comp__estado {
+    grid-column: 2;
+    justify-self: start;
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comp,
+  .comp__giro,
+  .comp__texto,
+  .comp__estado {
+    transition: none;
+  }
+
+  .comp__cara--pregunta::after,
+  .comp.is-brilla::after {
+    animation: none;
+  }
+}
