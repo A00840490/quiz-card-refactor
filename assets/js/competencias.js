@@ -1,7 +1,8 @@
 /* Competencias del módulo (primera página de cada módulo): convierte cada <li>
    de .competencias__lista en una competencia por descubrir. Al hacer clic, el
    "?" gira y muestra el ícono de la competencia (data-icono del <li>), el
-   texto se aclara y la fila queda "Por desarrollar".
+   texto se aclara y "Por descubrir" se vuelve una flecha azul que lleva a la
+   siguiente página.
    Estilos en competencias.css. Solo actúa si la página trae
    [data-competencias]. */
 (function () {
@@ -65,33 +66,63 @@
     }
   }
 
+  /* La flecha lleva a la página que sigue a esta (moduloN-K → moduloN-K+1) */
+  function siguiente() {
+    var m = window.location.pathname.match(/modulo(\d+)-(\d+)\.html$/);
+    return m ? "modulo" + m[1] + "-" + (parseInt(m[2], 10) + 1) + ".html" : null;
+  }
+
+  var FLECHA =
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
   function armar(raiz) {
     raiz.classList.add("is-lista");
+    var destino = siguiente();
     var items = raiz.querySelectorAll(".competencias__lista > li");
     Array.prototype.forEach.call(items, function (li, i) {
       var html = li.innerHTML.trim();
       var n = i + 1;
       li.innerHTML =
-        '<button type="button" class="comp" aria-label="Competencia ' + n + ': descubrir">' +
+        '<div class="comp" role="button" tabindex="0" aria-label="Competencia ' + n + ': descubrir">' +
         '<span class="comp__emblema" aria-hidden="true"><span class="comp__giro">' +
         '<span class="comp__cara comp__cara--pregunta" style="--cp-retraso:' + (i * 0.35).toFixed(2) + 's">?</span>' +
         '<span class="comp__cara comp__cara--icono">' + icono(li.getAttribute("data-icono"), i) + "</span>" +
         "</span></span>" +
         '<span class="comp__texto" aria-hidden="true">' + html + "</span>" +
+        '<span class="comp__lado">' +
         '<span class="comp__estado" aria-hidden="true">Por descubrir</span>' +
-        "</button>";
+        (destino
+          ? '<a class="comp__ir" href="./' + destino + '" tabindex="-1" aria-hidden="true" aria-label="Ir a la siguiente página">' + FLECHA + "</a>"
+          : "") +
+        "</span></div>";
 
       var fila = li.firstChild;
-      fila.addEventListener("click", function () {
+      function abrir() {
         if (fila.classList.contains("is-abierta")) return;
         var texto = fila.querySelector(".comp__texto");
+        var ir = fila.querySelector(".comp__ir");
         fila.classList.add("is-abierta", "is-brilla");
+        fila.removeAttribute("role");
+        fila.removeAttribute("tabindex");
+        fila.removeAttribute("aria-label");
         texto.removeAttribute("aria-hidden");
-        fila.setAttribute("aria-label", "Competencia " + n + ": " + texto.textContent.replace(/\s+/g, " ").trim());
-        setTimeout(function () {
-          fila.querySelector(".comp__estado").textContent = "Por desarrollar";
-        }, reduce ? 0 : 400);
+        if (ir) {
+          ir.removeAttribute("tabindex");
+          ir.removeAttribute("aria-hidden");
+        }
         if (!reduce) chispas(fila);
+      }
+      fila.addEventListener("click", function (e) {
+        if (e.target.closest(".comp__ir")) return;
+        abrir();
+      });
+      fila.addEventListener("keydown", function (e) {
+        if (fila.classList.contains("is-abierta") || e.target !== fila) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          abrir();
+        }
       });
     });
   }

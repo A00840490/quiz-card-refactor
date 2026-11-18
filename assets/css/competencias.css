@@ -2,7 +2,8 @@
    Competencias del módulo (primera página de cada módulo).
    Cada competencia es una meta por descubrir: está borrosa, con un emblema
    con "?"; al hacer clic el emblema gira y muestra el ícono de esa
-   competencia, el texto se aclara y queda "Por conquistar". Sin instrucción
+   competencia, el texto se aclara y "Por descubrir" se vuelve una flecha
+   azul que lleva a la siguiente página (Ale, 18/11). Sin instrucción
    de "Haz clic" (Ale, 18/11): las filas se ven presionables por sí solas.
    Todos los colores salen del azul del curso (var(--theme-color)): tonos
    más claros, blanquecinos y más oscuros; nada de amarillo (Ale, 18/11).
@@ -196,10 +197,62 @@
   transition: color .3s ease, border-color .3s ease, background-color .3s ease;
 }
 
+/* Al descubrirla, la etiqueta se desvanece y en su lugar crece la flecha
+   (botón redondo azul, como la flecha de las mini trivias) */
+.comp__lado {
+  display: grid;
+  align-items: center;
+  justify-items: end;
+}
+
+.comp__lado > * {
+  grid-area: 1 / 1;
+}
+
 .comp.is-abierta .comp__estado {
-  color: var(--cp-azul);
-  border-color: var(--cp-suave);
-  background: var(--cp-bruma);
+  opacity: 0;
+  transform: scale(.85);
+  visibility: hidden;
+  transition: opacity .25s ease, transform .25s ease, visibility 0s linear .25s;
+}
+
+.comp__ir {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cp-azul);
+  color: #fff;
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--theme-color) 28%, transparent);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px) scale(.6);
+  transition: opacity .4s ease, transform .5s cubic-bezier(.3, 1.6, .5, 1), visibility 0s linear .4s, background-color .2s ease;
+}
+
+.comp.is-abierta .comp__ir {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .4s ease .45s, transform .5s cubic-bezier(.3, 1.6, .5, 1) .45s, visibility 0s linear .45s, background-color .2s ease;
+}
+
+.comp.is-abierta .comp__ir:hover,
+.comp.is-abierta .comp__ir:focus-visible {
+  color: #fff;
+  background: var(--cp-oscuro);
+  transform: translateX(4px);
+  transition-delay: 0s;
+}
+
+.comp__ir:focus {
+  outline: none;
+}
+
+.comp__ir:focus-visible {
+  outline: 3px solid var(--cp-suave);
+  outline-offset: 3px;
 }
 
 /* Brillo que cruza la fila al abrirla */
@@ -270,11 +323,19 @@
     font-size: 16px;
   }
 
-  .comp__estado {
+  .comp__lado {
     grid-column: 2;
-    justify-self: start;
+    justify-items: start;
+  }
+
+  .comp__estado {
     font-size: 12px;
     padding: 3px 10px;
+  }
+
+  .comp__ir {
+    width: 38px;
+    height: 38px;
   }
 }
 
@@ -282,8 +343,9 @@
   .comp,
   .comp__giro,
   .comp__texto,
-  .comp__estado {
-    transition: none;
+  .comp__estado,
+  .comp__ir {
+    transition: none !important;
   }
 
   .comp__cara--pregunta::after,
