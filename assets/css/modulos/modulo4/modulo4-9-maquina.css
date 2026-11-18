@@ -86,7 +86,8 @@
 .maq__prod-in { transform-box: fill-box; transform-origin: 50% 100%; }
 .maq__prod-in.is-elegido { animation: maq-brinco .6s cubic-bezier(.3, 1.4, .5, 1); }
 
-/* El resorte gira sobre su eje (el JavaScript pone su centro en transform-origin) */
+/* Cada anillo del resorte gira sobre su propio centro (el JavaScript lo pone en
+   transform-origin), así el resorte da la vuelta sin salirse de su lugar */
 .maq__giro.is-gira { animation: maq-gira 1.1s cubic-bezier(.45, 0, .3, 1); }
 
 /* La moneda regresa al cambio con el default */

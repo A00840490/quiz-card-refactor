@@ -105,8 +105,10 @@
   }
 
   // El resorte visto de frente: anillos que se van haciendo chicos hacia el
-  // fondo (detrás del producto) y la punta de enfrente, abierta, que se ve
-  // girar (delante del producto)
+  // fondo (detrás del producto) y el anillo de enfrente, abierto, que se ve
+  // girar (delante del producto). Cada anillo gira sobre su propio centro y
+  // nada sale de su círculo: la punta del alambre se dobla hacia adentro, así
+  // al dar la vuelta no se mete en la repisa ni en el lugar de al lado.
   function espiral(cx, cy, r, vuelta, punta) {
     var d = "", pasos = 36;
     for (var k = 0; k <= pasos; k++) {
@@ -115,25 +117,29 @@
     }
     if (punta) {
       var fin = (-70 + vuelta) * Math.PI / 180;
-      d += " L" + (cx + (r + 7) * Math.cos(fin + .18)).toFixed(2) + " " + (cy + (r + 7) * Math.sin(fin + .18)).toFixed(2);
+      d += " L" + (cx + (r - 6) * Math.cos(fin + .14)).toFixed(2) + " " + (cy + (r - 6) * Math.sin(fin + .14)).toFixed(2);
     }
     return d;
   }
 
+  function giro(i, x, y, attrs, dentro) {
+    return '<g class="maq__giro" data-giro="' + i + '" style="transform-origin:' + x.toFixed(2) + "px " + y.toFixed(2) + 'px"' + attrs + ">" + dentro + "</g>";
+  }
+
   function dibujaResorte(i, cx) {
-    var atras = "", centro = cx + "px " + CY + "px";
+    var atras = "";
     for (var k = 3; k >= 1; k--) {
       var s = 1 - .14 * k;
       var c = { x: FUGA.x + (cx - FUGA.x) * s, y: FUGA.y + (CY - FUGA.y) * s };
-      atras += '<path d="' + espiral(c.x, c.y, RC * s, 340, false) + '" stroke-width="' + (1.8 * s).toFixed(2) + '" opacity="' + (1 - .2 * k).toFixed(2) + '"/>';
+      atras += giro(i, c.x, c.y, "", '<path d="' + espiral(c.x, c.y, RC * s, 340, false) + '" stroke-width="' + (1.8 * s).toFixed(2) + '" opacity="' + (1 - .2 * k).toFixed(2) + '"/>');
     }
     var frente = espiral(cx, CY, RC, 330, true);
     return {
-      atras: '<g class="maq__giro" data-giro="' + i + '" style="transform-origin:' + centro + '" fill="none" stroke="#6f7884" stroke-linecap="round">' + atras + "</g>",
-      frente: '<g class="maq__giro" data-giro="' + i + '" style="transform-origin:' + centro + '" fill="none" stroke-linecap="round">' +
+      atras: '<g fill="none" stroke="#6f7884" stroke-linecap="round">' + atras + "</g>",
+      frente: giro(i, cx, CY, ' fill="none" stroke-linecap="round"',
         '<path d="' + frente + '" stroke="#2a2f37" stroke-width="3" opacity=".8"/>' +
         '<path d="' + frente + '" stroke="#aeb6c1" stroke-width="1.7"/>' +
-        '<path d="' + frente + '" stroke="#ffffff" stroke-width=".7" opacity=".7" stroke-dasharray="10 26"/></g>'
+        '<path d="' + frente + '" stroke="#ffffff" stroke-width=".7" opacity=".7" stroke-dasharray="10 26"/>')
     };
   }
 
