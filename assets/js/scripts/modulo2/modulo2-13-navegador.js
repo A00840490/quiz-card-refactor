@@ -188,6 +188,7 @@
 
   function ponerPagina(clave) {
     pag.innerHTML = paginaHTML(clave);
+    pag.appendChild(marca);   // la marca va dentro de la página y se recorre con ella
     pagina = clave;
     tit.textContent = PAG[clave].tit + " | CVA";
   }
@@ -199,11 +200,19 @@
   }
   function enlace() { return pag.querySelector("[data-enlace]"); }
   function yInicial() { return limitar(enlace().offsetTop - 70, 0, maxY()); }
-  function ponerCursor() {
+  /* El mouse sobre el enlace. Se mueve con transform: si está a la vista se
+     desliza (con la misma curva que la página, así llegan juntos); si está
+     oculto o es la primera vez, se pone ahí sin animación. */
+  var cursorListo = false;
+  function ponerCursor(suave) {
     var a = enlace();
     if (!a) return;
-    cursor.style.left = (a.offsetLeft + a.offsetWidth * 0.55) + "px";
-    cursor.style.top = (a.offsetTop - y + a.offsetHeight * 0.55) + "px";
+    var cx = a.offsetLeft + a.offsetWidth * 0.55;
+    var cy = a.offsetTop - y + a.offsetHeight * 0.55;
+    var animar = !!suave && cursorListo && !reduce && !cursor.classList.contains("is-oculto");
+    cursor.classList.toggle("is-quieto", !animar);
+    cursor.style.transform = "translate3d(" + cx.toFixed(1) + "px, " + cy.toFixed(1) + "px, 0)";
+    cursorListo = true;
   }
   function ponerUrl(clave, hash, nuevo) {
     url.innerHTML = "<span class=\"enl__gris\">programacion_web/html/" + PAG[clave].carpeta + "/</span>" +
@@ -232,7 +241,7 @@
   }
   function marcar(el, nombre) {
     marca.style.left = (el.offsetLeft - 3) + "px";
-    marca.style.top = (el.offsetTop - y - 2) + "px";
+    marca.style.top = (el.offsetTop - 2) + "px";
     marca.style.width = (el.offsetWidth + 6) + "px";
     marca.style.height = (el.offsetHeight + 4) + "px";
     var et = marca.firstChild;
@@ -258,13 +267,14 @@
       pag.classList.remove("is-fuera");
     } else if (Math.abs(y - yInicial()) > 2) {
       recorrer(yInicial(), true);
+      ponerCursor(true);
       await espera(700);
       if (n !== vuelta) return false;
     }
     ponerUrl("modulo2-13.html", "");
     sel = { c2: "modulo2", c3: "modulo2-13.html", activa: 3 };
     pintarCarpeta(false);
-    ponerCursor();
+    ponerCursor(true);
     cursor.classList.remove("is-oculto");
     atras.disabled = true;
     return true;
@@ -291,9 +301,9 @@
       }
       var el = pag.querySelector("[data-el=\"" + d.el + "\"]");
       recorrer(limitar(el.offsetTop - 14, 0, maxY()), true);
+      // El mouse se queda quieto y la página se recorre debajo de él
       await espera(900);
       if (n !== vuelta) return;
-      ponerCursor();
       marcar(el, d.nombre);
       atras.disabled = false;
       return;

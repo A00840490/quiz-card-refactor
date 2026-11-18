@@ -205,9 +205,10 @@ button.enl__btn:not(:disabled):hover { background: #eceef1; }
   right: 0;
   top: 0;
   will-change: transform;
+  transition: opacity 0.3s ease;
 }
 
-.enl__pag.is-desliza { transition: transform 0.85s cubic-bezier(0.35, 0.1, 0.2, 1); }
+.enl__pag.is-desliza { transition: transform 0.85s cubic-bezier(0.35, 0.1, 0.2, 1), opacity 0.3s ease; }
 .enl__pag.is-fuera { opacity: 0; transition: opacity 0.25s ease; }
 
 /* El elemento al que llegó el enlace, marcado como en el inspector */
@@ -263,15 +264,21 @@ button.enl__btn:not(:disabled):hover { background: #eceef1; }
 .enl__cursor {
   position: absolute;
   z-index: 4;
+  left: 0;
+  top: 0;
   width: 26px;
   height: 30px;
   margin: -3px 0 0 -10px;
   pointer-events: none;
   filter: drop-shadow(0 1px 1.5px rgba(0, 0, 0, 0.45));
-  transition: opacity 0.25s ease, transform 0.15s ease;
+  will-change: transform;
+  /* Se desliza con la misma curva que la página */
+  transition: opacity 0.25s ease, transform 0.85s cubic-bezier(0.35, 0.1, 0.2, 1);
 }
 
-.enl__cursor svg { display: block; width: 100%; height: 100%; }
+.enl__cursor.is-quieto { transition: opacity 0.25s ease; }
+
+.enl__cursor svg { display: block; width: 100%; height: 100%; transition: transform 0.15s ease; }
 
 .enl__cursor::after {
   content: "";
@@ -285,7 +292,7 @@ button.enl__btn:not(:disabled):hover { background: #eceef1; }
   opacity: 0;
 }
 
-.enl__cursor.is-clic { transform: scale(0.86); }
+.enl__cursor.is-clic svg { transform: scale(0.86); }
 .enl__cursor.is-clic::after { animation: enl-onda 0.5s ease-out; }
 .enl__cursor.is-oculto { opacity: 0; }
 
@@ -500,7 +507,8 @@ button.enl__btn:not(:disabled):hover { background: #eceef1; }
   .enl__fila,
   .enl__marca,
   .enl__aviso,
-  .enl__cursor { transition: none; }
+  .enl__cursor,
+  .enl__cursor svg { transition: none; }
 
   .enl__url .is-nuevo,
   .enl__cursor.is-clic::after { animation: none; }
