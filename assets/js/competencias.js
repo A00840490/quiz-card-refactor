@@ -73,7 +73,7 @@
   }
 
   var FLECHA =
-    '<svg viewBox="0 0 20 34" fill="none" stroke="currentColor" stroke-width="2.6" ' +
+    '<svg viewBox="0 0 20 34" fill="none" stroke="currentColor" stroke-width="3.6" ' +
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l12 13L4 30"/></svg>';
 
   function armar(raiz) {
