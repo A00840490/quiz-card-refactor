@@ -113,3 +113,37 @@
     }
     
 }
+/* Pantallas táctiles (celular y tableta): sin mouse no hay :hover que abra
+   las tarjetas, así que se muestran abiertas, una debajo de otra. */
+@media (hover: none) {
+    .card-fixed,
+    .card-fixed:hover {
+        height: auto;
+    }
+    .card-fixed .container,
+    .card-fixed .container:hover {
+        width: auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+    .card-fixed .container .card,
+    .card-fixed .container:hover .card {
+        position: relative !important;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        margin-bottom: 20px;
+        opacity: 1;
+        z-index: 1;
+    }
+    .card-fixed .container .card .cardbody {
+        opacity: 1;
+        transform: none;
+    }
+}

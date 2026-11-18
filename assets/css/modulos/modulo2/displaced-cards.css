@@ -31,7 +31,7 @@
   min-height: 5em;
   background: #fff;
   box-shadow: 0 2px 40px rgba(0, 0, 0, 0.1);
-  width: calc(100% - 5 * var(--offset));
+  width: calc(100% - 9 * var(--offset)); /* 10 tarjetas: cada una se recorre un --offset */
 }
 
 /* El tamaño de h1, h2 y p lo pone app.css (curso.css). */
