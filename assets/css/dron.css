@@ -278,27 +278,12 @@
 .dron-vuelo.is-sale { animation: dron-sale .35s ease forwards; }
 @keyframes dron-sale { to { opacity: 0; transform: translate(-50%, -100%) scale(.6); } }
 
-/* Cómo queda en CSS lo que cambió (style.fontWeight -> font-weight: bold;) */
-.dron-nota {
-  position: absolute;
-  z-index: 7;
-  padding: 1px 8px;
-  border-radius: 4px;
-  background: #171b24;
-  color: #ffffff;
-  font: 12px/1.6 Consolas, "Courier New", monospace;
-  white-space: nowrap;
-  pointer-events: none;
-  animation: dron-nota 2.6s ease both;
-}
-@keyframes dron-nota { 0% { opacity: 0; transform: translateY(6px); } 15%, 75% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-8px); } }
-
 @media (max-width: 575.98px) {
   .dron-vuelo__nave { width: 78px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dron-pin, .dron-vacio, .dron-nota, .dron-vuelo__nave, .dron-vuelo__aspa,
+  .dron-pin, .dron-vacio, .dron-vuelo__nave, .dron-vuelo__aspa,
   .dron-consola__out span.is-new, .dron-pagina__body .dron-flash { animation: none; }
   .dron-pagina__body * { transition: none; }
 }

@@ -614,21 +614,9 @@
         setTimeout(function () { d.remove(); }, 380);
       });
     }
-    function notaCss(idEl, texto) {
-      var el = real(idEl);
-      if (!el) return;
-      var r = rel(), b = el.getBoundingClientRect(), n = document.createElement("span");
-      n.className = "dron-nota";
-      n.setAttribute("aria-hidden", "true");
-      n.textContent = texto;
-      n.style.left = (b.left - r.left + 8) + "px";
-      n.style.top = (b.bottom - r.top + 8) + "px";
-      root.appendChild(n);
-      setTimeout(function () { n.remove(); }, 2700);
-    }
     function limpiar() {
       st.pins = [];
-      Array.prototype.forEach.call(root.querySelectorAll(".dron-pin, .dron-vuelo, .dron-vacio, .dron-nota"), function (e) { e.remove(); });
+      Array.prototype.forEach.call(root.querySelectorAll(".dron-pin, .dron-vuelo, .dron-vacio"), function (e) { e.remove(); });
       Array.prototype.forEach.call(codeEl.querySelectorAll(".is-ligada"), function (e) { e.classList.remove("is-ligada"); });
       Array.prototype.forEach.call(cuerpo.querySelectorAll(".dron-sel"), function (e) { e.classList.remove("dron-sel"); });
     }
@@ -737,8 +725,6 @@
         if (!vivo(mio)) return;
       }
       aplicar(op);
-      if (op.tipo === "estilo") notaCss(op.id, kebab(op.nombre) + ": " + op.valor + ";");
-      if (op.tipo === "clase") notaCss(op.id, 'class="' + (real(op.id).getAttribute("class") || "").split(" ").filter(function (c) { return MIAS.indexOf(c) < 0; }).join(" ") + '"');
       if (d) regresar(d, b, op.linea);
       setTimeout(acomodar, 300);
       return espera(450);
