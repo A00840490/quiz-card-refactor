@@ -197,8 +197,9 @@
   transition: color .3s ease, border-color .3s ease, background-color .3s ease;
 }
 
-/* Al descubrirla, la etiqueta se desvanece y en su lugar crece la flecha
-   (botón redondo azul, como la flecha de las mini trivias) */
+/* Al descubrirla, la etiqueta se desvanece y en su lugar aparece una
+   flecha sencilla (un ">" delgado en el azul del curso, sin fondo; Ale,
+   18/11) */
 .comp__lado {
   display: grid;
   align-items: center;
@@ -219,29 +220,31 @@
 .comp__ir {
   display: grid;
   place-items: center;
-  width: 44px;
+  width: 32px;
   height: 44px;
-  border-radius: 50%;
-  background: var(--cp-azul);
-  color: #fff;
-  box-shadow: 0 6px 16px color-mix(in srgb, var(--theme-color) 28%, transparent);
+  color: var(--cp-azul);
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-10px) scale(.6);
-  transition: opacity .4s ease, transform .5s cubic-bezier(.3, 1.6, .5, 1), visibility 0s linear .4s, background-color .2s ease;
+  transform: translateX(-10px);
+  transition: opacity .4s ease, transform .5s cubic-bezier(.3, 1.6, .5, 1), visibility 0s linear .4s, color .2s ease;
+}
+
+.comp__ir svg {
+  width: 20px;
+  height: 34px;
+  display: block;
 }
 
 .comp.is-abierta .comp__ir {
   opacity: 1;
   visibility: visible;
   transform: none;
-  transition: opacity .4s ease .45s, transform .5s cubic-bezier(.3, 1.6, .5, 1) .45s, visibility 0s linear .45s, background-color .2s ease;
+  transition: opacity .4s ease .45s, transform .5s cubic-bezier(.3, 1.6, .5, 1) .45s, visibility 0s linear .45s, color .2s ease;
 }
 
 .comp.is-abierta .comp__ir:hover,
 .comp.is-abierta .comp__ir:focus-visible {
-  color: #fff;
-  background: var(--cp-oscuro);
+  color: var(--cp-oscuro);
   transform: translateX(4px);
   transition-delay: 0s;
 }
@@ -333,9 +336,23 @@
     padding: 3px 10px;
   }
 
+  /* Ya descubierta, la flecha pasa a la derecha del texto */
+  .comp.is-abierta {
+    grid-template-columns: 48px 1fr 24px;
+  }
+
+  .comp.is-abierta .comp__lado {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
   .comp__ir {
-    width: 38px;
-    height: 38px;
+    width: 24px;
+  }
+
+  .comp__ir svg {
+    width: 16px;
+    height: 28px;
   }
 }
 
