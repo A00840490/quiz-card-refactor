@@ -44,66 +44,49 @@
                                         class="badge badge-light">Tema 12</span>Acceder a Elementos por Clase y Tipo de Elemento</h1>
                                     <h3 class="card-title">Acceder a Elementos por Clase</h3>
                                     <p>A diferencia de las IDs, podemos tener múltiples elementos con la misma
-                                        clase. Si queremos obtener elementos de acuerdo a su clase, utilizamos
-                                        la
+                                        clase. Si queremos obtener elementos de acuerdo a su clase, utilizamos la
                                         función <span class="code">document.getElementsByClassName()</span>.</p>
-                                    <div data-demo data-archivo="clases.js">
-                                      <script type="text/x-codigo">
-                                        function cambiar() {
-                                          var rects = document.getElementsByClassName("rect");
-                                          rects[0].innerHTML = "¡Cambié!";
-                                          rects[1].innerHTML = "¡Yo también!";
-                                        }
-                                      </script>
-                                      <script type="text/x-codigo" data-parte="html">
-                                        <div class="rect">Rectángulo 1</div>
-                                        <div class="rect">Rectángulo 2</div>
-                                        <div class="rect">Rectángulo 3</div>
-                                        <p><button onclick="cambiar()">Cambiar</button></p>
-                                      </script>
-                                      <script type="text/x-codigo" data-parte="base">.rect{display:inline-block;min-width:120px;padding:18px 10px;margin:6px 6px 6px 0;border-radius:8px;background:#0f4c91;color:#fff;text-align:center}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
-                                    </div>
-                                    <p>Esta función nos regresa un <b>arreglo</b>. Como vimos anteriormente,
-                                        para
-                                        acceder al elemento de un array, debemos especificar su índice
-                                        comenzando
-                                        por el número 0. En la función accedemos a los 2 primeros elementos con
-                                        la
-                                        clase "rect" asignada para modificar su contenido después de presionar
-                                        el
-                                        botón.</p>
                                     <h3 class="card-title mrg-top-20">Acceder a Elementos por su Tipo</h3>
                                     <p>Obtener elementos por su tipo de etiqueta también puede ser de utilidad
                                         cuando queremos modificar múltiples elementos. La función que utilizamos
-                                        para seleccionar a los elementos de un tipo específico es muy similar a
-                                        las
-                                        2 anteriores: <span class="code">document.getElementsByTagName()</span>.
+                                        para seleccionar a los elementos de un tipo específico es muy similar a las
+                                        2 anteriores: <span class="code">document.getElementsByTagName()</span>.</p>
+                                    <p>Las dos funciones nos regresan un <b>arreglo</b>. Como vimos anteriormente,
+                                        para acceder al elemento de un array, debemos especificar su índice
+                                        comenzando por el número 0. En el ejemplo, la variable <span class="code">lista</span>
+                                        guarda la dirección de cada elemento que encontró, y con su índice le mandamos
+                                        un contenido nuevo.</p>
+                                    <!-- Dron de reparto (componente común: assets/css/dron.css y assets/js/dron.js) -->
+                                    <p class="card-info" style="width: fit-content;">
+                                        <span class="ico-clic" aria-hidden="true"></span>
+                                        Haz clic en Cambiar para correr el código, o en los valores del código para cambiarlo.
                                     </p>
-                                    <div data-demo data-archivo="etiquetas.js">
-                                      <script type="text/x-codigo">
-                                        function cambiar() {
-                                          var divs = document.getElementsByTagName("div");
-                                          divs[0].innerHTML = "Primer div";
-                                          divs[1].innerHTML = "Segundo div";
-                                          divs[2].innerHTML = "Tercer div";
-                                        }
-                                      </script>
-                                      <script type="text/x-codigo" data-parte="html">
-                                        <div>Div 1</div>
-                                        <div>Div 2</div>
-                                        <div>Div 3
-                                          <button onclick="cambiar()">Cambiar</button>
-                                        </div>
-                                        <div>Div 4</div>
-                                      </script>
-                                      <script type="text/x-codigo" data-parte="base">div{padding:10px 12px;margin:0 0 8px;border-radius:8px;background:#e8eef7;border:1px solid #c9d5e6}button{margin-left:10px}button{font:inherit;padding:6px 14px;border:0;border-radius:6px;background:#0f4c91;color:#fff;cursor:pointer}</script>
+                                    <div data-dron data-archivo="cambiar.js">
+                                        <script type="text/x-codigo">
+                                            function cambiar() {
+                                              var lista = document.{{ getElementsByClassName("rect") | getElementsByTagName("div") }};
+                                              lista[0].innerHTML = "¡Cambié!";
+                                              lista[{{ 1 | 2 | 3 }}].innerHTML = "¡Yo también!";
+                                            }
+                                        </script>
+                                        <script type="text/x-codigo" data-parte="html">
+                                            <div class="rect" data-nombre="la Caja 1">Caja 1</div>
+                                            <div data-nombre="la Caja 2">Caja 2</div>
+                                            <p class="rect" data-nombre="el párrafo">Párrafo</p>
+                                            <div class="rect" data-nombre="la Caja 3">Caja 3 <button onclick="cambiar()">Cambiar</button></div>
+                                        </script>
+                                        <script type="text/x-codigo" data-parte="base">
+                                            div { padding: 13px 14px; border-radius: 8px; background: #0f4c91; color: #ffffff; }
+                                            p { padding: 10px 14px; border: 1px dashed #9aa7b8; border-radius: 8px; }
+                                            button { margin-left: 10px; padding: 5px 14px; border: 0; border-radius: 6px; background: #ffffff; color: #0f4c91; font: inherit; cursor: pointer; }
+                                        </script>
+                                        <div data-intro hidden>Al hacer clic en Cambiar, el navegador corre la función <code>cambiar()</code> renglón por renglón.</div>
                                     </div>
-                                    <p>Este ejemplo accede a los 3 primeros elementos de tipo <span
-                                            class="code">&lt;<span class="codetag">div</span>&gt;</span>. El
-                                        botón
-                                        desaparece después de presionarlo debido a que está contenido por el
-                                        tercer
-                                        elemento div y estamos reemplazando su contenido. </p>
+                                    <p>Con <span class="code">lista[2]</span> y <span class="code">getElementsByTagName("div")</span>
+                                        el botón desaparece después de presionarlo, porque está contenido por el tercer
+                                        elemento div y estamos reemplazando su contenido. Si pedimos un índice que el
+                                        arreglo no tiene, como <span class="code">lista[3]</span>, no hay ningún elemento
+                                        en esa dirección y la consola marca un error.</p>
 
                             </div>
                         </div>

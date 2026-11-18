@@ -38,6 +38,8 @@
     "js/codigo.js",
     "js/demo.js",
     "js/lesson-demo.js",
+    // dron.js arma su ficha de renglones antes de que grafico-ficha.js las busque
+    "js/dron.js",
     "js/grafico-ficha.js",
     "js/demo-carousel.js",
     "js/evo-card.js",

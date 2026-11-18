@@ -1,0 +1,304 @@
+/* Dron de reparto (assets/js/dron.js): la página de prueba a la izquierda y la
+   ventana de código del módulo 4 a la derecha (55 / 45), alineadas arriba;
+   en pantallas angostas, en una columna con la página arriba. Los marcadores,
+   el dron y sus paquetes viven en la misma fila (.dron-lab), encima de todo. */
+
+.dron-lab {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  overflow-x: clip; /* nada que vuele se sale a los lados en celular */
+  margin: 8px 0 16px;
+}
+
+@media (min-width: 992px) {
+  .dron-lab {
+    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    gap: 24px;
+    align-items: start; /* arriba: así la ficha puede crecer hacia abajo sin mover nada */
+  }
+}
+
+.dron-lab__escena { min-width: 0; }
+
+/* ===================== Página de prueba ===================== */
+.dron-pagina {
+  overflow: hidden;
+  border: 1px solid #d5dce6;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 26px -10px rgba(15, 23, 42, .28);
+}
+
+.dron-pagina__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-bottom: 1px solid #dde3ec;
+  background: #eef1f5;
+}
+
+.dron-pagina__recargar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #4b5568;
+  cursor: pointer;
+}
+
+.dron-pagina__recargar:hover { background: #dfe5ee; }
+.dron-pagina__recargar:focus-visible { outline: 3px solid #fac775; outline-offset: 1px; }
+.dron-pagina__recargar svg { width: 16px; height: 16px; }
+.dron-pagina__recargar.is-gira svg { animation: dron-gira .5s ease; }
+@keyframes dron-gira { to { transform: rotate(360deg); } }
+
+.dron-pagina__url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #5b6577;
+  font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dron-pagina__body {
+  display: grid;
+  gap: 10px;
+  padding: 18px 16px;
+  color: #172033;
+  font: 16px/1.5 Lato, Arial, sans-serif;
+}
+
+.dron-pagina__body p { margin: 0; }
+.dron-pagina__body * {
+  transition: color .45s ease, background-color .45s ease, border-radius .45s ease, opacity .25s ease, outline-color .3s ease;
+}
+
+/* El elemento que tiene dirección (un marcador) */
+.dron-pagina__body .dron-sel { outline: 3px solid #fac775; outline-offset: 3px; }
+.dron-pagina__body .dron-flash { animation: dron-destello .8s ease; }
+.dron-pagina__body .dron-cambia { opacity: 0; }
+@keyframes dron-destello { 0% { box-shadow: 0 0 0 0 rgba(250, 199, 117, .9); } 100% { box-shadow: 0 0 0 14px rgba(250, 199, 117, 0); } }
+
+/* ===================== Ventana de código ===================== */
+.dron-lab .dron-lab__code {
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.dron-lab__code .js-term__code {
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* La variable que guarda las direcciones */
+.dron-var { border-radius: 2px; transition: box-shadow .3s ease; }
+.dron-var.is-ligada { box-shadow: inset 0 -2px 0 #fac775; }
+
+/* Consola dentro de la ventana (como la de la radio del 4-16) */
+.dron-consola {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: .6em;
+  margin-top: 14px;
+  color: #ffffff;
+}
+
+.dron-consola__out { display: grid; align-content: start; min-height: 1.75em; }
+.dron-consola__out:empty { display: block; }
+.dron-consola__out span { display: block; white-space: pre-wrap; }
+.dron-consola__out span.is-error { color: #ff8a80; }
+.dron-consola__out span.is-new { animation: dron-linea .3s ease; }
+.dron-consola__out:empty::after,
+.dron-consola__out span:last-child::after {
+  content: "";
+  display: inline-block;
+  width: 9px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: #ffffff;
+  vertical-align: -3px;
+  animation: dron-cursor 1s steps(1) infinite;
+}
+@keyframes dron-linea { from { opacity: 0; transform: translateY(3px); } }
+@keyframes dron-cursor { 50% { opacity: 0; } }
+
+@media (min-width: 992px) {
+  .dron-lab .dron-lab__code { font-size: 15px; }
+}
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .dron-lab { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .dron-lab .dron-lab__code { font-size: 12.5px; }
+  .dron-lab__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+@media (min-width: 1200px) and (max-width: 1365.98px) {
+  .dron-lab .dron-lab__code { font-size: 13.5px; }
+}
+@media (max-width: 575.98px) {
+  .dron-pagina__body { padding: 14px 12px; }
+  .dron-lab .dron-lab__code { font-size: 12px; }
+  .dron-lab__code .js-term__body { padding-left: 12px; padding-right: 12px; }
+}
+
+/* ===================== Marcadores de dirección ===================== */
+.dron-pin {
+  position: absolute;
+  z-index: 6;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: #fac775;
+  color: #412402;
+  font: 700 12px/1.6 Consolas, "Courier New", monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+  animation: dron-pin .45s cubic-bezier(.2, 1.5, .4, 1) both;
+  transition: opacity .6s ease;
+}
+
+.dron-pin:empty { display: none; }
+/* la punta del marcador y el alfiler rojo */
+.dron-pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  margin-left: -6px;
+  border: 6px solid transparent;
+  border-bottom: 0;
+  border-top-color: #fac775;
+}
+.dron-pin::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+  border-radius: 50% 50% 50% 0;
+  background: #c0392b;
+  transform: rotate(-45deg);
+}
+.dron-pin--mal { background: #ffd1cc; color: #8f1a10; }
+.dron-pin--mal::after { border-top-color: #ffd1cc; }
+@keyframes dron-pin { from { opacity: 0; transform: translate(-50%, -160%); } }
+
+/* La dirección que no existe (lista[3] cuando hay 3) */
+.dron-vacio {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  height: 44px;
+  border: 2px dashed #c0392b;
+  border-radius: 8px;
+  background: rgba(255, 209, 204, .35);
+  color: #8f1a10;
+  font: 700 15px Lato, Arial, sans-serif;
+  pointer-events: none;
+  animation: dron-linea .3s ease both;
+  transition: opacity .6s ease;
+}
+.dron-vacio.is-quita,
+.dron-pin.is-quita { opacity: 0; }
+
+/* ===================== El dron y su paquete ===================== */
+.dron-vuelo {
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  top: 0;
+  display: grid;
+  justify-items: center;
+  pointer-events: none;
+  transform: translate(-50%, -100%); /* left/top es la base del paquete */
+}
+
+.dron-vuelo__nave {
+  position: relative;
+  display: block;
+  width: 96px;
+  transition: transform .3s ease;
+  animation: dron-flota 1.2s ease-in-out infinite;
+}
+.dron-vuelo__nave img { display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .25)); }
+/* Las hélices girando: un disco borroso sobre cada una */
+.dron-vuelo__aspa {
+  position: absolute;
+  width: 30%;
+  height: 8%;
+  margin: -4% 0 0 -15%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(70, 76, 88, .55), rgba(70, 76, 88, .15) 70%, transparent);
+  animation: dron-helice .12s linear infinite;
+}
+@keyframes dron-helice { 50% { transform: scaleX(.35); } }
+@keyframes dron-flota { 50% { translate: 0 -3px; } }
+
+.dron-vuelo__cuerdas {
+  width: 22px;
+  height: 10px;
+  background:
+    linear-gradient(115deg, transparent 45%, #4b5568 45% 55%, transparent 55%) left / 50% 100% no-repeat,
+    linear-gradient(65deg, transparent 45%, #4b5568 45% 55%, transparent 55%) right / 50% 100% no-repeat;
+}
+
+.dron-paquete {
+  padding: 3px 10px;
+  border: 1px solid #a07a43;
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 4px), rgba(255, 255, 255, .35) calc(50% - 4px) calc(50% + 4px), transparent calc(50% + 4px)),
+    linear-gradient(160deg, #e7cb93, #d2ad69);
+  color: #3b2a14;
+  font: 700 12px/1.4 Consolas, "Courier New", monospace;
+  white-space: nowrap;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .25);
+  transition: transform .45s ease-in, opacity .45s ease-in;
+}
+.dron-paquete--lee { border-color: #2786b2; background: #ffffff; color: #0b4f73; }
+.dron-paquete--mal { border-color: #c0392b; background: #ffd1cc; color: #8f1a10; }
+.dron-paquete.is-suelta { opacity: 0; transform: translateY(26px) scale(.7); }
+
+.dron-vuelo.is-busca .dron-vuelo__nave { animation: dron-busca .5s ease 2; }
+@keyframes dron-busca { 25% { transform: rotate(-9deg); } 75% { transform: rotate(9deg); } }
+.dron-vuelo.is-sale { animation: dron-sale .35s ease forwards; }
+@keyframes dron-sale { to { opacity: 0; transform: translate(-50%, -100%) scale(.6); } }
+
+/* Cómo queda en CSS lo que cambió (style.fontWeight -> font-weight: bold;) */
+.dron-nota {
+  position: absolute;
+  z-index: 7;
+  padding: 1px 8px;
+  border-radius: 4px;
+  background: #171b24;
+  color: #ffffff;
+  font: 12px/1.6 Consolas, "Courier New", monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: dron-nota 2.6s ease both;
+}
+@keyframes dron-nota { 0% { opacity: 0; transform: translateY(6px); } 15%, 75% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-8px); } }
+
+@media (max-width: 575.98px) {
+  .dron-vuelo__nave { width: 78px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dron-pin, .dron-vacio, .dron-nota, .dron-vuelo__nave, .dron-vuelo__aspa,
+  .dron-consola__out span.is-new, .dron-pagina__body .dron-flash { animation: none; }
+  .dron-pagina__body * { transition: none; }
+}
