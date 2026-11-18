@@ -44,6 +44,7 @@
     "js/ejercicio-final.js",
     "js/ejercicio-opciones.js",
     "js/vhs.js",
+    "js/misiones.js",
   ].forEach(function (src) {
     document.write('<script src="' + base + src + '"><\/script>');
   });
