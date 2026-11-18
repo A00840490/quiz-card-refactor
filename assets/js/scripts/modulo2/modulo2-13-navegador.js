@@ -215,7 +215,7 @@
     cursorListo = true;
   }
   function ponerUrl(clave, hash, nuevo) {
-    url.innerHTML = "<span class=\"enl__gris\">programacion_web/html/" + PAG[clave].carpeta + "/</span>" +
+    url.innerHTML = "<span class=\"enl__gris\">" + PAG[clave].carpeta + "/</span>" +
       "<span" + (nuevo && !hash ? " class=\"is-nuevo\"" : "") + ">" + clave + "</span>" +
       (hash ? "<span class=\"enl__hash" + (nuevo ? " is-nuevo" : "") + "\">" + esc(hash) + "</span>" : "");
   }
@@ -291,6 +291,8 @@
     if (n !== vuelta) return;
 
     if (d.tipo === "id") {
+      // Después del clic el mouse se desvanece; regresa al volver a la página
+      cursor.classList.add("is-oculto");
       ponerUrl("modulo2-13.html", val("href"), true);
       await espera(350);
       if (n !== vuelta) return;
@@ -301,7 +303,6 @@
       }
       var el = pag.querySelector("[data-el=\"" + d.el + "\"]");
       recorrer(limitar(el.offsetTop - 14, 0, maxY()), true);
-      // El mouse se queda quieto y la página se recorre debajo de él
       await espera(900);
       if (n !== vuelta) return;
       marcar(el, d.nombre);
