@@ -10,6 +10,12 @@
 (function () {
   var base = document.currentScript.src.replace(/js\/curso\.js(\?.*)?$/, "");
 
+  // Versión de los scripts: se agrega como ?v=… a cada uno para que, al subir
+  // una versión nueva al servidor, el navegador no use los archivos viejos que
+  // tenga guardados (pasaba con progress-circle.js y url-script.js: marcaban
+  // errores de consola en todas las páginas). Cambiarla en cada despliegue.
+  var VERSION = "2026-11-24";
+
   [
     // Librerías
     "vendors/jquery/dist/jquery.min.js",
@@ -48,6 +54,6 @@
     "js/vhs.js",
     "js/competencias.js",
   ].forEach(function (src) {
-    document.write('<script src="' + base + src + '"><\/script>');
+    document.write('<script src="' + base + src + "?v=" + VERSION + '"><\/script>');
   });
 })();

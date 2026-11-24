@@ -2,9 +2,8 @@
    Competencias del módulo (primera página de cada módulo).
    Cada competencia es una meta por descubrir: está borrosa, con un emblema
    con "?"; al hacer clic el emblema gira y muestra el ícono de esa
-   competencia, el texto se aclara y "Por descubrir" se vuelve una flecha
-   azul que lleva a la siguiente página (Ale, 18/11). Sin instrucción
-   de "Haz clic" (Ale, 18/11): las filas se ven presionables por sí solas.
+   competencia, el texto se aclara y "¡Haz clic!" se vuelve una flecha
+   azul que lleva a la página donde se aprende esa competencia (Ale, 24/11).
    Todos los colores salen del azul del curso (var(--theme-color)): tonos
    más claros, blanquecinos y más oscuros; nada de amarillo (Ale, 18/11).
    Marcado (se lee sin JavaScript):
@@ -192,7 +191,17 @@
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--cp-medio);
+  display: inline-flex;
+  align-items: center;
   transition: color .3s ease;
+}
+
+/* Ícono del mouse antes de "¡Haz clic!" (estándar del curso, .ico-clic de
+   app.css), un poco más chico para ir con la etiqueta */
+.comp__estado .ico-clic {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
 }
 
 /* Al descubrirla, la etiqueta se desvanece y en su lugar aparece una

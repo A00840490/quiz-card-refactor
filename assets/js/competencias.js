@@ -1,8 +1,9 @@
 /* Competencias del módulo (primera página de cada módulo): convierte cada <li>
    de .competencias__lista en una competencia por descubrir. Al hacer clic, el
    "?" gira y muestra el ícono de la competencia (data-icono del <li>), el
-   texto se aclara y "Por descubrir" se vuelve una flecha azul que lleva a la
-   siguiente página.
+   texto se aclara y "¡Haz clic!" se vuelve una flecha azul que lleva a la
+   página donde se aprende esa competencia (data-pagina del <li>, por ejemplo
+   data-pagina="modulo4-6.html"; sin él, a la siguiente página).
    Estilos en competencias.css. Solo actúa si la página trae
    [data-competencias]. */
 (function () {
@@ -66,10 +67,19 @@
     }
   }
 
-  /* La flecha lleva a la página que sigue a esta (moduloN-K → moduloN-K+1) */
+  /* Sin data-pagina, la flecha lleva a la página que sigue a esta
+     (moduloN-K → moduloN-K+1) */
   function siguiente() {
     var m = window.location.pathname.match(/modulo(\d+)-(\d+)\.html$/);
     return m ? "modulo" + m[1] + "-" + (parseInt(m[2], 10) + 1) + ".html" : null;
+  }
+
+  /* Título del tema (de paginas.js) para el aria-label de la flecha */
+  function tituloDe(pagina) {
+    var m = /modulo(\d+)-(\d+)\.html$/.exec(pagina || "");
+    var modulo = m && window.CURSO && CURSO[parseInt(m[1], 10) - 1];
+    var tema = modulo && modulo.temas[parseInt(m[2], 10) - 1];
+    return tema ? tema.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim() : "";
   }
 
   var FLECHA =
@@ -78,11 +88,13 @@
 
   function armar(raiz) {
     raiz.classList.add("is-lista");
-    var destino = siguiente();
+    var porOmision = siguiente();
     var items = raiz.querySelectorAll(".competencias__lista > li");
     Array.prototype.forEach.call(items, function (li, i) {
       var html = li.innerHTML.trim();
       var n = i + 1;
+      var destino = li.getAttribute("data-pagina") || porOmision;
+      var titulo = tituloDe(destino);
       li.innerHTML =
         '<div class="comp" role="button" tabindex="0" aria-label="Competencia ' + n + ': descubrir">' +
         '<span class="comp__emblema" aria-hidden="true"><span class="comp__giro">' +
@@ -91,9 +103,10 @@
         "</span></span>" +
         '<span class="comp__texto" aria-hidden="true">' + html + "</span>" +
         '<span class="comp__lado">' +
-        '<span class="comp__estado" aria-hidden="true">Por descubrir</span>' +
+        '<span class="comp__estado" aria-hidden="true"><span class="ico-clic"></span>¡Haz clic!</span>' +
         (destino
-          ? '<a class="comp__ir" href="./' + destino + '" tabindex="-1" aria-hidden="true" aria-label="Ir a la siguiente página">' + FLECHA + "</a>"
+          ? '<a class="comp__ir" href="./' + destino + '" tabindex="-1" aria-hidden="true" aria-label="' +
+            (titulo ? "Ir al tema " + titulo : "Ir a la página de esta competencia") + '">' + FLECHA + "</a>"
           : "") +
         "</span></div>";
 
