@@ -1,6 +1,6 @@
 /* Módulo 2-6: el ejemplo de una página HTML con una lupa de rayos X.
    La página se ve normal dentro de un navegador. Donde pasa la lupa se ve el
-   HTML que la forma: cada bloque (h1, p, h3) bordeado y con su código escrito
+   HTML que la forma, con los colores de un escáner de rayos X de aeropuerto: cada bloque (h1, p, h3) bordeado y con su código escrito
    del mismo tamaño que ocupa en la página; <b> e <i> van marcados dentro de
    su párrafo. Arriba de la página, la explicación de la etiqueta que está
    bajo la lupa.
@@ -119,31 +119,56 @@
 .rayos__xray {
   position: absolute;
   inset: 0;
-  background-color: #061633;
+  background-color: #eef2ec;
   background-image:
-    linear-gradient(rgba(125, 211, 252, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125, 211, 252, 0.08) 1px, transparent 1px),
-    radial-gradient(circle at 50% 35%, #123a72, #061633 75%);
+    linear-gradient(rgba(38, 66, 58, 0.11) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(38, 66, 58, 0.11) 1px, transparent 1px),
+    radial-gradient(circle at 50% 35%, #ffffff, #e3e9e0 80%);
   background-size: 22px 22px, 22px 22px, 100% 100%;
   clip-path: circle(var(--rayos-r) at var(--x) var(--y));
   pointer-events: none;
+  animation: rayos-baja 3s linear infinite;
+}
+
+/* Paleta del escáner del aeropuerto (Ale, 26/11): fondo claro con cuadrícula,
+   el texto es "orgánico" (naranja), las etiquetas "metal" (azul) y <b>/<i>
+   otro material (verde). Encima, renglones de barrido como de monitor, y la
+   cuadrícula y los renglones bajan sin parar. */
+.rayos__xray::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(20, 40, 30, 0.08) 0 1px, transparent 1px 4px);
+  animation: rayos-baja-lineas 3s linear infinite;
+  pointer-events: none;
+}
+
+/* 44px = dos cuadros de la cuadrícula y once renglones: la vuelta no se nota */
+@keyframes rayos-baja {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 0 44px, 0 44px, 0 0; }
+}
+
+@keyframes rayos-baja-lineas {
+  from { background-position: 0 0; }
+  to { background-position: 0 44px; }
 }
 
 /* Cada bloque es una cápsula en el mismo lugar y del mismo tamaño que en la
    página: su etiqueta de apertura y de cierre son las puntas y en medio va
    su contenido. <b> e <i> son cápsulas chiquitas dentro del texto. */
 .rayos__bloque {
-  --tapa: #3b5bdb;
-  --tapa-tinta: #ffffff;
+  --tapa: #2348c8;
+  --tapa-tinta: #e8eeff;
   position: absolute;
   display: flex;
   align-items: stretch;
   overflow: hidden;
-  border: 1.5px solid var(--tapa);
+  border: 1.5px solid rgba(160, 70, 0, 0.55);
   border-radius: 999px;
-  background: rgba(6, 22, 51, 0.55);
-  color: rgba(214, 236, 255, 0.85);
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+  background: rgba(247, 147, 30, 0.42);
+  color: #4a2100;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Un bloque de varios renglones no queda como óvalo: sus puntas solo se redondean */
@@ -178,10 +203,11 @@
 }
 
 .rayos__in {
-  --tapa: #3b5bdb;
-  --tapa-tinta: #ffffff;
+  --tapa: #1f8a3c;
+  --tapa-tinta: #eaffea;
   padding-right: 0.1em;
   border: 1px solid var(--tapa);
+  background: rgba(64, 192, 87, 0.45);
   border-radius: 999px;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -204,15 +230,18 @@
 .rayos__mini:first-child { margin-right: 0.15em; }
 .rayos__mini:last-child { margin-left: 0.15em; }
 
-/* Lo que está bajo la lupa: las puntas se vuelven doradas */
-.rayos__bloque.is-on,
-.rayos__in.is-on {
-  --tapa: #fac775;
-  --tapa-tinta: #412402;
-  color: #ffffff;
+/* Lo que está bajo la lupa: recuadro rojo punteado, como un objeto que el
+   escáner señala */
+.rayos__bloque.is-on {
+  border: 2px dashed #e03131;
+  background-color: rgba(247, 147, 30, 0.62);
+  box-shadow: 0 0 0 4px rgba(224, 49, 49, 0.18);
 }
 
-.rayos__bloque.is-on { background-color: rgba(54, 40, 10, 0.55); }
+.rayos__in.is-on {
+  outline: 2px dashed #e03131;
+  outline-offset: 1px;
+}
 
 /* ---------- Lupa ---------- */
 .rayos__lente {
@@ -336,4 +365,7 @@
   .rayos__view.is-lista .rayos__xray,
   .rayos__view.is-lista .rayos__lente,
   .rayos__exp { transition: none; }
+
+  .rayos__xray,
+  .rayos__xray::after { animation: none; }
 }
