@@ -292,9 +292,31 @@
   transform-origin: 50% 0;
 }
 
+
+/* Antes de saber dónde va (con mouse, hasta que el cursor entra a la página)
+   la lupa no se ve; luego aparece ahí mismo con desvanecido, sin brincar */
+.rayos__xray,
+.rayos__lente {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rayos__lente { scale: 0.85; }
+
+.rayos__view.is-lista .rayos__xray { opacity: 1; }
+
+.rayos__view.is-lista .rayos__lente {
+  opacity: 1;
+  scale: 1;
+  pointer-events: auto;
+}
+
+.rayos__view.is-lista .rayos__xray,
+.rayos__view.is-lista .rayos__lente { transition: opacity 0.35s ease, scale 0.35s cubic-bezier(0.2, 0.8, 0.25, 1); }
+
 /* Al hacer clic la lupa viaja; al arrastrarla, sigue al cursor sin retraso */
-.rayos__view.is-animando .rayos__xray { transition: clip-path 0.45s cubic-bezier(0.2, 0.8, 0.25, 1); }
-.rayos__view.is-animando .rayos__lente { transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1); }
+.rayos__view.is-lista.is-animando .rayos__xray { transition: clip-path 0.45s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.35s ease; }
+.rayos__view.is-lista.is-animando .rayos__lente { transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.35s ease, scale 0.35s ease; }
 
 /* ---------- Explicación (estándar .grafico-exp), con desvanecido ---------- */
 /* Va entre la instrucción y la página; su alto es el de la explicación más
@@ -311,7 +333,7 @@
 .rayos__exp.is-fading { opacity: 0; }
 
 @media (prefers-reduced-motion: reduce) {
-  .rayos__view.is-animando .rayos__xray,
-  .rayos__view.is-animando .rayos__lente,
+  .rayos__view.is-lista .rayos__xray,
+  .rayos__view.is-lista .rayos__lente,
   .rayos__exp { transition: none; }
 }

@@ -12,7 +12,10 @@
      deja fija (el cursor se mueve libre) y otro clic la lleva a donde está el
      cursor y vuelve a seguirlo. Con el dedo se arrastra o va a donde se toca;
      con el teclado se mueve con las flechas. Lo que queda bajo su centro se
-     ilumina y la explicación de arriba cambia con desvanecido. */
+     ilumina y la explicación de arriba cambia con desvanecido.
+   - La lupa no aparece hasta saber dónde va, para que no brinque: con mouse,
+     en el primer movimiento del cursor sobre la página (justo debajo de él);
+     con el dedo o el teclado, sobre el título. Aparece con desvanecido. */
 (function () {
   "use strict";
 
@@ -109,7 +112,15 @@
 
   function explicar(html) {
     clearTimeout(status._t);
-    if (reduce || !status.innerHTML) { status.innerHTML = html; return; }
+    if (reduce) { status.innerHTML = html; return; }
+    // La primera aparece desde transparente, sin esperar a que se vaya otra
+    if (!status.innerHTML) {
+      status.classList.add("is-fading");
+      status.innerHTML = html;
+      void status.offsetWidth;
+      status.classList.remove("is-fading");
+      return;
+    }
     status.classList.add("is-fading");
     status._t = setTimeout(function () {
       status.innerHTML = html;
@@ -150,14 +161,33 @@
     explicar(explicacion(hit));
   }
 
-  function poner(x, y, animar) {
+  function mover(x, y) {
     pos.x = Math.max(0, Math.min(view.clientWidth, x));
     pos.y = Math.max(0, Math.min(view.clientHeight, y));
-    view.classList.toggle("is-animando", !!animar && !reduce);
     view.style.setProperty("--x", pos.x + "px");
     view.style.setProperty("--y", pos.y + "px");
+  }
+
+  // Si la lupa aún no se ve, aparece donde se pone (sin viajar desde otro lado)
+  function poner(x, y, animar) {
+    var nueva = !visible;
+    view.classList.toggle("is-animando", !!animar && !nueva && !reduce);
+    mover(x, y);
+    if (nueva) mostrar();
     detectar();
   }
+
+  // ---------- Aparecer ----------
+  var visible = false;
+
+  function mostrar() {
+    if (visible) return;
+    visible = true;
+    view.classList.add("is-lista");
+  }
+
+  // Con mouse la lupa espera al cursor; sin él, aparece sobre el título
+  var conMouse = matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   function centroDe(el) {
     var q = rel(el.getBoundingClientRect(), view.getBoundingClientRect());
@@ -174,15 +204,19 @@
     return { x: e.clientX - R.left, y: e.clientY - R.top };
   }
 
-  view.addEventListener("pointermove", function (e) {
+  function seguir(e) {
     if (e.pointerType !== "mouse" || fija) return;
     var p = enView(e);
     poner(p.x, p.y, false);
-  });
+  }
+
+  view.addEventListener("pointermove", seguir);
+  view.addEventListener("pointerover", seguir);
 
   view.addEventListener("click", function (e) {
     var p = enView(e);
     if (e.pointerType === "mouse" || (!e.pointerType && matchMedia("(hover: hover)").matches)) {
+      if (!visible) { poner(p.x, p.y, false); return; }
       fija = !fija;
       view.classList.toggle("is-fija", fija);
       if (!fija) poner(p.x, p.y, true);
@@ -214,6 +248,11 @@
   lente.addEventListener("pointercancel", soltar);
 
   // ---------- Teclado: flechas ----------
+  // Al llegar con Tab, la lupa aparece donde está (sobre el título)
+  lente.addEventListener("focus", function () {
+    if (!visible) poner(pos.x, pos.y, false);
+  });
+
   lente.addEventListener("keydown", function (e) {
     var d = { ArrowLeft: [-20, 0], ArrowRight: [20, 0], ArrowUp: [0, -20], ArrowDown: [0, 20] }[e.key];
     if (!d) return;
@@ -221,15 +260,29 @@
     poner(pos.x + d[0], pos.y + d[1], true);
   });
 
-  // ---------- Inicio: la lupa sobre el título ----------
-  function inicio() {
-    armar();
+  // ---------- Inicio: la lupa espera sobre el título, sin verse ----------
+  function alTitulo() {
     var c = centroDe(bloques[0]);
-    poner(c.x, c.y, false);
+    mover(c.x, c.y);
   }
 
-  inicio();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(armar);
+  armar();
+  alTitulo();
+
+  // Sin mouse aparece sobre el título cuando la letra ya cargó (si no, el
+  // título cambia de tamaño y la lupa quedaría corrida)
+  var listo = false;
+  function alCargar() {
+    if (listo) return;
+    listo = true;
+    if (visible) return;
+    alTitulo();
+    if (!conMouse) poner(pos.x, pos.y, false);
+  }
+
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { armar(); alCargar(); });
+  else alCargar();
+  setTimeout(alCargar, 1500);
 
   // Si cambia el ancho, los bloques cambian de tamaño: se rearma la radiografía
   // y la lupa vuelve a lo que estaba viendo
@@ -238,6 +291,7 @@
     if (view.clientWidth === ancho) return;
     ancho = view.clientWidth;
     armar();
+    if (!visible) { alTitulo(); return; }
     var el = base.querySelector("[data-el=\"" + actual + "\"]") || bloques[0];
     var c = el.getClientRects()[0] ? centroDe(el) : centroDe(bloques[0]);
     view.classList.remove("is-animando");
