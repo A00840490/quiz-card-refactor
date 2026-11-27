@@ -183,6 +183,16 @@
   opacity: 1;
 }
 
+/* Al cambiar de placa: el título anterior se va rápido y el nuevo entra sin
+   esperar */
+.pila__titulo.is-sale {
+  transition: opacity .18s;
+}
+
+.pila__titulo.sin-transicion {
+  transition: none;
+}
+
 .pila__titulo.is-abajo {
   width: 90%;
   max-width: 420px;

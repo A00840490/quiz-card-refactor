@@ -141,14 +141,15 @@
 
   // ---------- Título del módulo señalado ----------
   // Solo aparece mientras se señala una placa (mouse, toque o teclado), justo a
-  // la derecha de ella; al cambiar de placa se desvanece y aparece el nuevo. En
+  // la derecha de ella; al cambiar de placa el anterior se desvanece junto a su
+  // placa y el nuevo aparece en ese momento junto a la suya. En
   // celular no cabe a la derecha y va debajo de la pila.
   var titulo = document.createElement("p");
   titulo.className = "pila__titulo";
   titulo.setAttribute("aria-hidden", "true");
   escena.appendChild(titulo);
 
-  var senalada = -1, tQuitar, tCambio, hasta = 0, cuadro = 0;
+  var senalada = -1, tQuitar, hasta = 0, cuadro = 0;
 
   function nombre(i) {
     var partes = enlaces[i].querySelectorAll("span");
@@ -160,27 +161,29 @@
     if (senalada === i) return;
     var antes = senalada;
     senalada = i;
-    clearTimeout(tCambio);
-    if (antes === -1) {
-      titulo.textContent = nombre(i);
-      seguir();
-      titulo.classList.add("is-on");
-      return;
+    if (antes !== -1 && titulo.classList.contains("is-on")) {
+      // El título anterior se queda junto a su placa y se desvanece; el nuevo
+      // aparece al mismo tiempo junto a la placa nueva.
+      var sale = titulo.cloneNode(true);
+      sale.classList.add("is-sale");
+      escena.appendChild(sale);
+      sale.getBoundingClientRect();
+      sale.classList.remove("is-on");
+      setTimeout(function () { sale.remove(); }, 300);
+      titulo.classList.add("sin-transicion");
+      titulo.classList.remove("is-on");
+      titulo.getBoundingClientRect();
+      titulo.classList.remove("sin-transicion");
     }
-    titulo.classList.remove("is-on");
-    tCambio = setTimeout(function () {
-      if (senalada === -1) return;
-      titulo.textContent = nombre(senalada);
-      seguir();
-      titulo.classList.add("is-on");
-    }, Curso.reduce ? 0 : 200);
+    titulo.textContent = nombre(i);
+    seguir();
+    titulo.classList.add("is-on");
   }
 
   function ocultar(yaMismo) {
     clearTimeout(tQuitar);
     tQuitar = setTimeout(function () {
       senalada = -1;
-      clearTimeout(tCambio);
       titulo.classList.remove("is-on");
     }, yaMismo === true ? 0 : 120);
   }
