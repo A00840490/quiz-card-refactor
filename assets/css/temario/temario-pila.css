@@ -3,9 +3,10 @@
 
    Los módulos son placas de vidrio apiladas en 3D, el módulo 1 hasta arriba.
    Cerrada se ve como un bloque; al pasar el mouse la pila se separa y la placa
-   del módulo señalado sube y se pinta. A la derecha va la lista de módulos
-   (enlaces que se leen sin JavaScript) y los temas del módulo elegido, al
-   centro de su columna y sin instrucción (Ale, 27/11).
+   del módulo señalado sube y se pinta. Solo la pila, al centro de la página,
+   sin instrucción ni lista a un lado (Ale, 27/11). La lista de módulos va en
+   el HTML como enlaces: sin JavaScript se ve tal cual; con él se oculta a la
+   vista (la siguen leyendo los lectores de pantalla y el teclado).
    Si se llega de la página de cierre de un módulo, la pila ya está abierta en
    el módulo que sigue (temario-pila.js). */
 
@@ -17,11 +18,13 @@
   margin: 28px auto 0;
 }
 
-.temario .pila.is-lista {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 18px;
-  align-items: center;
+.temario .pila.is-lista .pila__info {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* ---------- La pila ---------- */
@@ -147,14 +150,6 @@
 }
 
 /* ---------- Lista de módulos ---------- */
-/* La lista y los temas van al centro de su columna */
-.pila__info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
 .pila__lista {
   list-style: none;
   margin: 0 0 16px;
@@ -170,7 +165,6 @@
   font: 700 17px/1.3 "Lato", sans-serif;
   color: #2d3a55;
   text-decoration: none;
-  text-align: left;
   transition: background .3s, color .3s;
 }
 
@@ -208,87 +202,6 @@
   transform: scale(1.1);
 }
 
-/* El módulo que sigue después de terminar uno */
-.pila__sigue {
-  flex: none;
-  margin-left: auto;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font: 700 12px/1.3 "Lato", sans-serif;
-  color: var(--theme-color);
-  background: #fff;
-  border: 1px solid #cfdcf3;
-}
-
-/* ---------- Temas del módulo elegido ---------- */
-.pila__detalle {
-  max-width: 520px;
-  padding: 0 12px;
-  transition: opacity .3s;
-}
-
-.pila__detalle.is-fuera {
-  opacity: 0;
-}
-
-.pila__detalle p {
-  margin: 0 0 10px;
-  font: 16px/1.5 "Lato", sans-serif;
-  color: #000;
-}
-
-.pila__temas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.pila__temas li {
-  padding: 5px 10px;
-  border-radius: 999px;
-  font: 700 13px/1.2 "Lato", sans-serif;
-  color: #0b2a66;
-  background: #eef3fc;
-  border: 1px solid #cfdcf3;
-}
-
-.pila__temas li.pila__mas {
-  background: transparent;
-  border-style: dashed;
-}
-
-.pila__ir {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  margin-top: 14px;
-  padding: 8px 18px 8px 12px;
-  border-radius: 999px;
-  background: var(--theme-color);
-  color: #fff;
-  font: 700 15px/1.2 "Lato", sans-serif;
-  box-shadow: 0 6px 18px rgba(4, 18, 50, .25);
-  transition: transform .25s var(--resorte), box-shadow .25s;
-}
-
-.pila__ir:hover,
-.pila__ir:focus {
-  color: #fff;
-  text-decoration: none;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 22px rgba(4, 18, 50, .3);
-}
-
-.pila__ir .ico-clic {
-  width: 20px;
-  height: 20px;
-  filter: invert(1);
-}
-
 /* ---------- Cortes de pantalla ---------- */
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .temario .pila { --escala: .86; }
@@ -296,20 +209,13 @@
 }
 
 @media (max-width: 991.98px) {
-  .temario .pila.is-lista {
-    grid-template-columns: 1fr;
-  }
-
-  .pila__escena { height: 400px; }
+  .pila__escena { height: 420px; }
 }
 
 @media (max-width: 575.98px) {
   .temario .pila { --escala: .72; }
   .pila__escena { height: 360px; }
   .pila__escena.is-abierta .pila__torre { top: 74%; }
-  .pila__lista a { font-size: 16px; padding: 8px 8px; }
-  .pila__detalle { padding: 0 8px; }
-  .pila__temas li { font-size: 12px; padding: 4px 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -317,8 +223,7 @@
   .pila__capa,
   .pila__foto,
   .pila__vidrio,
-  .pila__vidrio::after,
-  .pila__detalle {
+  .pila__vidrio::after {
     transition-duration: .01s;
   }
 }
