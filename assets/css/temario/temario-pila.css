@@ -159,8 +159,9 @@
 }
 
 /* ---------- Título del módulo señalado ----------
-   Texto normal de la página (Lato 18px, interlineado 1.9; en celular 16px con
-   1.5) en el azul del curso. Aparece y se desvanece. */
+   Como el título de un tema del curso (.card-title: Fira Sans en negritas y en
+   el azul del curso) con la etiqueta "Módulo N" arriba, y una línea azul a la
+   izquierda que lo une con la placa. Aparece y se desvanece. */
 .pila__titulo {
   position: absolute;
   left: 0;
@@ -168,15 +169,31 @@
   z-index: 5;
   margin: 0;
   max-width: 300px;
-  font-family: "Lato", sans-serif;
-  font-size: 18px;
-  line-height: 1.9;
-  color: var(--theme-color);
+  padding-left: 16px;
+  border-left: 3px solid var(--theme-color);
   text-align: left;
   transform: translateY(-50%);
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s;
+}
+
+.pila__titulo-mod {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font: 700 14px/1.4 "Fira Sans", sans-serif;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--theme-color);
+}
+
+.pila__titulo-nom {
+  display: block;
+  font: 700 28px/1.2 "Fira Sans", sans-serif;
+  color: var(--theme-color);
 }
 
 .pila__titulo.is-on {
@@ -193,9 +210,16 @@
   transition: none;
 }
 
+/* Lugar para el título cuando va debajo de la pila */
+.pila__escena.is-titulo-abajo {
+  margin-bottom: 120px;
+}
+
 .pila__titulo.is-abajo {
   width: 90%;
   max-width: 420px;
+  padding-left: 0;
+  border-left: 0;
   text-align: center;
   transform: translateX(-50%);
 }
@@ -265,8 +289,8 @@
 
 @media (max-width: 575.98px) {
   .temario .pila { --escala: .72; }
-  .pila__titulo { font-size: 16px; line-height: 1.5; }
-  .pila__escena { margin-bottom: 56px; } /* lugar para el título debajo */
+  .pila__titulo-nom { font-size: 22px; }
+  .pila__titulo-mod { font-size: 12px; margin-bottom: 6px; }
   .pila__escena { height: 360px; }
   .pila__escena.is-abierta .pila__torre { top: 74%; }
 }

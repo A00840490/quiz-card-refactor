@@ -175,7 +175,8 @@
       titulo.getBoundingClientRect();
       titulo.classList.remove("sin-transicion");
     }
-    titulo.textContent = nombre(i);
+    titulo.innerHTML = '<span class="pila__titulo-mod">Módulo ' + (i + 1) + '</span>' +
+      '<span class="pila__titulo-nom">' + Curso.esc(nombre(i)) + "</span>";
     seguir();
     titulo.classList.add("is-on");
   }
@@ -198,17 +199,27 @@
     });
     var x = punto.x - caja.left + 22;
     var libre = caja.width - x - 8;
-    var abajo = celular.matches || libre < 150;
+    var abajo = tituloAbajo();
     titulo.classList.toggle("is-abajo", abajo);
     if (abajo) {
       titulo.style.left = "50%";
-      titulo.style.top = (caja.height + 4) + "px";
+      titulo.style.top = (caja.height + 28) + "px";
       titulo.style.maxWidth = "";
     } else {
       titulo.style.left = x + "px";
       titulo.style.top = (punto.y - caja.top) + "px";
-      titulo.style.maxWidth = Math.min(300, libre) + "px";
+      titulo.style.maxWidth = Math.min(320, libre) + "px";
     }
+  }
+
+  // Si a la derecha de la pila no cabe el título (celular o columna angosta), va
+  // debajo, con su espacio apartado para que la página no brinque al aparecer.
+  function tituloAbajo() {
+    return celular.matches || escena.clientWidth < 680;
+  }
+
+  function apartar() {
+    escena.classList.toggle("is-titulo-abajo", tituloAbajo());
   }
 
   // Mientras las placas se mueven, el título las sigue
@@ -223,5 +234,6 @@
 
   pintar();
   if (celular.addEventListener) celular.addEventListener("change", pintar);
-  window.addEventListener("resize", seguir);
+  window.addEventListener("resize", function () { apartar(); seguir(); });
+  apartar();
 })();

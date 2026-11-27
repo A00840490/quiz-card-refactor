@@ -14,7 +14,7 @@
   // una versión nueva al servidor, el navegador no use los archivos viejos que
   // tenga guardados (pasaba con progress-circle.js y url-script.js: marcaban
   // errores de consola en todas las páginas). Cambiarla en cada despliegue.
-  var VERSION = "2026-11-27e";
+  var VERSION = "2026-11-27f";
 
   [
     // Librerías
