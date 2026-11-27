@@ -12,7 +12,7 @@
 
   <link href="../../assets/css/curso.css" rel="stylesheet" />
 
-  <link href="../../assets/css/temario/temario_difusion.css" rel="stylesheet" />
+  <link href="../../assets/css/temario/temario-pila.css" rel="stylesheet" />
 
 </head>
 
@@ -39,80 +39,27 @@
           <div class="container-fluid">
 
 
-            <!-- Your content goes here -->
+            <div class="card temario">
+              <div class="card-block">
+                <h1 class="card-title text-center">Temario General</h1>
+                <p class="card-info text-center"><span class="ico-clic" aria-hidden="true"></span>Pasa el mouse por la pila y haz clic en un módulo para empezar.</p>
 
-
-
-
-            <div class="row">
-                <div class="card temario">
-                  <div class="card-block">
-                    <div class="text-center">
-                      <h1 class="card-title">Temario General</h1>
-                    </div>
-
-
-                    <section class="hero-section">
-                      <div class="card-grid row justify-content-center">
-                        <a href="../../html/modulo1/modulo1-1.html" class="temario-cards col-6 py-2 hvr-float">
-                          <div class="card__background"
-                            style="background-image:  url('../../assets/images/course/temario/modulo1_temario.jpg')">
-                          </div>
-                          <div class="card__content">
-                            <p class="card__category" style="text-transform: none">Módulo 1</p>
-                            <h3 class="card__heading">Preparación del Ambiente y Conceptos Básicos</h3>
-                          </div>
-                        </a>
-                        <a href="../../html/modulo2/modulo2-1.html" class="temario-cards col-6 py-2 hvr-float">
-                          <div class="card__background"
-                            style="background-image:  url('../../assets/images/course/temario/modulo2_temario.jpg');background-position-y: 35%;">
-                          </div>
-                          <div class="card__content">
-                            <p class="card__category" style="text-transform: none">Módulo 2</p>
-                            <h3 class="card__heading">Formato y Estructura de HTML</h3>
-                          </div>
-                        </a>
-                        <a href="../../html/modulo3/modulo3-1.html"
-                          class="temario-cards mrg-top-50 col-12 col-lg-6 py-2 hvr-float">
-                          <div class="card__background"
-                            style="background-image: url(../../assets/images/course/temario/modulo3_temario.jpg);background-position-y: 50%;">
-                          </div>
-                          <div class="card__content">
-                            <p class="card__category" style="text-transform: none">Módulo 3</p>
-                            <h3 class="card__heading">Decorando con CSS</h3>
-                          </div>
-                          </li>
-                          <a href="../../html/modulo4/modulo4-1.html"
-                            class="temario-cards col-6 mrg-top-50 py-2 hvr-float">
-                            <div class="card__background"
-                              style="background-image: url(../../assets/images/course/temario/modulo4_temario.jpg);background-position-y: 10%;">
-                            </div>
-                            <div class="card__content">
-                              <p class="card__category" style="text-transform: none">Módulo 4</p>
-                              <h3 class="card__heading">Un poco de JavaScript</h3>
-                            </div>
-                          </a>
-                          <a href="../../html/modulo5/modulo5-1.html"
-                            class="temario-cards mrg-top-50 col-lg-6 py-2 hvr-float align-self-center">
-                            <div>
-                              <div class="card__background"
-                                style="background-image: url(../../assets/images/course/temario/modulo5_temario.jpg);">
-                              </div>
-                              <div class="card__content">
-                                <p class="card__category" style="text-transform: none">Módulo 5</p>
-                                <h3 class="card__heading">Publicar a la Web</h3>
-                              </div>
-                            </div>
-                          </a>
-                          <div>
-                    </section>
-
-
+                <!-- Pila de vidrio: las placas las arma temario-pila.js con esta lista -->
+                <div class="pila" data-pila>
+                  <div class="pila__escena" aria-hidden="true" hidden></div>
+                  <div class="pila__info">
+                    <ol class="pila__lista">
+                      <li><a href="../modulo1/modulo1-1.html" data-foto="../../assets/images/course/temario/modulo1_temario.jpg" data-pos="50% 50%"><span class="pila__n">1</span><span>Preparación del Ambiente y Conceptos Básicos</span></a></li>
+                      <li><a href="../modulo2/modulo2-1.html" data-foto="../../assets/images/course/temario/modulo2_temario.jpg" data-pos="50% 35%"><span class="pila__n">2</span><span>Formato y Estructura de HTML</span></a></li>
+                      <li><a href="../modulo3/modulo3-1.html" data-foto="../../assets/images/course/temario/modulo3_temario.jpg" data-pos="50% 50%"><span class="pila__n">3</span><span>Decorando con CSS</span></a></li>
+                      <li><a href="../modulo4/modulo4-1.html" data-foto="../../assets/images/course/temario/modulo4_temario.jpg" data-pos="50% 10%"><span class="pila__n">4</span><span>Un Poco de JavaScript</span></a></li>
+                      <li><a href="../modulo5/modulo5-1.html" data-foto="../../assets/images/course/temario/modulo5_temario.jpg" data-pos="50% 50%"><span class="pila__n">5</span><span>Publicar a la Web</span></a></li>
+                    </ol>
+                    <div class="pila__detalle" aria-live="polite"></div>
                   </div>
                 </div>
               </div>
-
-
+            </div>
 
           </div>
         </div>
@@ -129,6 +76,7 @@
   </div>
 
   <script src="../../assets/js/curso.js"></script>
+  <script src="../../assets/js/scripts/temario/temario-pila.js"></script>
 
 </body>
 
