@@ -3,7 +3,8 @@
 
    Los módulos son placas de vidrio apiladas en 3D, el módulo 1 hasta arriba.
    Cerrada se ve como un bloque; al pasar el mouse la pila se separa y la placa
-   del módulo señalado sube y se pinta. Solo la pila, al centro de la página,
+   del módulo señalado sube y se pinta, y a su derecha aparece el título del
+   módulo. Solo la pila, al centro de la página,
    sin instrucción ni lista a un lado (Ale, 27/11). La lista de módulos va en
    el HTML como enlaces: sin JavaScript se ve tal cual; con él se oculta a la
    vista (la siguen leyendo los lectores de pantalla y el teclado).
@@ -149,6 +150,46 @@
   transform: translateX(70%);
 }
 
+/* Puntos en las esquinas de cada placa: el título se acomoda junto a la que
+   queda más a la derecha */
+.pila__ancla {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ---------- Título del módulo señalado ----------
+   Texto normal de la página (Lato 18px, interlineado 1.9; en celular 16px con
+   1.5) en el azul del curso. Aparece y se desvanece. */
+.pila__titulo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  margin: 0;
+  max-width: 300px;
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  line-height: 1.9;
+  color: var(--theme-color);
+  text-align: left;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+.pila__titulo.is-on {
+  opacity: 1;
+}
+
+.pila__titulo.is-abajo {
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
 /* ---------- Lista de módulos ---------- */
 .pila__lista {
   list-style: none;
@@ -214,6 +255,8 @@
 
 @media (max-width: 575.98px) {
   .temario .pila { --escala: .72; }
+  .pila__titulo { font-size: 16px; line-height: 1.5; }
+  .pila__escena { margin-bottom: 56px; } /* lugar para el título debajo */
   .pila__escena { height: 360px; }
   .pila__escena.is-abierta .pila__torre { top: 74%; }
 }
@@ -223,7 +266,8 @@
   .pila__capa,
   .pila__foto,
   .pila__vidrio,
-  .pila__vidrio::after {
+  .pila__vidrio::after,
+  .pila__titulo {
     transition-duration: .01s;
   }
 }
