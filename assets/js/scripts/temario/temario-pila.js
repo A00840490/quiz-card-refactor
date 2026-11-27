@@ -175,8 +175,7 @@
       titulo.getBoundingClientRect();
       titulo.classList.remove("sin-transicion");
     }
-    titulo.innerHTML = '<span class="pila__titulo-mod">Módulo ' + (i + 1) + '</span>' +
-      '<span class="pila__titulo-nom">' + Curso.esc(nombre(i)) + "</span>";
+    titulo.innerHTML = '<span class="pila__titulo-nom">' + Curso.esc(nombre(i)) + "</span>";
     seguir();
     titulo.classList.add("is-on");
   }
