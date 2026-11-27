@@ -4,7 +4,8 @@
    Los módulos son placas de vidrio apiladas en 3D, el módulo 1 hasta arriba.
    Cerrada se ve como un bloque; al pasar el mouse la pila se separa y la placa
    del módulo señalado sube y se pinta. A la derecha va la lista de módulos
-   (enlaces que se leen sin JavaScript) y los temas del módulo elegido.
+   (enlaces que se leen sin JavaScript) y los temas del módulo elegido, al
+   centro de su columna y sin instrucción (Ale, 27/11).
    Si se llega de la página de cierre de un módulo, la pila ya está abierta en
    el módulo que sigue (temario-pila.js). */
 
@@ -13,7 +14,7 @@
   --suave: cubic-bezier(.22, .8, .24, 1);
   --escala: 1;
   max-width: 1080px;
-  margin: 0 auto;
+  margin: 28px auto 0;
 }
 
 .temario .pila.is-lista {
@@ -146,6 +147,14 @@
 }
 
 /* ---------- Lista de módulos ---------- */
+/* La lista y los temas van al centro de su columna */
+.pila__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
 .pila__lista {
   list-style: none;
   margin: 0 0 16px;
@@ -161,6 +170,7 @@
   font: 700 17px/1.3 "Lato", sans-serif;
   color: #2d3a55;
   text-decoration: none;
+  text-align: left;
   transition: background .3s, color .3s;
 }
 
@@ -212,6 +222,7 @@
 
 /* ---------- Temas del módulo elegido ---------- */
 .pila__detalle {
+  max-width: 520px;
   padding: 0 12px;
   transition: opacity .3s;
 }
@@ -229,6 +240,7 @@
 .pila__temas {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 6px;
   margin: 0;
   padding: 0;
